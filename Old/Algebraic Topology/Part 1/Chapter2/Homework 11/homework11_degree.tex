@@ -1,0 +1,482 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+\usepackage{quiver}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\RP}{\mathbb{R} P}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\spn}[0]{\text{span}}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 11}
+\author{Arham Lodha}%put your name here
+\date{November 13, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{2.1}\label{Problem 2.1.}
+    Prove the Brouwer fixed point theorem for maps $f: D^n \to D^n$ by applying degree theory to the map $S^n \to S^n$ that sends both the northern and southern hemispheres of $S^n$  to the southern hemisphere via f. [This was Brouwer’s original proof.]
+\end{PROB}
+\begin{proof}
+    $\forall f: D^n \to D^n$, let $f': S^n \to S^n$ where $(\vec{x}, y) \to (f(\vec{x}), -\abs{y})$. $\deg f' = 0$ since $f'$ is not onto. Thus $\exists a = (\vec{x}, y) \in S^n$ where $\vec{x} \in D^n$ and $y \in \R$ such that $\abs{\vec{x}}^2 + \abs{y}^2 = 1$ such that $f'(a) = a$. Thus $(\vec{x}, y) = a = f'(a) = (f(\vec{x}), -\abs{y})$. Thus $y = -\abs{y} \implies y \leq 0$ and $\vec{x} = f(\vec{x})$. Thus $f$ has a fixed point $\vec{x}$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.2}\label{Problem 2.2.}
+    Given a map $f: S^{2n} \to S^{2n}$, show that there is some point $x \in S^{2n}$  with either $f(x)=x$ or $f(x)= -x$. Deduce that every map $\RP^{2n} \to \RP^{2n}$ has a fixed point. Construct maps $\RP^{2n - 1} \to \RP^{2n - 1}$ without fixed points from linear transformations $\R^{2n} \to \R^{2n}$  without eigenvectors.
+\end{PROB}
+\begin{proof}
+    It suffices to assume that $f$ doesn't have a fixed point. Then $\deg(f) = (-1)^{2n + 1} = -1$. Then $\deg(-f) = \deg(\text{antipodal})\deg(f) = (-1)^{2n + 1} * (-1) = 1 \implies -f$ has a fixed point. Thus $\exists x \in S^{2n} \ni x = (-f)(x) = -f(x) \implies f(x) = -x$.       
+
+    Let $q: S^{2n} \to \RP^{2n}$ be standard quotient map.$p: S^{2n} \to \RP^{2n}$ is the universal cover of $\RP^{2n}$. $\forall f : \RP^{2n} \to \RP^{2n}$. By the Lifting Criterion, $f \circ q$ lifts to $g: S^{2n} \to S^{2n} \ni p \circ g= f \circ q$. 
+    
+    % https://q.uiver.app/#q=WzAsNSxbMCwxLCJTXnsybn0iXSxbMiwxLCJcXFJQXnsybn0iXSxbNCwxXSxbMSwxLCJcXFJQXnsybn0iXSxbMiwwLCJTXnsybn0iXSxbMCwzLCJxIiwyXSxbMywxLCJmIl0sWzAsNCwiZyJdLFs0LDEsInAiLDJdXQ==
+\[\begin{tikzcd}
+	&& {S^{2n}} \\
+	{S^{2n}} & {\RP^{2n}} & {\RP^{2n}} && {}
+	\arrow["p"', from=1-3, to=2-3]
+	\arrow["g", from=2-1, to=1-3]
+	\arrow["q"', from=2-1, to=2-2]
+	\arrow["f", from=2-2, to=2-3]
+\end{tikzcd}\]
+
+    By the previous argument, $\exists x \in S^{2n} \ni g(x) = \pm x$. Thus $[x] = (p \circ g)(x) = (f \circ q)(x) = f([x])$. Thus $[x]$ is a fixed point of $f$. 
+    
+    Let $A = \begin{bmatrix}
+        0 & I_n \\ -I_n & 0
+    \end{bmatrix}$ where $I_n$ is the $n \times n$ identity matrix. The eigenvalues of $A$ are $\pm i$ and thus $A$ has no real eigenvectors. So the the $1$-dimensional subspaces of $\R^{2n}$ are never fixed by A. $\RP^{2n - 1} = \R^{2n} / (x \sim \lambda x, \forall \lambda \in \R / \left\{ 0 \right\})$ or the set of all one dimensional subspaces of $\R^{2n}$. Thus no point of $\RP^{2n -1 }$ is fixed by A.              
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{2.4}\label{Problem 2.4.}
+    Construct a surjective map of $S^n \to S^n$ with degree 0 for $n \geq 1$  
+\end{PROB}
+\begin{proof}
+    Let $\omega: S^1 \to S^1$ be the identity loop, $x \to x$. Let $f_1 = \omega \cdot \overline{\omega}$, ie go completely counterclockwise through $S^1$, then go completely clockwise through $S^1$. $f_1$ is surjective. If you think about $S^1 \subeq \C$, $f_1^{-1}(i) = \left\{ e^{i \pi / 4}, e^{7 i \pi / 4} \right\}$, $\deg(f_1)|_{e^{i \pi / 4}} = 1$ and $\deg(f_1)|_{e^{7 i \pi / 4}} = -1$. By Prop 2.30, $\deg(f_1) = 0$. 
+    
+    Let $f_n := S^{n - 1}f_1$ where $S^{n}$ is the nth suspension of $f_1$. Since $\deg Sg = \deg g, \forall g: S^n \to S^n \implies \deg S^{n}g = \deg g$. Thus $\deg f_n = \deg f = 0$.     
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2.7A}\label{Claim 2.7A.}
+    Let $A$ be a matrix of the following form: 
+    
+    $A_{x, y} = \begin{cases}
+        1 & \text{if } x = y \neq i \\
+        \alpha & \text{if } x = y = i \\
+        \beta & \text{if } x = i \text{ and } y = j \\
+        0 & \text{otherwise}  
+    \end{cases}$
+    
+    for some $i, j \in [0, \dots, n] \ni i \neq j$ for $\alpha > 0$ and for $\beta \in \R$, $det(A) = \alpha$      
+\end{claim}
+\begin{proof}
+    If \( \beta = 0 \), \( A \) is a diagonal matrix with entries equal to \( 1 \) on the diagonal, except for \( A_{i, i} = \alpha \). In this case, the determinant is simply the product of the diagonal entries, so
+\[\det(A) = \alpha \cdot 1 \cdot \dots \cdot 1 = \alpha.\]
+
+    Now, consider the case when \( \beta \neq 0 \).
+    Let $A_{(x, y)}$ be the submatrix formed from $A$ by removing the $x$th row and yth column.    
+    To simplify, we perform a cofactor expansion along row \( i \), which contains both \( A_{i, i} = \alpha \) and \( A_{i, j} = \beta \):
+
+    \[det(A) = \alpha \det(A_{(i, i)}) \pm \beta \det(A_{(i, j)})\]. 
+
+    Note $A_{(i, i)} = I$. Thus $\det(A_{(i, i)}) = 1$. Furthermore, when you remove the $j$th column, then you remove $a_{j, j}$ and thus the row corresponding to the $j$-th row in $A_{i, j}$ has no nonzero elements as the only nonzero element in the row is $a_{j , j}$. Thus $\det(A_{(i, j)}) = 0$. Thus $\det(A) = \alpha$.            
+
+    
+    
+\end{proof}
+\begin{claim}{2.7B}\label{Claim 2.7B.}
+    If $R$ is the invertible matrix corresponding to the row operations $a r_i + b r_j \to r_i$, for $a > 0, b \in \R$, then $\exists$ a path $S: [0, 1] \to GL_n(\R)$ from $R$ to $I$ in $GL_n(\R)$.        
+\end{claim}
+\begin{proof}
+    Suppose $R \in GL_n(\R)$ is the invertible matrix corresponding to the row operation $ar_i + b r_j \to r_i$ for $a > 0$ and $b \in \R$. Thus 
+        
+        \[
+            R_{x, y} = \begin{cases}
+                1 & \text{if } x = y \neq i \\
+                a & \text{if } x = y = i \\
+                b & \text{if } x = i \text{ and } y = j \\
+                0 & \text{otherwise}  
+            \end{cases}
+        \]
+
+        By Claim 2.7A, $\det(R) = a > 0$. 
+        Define, 
+        
+        \[(S_t)_{x, y} = \begin{cases}
+            1 & \text{if } x = y \neq i \\
+            t(a - 1) + 1 & \text{if } x = y = i \\
+            tb & \text{if } x = i \text{ and } y = j \\
+            0 & \text{otherwise}  
+        \end{cases}\]
+
+    For all $t \in [0, 1]$, by Claim 2.7A $\det(S_t) = t(a - 1) + 1 > 0$. $S_0 = I$ and $S_1 = R$, thus $\exists$ a path from $R$ to $I$ in $GL_n(\R)$.       
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2.7C}\label{Claim 2.7C.}
+    $\forall A \in GL_n(\R)$, $\exists D = diag(\pm 1, \dots, \pm 1) \ni A \simeq D$ and $\det(D) = \frac{\det(A)}{\abs{\det(A)}}$    
+\end{claim}
+\begin{proof}
+    $\forall A \in GL_n(\R)$, you basically want to use Gaussian Elimination to come up with a series of Row operation matrices like the ones above. 
+    
+    Let $i = 0$. Let $m = 0$;  
+    
+    \begin{enumerate}
+        \item While $i \leq n - 1$:
+        \begin{enumerate}
+            \item If $a_{i, i} = 0$, $\exists y \in [0, \dots, n - 1] \ni a_{r, i} \neq 0$. Let $R_m$ be the matrix which does $r_{i} + r_{y} \to r_i$. Then $m := m + 1$.
+            \item Let $R_m$ be the row operation which does $\frac{1}{\abs{a_{i , i}}} r_i \to r_i$. $m := m + 1$. Thus $a_{i, i} = \pm 1$.     
+            \item Let $j = 0$. While $j \leq n - 1$: 
+            \begin{enumerate}
+                \item If $i \neq j$ and $a_{j, i} \neq 0$: Let $x = a_{j, i}$. If $a_{i, i} > 0$, $x = -a_{j, i}$. Let $R_m$ be the row operation which does $x r_i + y r_j \to r_j$. Thus, $a_{j, i} = 0$. $m := m + 1$.      
+            \end{enumerate}
+            
+            \item $i := i + 1$.  
+        \end{enumerate}
+                 
+        \item Now $A \prod_{i = 0}^{m - 1} R_i$ is a diagonal matrix with $\pm 1$ on the diagonal. Let $i = n - 1$. 
+    \end{enumerate}
+    
+    By Claim 2.7B, $\forall i \in [0, \dots, m - 1]$ $\exists S_i: [0, 1] \to GL_n(\R)$ a path from $I$ to $R_i$ where $\forall t \in [0, 1]$, $S_i(t) > 0$. Thus $H_t: \R^n \to \R^n$ where $\vec{x} \to A \prod_{i = 1}^{m - 1} S_{i}(t) \vec{x}$ where $H_0 = A \prod_{i = 1}^{m - 1} S_i(0) = A$ since $S_i(0) = I$ and $H_1 = A \prod_{i = 1}^{m - 1} S_i(1) = A \prod_{i = 1}^{m - 1} R_i = D$ where $D$ is a diagonal matrix with $\pm 1$ on diagonal. Thus $A \simeq D$.
+    
+    Furtheremore since $\det(R_i) > 0$, $\det(D)$ is positive if and only if $\det(A)$ is positive. Furthermore since $D$ is a diagonal matrix with plus and minuses, $\det(D) = \frac{\det(A)}{\abs{\det(A)}}$.       
+\end{proof}
+
+\begin{PROB}{2.7}\label{Problem 2.7.}
+    For an invertible linear transformation $f: \R^n \to \R^n$ show that the induced map on $H_n(\R^n,\R^n - {0}) \simeq \tilde H_{n-1}(\R^n - {0}) \cong \Z$ is $1$ or $-1$ according to whether the determinant of f is positive or negative.
+\end{PROB}
+\begin{proof}
+    $\forall A \in GL_n(\R)$, 
+    
+    by Claim 2.7C $\exists (a_0, \dots, a_{n - 1}) \in \left\{ 0, 1 \right\}^n$ such that $A \simeq D = diag((-1)^{a_0}, \dots, (-1)^{a_n})$. 
+
+    Let $m = |(a_0, ..., a_{n - 1})|^2$, $D$ does $m$ reflections to $\R^n - \left\{ 0 \right\} \simeq S^{n - 1}$. Furthermore, $\det D = \prod_{i = 1}^{n - 1} (-1)^{a_i} = (-1)^m = \frac{\det(A)}{\abs{\det(A)}}$. $\deg(A) = \deg(D) = (-1)^m = \det D = \frac{\det(A)}{\abs{\det(A)}}$. So if $\det(A) > 0 \implies \deg(A) >0 \implies \deg(A) = 1$ and similarly if $\det(A) < 0 \implies \deg(A) < 0 \implies \deg(A) = -1$. So if the determinant of A is positive the induced map is 1 otherwise its -1.           
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.8}\label{Problem 2.8.}
+    $\forall f \in \C[x]$, f can be extended to a map of one point compactifications $\hat{f} : S^2 \to S^2$. Show $\deg \hat{f} = \deg f$. Show $\forall x \in \left\{ \text{roots of f} \right\}$, $\deg \hat{f}|_{x} = mult(x)$ 
+\end{PROB}
+\begin{proof}
+    $\forall f \in \C[x]$, $f: \C \to \C$ where $x \to \sum_{i = 0}^n a_i x^i$ and $a_n \neq 0$ . Let $H: \C \times I \to \C$ where $x \to a_n x^n + t\left(\sum_{i = 0}^{n- 1} a_i x^i\right)$. Thus $f \simeq [x \to a_n x^n]$. We need to check that $\hat{H}: S^2 \times I \to S^2$ is continous. It is continuous on $\C \times I$ as it just extends $H$ , so we just need to check that its continous on $\left\{ \infty \right\} \times I$. $\forall t \in I$, $\hat{H}(\infty, t) = \infty$. $\forall A > 0$, $\exists B > 0$ and $\epsilon > 0$ such that 
+    
+    \[\abs{z} > B, \abs{t_0 - t} > \epsilon \implies \abs{H(z, t)} > A\]
+
+    This is true since $a_n z^n$ dominates $H$. Thus $\hat{H}$ is continous. Thus $\hat{f} \simeq \hat{[x \to a_n x^n]}$. 
+    
+    Let $a_n = r e^{i \theta}$ where $r \neq 0$.   
+    Take $J : \C \times I \to \C$ where $x \to r^t e^{i t \theta} x^n$. Thus $[x \to a_n x^n] \simeq [x \to x^n]$. $\hat{J}$ is continuous for the same reason as above. Thus $\hat{f} \simeq [x \to a_n x^n] \simeq [x \to x^n]$ as functions of $S^2 \to S^2$. 
+    
+    Let $g_n := x \to x^n$. Look at $\hat{g}^{-1}(1) = \left\{ e^{2 \pi i p / n} : p \in [0, \dots, n - 1] \right\}$. Note near $e^{2 \pi i p / n}$, $\hat{g}$ is a local homeomorphism stretching the area by by n, this stretching can be a eliminated by a deformation of $\hat{g}$ near $e^{2 \pi i p / n}$. So $\deg{\hat{g_n}}|_{e^{2 \pi i p / n}} = 1$. Thus $\deg(f) = \deg{\hat{g_n}} = n$. 
+    
+    Let $f(x) = \prod_{i}(x - x_i)^{m_i}$ where $m_i \in \N$ and $\sum_{i} m_i = n$ and $i \neq j \implies x_i \neq x_j$ . Near $x_i$, $f \simeq a(x - x_i)^{m_i} \simeq (x - x_i)^{m_i}$, thus for sufficiently small circles, f will wrap them around themselves $m_i$ times. Thus $\deg f|_{x_i} = m_i$.            
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.10a}\label{Problem 2.10a.}
+    Let $X$ be the quotient space of $S^2$ with the identifications $x \sim -x$ for $x \in S^1$ equitorial    
+\end{PROB}
+\begin{proof}
+    $X$ as a CW complex is $\RP^1 = S^1$ and 2 2-cells corresponding to the northern hemisphere and southern hemisphere. $\varphi_N: \delta D^2 \to \R P^1 = S^1$ sends $x \to x^2$ is the attaching map for the northern hemisphere. $\varphi_S: \delta D^2 \to \R P^1 = S^1$ sends $x \to x^{-2}$. We have 1 0 cell, 1 1 cell, and 2 2 cells. 
+    
+    \[0 \to \Z^2 \to \Z \to \Z \to 0\]
+
+    \[d_1 = 0\]
+
+    \[d_2 = \begin{bmatrix}
+        2 & -2
+    \end{bmatrix}\]
+
+    Thus $H_0(X) = \Z$, $H_1(X) = \frac{\Z}{2 \Z} = \Z_2$, and $H_2(X) = \Z$   
+\end{proof}
+
+\begin{PROB}{2.10b}\label{Problem 2.10b.}
+    Let $X$ be the quotient space of $S^3$ with the identifications $x \sim -x$ for $x \in S^2$ equitorial    
+\end{PROB}
+\begin{proof}
+    $X$ as a CW complex is $\RP^2$ and 2 3-cells corresponding to the northern hemisphere and southern hemisphere. $\varphi_N: \delta D^3 \to \R P^2$ is the 2-covering. $\varphi_S = \varphi_N \circ (-1)$. We have 1 0 cell, 1 1 cell, 1 2- cells, and 2 3-cells. 
+    
+    \[0 \to \Z^2 \to \Z \to \Z \to \Z \to 0\]
+
+    \[d_1 = 0\]
+
+    \[d_2 = 2\]
+
+    Note $d_3(\Z^2) \subeq \ker d_2 = 0$ since $[x \to 2x]$ has no kernal, thus $\ker d_3 = \Z^2$. Thus $H_0(X) = \Z$, $H_1(X) = \frac{\Z}{2 \Z} = \Z_2$, $H_2(X) = 0$ (since kernel of $[x \to 2x]$ is 0 ), $H_3(X) = \Z^2 / \left\{ 0 \right\} = \Z^2$ .
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{2.11}\label{Problem 2.11.}
+    Let $X$ be the space in 1.2.14. Compute $H_n(X)$.   
+\end{PROB}
+
+\begin{proof}
+    X has two 0 cells, four 1 cells, three 2 cells, and one 3 cells. 
+    
+    The 1 skeleton looks like:
+    % https://q.uiver.app/#q=WzAsMixbMCwwLCJcXGJ1bGxldCJdLFswLDIsIlxcdGltZXMiXSxbMSwwLCJhIiwwLHsiY3VydmUiOi0zfV0sWzEsMCwiYiIsMSx7ImN1cnZlIjotMSwic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiYXJyb3doZWFkIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSwwLCJjIiwxLHsiY3VydmUiOjF9XSxbMSwwLCJkIiwxLHsiY3VydmUiOjN9XV0=
+    \[\begin{tikzcd}
+        \bullet \\
+        \\
+        \times
+        \arrow["a", curve={height=-18pt}, from=3-1, to=1-1]
+        \arrow["b"{description}, curve={height=-6pt}, tail reversed, no head, from=3-1, to=1-1]
+        \arrow["c"{description}, curve={height=6pt}, from=3-1, to=1-1]
+        \arrow["d"{description}, curve={height=18pt}, from=3-1, to=1-1]
+    \end{tikzcd}\]
+
+    Here are the attaching maps for the 2-cells. 
+
+    % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXHRpbWVzIl0sWzIsMCwiXFx0aW1lcyJdLFswLDAsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMCwyLCJhIl0sWzIsMSwiYiJdLFsxLDMsImMiXSxbMywwLCJkIl1d
+    \[\begin{tikzcd}
+        \bullet && \times \\
+        \\
+        \times && \bullet
+        \arrow["b", from=1-1, to=1-3]
+        \arrow["c", from=1-3, to=3-3]
+        \arrow["a", from=3-1, to=1-1]
+        \arrow["d", from=3-3, to=3-1]
+    \end{tikzcd}\]
+
+    % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXHRpbWVzIl0sWzIsMCwiXFx0aW1lcyJdLFswLDAsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMCwyLCJiXnstMX0iXSxbMiwxLCJjXnstMX0iXSxbMSwzLCJhIl0sWzMsMCwiZCJdXQ==
+    \[\begin{tikzcd}
+        \bullet && \times \\
+        \\
+        \times && \bullet
+        \arrow["{c^{-1}}", from=1-1, to=1-3]
+        \arrow["a", from=1-3, to=3-3]
+        \arrow["{b^{-1}}", from=3-1, to=1-1]
+        \arrow["d", from=3-3, to=3-1]
+    \end{tikzcd}\]
+
+    % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXHRpbWVzIl0sWzIsMCwiXFx0aW1lcyJdLFswLDAsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMCwyLCJhIl0sWzIsMSwiY157LTF9Il0sWzEsMywiZF57LTF9Il0sWzMsMCwiYiJdXQ==
+    \[\begin{tikzcd}
+        \bullet && \times \\
+        \\
+        \times && \bullet
+        \arrow["{c^{-1}}", from=1-1, to=1-3]
+        \arrow["{d^{-1}}", from=1-3, to=3-3]
+        \arrow["a", from=3-1, to=1-1]
+        \arrow["b", from=3-3, to=3-1]
+    \end{tikzcd}\]
+
+    Thus the chain complex is:
+
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiXFxaIl0sWzIsMCwiXFxaXjMiXSxbMywwLCJcXFpeNCJdLFs0LDAsIlxcWl4yIl0sWzUsMCwiMCJdLFswLDEsIjAiXSxbMSwyLCJkXzMiXSxbMiwzLCJkXzIiXSxbMyw0LCJkXzEiXSxbNCw1LCIwIl1d
+\[\begin{tikzcd}
+	0 & \Z & {\Z^3} & {\Z^4} & {\Z^2} & 0
+	\arrow["0", from=1-1, to=1-2]
+	\arrow["{d_3}", from=1-2, to=1-3]
+	\arrow["{d_2}", from=1-3, to=1-4]
+	\arrow["{d_1}", from=1-4, to=1-5]
+	\arrow["0", from=1-5, to=1-6]
+\end{tikzcd}\]
+
+    \[d_1 = \begin{bmatrix}
+        -1 & 1 & -1 & 1 \\
+        1 & -1 & 1 & -1
+    \end{bmatrix}\] 
+
+    \[d_2 = \begin{bmatrix}
+        1 & 1 & 1 \\
+        1 & -1 & 1 \\
+        1 & -1 & -1 \\
+        1 & 1 & -1
+    \end{bmatrix}\] 
+
+    For $d_3$ we need to compute the degree's of the maps of $\delta S^3$ to each of the 2 cells. Let $f$ be a two cell. $\varphi: \delta S^3 \to f$ is the attaching map. Take $\varphi^{-1}(x) = \left\{ x_1, x_2 \right\}$, where $x_1$ is on the front face, and $x_2$    where $x$ is the center of $f$, $\varphi$ is a local homeomorphism at $x$ so $\deg \varphi|_{x_i} = \pm 1$. However $x_1$ and $x_2$ differ by a reflection and a rotation. Thus $\deg \varphi = 0$ onto each face. Thus $d_3 = 0$. 
+    
+    Doing row operations we see, $d_1 \to \begin{bmatrix}
+        0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0
+    \end{bmatrix}$ and $d_2 \to \begin{bmatrix}
+        1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \\ 0 & 0 & 0
+    \end{bmatrix}$. 
+    
+    Thus \begin{align*}
+        \ker d_1 &= \spn\left(e_1, e_2, e_3\right) \\
+        d_1(\Z^4) &= \spn(e_1) \\
+        \ker d_2 &= 0 \\
+        d_2(\Z^3) &= \spn\left(e_1, 2e_2, 2e_3\right)
+    \end{align*}
+    
+    Thus \begin{align*}
+        H_0(X) &= \frac{\Z^2}{\Z} = \Z \\
+        H_1(X) &= \frac{\spn\left(e_1, e_2, e_3\right)}{\spn\left(e_1, 2e_2, 2e_3\right)} = \Z_2 \oplus \Z_2 \\ 
+        H_2(X) &= 0 \\
+        H_3(X) &= \Z 
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.2.12a}\label{Problem 2.2.12a.}
+    Show that $q: S^1 \times S^1 \to S^2$, the quotient map, collapsing the $S^1 \vee S^1$ to a point, is not homotopic to a point by showing it induces a isomorphism on $H_2$.   
+\end{PROB}
+\begin{proof}
+    Look at the long exact sequence of $(S^1 \times S^1, S^1 \vee S^1)$. 
+    
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.2.14a}\label{Problem 2.2.14a.}
+    A map $f: S^n \to S^n$ is a even map if $f(x) = f(-x)$. Show that a even map must have even degree, and that degree must be 0 when $n$ is even.     
+\end{PROB}
+\begin{proof}
+    Let $f$ be a even map. $f$ factors through $\RP^n$, ie $\exists g: \RP^n \to S^n$ such that $f = g q$ where $q$ is standard quotient from $S^n \to \RP^n$. This induces maps of homology so we have:
+    
+    % https://q.uiver.app/#q=WzAsMyxbMCwxLCJTXm4iXSxbMSwxLCJcXFIgUF5uIl0sWzEsMCwiU15uIl0sWzAsMSwicSIsMl0sWzAsMiwiZiJdLFsxLDIsImciLDJdXQ==
+\[\begin{tikzcd}
+	& {S^n} \\
+	{S^n} & {\R P^n}
+	\arrow["f", from=2-1, to=1-2]
+	\arrow["q"', from=2-1, to=2-2]
+	\arrow["g"', from=2-2, to=1-2]
+\end{tikzcd}\]
+
+% https://q.uiver.app/#q=WzAsMyxbMCwxLCJIX24oU15uKSJdLFsxLDEsIkhfbihcXFIgUF5uKSJdLFsxLDAsIkhfbihTXm4pIl0sWzAsMSwicV8qIiwyXSxbMCwyLCJmXyoiXSxbMSwyLCJnXyoiLDJdXQ==
+\[\begin{tikzcd}
+	& {H_n(S^n)} \\
+	{H_n(S^n)} & {H_n(\R P^n)}
+	\arrow["{f_*}", from=2-1, to=1-2]
+	\arrow["{q_*}"', from=2-1, to=2-2]
+	\arrow["{g_*}"', from=2-2, to=1-2]
+\end{tikzcd}\]
+
+\begin{enumerate}
+    \item If $n$ is even: $H_n(\R P^n) = 0$, thus $q_0 =0 \implies f_* = 0$ thus $\deg f_* = 0$. 
+    \item If $n$ is odd: We have the following long exact sequence from $(\R P^n, \R P^{n - 1})$  and since $\R P^{n - 1}$ is a skeleton of $\R P^n$ the pair is good. Moreover $\R P^n / \R P^{n - 1} \cong S^{n}$  So there is a isomorphism between $H_n(\R P^n, \R P^{n - 1}) \cong H_n(S^n)$ so we have, 
+    
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwPUhfbihSIFBee24tMX0pIl0sWzEsMCwiSF9uKFxcUiBQXm4pIl0sWzIsMCwiSF9uKFxcUiBQXm4sIFxcUiBQXntuIC0gMX0pIFxcY29uZyBIX24oU15uKSJdLFszLDAsIkhfe24tMX0oUlBee24tMX0pID0gMCJdLFswLDFdLFsxLDJdLFsyLDNdXQ==
+\[\begin{tikzcd}
+	{0=H_n(R P^{n-1})} & {H_n(\R P^n)} & {H_n(\R P^n, \R P^{n - 1}) \cong H_n(S^n)} & {H_{n-1}(RP^{n-1}) = 0}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+
+    Since $n$ is odd, $n - 1$ is even thus $H_{n - 1}(\R P^{n - 1}) = 0$. Thus $H_n(\R P^n) \cong H_n(S^n) \cong \Z$, thus 1 maps to 1. Let $\varphi: \R P^{n} \to \R P^{n} / \R P^{n - 1} = S^n$ be the standard quotient. By Example 2.42, $\deg \varphi q = 2$ because $\varphi q$ reduces to a homeomorphism from each component of $S^n - S^{n - 1}$ (northern and southern hemisphere) to $\RP^{n} - \RP^{n - 1}$ and each homeomorphism can be obtained by the other by precomposing with antipodal map of $S^n$. Thus $\deg \varphi q = deg (1) + deg (-1) = 1 + (-1)^{n + 1} = 2$. But $\varphi_{*}$ sends 1 to 1, so $q_*$ must send $1$ to $2$. Thus $f_*(1) = g_*q_*(1) = g_*(2) = 2 g_*(1) \implies \deg f$ is even since $g_*(1) \in \Z$. 
+\end{enumerate}
+
+Thus $\deg f$ is even.  
+
+\end{proof}
+
+\begin{PROB}{2.2.14b}\label{Problem 2.2.14b.}
+    Show that if $X$ is a CW complex then $H_n(X^n)$ is free by identifying it with kernel of cellular boundary map $H_n(X^n , X^{n - 1}) \to H_n(X^{n - 1}, X^{n - 2})$   
+\end{PROB}
+\begin{proof}
+    Let $c_k$ be the number of $k$ cells.
+    Note $H_n(X^n , X^{n - 1}) \cong H_n(X^n / X^{n - 1}) \cong H_n(\vee_{i = 1}^{c_k} S^n) = \oplus_{i = 1}^{c_k} H_n(S^n) = \Z^{c_k}$. We have the following long exact sequence of $(X^n , X^{n - 1})$ and $(X^{n - 1} , X^{n - 2})$. 
+    
+    % https://q.uiver.app/#q=WzAsNixbMCwxLCIwPUhfbihYXntuLTF9KSJdLFsxLDEsIkhfbihYXm4pIl0sWzIsMSwiSF9uKFhebixYXntuLTF9KSJdLFszLDEsIkhfe24tMX0oWF57bi0xfSkiXSxbMywwLCJIX3tuLTF9KFhee24tMn0pPTAiXSxbMywyLCJIX3tuLTF9KFhee24tMX0sWF57bi0yfSkiXSxbNCwzXSxbMyw1LCJpX3tuLTF9Il0sWzIsMywiaiJdLFsyLDUsImRfbiIsMl0sWzEsMiwiaV9uIl0sWzAsMV1d
+\[\begin{tikzcd}
+	&&& {H_{n-1}(X^{n-2})=0} \\
+	{0=H_n(X^{n-1})} & {H_n(X^n)} & {H_n(X^n,X^{n-1})} & {H_{n-1}(X^{n-1})} \\
+	&&& {H_{n-1}(X^{n-1},X^{n-2})}
+	\arrow[from=1-4, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow["{i_n}", from=2-2, to=2-3]
+	\arrow["j", from=2-3, to=2-4]
+	\arrow["{d_n}"', from=2-3, to=3-4]
+	\arrow["{i_{n-1}}", from=2-4, to=3-4]
+\end{tikzcd}\]
+
+    Note since $H_n(X^{n - 1})$ and $H_{n - 1}(X^{n - 2})$ are 0, $i_{n - 1}$ and $i_n$ are injective so the diagram becomes. 
+    
+    % https://q.uiver.app/#q=WzAsNixbMCwxLCIwPUhfbihYXntuLTF9KSJdLFsxLDEsIkhfbihYXm4pIl0sWzIsMSwiSF9uKFhebixYXntuLTF9KSJdLFszLDEsIkhfe24tMX0oWF57bi0xfSkiXSxbMywwLCJIX3tuLTF9KFhee24tMn0pPTAiXSxbMywyLCJIX3tuLTF9KFhee24tMX0sWF57bi0yfSkiXSxbNCwzXSxbMyw1LCJpX3tuLTF9Il0sWzIsMywiaiJdLFsyLDUsImRfbiIsMl0sWzEsMiwiaV9uIl0sWzAsMV1d
+\[\begin{tikzcd}
+	&&& {H_{n-1}(X^{n-2})=0} \\
+	{0=H_n(X^{n-1})} & {H_n(X^n)} & {H_n(X^n,X^{n-1})} & {H_{n-1}(X^{n-1})} \\
+	&&& {H_{n-1}(X^{n-1},X^{n-2})}
+	\arrow[from=1-4, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow["{i_n}", from=2-2, to=2-3]
+	\arrow["j", from=2-3, to=2-4]
+	\arrow["{d_n}"', from=2-3, to=3-4]
+	\arrow["{i_{n-1}}", from=2-4, to=3-4]
+\end{tikzcd}\]
+
+
+    By injectivity and exactness, $H_n(X^n) = i_n(H_n(X^n)) = \ker j$. However note $d_n = i_{n - 1} j$ and $\ker d_n = j^{-1}(\ker i_{n - 1})$ but since $i_{n - 1}$ is injective, $\ker i_{n - 1} = \left\{ 0 \right\}$, $\ker d_n = j^{-1}(\left\{ 0 \right\}) = \ker j = H_n(X^n)$. Since $H_n(X^n, X^{n - 1}) = \Z^{c_n}$ and $H_n(X^{n - 1}, X^{n - 2}) = \Z^{c_{n - 1}}$ and $j$ is a map of free abelian groups and $H_n(X^n)$ is kernal of $j$, $H_n(X^n)$ is free.        
+\end{proof}
+
+\end{document}

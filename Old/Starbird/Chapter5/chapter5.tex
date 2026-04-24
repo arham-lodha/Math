@@ -1,0 +1,263 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 5}
+\author{Arham Lodha}%put your name here
+\date{May 22, 2024}%enter the due date here
+\maketitle
+
+\section{Seperable Spaces}
+\begin{PROB}{5.1}\label{Problem 5.1.}
+    Show that $A$ is dense in $X$ if and only if every nonempty open set of $X$ contains a point of $X$      
+\end{PROB}
+\begin{proof}
+    $\implies:$ Suppose $A$ is dense in $X$. Thus $\forall U \in \T \ni U \neq \emptyset$, $\forall p \in U $ p is a limit point of A or $p \in A$ thus $(U \setminus \left\{ p \right\}) \cap A \neq \emptyset \implies U \cap A \neq \emptyset$. Thus $\exists a \in A \ni a \in U$. 
+    
+    $\impliedby:$ Suppose $\forall U \in \T, \exists a \in A \ni a \in U \cap A$. $\forall x \in X \setminus A$, $\exists U \in \T \ni x \in U$, by the fact above $\exists a_x \in A \ni a_x \in U$, thus $a_x \in \left(U \setminus \left\{ x \right\}\right) \cap A \neq \emptyset$. Thus $x$ is a limit point of $A$. Thus $\overline{A} = X \implies A$ is dense in $X$.            
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.2}\label{Problem 5.2.}
+    Show $\R_{s td}$ is separable. With which of the topologies on $\R$ that you have studied is $\R$ not separable?   
+\end{PROB}
+\begin{solution}
+    $\forall x \in \R \setminus \Q$, it suffices to look at all sets $(x - \epsilon, x + \epsilon)$ $\forall \epsilon > 0$. $\forall \epsilon > 0$, Let $a = x$ and $b = x + \epsilon$.
+    
+    \begin{enumerate}
+        \item If $a > 0$: Thus $y - x > 0$. By the Archemedian property, $\exists n \in \N \ni n > \frac{1}{\epsilon} = \frac{1}{b - a} \implies nb - na > 1$. Thus $na + 1 < nb$. Since $a > 0$, $na > 1 \implies \exists m \in \N \ni m - 1 < na < m$. Thus $nb > na + 1 \geq m \implies nb > m > na \implies b > \frac{m}{n} > a$
+        \item If $a \leq 0$: $\exists k \in \N \ni k > \abs{x}$. Thus $k - \abs{x} = k + x > 0$ thus $k + x < k + y$. By the above $\exists r \in \Q \ni k + x < r < k + y$. Thus $\exists r' \in \Q \ni r' = r - k$. Thus $x < r' < y$.       
+    \end{enumerate}
+
+    Thus $\exists r \in \Q \ni r \in (a, b) \subseteq (a - \epsilon, a+ \epsilon)$. Thus $x$ is a limit point of $\Q$. Thus $\overline{\Q} = \R \implies \Q$ is dense in $\R$ with standard topology. $\Q$ is countable thus $\R$ is separable with standard topology. 
+    
+    \begin{enumerate}
+        \item Lower limit is also separable. 
+
+        \item Discrete Topology: Not separable because all sets are open and closed. Thus the only set whose closure is $\R$ is $\R$ itself which isn't countable. 
+        \item Finite Complement: Any infinite set is dense in $\R$ with this topology. Thus $\R$ is separable
+        \item Countable Complement: Any uncountable set is dense so take $[0, 1]$.   
+    \end{enumerate}
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{5.4}\label{Problem 5.4.}
+    Find a separable space that contains a subspace which isn't separable in the subspace topology.
+\end{PROB}
+\begin{proof}
+    Sorgenfry Plane is separable but the negative diagonal is not because its subspace topology is Discrete. 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{5.5}\label{Claim 5.5.}
+    If $X$ and $Y$ are separable spaces then $X \times Y$ is separable   
+\end{claim}
+\begin{proof}
+    Since $X$ and $Y$ are separable, $\exists M \subseteq X \ni |M| = |\N|, \overline{M} = X$ and $\exists N \subseteq X \ni \abs{N} =\abs{\N}, \overline{N} = Y$. Thus, $M \times N$ is countable and $\abs{M \times N} = \abs{M} \times \abs{N} = X\times Y$. Thus $X \times Y$ is separable.       
+\end{proof} 
+
+\bigskip
+
+\subsection*{TBD}
+\begin{claim}{5.6}\label{Claim 5.6.}
+    The space $2^\R$ is separable 
+\end{claim}
+\begin{proof}
+    Let $A \subseteq 2^{\R}$ be the subset of functions which are fixed to 1 at all but a finite number of rational points or 0 at all but a finite number of rational points. Ie $\forall f \in A$, $\exists B \subseteq \Q$, where $B$ is finite such that $f(\R \setminus B) = 1$ or $f(\R \setminus B) = 0$.       
+    Let $A_{n} :=$ the set of functions which are fixed to 1 at all but n rational points and $B_n :=$ the set of functions which are 0 at all but n rational points. Thus $A = \bigcup_{n \in \N} (A_n \cup B_n)$. 
+    
+    Base Case: $|A_1| = 2 + |\Q| = |\N|$ and $|B_1| = 2 + |\Q| = |\N|$
+    
+    Inductive Hypothesis: $A_n$ and $B_n$ are countable
+    
+    Inductive Step: $A_{n + 1}$ is the set of functions which are $1$ at all but n + 1 rational points so it union of countable sets of sets of $A_1$ and $A_n$. Thus $A_{n + 1}$ is countable. Similarly $B_{n + 1}$ is countable. 
+    
+    
+    Thus $A$ is the countable union of countable sets thus A is countable. 
+
+    The open sets of $2^{\R}$ is given by the basis \[\left\{ f \in 2^{\R} \mid f(x_0) = a_1, \dots, f(x_n) = a_n, n \in \N, x_i \in \R, a_i \in \left\{ 0, 1 \right\} \right\}\]. Since open sets of $2^{\R}$ are given by infinite unions of the basis it suffices to prove that each basis intersects $A$ nontrivially.
+    
+    $\forall B \in \B$, $\exists U = \left\{ u_1, \dots, u_n \right\} \subset \R$, a finite subset, and $\left(d_1, \dots, d_n\right) \in \left\{ 0, 1 \right\}^n$, such that $\forall f \in B$, $f(u_i) = d_i$. Let $V \subseteq U$, be the set of $u_i$ which are rational.        
+\end{proof}
+
+\pagebreak
+
+\section{$2^{nd}$ countable spaces}
+
+\begin{claim}{5.9}\label{Claim 5.9.}
+    Let $X$ be $2^{nd}$ countable then $X$ is separable   
+\end{claim}
+\begin{proof}
+    Suppose $X$ is $2^{nd}$ countable. Thus $\B = \left\{ B_i \right\}_{i \in \N} \ni B_i \neq \emptyset$ for all $i \in \N$ . Let $D = \left\{ d_i \right\}_{i \in \N}$ where $d_i \in B_i$, $\forall i \in \N$. It suffices to prove that $\forall i \in \N$, $B_i \cap D \neq \emptyset$, since all open sets are unions of basis open sets. But $d_i \in B_i \cap D \neq \emptyset$ for all $i \in \N$. $D$ is by definition countable. By 5.1 $D$ is dense. Thus by definition of separable, $X$ is separable.                
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.10a}\label{Problem 5.10a.}
+    $\R$ is 2nd countable 
+\end{PROB}
+\begin{solution}
+    By 3.2a, $\B = \left\{ (a, b) \subset \R \mid a, b \in \Q \right\}$ is a basis. There exists a injective map $f: \B \to \Q \times \Q$ where $(a, b) \to \left\{ a \right\} \times \left\{ b \right\}$. Thus since $\Q \times \Q$ is countable, $\B$ is countable thus $\R$ is 2nd countable.       
+\end{solution}
+\begin{PROB}{5.10b}\label{Problem 5.10b.}
+    $\R_L$ is not 2nd countable 
+\end{PROB}
+\begin{proof}
+    Let $\B$ be a generic basis of $\R_L$. $\forall x \in \R$, $x \in [x, \infty) \in \T$, by the definition of basis $\exists B_x \in \B \ni x \in B_x \subeq [x, \infty) \implies \min B_x = x$. Since $\forall x, y \in \R, x \neq y$, $\min B_x \neq \min B_y \implies B_x \neq B_y$. Thus $\abs{\B} \geq \abs{\R} > \aleph_0$. Thus $\R_L$ is not 2nd countable.          
+\end{proof}
+\begin{PROB}{5.10c}\label{Problem 5.10c.}
+    $H_{bub}$ is not 2nd countable
+\end{PROB}
+\begin{proof}
+    Note $B_{(x, y)}(1) = B(x, y)$ to simplify notation. Let $X := \left\{ (x, 0) \mid x \in \R \right\}$.   
+    Let $\B$ be a generic basis for $H_{bub}$. $\forall x \in \R, (x, 0) \in B(x, 1) \subeq \T$. By the definition of basis, $\exists B_x \in B \ni (x, 0) \in B_x \subseteq B(x, 1)$ this implies $B_x \cap X = \left\{ (x, 0) \right\}$.  
+    
+    
+    $\forall x, y \in \R \ni x \neq y$, $B_x \cap X = \left\{ (x, 0) \right\}$ and $B_y \cap X = \left\{ (y, 0) \right\}$ Thus $B_x \neq B_y$. 
+    
+    Thus $\abs{\B} \geq \abs{\R} > \aleph_0$. Thus $H_{bub}$ is not second countable.   
+\end{proof}
+
+\bigskip
+
+\begin{claim}{5.11}\label{Claim 5.11.}
+    Every uncountable set in a 2nd countable space has a limit point 
+\end{claim}
+\begin{proof}
+    Let $X$ be the topological space which is 2nd countable. Let $A \subseteq X$ be a uncountable set. Thus $X$ is uncountable. Let $\B$ be its countable basis.    
+    Assume the contrary that the theorem isn't true. Thus $A$ has no limit points. Thus $\forall x \in A, \exists U_x \in \T \ni \left(U_x \setminus x\right) \cap A = \emptyset$. By definition of basis $\exists B_x \in B \ni x \in B_x \subset U_x \implies B_x \cap A = \left\{ x \right\}$. Let $C = \left\{ B_x  \mid x \in A \right\}$. $C$ is countable because $C \subseteq \B$ and $\B$ is countable. Since $\forall x \in A$, $B_x \cap A = \left\{ x \right\}$, $A = \bigcup_{B \in C} C \cap A$. The countable union of countable sets is countable, thus $A$ is countable which is a contradiction. Thus $\exists x \in A$, a limit point of $A$.                  
+\end{proof}
+
+\pagebreak
+
+\section{1st countable spaces}
+\begin{claim}{5.14}\label{Claim 5.14.}
+    Let $X$ be a 2nd countable space. Then $X$ is 1st countable  
+\end{claim}
+\begin{proof}
+    Suppose $X$ is 2nd countable. Thus $\exists \B$, a basis for the topology of $X$, such that $\B$ is countable. Thus $\B = \left\{ B_i \right\}_{i \in \N}$. $\forall x \in X$, $\B_x := \left\{ B \in \B \mid x \in B \right\}$. $\B_x$ is countable since $\B$ is countable. $\forall B \in \B_x$, $x \in B$, by definition. $\forall U \in \T \ni x \in U$, by definition of basis, $\exists B \in \B \ni x \in B \subeq U \implies B \in \B_x$, thus $\forall U \in \T \ni x \in U$, $\exists B \in \B_x \ni x \in \B_x \subeq U$. Thus $\B_x$ is a countable neighborhood basis for $x$. Thus $X$ is 1st countable.                    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{5.15}\label{Claim 5.15.}
+    If $X$ is a topological space, $p \in X$, and $p$ has a countable neighborhood basis, then $p$ has a nested countable neighborhood basis.    
+\end{claim}
+\begin{proof}
+    $\B_p := \left\{ B_i \right\}_{i \in \N}$. Define $S_n := \bigcap_{i = 1}^{n} B_i$. Thus Define $S := \left\{ S_n \right\}_{n \in \N}$. Since $p \in B_i$ for all $i$. $p \in S_n$ for all $n$. Moreover $\forall U \in \T \ni p \in U$, $\exists B_i \in \B_p \ni B_i \subseteq U \implies S_i \subseteq B_i \subseteq U$. Thus $S$ is a neighborhood basis. Moreover $S_n \supseteq S_{n + 1} = S_n \cap B_{n + 1}$. $S_n$ is countable. Thus $p$ has a nested countable neighborhood set.                    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.16a}\label{Problem 5.16a.}
+    $\R_L$ is 1st countable 
+\end{PROB}
+\begin{proof}
+    $\forall x \in \R$. $\B_{x} := \left\{ [x, x + \frac{1}{n}) \right\}_{n \in \N}$. $\B_x$ is countable. $\forall n \in \N$, $x \in [x, x + \frac{1}{n})$. $\forall U \in \T \ni x \in U$, by definition of basis $\exists \epsilon > 0 \ni [x, x + \epsilon) \subeq U$. By the Archemedian property, $\exists K \in \N \ni K > \frac{1}{\epsilon}$. Thus $[x, x + \frac{1}{K}) \subseteq [x, x + \epsilon) \subseteq u$. Thus $\B_x$ is a countable neighborhood basis. Thus $\R_L$ is 1st countable.             
+\end{proof}
+
+\bigskip
+
+\begin{claim}{5.18}\label{Claim 5.18.}
+    Suppose $x$ is a limit point of the set $A$ in a 1st countable space X. Then there is a sequence of points $\left\{ a_i \right\}_{i \in \N} \subeq A$ that converges to $x$.     
+\end{claim}
+\begin{proof}
+    Since $X$ is 1st countable, $\exists \B_x$ a countable neighborhood basis for $x$. WLOG (claim 5.15), $\B_x$ is nested. Since $x$ is a limit point of $A$, $\forall i \in \N$, $\exists a_i \in \left(B_i - \left\{ x \right\}\right) \cap A $. Thus make a sequence with these $a_i$. $\left\{ a_i \right\}_{i \in \N}$ is by definition in $A$. Furthermore by the definition of a nested countable neighborhood basis $\forall U \in \T, \exists K \in \N \ni B_K \subseteq U$. Since $n \geq K$ $B_n \subeq B_K \implies a_n \in B_n \subeq U$. Thus $\forall n \geq K$, $a_n \in U$. Thus $\left\{ a_i \right\}$ converges to $x$.                 
+\end{proof}
+
+\pagebreak
+
+\section{Souslin Property}
+\begin{PROB}{5.21}\label{Problem 5.21.}
+    Show that $\R$  is Souslin
+\end{PROB}
+\begin{proof}
+    Assume the contrary that $\R$ is not Souslin. Thus $\exists C \subseteq \T \ni \forall U, V \in C \ni U \neq \emptyset \neq V, U \neq V \implies U \cap V = \emptyset$  and $C$ is uncountable. Since $\R$ is separable $\exists D$ a dense countable set. Since $U \cap V = \emptyset \implies (U \cap D) \cap (V \cap D) = \emptyset$. Create the set $E$ using the following rule, $\forall U \in C$, pick a element of $U \cap D$. Each element of C will give a unique element. Thus $E \subseteq D$ but $|C| = |E| > \aleph_0$, which is a contradiction since $D$ is countable. Thus $\R$ must be Souslin.                  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{5.22}\label{Claim 5.22.}
+    A separable space has the Souslin property.
+
+\end{claim}
+\begin{proof}
+    Same proof as above but without using $\R$ as set.  
+\end{proof}
+
+\bigskip
+
+
+\end{document}

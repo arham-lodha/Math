@@ -1,0 +1,314 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\Ec}[0]{\mathcal{E}}
+\newcommand{\Lc}[0]{\mathcal{L}}
+
+\newcommand{\Poi}[0]{\text{Poisson}}
+
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 13}
+\author{Arham Lodha}%put your name here
+\date{May 21, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+    Let $M$ be a Poisson Point Process on $(E, \Ec)$ with a $\sigma$-finite intensity measure $\mu$.    
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item True
+        \item False
+        \item False
+        \item False - $\mu$ can tell us about $X_i$. 
+        \item True
+    \end{enumerate}
+    
+\end{solution}
+\begin{PROB}{1b}\label{Problem 1b.}
+    
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item False
+        \item False
+        \item False
+        \item True
+        \item False
+    \end{enumerate}
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let $M$ be a Poisson Point Process on $\R$ with $\mu = Leb_\R$. Consider the map $T: \R \to \R$ defined by 
+    
+    \[
+    T(x) := \begin{cases*}
+        \frac{1}{x} & if $x \neq 0$ \\
+        0 & if $x = 0$  
+    \end{cases*}
+    \]
+\end{PROB}
+\begin{claim}{2a}\label{Claim 2a.}
+    Show that $M' = T \# M$ is a Poisson Point Process
+\end{claim}
+\begin{proof}
+    We examine $T \# \mu$. Let $A = [1, \infty) \cup (-\infty, 1]$. $(T \# \mu)(A) = \mu(T^{-1}(A)) = \mu([-1, 1]) = 2$. Let $B_i = [\frac{1}{i + 1}, \frac{1}{i}] \cup [-\frac{1}{i}, -\frac{1}{i + 1}]$. $(T \# \mu)(B_i) = \mu(T^{-1}(B_i)) = \mu([i, i + 1] \cup [-i - 1, -i]) = 2$. $\left(\bigcup_{i \in \N} B_i\right) \cup A = \R$. Thus $\T \# \mu$ is $\sigma$-finite. Thus $T \# M$ is a Poisson Point Process, by the Mapping Theorem.           
+\end{proof}
+\begin{claim}{2b}\label{Claim 2b.}
+    Determine its intensity. 
+\end{claim}
+\begin{proof}
+    \begin{enumerate}
+        \item $\forall a \leq 0 < b$, 
+        
+        \[ (T \# \mu)([a, b])  = \infty\]
+        \item $\forall 0 < a < b$
+        
+        \begin{align*}
+            (T \# \mu)([a, b]) = \mu([\frac{1}{b}, \frac{1}{a}]) = \frac{1}{a} - \frac{1}{b}
+        \end{align*}
+
+        \item $\forall b < a < 0$ 
+        
+        \begin{align*}
+            (T \# \mu)([b, a]) = \mu([\frac{1}{a}, \frac{1}{b}]) = \frac{1}{b} - \frac{1}{a}
+        \end{align*}
+    \end{enumerate}
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Let $M = \sum_{i = 1} \delta_{X_i}$ be a Poisson point process on $\R^d$ with intensity $\mu = Leb(\R^d)$. Let us consider $(R_i)_{i}$ a sequence of i.i.d random variables independent from M with law $\rho$. Let $O = \cup_{i} B(X_i, R_i)$ where $B(X, R) \subset \R^d$ is the open ball centered at X of radius of $R$.        
+\end{PROB}
+\begin{claim}{3a}\label{Claim 3a.}
+    Let $M_0$ be the number of balls $B(X_i, R_i)$ which contain the origin. Show $M_0$ is a well defined random variable.    
+\end{claim}
+\begin{proof}
+    Let 
+    
+    \[A = \left\{ (x, r) \in \R^d \times [0, \infty)\mid \abs{x} < r \right\}\]. 
+    
+    Let $\overline{M} = \sum_{i = 1} \delta_{(X_i, R_i)}$ be the $R$-marked process. By the marking theorem, $\overline{M}$ is a poisson point process with intensity $\mu \otimes \rho$.    
+
+    $\overline{M}(A) = \#\left\{ i \mid \abs{X_i} < R_i \right\} = M_0$. Thus $M_0 = \overline{M}(A) \sim \Poi((\mu \otimes \rho)(A))$ by definition of poisson point process. Thus $M_0$ is a well defined random variable.  
+\end{proof}
+
+\begin{claim}{3b}\label{Claim 3b.}
+    Show that the event $\left\{ O = \R^d \right\}$ is measurable and $\PR[O = \R^d] = 1$ if and only $\int_{0}^{\infty} r^d \rho(dr) = \infty$   
+\end{claim}
+\begin{proof}
+    $\R^d$ is a seperable space with a countable dense subset $\Q^d$. $O$ is a union of open balls, and thus is a open set. So of $\Q^d \subeq O \implies O = \R^d$ by definition of dense subset. Thus \[\left\{ O = \R^d \right\} = \left\{ \Q^d \subeq O \right\} = \bigcap_{q \in \Q^d} \left\{ q \in O \right\}\].
+    
+    The event $\left\{ q \in O \right\}$ is saying that is $q \in B(X_i, R_i)$ for some $i$. Thus $\left\{ q \in O \right\} = \bigcup_{i}\left\{ \abs{q - X_i} < R_i \right\}$ which is measurable. 
+
+    Thus \[\left\{ O = \R^d \right\}  = \left\{ O = \R^d \right\} = \bigcap_{q \in \Q^d} \bigcup_{i}\left\{ \abs{q - X_i} < R_i \right\}\]
+
+    is measurable being the countable intersection of measurable events. 
+
+    For $q \in \R^d$, $M_q := \#\left\{ \text{balls covering } q \right\}$. By 3a, $M_q = \Poi((\mu \otimes \rho)(A_q))$ where $A_q = \left\{ (x, r) \in \R^d \times [0, \infty) \mid \abs{x - q} < r \right\}$. $(\mu \otimes \rho)(A_q) = \omega_d \int_{0}^{\infty} r^d \rho(dr)$ where $\omega_d$ is the volume of unit ball in $\R^d$.
+    
+    $\implies:$ Suppose $\Pr[O = \R^d] = 1$. That means $\forall x \in \R^d$, $M_x \geq 1$ a.s. Thus,
+    
+    \begin{align*}
+        0 = \PR[M_x = 0] = e^{-\omega_d\int_{0}^{\infty} r^d \rho(dr)} &\implies \int_{0}^{\infty} r^d \rho(dr) = \infty
+    \end{align*}
+
+    this is because $\omega_d$ is a constant. 
+
+    $\impliedby:$ Suppose $\int_{0}^{\infty} r^{d} \rho(dr) = \infty$. $\forall x \in \R^d$  
+    
+    \begin{align*}
+        \PR[M_x = 0] &= e^{-\omega_d\int_{0}^{\infty} r^{d} \rho(dr)} = 0 
+    \end{align*}
+
+    Thus $M_x \geq 1$ a.s. Thus $x \in O$ a.s. Thus $\R^d \subeq O \implies O = \R^d$ a.s.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Let $M$ be a poisson point process on $(E, \Ec)$ with intensity measure $\mu$. Recall that $\Lc_M$, Laplace Functional of $N$ is given by:
+    
+    \[\Lc_M(u) = E\left[\exp \left(-\int_{E} u(x) M(dx))\right) \right]\]
+
+    for all $u: E \to \R^+$ measurable.  
+\end{PROB}
+\begin{claim}{4a}\label{Claim 4a.}
+    Let $B \in \Ec$ show that if $\mu(B) < \infty$ then \[\mu(B) = -\frac{d}{dt}\Lc_M(t 1_B)|_{t = 0}\]   
+\end{claim}
+\begin{proof}
+    Suppose $B \in \Ec$ such that $\lambda = \mu(B) < \infty$. 
+    
+    \begin{align*}
+        \frac{d}{dt}\left(\Lc_M(t 1_B)\right) &= \frac{d}{dt}\left(E\left[\exp \left(- \int_{E} t 1_{B} M(dx)\right)\right]\right) \\
+        &= \frac{d}{dt}\left(E\left[\exp\left(-t \int_{B} M(dx)\right)\right]\right) \\
+        &= \frac{d}{dt}\left(E\left[\exp(-t M(B))\right]\right) \\
+        &= \frac{d}{dt}\exp(\lambda(e^{-t} - 1))
+    \end{align*}
+
+    The last equality comes from the definition of a poisson point process. 
+
+    \begin{align*}
+        -\frac{d}{dt}\left(\Lc_M(t 1_B)\right) &= -(-\lambda\exp(\lambda(e^{-t} - 1))e^{-t})
+    \end{align*}
+
+    Thus, 
+
+    \begin{align*}
+        -\frac{d}{dt}\left(\Lc_M(t 1_B)\right)|_{t = 0} = \lambda = \mu(B)
+    \end{align*}
+\end{proof}
+
+\begin{claim}{4b}\label{Claim 4b.}
+    Let $B \in \Ec$, note $\mu(B)$ doesn't need to be finite, then \[\PR\left[M(B) = 0\right] = \lim_{t \to \infty} \Lc_{M}(t 1_{B})\]   
+\end{claim}
+\begin{proof}
+    Note
+    \begin{align*}
+        L_M(t 1_B) &= E[\exp(-t M(B))]
+    \end{align*}
+    as proven above. 
+
+    \begin{enumerate}
+        \item $\mu(B) < \infty$: Then $L_M(t 1_B) = \exp(\mu(B)(e^{-t} - 1))$. Thus 
+        
+        \[\lim_{t \to \infty} L_M(t 1_B) = e^{-\mu(B)} = \frac{\mu(B)^0}{0!} e^{- \mu(B)} = \PR[M(B)  = 0 ]\]
+
+        \item $\mu(B)$ is not finite. Then $M(B) = \infty$ a.s. Thus $L_M(t 1_B) = 0$ a.s for all $t > 0$. Thus 
+        
+        \begin{align*}
+            \lim_{t \to \infty} L_M(t 1_B) = 0 = \PR[M(B) = 0]
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let $N$ be a poisson point process on $(E, \Ec)$ with intensity measure $\mu$, and let $u: E \to \R$ be measurable. Show that $\int u(x) N(dx)$ is a well defined random variable and that if $u \geq 0$ or $\int \abs{u(x)} \mu(dx) < \infty$, then 
+    
+    \[E\left[\int u(x) N(dx)\right] = \int u(x) \mu(dx) \]
+\end{PROB}
+\begin{claim}{5a}\label{Claim 5a.}
+    $\int u(x) N(dx)$ is a random variable.  
+\end{claim}
+\begin{proof}
+    For a simple function $u = \sum_{i = 0}^n c_i 1_{A_i}$ with disjoint measurable sets $A_i$. 
+    
+    \begin{align*}
+        \int u(x) N(dx) &= \sum_{i = 0}^n c_i N(A_i)
+    \end{align*}
+
+    each $N(A_i)$ is a random variable, thus their linear combination is a random variable. 
+    
+    For any nonnegative function $u$, approximate it with a sequence of monotonic simple functions $(u_n)_{n \in \N}$. By MCT $\int u_n(x) N(dx) \to \int u(x) N(dx)$, almost surely. Since $\forall n \in \N$, $\int u_n(x) N(dx)$ is a random variable, $\int u(x) N(dx)$ is a random variable. 
+    
+    Let $u  = u^+ - u^-$ where $u^+, u^- \geq 0$. By the above, $\int u^+(x) N(dx)$ and $\int u^-(x) N(dx)$ are random variables and thus the difference $u$ is a random variable. 
+\end{proof}
+\begin{claim}{5b}\label{Claim 5b.}
+    If $u \geq 0$ or $\int \abs{u(x)} \mu(dx) < \infty$, then 
+    
+    \[E\left[\int u(x) N(dx)\right] = \int u(x) \mu(dx) \]
+\end{claim}
+\begin{proof}
+    Let $u = \sum_{i = 0}^n c_i 1_{A_i}$ for disjoint measurable sets $A_i$. 
+    
+    \begin{align*}
+        E\left[\int u(x) N(dx)\right] &= E\left[\sum_{i = 0}^n c_i N(A_i)\right] \\
+        &=  \sum_{i = 0}^{n} c_i \mu(A_i) \\
+        &= \int u(x) \mu(dx)
+    \end{align*} 
+
+    Let $u \geq 0$. Approximate $u$ by a sequence of nondecreasing simple functions $\left(u_n\right)_{n \in \N}$. Thus by monotonic convergence theorem 
+    
+    \begin{align*}
+        \int u(x) N(dx) &= \lim_{n \to \infty} \int u_n(x) N(dx) \\
+        &= \lim_{n \to \infty} \int u_n(x) \mu(dx) \\
+        &= \int u(x) \mu(dx)
+    \end{align*} 
+
+    Let $u$ be a function such that $\int \abs{u(x)} \mu(dx) < \infty$. Thus let $u^+, u^- \geq 0$ where $u = u^+ - u^-$. Thus $\int u^+(x) \mu(dx), \int u^-(x) \mu(dx) < \infty$.    
+    
+    \begin{align*}
+        E\left[\int u(x) N(dx)\right] &= E\left[\int u^+(x) N(dx) - \int u^-(x) N(dx)\right] \\
+        &= \int u^+(x) \mu(dx) - \int u^-(x) \mu(dx) \\
+        &= \int u(x) \mu(dx) 
+    \end{align*}
+\end{proof}
+
+\end{document}

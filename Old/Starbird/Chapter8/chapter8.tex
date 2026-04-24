@@ -1,0 +1,419 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+
+
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 8}
+\author{Arham Lodha}%put your name here
+\date{July 18, 2024}%enter the due date here
+\maketitle
+
+\section{Connectedness}
+
+\begin{claim}{8.1}\label{Claim 8.1.}
+    The following is equivalent:
+
+    \begin{enumerate}
+        \item X is connected
+        \item There is no continuous function $f: X \to \R$ such that $f(X) = \left\{ 0, 1 \right\}$ 
+        \item X is not the union of two disjoint nonempty separated sets
+        \item X is not the union of disjoint nonempty closed sets
+        \item The only subsets of $X$ are both closed and open are the empty set and X itself
+        \item For every pair of points $p$ and $q$ and every open cover $\left\{ U_\alpha \right\}_{\alpha \in \lambda}$ of $X$ there exists a finite number of $U_\alpha$ such that $p \in U_{\alpha_1}$ and $q \in U_{\alpha_n}$ such that $\forall i < n$ $U_{\alpha_i} \cap U_{\alpha_{i + 1}} \neq \empset$  
+    \end{enumerate}
+    
+\end{claim}
+\begin{proof}
+    $1 \implies 5$: Suppose that there is a nonempty clopen proper subset $A$. Thus $\empset \neq X - A \neq X$ is clopen. Thus $A \cup (X - A) = X$ and $A \cap A^c = \empset$. Thus $X$ is not connected. 
+    
+    $5 \implies 1$: Suppose $X$ is not connected. Thus there $\exists A, B \in \T$ a pair of nonempty disjoint open subsets whose union is X. Thus $A^c = B$ and $A = B^c$ and thus $A$ and $B$ are closed. Thus 5 is false. Thus by contrapositive $5 \implies 1$
+
+    $1 \implies 4$: X is the union of disjoint nonempty closed sets $A$ and $B$. $B = A^c$ thus $B$ is clopen. Since $A \neq \empset$. Thus $X \neq B \neq \empset$. Thus $B \subset X$ is clopen, by the contrapositive of $5 \implies 1$, $X$ is not connected. Thus by the contrapositive, $1 \implies 4$. 
+
+    $4 \implies 1$: Suppose X is not connected. $X$ is the union of two disjoint nonempty open sets $A$ and $B$. Thus $B = A^c$ and $A = B^c$. A and B are disjoint nonempty closed sets. Thus 4 is false. By contrapositive $4 \implies 1$.        
+    
+    $4 \implies 3$: X is the union of two disjoint nonempty separated sets $A$ and $B$. By definition, $\overline{A} \cap B =\empset$ but since $A \cup B = X \implies B = X - \overline{A}$. By definition, $\overline{B} \cap A = \empset$, but since $A \cup B = X \implies A = X - \overline{B}$. Thus B and $A$ are open. Thus 1 is false. By contrapositive of $4 \implies 1$. Thus if 1 is false, 4 is false. Thus by contrapositive, $4 \implies 3$. 
+    
+    $3 \implies 1$: X is not connected. Thus $\exists A, B \in \T \ni A \cap B = \emptyset, A \neq \empset \neq B, A \cup B = X$. Thus $B^c = A$, thus $A$ is closed. Thus $A^c = B$ and B is closed. Thus $A$ and $B$ are seperated sets. Thus X is a union of disjoint nonempty seperated sets. Thus by contrapositive 1 is true.           
+    
+    $1 \implies 2$: Suppose there is no continous function $f: X \to \R$ such that $f(X) = {0, 1}$. $f^{-1}((-\infty, \frac{1}{2})) = f^{-1}(0)$ and $f^{-1}((\frac{1}{2}, \infty))$ are closed. X is a union of $f^{-1}(0)$ and $f^{-1}(1)$. Thus $X$ is not connected. Thus $1 \implies 2$.           
+
+    $2 \implies 1$: Suppose $2$ is true. Assume the contrary that $X$ is not connected. Thus there exists $A, B \in \T \ni A \cap B =\empset, A \cup B = X$. By the pasting lemma, $f: X = A \cup B \to \R$ such $f(A) = 0$ and $f(B) = 1$ is continous. This is a contradiction with 2. By contradiction, $2 \implies 1$.
+    
+    $6 \implies 2$: Suppose 2 is false. Thus there exists a continous function $f: X \to \R$ such that $f(X) = \left\{ 0, 1 \right\}$. Let $\left\{ f^{-1}(-\infty, \frac{1}{2} - \frac{1}{n}) \right\}_{n \in \N} \cup \left\{ f^{-1}(-\infty, \frac{1}{2} + \frac{1}{n}) \right\}_{n \in \N}$ is a open cover of $X$. $\forall n \in N$, $f^*(0) \not \subeq f^{-1}(-\infty, \frac{1}{2} + \frac{1}{n})$ and $f^*(1) \not \subeq f^{-1}(-\infty, \frac{1}{2} - \frac{1}{n})$. Thus for any finite subcover, there must be at least one open set of the form, $f^{-1}(-\infty, \frac{1}{2} + \frac{1}{n})$, and one open set of the form $f^{-1}(\frac{1}{2} - \frac{1}{n}, \infty)$. Let $\left\{f^{-1}(-\infty, \frac{1}{2} + \frac{1}{n_{1}}), \dots, f^{-1}(-\infty, \frac{1}{2} + \frac{1}{n_{k_1}}),   f^{-1}(\frac{1}{2} - \frac{1}{m_1}, \infty), \dots, f^{-1}(\frac{1}{2} - \frac{1}{m_k}, \infty) \right\}$. 
+    
+    $\forall m, n$, $f^{-1}(-\infty, \frac{1}{2} + \frac{1}{n}) \cap f^{-1}(\frac{1}{2} - \frac{1}{m}, \infty) = \empset$. Thus under any permutation of the finite subcover, there must be two open sets of different forms next to each other and thus will have no intersection. Thus violating the condition in $6$. Thus by contrapositive, $6 \implies 2$. 
+    
+    $5 \implies 6$: Suppose 5 is true. Fix a open cover $W = \left\{ W_\alpha \right\}_{\alpha \in \lambda}$ and fix any point x. Let $Y$ be the subset of $X$ which is "reachable" from $x$ through finite subcover with the condition on $6$. $Y$ is a union of open sets of the form $W_{0, \alpha}$ which are unions of all the finite subsets of $W$ where $x \in W_{\alpha_1}$. Thus $Y$ is open. Suppose $y$ is a limit point of $Y$, $\exists W_\alpha \in W \ni y \in W_\alpha \implies \exists w \in W_\alpha \cap Y$. Thus $y$ is reachable through the finite chain by simply appending $W_\alpha$ to the chain of $w$. Thus $y \in Y$. Thus $\overline{Y} = Y \implies Y = X$ since $x \in Y$ by 5. Thus any two points can be connected with a finite chain. Thus $6$ is true.       
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.3}\label{Claim 8.3.}
+    $\R$ is connected 
+\end{claim}
+\begin{proof}
+    Suppose $A \subeq \R$ is clopen and nonempty. Let $x \in A$. Assume the contrary $A \neq \R$. Thus $\exists x_0 \not \in A$. WLOG $x_0 > x$. Let $B = \left\{ y \in \R \setminus A \mid y > x \right\}$. $x_0 \in B$ and $x$ bounds B by below. Thus $\exists y = \inf B$. 
+
+    \begin{enumerate}
+        \item Suppose $y \in A$, since $A$ is open, $\exists \epsilon > 0$ such that $(y - \epsilon, y + \epsilon) \subeq A$. $\forall n \in \N$, $\exists a_n \in B \ni y < a_n \leq y + \frac{1}{n}$ by definition of infimum. Thus one can create a sequence of elements in $B$ such that $\abs{y - a_n} \leq \frac{1}{n}$. Since the sequence is montonically decreasing and thus convergent to y, $\exists K \in \N \ni \forall n \geq K, a_n - y < \epsilon \implies a_n \in (y - \epsilon, y + \epsilon) \implies a_n \in A$ which is a contradiction with the construction of $B$. 
+        \item $y \not \in A$, thus $\forall z < y$, $z \in A$ or $z < x$. Either way, $\forall \epsilon > 0$, $(y - \epsilon, y + \epsilon) \cap A \neq \empset$. Thus $y \in A$ because $A$ is closed. 
+    \end{enumerate}
+
+    Thus $A$ has no least upper bound thus $B$ is not bounded below by $x$ which is a contradiction. Thus $B$ must be empty. The argument is symmetric for $y < x$. Thus there are no elements which are greater than or less than $x$ that are not in $A$. Thus $A$ is the whole set $\R$. Thus a contradiction must occur, and $A = \R$. Thus $\R$ has no clopen sets other than itself and the empty set. Thus by 8.1, $\R$ is connected.                 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.4}\label{Claim 8.4.}
+    Let $A$ and $B$ be separated sets of a space $X$. If $C$ is a connected subset of $A \cup B$, then either $C \subeq A$ or $C \subeq B$ (mutually exclusive).        
+\end{claim}
+\begin{proof}  
+    Let $A$ and $B$ be separated sets of a space $X$. Neither $A$ or $B$ are empty otherwise the statement is trivially true. Suppose $C \subeq A \cup B \ni C \subeq A \cap B$. Thus $C \subeq A$ and $C \subeq B$ and more specifically $C \subeq A \cup B$. Thus $(A \cap C) \cup (B \cap C) = C$.
+    
+    \begin{align*}
+        \overline{A \cap C} \cap B \cap C &\subeq \overline{A} \cap \overline{C} \cap B \cap C \\
+        &= \overline{A} \cap B \cap C = \empset 
+    \end{align*}
+
+    and, 
+
+    \begin{align*}
+        \overline{B \cap C} \cap A \cap C &\subeq \overline{B} \cap \overline{C} \cap A \cap C \\
+        &= \overline{B} \cap A \cap C = \empset
+    \end{align*} 
+
+    Thus, $A \cap C$ and $B \cap C$ are seperated sets. Thus by 8.1, $C$ is not connected. Thus by contrapositive, if $C$ is a connected subset of $A \cup B$, then $C \subeq A$ or $C \subeq A$ mutually exclusively.        
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.5}\label{Claim 8.5.}
+    Let $\left\{ C_\alpha \right\}$ be a collection of connected subsets of $X$, and let $E$ be another connected subset of $X$ where $E \cap C_\alpha \neq \empset$. Then $E \cup \left(\bigcup C_\alpha\right)$ is connected.       
+\end{claim}
+\begin{proof}
+    Let $\left\{ C_\alpha \right\}$ be a collection of connected subsets of $X$, and let $E$ be another connected subset of $X$ where $E \cap C_\alpha \neq \empset$. Assume the contrary that $Y = E \cup \left(\bigcup C_\alpha\right)$ is not connected. Thus there exists disjoint nonempty open sets $A$ and $B$ whose union is $Y$, by definition of connectedness. Assume the contrary $\forall \alpha \in C_\alpha$ $C_\alpha \subeq A \cap B$. Then $A \cap C_\alpha$ and $B \cap C_\alpha$ are disjoint nonempty open subsets of the subspace topology of $C_\alpha$ whose union is $C_\alpha$ since $C_\alpha \subeq A \cup B$. Thus by definition, $C_\alpha$ is not connected which is a contradiction. Thus $C_\alpha \subeq A$ exclusive or $C_\alpha \subeq B$. By the same arguement, $E \subeq A$ exclusive or $E \subeq B$. WLOG, $E \subeq A$. Since $B$ is nonempty, $\exists \beta \in \lambda \ni C_\alpha \subeq B$. By the assumption, $\exists x \in A \cap C_\beta \implies x \in A \cap B \cap E$ which is a contradiction since $E \subeq A$ but $A \cap B = \empset$. Thus by contradiction, $Y$ must be connected.        
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.6}\label{Claim 8.6.}
+    Let $C$ be a connected subset of $X$. If $D \subeq X \ni C \subeq D \subeq \overline{C}$, then $D$ is connected.     
+\end{claim}
+\begin{proof}
+    Let $C$ be a connected subset of $X$. Let $D \subeq X \ni C \subeq D \subeq \overline{C}$. It suffices to assume, $C \subset D$ because if $C = D$ then $D$ is by definition connected. Assume the contrary, that D is not connected, thus there exists disjoint nonempty open sets $A$ and $B$ such that $A \cup B = D$. Since $\exists x \in D \setminus C$, $x \in \overline{C}$ thus $x$ is a limit point of $C$. WLOG $x \in A$, then $C \cap A \neq \empset$. 
+    
+    \begin{enumerate}
+        \item Case 1: Suppose $C \subeq A$. Thus $\exists y \in (B \cap D) \setminus C$, again by definition of limit point $C \cap B \neq \empset$ since $A$ and $B$ are disjoint. Which is a contradiction, thus $C \not \subeq A$ . 
+        \item Case 2: Suppose $C \cap B \neq \empset$. Then $C \cap A \neq \empset$ and $C \cap B \neq \empset$ are open disjoint sets whose union is $C$. Thus $C$ is not connected. Thus a contradiction occurs.      
+    \end{enumerate}
+
+    Thus by contradiction, D must be connected.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8.7}\label{Problem 8.7.}
+    Show that the closure of the topologist's sine curve in $\R$ is connected.
+\end{PROB}
+\begin{proof}
+    Let $S = \left\{ \left(x, \sin\left(\frac{1}{x}\right)\right) \mid x \in (0, 1)\right\}$ is the topologist's sine curve. 
+    
+    Let $f: (0, 1) \to S$ where $x \to \left(x, \frac{1}{x}\right)$. $f$ is surjective. Suppose $\forall x, y \in (0, 1) \ni f(x) = f(y) \implies (x, \sin(\frac{1}{x})) = (y, \sin(\frac{1}{y})) \implies x = y$. Thus $f$ is injective. Thus $f$ is a bijection. 
+
+    The subbasis of open sets of $S$ is of the form $\left\{ \left(x, \sin\left(\frac{1}{x}\right)\right) \mid x \in (a, b) \right\}$ for $0 \leq a < b \leq 1$. Thus $\forall a,b \ni 0 \leq a < b \leq 1$, $f^{-1}(\left\{ \left(x, \sin\left(\frac{1}{x}\right)\right) \mid x \in (a, b) \right\}) = (a, b)$, a open set, by construction of $f$. Thus by 7.14, $f$ is continous. 
+    
+    Let U be a open set of $(0, 1)$, $U = \bigcup_{\alpha \in \lambda}(a_\alpha, b_\alpha)$. Thus \[f_*(U) = \bigcup_{\alpha \in \lambda} f_*((a_\alpha, b_\alpha)) = \bigcup_{\alpha \in \lambda} \left\{ \left(x, \sin\left(\frac{1}{x}\right)\right) \mid x \in (a_\alpha, b_\alpha) \right\}\]
+    
+    Thus $f$ is open. By 7.28, $f$ is a homeomorphism. Thus $S \cong (0, 1) \cong \R \implies S \cong \R$. Let $g: \R \to S$ be the corresponding continous function.  
+    
+    Assume the contrary S is not connected. By 8.1, $\exists h: S \to \R$ continous where $h(S) = \left\{ 0, 1 \right\}$. Thus by 7.9, $h \circ g$ a continous map from $\R \to \R$ where $(h \circ g)_*(\R) = \left\{ 0, 1s \right\}$. By 8.1 this implies $\R$ is not connected. Which is a contradiction by 8.3. Thus by contradiction $S$ is connected. 
+    
+    Thus by 8.6, $\overline{S}$ is connected.  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.8}\label{Claim 8.8.}
+    Let $X$ be a connected space, $C$ a connected subset of $X$, and $X - C = A \mid B$ . Then $A \cup C$ and $B \cup C$ are each connected.
+\end{claim}
+\begin{proof}
+    It suffices to prove that $A \cup C$ is connected as the proof is symmetric for $B \cup C$. 
+    Assume the contrary that $A \cup C$ is not connected. Then there are nonempty open sets $D$ and $E$ such that $A \cup C \subeq D \cup E$ where $(A \cup C) \cap (D \cap E) = \empset$ . $C \subeq D$ xor $C \subeq E$. WLOG $C \subeq D$.
+    
+    Let $F = E \cap (A \cup C) = E \cap A \cup E \cap C = E \cap A$ since $E \cap C \subeq E \cap D = \empset$. 
+    
+    \textbf{F is open}: $\forall f \in F$. Assume the contrary that $f \in \overline{C} \implies F \cap C \neq \empset$ but $F \cap C \subeq F \cap D \subeq E \cap D = \empset$. Thus by contradiction, $f \not \in \overline{C}$. Since $F \subeq A \implies F \cap \overline{B} = \empset$, by assumption of separated sets. Thus $f \not \in \overline{B} \cup \overline{C} = \overline{B \cup C}$. Thus $f \in V = X - \overline{B \cup C} \subeq A$. Assume the contrary, $f \in D \implies D \cap F \neq \empset$. But $D \cap E = \empset$. Thus by contradiction $f \not \in D \implies f \in E$. Thus $f \in E \cap V \subeq F^\circ$. Thus $F \subeq F^\circ \implies F \in \T$. 
+    
+    \textbf{F is closed:} $\forall f \in \overline{F} = \overline{E \cap A} \subeq \overline{E} \cap \overline{A}$. $f \not \in B$ because $f \in \overline{A}$. Thus $f \in A \cup B$. Assume the contrary that, $f \in D \implies D \cap (E \cap A) \neq \empset$ which is a contradiction. Thus $f \in E$. $f \not \in C$ because otherwise $f\in D$ which is a contradiction. Thus $f \in A$. Thus $f \in E \cup A \implies f \in F$. Thus $\overline{F} = F$. Thus $F$ is closed. 
+    
+    Thus $F$ is open and closed. $F$ cannot be empty because that would mean $E \cap A = \empset \implies E = \empset$ which is a contradiction. Thus $F$ is nonempty clopen set. $F$ cannot be $X$ because otherwise $E = X$ and $D = \empset$ which is a contradiction. Thus $X$ a proper nonempty clopen subset $F$. Thus X is not connected. Thus by contradiction $A \cup C$ must be connected.    
+
+\end{proof}
+
+
+\bigskip
+
+\begin{claim}{8.9}\label{Claim 8.9.}
+    Let $f:X \to Y$  be a continuous, surjective function. If $X$  is connected, then Y is connected.
+\end{claim}
+\begin{proof}
+    Suppose $Y$ is not connected. Thus $\exists U, V \in \T$ such that $U \cup V = Y$ but $U \cap V = \empset$. Thus $f^{-1}(U) \cup f^{-1}(V) = X$,by surjectivity, but $f^{-1}(U) \cap f^{-1}(V) = \empset$ and $f^{-1}(U), f^*(V) \in \T_X$ by continuity. Thus $X$ is not connected. Thus by contrapositive, if $X$ is connected then $Y$ is connected.         
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.10}\label{Claim 8.10.}
+    Intermediate value theorem
+\end{claim}
+\begin{proof}
+    Assume the contrary $\exists r \in (f(a), f(b)) \ni \exists c \in (a, b) \ni f(c) = r$. Thus $f^{-1}(\R \setminus {r}) = (a, b)$. Thus $f^{-1}((- \infty, r)) \cup f^{-1}((r, \infty)) = (a, b)$ and by definition, $f^{-1}((- \infty, r)) \cap f^{-1}((r, \infty))$. For $\epsilon = \abs{r - f(a)}/2 \exists \delta > 0 \ni \forall x \in (a - \delta, a + \delta), \abs{f(x) - f(a)} < \epsilon$. Thus $\exists x \in (a, a + \delta) \subeq (a, b) \ni x \in f^{-1}((-\infty, r))$. Similarly $f^{-1}((r, \infty))$ is nonempty. Thus $(a, b)$ is not connected which is a contradiction since $(a, b) \cong \R$ which is connected. Thus IVT is true. 
+    
+    Alternate proof uses the cover $\left\{ f^{-1}((-\infty, r - \frac{1}{n})) \right\} \cup \left\{ f^{-1}((-\infty, r + \frac{1}{n})) \right\}$ and uses the cover definition of connectedness.  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.11}\label{Claim 8.11.}
+    $X \times Y$ is connected $\iff$ $X$ is connected and $Y$ is connected    
+\end{claim}
+\begin{proof}
+    $\implies$: $\pi_x$ and $\pi_y$ are continous surjective functions. By 8.9, $X$ and $Y$ are connected. 
+    
+    $\impliedby$: To show $X \times Y$ is connected. It suffices to show that $f: X \times Y = \left\{ 0, 1 \right\}$ is constant. 
+    
+    Fix a $(x_0, y_0)$. Let $g: X \to \left\{ 0, 1 \right\}$ where $x \to f(x, y_0)$. Let $h: Y \to \left\{ 0, 1 \right\}$ where $y \to f(x_0, y)$. $g = f|_{y_0 \times X}$ and $h = f|_{x_0 \times Y}$. Thus $g$ and $h$ are continous (7.4) and thus constant since $X$ and $Y$ are connected. Thus $\forall x \in X$ and $\forall y \in Y$, $f(x, y_0) = f(x_0, y_0) = f(x_0, y)$. 
+    
+    $\forall (x_1, y_1) \in X$, repeat the same thing and what you see is that $\forall x, y \in X \times Y$, $f(x, y_1) = f(x_1, y_1) = f(x_1, y)$. Thus $f(x_1, x_1) = f(x_1, y_0) = f(x_0, y_0)$. Thus $\forall x, y \in X \times Y$, $f(x, y) = f(x_0, y_0)$. Thus $f$ is a constant. Thus $X \times Y$ is constant.          
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.12}\label{Claim 8.12.}
+    $Z = \prod X_\alpha$ is connected $\iff$ $X_\alpha$ is connected   
+\end{claim}
+\begin{proof}
+    $\implies:$ $\pi_\alpha$ are continous surjective functions. Thus by 8.9, $X_\alpha$ is connected. 
+    
+    % $\impliedby:$ To show $Z$ is connected, it suffices to show any continous function $f: Z \to \left\{ 0, 1 \right\}$ is constant. 
+    
+    % Fix a $x_0 \in Z$. Let $g_\alpha: X_\alpha \to \left\{ 0, 1 \right\}$, where $x \to f(x_\alpha, x_0)$. $g_\alpha$ is continous. By 8.1, $g_\alpha$ is constant. Thus $f(x_\alpha, x_0) = f(x_0)$. 
+    
+    % Pretty similar to 8.11
+
+    Just do 8.11
+\end{proof}
+
+\pagebreak
+
+\section{Cardinality, Separation Axioms, and Connectedness}
+\begin{claim}{8.14}\label{Claim 8.14.}
+    X countable, regular, $T_1$ with more than 1 point $\implies$ not connected    
+\end{claim}
+\begin{proof}
+\end{proof}
+
+\pagebreak
+
+\section{Components}
+\begin{claim}{8.18}\label{Claim 8.18.}
+    Each component of $X$ is connected, closed, and not contained in a larger connected subset of $X$  
+\end{claim}
+\begin{proof}
+    $\forall p \in X$, let $C$ be its connected component.     
+    \begin{enumerate}
+        \item By 8.5, $C$ is connected. 
+        \item For all $q$ limit points of $C$. Thus $\forall U_q \in \T \ni (U_q \setminus q) \cap C \neq \empset$. Thus for any cover of $X$, there must be a $U_q$ in the cover which intersects $C$ at some point. Since that point can be reached with a finite chain of open sets. Then q can be reached by a finite chain of open sets by appending $U_q$. Thus $q \in C$. Thus $C$ is closed.            
+        \item Let $D$ be a connected subset of $X$ such that $C \subseteq D$. Thus $D$ is a connected subset which contains $p$. Thus $D \subseteq C$. Thus $C = D.$          
+    \end{enumerate}
+    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.19}\label{Claim 8.19.}
+    The set of connected components is a partition of $X$. Connected components define a equivalence relation. 
+\end{claim}
+\begin{proof}
+    $\forall p , q \in X$, $p \sim q \iff q \in C_p$. 
+    
+    \begin{enumerate}
+        \item Symmetric: $p \sim q \implies q \in C_p$ then for any open cover there is a chain of open sets which take p to q. Thus reversing the chain of open sets takes $q$ to $p$. Thus $p \in C_q$. 
+        \item Reflexive: For any open cover, there is a chain of size one which takes $p$ to $p$. Thus $p \in C_p$. 
+        \item Transitive: $p \sim q$ and $q \sim r$ implies $p \sim r$. Append chain from $p \to q$ and chain from $q \to r$. Both are finite thus $p \to r$ is finite.       
+    \end{enumerate}
+
+    The set of connected components defines a equivalence relation and thus defines a partition on $X$. 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.20}\label{Claim 8.20.}
+    Let $X$ be a topological space, and let $\left\{ H_\alpha \right\}_{\alpha \in \lambda}$  be the set of subsets of X that are both open and closed. Then the following are equivalent:
+
+    \begin{enumerate}
+        \item For every two components A and B of X,there exists a separation of X into two disjoint closed sets such that A is in one and B is in the other.
+        \item For every component $A$ of $X$
+        
+        \[
+        \bigcap_{\alpha \in \lambda} \left\{ H_\alpha \mid A \subeq H_\alpha \right\} = A
+        \] 
+    \end{enumerate}
+    
+\end{claim}
+\begin{proof}
+    $1 \implies 2$: Let $A$ and $B$ be two components of $X$. Then there $\exists C, D \in \mathcal{C} \ni A \subeq C, B \subeq D \ni C \cap D = \empset, C \cup D = X$. Thus $C$ and $D$ are clopen. Thus $C \in \left\{ H_a \mid A \subeq H_\alpha \right\}$. Do this for all $x \in X \setminus A$ where $B$ is the component of $x$. 
+    
+    \begin{align*}
+        X - \bigcup_{x \in X / A} D_a &= \bigcap_{x \in X / A} C_a = A
+    \end{align*}
+
+    $2 \implies 1$: For any two components, $\exists \alpha$ such that $A \subeq H_\alpha \implies B \subeq X - H_\alpha$ because otherwise $A$ and $B$ would be connected which is a contradiction.    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.21}\label{Claim 8.21.}
+    Let $X$ be a compact space and let $U$ be a open set in $X$. $\left\{ H_\alpha \right\}$ is a collection of closed sets whose intersection lies in $U$. Then $\exists$ finite $H_\alpha$ whose intersection lies in $U$.         
+\end{claim}
+\begin{proof}
+    Claim 6.5
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.22}\label{Claim 8.22.}
+    Let A and B be a components of a compact Hausdorff space X. Then $X = H | K$ where $A \subeq H$ and $B \subeq K$    
+\end{claim}
+\begin{proof}
+    X is normal by 6.12. Thus by 4.10, $\exists U, V \in \T \ni A \subeq U, B \subeq V, \overline{U} \cap \overline{V} = \empset$.   
+\end{proof}
+
+\pagebreak
+
+\section{Path or Arcwise connected}
+
+\begin{claim}{8.35}\label{Claim 8.35.}
+    Path connected implies connected
+\end{claim}
+\begin{proof}
+    Suppose $X$ is not connected. Thus there are disjoint nonempty open sets $U$ and $V$ whose union is $X$. Let $p \in U$ and $q \in V$. Assume the contrary $\exists f : [0, 1] \to X$, continous where $f(0) = p$ and $f(1) = q$. $[0, 1] = f_*(X) = f^*(U \cup V) = f^*(U) \cup f^*(V)$ and $f^*(U) \cap f^*(V) = \empset$. Also $0 \in f^*(U)$ and $1 \in f^*(V)$. Thus $[0, 1]$ is not connected. But $[0, 1] = \cl((0, 1))$ and $(0, 1)$ is connected. By 8.6, $[0, 1]$ is connected. Thus by contradiction there is no continous function $f: [0, 1] \to X$ where $f(0) = p$ and $f(1) = q$. Thus $p$ and $q$ are not path connected. Thus $X$ is not path connected.       
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8.36}\label{Problem 8.36.}
+    Let $K = \left\{ \frac{1}{n} \mid n \in \N \right\}$ 
+    \[
+    C = [0, 1] \times \left\{ 0 \right\} \cup K \times [0, 1]
+    \]
+
+    is the topologist's comb. 
+
+    Let $X = C \cup \left\{ (0, 1) \right\}$ be the flea and comb space. X is connected but not path connected
+\end{PROB}
+\begin{proof}
+    C is path connected thus connected. To show $(0, 1)$ is a limit point of $C$ it suffices to show that $\forall \epsilon > 0$, $B_\epsilon = B_\epsilon((0, 1)) $ has a non empty intersection with $C$. Since $\frac{1}{n}\to 0$, $\exists K \in \N \ni \forall n \geq K$, $\frac{1}{n} < \epsilon$. Thus, $d(\left(\frac{1}{n}, 1\right), (0, 1)) = \sqrt{\frac{1}{n^2}} = \frac{1}{n} < \epsilon \implies (\frac{1}{n}, 1) \in B_\epsilon$. But $(\frac{1}{n}, 1) \in K \times [0, 1] \subeq C$. Thus $(\frac{1}{n}, 1) \in B_\epsilon \cap C$. Thus $(0, 1)\in \overline{C}$. Thus $X$ is connected by 8.6. 
+    
+    $\left\{ (0, 1) \right\}$ is closed (take any other element of $C$ show that there is a open ball such that it has no intersection with $(0, 1)$). Let $p: [0,1] \to X$ any continous function where $p(0) = (0, 1)$ we want to show that $p(t) = (0, 1)$ for all t.
+    
+    $A = p^*((0, 1))$. By continuity $A$ is closed. 
+    We want to show A is open by showing $\forall t \in A$ there is a open set around t contained in $A$. By continuity, $\exists \delta > 0 \ni x \in [0, 1] \ni \abs{x - t} < \delta \implies \abs{f(x) - f(t)} = \abs{f(x) - (1, 0)} < \frac{1}{2}$. No point on the X axis is within $\frac{1}{2}$ of $(0, 1)$. 
+    
+    Let $\pi_x$ be the projection onto $X$ axis. For points in $D$ not on the $X$ axis, the x coordinate is 0 iff point in (0, 1) or $\frac{1}{n}$ otherwise. Let $f: (t_0 - \delta, t_0 + \delta) \cap [0, 1] \to \R$ where $f = \pi_x \circ p$ is continuous. $(t_0 - \delta, t_0 + \delta) \cap [0, 1]$ is a open interval of [0, 1] and thus is connected. Thus $f(I)$ is connected and belongs to $\overline{K}$. Thus $f(I)$ is a single point since the only connected subspace of $\overline{K}$ is a single point. Since $t_0 \in I$, $f(I) = f(t_0) = 0$. Since $I$ is open. $f^{-1}(I) \subeq A$ is open. Thus $A$ is open. Thus $A = [0, 1]$. Thus $p$ is constant. thus there is no path from (0, 1) to any other point in X.                     
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.37}\label{Claim 8.37.}
+    X and Y are path connected $\implies X \times Y$ is path connected   
+\end{claim}
+\begin{proof}
+    $\forall (a, b), (c, d) \in X \times Y$. $\left\{ a \right\} \times Y \cong Y$ under the map $\alpha_1: y \to (a, y)$. $X \cong X \times {d}$ under the map $\alpha_2: x \to (x, d)$. Since $Y$ is path connected, there is a path $f$ from $b \to d$. Similarly since $X$ is path connected, there is a path $g$ from $a \to c$. Thus there is a path $s: \alpha_1 \circ f$  from $(a, b) \to (a, d)$ and a path $t: \alpha_2 \circ g$ from $(a, d) \to (c, d)$. $[0, 1] \cong [0, \frac{1}{2}]$ let $\rho: [0, \frac{1}{2}] \to [0, 1]$ be the the map. $[0, 1] \cong [\frac{1}{2}, 1]$ let $\sigma: [\frac{1}{2}, 1] \to [0, 1]$ be the map. By the pasting lemma, $\exists h: [0, 1] \to X \times Y$ where $h|_{[0, \frac{1}{2}]} = s \circ \rho$ and $h|_{[\frac{1}{2}, 1]} = t \circ \sigma$ since there is agreement on $\frac{1}{2}$. Thus there is a path from $(a, b) \to (c,d)$. Thus $X \times Y$ is path connected.    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.41}\label{Claim 8.41.}
+    If $p$ and $q$ are path connected in a Hausdorff space X by a path $f$. Then there is an embedding $h$ of $[0, 1]$ into $X$    
+\end{claim}
+\begin{proof}
+\url{    https://www.wcupa.edu/sciences-mathematics/mathematics/jBrazas/documents/Constructing_arcs_from_paths_9-9-21.pdf
+}
+
+\end{proof}
+
+\end{document}

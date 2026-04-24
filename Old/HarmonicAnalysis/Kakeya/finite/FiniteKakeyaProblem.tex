@@ -1,0 +1,161 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+%End custom theorems
+\begin{document}
+
+\title{Kakeya Problem}
+\author{Arham Lodha}%put your name here
+\date{October 14, 2024}%enter the due date here
+\maketitle
+
+\section{Preliminary}
+\subsection{Definitions}
+\begin{definition}
+    For $S \subeq \R^n$. Let $\left\{ B_{\delta_\alpha} \right\}_{\alpha \in \lambda}$ be cover of $S$ such that $\sum_{\alpha \in \lambda} \delta_\alpha^d$ is minimized. Take $r_\alpha \to 0$ while adding balls as needed to continue to cover $S$. Then \textbf{The Hausdorff d-measure} \[\mathcal{H}^d(S) := \lim_{\epsilon \to 0} \inf \left\{ \sum_{\alpha \in \lambda} r_i^d : \text{S is covered by balls of radius $r_\alpha < \epsilon$} \right\}\]     
+\end{definition}
+
+\bigskip
+
+\begin{definition}
+    \textbf{Hausdorff Dimension} of a set $S$ is the critical value of $d$ such that $\mathcal{H}^d(S)$ changes from infinity to 0 or
+    
+    \[\dim_H(S) := \inf \left\{ d : \mathcal{H}^d(S) = 0 \right\}\]
+
+    Hausdorff Dimension measures how fine a set is at smaller and smaller scales. 
+\end{definition}
+
+\bigskip
+
+\begin{definition}
+    For $S \subeq \R^n$, let $f_S: [0, \infty) \to \N$ be a function which takes $\epsilon$ to the minimum number of $[0, \epsilon]^n$ boxes required to cover $S$.   
+    The \textbf{Upper Minkowski Dimension} is 
+    
+    \[\overline{\dim}_{box}(S) := \lim_{\epsilon \to 0} \sup \frac{\log(f(\epsilon))}{\log(\frac{1}{\epsilon})}\]
+    
+    and the \textbf{Lower Minkowski Dimension} is
+    \[\underline{\dim}_{box}(S) := \lim_{\epsilon \to 0} \inf \frac{\log(f(\epsilon))}{\log(\frac{1}{\epsilon})}\]
+\end{definition}
+
+\bigskip
+
+\begin{definition}
+    Let $S \subeq \R^n$. S is \textbf{Besicovitch} set $\iff$ the unit line segment is contained in S in every direction. 
+\end{definition}
+
+\bigskip
+
+\subsection{Background}
+
+TBD
+
+\section{The Finite Field Analogue}
+
+In 1999, Thomas Wolff proposed a Finite Field Analogue to the Kakeya Conjecture which is as follows: 
+
+\begin{theorem}{\textbf{Finite Field Kakeya Conjecture}.}
+    Let $E \subeq \F_q^n$ be a Kakeya set. Then \[\abs{E} \geq c_n q^n, \] where $c_n \geq 0$ and $c_n$ depends only on $n$.     
+\end{theorem}
+
+\subsection{The Idea}
+
+The idea to bound $E$ is to look at polynomials which vanish on $E$. There is a very basic theorem connecting one dimensional sets $E$ and polynomials of one variable. 
+
+\begin{theorem}{\textbf{Factor Theorem}}
+    Let $\F$ be a field and $d \geq 1$. 
+
+    \begin{enumerate}
+        \item If $P \subeq \F[x] \ni P \neq 0$ and $\deg P \leq d \implies \abs{\left\{ x \in \F \ni P(x) = 0 \right\}} \leq d$. 
+        \item Conversely, let $E \subeq \F$. If $\abs{E} \leq d$, then $\exists P \in \F[X] \ni P \neq 0, \deg P \leq d$.       
+    \end{enumerate}
+    
+\end{theorem}
+
+This theorem gives a upper and lower bound on $E \subeq \F$.
+
+\begin{enumerate}
+    \item \textbf{Upper Bound}: If $\exists P \in \F[x] \ni P(E) = 0 \implies \abs{E} \leq \deg P$
+    \item \textbf{Lower Bound}: If $\forall P \in \F[x] \ni P \neq 0$, and  $\deg P \leq d$, $P(E) \neq 0$ then $\abs{E} \geq d$.   
+\end{enumerate}
+
+For the finite field problem, the lower bound is only helpful. 
+
+There are higher dimensional analogues for Theorem 2.2.1 and Theorem 2.2.2. These sorts of techniques and results are collectively referred to as the polynomial method in extremal algebraic combinatorics. For Dvir’s argument, we will need a very simple higher-dimensional version of 2.
+
+\subsection{The Argument}
+
+\begin{lemma}
+    Let $E \subeq \F^n \ni \abs{E} < {n + d\choose n}$ for some $d \geq 0$. Then $\exists P \in \F[x_1, \dots, x_n]$ nonzero of degree at most $d$ which vanishes on $E$     
+\end{lemma}
+\begin{proof}
+    Let $V \leq \F[x_1, \dots, x_n]$ be the subspace of polynomials of at most degree $d$. $\dim V = {n + d\choose n}$ (Use repeated combinations). $\F^E$ is the set of $\F$ valued functions of $E$ has dimension $\abs{E} < {n + d\choose n}$. Thus the evaluation map $\rho : P \to (P(x))_{x \in E}$ is not injective (rank nullity: image has dimension at most ${n + d\choose n} - 1$ so kernel has dimension at least 1). Thus $\exists P \in \ker \rho$ such that $(P(x))_{x \in E} = \vec{0}$.             
+\end{proof}
+
+\bigskip
+
+\begin{lemma}
+    Let $P \subeq \F_q[x_1, \dots, x_n]$ be a polynomial of degree of at most $q - 1$ which vanishes on $E \subeq \F_q^n$. Then $P$ is identically 0.    
+\end{lemma}
+\begin{proof}
+    Assume the contrary that $P \neq 0$. Then $P = \sum_{i = 1}^d P_i$ where $0 \leq d = \deg P \leq q - 1$ and $P_i$ is the ith homogeneous component. Thus $P_d \neq 0$. Since $P$ vanishes on $E$, $d$ cannot be $0$.
+    
+    Let $v \in \F_q^n \setminus \left\{ 0 \right\}$. Since $E$ is a Kakeya set, $\left\{ x + tv : t \in \F_q \right\} \subeq E$ for some $x = x_v \in \F_q^n$ ("basepoint" dependent on direction). Thus $P(x + tv) = 0$. The left hand side is a polynomial of $t$ in degree at least $q - 1$. But by the factor theorem, if left hand side is nonzero, the set of possible zeroes has cardinality at most $q - 1$. Thus left hand side has to be identically zero. More accuratly the $P_d(v)$, coefficient of $t^d$, vanishes for any nonzero $v$.  Since $P_d$ is homogeneous of degree d > 0, $P_d$ vanishes on all of $\F_p^n$. $P_d$ also has degree less than $q$, repeated application of Factor Theorem for each variable tells us that $P_d = 0$ which is a contradiction. Thus $P$ must be identically 0.                 
+\end{proof}
+
+The point here is that a low-degree polynomial which vanishes on a line must also vanish on the point at infinity where the line touches the hyperplane at infinity. Thus a polynomial which vanishes on a Kakeya set vanishes at the entire hyperplane at infinity. One can then divide out the defining polynomial for that hyperplane and repeat the process to conclude that the polynomial vanishes identically
+
+\begin{proof}
+    Now we can get a bound on the Kakeya sets. Let $E \subeq \F_q^n$ be any Kakeya set. By Lemma 2.2, the only polynomial of at most degree $q - 1$ which vanishes on $E$ is the 0 polynomial. So by the contrapositive of Lemma 2.1, \[\abs{E} \geq {n + q - 1 \choose n} = \frac{(n + q - 1)!}{n! (q - 1)!} = \frac{1}{n!}q^n + O_n(q^{n - 1}) \text{ (Modulo some Algebraic Manipulation)}\]    
+
+Thus $\exists a_n \ni O_n(q^{n - 1}) = a_n q^{n - 1}$. Thus 
+
+\[\abs{E} \leq q^n \left(\frac{1}{n} + \frac{a_n}{q}\right) = c_n q^n\]
+
+where $c_n = \frac{1}{n} + \frac{a_n}{q}$.  
+\end{proof}
+
+\end{document}

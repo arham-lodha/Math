@@ -1,0 +1,232 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\meas}{\text{measure}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\h}[1]{\Hat{#1}}
+
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 1}
+\author{Arham Lodha}%put your name here
+\date{May 23, 2024}%enter the due date here
+\maketitle
+
+\section{The Lebesgue Integral}
+\begin{PROB}{2}\label{Problem 2.}
+    Check that if $f_1, f_2, \dots$ are real continuous functions on the line and if $f = \lim_{n \to \infty} f_n$ exists pointwise, then $(x: 0 \leq f(x) < 1)$ is measurable. Hint: $(x: f(x) < 1) = \bigcup_{k \geq 1} \bigcup_{m \geq 1} \bigcap_{n \geq m}(x: f(x) \leq 1 - \frac{1}{k})$     
+\end{PROB}
+\begin{proof}
+    Since $f_1, f_2, \dots$ are real continuous functions on the line, they are Borel Measurable. Since $f$ is seen as the pointwise limit of $f_1, f_2, \dots$, it is borel measureable since borel measurable functions are closed under countable pointwise limits. $\forall n \in \N$, $[1, \infty)$ is a closed sets, thus $f^*_{n}\left\{ [1, \infty) \right\}$ is closed thus borel measurable. Thus $(x: f(x) < 1) = \bigcup_{k \geq 1} \bigcup_{m \geq 1} \bigcap_{n \geq m}(x: f(x) \leq 1 - \frac{1}{k})$ is borel measurable since measurable sets are closed under countable unions and intersections. $(x: 0 \leq f(x) < 1) = (x: 0 \leq f(x)) \cap (x : f(x) < 1)$ is measurable.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    \begin{equation*}
+        f(x) := \begin{cases*}
+            1 & \text{if $x \in \Q$} \\
+            0 &  \text{if $x \not \in \Q$} \\
+        \end{cases*}
+    \end{equation*}
+
+    Calculate $\int_{0}^1 f$ 
+\end{PROB}
+\begin{proof}
+    \begin{align*}
+        \int_{0}^1 f &= 1 * \mu(x \in [0, 1] : f(x) = 1) \\
+        &= 1 * \mu(x \in [0, 1]: x \in \Q) \\
+        &= 0
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4}\label{Claim 4.}
+    \[
+        \lim_{n \to \infty} \int f_n = \int f
+    \]
+
+    if $f_1 \geq f_2 \geq \dots$, $\lim_{n \to \infty} f_n = f$, and $\int f_1^+ < \infty$   
+\end{claim}
+\begin{proof}
+    Let $g_n(x) := f_{1}(x) - f_{n + 1}(x)$. Thus $g_0 = 0$ and $0 \leq g_1 \leq g_2 \leq \dots$. Since $\lim g_n = f_1 - f$, $\lim \int g_n = \int (f_1 - f)$. 
+
+    \begin{align*}
+        \lim \int g_n &= \int (f_1 - f) \\
+        \lim \int \left(f_1 - f_n\right) &= \int f_1 - \int f \\
+        -\lim \int f_n  &= - \int f \\
+        \lim \int f_n  &= \int f \\
+    \end{align*}
+\end{proof}
+
+\pagebreak
+
+\section{Geometry of $L^2(Q)$ continued}
+\begin{PROB}{1}\label{Problem 1.}
+\end{PROB}
+\begin{solution}
+    Let $\left\{ e_i \right\}_{i = 1}^n$ be a family of unit perpendicular members. 
+    
+    \begin{align*}
+        \abs{e_i - e_j}^2 &= \angles{e_i - e_j, e_i - e_j} \\
+        &= \angles{e_i, e_i - e_j} - \angles{e_j, e_i - e_j} \\
+        &= \angles{e_i, e_i} - 2\angles{e_i, e_j} + \angles{e_j, e_j} \\
+        &= 1 - 2\angles{e_i, e_j} + 1 = 2
+    \end{align*}
+
+    Thus $\abs{e_i - e_j} = \sqrt{2}$ 
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+\end{PROB}
+\begin{proof}
+    $\forall c_n \in \C$ and $e_n$ part of the family of unit perpendicular, $c_n e_n \in L^2(Q)$. Thus $f_n(x) := \sum_{k = 1}^{n} c_k e_k \in L^2(Q)$. Take the sequence $\left\{ f_n \right\}_{n \to \infty}$. $\forall \epsilon > 0$, for this $\epsilon$ $\exists K \in \N \ni \forall n \geq K,  \sum_{k = 1}^n \abs{c_k}^2 < \epsilon$. Thus $\forall m > n \geq K$    
+    
+    \begin{align*}
+        \abs{f_m - f_n} &= \abs{\sum_{k = 1}^m c_k e_k - \sum_{k = 1}^{n} c_k e_k} \\
+        &= \abs{\sum_{k = n + 1}^m c_k e_k} \\
+        &= \sqrt{\int_{-\infty}^\infty \abs{ \sum_{k = n + 1}^m c_k e_k }^2 dx} \\
+        &= \sum_{k = n + 1} \abs{c_k}^2 < \epsilon &(\text{Because $\sum_{k = n + 1} \abs{c_k}^2$ is convergent })
+    \end{align*}
+
+    Thus $\left\{ f_n \right\}_{n \in \N}$ is cauchy thus convergent in $L_2$. Thus $\exists f = \lim_{n \to \infty} f_n \in L_2$ pointwise.
+    
+    
+    \begin{align*}
+        \abs{\abs{f}}^2 &= \int_{-\infty}^{\infty} \abs{f(x)}^2 dx \\
+        &= \int_{-\infty}^{\infty}\abs{\sum_{n = 1}^{\infty} c_k e_k(x)}^2 dx \\
+        &= \sum_{n = 1}^{\infty}\abs{c_k}^2 \\
+        &= \sum_{n = 1}^{\infty} c_k \overline{c_k} \\
+        &= (c_k \cdot c_k)_{\C} \\
+        &= \abs{c}^2
+    \end{align*} 
+
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{10}\label{Problem 10.}
+    $\forall A \subseteq L^2(Q)$, $A^\perp$ is closed   
+\end{PROB}
+\begin{proof}
+    Let $\left\{ y_n \right\}_{n \in \infty} \subset A^\perp$ such that $y_n \to y$. 
+    
+    \begin{equation*}
+        \angles{y, a} = \lim_{n \to \infty}\angles{y_n, a} = 0 \implies y \in A^\perp
+    \end{equation*}
+
+    Thus $A^\perp$ is closed. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Check that $f \in C^\infty(S^1) \iff \hat{f}$ is rapidly decreasing in the sense that $n^p\hat{f}(n)$ approaches 0 as $\abs{n} \to \infty$ for every $p < \infty$    
+\end{PROB}
+\begin{proof}
+    $\implies$: Suppose $f \in C^\infty(S^1)$. 
+    
+    Since, \begin{align*}
+        \h{ f'}(n) = 2 \pi i n \h{f}(n)
+    \end{align*}
+    
+    thus $\forall p > 0$ since $f \in C^{\infty}(S^1)$ and $f^{(p)}$ is continuous:
+    
+    \begin{align*}
+        \h{f^{(p)}}(n) = \left(2 \pi i n\right)^p\h{f}(n) \implies \h{f} = \frac{\h{f^{(p)}}(n) }{\left(2 \pi i n\right)^p} = \mathcal{O}(-p)
+    \end{align*}
+
+    Thus $\forall p > 0$: $\sum_{-\infty}^{\infty} \abs{\h{f'}n^{p - 2}}$ is convergent and $\h{f}$ is rapidly decreasing.
+    
+    $\impliedby: $ Suppose $\h{f}$ is rapidly decreasing. $f(x) = \sum \h{f} e_n(x)$. Thus $f'(x) = \sum \h{f} e_n'(x)$. By the given hint, $f'(x) = \sum \h{f} e_n'(x) = \sum \h{f} 2 \pi i n e^{2 \pi i n} = 2 \pi i \sum n\h{f} e_n$ converges uniformly to a periodic function $f_1$. Thus $f_1$ exists. Since $\h{f}$ decreases rapidly, $n \h{f}$ decreases rapidly. Now apply induction. Thus $f \in C^\infty(S_1)$           
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Check that the arithmetic means $n^{-1}(x_1 + \dots + x_{n}) \to y$ if $x_n \to y$.   
+\end{PROB}
+\begin{proof}
+    $\forall \epsilon > 0$, for this $\epsilon$ $\exists K \in \N \ni \forall n \geq K, \abs{x_n - y} < \epsilon$. Moreover $M = \sup(x_n - y)$.    
+    
+    $\exists L \in \N \ni \forall n \geq L, \frac{K}{n}(M - \epsilon) < \frac{\epsilon}{2}$. Take $A = \max(K, L) < 1$     
+
+    \begin{align*}
+        \abs{\frac{1}{n}\sum_{k = 1}^{n} x_k - y} &= \abs{\frac{1}{n}\sum_{k = 1}^{n}\left(x_k - y\right)} \\
+        &\leq \frac{1}{n}\sum_{k = 1}^{n}\abs{x_k - y} \\
+        &= \frac{1}{n}\sum_{k = 1}^{K}\abs{x_k - y} + \frac{1}{n} \sum_{k = K + 1}^{n}\abs{x_k - y} \\
+        &< \frac{1}{n}\sum_{k = 1}^{K}\abs{x_k - y} + \frac{1}{n}\epsilon \sum_{k = K + 1}^{n} 1\\
+        &= \frac{1}{n}\sum_{k = 1}^{K}\abs{x_k - y} + \frac{n - K}{n} \epsilon \\ 
+        &< \frac{K}{n}M + \frac{n - K}{n}\epsilon \\
+        &= \frac{K}{n}(M - \epsilon) + \epsilon < 2\epsilon
+    \end{align*}
+\end{proof}
+
+
+
+\end{document}

@@ -1,0 +1,449 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\Ext}[0]{\text{Ext}}
+\newcommand{\Tor}[0]{\text{Tor}}
+\newcommand{\rank}[0]{\text{rank}}
+\newcommand{\CP}[1]{\C P^{#1}}
+\newcommand{\x}[0]{\times}
+
+
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Hatcher Chapter 3: Cohomology}
+\author{Arham Lodha}%put your name here
+\date{May 13, 2025 - }
+\maketitle
+
+\section{Universal Coefficent Theorem for Cohomology}
+\section{Cup Product}
+
+
+
+\subsection{Problems}
+\begin{PROB}{3.2.5}\label{Problem 3.2.5.}
+	Show the ring $H^*(\R P^\infty, \Z_{2k}) \cong \Z_{2k} [\alpha, \beta] / (2\alpha, 2\beta, \alpha^2 - k \beta)$
+\end{PROB}
+\begin{proof}
+	By Theorem 3.19, $H^*(\R P^{\infty}, \Z_{2}) = \Z[a]$.
+	Use standard cellular structure and standard cellular cohomology to see that
+
+	\[H^0(\R P^n, \Z_{2k}) = \Z_{2 k}\], \[H^n(\R P^n, \Z_{2 k}) = \Z_2, \forall n \geq 1\]
+
+
+	Let $r: \Z_{2 k} \to \Z_2$ be the Coefficent maps reduction mod $2$ ie $[x]_{2k} \to [x]_2$. It induces a surjective ring map, $r^*: H^*(\R P^\infty, \Z_{2 k}) \to H^*(\R P^{\infty}, \Z_2)$
+
+	Let $\alpha \in H^1(\R P^{\infty}, \Z_{2k})$ where $r^*(\alpha) = a \in H^1(\R P^{\infty}, \Z_2) = \Z[a]$, since $\alpha$ maps to the generator (only non 0 element) it must also be nonzero. Since $H^1(\R P^{\infty}, \Z_{2k}) = \Z_2$, $\alpha$ generates $H^1$.
+
+	Let $\beta \in H^2(\R P^{\infty}, \Z_{2k})$ where $r^*(\beta) = a^2$ and $\beta$ generates $H^2(\R P^{\infty}, \Z_{2k})$.
+
+	Note since $H^n = \Z_2$, $2\alpha = 0$ and $2\beta = 0$. So the $(2\alpha, 2\beta)$ is forced on the additive structure.
+
+	Now lets see how $\alpha^2$ and $\beta$ relate.
+
+	Take the short exact sequence
+
+	\[0 \to \Z_k \xhookrightarrow{i} \Z_{2k} \to \Z_2 \to 0\]
+
+	The Bockstein Homomorphims induced by the coefficient sequence:
+
+	$B(a) = a^2 = k \beta$. So naturality gives $r^*(\alpha) = a^2 = r^*(k \beta) \implies \alpha - k \beta = 0$. So the ideal $(\alpha - k \beta)$ gets added.
+
+
+	Thus $H^*(\R P^\infty, \Z_{2k}) = \Z_{2 k}[\alpha, \beta] / (2\alpha, 2\beta, \alpha^2 - k \beta)$, where $\abs{\alpha} = 1$ and $\abs{\beta} = 2$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.2.6}\label{Problem 3.2.6.}
+	Use cup products to compute the map $H^*(\C P^n, \Z) \to H^*(\C P^n, \Z)$ induced by the map $\C P^n \to \C P^n$ that this the quotient of the map $\C^{n + 1} \to \C^{n + 1}$ raising each coordinate to the $d$th power.
+\end{PROB}
+\begin{proof}
+	Let $P^n = \C P^n$ and all coefficients are $\Z$ unless otherwise stated.
+
+	\begin{enumerate}
+		\item For $n = 1$: $\C P^1 = S^2$, by Riemann Sphere. Thus the map $H^*(S^2) \to H^*(S^2)$ is just the $\times d$ map on $H^2$ and 0 map everywhere else.
+		\item For $n > 1$: $i: \C P^1 \to \C P^n$ be the natural inclusion.
+
+            % https://q.uiver.app/#q=WzAsNCxbMCwwLCJIXjIoUF5uKSJdLFsxLDAsIkheMihQXm4pIl0sWzAsMSwiSF4xKFBeMSkiXSxbMSwxLCJIXjEoUF4xKSJdLFsyLDMsImQiXSxbMCwxLCJkIl0sWzAsMiwiaV4qIiwyXSxbMSwzLCJpXioiXV0=
+            \[\begin{tikzcd}
+                    {H^2(P^n)} & {H^2(P^n)} \\
+                    {H^1(P^1)} & {H^1(P^1)}
+                    \arrow["d", from=1-1, to=1-2]
+                    \arrow["{i^*}"', from=1-1, to=2-1]
+                    \arrow["{i^*}", from=1-2, to=2-2]
+                    \arrow["d", from=2-1, to=2-2]
+                \end{tikzcd}\]
+
+            $i^*$ is a isomorphism. So top d must be $d \times$.
+	\end{enumerate}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.2.7}\label{Problem 3.2.7.}
+	Use cup products to show $\R P^3$ is not homotopy equivalent to $\R P^2 \vee S^3$
+\end{PROB}
+\begin{proof}
+	\begin{enumerate}
+		\item \textbf{Without cup products}: Universal cover of $P^3$ is $S^3$ and universal cover of $P^2 \vee S^3 = S^3 \vee S^2 \vee S^3$. $H_3(S^3) = \Z$ and $H_3(S^3 \vee S^2 \vee S^3) = \Z \oplus \Z$. Thus universal covers are not homeomorphic. Thus the spaces are not homotopy equivalent.
+		\item \textbf{With Cup products}: Unless explicitly stated $\Z_2$ coefficients are being used. By Theorem 3.19:
+
+		      \[
+			      H^*(P^3) := \Z_2[\alpha]/(\alpha^4)
+		      \].
+
+		      By Cellular Cohomology and 3.14:
+
+		      \[H^*(P^2 \vee S^3) = \frac{\Z_2[\alpha]}{(\alpha^3)} \times \frac{\Z_2 [\beta]}{(\beta^2)}\]
+
+		      where $\abs{\alpha} = 1$ and $\abs{\beta} = 3$. Every degree 1 class has the form, $(\lambda \alpha, 0) \implies (\lambda \alpha, 0)^3 = (\lambda^3 \alpha^3, 0 ) = (0, 0) = 0$. Thus no element of degree 1 has a nonzero cube. Thus both graded rings are not isomorphic. Thus both spaces are not homotopy equivalent.
+	\end{enumerate}
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.2.8}\label{Problem 3.2.8.}
+	Let $X = \C P^2$ with a cell $e^3$ attached by a map $S^2 = \C P^1 \subset \C P^2$ with degree $p$, and let $Y = M(\Z_p, 2) \vee S^4$. Thus X and Y have the same 3 skeleton but diﬀer in the way
+	their 4 cells are attached. Show that X and Y have isomorphic cohomology rings with $\Z$ coeﬃcients but not with $\Z_p$ coeﬃcients.
+\end{PROB}
+\begin{proof}
+	\begin{enumerate}
+		\item $\Z$ coefficients:
+		      \begin{enumerate}
+			      \item Cohomology of $X$ and $Y$:
+
+
+			            \[\begin{tikzcd}
+					            0 & \Z & 0 & \Z & \Z & \Z & 0
+					            \arrow[from=1-1, to=1-2]
+					            \arrow[from=1-2, to=1-3]
+					            \arrow[from=1-3, to=1-4]
+					            \arrow["{\times p}"', from=1-4, to=1-5]
+					            \arrow["0"', from=1-5, to=1-6]
+					            \arrow[from=1-6, to=1-7]
+				            \end{tikzcd}\]
+
+			            \[H^n(X) := \begin{cases*}
+					            \Z   & if $n = 0, 4$            \\
+					            \Z_p & if $n = 3$               \\
+					            0    & if $n = 1, 2$ or $n > 4$
+				            \end{cases*}\]
+
+                    It makes sense that for degree reasons that the cup product structure is trivial. (Cup product of any two nonzero homology generators)
+                            
+		      \end{enumerate}
+
+		\item $\Z_p$ coefficients
+
+		      \begin{enumerate}
+			      \item Cohomology of X:
+
+			            % https://q.uiver.app/#q=WzAsNyxbMiwwLCIwIl0sWzEsMCwiXFxaIl0sWzAsMCwiMCJdLFszLDAsIlxcWiJdLFs0LDAsIlxcWiJdLFs1LDAsIlxcWiJdLFs2LDAsIjAiXSxbMiwxXSxbMSwwXSxbMCwzXSxbMyw0LCJcXHRpbWVzIHAiLDJdLFs0LDUsIjAiLDJdLFs1LDZdXQ==
+			            \[\begin{tikzcd}
+					            0 & \Z_p & 0 & \Z_p & \Z_p & \Z_p & 0
+					            \arrow[from=1-1, to=1-2]
+					            \arrow[from=1-2, to=1-3]
+					            \arrow[from=1-3, to=1-4]
+					            \arrow["{\times p}"', from=1-4, to=1-5]
+					            \arrow["0"', from=1-5, to=1-6]
+					            \arrow[from=1-6, to=1-7]
+				            \end{tikzcd}\]
+
+			            \[H^n(X) := \begin{cases*}
+					            \Z_p & if $n = 0, 2, 3, 4$   \\
+					            0    & if $n = 1$ or $n > 4$
+				            \end{cases*}\]
+
+                        The cup product is only nontrivial on the 2 chain. So the cup product structure reduces to the cup product structure of $\C P^2$. Let $\alpha \in H^2(X)$, be the generator by Theorem 3.19, $\alpha \smile \alpha$ is the generator of $H^4(X)$.  
+                        
+                \item Cohomology of $Y$
+                
+                % https://q.uiver.app/#q=WzAsNyxbMiwwLCIwIl0sWzEsMCwiXFxaIl0sWzAsMCwiMCJdLFszLDAsIlxcWiJdLFs0LDAsIlxcWiJdLFs1LDAsIlxcWiJdLFs2LDAsIjAiXSxbMiwxXSxbMSwwXSxbMCwzXSxbMyw0LCJcXHRpbWVzIHAiLDJdLFs0LDUsIjAiLDJdLFs1LDZdXQ==
+			            \[\begin{tikzcd}
+                            0 & \Z_p & 0 & \Z_p & \Z_p & \Z_p & 0
+                            \arrow[from=1-1, to=1-2]
+                            \arrow[from=1-2, to=1-3]
+                            \arrow[from=1-3, to=1-4]
+                            \arrow["{\times p}"', from=1-4, to=1-5]
+                            \arrow["0"', from=1-5, to=1-6]
+                            \arrow[from=1-6, to=1-7]
+                        \end{tikzcd}\]
+
+                    \[H^n(X) := \begin{cases*}
+                            \Z_p & if $n = 0, 2, 3, 4$   \\
+                            0    & if $n = 1$ or $n > 4$
+                        \end{cases*}\]
+                    
+                    The reduced Cohomology ring is:
+
+                    \[
+                    \tilde{H}^*(Y) := \tilde{H}^*(M(\Z_p, 2)) \times \Z[\beta]/[\beta^2]
+                    \]
+
+                    for $\abs{\beta} = 4$. Here the generator of the $H^2$, cup product with itself will be trivial.   
+
+		      \end{enumerate}
+
+	\end{enumerate}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.2.9}\label{Problem 3.2.9.}
+    Show that if $H_n(X, \Z)$ are free for all $n$, then $H^*(X, \Z_p)$ and $H^*(X, \Z) \otimes \Z_p$ are isomorphic as rings, so in particular the ring structure with $\Z$ coefficients determines the ring structure with $\Z_p$ coefficients.      
+\end{PROB}
+\begin{proof}
+    By Universal Coefficient Theorem for Homology (Theorem 3A.3), 
+    
+    \[H_n(X, \Z_p) = H_n(Z) \otimes \Z_p \oplus \Tor\left(H_{n - 1}(X), \Z_p\right) = H_n(\Z) \otimes \Z_p\]
+
+    The last equality is true because $H_n(X)$ is free for all $n$, furthermore $H_n(\Z) \otimes \Z_p = \Z_p^{\rank H_n(\Z)}$ ie a free module over $\Z_p$.   
+
+    By Universal Coefficient Theorem for Cohomology (Theorem 3.2):
+    \[H^n(X, \Z_p) = \Ext(H_{n - 1}(X, \Z_p), \Z_p) \oplus \Hom(H_n(X, \Z_p), \Z_p) = \Hom(H_n(X, \Z_p), \Z_p) = \Z_p^{\rank H_n(\Z)} \]
+
+    Since $H_{n - 1}(X, \Z_p)$ is free over $\Z_p$, Ext term disappears.
+    
+    \[H^n(X, \Z) = \Ext(H_{n - 1}(X, \Z), \Z) \oplus \Hom(H_n(X, \Z), \Z) = \Z^{\rank H_n(X)}\]
+
+    Thus $H^n(X, \Z) \otimes \Z_p = \Z_p^{\rank H_n(X)} \cong H^n(X, \Z_p)$. Thus there is a graded ring isomorphism. 
+    
+    Let $\pi: \Z \to \Z_p$ standard mod map. Let $\rho_p: C^*(X, \Z) \to C^*(X, \Z_p)$ be the standard coefficient reduction map where $c \to \pi \circ c$. $\pi$ is a ring map. Let $\alpha \in C^p(X, \Z)$, $\beta \in C^{q}(X, \Z)$ and $\sigma$ be a $(p + q + 1)$ simplex, 
+    
+    \begin{align*}
+        \rho_p(\alpha \smile \beta)(\sigma) &= (\pi \circ (\alpha \smile \beta))(\sigma)\\
+        &= \pi(\alpha(\sigma|_{[v_0, \dots, v_p]}) \beta(\sigma|_{[v_{p + 1}, \dots, v_{p + q}]})) \\
+        &= \pi(\alpha(\sigma|_{[v_0, \dots, v_p]})) \pi( \beta(\sigma|_{[v_{p + 1}, \dots, v_{p + q}]})) \\
+        &= (\pi \circ \alpha)(\sigma|_{[v_0, \dots, v_p]}) (\pi \circ \beta)(\sigma|_{[v_{p + 1}, \dots, v_{p + q}]}) \\
+        &= \rho_p(\alpha)(\sigma|_{[v_0, \dots, v_p]}) \rho_p(\beta)(\sigma|_{[v_{p + 1}, \dots, v_{p + q}]}) \\
+        &= (\rho_p(\alpha) \smile \rho_p(\beta))(\sigma)
+    \end{align*}
+
+    Thus $\rho_p(\alpha \smile \beta) = \rho_p(\alpha) \smile \rho_p(\beta)$. 
+    
+    \[\rho_p^*: H^*(X, \Z) \to H^*(X, \Z_p)\]
+
+    is a ring homomorphism. Let 
+    
+    \[\varphi_p = \rho_p^* \otimes 1_{\Z_p} : H^*(X, \Z) \otimes_\Z \Z_p \to H^*(X, \Z_p)\]
+
+    $\varphi_p$ is the graded abelian group iso seen above. Tensoring with $\Z_p$ doesn't change the ring homomorphism, thus $\varphi_p$ is a ring isomorphism.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.2.10}\label{Problem 3.2.10.}
+    Show that the cross product map $H^*(X, \Z) \otimes H^*(Y, \Z) \to H^*(X \times Y, \Z)$ is not a isomorphism if $X$ and $Y$ are infinite discrete sets.   
+\end{PROB}
+\begin{proof}
+    Note $H^*(X, \Z) = \Pi_{x \in X} \Z$ similarly for $Y$. $H^*(X \times Y, \Z) = \Pi_{(x, y) \in X \times Y} \Z$. 
+    
+    \[\Pi_{x \in X} \Z \otimes \Pi_{y \in Y} \Z \subset \Pi_{(x, y) \in X \times Y} \Z\]
+
+    where the inclusion is the natural one, 
+    \begin{align*}
+        (n_x)_{x \in X} \otimes (m_x)_{y \in Y} \to (n_x m_y)_{x \in X, y \in Y}
+    \end{align*}'
+
+    \textbf{UNFINISHED}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.2.11}\label{Problem 3.2.11.}
+    Using cup products show that every map $S^{m + n} \to S^{m} \times S^n$ induces the trivial homomorphism $H_{m + n}(S^{m + n}) \to H_{m + n}(S^m \times S^n)$, assuming $m > 0$ and $n > 0$.     
+\end{PROB}
+\begin{proof}
+	It is known
+
+	\[
+	H^k(S^n) := \begin{cases*}
+		\Z & if $k = 0, n$ \\
+		0 & otherwise 
+	\end{cases*}
+	\]
+
+	$\forall f: S^{m + n} \to S^m \times S^n$. By Proposition 3.10, $f$ induces 
+	
+	\[f^*: H^{*}(S^{m} \times S^{n}) \to H^*(S^{m + n})\]
+
+	By Theorem 3.15, $H^{i}(S^n) \otimes_\Z H^{j}(S^m) \cong H^{i+j}(S^{n} \times S^m)$ and $p_1(a) \smile p_2(b)$ is a generator for $H^{i+j}(S^{n} \times S^m)$ where $a$ and $b$ are generators.      
+	$\forall (a, b) \in H^{i}(S^{n}) \otimes_{\Z} H^{j}(S^{m})$. 
+
+	\begin{align*}
+		f^{i+j}(p^i_1(a) \smile p^j_2(b)) &= f^{i}(p^i_1(a)) \smile f^{j}(p^j_2(b)) \\
+		&= (p_1 \circ f)^i(a) \smile (p_2 \circ f)^j(b)
+	\end{align*} 
+
+	we get the following commutative diagram for all $0 < i, j < n$ 
+
+	% https://q.uiver.app/#q=WzAsNixbMiwwLCJIXntpK2p9KFNee20rbn0pIl0sWzIsMSwiSF57aStqfShTXnttfSBcXHRpbWVzIFNee259KSJdLFswLDAsIkheaShTXnttICsgbn0pIl0sWzAsMSwiSF5pKFNebSkiXSxbMSwxLCJIXmooU15uKSJdLFsxLDAsIkheaihTXnttICsgbn0pIl0sWzEsMCwiZl57aStqfSIsMl0sWzMsNCwiXFxvdGltZXNfXFxaIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzIsNSwiXFx0aW1lcyIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDIsIihwXzEgXFxjaXJjIGYpXmkiXSxbNCw1LCIocF8yIFxcY2lyYyBmKV5qIl0sWzUsMCwiXFxzbWlsZSJdLFs0LDEsIlxcdGltZXMiLDJdXQ==
+\[\begin{tikzcd}
+	{H^i(S^{m + n})} & {H^j(S^{m + n})} & {H^{i+j}(S^{m+n})} \\
+	{H^i(S^m)} & {H^j(S^n)} & {H^{i+j}(S^{m} \times S^{n})}
+	\arrow["\times"{description}, draw=none, from=1-1, to=1-2]
+	\arrow["\smile", from=1-2, to=1-3]
+	\arrow["{(p_1 \circ f)^i}", from=2-1, to=1-1]
+	\arrow["{\otimes_\Z}"{description}, draw=none, from=2-1, to=2-2]
+	\arrow["{(p_2 \circ f)^j}", from=2-2, to=1-2]
+	\arrow["\times"', from=2-2, to=2-3]
+	\arrow["{f^{i+j}}"', from=2-3, to=1-3]
+\end{tikzcd}\]
+	
+	Note $\times$ is a isomorphism. Furthermore note that $(p_1 \circ f)^i$ and $(p_2 \circ f)^j$ are trivial because $H^{i}(S^{m + n})$ and $H^j(S^{m + n})$ are 0. Thus $f^{i + j}$ must be 0. Thus $f^{m + n} = 0$.          
+
+
+	By the Universal Coefficent Theorem for Cohomology we get the following: 
+
+	% https://q.uiver.app/#q=WzAsMTAsWzIsMCwiSF57bStufShTXm0gXFx0aW1lcyBTXm4pIl0sWzEsMCwiXFxFeHQoSF97bStuIC0gMX0oU15tIFxcdGltZXMgU15uKSwgXFxaKSJdLFswLDAsIjAiXSxbMywwLCJcXEhvbShIX3ttK259KFNebSBcXHRpbWVzIFNebiksIFxcWikiXSxbNCwwLCIwIl0sWzAsMSwiMCJdLFsxLDEsIlxcRXh0KEhfe20rbiAtIDF9KFNee20rbn0pLCBcXFopIl0sWzIsMSwiSF57bStufShTXnttK259KSJdLFszLDEsIlxcSG9tKEhfe20rbn0oU157bStufSksIFxcWikiXSxbNCwxLCIwIl0sWzIsMV0sWzEsMF0sWzAsM10sWzMsNF0sWzEsNiwiKGZfKileKiJdLFs1LDZdLFs2LDddLFs3LDhdLFs4LDldLFszLDgsIihmXyopXioiXSxbMCw3LCJmXio9MCJdXQ==
+\[\begin{tikzcd}
+	0 & {\Ext(H_{m+n - 1}(S^m \times S^n), \Z)} & {H^{m+n}(S^m \times S^n)} & {\Hom(H_{m+n}(S^m \times S^n), \Z)} & 0 \\
+	0 & {\Ext(H_{m+n - 1}(S^{m+n}), \Z)} & {H^{m+n}(S^{m+n})} & {\Hom(H_{m+n}(S^{m+n}), \Z)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{(f_*)^*}", from=1-2, to=2-2]
+	\arrow[from=1-3, to=1-4]
+	\arrow["{f^*=0}", from=1-3, to=2-3]
+	\arrow[from=1-4, to=1-5]
+	\arrow["{(f_*)^*}", from=1-4, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+
+	all the $\Ext$s are 0, because all homology groups are free. Thus 3 arrows in each short exact sequence is a isomorphism. Thus if $f^* = 0 \implies (f_*)^* = 0 \implies f_* = 0$.   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.2.12}\label{Problem 3.2.12.}
+	Show that the spaces $(S^1 \x \CP{\infty}) / (S^1 \x \left\{ x_0 \right\})$ and $S^3 \x \CP{\infty}$ have isomorphic cohomology rings with $\Z$ and any other coefficients.  
+\end{PROB}
+\begin{proof}
+	\textbf{$\Z$ coefficients}: By Example 3.14 and Theorem 3.19, 
+
+	\[H^*(S^3 \x \CP{\infty}) \cong \frac{\Z[\alpha]}{\alpha^2} \otimes_{\Z} \Z[\beta] \cong \frac{\Z[\alpha, \beta]}{\alpha^2}\]
+
+	where $\abs{\alpha} = 3$ and $\abs{\beta} = 2$. 
+	
+	By Excision , 
+	\[\widetilde{H}^k((S^1 \x \CP{\infty}) / (S^1 \x \left\{ x_0 \right\})) = H^k(S^1 \x \CP{\infty} , S^1 \x \left\{ x_0 \right\}) = H^k(S^1 \x \CP{\infty}, \empset \x \CP{\infty} \cup S^1 \x \left\{ x_0 \right\})\] 
+
+	By Relative Kunneth's Formula (Theorem 3.18),
+	
+
+	\begin{align*}
+		H^k(S^1 \x \CP{\infty}, \empset \x \CP{\infty} \cup S^1 \x \left\{ x_0 \right\}) &= \bigoplus_{n = 0}^k H^n(S^1, \empset) \otimes_{\Z} H^{k - n}(\CP{\infty}, \left\{ x_0 \right\}) \\
+		&= \bigoplus_{n = 0}^k H^n(S^1) \otimes_{\Z} \widetilde{H}^{k - n}(\CP{\infty}) \\
+		&= \Z \otimes_{\Z} \widetilde{H}^{k}(\CP{\infty}) \oplus \Z \otimes_{\Z} \widetilde{H}^{k - 1}(\CP{\infty})
+	\end{align*}
+
+	
+
+
+	Thus 
+
+	\[H^k(S^1 \x \CP{\infty}, \empset \x \CP{\infty} \cup S^1 \x \left\{ x_0 \right\}) = \begin{cases*}
+		0 & if $k \leq 1$ \\
+		\Z & otherwise
+	\end{cases*}\]
+
+	Thus 
+
+	\[H^k((S^1 \x \CP{\infty}) / (S^1 \x \left\{ x_0 \right\})) = \begin{cases*}
+		0 & if $k = 1$ \\
+		\Z & otherwise 
+	\end{cases*}\]
+
+	Let $a \in H^1(S^1)$ and $b \in \widetilde{H}^2(\CP{\infty})$ be generators. Then by the Kunneth isomorphism
+
+	\[H^{k}(S^1 \x \CP\infty, S^1 \x \left\{ x_0 \right\}) \cong (H^0(S^1) \otimes \widetilde{H}^k(\CP\infty)) \oplus (H^1(S^1) \otimes \widetilde{H}^{k-1}(\CP\infty))\]
+
+	so we have 2 classes, $\alpha = a \otimes b$ and $\beta = 1 \otimes b$. $\abs{\alpha} = 3$ and $\abs{\beta} = 2$. Note $a^2 = 0$ and $b^k$ generates $H^{2k}(\CP\infty)$. 
+	
+	Thus 
+
+	\[\alpha \smile \alpha = (-1)^{\abs{b}\abs{a}}\alpha^2 \otimes b^2 = 0 \otimes b^2 = 0\]
+
+	\[\alpha \smile \beta = (-1)^{\abs{b}\abs{1}} a \otimes b^2 = a \otimes b^2\]
+
+	\[\beta \smile \beta = (-1)^{\abs{b}\abs{1}} 1 \otimes b^2 = 1 \otimes b^2\]
+
+	Thus \[H^*((S^1 \x \CP{\infty}) / (S^1 \x \left\{ x_0 \right\})) = \frac{\Z[\alpha, \beta]}{(\alpha^2)}\]  
+
+	\textbf{Can be extended rather trivially to all coefficients. Basically only part we need to mess with is $H^*(\CP \infty)$ everything else follows with $\R$-Kunneth Formula. } 
+\end{proof}
+
+\end{document}

@@ -1,0 +1,216 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Group Actions}
+\author{Arham Lodha}%put your name here
+\date{October 17, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+    Let G be a group and X a set. An "action" of G on X means a function $G \times X \to X$, which we indicate by $(g,x) \to gx$, such that $g(hx) = (gh)(x)$. Show this is exactly the same thing as a homomorphism $ G \to Perm(X)$ := The set of bijective maps from X to itself (group under composition of functions).
+\end{PROB}
+\begin{proof}
+    Let $G$ be a group and $X$ a set. $\forall g \in G$, an action takes $x \to gx$ which has a inverse $x \to g^{-1}x$ because $g^{-1}(g(x)) = (g^{-1}g)x = ex = x = ex = (gg^{-1})x = g(g^{-1}x)$. Thus $gx$ has a left and right inverse and is a bijective map on X. Thus $\forall g$, $gX$ is a bijection from X to itself. Thus the action is the same thing as the map $\alpha: G \to Perm(X)$. $\alpha(gh)(x) = gh \cdot x = g(h \cdot x) = g\alpha(h)(x) = (\alpha(g) \circ \alpha(h))x$. Thus the action is a homomorphism.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{1b}\label{Problem 1b.}
+    A group action is sometimes called a "permutation representation" of G. How come? The representation (or the action) is called "faithful" if the map $G \to Perm(X)$ is injective. Why "faithful?". 
+\end{PROB}
+\begin{proof}
+    A group action is sometimes referred to as a "permutation representation" of a group G because it can be seen as a way of representing the elements of the group G as permutations of a set. This connection between group actions and permutations arises from the concept of group actions and their relationship to symmetry. In this context, the term "permutation representation" is used because it describes how a group G is represented by permutations of a set X, where each group element is associated with a permutation of X.
+
+    When the $G \to Perm(X)$ is injective then it is faithful because each element of g corresponds to a unique permutation of X and thus the mapping is faithful.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Show that G acts on itself in (at least) three ways, by left mult, by right multiplication (note you have to change the formula slightly so the action axioms hold, introduce an inverse at some point), and by conjugation.  Find a way in which the first two are "better" than the third, and a way in which the third is (much) better than the first two.
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}{}
+        \item Left Multiplication: If $X = G$, then $G \times X \to G$ defined as $(g, x) \to gx$ and thus $(h, (g, x)) = (h, gx) = hgx = (hg, x)$
+        \item Right Multiplication: If $X = G$, then $G \times G \to G$ defined as $(x, g) \to gx^{-1}$ thus $(x, (y, g)) = (x, gy^{-1}) = gy^{-1}x^{-1} = (xy ,g)$
+        \item Conjugation: If $X = g$ then $G \times G \to G$ defined as $(g, x) \to gxg^{-1}$ thus $(g, (h, x)) = (g, hxh^{-1}) = ghxh^{-1}g^{-1} = (gh, x)$
+    \end{enumerate}
+
+    Left and right multiplication form cosets and conjugation is a automorphism.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Suppose G acts on X. This puts a natural equivalence relation on G where x and y are equivalent if there is some g with $g x =y$. show this is an equivalence relation. The equivalence classes are called "orbits". Suppose G is a finite cyclic group. Explain where the term "orbit" comes from.  
+\end{PROB}
+\begin{proof}
+    Define $\sim$ as the following $\forall x, y \in X$ if $x \sim y \implies \exists g \in G \ni gx = y$
+
+    \begin{enumerate}{}
+        \item Reflexive: $e \in G$ $\forall x \in X$ $ex = x$ thus $x \sim x$.
+        \item Symmetric: Suppose $x \sim y$, thus there exists $g \in G$ s.t $gx = y$ $g^{-1} \in G$ (Inverse Axiom of Groups) then $x = g^{-1}y$ thus $y \sim x$.
+        \item Transitive: Suppose $a \sim b$ and $b \sim c$ thus there exists $g, h \in G$ s.t $b = ga$ and $c = hb$ thus $c = gha$ and $a \sim c$.
+    \end{enumerate}
+
+    Thus $\sim$ is a equivalence relation.
+
+
+    Suppose G is a finite cyclic group and has order $k$. $\forall x \in X$ the orbit consists of $x, gx, \ldots g^{k - 1}x$ and for $g^kx = ex = x$ thus forming a loop and closing the circle. When drawn on a paper it creates circles and thus orbit has a circular etymology to it.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4a}\label{Problem 4a.}
+    suppose G acts on X and G acts on Y (these are called G-sets). What should be mean by $Hom_G(X, Y)$ - what should be a homomorphism of G-sets? What should be an iso?
+\end{PROB}
+\begin{solution}
+    $\forall f \in \Hom_G(X, Y)$ and $\forall g \in G$, $\forall x \in X$ $f(gx) = gf(x)$. An iso of G-sets is when $\exists f \in \Hom_G(X, Y)$ such that $\exists h \in  \Hom_G(Y, X)$ $f \circ h = id$ and $h \circ f = id$
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{4b}\label{Problem 4b.}
+    Suppose G acts on X and G acts on Y. Then G naturally acts on $U := X \cup Y$, the disjoint union. Explain why this is like "adding" actions. Suppose G acts on U and X and Y are subsets of G. When does G naturally act on X, and on Y, and when is the natural map $X \cup Y --> G$ an iso of G-sets. An action is called "transitive" if there is only one orbit. Explain why every action is naturally a disjoint union of transitive actions, and so why if we want to understand actions, we only really have to understand
+    transitive actions.
+\end{PROB}
+\begin{solution}
+    Suppose G acts on X and G acts on Y. Then G naturally acts on $U := X \cup Y$, the disjoint union. This is like adding action because $\forall u \in U$ $gu$ is applying $g$'s affect on X or $g$'s affect on y. Thus "adding" both actions.
+
+    G naturally acts on X and Y when they are subgroups and the natural map $X \cup Y \to G$ is an iso of G sets when $X \cup Y$ is G.Every action is just a naturally a disjoint union of disjoint actions because the action partitions the target set into orbits which are disjoint. Thus anything that must be true for the any such equivalence classes can be generalized to the whole set in general. Each orbit corresponds to a transitive action so any action can be understood by its comprising transitive actions.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Consider $G \to G/H$ (H a subgroup). Show there is a unique action of G on G/H so that this is a map of G sets, where G acts on itself by left multiplication.  SHow both actions are transitive. What about when G acts on itself by right mult or conjugation, when is there a compatible action on $G/H$? 
+\end{PROB}
+\begin{proof}
+    The unique action of G on $G/H$ is the action which $\forall g \in G$ and $\forall aH \in G/H$ takes $(g, aH) \to gaH$. $\forall g, h \in G$ and $\forall aH \in G/H$ $(g, (h, aH)) = (g, haH) = ghaH = (gh, aH)$. G acts on itself by left multiplication and then the unique action left multiplies each element of H by the result of the first left multiplication. 
+
+    Left multiplication: $\forall g, h \in G$, $g^{-1}g = e$ then $hg^{-1}g = h$. Thus there is only one orbit and thus the group action is transitive.
+
+    Left Coset action: Follows from Left Multiplication. $\forall g, h \in G$, $g^{-1}gH = eH = H$ then $hg^{-1}gH = hH$. Thus only one orbit.
+
+    When G acts on itself by right multiplication then the compatible action on G/H is the action of taking a right coset. If G acts on itself by conjugation then the compatible action only exists if H is normal.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Orbit Stablizer Theorem: Let G act on X, and let x be in X. we write $Gx$ for the orbit. Let $G^x$ be the "stabilizer", ie those g in G with $gx=x$.
+\end{PROB}
+\begin{claim}{6a}
+    $G^x$ is a a subgroup
+\end{claim}
+\begin{proof}
+    $\forall a, b \in G^x$, by definition $bx = x$. $b^{-1} \in G$, $b^{-1}bx = b^{-1}x$ thus $x = b^{-1}x$ and $b^{-1} \in G^x$. Thus $ab^{-1} \in G^x$. Thus $G^x$ is a subgroup. 
+\end{proof}
+\begin{claim}{6b}
+    Show the natural map $g \to gx$ is a map of G-sets (G acting on itself by left mult)
+\end{claim}
+\begin{proof}
+    The natural map $f: G \to Gx$. $\forall g, h \in G$, $f(hg) = hgx = hf(g)$. Thus $f \in \Hom_G(G, G^x)$.
+\end{proof}
+\begin{claim}{6c}
+    $f$ factors through $p: G \to G/G^x$
+\end{claim}
+\begin{proof}
+    Let $p$ be the natural quotient map from $G \to G/G^x$. $\forall a, b \in G$, if $p(a) = p(b)$ then $aG^x = bG^x$ thus $a^{-1}b \in G^x$. Thus $a^{-1}b x = x$ thus $bx = ax$. $f(a) = \{g \in G : gx = ax\}$ thus $b \in f(b)$. Since orbits are disjoint or equal then $f(a) = f(b)$. Thus f factors through p. Furthermore p is surjective so f is the unique map which factors through p
+\end{proof}
+\begin{claim}{6d}
+    The induced map $G/G^x \to Gx$ is an iso of G-sets
+\end{claim}
+\begin{claim}{6e}
+    Conclude in particular that $G^x$ has finite index iff the orbit $Gx$ is finite, with $|Gx| = |G/G^x|$.
+\end{claim}
+\begin{proof}
+    Since $Gx \cong G/G^x$, $|Gx| = m \iff [G: g^x] = m$ because they are in bijection. $[G: g^x]$ can only be finite if $Gx$ is finite as well and vice versa
+\end{proof}
+\begin{claim}{6f}
+    If G is finite, we get the "counting formula" that $|G| = |Gx||G^x|$. 
+\end{claim}
+\begin{proof}
+    By Lagrange's Theorem and then applying 6e, $\abs{G} = \abs{G/G^x}\abs{G^x} = \abs{Gx}\abs{G^x}$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7a}\label{Problem 7a.}
+    Let X be a regular tetrahedron, with its center at the origin of $R^3$. Let G be the subgroup of $O(3)$ of rigid transformations that take X to itself -- the "symmetries" of the tetrahedron. Explain why G acts on the set of 4 vertices, why this is transitive. Let SG in G be the subgroup of rotations -- which has index 2 (as we will prove soon). Explain why SG acts transitively on the vertices, and why $SG^v$ (the stabilizer of a vertex) has order 3. Conclude $|SG| = 12$, and $|G| = 24$.  Note 24 = 4! What group do you think G is? How about SG? Prove it. 
+\end{PROB}
+\begin{proof}
+    G acts on the set of 4 vertices because any rigid transformation on X which takes it to itself just permutes the vertices. So each transformation is uniquely determined by where it sends each vertex. In any rotation one face stays fixed while its vertices permute and each rotation passes through 1 face thus permuting its vertices thus each vertex can be transformed to any vertex resulting in 1 orbit and making the action transitive. Thus with only the subgroup of rotation we can get all the vertices in 1 orbit thus the action with G must also have 1 orbit making the actions transitive.
+
+    $SG^v$ has order 3 because for any vertex x to be fixed any axis of rotation has to pass through its connected faces (3 for any vertex) and rotate by $2 \pi$. Since there are only 3 such faces and only 1 rotation by $2 \pi$ for each $SG^v$ has order 3.
+    
+    By the Orbit Stablizer theorem, $|SG| = |SGv||SG^v| = 4 * 3 = 12$. $|G| = |G/SG||G| = 24$.
+    
+    $G \cong S_4$ and $SG \cong A_4$.
+
+    Number the vertices of $X$, $1, 2, 3, 4$.
+    Let $f: G \to S_4$ it takes each transformation of X (which is a permutation of vertices) to the corresponding permutation the set $\{1, 2, 3, 4\}$. The only permutation of vertices which fixes all the vertices is the $e$ transformation. Thus the kernel of $f$ is only $e$. Thus $f$ is injective. Thus $\abs{G} \leq \abs{S_4}$. However since $\abs{G} = \abs{S_4}$, f is surjective. Moreover f is a homomorphism because applying a permutation first and then applying the fuction is the same as applying the fuction on two permutation and then composing the permutations. Thus $G$ is iso to $S_4$. Furthermore the only subgroups with order 2 is $A_4$ thus $SG \cong A_4$.
+\end{proof}
+\end{document}

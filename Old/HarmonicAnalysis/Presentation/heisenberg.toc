@@ -1,0 +1,11 @@
+\beamer@sectionintoc {1}{Motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{Definitions and Basic Concepts}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Understanding $L^2(\mathbb {R})$ }{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{Fourier Transform}{6}{0}{2}
+\beamer@sectionintoc {3}{Proving The Heisenberg-Weyl Inequality}{16}{0}{3}
+\beamer@subsectionintoc {3}{1}{Defining Things}{16}{0}{3}
+\beamer@subsectionintoc {3}{2}{Lets start proving!}{17}{0}{3}
+\beamer@subsectionintoc {3}{3}{Simplifying assumptions}{18}{0}{3}
+\beamer@subsectionintoc {3}{4}{Working with Inequalities}{20}{0}{3}
+\beamer@subsectionintoc {3}{5}{Bringing In $C^{\infty }_{\downarrow }(\mathbb {R})$ }{23}{0}{3}
+\beamer@sectionintoc {4}{What does the Inequality Mean?}{30}{0}{4}

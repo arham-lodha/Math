@@ -1,0 +1,220 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Frobenius 1}
+\author{Arham Lodha}%put your name here
+\date{February 11, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let V be a finite dim vector space over a field F. Construct a natural map tr: $Hom_F(V,V) \to F$. (the domain means F-linear maps). Let $GL(V)$ act on $Hom_F(V,V)$ by conjugation. Show tr is constant on $GL(V)$ orbits. Now let finite G act on linearly on V (ie V is a finite dim rep of G). Explain how we get a map $tr_V: G \to F$, and why this factors through $G \to G/G$ := the set of conjugacy classes (the quotient of G by G acting on itself by conjugation).
+\end{PROB}
+\begin{claim}{1a}\label{Claim 1a.}
+    Construct the map $tr_V: Hom_F(V, V) \to F$ 
+\end{claim}
+\begin{proof}
+    Choose a basis for $V$, thus there exists a isomorphism $\beta: Hom_F(V, V) \to M_{n \times n}$ where $n = \dim V$. $tr_{M_{n \times n}}$ is the standard trace, ie sum of diagonal entries. Thus $tr_V = tr_{M_{n \times n}} \circ \beta$.    
+\end{proof}
+\begin{claim}{1b}\label{Claim 1b.}
+    Let $GL(V)$ act on $Hom_F(V,V)$ by conjugation. Show tr is constant on $GL(V)$ orbits.
+\end{claim}
+\begin{proof}
+    By Claim 1d, $\forall A, B \in M_{n \times n}$, $tr(AB) = tr(A)tr(B)$. Thus $\forall M \in $, $\forall f \in Hom_F(V, V)$, thus $tr(MfM^{-1}) = tr(MM^{-1}f) = tr(If) = tr(f)$. Thus $tr$ is constant on $GL(V)$ orbits.      
+\end{proof}
+\begin{claim}{1c}\label{Claim 1c.}
+    Explain how we get a map $\chi_V: G \to F$, and why this factors through $G \to G/G$ := the set of conjugacy classes
+\end{claim}
+\begin{proof}
+    $\chi_V : G \to F$ where $\chi = tr \circ \rho$ where $\rho: G \to GL(V)$ is the representation. Since $\forall g, h \in G$, $\chi_V(ghg^{-1}) = tr(\rho(g)\rho(h)\rho(g)^{-1}) = tr(\rho(h))= \chi_V(h)$. Thus by the prehomework for semester 1, $\chi$ factors through $\pi$ the map to $G / G$ where $g$ is mapped to the conjugation class. Because there exists $\phi: G / G \to F$,where $[g] \to \chi(g)$. Thus $\chi_V = \phi \circ \pi$.                
+\end{proof}
+\begin{claim}{1d}\label{Claim 3a.i.}
+    For $A, B \in GL_n(F)$, $tr(AB) = tr(BA)$
+\end{claim}
+\begin{proof}
+    $tr(AB) = \sum_{i = 1}^{n} \sum_{j = 1}^{n} A_{i, j} B_{j, i}$ and $tr(BA) = \sum_{k = 1}^{n} \sum_{l = 1}^{n} B_{k, l} A_{l, k} = \sum_{l = 1}^{n} \sum_{k = 1}^{n} A_{l, k} B_{k, l} = \sum_{i = 1}^{n} \sum_{j = 1}^{n} A_{i, j} B_{j, i} = Tr(AB)$. Thus $tr(AB) = tr(BA)$
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Suppose G acts (linearly) on V and W. Define what we should mean by $Hom_G(V,W)$ -- F-linear maps that commute with the G-action. And then what we should mean by an isomorphism between two reps of G. Show that if two reps V,W are isomorphic, then the function $tr_V$ and $tr_W$ are equal.  A corollary of the Frobenius theorem will be that for $F =\C$ the converse holds -- two finite dim complex reps of finite G are iso iff their trace functions are the same. 
+\end{PROB}
+\begin{proof}
+    When $f_1 \cong f_2$,  $\exists \alpha \in Hom_G(V, W)$, be the isomorphism of G-representations. Thus $\forall g \in G$, $\alpha \circ f_1(g) = f_2(g) \circ \alpha \implies \alpha \circ f_1(g) \circ \alpha^{-1} = f_2(g)$. Thus the matrices, $f_1(g)$ and $f_2(g)$ are conjugate.
+
+    Suppose $a: G \to GL(V)$ and $b: G \to GL(W)$ are representations of G which are isomorphic. Thus $\exists \alpha \in Hom_G(V, W)$ which is a isomorphism. By 2, we know $\forall g \in G$, $\alpha \circ a(g) = b(g) \circ \alpha \implies \alpha \circ a(g) \circ \alpha^{-1} = b(g)$, in other words isomorphic representations are conjugate, equivalently related by change of basis. $\forall g \in G$, $\chi_b(g) = tr(b(g)) = tr(\alpha \circ a(g) \circ \alpha^{-1})= tr(\alpha \circ \alpha^{-1} \circ a(g))$, by 3a.ii. Thus $\chi_b(g) =tr(b(g))= tr(\alpha \circ \alpha^{-1} \circ a(g)) = tr(a(g)) = \chi_a(g)$. Thus $\chi_b = \chi_a$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Suppose G acts on V and W. Define an action on $Hom_F(V,W)$. Explain why $V \oplus W$ is like a sum, and $Hom_F(V,W)$ is like a product
+\end{PROB}
+\begin{proof}
+    $V \oplus W$ is like a sum because the dimensions add up thus $\dim V \oplus W = \dim V + \dim W - \dim V \cap W$. Assuming $\dim V \cap W = 0$, $\dim V + \dim W = \dim V \oplus W$.
+
+    There exists $\alpha: \F^{\dim V} \to V$ and $\beta: \F^{\dim W} \to W$ be isomorphisms. Thus there exists a isomorphism from $Hom_F(V, W) \to M_{\dim W \times \dim V}$ where $f \to \beta^{-1} \circ f \circ \alpha$.
+    
+    \[\begin{tikzcd}
+        V && W \\
+        \\
+        {\mathbb{F}^{\dim V}} && {\mathbb{F}^{\dim{W}}}
+        \arrow["\alpha", from=3-1, to=1-1]
+        \arrow["f", from=1-1, to=1-3]
+        \arrow["\beta"', from=3-3, to=1-3]
+        \arrow["{\beta^{-1} \circ f \circ \alpha}"', from=3-1, to=3-3]
+    \end{tikzcd}.\]
+
+    $Hom_{\mathbb{F}}(V, W) \cong M_{\dim W \times \dim V}$. $\dim Hom_{\mathbb{F}}(V, W) = \dim M_{\dim W \times \dim V} = \dim V \dim W$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Prove that $tr_{V \oplus W} = tr_V +  tr_W$, and  $tr_{Hom(V,W)} = tr_V \bar tr_W$  (the product of $tr_V$ and the complex conjugate of $tr_W$.) For the second one explain why it is enough to prove the following: Let A be $n \times n$ and B $m \times m$, consider  $L_A \circ R_B : M_{n \times m} \to M_{n \times m}$ sending $M \to AMB$.  Show that if X is an eigen column for A, value a, and $Y^t$ an eigen row for B, value b, then.  $XY^t$ is an eigenmatrix for the operator, with value ab. Show that if $\left\{ X_i \right\}$ is a basis of columns and $\left\{ Y_j^t \right\}$  a basis of rows then $\left\{ X_i Y_j^t \right\}$ is a basis for $M_{n \times m}$ . Conclude that if A and B are diagonalizable so is this operator, and its eigenvalues are $\left\{ a_i b_j \right\}$. Show in this case its trace is $tr_A tr_B$. Note $n \times n$ matrices is naturally $R^{2n^2}$. it has an obvious topology, we can do calculus on it. Explain why diagonalizable n x n matrices are dense in all matrices -- you may want to use the fact that every square matrix over the complex numbers is conjugate to an upper triangular matrix. Now explain why if $A_i$ are matrices with limit A, and $B_i$ matrices with limit B, then the operators for $A_i, B_i$   converge to the operators for A,B -- explain what converge means.   Now prove that for any A and B, the operator above has trace $Tr(A) Tr(B)$ 
+\end{PROB}
+\begin{proof}
+    $P := V \oplus W$ where $V$ and $W$ are separate vector spaces which G acts on and thus are G-invariant in P. $G$ acts on $P$ where $g \to \begin{bmatrix}
+        g_V & 0 \\ 0 & g_W
+    \end{bmatrix}$ where $g_v \in GL(V)$ and $g_W \in GL(W)$ are the representations of $V$ and $W$. Thus $\forall g \in G$  $tr_{V \oplus W}(g) = tr_{V}(g_V) + tr_(W)(g_W)$, thus $tr_{V \oplus W} = tr_V + tr_W$.        
+\end{proof}
+\begin{claim}{4b}\label{Claim 4b.}
+    Show that if X is an eigen column for A, value a, and $Y^t$ an eigen row for B, value b, then.  $XY^t$ is an eigenmatrix for the operator, with value ab.  
+\end{claim}
+\begin{proof}
+    $A X Y^T B = aXY^Tb = abXY^T$. Thus $XY^T$ is the eigenmatrix of value of ab.  
+\end{proof}
+\begin{claim}{4c}\label{Claim 4c.}
+    Show that if $\left\{ X_i \right\}$ is a basis of columns for $F^m$  and $\left\{ Y_j^T \right\}$ a for $(F^n)^T$ basis of rows then $\left\{ X_i Y_j^t \right\}$ is a basis for $M_{n \times m}$
+\end{claim}
+\begin{proof}
+    $|\left\{ X_i Y_j^t \right\}| = |\left\{ X_i \right\}||\left\{ Y_j^t \right\}| = m * n = \dim(M_{n \times m})$. $0 = \sum_{i = 1}^{n} \sum_{j = 1}^{m} \alpha_{i, j} X_i Y_j^T = \sum_{i=1}^{n} X_i \sum_{j = 1}^{m} \alpha_{i, j} Y_j^T$. Let $b_i = \sum_{j = 1}^{m} \alpha_{i, j} Y_j^T$, where $b_i$ is a row vector. $\sum_{i = 1}^{n}X_i b_i = 0$ is the 0 matrix and thus the only way for $\left(\sum_{i = 1}^{n}X_i b_i\right)q$ or the qth column of the matrix is 0. $\left(\sum_{i = 1}^{n}X_i b_i\right)_q = \left(\sum_{i = 1}^{n}X_i b_i\right)e_q = 0$ where $e_q$ is the qth standard basis for $F^m$. $0 = \left(\sum_{i = 1}^{n}X_i b_i\right)e_q = \sum_{i = 1}^{n}X_i b_ie_q = 0$. Since $b_i$ is a row vector and $e_q$ is a column vector thus $b_ie_q \in \mathbb{F}$ for all $q$. Thus $\sum_{i = 1}^{n}X_i b_ie_q =  \sum_{i = 1}^{n}b_ie_q X_i = 0 \implies b_ie_q = 0$ since $X_i$ is a basis. $b_ie_q = 0$ for all $q$ thus every component of $b_i$ is 0. Thus $\sum_{j = 1}^{m} \alpha_{i, j} Y_j^T = 0 \implies \alpha_{i, j} = 0$ because $Y_j$ is a basis and thus linearly independent. Thus ${X_i Y_j^T}$ is a basis for $M_{n\times m}$       
+\end{proof}
+\begin{claim}{4d}\label{Claim 4d.}
+    Conclude that if A and B are diagonalizable so is this operator, and its eigenvalues are $\left\{ a_i b_j \right\}$.
+\end{claim}
+\begin{proof}
+    Since A is diagonalizable, exists a eigenbasis $\left\{ X_i \right\}$ with eigenvalues $a_i$. Since B is diagonalizable, there exists a eigenbasis $\left\{ Y_j^T \right\}$ with eigenvalues $b_j$. Thus by problem 4, $AX_i Y_j^T B = a_i b_j X_i Y_j^T$. Thus the eigenvalues of the operator is $\left\{ a_i b_j \right\}$.      
+\end{proof}
+\begin{claim}{4d}\label{Claim 4d.}
+    Show in this case its trace is $tr_A tr_B$.
+\end{claim}
+\begin{proof}
+    $tr_A = \sum_{i = 1}^{n} a_i$ and $tr_B = \sum_{j = 1}^{m}b_j$. Thus $tr_{L_{A} \circ R_{B}} = \sum_{i = 1}^{n} \sum_{j = 1}^{m} a_i b_j = \sum_{i = 1}^{n} a_i \sum_{j = 1}^{m}  b_j = \left(\sum_{i = 1}^{n} a_i\right) \left(\sum_{j = 1}^{m}  b_j\right) = tr_A tr_B$. 
+\end{proof}
+\begin{claim}{4e}\label{Claim 4e.}
+    Explain why diagonalizable $n \times n$ matrices are dense in all matrices -- you may want to use the fact that every square matrix over the complex numbers is conjugate to an upper triangular matrix.
+\end{claim}
+\begin{proof}
+    By the fact, $\forall A \in M_{n \times n}$ is conjugate to a upper triangular matrix. Choose a basis where A is upper triangular thus $A = \begin{bmatrix}
+        \lambda_1 & * & * & \hdots \\
+        & \lambda_2 & * & \hdots \\
+        & & \lambda_3 & \hdots \\
+        & & & \ddots
+    \end{bmatrix}$. Create a matrix D where all the off diagonal entries are $A_{ij}$ where $i \neq j$. If $\lambda_i = \lambda_j$ in the $D_{i,i} = \lambda_i - \alpha_i$ and $D_{j, j} = \lambda_j - \alpha_j$. Choose $\alpha_i$ such that $\forall i, j \in \N$, $D_{i, i} \neq D_{j, j}.$ Thus $D = \begin{bmatrix}
+        \lambda_1 -\alpha_1 & * & * & \hdots \\
+        & \lambda_2 - \alpha_2 & * & \hdots \\
+        & & \lambda_3 - \alpha_3 & \hdots \\
+        & & & \ddots
+    \end{bmatrix}$. The characteristic polynomial, $\chi_{D}(x) = \prod_{i = 1}^{n}(\lambda_i - \alpha_i - x)$ since $\alpha_i$ was chosen such that $\lambda_i - \alpha_i \neq \lambda_j - \alpha_j$ where $i \neq j$. $\chi_D$ has unique roots thus D is diagonalizable. $\abs{A - D}^2 = \left|\begin{bmatrix}
+        \alpha_1 \\
+        & \alpha_2 \\
+        & & \alpha_3 \\
+        & & & \ddots
+    \end{bmatrix}\right|^2 < \epsilon \implies \alpha_1^2 + \alpha_2^2 + \alpha_3^2 + \dots < \epsilon $. For $\epsilon < 1$. Choose $\alpha_i = \left(\frac{\epsilon}{2}\right)^i$. Thus $\sum_{i}^{n} \alpha_i^2 = \sum_{i = 1}^{n} ((\frac{\epsilon}{2})^2)^i = \frac{1 - (\frac{\epsilon}{2})^{2n}}{1 - (\frac{\epsilon}{2})^2} - (\frac{\epsilon}{2})^2 < \epsilon$. For $\epsilon > 1$. Choose $\alpha_i = \left(\frac{1}{2}\right)^i$. Thus $\sum_{i}^{n} \alpha_i^2 < \epsilon$. Thus $\abs{A - D} <\epsilon$. where $D$ is diagonalizable thus diagonalizable matrices are dense in all matrices.                  
+\end{proof}
+\begin{claim}{4f}\label{Claim 4f.}
+    Now explain why if  $A_i$ are matrices with limit A, and $B_i$ matrices with limit B,
+then the operators for $A_i, B_i$   converge to the operators for A,B -- explain what
+converge means.
+\end{claim}
+\begin{proof}
+    $||(L_{A_i} \circ R_{B_i})(M) - (L_A \circ R_B)(M)|| = ||A_i M B_i - AMB|| = ||(A_i - A)M(B_I - B)|| = ||A_i - A||||M||||B_i - B||$ because $\forall C, D \in M_{n \times n}$, $||CD|| \leq ||C||||D||$. Thus $||(L_{A_i} \circ R_{B_i})(M) - (L_A \circ R_B)(M)|| = ||A_i - A||||M||||B_i - B|| \leq \epsilon^2 ||M||$. Let $\epsilon_o = \epsilon^2 ||M||$. Thus $||(L_{A_i} \circ R_{B_i})(M) - (L_A \circ R_B)(M)|| \leq \epsilon_o$. As $i \to \infty$ then $\epsilon_o \to 0$. Thus $L_{A_i} \circ R_{B_i}$ converges to $L_A \circ R_B$. Converge means for some choice of $\epsilon_o \exists i \in \N \ni \forall m \in \N \ni m \geq i, ||(L_{A_m} \circ R_{B_m})(M) - (L_A \circ R_B)(M)|| < \epsilon_o$.        
+\end{proof}
+\begin{claim}{4g}\label{Claim 4g.}
+    Now prove that for any A and B, the operator above has trace $Tr(A) \bar{Tr(B)}$ 
+\end{claim}
+\begin{proof}
+    $tr(L_A \circ R_B) = \lim_{m \to \infty}\left(tr(L_{A_m} \circ R_{B_m})\right) = \lim_{m \to \infty}\left(tr(A_i)tr(B_i)\right)$ (by the previous claim). Thus $tr(L_A \circ R_B) = \lim_{m \to \infty}\left(tr(A_i)tr(B_i)\right) = tr(A) \bar{tr(B)}$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let Q be a finite set. Explain why $Hom_{sets}(Q,F)$ is a vector space of $\dim |Q|$, and why its reasonable to call it $Q^F$. Give a natural basis. Say F is a subfield of C. Define a natural positive def F-valued hermitian inner product, so that the constant function 1 has norm 1.  In the next homework we will prove the main step in Frobenius's theorem, showing that characters of irreducible representations are orthonormal w/r to this natural inner product. 
+\end{PROB}
+\begin{proof}
+    $\forall \alpha, \beta \in Hom_{sets}(Q,F)$ and. Let $Q = \left\{ q_i | i \in \N_n \right\}$. $\alpha := Hom_{sets}(Q, F) \to F^{|Q|}$ where $f \to \begin{bmatrix}
+        f(q_i) \\ \vdots \\ f(q_n)
+    \end{bmatrix}$. Let $\beta := F^{|Q|} \to Hom_{sets}(Q, F)$ where $(f_1, \dots, f_n) \to [q_i \to f_i]$. $\forall (f_1, \dots, f_n) \in F^{|Q|}$, $(\alpha \circ \beta)(f_1, \dots, f_n) = \alpha([q_i \to f_i]) = (f_1, \dots, f_n)$. $\forall f \in Hom_{sets}(Q, F)$, $(\beta \circ \alpha)(f) = \beta((f(q_1), \dots, f(q_n))) = [q_i \to f(q_i)] = f$. Thus $\alpha$ is a bijection. $\forall f, g \in Hom_{sets}(Q, F)$, $\forall a, b \in F$, $\alpha(af + bg) = ((af + bg)(q_1), \dots, (af + bg)(q_n)) = a(f(q_1), \dots, f(q_n)) + b(g(q_1), \dots, g(q_n)).$ Thus it is vector of $|Q|$ elements thus $\dim Hom_{sets}(Q,F) = |Q|$. It is reasonable to call it $F^Q$ as it has elements of F in Q slots. Let $Q_i \in Hom_{sets}(Q, F)$ be the function which sends $i$th element of Q to $1$ in F and everything else to 0. 
+    
+    Thus define $\angle{ , }$ a hermitian dot product where $\forall f, g \in Hom_{sets}(Q, F)$, $\angles{f, g} = \frac{1}{|Q|}\sum_{i = 1}^{|Q|}f(q_i)\bar{g(q_i)} $. Thus $\angles{1, 1} = \frac{1}{|Q|} \sum_{i = 1}^{|Q|} 1 = 1$.      
+\end{proof}
+
+
+\end{document}

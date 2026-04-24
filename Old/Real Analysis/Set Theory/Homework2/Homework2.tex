@@ -1,0 +1,198 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 2}
+\author{Arham Lodha}%put your name here
+\date{January 30, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let $f : A \to B$ and $g : B \to C$ be functions.
+
+    \begin{enumerate}
+        \item Show that if $g \circ f$ is injective, then f is injective
+        \item Show that if $g \circ f$ is surjective, then g is surjective.
+    \end{enumerate}
+    
+\end{PROB}
+\begin{claim}{1a}\label{Claim 1a.}
+    Show that if $g \circ f$ is injective, then f is injective
+\end{claim}
+\begin{proof}
+    Let $f : A \to B$ and $g : B \to C$ be functions. Suppose $g \circ f$ is injective. Assume the contrary, $f$ is not injective. Then by the negation of the definition of injectivity, $\exists x, y \in A$, where $x \neq y$ but $f(x) = f(y)$. Then $g(f(x)) = (g \circ f)(x) = (g \circ f)(y) = g(f(y))$. By definition of injectivity, since $(g \circ f)(x) = (g \circ f)(y) \implies x = y$. This leads to a contradiction becasue $x = y$ and $x \neq y$. Thus by contradiction, $f$ must be injective.              
+\end{proof}
+\begin{claim}{1b}\label{Claim 1a.}
+    Show that if $g \circ f$ is surjective, then g is surjective
+\end{claim}
+\begin{proof}
+    Let $f : A \to B$ and $g : B \to C$ be functions. Suppose $g \circ f$ is surjective. Assume the contrary, $g$ is not surjective. Then by the negation of the definition of surjectivity, $\exists y \in C \ni \not \exists b \in B \ni g(b) = y$. Thus $\not \exists a \in A \ni f(a) = b$, thus $\not \exists a \in A \ni (g \circ f)(a) = g(f(a)) = g(b) = y$. However by definition of surjectivity, $\exists a \in A \ni (g \circ f)(a) = y$. Thus there is a contradiction, because $\exists a \in A \ni (g \circ f)(a) = y$ and $\not \exists a \in A \ni (g \circ f)(a) = y$. Thus by contradiction, $g$ is surjective.         
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2a}\label{Claim 2a.}
+    $\forall n \in \N$:
+    
+    \[
+        \sum_{i = 1}^{n} \frac{1}{i(i + 1)} = \frac{1}{1(2)} + \frac{1}{2(3)} + \dots + \frac{1}{n(n + 1)} = \frac{n}{n + 1}
+    \] 
+\end{claim}
+\begin{proof}
+
+    (Base Case): Let $n = 1$, $\sum_{i = 1}^{1} \frac{1}{i(i + 1)} = \frac{1}{1(2)} = \frac{1}{2}$. $n + 1 = 2$. So $\sum_{i = 1}^{1} \frac{1}{i(i + 1)} = \frac{n}{n+1}$.
+
+    Inductive Hypothesis: Assume $\sum_{i = 1}^{n} \frac{1}{i(i + 1)} = \frac{n}{n + 1}$ is true.
+
+    Inductive Step: $\sum_{i = 1}^{n + 1} \frac{1}{i(i + 1)} = \sum_{i = 1}^{n} \frac{1}{i(i + 1)} + \frac{1}{(n + 1)(n + 2)}$. By Inductive Hypothesis, 
+    
+    \begin{align*}
+        \sum_{i = 1}^{n} \frac{1}{i(i + 1)} + \frac{1}{(n + 1)(n + 2)} &= \frac{n}{n + 1}+ \frac{1}{(n + 1)(n + 2)} \\
+        &= \frac{n(n + 2) + 1}{(n + 1)(n+2)} \\
+        &= \frac{n^2 + 2n + 1}{(n + 1)(n + 2)} \\
+        &= \frac{(n + 1)^2}{(n + 1)(n + 2)} \\
+        &= \frac{n + 1}{n + 2}.
+    \end{align*}
+
+    Thus, $\sum_{i = 1}^{n + 1} \frac{1}{i(i + 1)} = \frac{n + 1}{n + 2}$. Let $k = n +1$. Thus, $\sum_{i = 1}^{k} \frac{1}{i(i + 1)} = \frac{k}{k + 1}$.    
+
+    Thus by induction, $\forall n \in \N$,
+    $\sum_{i = 1}^{n} \frac{1}{i(i + 1)} = \frac{n}{n + 1}$
+\end{proof}
+
+\begin{claim}{2b}\label{Claim 2b.}
+    $\forall n \in \N$,
+    
+    \[n < 2^n\]
+\end{claim}
+\begin{proof}
+    (Base Case): Let $n = 1$, $2^n = 2$ and $1 < 2$ so $n < 2^n$.
+
+    Inductive Hypothesis: Suppose $n < 2^n$
+    
+    Inductive Step: By the inductive hypothesis, $n < 2^n \implies 2n < 2^{n + 1}$. Since $n \in \N$, $n \geq 1$, $n + 1 \leq n + n = 2n$. Thus $n + 1 \leq 2n < 2^n \implies n + 1 < 2^{n + 1}$.
+    
+    
+    Thus by induction, $\forall n \in \N$, $n \leq 2^n$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Assume that $T_1$ and $T_2$ are two sets.
+
+    \begin{enumerate}
+        \item Assume that $T_1$ is finite, and that there exists a bijection from $T_2$ to $T_1$. Prove that $T_2$ is also finite.
+        \item Same question replacing finite by denumerable
+    \end{enumerate} 
+\end{PROB}
+\begin{claim}{3a}\label{Claim 3a.}
+    Assume that $T_1$ is finite, and that there exists a bijection from $T_2$ to $T_1$. Prove that $T_2$ is also finite.
+\end{claim}
+\begin{proof}
+    Assume that $T_1$ is finite, and that there exists a bijection $g$ from $T_2$ to $T_1$. By the Uniqueness Theorem, $\exists! ~ n \in N \ni |T_1| = n$. By definition of finite, $\exists f : \N_n \to T_1$ where $f$ is a bijection. Since the inverse of a bijection is a bijection, $g^{-1}$ is a bijection, thus there is a bijection between $T_1$ and $T_2$. The composition of 2 bijections is also a bijection, so $g^{-1} \circ f$ is a bijection from $\N_n \to T_2$. By definition of finite sets, $T_2$ is a finite set.       
+\end{proof}
+\begin{claim}{3b}\label{Claim 3b.}
+    Assume that $T_1$ is denumerable, and that there exists a bijection from $T_2$ to $T_1$. Prove that $T_2$ is also denumerable.
+\end{claim}
+\begin{proof}
+    Assume that $T_1$ is denumerable, and that there exists a bijection from $T_2$ to $T_1$. By definition of denumerable, $\exists f : \N \to T_1$ where $f$ is a bijection. Since the inverse of a bijection is a bijection, $g^{-1}$ is a bijection, thus there is a bijection between $T_1$ and $T_2$. The composition of 2 bijections is also a bijection, so $g^{-1} \circ f$ is a bijection from $\N \to T_2$. By definition of denumerable sets, $T_2$ is a finite set.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Is it possible to have a bijection from $\N$ to a proper subset of $\N$? Either prove that it is not possible, or give an example.
+\end{PROB}
+\begin{proof}
+    $S := \left\{ 2n : n \in \N \right\}$ or the set of even numbers. $S \subset \N$. $f: \N \to S$, where $\forall n \in \N$, $f(n) = 2n$. $\forall x, y \in \N \ni f(x) = f(y) \implies 2x = 2y \implies \frac{1}{2}(2x) = \frac{1}{2}(2y) \implies x = y$. Thus by definition of injective, $f$ is injective. 
+    
+    $\forall y \in S$, by definition of $S$, y is even. Thus $\frac{y}{2} \in \N$ and $f(\frac{y}{2}) = \frac{2y}{2} = y$. Thus $f$ is surjective. 
+    
+    Thus $f$ is a bijection.            
+\end{proof}
+
+\bigskip
+
+\begin{claim}{5}\label{Claim 5.}
+    Let S be a set. Denote $P(S)$ the collection of all subsets of S. For instance if $S = \left\{ 1, 2 \right\}$
+
+    \[
+        P(S) = \left\{ \emptyset, \left\{ 1 \right\}, \left\{ 2 \right\}, \left\{ 1, 2 \right\} \right\}
+    \]
+
+    Show by induction that if $S$ has $n$ elements, then $P(S)$ has 2 elements.
+\end{claim}
+\begin{proof}
+    (Base Case): Let $n = 0$, $S = \emptyset$. Assume the contrary, $\exists A \in P(S) \ni \exists x \in A$, since $A \subset S$. By definition of subset, $x \in S \implies x \in \emptyset$ which is a contradiction. Thus $\not \exists x \in A \implies A = \emptyset$. Thus the only subset of $S$ is $\emptyset$. Thus $P(S) = \left\{ \emptyset \right\}$. $|P(S)| = 1 = 2^0$.
+    
+    Induction Hypothesis: Assume for all sets $S$ with $n$ elements, then $P(S)$ has $2^n$ elements.
+
+    Inductive Step: Let $S$ be a set with $n + 1$ elements. Take a subset of $S$, $A$ with $n$ elements. $\exists! x \in S \ni x \not \in A$. Thus $S = A \cup \left\{ x \right\}$. For any subset $B \subset S$ or in other words, $B \subset P(S)$, $B \subset A$ or the union of a subset of $A$ and $\left\{ x \right\}$. By the induction hypothesis, there are $2^n$ subsets $B \in P(A)$, hence there are $2^n$ subsets of A. Hence there are $2^n$ subsets of the form $B \cap \left\{ x \right\}$. Hence $S$ has $2^n$ subsets which don't contain $x$ and $2^n$ subsets which contain $x$. Thus $|P(S)| = 2^n + 2^n = 2(2^n) = 2^{n + 1}$
+    
+    Thus by induction, if $S$ has $n$ elements, then $P(S)$ has 2 elements. 
+\end{proof}
+
+\end{document}

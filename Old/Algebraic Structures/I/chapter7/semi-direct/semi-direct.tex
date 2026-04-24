@@ -1,0 +1,239 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Semi-Direct Product}
+\author{Arham Lodha}%put your name here
+\date{November 26, 2023}%enter the due date here
+\maketitle
+
+
+Suppose we have two subgroups N and H of a group G. We have a canonical map $f: N \times H \to G$ (sending (n,h) to their product nh in G). 
+
+\begin{PROB}{1}\label{Problem 1.}
+    This is a homomorphism iff N and H commute. 
+\end{PROB}
+\begin{proof}
+    $\implies$: Suppose f is a homomorphism. Then by definition, $\forall n \in N, h \in H$, $f((n, h)) = f((e, h) \cdot (n, e)) = nh = hn = f((e, h)) \cdot f((n, e))$. Thus $HN = NH$.
+
+    $\impliedby$: Suppose $HN = NH$, then $\forall n_1, n_2 \in N, h_1, h_2 \in H$ $f((n_1, h_1) \cdot (n_2, h_2)) = f((n_1n_2, h_1h_2)) = n_1n_2h_1h_2 = n_1h_1n_2h_2 = f((n_1, h_1))f((n_2, h_2))$. Thus F is a homomorphism.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    It is injective iff $N \cap H = {e}$
+\end{PROB}
+\begin{proof}
+    $\implies$: $f$ is injective. $\forall x \in N \cap H$. $f(x, e) = x, f(e, x) = x$. Since $f$ is injective, $(x, e) = (e, x)$ thus $x = e$. Thus $N \cap H = \{e\}$
+
+    $\impliedby$: $N \cap H = \{e\}$. $\forall (n_1, h_1), (n_2, h_2) \in N \times H \ni f(n_1, h_1) = f(n_2, h_2)$. Thus $n_1h_1 = n_2h_2 \implies n_2^{-1}n_1 = h_2h_1^{-1}$. $n_2^{-1}n_1 \in N$ and $h_2h_1^{-1} \in H$. Thus $n_2^{-1}n_1 = h_2h_1^{-1} = e \in N \cap H$. Thus $n_1 = n_2$ and $h_2 = h_1$. Thus f is injective.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    It is surjective iff $NH = G$
+\end{PROB}
+\begin{proof}
+    $\implies$: f is surjective. $\forall g \in G$, $\exists (n, h) \in N \times H \ni f(n, h) = g$ but $f(n, h) = nh = g$. Thus $\forall g \in G$, $\exists n \in N, h \in H \ni nh = g$. Thus $NH = G$
+
+    $\impliedby$: $NH = G$. Thus $\forall g \in G$, $\exists n \in N, h \in H \ni nh = g$. $f(n, h) = nh = g$. Thus f is surjective.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Take $S_3$, and $A_3 = N$ and $H = <(12)>$. Check we get a bijection, but not An iso —(if it was an iso, $S_3$ would be Abelian). So what is the mult rule that $S_3$ puts on N x H?
+\end{PROB}
+\begin{proof}
+    $N \cap H = \{()\}$ as all other elements in $H$ are two cycles which are not even permutations and thus are not in $A_3$. Thus $f: N \times H \to G$ is injective. $\forall \phi \in S_3$, $\phi = x^ay^b$ for $x \in A_3$ and $y \in H$ $a \in [0, 1, 2]$ and $b = [0, 1]$. Thus $\phi = f(x^a, y^b)$. Thus f is surjective and a bijection 
+    exists from $N \times H \to G$. However in $S_3 \cong D_3$, $nh \neq hn$ but rather $hn = n^{-1}h$. Thus $NH \neq HN$ and f is not a homomorphism. $S_3$ puts the multiplication rule that $hn= n^{-1}h$ on $N \times H$.
+\end{proof}
+
+\begin{PROB}{5}\label{Problem 5.}
+    Show that G is completely determined by N, H and the restriction of this conjugation map, $H \to Aut(N)$:   
+    
+    Hint: we know from the bijection that every element of G has a unique expression as a product n h. What we have to figure out is  how to write  
+    
+    $n_1 h_1  n_2 h_2 = n_3 h_3$ (we know that the left hand side has a unique expression as on the right, the question is what that expression is) Note
+    
+    $h_1 n_2 = h_1 n_2 h_1^{-1} h_1 = C_{h_1}(n_2) h_1$ and thus 
+    
+    $n_1 h_1 n_2 h_2 = n_1 C_{h_1}(n_2) h_1 h_2 = n_3 h_3$.  Put another way, the "new" multiplication rule on the set N x H is given by 
+    
+    $(n_1,h_1)(n_2,h_2) := (n_1 C_{h_1}(n_2),h_1 h_2)$ -- so the h's multiply the usual way,
+    
+    but in order to "move the $h_1$ past the $n_2$" we have to change $n_2$, by conjugating
+    
+    by $h_1$ (note this produces another element of N ).  
+\end{PROB}
+\begin{proof}
+    $f: N \times H \to G$ is a bijection. So $\forall g \in G$, $g = f(n_3, h_3) = f((n_1, h_1) \cdot (n_2, h_2)) = n_1h_1n_2h_2 = n_3h_3$. $h_1n_2 = h_1n_2h_1^{-1}h_1 = C_{h_1}(n_2)h_1$. Thus $n_1h_1n_2h_2 = n_1C_{h_1}(n_2)h_1h_2$, $n_3 = n_1C_{h_1}(n_2) \in N$, thus $g = n_3h_1h_2 = n_3h_3$ where $h_3 = n_3h_3$. 
+
+    Thus define $(n_1, h_1) \cdot (n_2, h_2) := (n_1C_{h_1}(n_2), h_1h_2)$
+
+    Thus every element in g can be written as some $n$ and $h$ and thus G is completely determined by N, H and restriction of $H \to Aut(N)$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6a}\label{Problem 6a.}
+    Show that the product set, with this mult rule, is a group.
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item \textbf{Closure: } $(n_1, h_1), (n_2, h_2) \in N \times H$, $(n_1, h_1) \cdot (n_2, h_2) = (n_1C_{h_1}(n_2), h_1h_2)$, $n_1C_{h_1}(n_2) \in N$ and $h_1h_2 \in H$. Thus $(n_1C_{h_1}(n_2), h_1h_2) \in N \times H$. 
+        \item \textbf{Identity: } $(e, e) \in N \times H$, $(n, h) \in N \times H$, $(n, h) \cdot (e, e) = (n, h)$, $(e, e) \cdot (n, h) = (n, h)$
+        \item \textbf{Inverses: } $\forall (n, h) \in N \times H$, $(n, h) \cdot (C_{h^{-1}}(n^{-1}), h^{-1}) = (nC_{h}(C_{h^{-1}}(n^{-1})), e) = (e, e)$ and $(C_{h^{-1}}(n^{-1}), h^{-1}) \cdot (n, h) = (C_{h^{-1}}(n^{-1})C_{h^{-1}}(n), e) = (e, e)$.
+        \item \textbf{Associativity: } $\forall (n_1, h_1), (n_2, h_2), (n_3, h_3) \in N \times H$. 
+        
+        $((n_1, h_1) \cdot (n_2, h_2)) \cdot (n_3, h_3) = (n_1C_{h_1}(n_2), h_1h_2) \cdot (n_3, h_3) = (n_1C_{h_1}(n_2)C_{h_1h_2}(n_3), h_1h_2h_3)$
+
+        $(n_1, h_1) \cdot ((n_2, h_2) \cdot (n_3, h_3)) = (n_1, h_1) \cdot (n_2C_{h_2}(n_3), h_2h_3) = (n_1C_{h_1}(n_2C_{h_2}(n_3)), h_1h_2h_3)$
+
+        $(n_1C_{h_1}(n_2C_{h_2}(n_3)), h_1h_2h_3) = (n_1C_{h_1}(n_2)C_{h_1h_2}(n_3), h_1h_2h_3)$
+    \end{enumerate}
+\end{proof}
+\begin{PROB}{6b}\label{Problem 6b.}
+    Show that there are natural copies of N and H in this group, with N normal
+\end{PROB}
+\begin{proof}
+    $\forall n \in N$, $(n, e) \in N \times H$ and $N \cong (N, e)$. $\forall h \in N$, $(e, h) \in N \times H$ and $H \cong (e, H)$, $\forall (a, b) \in N$, $\forall n \in N$, $(a, b)(n, e)(C_{b^{-1}}(a^{-1}), b^{-1}) = (aC_{b}(n), b)(C_{b^{-1}}(a^{-1}), b^{-1}) = (aC_{b}(n)a^{-1}, e) \in N$ because $aC_{b}(n)a^{-1} \in N$. 
+\end{proof}
+\begin{PROB}{6c}\label{Problem 6c.}
+    G is called the semi-direct product the notation is roughly $N \times_{C} H$. There are lots of examples. E.g. we can take N to be a cyclic group of order n, with generator X, and H to be a cyclic group of order 2, with generator y, and define $C_y: N \to N $by  $C_y(X) = X^{-1}$. What group do we get?   
+\end{PROB}
+\begin{proof}
+    We get the group $D_n$. $N \times H \to D_n$ is a bijection. $N \cap H = \{e\}$. $\forall a \in D_n$ $a = x^cy^d$ where $a \in [0, \ldots n-1]$ and $b = 0, 1$. $N \times_C H = \langle x, y | x^n = y^2 = e, yxy^{-1} = x^{-1} \rangle \cong D_4$.
+\end{proof}
+
+\begin{PROB}{7}\label{Problem 7.}
+    As another example, figure out the possibilities with $N = F_2^2 = Z/2Z + Z/2Z$ and $H = \mu_3$.  Note that $Aut(N) = GL_2(F_2) = S_3$.  So we need a homomorphism of H to $GL_2(F_3) = S_3$. If we write H = $\langle y \rangle$, Y a generator, then such a homomorphism is the same as an element A in $GL_2$ with $A^3 = e$.  If A is trivial ,we will get the ordinary product. Otherwise there are two choices. which are squares of each other -- figure out why the two choices give isomorphic semi direct products.  Write down the resulting group in terms of generators and relations. 
+\end{PROB}
+\begin{proof}
+    $Aut(N) = GL_2(F_2) = S_3 = Perm(F_2^2\setminus\{0\})$. $C: H \to GL_2(F_2)$. $y$ must go to an element in $a \in S_3$ such that $a^3 = e$ so $a = 1, (1 2 3), (1 3 2)$. If $a = e$, conjugation by a would result in a normal product. 
+    $X = \begin{bmatrix}
+        0 & 1 \\ 1 & 1
+    \end{bmatrix}$
+
+    $Y = \begin{bmatrix}
+        1 & 1 \\ 1 & 0
+    \end{bmatrix}$
+    
+    $C_1(y) = \begin{bmatrix}
+        0 & 1 \\ 1 & 1
+    \end{bmatrix}y\begin{bmatrix}
+    0 & 1 \\ 1 & 1
+\end{bmatrix}^{-1}$ or $C_2(y) = \begin{bmatrix}
+        1 & 1 \\ 1 & 0
+    \end{bmatrix}y\begin{bmatrix}
+        1 & 1 \\ 1 & 0
+    \end{bmatrix}^{-1}$. 
+
+    $a = e_1$, $b = e_2$, $c = e_1 + e_2$. 
+
+    $C_1(a) = b$, $C_1(b) = ab$
+
+    $H \times_{C_1} N = \langle a, b, X : a^2 = b^2 = e, ab = ba, XaX^{-1} = b, XbX^{-1} = ab \rangle$
+
+    $C_2(c) = b$, $C_2(b) = bc$
+
+    $H \times_{C_1} N = \langle c, b, X : a^2 = b^2 = e, ab = ba, XcX^{-1} = b, XbX^{-1} = bc \rangle$
+
+    They are isomorphic because it is only up to choice of generators or the basis of $F_2^2$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+    Not every group is a semi-direct product of simpler groups -- e.g. a simple group(one with no normal subgroups) can't be. Check that the quaternian group $Q_8$ is not (in a non-trivial way) a semi-direct product (check that every non-trivial subgroup contains the center, so we can never satisfy 2 and 3).  But "most" groups of small order are. 
+\end{PROB}
+\begin{proof}
+    Let $H \leq Q_8$ be any subgroup where $H \neq \{1\}$. If $Z(Q_8) = H$, we are done. 
+
+    If $-1 \in H$, then $\langle -1 \rangle = Z(Q_8) \subset H$.
+    
+    If $x \in H \ni x \in \{\pm i, \pm j, \pm k\}$, by definition, $x^2 = -1$ so $-1 \in H$ thus the previous case is invoked.
+
+    So any nontrivial $H \leq Q_8$ has $Z(Q_8) \subset H$
+
+    So $\forall H, N < G$. If $H, N$ are nontrivial, $Z(Q_8) \subset H \cap N$ thus $H \times N \to G$ is not injective. If one subgroup is trivial, then the other one is G. But since they are both strictly proper subgroups this forms a contradiction and the map is not surjective. Thus $Q_8$ cannot be a semidirect product as it is not in bijection with the product of any of its subgroups.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9a}\label{Problem 9a.}
+    Here is a quite cool question that might stretch your head: Fix H and N, Let A:= Aut(N) (group automorphisms, of course). Now take two  $C_1, C_2$ in $Hom_{groups}(H,A)$. We can use them to form two different semi-direct products $G_1$ and $G_2$, each containing canonical copies of H and N, so that the natural map  $N_i \times H_i \to G_i$ is a bijection. 
+    
+    When is there an isomorphism $G_1 \to G_2$ taking $N_1$ to $N_2$, $H_1$ to $H_2$? Hint:  Note that A and Aut(H) each naturally act on $Hom_{groups}(H,A)$: If we have a in A, and f in Aut(H) and $g : H \to A$, we can take $f(g) := g \circ f^{-1}$, and $a(g) := C_a \circ g$, where $C_a: A \to A$ is conjugation by a.   
+\end{PROB}
+
+\begin{PROB}{9b}\label{Problem 9b.}
+    Q: Why the inverse on f? 
+\end{PROB}
+
+
+
+\end{document}

@@ -1,0 +1,197 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Conjugacy in $SL_2(F_3)$ I}
+\author{Arham Lodha}%put your name here
+\date{November 12, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{0}\label{Problem 0.}
+    Let F be a field, V a finite dim F-vector space. Note that $F^*$ acts on $V / \{0\}$ by scaling. Let $PV := V / 0 / F^*$ = the quotient. Explain why PV is the set of one dimensional subspaces of V. Show that $GL(V)$ acts on PV, and on $V / 0$ in such a way that the quotient map is a map of $GL(V)$ sets. Explain why $F^*$ = scalar matrices, acts trivially on PV, and so the action of GL(V) on PV acts through the quotient $GL(V) \twoheadrightarrow PGL(V) := GL(V)/F^*$.
+\end{PROB}
+\begin{solution}
+    PV is the set of one dimensional subspaces in $V$, because it $F^* \cdot v$ consists of v scaled by $F^*$ which is a line and is in bijection with the $span(v)$.
+
+    Let $q: V/0 \to PV$ be the quotient map. $\forall A \in GL(V)$, $q(AV) = F^* \cdot AV = \{fAv : f \in F^*\} = \{fAv : f \in F^*\} = \{Afv : f \in F^*\} = A \cdot \{fv : f \in F^*\} = A \circ F^* \cdot x = A q(x)$.
+
+    $F^*$ acts trivially on $PV$ because it preserves the 1 dimensional subspace. Since $\forall F^* \cdot v \in PV$, $F^* \cdot (F^* \cdot v) = \{f_1f_2v : f_1f_2 \in F^*\} = \{fv : f \in F^*\} = F^* \cdot v$
+\end{solution}
+
+\bigskip
+
+We take $S:= SL_2(F_3)$.  $F := F_3, V := F^2$ (column vectors of size 2),
+$F^*$ acts on $V / 0$ by scaling, let P be the quotient, $(V / 0)/F^*$  Note this is
+The same as the set of one dimensional subspaces of V. Let $G := GL_2(F)$
+
+\begin{PROB}{1}\label{Problem 1.}
+    Show $|P| = 4. |G| = 48, |S| = 24$
+\end{PROB}
+\begin{proof}
+    $|G| = (3^2 - 3)(3^2 - 1) = 6*8 = 48$.
+    $[G : S] = 2 \implies |S| = 24$
+    $P = \{[1:0], [1:1], [2:1], [0:1]\} \implies |P| = 4$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Explain how G acts on P. This gives a map $G \to S_4 = Perm(P)$. Show that the kernel are the scalar matrices, a copy of $F^*$
+\end{PROB}
+\begin{proof}
+    G acts on P by left multiplication. So $\forall g \in G$, $g * F^*x= F^*gx$. 
+
+    Suppose $k \in \ker[G \to S_4]$, then $k * F^*e^i = F^*e^i \implies ke_i = \lambda_ie^i$. Then $k *F^*(\sum_{i = 1}^{n}e_i) = F^*(\sum_{i = 1}^{n}e_i) \implies k(\sum_{i = 1}^{n}e_i) = f(\sum_{i = 1}^{n}e_i)$. But $\sum_{i = 1}^{n}ke_i = \sum_{i = 1}^{n}\lambda_ie_i = (\sum_{i = 1}^{n}fe_i) \implies \lambda_1 = \ldots = \lambda_n$. Because $e_i \in V_\lambda(k)$. Thus $k$ is a scalar matrix. Thus $\ker = F^*s$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Show the above induces an $PG \cong S_4$. 
+\end{PROB}
+\begin{proof}
+    Since $\ker G \to S_4 = F^*$ and $PG := G/F^*$ then by fundamental theorem of homomorphism, $S_4 \cong F^*$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Show that the kernel of $S \to S_4$ is $F^* = \{+I,-I\}$ (-I is the negative of the identity matrix)
+\end{PROB}
+\begin{proof}
+    $S \subset G$. $-I \in S$, because $\det(-I) = 1$. So if $\ker$ from $G \to S_4$ is $F^*$. $\ker$ S to $G$ is $F^* \cap S = \{\pm I\}$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Conclude we have an iso $PS \cong A_4$, where $PS := S/{I,-I}$. 
+\end{PROB}
+\begin{proof}
+    $[S : PS] = 2\implies |PS| = 24$. Also only index 2 subgroup of $S_4$ is $A_4$ this implies $PS \cong A_4$.
+\end{proof}
+
+\bigskip
+
+
+$Z \in Z(S)$
+Let $PS := S/Z$. Now for any group G, write $G/G$ for the set of conjugacy classes
+(the quotient of G for G acting on itself by conjugation). Let $q: S \to PS$ be the quotient map. 
+
+\begin{PROB}{6}\label{Problem 6.}
+    Explain why q induces a natural surjective map $q: S/S \twoheadrightarrow  PS/PS$. 
+\end{PROB}
+\begin{proof}
+    $\forall [x] \in S/S$, $q([x]) = [q(x)] = [\{zxz^{-1} : z \in Z\}]$.
+
+    $[x] = [gxg^{-1}]$. $q'([gxg^{-1}]) = [q(gxg^{-1})] = [q(g)q(x)q(g)^{-1}] = [x]$ by definition of conjugation. Thus since $q$ is well defined it inherites the surjective property from $q$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Show that left multiplication by Z permutes conjugacy classes, so gives a action of Z on $S/S$. Show that the orbits are exactly the fibres of $q: S/S \twoheadrightarrow PS/PS$
+\end{PROB}
+\begin{proof}
+    For $z \in Z$, 
+    $z \cdot [x] = \{zgxg^{-1} : g \in S\} == \{gzxg^{-1} : g \in S\} = [zx]$.
+
+    If $z \cdot [x] = z \cdot [y]$. Then $gzxg^{-1} = zy \implies zgxg^{-1} = zy \implies y \in [x]$.
+
+
+    $q^*([q(x)]) = q^*([xZ]) = \bigcup_{g \in G}gxZg^{-1} = \bigcup_{g \in G}Z gxg^{-1} =Z \bigcup_{g \in G}gxg^{-1} = Z * [x]$. Thus each fibre is the orbits of left multiplication by Z.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+    Now suppose Z has prime order p. Show the inverse image under $q:S \twoheadrightarrow PS$ of a conjugacy class is either a single conjugacy class, p-times as big, or a disjoint union of p conjugacy classes, all of the same size as the original.  
+\end{PROB}
+\begin{proof}
+    Since each fibre is a Z orbit. By orbit stabilizer $|Z * [x]| | Z$. Thus $|Z * [x]| | p \implies |Z * [x]| = 1, p$. 
+    
+    If $|Z * [x]| = p$, then there are p elements in the fiber of $[xZ]$ each with the same size. Then $|Z^{[x]}| = 1 \implies e \in Z$ preserves $[s]$.
+
+    When $|Z * [x]| = 1$, then there is only 1 element in the fibre of $[xZ]$ and thus there is only 1 big Conjugacy class. Since $|Z^{[x]}| = p$ then the conjugacy class is p times as big as $[xZ]$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+    Take s in S and consider  $q^*[q(s)]$ show this is either $[s]$, or it is the disjoint union of the $[zs]$ as z runs over Z. In the second case we'll say $[s]$ “breaks up”.  Show $[s]$ does not break up iff zs is conjugate to s for all z in Z, and this happens iff s is conjugate to zs for some non-trivial z in Z,
+\end{PROB}
+\begin{proof}
+    Assume $|Z| = p$ where $p$ is prime
+    $q^*[q(s)] = Z * [s] = \bigcap_{z \in Z}[zs]$. 
+    
+    If $zs$ is conjugate to $s$, thus $zs = gsg^{-1}$ then $z*zs = z^2s = zgsg^{-1} = gzsg^{-1}$ thus $z^2s$ is conjugate to $zs$. Thus $z^k s$ is conjugate to $s$. Thus $[s] = [zs] = \ldotp = [z^{(p-1)}s]$. Thus $q^*[q(s)] = [s]$
+
+    Thus iff $\exists z \in Z \ni zs \sim s \implies z^ks \sim s \iff$ [s] doesn't break up.
+
+    Otherwise if $zs$ is not conjugate to $s$, by the previous problem it breaks into p conjugacy classes.
+
+    
+\end{proof}
+
+\end{document}

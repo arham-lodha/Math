@@ -1,0 +1,209 @@
+%HOMEWORK template for M 325K
+
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+	\newenvironment{#1}[1]
+	{%
+		\renewcommand\customgenericname{#2}%
+		\renewcommand\theinnercustomgeneric{##1}%
+		\innercustomgeneric
+	}
+	{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+		{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+		{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Linear Algebra Bootcamp 2}
+\author{Arham Lodha}%put your name here
+\date{August 27, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+	Let $\{v_1,..,v_n\}$ be a linearly independent set of elements in V, and $w \in V$. Let $F_{v_1,..,v_n}: F^n \rarr V$ be the associated (from an earlier homework) linear map -- namely $F(f_1,..,f_n) = \sum f_i v_i$. Show that w lies in the image iff w is in the span of the $v_i$, which holds iff $\{v_1,..,v_n,w\}$ IS NOT linearly independent.  Now let V be finite dimensional and $\{v_1,..,v_k\}$ an independent subset. Prove it is part of a basis.  Similarly show that if $\{v_1,...,v_m\}$ spans V then some subset is a basis.
+\end{PROB}
+\begin{proof}
+	Let $\{v_1,..,v_n\}$ be a linearly independent set of elements in V, and $w \in V$.
+	Let $G_{v_1,..,v_n}: F^n \rarr V$ be the associated (from an earlier homework) linear map -- namely $F(f_1,..,f_n) = \sum f_i v_i$.
+
+	\begin{claim}{1a}
+		$w \in \IM{G}$ iff w is in the span of the $v_i$.
+	\end{claim}
+	\begin{proof}
+		($\implies$): Suppose $w \in \IM{G}$. Then $\exists f \in F^n$ s.t $G(f) = \sum_{i=1}^{n} f_i * v_i = w$. Thus w can be written as a linear combination of $v_i$. Then by the definition of span, $w$ in span of $v_i$
+
+		($\impliedby$): Suppose $w$ in span of $v_i$. Then by definition of span, $w$ can be written as a linear combination of $v_i$. Thus by definition of linear combination, $w = \sum_{i = 0}^{n}f_i * v_i$ where $f_i$ is the ith element of $f \in F^n$. Thus by the definition of G and the image, $w \in \IM{G}$.
+	\end{proof}
+
+	\begin{claim}{1b}
+		$w$ in span of $v_i$ iff $\{v_1,..,v_n,w\}$ is not linearly independent
+	\end{claim}
+	\begin{proof}
+		($\implies$): Suppose $w$ in the span of $v_i$.
+
+		\begin{enumerate}
+			\item If $w = 0$. Since we know $\{v_1, v_2, ..., v_n\}$ is a linearly independent set, by the definition of a linearly independent set we know $\sum_{i=1}^n f_i * v_i = 0$ if $f_i = 0$ for all $i$. Then create the linear combination, $\sum_{i=1}^n f_i * v_i + a*w = 0 + a*w = 0$ where $a \in F$ s.t $a \neq 0$. Then by the definition of linear dependence, $\{v_1,..,v_n,w\}$ is not linearly independent.
+
+			\item If $w \neq 0$. Then by the definition of linear span, $w = \sum_{i = 1}^n f_i * v_i$ where $f_i \in F$ s.t $f_i \neq 0$. By the definition of a field, if $f_i \in F$, then $\exists -f_i \in F$ s.t $f_i + (-f_i) = 0$. Then create the linear combination, $(-f_1v_1) + (-f_2v_2) + ... + (-f_nv_n) + w = \sum_{i = 0}^n (-f_i)v_i + w = \sum_{i = 0}^n (-f_i)v_i + \sum_{i = 0}^n f_iv_i = \sum_{i = 0}^n (-f_i + f_i)v_i = 0$. Since there exists a linear combination equal to 0 where at least one coefficent is nonzero, by the definition of linear independence, $\{v_1,..,v_n,w\}$ is not linearly independent.
+		\end{enumerate}
+
+		Thus $\{v_1,..,v_n,w\}$ is not linearly independent.
+
+
+		($\impliedby$): Suppose $\{v_1,..,v_n,w\}$ is not linearly independent. By the definition of linear dependence, it means $\sum_{i = 1}^{n} a_i * v_i + a_{n+1}*w = 0$ s.t $a_i \in F$ and there exists $a_i \neq 0$. Since we know $\{v_1, v_2, ..., v_n\}$ is a linearly independent set, by the definition of a linearly independent set we know $\sum_{i=1}^n a_i * v_i = 0$ iff $a_i = 0$ for all $i \in [1, n]$. If $a_{n + 1} w = 0$, then $a_i = 0$ for all $i \in [1, n]$, then $a_{n+1} \neq 0$ and $w = 0$. Then $w = 0 * v_i$ for any $i \in [1, n]$. Thus $w$ in span of $v_i$. However if $a_{n + 1} w \neq 0$, then $a_{n + 1} w \neq 0$ and $a_{n + 1} w = -\sum_{i=1}^n a_i * v_i = G(a)$ for $a \in F^n$ where $a = (a_1, ..., a_n)^T$. Since $G$ is a linear map, $-G(a) = G(-a)$ so $-G(a) = G(-a) = \sum_{i=1}^n -a_i * v_i$. Since $F$ is a field and $a_{n+1} \neq 0$, then $a_{n+1}^{-1} \in F$ s.t $a_{n+1} * a_{n+1}^{-1} = 1$ where 1 is the multiplicative identity of $F$. Then $w = a_{n+1}^{-1} * G(-a)$. Since G is linear map, $a_{n+1}^{-1} * G(-a) = G(-a_{n+1}^{-1} * a)$. So $w = G(-a_{n+1}^{-1} * a) = \sum_{i=1}^n -(a_{n+1}^{-1} * a_i) * v_i$. So $w$ can be written as a linear combination of $v_i$. Thus by the definition of span, $w$ in span of $v_i$.
+
+	\end{proof}
+
+	Let V be finite dimensional and $A = \{v_1,..,v_k\}$ an independent subset.
+
+	\begin{claim}{1c}
+		$A = \{v_1,..,v_k\}$ part of a basis.
+	\end{claim}
+	\begin{proof}
+		Let $A$ be a an independent subset of V. Construct subset $B$ using the following algorithm.
+
+		\begin{enumerate}
+			\item Let $B = A$.
+			\item If $\dim {B} \neq \dim V$. By problem 7 in Linear Algebra Bootcamp, $\abs{B} \leq \dim V$ thus $\abs{B} < \dim V$ since $\abs{B} \neq \dim V$. By the definition of dimension and bases of a vectorspace, $V$ must have $\dim{V}$ linearly independent vectors to span V. Thus there must exist at least one vector $u$ which is linearly independent to the vectors of $B$. Add a vector $u$ to $B$. Now $B$ should have one more linearly independent vector. By the definition of dimension, the dimension of B must have increased by 1. Repeat until $\dim {B} = \dim V$
+		\end{enumerate}
+
+		Since $\dim V \neq \infty$, the algorithm terminates. Furthermore we are adding linearly independent vectors to $A$ a subset containing linearly independent vectors until its dimension equals $V$. By the definition of dimension, span of $B$ is V. Thus by the definition of basis, $B$ is now a basis of V. By the definition of B, $A \subset B$. Thus $A$ is part of a subset.
+
+	\end{proof}
+
+	\begin{claim}{1d}
+		Show that if $B = \{v_1,...,v_m\}$ spans V then some subset is a basis.
+	\end{claim}
+	\begin{proof}
+		Suppose $B = \{v_1,...,v_m\}$ spans V. Construct a subset $S_k \subset B$ with the following algorithm:
+
+
+		\begin{enumerate}{}
+			\item Initialize $S_0$ as the empty set: $S_0 = \emptyset$.
+			\item For each vector $v_i$ in $B$, where $i = 1, 2, \ldots, m$:
+			      If $v_i$ is linearly independent from all vectors in the current subset $S_{i-1}$, add $v_i$ to $S_{i-1}$ to form the new subset $S_i$: $S_i = S_{i-1} \cup \{v_i\}$.
+
+		\end{enumerate}
+
+		$S_k$ is linearly independent because we only added vectors to $S_{i}$ if they were linearly independent of the previous vectors in $S_{i-1}$.
+
+		$S_k$ spans V because by construction, every vector in B can be expressed as a linear combination of the vectors in $S_k$. Since B spans V, any vector in V can be expressed as a linear combination of vectors in B, and consequently, it can be expressed as a linear combination of vectors in $S_k$.
+
+		By definition, a set that is both linearly independent and spans a vector space is a basis for that space. Therefore, $S_k$ is a basis for V, and this concludes the proof. Thus, a subset of B is indeed a basis for V.
+
+	\end{proof}
+\end{proof}
+\pagebreak
+
+\begin{PROB}{2}\label{Problem 2.}
+	Let $f: V \rarr W$ be a linear map between finite dimensional F-vector spaces. Prove we can find isomphisms  $a: F^m \rarr V$, $b: W \rarr F^n$, so that the induced matrix $\beta \circ f \circ \alpha: F^m \rarr F^n$ is "diagonal" with diagonal entries 1,..,1,0,0,...0. Prove that $\dim f_*(V) + \dim \ker(f) = \dim V$
+\end{PROB}
+\begin{proof}
+
+	Let $V, W$ be finite dimensional F-vector spaces s.t $\dim V = m$ and $\dim W = n$.
+	% Let $\{v_1, v_2, \ldots, v_m\}$ be the bases of V. Let $\{w_1, w_2, \ldots, w_n\}$ be the bases of W. Let $e^a_i \in F^a$ be the standard basis in $F^a$ s.t $e_i^a$ is a column vector with $0$ in all positions except the ith position which has a 1 s.t $0 \in F$ where 0 is the additive identity and 1 is multiplicative identity. 
+
+	By problem 6 of the previous homework, we know linear maps are naturally isomorphic to matrices. So define a matrix A which is isomorphic to the linear map $f$. $A \in M_{n \times m}$. By problem 7 of the previous homework, we know we can form square invertible matrices $R \in M_{n \times n}$ and $C \in M_{m \times m}$. Let $C$ is the product of elementary column operations matrices which cause $A$ to go to upper triangular form when multiplied to the right of A. Let $R$ be the product of the elementary row operations matrices which cause $AC$ to go to the diagonal form when left multiplied to $AC$. By Problem 7 of the Linear Algebra Bootcamp 1, $m \leq n$. Thus $B = RAC = \beta \circ f \circ \alpha := F^m \rarr F^n$, is a diagonal matrix consisting of a identity matrix flanked by rows and columns of 0s.
+
+
+	Again by problem 6 of the previous homework, we know matrices are naturally isomorphic to linear maps. So define an isomorphism $\alpha: F^m \rarr V$ such that $\alpha$ is isomorphic to C. Similarly, define an isomorphism $\beta: W \rarr F^n$ such that $\beta$ is isomorphic to R. Additionally since matrix multiplication corresponds to function composition. So $RAC = \beta \circ f \circ \alpha$. 
+
+	Furthermore $\dim f_*(V)$ is the number of basis vectors in $V$ which don't go to $0 \in W$. Since $\beta$ is a isomorphism from $W \rarr F^n$, by the definition of a isomorphism, $\dim f_*(V)$ is the number of basis vectors which do not go to $0 \in F^n$. Furthermore, since $\alpha$ is a isomorphism from $F^m \rarr V$, by definition of a isomorphism, $\dim f_*(v)$ is the number of basis vectors in $F^m$ which do not go to $0 \in F^n$. So it is the number of basis vectors such that $RACe^m_i \neq 0$. Since $e^m_i$ have a 1 in the ith index and 0s everwhere else, so $RACe^m_i \neq 0$ iff $1 \leq i \leq m$. $\dim f_*(V)$ is equal to the number of columns with 1s in $RAC$. 
+
+	$\dim \ker(f)$ is the number of basis vectors in $V$ which go to $0 \in W$. Since $\beta$ is a isomorphism from $W \rarr F^n$, by the definition of a isomorphism, $\dim \ker(f)$ is the number of basis vectors which do go to $0 \in F^n$. Furthermore, since $\alpha$ is a isomorphism from $F^m \rarr V$, by definition of a isomorphism, $\dim \ker(f)$ is the number of basis vectors in $F^m$ which go to $0 \in F^n$. So it is the number of basis vectors such that $RACe^m_i = 0$. This value is equal to the number of columns without 1s in $RAC$, because then these columns all have 0s. Let  $i$th column of $RAC$ have all 0s and by definition $e_{i}^m$ only has a one in the $i$th index and 0s everwhere else, so $RACe_{i}^m = 0$.
+
+	$\dim f_*(V) + \dim \ker(f)$ is the number of columns with 1s plus the number columns with 0. Since a column may have either a 0 or a 1, then $\dim f_*(V) + \dim \ker(f)$ is equal to the total number of columns which is also equal to $\dim V$. So $\dim f_*(V) + \dim \ker(f) = \dim V$
+	
+\end{proof}
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+	Let A be an $n \times m$ matrix. Show that its row and column spaces have the same dimension. What does that make you naturally wonder? What is better than showing they have the same dimension?
+\end{PROB}
+\begin{solution}
+	By problem 7 of the previous homework, we know we can form square invertible matrices $R \in M_{n \times n}$ and $C \in M_{m \times m}$. Let $C$ is the product of elementary column operations matrices which cause $A$ to go to upper triangular form when multiplied to the right of A. Let $R$ be the product of the elementary row operations matrices which cause $AC$ to go to the diagonal form when left multiplied to $AC$. Thus $RAC$, is a matrix with identity matrix flanked by rows and columns of 0s. Since $R$ and $C$ are invertible and represent row and column operations, they are bijections they shouldn't have change the number of linearly independent rows or columns of the matrix A. Thus the rows or columns with a 1 are linearly independent and the rows and columns with all 0s are linearly dependent. If a row has 1 then a column also has a 1. Thus the number of linearly independent columns and number of linearly independent rows are equal. Thus by the definition of row and columns spaces, both spaces share the same number of basis vectors thus the dimensions are equal.
+
+	Since the dimensions of the vector spaces are equal, this leads me to wonder if they have a natural bijection between the two of them. 
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+	Say the field F is the real numbers, so $F = R$. Now A naturally gives us a map $F_n \rarr F^m$ by $X \rarr A X^t$, where X here means a row vector, and $X^t$ is the corresponding column. We can restrict this to give a map $A: row(A) \rarr F^m$, $X \rarr AX^t$, where $row(A) \subset F_n$ is the row span (the span of the rows of A). Explain why the image lands in $col(A)$, the column space, so we have a map $A: row(A) \rarr col(A)$.  Show this is an iso: Hint, explain why its enough to show that if  $A( (w A)^t) = 0$, then $wA = 0$, for $w$ a $1 \times n$ row vector.  Use dot product to show this is true.
+\end{PROB}
+\begin{proof}
+	Say the field F is the real numbers, so $F = R$. Now A naturally gives us a map $F_n \rarr F^m$ by $X \rarr A X^t$, where X here means a row vector, and $X^t$ is the corresponding column. We can restrict this to give a map $A: row(A) \rarr F^m$, $X \rarr AX^t$, where $row(A) \subset F_n$ is the row span (the span of the rows of A).
+
+	By definition $A \in M_{m \times n}$ matrix. Let $r_i$ for $i \in [1, ..., n]$ be the ith row of $A$. Let $c^i$ for $i \in [1, \ldots, m]$ be the ith column of $A$. 
+	
+	
+	Let $x \in row(A)$. By definition of row space, X can be represented as a linear combination of row vectors. So $x = \sum_{i = 1}^{n}a_ir_i$ for $a_i \in \R$. $xA = (\sum_{i = 1}^{n}a_ir_i)A$. Since $A$ is isomorphic to a linear map $\phi(x) = xA$, it has the same properties of a linear map. So $xA = \sum_{i = 1}^n a_ir_iA = \sum_{i = 1}^n a_iAr_i^t = \sum_{i = 1}^n A(a_ir_i^t)$. By the definition of a matrix multiplication, $Aa_ir_i^t$ creates a linear combination of $c_j$ with coefficents $a_ir_{i_j}$ where $j \in [1, 2, ..., m]$. Thus a linear combination of column vectors of A is created, thus $xA \in col A$. Thus $\IM{A} \in col A$.
+	
+	\begin{enumerate}{}
+		\item Injective: Consider a row vector $w$ s.t $A((wA)^t) = 0$ where $0$ is the zero vector in $F^m$. $A((wA)^t) = AA^tw^t = 0$. Left multiplying by everything by $w$, gives us $wAA^tw^t = (wA)(wA)^t = (wA)(wA)^t = 0$ where 0 is now a scalar. By the rules of dot products $wA = 0$. Thus $A$ is injective.		
+		
+
+		\item Surjective: Since the columns of A span the column space A, and for any $x \in row(A)$ $Ax^t$ takes a linear combination of the columns of A, then the image of A for all row space elements spans the column space. By definition of span, that means every vector in the column space has a corresponding element in the row space. Thus A is surjective.
+		
+	\end{enumerate}
+
+	Since A is surjective and injective, it is a bijective function, by definition. Thus by the definition of a isomorphism, it is also a isomorphism. 
+\end{proof}
+\pagebreak
+
+\begin{PROB}{5}\label{Problem 5.}
+	Show that 4 does not work over arbitrary fields. I don't actually know a natural iso from $row(A) \rarr col(A)$ in general (and guess one does not exist, so I'll be hugely impressed if you can produce one).
+\end{PROB}
+\begin{proof}
+	Let $F := Z/pZ$. Let $G := \Z$. Let $\sim$ be the equivalence relation s.t two integers $a, b \in \Z$ are equivalent iff $a \mod p \equiv b \mod p$. Problem 4 used a notion of dot product or inner product to prove that A was injective. It specifically used the property that $a \cdot a \geq 0$ for any $a \in F^m$ and is only equal to 0 iff $a = 0$. However the binary relation $\geq$ is not well defined on $F := Z/pZ$ as compared to $\R$. This is because since $F$ is cyclic, not two numbers are greater than or less than other numbers. For example in $F$, suppose $a \in [0]$ and $b \in [1]$ s.t $a, b \in \Z$ and $b = a + 1$ and thus $a < b$ in $\Z$. However $a + p \sim a$ and $b - n \sim a$ in $Z/pZ$. Thus $a > b$ and $b < a$ in $Z/pZ$, and the notion of greater than and less than is not well defined on $F$. Thus $a \cdot a \geq 0$ is not well defined, meaning the dot product or inner product is not well defined. 
+\end{proof}
+\end{document}

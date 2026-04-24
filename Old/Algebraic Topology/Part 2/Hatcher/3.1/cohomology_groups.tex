@@ -1,0 +1,119 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\Ext}[0]{\text{Ext}}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Co-Homology Groups}
+\author{Arham Lodha}%put your name here
+\date{March 18, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    $Ext(H, G)$ is a contravariant functor of H for fixed $G$ and a covariant functor of $G$ for fixed $H$   
+\end{PROB}
+\begin{proof}
+    Let $f: H \to H'$. Let $F = \left\{ F_i \right\}_{i \geq 0}$ and $F' = \left\{ F_i' \right\}_{i \geq 0}$ are free resolutions for $H$ and $H'$ respectively. By 3.1, $f$ extends to a chain map $\left\{ f_i \right\}_{i \geq 0}$ where $f_i: F_i \to F'_i$. We have the following commutative diagram. 
+    
+    % https://q.uiver.app/#q=WzAsMTAsWzQsMCwiSCJdLFs0LDEsIkgnIl0sWzMsMCwiRl8wIl0sWzIsMCwiRl8xIl0sWzEsMCwiRl8yIl0sWzAsMCwiLi4uIl0sWzMsMSwiRl8wJyJdLFsyLDEsIkZfMSciXSxbMSwxLCJGXzInIl0sWzAsMSwiLi4uIl0sWzAsMSwiZiJdLFsyLDBdLFszLDJdLFs0LDNdLFs1LDRdLFs2LDFdLFs5LDhdLFs4LDddLFs3LDZdLFsyLDYsImZfMSJdLFszLDcsImZfMiJdLFs0LDgsImZfMyJdXQ==
+\[\begin{tikzcd}
+	{...} & {F_2} & {F_1} & {F_0} & H \\
+	{...} & {F_2'} & {F_1'} & {F_0'} & {H'}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{f_3}", from=1-2, to=2-2]
+	\arrow[from=1-3, to=1-4]
+	\arrow["{f_2}", from=1-3, to=2-3]
+	\arrow[from=1-4, to=1-5]
+	\arrow["{f_1}", from=1-4, to=2-4]
+	\arrow["f", from=1-5, to=2-5]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+\end{tikzcd}\]
+
+    Dualize. 
+
+    Suppose $H' = H$ and $f = id_H$. Let $F = F'$ and let $f_i = id_{F_i}$. Thus the chain map is $Id: F^* \to F'^* = F^*$. Thus the induced map on cohomology, is $id: H^*(F; G) \to H^*(F, G)$. Thus $f^*: Ext(H, G) = H^1(F; G) \to H^*(F; G) = Ext(H, G)$ is identity. 
+    
+    Suppose $\alpha: A \to B$ and $\beta: B \to C$. Let $X$, $Y$, $Z$ be the free resolutions of $A$, $B$, $C$ respectively. Let $\alpha_i$, $\beta_i$ be the corresponding chain maps from $X \to Y$ and $Y \to Z$. Thus $\beta_i \alpha_i: X_i \to Z_i$ is a chain map. Thus $(\beta_i \alpha_i)^\sharp: Z_i^* \to X_i^*$ is a cochain map. Thus it induces a map on cohomology, $(\beta_i \alpha_i)^*: H^*(Z; G) \to H^*(X; G)$. Also note any other extension of $\beta\alpha$ is chain homotopic to this one thus $(\beta \alpha)^* = $                  
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Show that the maps $(\times n) : H \to H$ and $(\times n): G \to G$ induces the corresponding maps on $\Ext(H, G)$   
+\end{PROB}
+
+\end{document}

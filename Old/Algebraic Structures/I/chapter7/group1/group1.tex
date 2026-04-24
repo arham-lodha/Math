@@ -1,0 +1,316 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Back to Group Theory}
+\author{Arham Lodha}%put your name here
+\date{November 04, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    We let finte G act on itself by conjugation. Consider an element g in G which IS NOT in the center. Write Z(g) for its centralizer (the elements of G that commute with g, note they form a subgroup, $Z(g) = G^g$ for G acting on itself by conjugation). Explain why $|Z(G)|$ properly divides $|Z(g)|$ which properly divides $|G|$, where properly divides means it divides with quotient > 1 (here $Z(G)$ is the center of $G$). Use this to show that if |G| = pq with p, q prime. Then either G is Abelian, or its center is trivial. 
+\end{PROB}
+\begin{solution}
+    Suppose $g \not \in Z(G)$. Both $Z(G)$ and $Z(g)$ are subgroups of G. $\forall h \in Z(G)$, $hgh^{-1} = g$ thus $h \in Z(g)$ since $h$ commutes with all element of G by definition. $g^{-1}gg = g$ thus $g^{-1} \in Z(g)$ but since $g \not \in Z(g) \implies g^{-1} \not \in Z(G)$. Thus $Z(G) \subset Z(g)$. Thus $|Z(G)| | | Z(g)|$ where $Z(g) = k|Z(G)|$ where $k \in \Z^+$ and $k \neq 1$. Furthermore since $g \not \in Z(G)$, then $Z(g) \subset G$. Thus $|Z(G)| | |G|$ where $|G| = m|Z(g)|$ where $m \in \Z^+$ and $m \neq 1$.
+
+
+    Suppose $|G| = pq$ where $p, q$ are prime. Then the sizes of its subgroup is $1, p, q, pq$. There either $\exists g \not \in Z(G)$ or $\forall g \in G, g \in Z(G)$. If it is the latter then G is Abelian. If it is 1st option. Then there exists $g \not \in Z(G)$. Subgroup $Z(g)$ must have prime order. Morever $Z(G) \subset Z(g)$, where $|Z(g)| = k|Z(G)|$ where $k \geq 1$. But since $|Z(g)|$ is prime its only factors are 1 and $|Z(g)|$ and since $k \neq 1$ then $k = |Z(g)|$ then $|Z(G)| = 1$ and the center is trivial.
+\end{solution}
+
+\bigskip
+
+\begin{LEM}{}
+    $\forall g \not \in Z(G)$, $|C_g| = \frac{|G|}{k|Z(G)|}$ for $k \in \Z \ni k > 1$
+\end{LEM}
+\begin{proof}
+    $\forall g \in G$, $|G| = |Z(g)||C_g| = k|Z(G)||C_g|$ by problem 1 for $k > 1$. Thus $|C_g| = \frac{|G|}{k|Z(G)|}$ for $k \in \Z \ni k > 1$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.1.2}\label{Problem 7.1.2.}
+    Let H be a subgroup of a group G. Describe the orbits for the operation of H on G by left multiplication.
+\end{PROB}
+\begin{proof}
+    Right cosets. $\forall g \in G$, $H \cdot g = \{hg : h \in H\} = Hg$ (all equalities are by definition).
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.2.1a}\label{Problem 7.2.1a.}
+    Determine the centralizer and the order of the conjugacy class of
+    $A = \begin{bmatrix}
+        1 & 1 \\ & 1
+    \end{bmatrix} \in GL_2(F_3)$
+\end{PROB}
+\begin{solution}
+    Suppose $\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix} \in Z(A)$. Then $\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}\begin{bmatrix}
+        1 & 1 \\ & 1
+    \end{bmatrix} = \begin{bmatrix}
+        a & a + b \\ c & c+d
+    \end{bmatrix} = \begin{bmatrix}
+        a + c & b + d \\ c & d
+    \end{bmatrix} = \begin{bmatrix}
+        1 & 1 \\  & 1
+    \end{bmatrix}\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}$.
+
+    Thus $a = a + c$, $a + b = b + d, c + d = d$. Thus $c = 0$, $a = d$, and $b$ is free.
+
+    Thus $ Z(A) = \left\{ \begin{bmatrix}
+        a & b \\ 0 & a
+    \end{bmatrix} : \forall a, b \in F_3 \right\}$. $|Z(A)| = 4$. Order of Conjugacy class is $|GL_2(F_3)| = 48/4 = 12$.
+\end{solution}
+
+
+\begin{PROB}{7.2.1b}\label{Problem 7.2.1b.}
+    Determine the centralizer and the order of the conjugacy class of
+    $A = \begin{bmatrix}
+        1 & \\ & 2
+    \end{bmatrix} \in GL_2(F_5)$
+\end{PROB}
+\begin{solution}
+    Suppose $\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix} \in Z(A)$. Then $\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}\begin{bmatrix}
+        1 & \\ & 2
+    \end{bmatrix} = \begin{bmatrix}
+        a & 2b \\ c & 2d
+    \end{bmatrix} = \begin{bmatrix}
+        a & b  \\ 2c & 2d
+    \end{bmatrix} = \begin{bmatrix}
+        1 &  \\  & 2
+    \end{bmatrix}\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}$.
+
+    Thus $2b = b$, $2c = c$. Thus $b = c = 0$.
+
+    Thus $ Z(A) = \left\{ \begin{bmatrix}
+        a & 0 \\ 0 & b
+    \end{bmatrix} : \forall a, b \in F_5 \right\}$. $|Z(A)| = 16$. Order of Conjugacy class is $|GL_2(F_3)| = 480/16 = 30$.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{7.2.6}\label{Problem 7.2.6.}
+    Determine the conjugacy classes in the group M of isometries of the plane
+\end{PROB}
+\begin{solution}
+    Everything in $M$ is either a $T_v$ (translation), $\rho_{P, \theta}$ (rotation of $\theta$ about a point P), $r_L$ reflection about a line, or $T_v \circ r_L$ (glide reflections). Let $D: M \to O(2)$ be the derivative homomorphism. $\forall \alpha \in M$, $\alpha T_v \alpha^{-1} = T_{D(\alpha)(v)}$. Since length has to be preserved all translations where by $w$ where $|w| = |v|$. Circles on $\R^2$. 
+
+    $\alpha \rho_{P, \theta} \alpha^{-1} = \alpha T_P \circ \rho_{0, \theta} \alpha^{-1} = T_(D(\alpha)(P)) \circ \rho_{0, \pm \theta} = \rho_{D(\alpha)(P) \pm \theta}$. So conjugacy class of $\rho_{P, \theta}$ are all rotations of $\pm \theta$.
+
+    $\alpha r_L \alpha^{-1} = r_{\alpha(L)}$. Thus all reflections are conjugate. 
+
+    $\alpha T_v \circ r_L \alpha^{-1} = \alpha T_v \alpha^{-1} \circ \alpha r_L \alpha^{-1} = T_{D(\alpha)(v)} \circ r_{\alpha(L)}$. Thus the conjugacy class of $T_v \circ r_L$ is all $T_w \circ r_{L'}$ where $w \ni |w| = |v|$ and any line $L'$.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{7.2.7a}\label{Problem 7.2.7a.}
+    Rule out as many as you can, as class equations for a group of order 10:
+    1 + 1 + 1 + 2 + 5
+\end{PROB}
+\begin{proof}
+    Because there are 3 conjugacy classes with 1 element, $|Z(G)| = 3$. But $3 \nmid 10 $. Thus $Z(G)$ is not a valid subgroup which is a contradition and thus class equation is not valid either.
+\end{proof}
+
+\begin{PROB}{7.2.7b}\label{Problem 7.2.7b.}
+    Rule out as many as you can, as class equations for a group of order 10:
+    1 + 2 + 2 + 5
+\end{PROB}
+\begin{proof}
+    $D_5 = \langle x, y \mid x^5 = y^2 = e, xy = yx^{-1} \rangle$, where $x = \rho_{2\pi/5}$ and $y = r_{y = 0}$. The conjugacy class of reflections is $5$, because $x^ar_{L}x^{a^-1} = r_{x(L)}$. $x^{1}$ conjugate to $x^{-1}$ and $x^{2}$ is conjugate to $x^{-2}$ because $r_L\rho_{\theta}r_L = \rho_{\theta}^{-1}$. The identity is conjugate to itself. Class equation for $D_5$ is $1 + 2 + 2 + 5$. Thus the class equation is valid.
+\end{proof}
+
+
+\begin{PROB}{7.2.7c}\label{Problem 7.2.7c.}
+    Rule out as many as you can, as class equations for a group of order 10:
+    1 + 2 + 3 + 4
+\end{PROB}
+\begin{proof}
+    Conjugacy class must divide the order of group and 3 and 4 don't divide 10. Thus class equation is invalid
+\end{proof}
+
+\begin{PROB}{7.2.7d}\label{Problem 7.2.7d.}
+    Rule out as many as you can, as class equations for a group of order 10:
+    1 + 1 + 2 + 2 + 2 + 2
+\end{PROB}
+\begin{proof}
+
+    G has the class equation 1 + 1 + 2 + 2 + 2 + 2.
+
+    $Z(G) \cong \mu_2$
+
+    By the Lemma, $10 = k(2)(2) = 4k$ for $k \in \N, k > 1$. This is a contradition because $4 \nmid 10$. Thus the class equation is invalid. 
+
+
+
+    % G has at most 2 subgroups of order 5. 
+
+    % If it has 1 subgroup of order 5. It has a element $s$ of order 5 in the subgroup, because it is a subgroup. Take $t \in Z(G)$ where $t \neq 1$. $t$ has order 2. Element $s*t$ has order 10 which doesn't match the class equation. Thus G must have 2 subgroups of order 5.
+    
+    % If it has 2 subgroups of order 5. There is a element t which is not of order 5 and commutes with everything and $|<t>| = 2$. Take element s of order 5 in the subgroups. Then $t * s$ has order 10 which doesn't match class equation.
+    
+    % Class equation is invalid.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.2.8a}\label{Problem 7.2.8a.}
+    Determine the possible class equations of nonabelian groups of order 8
+\end{PROB}
+\begin{solution}
+    The class equation can use 1, 2, or 4. 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 describes a abelian group so not valid. 
+
+    Class equation has 1 one. But then $2n + 4m = 7$ for $n, m \in \N$ which isn't possible.
+
+    Class equation has 2 ones. Then 1 + 1 + 2 + 4 is not valid because $8 = k2(4) = 8k$ where $k > 1$ which is a contradition. $1 + 1 + 2 + 2 + 2$ is the class equation for $Q_8$ and thus is valid.
+    
+    Class equation can't have 3 ones because then $Z(G) \nmid G$.
+
+    Class equation has greater than 4 ones. This fails because of the lemma, as $8 = 4k|C_g|$ where $k > 1$.
+
+    Thus the only class equation for nonabelian groups of order 8 is 1 + 1 + 2 + 2 + 2.
+\end{solution}
+
+\begin{PROB}{7.2.8b}\label{Problem 7.2.8b.}
+    Determine the possible class equations of nonabelian groups of order 21
+\end{PROB}
+\begin{solution}
+    Class equation is a sum of 1, 3, and 7.
+
+    Center has order 7. Then by lemma. $3 = k|C_g|$ where $k > 1$ and $|C_g| = 3, 7$. This is impossible.
+
+    Center has order 3. Then by the lemma, $7 = k|C_g|$ where $k > 1$ and $|C_g| = 3, 7$. Again this is impossible. 
+
+    Center has order 1. $1 + 3 + 3 + 7 + 7$, is the only choice. 
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{7.2.9a}\label{Problem 7.2.9a.}
+    Determine the class equation for $Q_8$
+\end{PROB}
+\begin{proof}
+    $Z(Q_8) = \{1, -1\}$. $Z(i) = \{\pm 1, \pm i\}$. $Z(j) = \{\pm 1, \pm j\}$. $Z(k) = \{\pm 1, \pm k\}$. Thus the class equation is 1 + 1 + 2 + 2 + 2 + 2.
+\end{proof}
+\begin{PROB}{7.2.9b}\label{Problem 7.2.9b.}
+    Determine the class equation for $D_5$
+\end{PROB}
+\begin{proof}
+    We have shown this in Problem 7.2.7b. Class equation is 1 + 2 + 2 + 5
+\end{proof}
+\begin{PROB}{7.2.9c}\label{Problem 7.2.9c.}
+    Determine the class equation for Subgroup of $GL_2(F_3)$ of invertible upper triangular matrices.
+\end{PROB}
+\begin{proof}
+    A is this subgroup. $\begin{bmatrix}
+        a & b \\ & c
+    \end{bmatrix} \in A$, a has 2 options, b has 3 options, and c has 2 options. Thus $|A| = 12$. Possible Sizes of conjugacy classes 1, 2, 3, 4, 6. 
+
+    $Z(A) = \lambda I$ where $\lambda = 1, 2$.
+
+    4 and 6 are not possible because of the lemma. 
+
+    $Z(\begin{bmatrix}
+        1 & 0 \\ 0 & 2
+    \end{bmatrix})$ is all diagonal matrices and there are 4 of those.
+
+    $\begin{bmatrix}
+        a & b \\ 0 & c
+    \end{bmatrix} \in Z(\begin{bmatrix}
+        1 & 1 \\ 0 & 2
+    \end{bmatrix})$. $\begin{bmatrix}
+        a & b \\ 0 & c
+    \end{bmatrix}\begin{bmatrix}
+        1 & 1 \\ 0 & 2
+    \end{bmatrix} = \begin{bmatrix}
+        a & a + 2b \\ 0 & 2c
+    \end{bmatrix} = \begin{bmatrix}
+        a & b + c \\ 0 & 2c
+    \end{bmatrix}= \begin{bmatrix}
+        1 & 1 \\ 0 & 2
+    \end{bmatrix}\begin{bmatrix}
+        a & b \\ 0 & c
+    \end{bmatrix}$. $a + 2b = b + c$ thus $a + b = c$. $|Z(\begin{bmatrix}
+        1 & 1 \\ 0 & 2
+    \end{bmatrix})| = 4$
+
+    By using the fact that conjugacy class times centralizer is the whole group we see our partial class equation is 1 + 1 + 3 + 3 and we have 4 more elements. However since the conjugacy classes cannot have 4 elements and the centralizer is only 2 elements the only way to get the four elements is to have 2 more conjugacy classes of size 2.
+
+    Thus the class equation is 1 + 1 + 2 + 2 + 3 + 3.
+\end{proof}
+
+
+
+\end{document}

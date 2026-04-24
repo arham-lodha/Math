@@ -1,0 +1,176 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Bilinear Forms 1}
+\author{Arham Lodha}%put your name here
+\date{January 22, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+    For $V = F^n$, let A be a square matrix. Then define a form by $\angles{v, w}_A := v^TAw$, for column vectors v, w. Show all bilinear forms on V occur this way. 
+\end{PROB}
+\begin{proof}
+    $\forall v, w, z \in V,~ \forall a, b \in F,~ \angles{av + bw, z}_A = (av + bw)^T A z = av^TAz + bw^TAz = a \angles{v, z}_A + b \angles{w, z}_A$.
+    
+    $\angles{v, aw + bz}_A = v^TA(aw + bz) = v^TAaw + v^TAbz = a\angles{v,w}_A + b\angles{v, z}_A$. The form is bilinear.
+
+    Let $k = \dim V$. Let $V_B = v_1, \dots, v_k$ be a basis of V, such that $v = \sum_{i=1}^{k} a_iv_i = AV_B$ and $w = \sum_{i=1}^{k} b_iv_i = BV_B$. Let $\angles{v, w}$ be some bilinear form. Define a matrix $M \ni M_{i, j} = \angles{v_i, v_j}$. $\angles{v, w} = \angles{\sum_{i=1}^{k} a_iv_i, \sum_{i=1}^{k} b_iv_i} = \sum_{i, j} a_ib_j \angles{v_i, v_j} = \sum_{i, j} a_im_{i, j}b_j = A^T M B$.           
+\end{proof}
+
+\begin{PROB}{1b}\label{Problem 1b.}
+    Thus once you pick a basis for finite $\dim V$, a bilinear form is the same thing as a matrix. We call the form symmetric if $\angles{v, w} = \angles{w, v}$ check this is the same thing as A being symmetric. 
+\end{PROB}
+\begin{proof}
+    Suppose $\angles{v, w} = \angles{w, v}$, a symmetric bilinear form for all $v, w \in V$. $v^TAw = w^TAv = (\angles{w, v})^T = v^TA^Tw \implies A = A^T$.
+    
+    Suppose $A = A^T \implies v^TAw = v^TA^Tw = (v^TA^Tw)^T = w^TAv \implies \angles{v, w} = \angles{w, v}$. 
+\end{proof}
+
+\begin{PROB}{1c}\label{Problem 1c.}
+    Show that when we change basis, the matrix A changes not (in general) by conjugation, but rather by $A \to P^t A P$, for invertible P.
+\end{PROB}
+\begin{proof}
+    Let $B_1$ be the tuple of the original basis. Let $B_2$ be the tuple of the new basis. Let $P$ be the matrix which changes basis from $B_2$ to $B_1$. Let $X_1$ and $Y_2$ be coordinate vectors. Let $v = X_1 = PX_2$ and $w = Y_1 = PY_2$. $\angles{v, w}_A = v^TAw = X_1^TAY_1 = (PX_2)^TA(PY_2) = X_2^T P^T A P Y_2$. So under the new basis the new matrix is $P^T A P$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    In 1) we see that once we choose a basis, a bilinear form is "the same thing" as a square matrix. But a matrix is also "the same thing" as a linear map, and a bilinear form $\angles{,}$  on V is definitely not the same thing as a linear map $V \to V$. Instead show $v \to \angles{v, }$ gives  a linear map $V \to V^* := Hom_F(V,F)$. Show that a bilinear form IS the same thing as a linear map $V \to V^*$.
+\end{PROB}
+\begin{proof}
+    Let $\phi: V \to V^\ast \ni v \to \angles{v, }$. Let $a, b \in F,~ v,w \in V$, $\phi(av + bw) = \angles{av + bw, } = a \angles{v, } + b \angles{w,} = a \phi(v) + b \phi(w)$.
+    
+    Let $S$ be the set of bilinear forms on V. Let $H := Hom_F(V, V^\ast)$. Let $\alpha: S \to H \ni \angles{, } \to [v \to \angles{v, }]$. Let $\beta: H \to S$ such that $\forall h \in H$ create a bilinear form $\angles{ , } \ni \forall v ,w \in V,~ \angles{v, w} = h(v)(w)$ send h to this map. 
+    
+    $\forall v, w \in V$, $(\beta \circ \alpha)(\angles{,})[v, w] = \beta([v \to \angles{v, }])[v, w] = \angles{v , w}$. 
+    
+    $\forall v, w \in V$, $(\alpha \circ \beta)(h)(v)(w) = \alpha([x, y \to h(x)(y)])(v)(w) = h(v)(w)$. Thus $\alpha$ is a bijection. 
+    
+    $\forall v, w  \in V, \forall p, q \in B, \forall f, g \in F$, $\alpha(fp + gq)(v) = [x \to (fp + gq)(x, )](v)(w) = (fp + gq)(v, w) = fp(v, w) + gq(v, w) = f\alpha(p)(v)(w) + g\alpha(q)(v)(w)$
+    
+    Thus $\alpha$ is a linear map. Thus $S \cong H$ as vector spaces.  
+    
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{3}\label{Problem 3.}
+    One of the main results of elementary linear algebra (a proof of which we give below) is that a real symmetric matrix is orthogonally diagonalizable. If $A = A^T$  there exists orthogonal P with $P A P^{-1}$ = diagonal. Note $P^{-1} = P^t$ , so $P^t A P$  is diagonal.  Lets prove a much more general version of this last statement:
+    
+    \textbf{Theorem}: Let V be finite dim over F, with $char(F) \neq 2$ , and let $\angles{,}$  be a symmetric bilinear form on V. Then there is a basis $b_1, \dots, b_n$  with $\angles{b_i,b_j} = 0$  for $i \neq j$. 
+    
+    Show the theorem is equivalent to the statement that if A is a square symmetric matrix over V, there is an invertible P such that $P^t A P$ = diagonal. 
+\end{PROB}
+\begin{solution}
+    Create a symmetric bilinear form $b \ni \forall v, w \in V, b(v, w) = v^TAw$, since A is symmetric. By the theorem, $\exists V_B = \left\{ b_1, \dots, b_n \right\}$ a basis such that $b(b_i, b_j) = 0$ for $i \neq j$. Let P be the matrix from $V_B$ to the original basis. Let $v = Pv'$ and $w = Pw'$. So $b(v, w) = b(Pv', Pw') = v'^TP^TAPw'$. Since under this basis, $b(b_i, b_j) = 0 = b_i^T P^T A P b_j \implies P^T A P$ is diagonal.    
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{4a}\label{Problem 4a.}
+    Here we prove the above theorem. For this we consider the associated "quadratic form" $Q(v) := \angles{v, v}$. Obviously $< >$  determines Q. Show, for $char F \neq 2$, that the other direction holds, Q determines $\angles{,}$ . In fact show $ \angles{v, w} = -\frac{1}{2}(Q(v) + Q(w) - Q(v + w))$.
+\end{PROB}
+\begin{proof}
+    $\forall v, w \in V,~ -\frac{1}{2}(\angles{v, v} + \angles{w, w} - \angles{v+w, v+w}) = -\frac{1}{2}(\angles{v, v} - \angles{v, v + w} + \angles{w, w} - \angles{w, v + w}) = -\frac{1}{2}(\angles{v, v} - \angles{v, v} - \angles{v, w} + \angles{w, w} - \angles{w, v} - \angles{w, w}) = \frac{1}{2}(\angles{v, w} + \angles{w, v}) = \angles{v, w}$. So $\angles{v, w} = \frac{1}{2}(Q(v + w) - Q(v) - Q(w))$.
+\end{proof}
+
+
+\begin{claim}{4b}\label{Claim 4b.}
+    Show the natural addition map $\text{span}(v) \oplus v^{\perp} \to V$ is an iso (where $\oplus$ means direct sum) where $Q(v) \neq 0$ and $v^\perp = \left\{ w \mid \angles{v, w} = 0 \right\}$.
+\end{claim}
+\begin{proof}
+    $\forall k \in F / \left\{ 0 \right\}$, $\angles{kv, v} = kQ(v) \neq 0 \implies kv \not \in v^\perp \implies \forall w \in span(v),~ w \not \in v^\perp$.
+    
+    Let $A: span(v) \oplus v^\perp \to V$ be the natural addition iso. 
+
+    Because $v^\perp$ is a subspace, since $v \not \in v^\perp \implies v$ linearly independent from all $w \in v^\perp$. Thus the kernel of the natural addition map is 0 and A is injective.   
+
+    \textbf{Surjectivity}: Let $\phi: V \to F \ni x \to \angles{v, x}$. Thus $v^\perp = \ker(\phi)$. By rank nullity, $\dim V = \dim(\phi_*(V)) + \dim \ker \phi \implies \dim \ker \phi = \dim V - 1$. Since $\dim span(v) = 1$ and $span(v) \cap v^\perp = 0 \implies \dim span(v) + \dim v^\perp = \dim V \implies A$ is Surjective.
+    
+    Thus A is a bijection. $\forall (v_1, w_1), (v_2, w_2) \in span(v) \oplus v^\perp$ and $\forall a, b\in F$, $A(a(v_1, w_1) + b(v_2, w_2)) = A((av_1 + bv_2, aw_1 + bw_2)) = av_1 + aw_1 + bv_2 + bw_2 = aA(v_1, w_2) + bA(v_2, w_2)$. Thus A is a linear map. Thus A is a iso.     
+\end{proof}
+
+\begin{claim}{4c}\label{Claim 4c.}
+    Now to prove the theorem.  We proceed by induction on dimension, when V has dim 1 there is nothing to prove.  If $< >$ is identically zero, of course we are done. If not, show there is a vector with $\angles{v, v} \neq 0$. consider $v^{\perp} := \left\{ w, \angles{v,w} = 0 \right\}$. Now consider $v^{\perp}$ and proceed by induction.
+\end{claim}
+\begin{proof} 
+    If $\angles{} = 0$, we are done.
+
+    Suppose $\exists v, w \in V \ni \angles{v, w} \neq 0$. 
+
+    $(k = 2)$: Let $V$ be a vector space with dimension $2$. Suppose $\forall v \in V, Q(v) = 0 \implies \forall w \in V, \angles{v, w} = 0$ (by formula above), which breaks the assumption. So exists $v \in V \ni Q(v) = 0$. $\forall w \in v^\perp / \left\{ 0 \right\}$, by definition, $\angles{v, w} = 0$. Additionally as proven above v and w are linearly independent so v and w are such a basis.   
+    
+    Inductive Hypothesis: Suppose for all vectorspaces $V$ where $\dim V = k$, exists a basis $b_1, ..., b_k \ni \angles{b_i, b_j} = 0$ for $i \neq j$. 
+    
+    
+    Suppose V is a vector space of dimension k +1. Let $n = k + 1$. Suppose $\forall v \in V, Q(v) = 0 \implies \forall w \in V, \angles{v, w} = 0$ (by formula above), which breaks the assumption. So exists $v \in V \ni Q(v) = 0$. Since $A:  span(v) \oplus v^\perp \to V$ is a iso, take the basis of $v^\perp$, $b_1, \dots, b_k$. By definition, $\angles{v, b_i} = 0$ and $\angles{b_i, b_j} = 0$. Additionally as proven above, $av + \sum_{i=1}^{k}c_ib_i = 0 \iff a, c_i = 0$ because $v$ is linearly independent from $v^\perp$. Thus $v, b_1, \dots, b_k$ is a basis where the bilinear form applied to any pair equals 0.          
+    
+\end{proof}
+
+
+\end{document}

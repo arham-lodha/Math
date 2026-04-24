@@ -1,0 +1,223 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\ext}[2]{\text{Ext}_{#1}^{#2}}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Finite Fields}
+\author{Arham Lodha}%put your name here
+\date{April 07, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let F be a finite field. Let $Z \to F$ be the unique ring homomorphism from the integers. Explain why the kernel is (p) for some prime p.  Conclude that F contains $F_p$. Explain why F is finite dimensional as an $F_p $vector space. Explain why $|F| = p^n$ for some n.   
+\end{PROB}
+\begin{proof}
+    The the kernel is nonzero, because if it was zero that would mean $\Z \subset F \implies |F| = |\Z|$ and thus not finite. 
+    
+    Since $F$ is a field and thus a integral domain, that means that any subring of $F$ is also a integral domain and thus the kernel of the map is a prime ideal $(p)$. Thus the map factors through $\Z \to \frac{\Z}{(p)} = \F_p$ and the map $\F_p \to F$ is a inclusion. Thus $\F_p \subseteq F$.
+
+    \[\begin{tikzcd}
+        \Z & {\Z/(p)\cong\F_p} & {} \\
+        & F
+        \arrow[two heads, from=1-1, to=1-2]
+        \arrow[from=1-1, to=2-2]
+        \arrow[hook, from=1-2, to=2-2]
+    \end{tikzcd}\]
+    
+
+    Since $\F_p \subseteq F$, $F$ can be represented as a vectorspace over $\F_p$. 
+    
+    Assume the contrary, that $F$ is not finite dimensional over $\F_p$, then there are an infinite amount of linearly independent vectors $f \in F$ over $\F_p$, which contradicts the finiteness of $F$.
+
+    Thus as a vectorspace, $F \cong \F_p^n$. Thus the number of elements in $F$ can be calculated as the number of possible entries in each compoenent of the vector, ie $p$ entries for each of the $n$ components. Thus $|F| = p^n$     
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    F a finite field of order $q := p^n$. We showed on the last homework that $F^*$ is cyclic. Show that $f(X) := X^q - X$ has distinct roots in any field containing $F_p$. Explain why its roots are exactly the elements of F. 
+\end{PROB}
+\begin{proof}
+    Assume the contrary, $f(X)$ has repeated roots over any field extension of $\F_p$ . Let $r$ be a generic repeated root of $f$. By the definition of a repeated root, $f(r) = 0$ and $f'(r) = 0$. Thus $r^q - r = 0 \implies r(r^{q-1} - 1) = 0 \implies r = 0$ or $r^{q - 1} = 1$ and $qr^{q - 1} - 1 = 0 \implies r^{q - 1} = \frac{1}{q}$. Unless $q = 1$, which contradicts $F$ is a finite field with 1, this is impossible as $r$ cannot be both $0$ or a $q - 1$th root of 1 and a $q - 1$th root of $\frac{1}{q}$. Thus by contradiction, $f$ doesn't have repeated roots over any field extension of $\F_p$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Let f(X) be a polynomial in K[X], K field. By a "splitting field" for f, we mean a field extension L/K such that f has all its roots in L, and L is generated over K by these roots. Explain why any polynomial has a splitting field, and why any two splitting fields are isomorphic (its the same ideas we used to bound the size of Gal(L/K) in earlier homework)
+\end{PROB}
+\begin{proof}
+    For any polynomial $f$. Let $r_1, \dots, r_n$ be all the roots of $f$. Factor $f$ into its irreducible factors, so $f(x) = g_1(x) \dots g_k(x)$. Let $K_0 = K$. Let $K_1 = K_0[x] / (g_1)$. Now divide $f$ by $g_1$. Then $\forall i$, do $K_i = K_{i - 1}[X] / (g_i)$. There should be at most $\deg f$ steps and $f$ is a polynomial. Finally in the last step the last field should have all roots of $f$ and thus be the splitting field of $f$. Thus by construction a splitting field exists.                 
+    
+    $\forall f \in K[x]$. Let $\varphi: K \to K$ be a isomorphism. Let $L$ and $L'$ be the splitting fields of $f$ and $\varphi(f)$ respectively. Let $p$ be a irreducible factor of $f$. Let $\alpha_1 \in L$ be a root of $p$ and $\beta_1 \in L'$ be a root of $\varphi(p)$. Thus $K[\alpha_1] \cong \frac{K[X]}{(p(x))}$ and $K[\beta_1] = \frac{K[x]}{(\varphi(p)(x))}$ since $p \cong \varphi(p)$, thus, $(p) \cong (\varphi(p))$ thus $K[\alpha_1] \cong \frac{K[X]}{(p(x))} \cong \frac{K[x]}{(\varphi(p)(x))} \cong K[\beta_1]$. Apply induction on the number of irreducible factors, then we will have a isomorphism between $K[\alpha_1, \dots, \alpha_k] \to K[\beta_1, \dots, \beta_k]$ that restricts to $\varphi$ on $K$. All the roots of the irreducible factors of $f$ are in $K[\alpha_1, \dots, \alpha_k]$ thus $f$ splits over $K[\alpha_1, \dots, \alpha_k]$. Thus $\varphi(f)$ splits over $K[\beta_1, \dots, \beta_k]$. It follows, that $L = K[\alpha_1, \dots, \alpha_k]$ and $L' = K[\beta_1, \dots, \beta_k]$.               
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Let F be a finite field of order $q:= p^n$. Explain why F is the splitting field, over $F_p$, of $X^q - X.$ Now the uniqueness in 3) proves that F is unique (any two fields of this order are isomorphic).
+\end{PROB}
+\begin{proof}
+    $\forall f \in F_q$. If $f = 0$, $f$ is a solution to $X^q - X$. If $f \neq 0$, $f \in F_q^* = \mu_{q - 1}$. Thus $f^q - f = f - f = 0$ and thus $f$ is a solution. Thus $\forall f \in F$, $f$ is a solution. Moreover since all the $f$ are distinct and there are $q$ $f$s, and $x^q - x$ has degree $q$. $x^q - x$ has all its roots in $F$ and since each element of $F$ is a root and they are distinct no intermediate field between $F_p$ and $F$ has all the roots. Thus $F$ is the splitting field of $x^q - x$ and thus unique.                           
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let F be a finite field of order q. Let  $s: F \to F$ be the map $x \to x^p$. Explain why this is an element of $G := Gal(F/F_p)$.  Explain why $F_p$ is the fixed field of s.  Explain why s has order n. Conclude that G is cyclic generated by s and that the extension is Galois. 
+\end{PROB}
+\begin{proof}
+
+    $\forall x, y \in F$, $s(x + y) = (x + y)^p = x^p + y^p + \sum_{j = 1}^{p - 1} {p \choose j}x^j y^{p - j} = x^p + y^p$, because $F$ has characteristic p, and $s(xy) = x^p y^p$. Thus $s$ is a ring homomorphism (more descriptively a field homomorphism).    
+
+    Let $k \in \ker s$, $s(k) = k^p = 0$. Since $F$ is a field and thus a integral domain, it means, either $k = 0$ or $k^{p - 1} = 0$. If $k = 0$ we are done. If $k^{p - 1} = 0$, then since $F$ is a integral domain, either $k = 0$ or $k^{p - 2} = 0$. We can continue this chain of reasoning, till we see that $k^2 = 0$ and finally since F is a integral domain, $k = 0$. Thus $s$ is injective. Thus $s$ is surjective since $|F| = |F|$. Thus $s$ is a automorphism of $F$. 
+    
+    Moreover since $F_p^* = \mu_{p - 1}$ every nonzero element of $F_p$ has order which divides $p - 1$ and $0^p = 0$ since $F_p$ is a integral domain, thus $\forall f \in F_p$, $s(f^p) = f^p = f * f^{p - 1} = f$. Thus $s \in Gal(F / F_p)$. 
+    
+    $\forall x \in F$, $s^n(x) = x^{p^n}$. If $x = 0$, $s^n(x) = 0$, since $F$ is a integral domain. If $x \neq 0$, $x \in F^*$ and since $F^* \cong \mu_{q - 1} = \mu_{p^n - 1}$, thus $x^{p^n} = x^{p^n - 1} x = x$. Thus $s^n = id$.
+    
+    $\forall m < n$, let $g \in F$ be the generator of $F^*$, $s^m(g) = g^{p^m} = g^{p^m - 1} g \neq g$, because $o(g) = p^n - 1 > p^m - 1$.
+
+    Thus $|\angles{s}|$ is $n$. But since $|Gal(F / F_p)| \leq [F : F_p] = n$, $|Gal(F / F_p)| = n$ and $s$ generates $Gal(F / F_p)$, because $\angles{s} \leq Gal(F / F_p)$.     
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Now we prove the existence of a finite field of order q. Let F be the splitting field, over $F_p$, of $X^q - X$. Let $S: F \to F$ send $x \to x^q$. Explain why this is an automorphism. Explain why the set of elements fixed by S is a subfield, and why this subfield has order q. Prove this subfield is F.
+\end{PROB}
+\begin{proof}
+    $F_p \subseteq F \implies char F = p$. 
+    $\forall x, y \in F$, $S(x + y) = (x + y)^q = x^q + y^q + \sum_{n = 1}^{q - 1} {q \choose n}x^n y^{q - n}x^q + y^q + \sum_{n = 1}^{q - 1} \frac{q!}{n! (q - n)!}x^n y^{q - n} = x^q + y^q + \sum_{n = 1}^{q - 1} q\frac{(q- 1)!}{n! (q - n)!}x^n y^{q - n}$. Since we are in $char(p)$ and $q = p^n$ for some $n$ by problem 1, $q\frac{(q- 1)!}{n! (q - n)!}x^n y^{q - n} = 0$. Thus $S(x + y) = x^q + y^q$. $\forall x , y \in F$, $S(xy) = x^q y^q$. Thus $S$ is a ring homomorphism and thus injective and thus surjective, ( $|F| = |F|$ ), thus is a automorphism of $F$. 
+    
+    Let $F^S := \left\{ x \in F \mid S(x) = x \right\}$. $\forall u, v \in F^S$, $S(u + v) = S(u) + S(v) = u + v \implies u + v \in F^S$. $S(uv) = S(u)S(v) = uv \implies uv \in F^S$ and $S(u^{-1}) = S(u)^{-1} = u^{-1} \implies u^{-1} \in F^S$. Thus $F^S$ is a subfield.
+    
+    $F$ consists of all roots of $x^q - x$, because its the splitting field of $x^q - x$. Howevever all roots of $x^q -x$ are also fixed points of $S$. Thus all roots of $x^q - x$ are in $F^S$. $x^q - x$ has distinct roots. Thus $|F^S| = q$. Since all the roots of $x^q - x$ are in $F^S$. Thus $F^S$ is a splitting field of $x^q - x$. By the uniqueness of the splitting field, $F^S = F$.                
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    This is a general result: Let $K \subset L$ be a finite extension of fields (not necessarily finite fields). Let H be a subset of $Gal(L/K)$ such that the fixed field $L^H := \left\{ l \in L| h(l) = l \forall h \in H \right\}$ is K.  For any a in L, let g be the polynomial whose distinct roots are the elements of  $Ha$  (apply each element of H to a and take the subset of L you get). Explain why g is a polynomial over K, why its irreducible over K, and why it has distinct roots. Explain (using our basic Ext homework) why L over K is "Galois", i.e. the Galois group has the same order as the degree of the extension. Conclude H is this Galois group, and has order the degree of L over K
+\end{PROB}
+\begin{proof}
+    $g$ has distinct roots because its roots are by definition elements of the set $Ha$ and thus distinct, by the definition of $g(x) = \prod_{\alpha \in Ha}(x- \alpha)$. $\forall h \in H$, $h(g(x))$ just reorders the product, thus $h(g(x)) = g(x)$. Thus $g(x)$ is $H$ invariant. Thus the coefficients of $g$ are $H$ invariant and thus live $L^H$. Suppose, $g(x) = h(x)k(x)$ where $h(x), k(x) \in K[X]$. Since $a$ is a root of $g(x)$, $a$ must be a root of $h(x)$ or $g(x)$. WLOG, suppose $a$ is a root of $h(x)$. By homomorphism properties, $\forall \sigma \in H$, $h(\sigma(a)) = \sigma(h(a)) = 0$, thus $\sigma(a)$ is a root of $h(x)$. Thus all roots of $g(x)$ are roots of $h(x)$. Thus $k(x)$ must be unit and $h(x) = g(x)$. Thus $g(x)$ is a irreducible over $L^H$ . 
+    
+    
+    Suppose $H \leq Gal(L / K)$ and $L^H = K$. $\forall l \in L$. Define, $p_{l}(x) := \prod_{\alpha \in H\cdot l}(x - \alpha)$. By the above, $p_l$ is irreducible over $L^H = K$ and has distinct roots, more specifically distinct roots in L, since $H \leq Gal(L / K)$ and elements of $H$ are automorphisms of $L$. Thus $L / K$ is galois. Moreover since $|H| \leq |Gal(L / K)| = [L : K] \leq \deg p_{l} \leq |H| \implies |H| = |Gal( L / K)| = [L : K]$ and $H = Gal(L / K).$                           
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{8}\label{Problem 8.}
+    Let F be a finite field, of order $q = p^r$. (note by the above we know F is unique). Show that $F_p$ is the fixed field of  the Frobenius  $x \to x^p$. Conclude that this aut has order r, and that F over $F_p$ is Galois, with cyclic galois group $\mu_r$ generated by this Frobenius automorphism. 
+\end{PROB}
+\begin{proof}
+    $K := \left\{ x \in F | x^p = x \right\}$. Thus all the elements of $K$ are solutions to $x^p - x$. Thus $K$ is the splitting field of $x^p - x$ over $\F_p$. By problem 6, $|K| = p$ thus $K = \F_p$, since $F_p \subseteq K$.       
+
+\end{proof}
+
+
+\bigskip
+
+
+\begin{PROB}{9}\label{Problem 9.}
+    Consider $X^q - X$, for $q = p^r$. Explain why this has distinct roots over $F_p$, and that it factors over $F_p[X]$ into the product of all irreducible polynomials over $F_p$ whose degree divides r each poly appearing with multiplicity one. 
+\end{PROB}
+\begin{proof}
+    By problem 2, $x^q - x$ has distinct roots over $F_p$. $x^q - x = x(x^{q - 1} - 1)$. $x^q - x$ is not irreducible and thus can be broken into irreducible factors. $x^q - x = f_1(x)\dots f_k(x)$. Roots of $x^q - x$ are roots of one $f_i(x)$. Thus $F_p[X] / f_i(x) \subset F_q \implies \deg 
+    f_i | [F_q : F_p] \implies \deg f_i | r$. 
+
+    Suppose $g$ is a irreducible polynomial where $d = \deg g$  which divides $r$. Then $F = F_p[X] / (g) = F_p[\alpha]$. $F^* = \mu_{p^d - 1}$. Thus $\alpha^{p^d - 1} = 1 \implies \alpha^{p^d } = \alpha$. Since $d | n$ $\alpha^{p^n} = \alpha^{p^{d (d / n)}} = \alpha$. Thus $\alpha$ is a root of $x^q - x$. So either $g$ divides $x^q - x$ or by bezout's identity, $f(x)g(x) + g(x)(x^{p^n} - x) = \gcd(g, x^{p^n} - x) = 1$, (since $g$ is irreducible ) for some polynomials $f(x), g(x) \in F_p[X]$. In the second case, setting $x =\alpha$ we get $0 = 1$ which is a contradiction. Thus $g$ is a factor of $x^q - x$.           
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{10}\label{Problem 10.}
+    Consider the action of $G := Gal(F_q/F_p)$ on $F_q$. Explain why the orbits are in natural bijection with the irreducible polynomials over $F_p$ whose degree divides r, where $q = p^r$  -- with the the orbit itself being the roots. How many irreducible polys of degree 5 are there over $F_2$?  Do this without finding the polys. 
+\end{PROB}
+\begin{proof}
+    Let $S$ be the set of irreducible polynomials which divide r. Let $G = Gal(F_q / F_p)$. 
+    Let $\varphi: G / F_q \to S$, where $G * a \to \prod_{\alpha \in H * a} (x - \alpha)$. Let $\psi: S \to G / F_q$ where $f \to G * a$ where $a$ is a root of $f$. 
+    
+    Suppose $a$ is a root of $f$, $f(g(a)) = g(f(a)) \implies g(a)$ is also a root of $f$ $\forall g \in G$. Since $\deg f \leq |H| = r $, all roots of $f$ are in the orbit $H * a$.         
+    
+    $\forall f \in S$, $\varphi(\psi(f)) = \varphi( H * a) = f$. $\forall H * a \in G / F_q$, $\psi(\varphi(H * a)) = \psi(\prod_{\alpha \in H * a} (x - \alpha)) = Ha$
+    
+    Thus $S$ and $G / F_q$ are in bijection. 
+    
+    
+    All irreducible degree 5 polynomials are factors of $x^{2^5} - x$. The irreducible factors of $x^{2^5} - x$ have either degree 5 or 1. 0 and 1 are roots of $x^{2^5} - x$ so we can divide 2 linear terms and now all other factors of $x^{2^5} - x$ are all the degree 5 irreducibles. After dividing $x$ and $x + 1$ we get a polynomial of degree 30. Thus there are 6 degree 5 polynomials.    
+\end{proof}
+
+    
+\end{document}
+
+

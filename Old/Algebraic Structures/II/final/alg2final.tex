@@ -1,0 +1,312 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Algebraic Structures II Final}
+\author{Arham Lodha}%put your name here
+\date{April 19, 2024}%enter the due date here
+\maketitle
+
+Note $K := \Q[a_1, \dots, a_k]$ and $R := \Z[a_1, \dots, a_k]$ where $a_1, \dots, a_k$ are roots to $F$.     
+
+\begin{PROB}{1}\label{Problem 1.}
+    Explain why K is a field, and a finite extension of Q. Explain why R is a finitely generated Z-module (ie a finitely generated Abelian group), and isomorphic as Abelian group to $Z^d$ where d is the dim of K as a Q-vector space. Explain why K is the fraction field of R.
+\end{PROB}
+\begin{proof} 
+    For $i = [1, \dots, k]$, define $K_i = Q[a_1, ..., a_i]$ and define $R_i := \Z[a_1, \dots, a_i]$.  
+    
+    \textbf{Base Case}: Since $a_1$ is the solution to F. $a_1$ is algebraic over $Q$. Thus $\exists f_1(x) \in \Q[x]$, the minimal polynomial of $a_1$. $f_1(x) = \sum_{k = 0}^{\deg f_1} \frac{p_k}{q_k} x^k$. WLOG $\forall q_k = 1$, because $f_1(x) := lcm(q_1, ..., q_{\deg f_1}) f_1(x)$. Thus $f_1(x) \in \Z[x]$, and since it is irreducible in $\Q[x]$, it is irreducible in $\Z[x]$. Thus, $K_1 = \Q[x] / (f_1)$ and $R_1 = \Z[x] / (f_1)$. Since $a_1$ is algebraic, $K_1$ is a finite extension over $\Q$ and $[K_1 : \Q] = \deg f_1$ . Moreover $\left\{ 1, a_1, \dots, a_1^{\deg f_1} \right\}$ was a basis for $R_1$ moreover since $f_1$ was irreducible in $\Z$, that means, $rank_{\Z}(\Z[a_1]) = \deg f_1$. Moreover since $\Z \subset \Q \implies R_1 \subset Q_1$. Furthermore, $\forall k \in \Q[a_1]$, $k = \frac{p(a_1)}{q(a_1)}$ for $p(x), q(x) \in \Z[x] \ni q(a_1) \neq 0$ since $\Q$ is the fraction field of $\Z$, thus $k \in Frac(\Z[a_1])$. Thus $Q_1 \subseteq Frac(R_1)$. $\forall k \in Frac(R_1), k = \frac{r}{s}$ for $r, s \in R_1 \ni s \neq 0$, $k \in K_1$ by definition. Thus $Frac(R_1) \subseteq K_1 \implies R_1 = Frac(R_1)$. Thus $R_1$ is finitely generated over $\Z$ and $K_1$ is a finite extension of $\Q$, $rank_{\Z}(R_1) = [K_1 : \Q]$, and $K_1$ is the fraction field of $R_1$. 
+    
+    \textbf{Inductive Hypothesis}: Assume that $\forall n \in \N$,  $R_{n - 1}$ is finitely generated over $\Z$ and $K_{n - 1}$ is a finite extension of $\Q$, $rank_{\Z}(R_{n - 1}) = [K_{n - 1} : \Q]$, and $K_{n - 1}$ is the fraction field of $R_{n - 1}$.
+    
+    \textbf{Inductive Step}: Since $a_n$ is a solution to F, it is algebraic over $\Q$ and thus algebraic over $K_{n - 1}$. Thus $\exists f_n(X) \in K_{n - 1}[X]$, an irreducible polynomial where $a_n$ is a root. $f_n(x) = \sum_{k = 0}^{\deg f_n} \frac{p_k}{q_k} x^k$ for $p_k, q_k \in R_{n - 1} \ni q_k \neq 0$, since $K_{n - 1}$ is the fraction field of $R_{n - 1}$. WLOG, $q_k = 1$, as you can multiply $f_n(x)$ by $\prod_{k = 0}^{\deg f_n} q_k \in R_{n - 1}$, and $f_n$ would stay irreducible. 
+    Thus $f_n$ irreducible in $R_{n - 1}$. Thus $K_n \cong K_{n - 1}[X] / (f_n(X))$ and $R_{n} \cong R_{n - 1}[X] / (f_n(X))$. Since $a_n$ is algebraic over $\Q$ and hence it is algebraic over $K_{n - 1}$, $K_{n - 1}$ is a finite extension over $K_n$. By the inductive Hypothesis, since $K_{n- 1}$ is a finite extension over $\Q$, $K_{n}$ is a finite extension over $\Q$. Similarly, $R_n$ is finitely generated over $R_{n - 1}$, and since $\Z[a_1, \dots, a_{n - 1}]$ is finitely generated over $\Z$ (inductive hypothesis), $R_n$ is finitely generated over $\Z$. Moreover $\left\{ 1, a_n, \dots, a_n^{\deg f_n} \right\}$ was a basis for $R_n$ over $R_{n - 1}$  moreover since $f_n$ was irreducible in $K_{n- 1}$, that means, $rank_{R_{n - 1}}(R_n) = \deg f_n$. 
+    $[K_n : K_{n - 1}] = \deg f_n \implies [K_n : \Q] = \deg f_n * [K_{n - 1} : \Q]$ and $rank_{\Z}(R_n) = \deg f_n * rank_{\Z}(R_{n - 1})$. By the inductive hypothesis, $rank_{\Z}(R_{n - 1}) = [K_{n - 1} : \Q] \implies [K_n : \Q] = rank_{\Z}(K_n)$.
+    $R_n \subset K_n$. Furthermore, $\forall k \in K_n$, $k = \frac{p(a_n)}{q(a_n)}$ for $p(x), q(x) \in R_{n - 1}[x]$ since $K_{n - 1}$ is the fraction field of $R_{n - 1}$ and $q(a) \neq 0$, thus $k \in Frac(K_{n})$. Thus $K_n \subseteq Frac(R_n)$. $\forall k \in Frac(R_n), k = \frac{r}{s}$ for $r, s \in R_n \ni s \neq 0$, $k \in K_n$ by definition. Thus $Frac(R_n) \subseteq K_n \implies K_n = Frac(R_n)$. Thus $R_n$ is finitely generated over $\Z$ and $K_n$ is a finite extension of $\Q$, $rank_{\Z}(R_n) = [K_n : \Q]$, and $K_n$ is the fraction field of $R_n$.
+    
+    Thus $K$ is finitely generated over $\Z$, $K$ is a finite extension over $\Q$, $rank_{\Z}(R) = [K : \Q]$, and $K$ is the fraction field over $R$.     
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{2}\label{Problem 2.}
+    Explain why pR is not R. Explain why there is a maximal ideal P of R whose intersection with Z is pZ. 
+\end{PROB}
+\begin{proof}
+    Let $G(x_1, ..., x_k) \in \Z[x_1, \dots, x_k] \ni G(a_1, ..., a_k) = 0$. Thus $R = \frac{\Z[x_1, \dots, x_k]}{(G(x_1, \dots, x_k))}$. To show why $pR$ is not $R$ it suffices to show that $R / pR$ is not trivial. 
+    
+    \begin{align*}
+        R / pR &\cong \frac{\frac{\Z[x_1, \dots, x_k]}{(G(x_1, \dots, x_k))}} {p(\frac{\Z[x_1, \dots, x_k]}{(G(x_1, \dots, x_k))})} \\
+        &\cong Z[x_1, \dots, x_k] / (p, G(x_1, \dots, x_k)) \\
+        &\cong Z[x_1, \dots, x_k] / p / (G(x_1, \dots, x_k)) \\
+        &\cong \F_p[x_1, ..., x_k] / (\overline{G}(x_1, \dots, x_k)) & \text{($\overline{G}(x_1, \dots, x_k) = G(x_1, \dots, x_k) \mod p$)}
+    \end{align*} 
+    
+    Thus, $R / pR = F_p[x] / (\overline{G}(x_1, \dots, x_k))$, which is not trivial. Thus $pR \neq R$. 
+
+    Let $T := $ set of proper ideals of $R$. $\exists B \in T \ni B = \bigcup_{I \in T}I$, every ideal in T is contained in B and thus B is a upperbound of T using containment as the ordering. By Zorn's Lemma, $\exists$ a maximal ideal $M \in T$, such that $\forall$ ideals I such that $M \subseteq I \subseteq R \implies I = M$ or $I = R$.
+    
+    By Correspondence Theorem for Rings, the maximal ideals of $R / pR \cong F_p[x_1, \dots, x_k] /(\overline{G}(x_1, \dots, x_k))$ correspond to the maximal ideals of $R$ which contain $pR$ (Note $R / pR$ contains a maximal ideal using the same arguement as above using Zorn's Lemma). Thus $\exists P$, a maximal ideal, where $pR \subseteq P \implies p\Z \subseteq P \implies  p\Z \subseteq P \cap \Z$. $P \cap \Z$ is a ideal of $\Z$. By the maximality of $p\Z$, $p\Z = P \cap \Z$ or $P \cap \Z = \Z$. If $p\Z = P \cap \Z$, we are done. Assume the contrary $P \cap \Z = \Z$, thus $\Z \subseteq P$. $\forall r \in R$, $1*r  \in P \implies R \subseteq P \implies R = P$ which is a contradiction since P is proper. 
+    
+    Thus $P \cap \Z = p\Z$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Explain why $Gal(F)$ acts naturally on K, preserving the subring R. Let S be the set of maximal ideals of R whose intersection with Z is the prime ideal pZ. Explain why $Gal(F)$ acts naturally on S. Explain why for any J in S, the map $Z \to R/J$ has kernel (p),  so we get $F_p \subset R/J$. Explain why  R/J is a finite field, and why it is a splitting field for f.
+\end{PROB}
+\begin{claim}{3a}\label{Claim 3a.}
+    $Gal(F)$ acts naturally on K, preserving the subring R.
+\end{claim}
+\begin{proof}
+    $Gal(F)$ acts as the following, $\forall g \in Gal(F)$, $\forall r \in K$, $g \cdot r = g(r)$.  
+
+    $\forall g \in Gal(F)$, $g$ fixes the elements of $\Q$ and permutes the roots of $F$, ie $a_1, \dots, a_k$. Since $\Z \in \Q$, $g$ fixes the elements of $\Z$ and permutes the roots of $F$, $a_1, \dots, a_k$. Thus $\forall r \in R$, $r \in K, $ and $r = \sum_{n = 1}^{d} c_n \prod_{i = 1}^{k} a_i^{n_i}$ for $c_n \in \Z$ . Thus $g(r) = g(\sum_{n = 1}^{d} c_n \prod_{i = 1}^{k} a_i^{n_i}) = \sum_{n = 1}^{d} c_n \prod_{i = 1}^{k} g(a_i)^{n_i}$ since $g(a_i)$ is just another root of $F$, $g(r) \in R$. Thus $R$ is preserved by the $Gal(F)$ action.
+    
+    Furthermore, $\forall g \in Gal(F)$,  $\forall r \in R$, $r = \sum_{n = 1}^{d} c_n \prod_{i = 1}^{k} a_i^{n_i}$ for $c_n \in \Z$. Let $s = \sum_{n = 1}^{d} c_n \prod_{i = 1}^{k} g^{-1}(a_i)^{n_i}$ and $g(s) = r$. Thus $g$ is a ring automorphism of $R$.        
+\end{proof}
+\begin{claim}{3b}\label{Claim 3b.}
+    Let S be the set of maximal ideals of R whose intersection with Z is the prime ideal pZ. $Gal(F)$ acts naturally on S.
+\end{claim}
+\begin{proof}
+    $\forall g \in Gal(F)$, $g$ is a automorphism of $K$ which preserves $R$. $\forall J \in S$, let $I$ be a ideal of $R$ such that $g^*(J) \subset I \subset R$. That would mean, $J \subseteq g^{-1}(I) \subseteq R$. By the maximality of $J$, $g^{-1}(I) = J$ or $g^{-1}(I) = R$. If $g^{-1}(I) = J \implies I = g(J)$ and if $g^{-1}(I) =R \implies I = R$. Thus $g(J)$ is maximal. Since $g \in Gal(F)$, it is the identity on $\Q$ and since $\Z \subset \Q \implies g|_{\Z} = id$. This means $g(p\Z) = p\Z$, more specifically it fixes each element. Since $g(p\Z) \subset g(J) \implies p\Z \subset g(J)$. Thus $g(J) \in S$ by definition.          
+
+    Define the action of $Gal(F)$ on $S$ as the following, $\forall J \in S$, $g \cdot J = g_*(J) = g(J)$. 
+\end{proof}
+\begin{PROB}{3c}\label{Problem 3c.}
+    Explain why for any J in S, the map $Z \to R/J$ has kernel (p), so we get $F_p \subset R/J$.
+\end{PROB}
+\begin{proof}
+    $\forall J \in S$, The map $\varphi: \Z \to R / J$ is the restriction of the natural quotient map, $\pi : R \to R / J$ to $\Z$. The $\ker \pi = J$. Thus $\ker \varphi = \ker \pi \cap \Z = J \cap \Z = p\Z$, by definition of $J$. Thus the map $\varphi$ factors through the map $\Z \to \Z / p\Z = \F_p$, and since all the kernel is killed of by $\varphi$ in this map, $\F_p \subset R / J$.         
+\end{proof}
+\begin{PROB}{3d}\label{Problem 3d.}
+    Explain why R/J is a finite field, and why it is a splitting field for f.   
+\end{PROB}
+\begin{proof}
+    $\forall r \in R, \bar{r} := r + J$.
+    Since $a_1, \dots, a_k$ are the generators of $R$. Then $\bar{a_1}, \dots, \bar{a_k}$ are generators of $R / J$. 
+    
+    $\forall r \in R$, define $\overline{r} = r + J$.  
+
+    Take $q: R \to R / J$, where $r \to \overline{r}$ the standard quotient map. Since $R / J$ is a finite extension of $\F_p$, $\F_p \leq R / J$, where $\forall z \in \Z, [z] \to \overline{z}$. 
+    Thus $f([x]) = [F([x])] = \overline{F(\overline{x})}$. Suppose, $F(x) = \sum_{i = 0}^{\deg F} c_n x^n$  
+    
+    Thus $\forall i \in [1, \dots, k], f(\bar{a_i}) = \overline{\sum_{i = 0}^{\deg F} c_n \overline{a_i}^n} = \overline{\sum_{i = 0}^{\deg F} c_n a_i^n} = \overline{0}$. Thus $a_i$ is a root of $f$. 
+    
+    Thus there is a map $p$ from roots of $F$ to roots of $f$ where $a_i \to \overline{a_i}$. Since $q$ is a ring homomorphism and $F(x) = \prod_{i = 1}^{k}(x - a_i) \implies q(F(x)) = f(x) = \prod_{i = 1}^{k}(x - \overline{a_i})$. Assume the contrary $p$ is not injective, then $\exists i, j \in [1, \dots, k] \ni \overline{a_j} = \overline{a_i}$, thus $(x - \overline{a_i})^2 | f(x) \implies f(x)$ has a double root $a_i$ which is a contradiction. Thus $p$ is injective.
+    
+    Let $r$ be a root of $f$, then $(x - r) | f \implies (x - r) | \prod_{i = 1}^{k}(x - \overline{a_i}) \implies \exists i \in [1, \dots, k] \ni x - r = x - \overline{a_i} \implies r = \overline{a_i} \implies a_i = p(r)$. Thus $p$ is surjective. 
+
+    Thus $p_*(\left\{ a_1, \dots, a_k \right\}) = \left\{ \overline{a_1}, \dots, \overline{a_k} \right\}$ are all the roots of $f$ and they are distinct. Thus $\overline{a_1}, \dots, \overline{a_k}$ are algebraic over $\F_p$. Thus $R / J$ is a finite extension over $\F_p$.     
+    
+    Since $\forall i \in [1, \dots, k], \overline{a_i} \in R / J \implies f$ splits over $R / J$. Moreover since $\overline{a_1}, \dots, \overline{a_j}$ are generators of $R / J$ thus $R / J$ is the splitting field of f. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Let $P_1,..,P_k$ be any finite collection of distinct elements from S. Explain why the natural map $\varphi: R \to R/P_1 \times R/P_2 \times ...  \times R/P_k$ is surjective (feel free to look up the Chinese remainder theorem) and why this factors through $R/pR$.  
+\end{PROB}
+\begin{proof}
+    $\forall I, J \leq R$ where $I$ and $J$ are ideals of $R$. $\forall r \in I + j$, $r = i  + j $ for some $i \in I$ and $j \in J$. Thus $\forall i_1 + j_1, i_2 + j_2 \in I + J$ where $i_1, i_2 \in I$ and $j_1, j_2 \in J$, $i _1 + j_2 + i_2 + j_2 = (i_1 + i_2) + (j_1 + j_2) \in I + J$. $\forall r \in R$, $\forall i + j \in I + J$, $r(i + j) = r(i) + r(j)$, $r(i) \in I$ and $r(j) \in J$ by definition of ideals. Thus $r(i + j) \in I + J$. Thus $I + J$ is a ideal.        
+
+    $\forall i, j \in [1, \dots, k] \ni i \neq j$, $P_i$ and $P_j$ are distinct. $P_i \subseteq P_i + P_j \subseteq R$ and $P_j \subseteq P_i + P_j \subseteq R$. By the maximality of $P_i$, $P_i + P_j = R$ or $P_i + P_j = P_i$. By the maximiality of $P_j$, $P_i + P_j = R$ or $P_i + P_j = P_j$. Assume the contrary that $P_i + P_j = P_i$, then $P_i + P_j \neq R$ but since $P_i \neq P_j$ (since they are distinct), then $P_i + P_j \neq P_j$ which contradicts the maximality of $P_j$. Thus $P_i + P_j \neq P_i$. Thus $P_i + P_j = R$. Thus by Chinese Remainder Theorem, $\varphi: R \to R / P_1 \times \dots \times R / P_k$ is surjective. 
+    
+    $\ker \varphi$, is by definition the elements of $R$ which map to the identity on $R / P_i$ for all $i$. In otherwords, its the elements of $R$ which are part of each $P_i$, or the intersection of all the $P_i$. Thus $\ker \varphi = \bigcap_{i = 1}^k P_i$. By defintion of $S$, $\forall i \in [1, \dots, k]$, $p\Z \subset P_i \implies p \in P_i \implies pR \subset P_i$, by definition of ideals. Thus $pR \subset \bigcap_{i = 1}^k P_i = \ker \varphi$. Thus $\ker[R \to R/pR] \subset \ker \varphi$. By prehomework, $\varphi$ factors through $R \to R / pR$.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Explain why $R/pR$ is a finite dimensional $F_p$ vector space of dimension d (recall is the rank of R over Z and also the dim of K over Q)
+\end{PROB}
+\begin{claim}{5a}\label{Claim 5a.}
+    $R / pR \cong (\Z / (p))^d \cong F_p^d$ 
+\end{claim}
+\begin{proof}
+    Note elements of $\F_p$ will be denoted as $[z]$ (equivalence classes) for $z \in \Z$.    
+
+    By problem 1, $R \cong \Z^d$ as a $\Z$ module. Thus $\forall r \in R, r = (r_1, \dots, r_n)$ for $r_1, \dots, r_n \in \Z$. Define the map, $\varphi: R / pR \to (\Z / (p))^d$ where $(r_1, \dots, r_n) + pR \to ([r_1], \dots, [r_n])$. 
+    
+    $\forall (r_1, \dots, r_n) + pR \in R / pR$, $\forall (r_1 + ps_1, \dots, r_1 + p s_1), (r_1 + pt_1, \dots, r_1 + p t_1) \in (r_1, \dots, r_n) + pR$, $\varphi((r_1 + ps_1, \dots, r_n + p s_n) + pR) = ([r_1 + ps_1], \dots, [r_n + p s_n]) = ([r_1], \dots, [r_n]) = ([r_1 + pt_1], \dots, [r_n + p st_n]) = \varphi((r_1 + pt_1, \dots, r_n + p t_n) + pR)$. Thus $\varphi$ is well defined. 
+    
+    $\forall \alpha, \beta \in Z$, and $(r_1, \dots, r_n) + pR, (s_1, \dots, s_n) + pR \in R / pR$, $\varphi(\alpha((r_1, \dots, r_n) + pR) + \beta((s_1, \dots, s_n) + pR)) = \varphi((\alpha r_1 + \beta s_1, \dots, \alpha r_n + \beta s_n) + pR)) = ([\alpha r_1 + \beta s_1], \dots, [\alpha r_n + \beta s_n]) = [\alpha]([r_1], \dots, [s_1]) + [\beta]([s_1], \dots, [s_n]) = [\alpha] \varphi((r_1, \dots, r_n) + pR) + [\beta] \varphi((s_1, \dots, s_n) + pR)$. Thus $\varphi$ is a homomorphism. 
+    
+    $\forall k \in \ker \varphi$, $k = (k_1, \dots, k_n) + pR$ where $\varphi(k) = ([0], \dots, [0]) \implies k_i \mod p \equiv 0$. Thus $k = pR$. $\varphi$ is a injective map. 
+    
+    $\forall ([r_1], \dots, [r_k]) \in (Z / (p))^d$, take $s_i \in [r_i]$ for all i. $s_i \in \Z$. $(s_1, \dots, s_n) + pR \in R / pR$ and $\varphi((s_1, \dots, s_n) + pR) =([r_1], \dots, [r_k]) \in (Z / (p))$. Thus the map is surjective. Thus the map is a isomorphism. 
+    
+    Thus $R / pR \cong (\Z / (p))^d$. By definition, $\F_p \cong \Z / (p)$. Thus $R / pR \cong \F_p^d$. Thus $R / pR$ is a $\F_p$ vector space with dimension $d$.        
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Explain why the rings $R/J$, for $J \in G \cdot P$ are all isomorphic finite fields, containing $F_p$. Say $|G \cdot P| = m$ and let k be the degree of each $R/J$ over $F_p$.  Explain why  $d \geq m k$
+\end{PROB}
+\begin{proof}
+    $\forall J \in G \cdot P$, $\forall g \in G$, define the maps $\alpha : R / J \to R / g(J)$ where $r + J \to g(r) + g(J)$ and $\beta : R / g(J) \to R / J$ where $r + g(J) \to g^{-1}(r) + J$. The maps are valid because $g$ is a automorphism of $R$. $\forall r + J \in R / J$, $\beta(\alpha(r + J)) = \beta(g(r) + g(J)) = g^{-1}(g(r)) + J = r + J$. Thus $\beta \circ \alpha = id|_{R / J}$. $\forall r + g(J) \in R / g(J)$, $\alpha(\beta(r + g(J))) = \alpha(r + J) = r + g(J)$ thus $\alpha \circ \beta = id|_{R / g(J)}$. $\forall r + J, s + J \in R / J$ and $\alpha(r + J + s + J) = \alpha((r + s) + J) = g(r + s) + J =  g(r) + g(s) + J = g(r) + J + g(s) + J =\alpha(r + J) + \alpha(s + J)$. $\alpha((r + J)(s + J)) = \alpha(rs + J) = g(r)g(s) + g(J) = g(r)g(s) + g(r)g(J) + g(s)g(J) + g(J) = (g(r) + g(J))(g(s) + g(J)) = \alpha(r + J)\alpha(s + J)$. Thus $R /J \cong R / g(J)$. 
+    
+    
+    Furthermore, $\forall g \in G$, $g(J)$ is a maximal ideal of $R$. Thus $R / g(J)$ is a field. By 3c, $F_p \subseteq R / J$.
+    
+    Let $G \cdot P = \left\{ P_1, \dots, P_k \right\}$. Let $\varphi: R \twoheadrightarrow R / P_1 \times \dots \times R / P_k$. By problem 4, $\varphi$ is surjective. Moreover $\varphi$ factors through $\rho: R \twoheadrightarrow R / pR$. Thus there is a map, $\sigma: R / pR \twoheadrightarrow R / P_1 \times \dots \times R / P_k$. Since $R / P_1$ is a finite extension of degree $k$ over $F_p$ it is also a vector space over $F_p$ with dimension $k$. Thus $R / P_1 \times \dots \times R / P_k$ is a vectorspace with dimension, $mk$. By rank nullity theorem, $\dim R / pR = \dim \sigma_*(R / pR) + \dim \ker \sigma = m k +\dim \ker \sigma  \implies d = \dim R / pR \geq m k$. Thus $d \geq m k$.                
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Explain why the natural quotient map $R \to R/J$  induces a bijection between the roots of F and the roots of f, and why $R/J$ is a splitting field of f.
+\end{PROB}
+\begin{proof}
+    $\forall r \in R$, define $\overline{r} = r + J$.  
+
+    Take $q: R \to R / J$, where $r \to \overline{r}$ the standard quotient map. Since $R / J$ is a finite extension of $\F_p$, $\F_p \leq R / J$, where $\forall z \in \Z, [z] \to \overline{z}$. 
+    Thus $f([x]) = [F([x])] = \overline{F(\overline{x})}$. Suppose, $F(x) = \sum_{i = 0}^{\deg F} c_n x^n$  
+    
+    Thus $\forall i \in [1, \dots, k], f(\bar{a_i}) = \overline{\sum_{i = 0}^{\deg F} c_n \overline{a_i}^n} = \overline{\sum_{i = 0}^{\deg F} c_n a_i^n} = \overline{0}$. Thus $a_i$ is a root of $f$. 
+    
+    Thus there is a map $p$ from roots of $F$ to roots of $f$ where $a_i \to \overline{a_i}$. Since $q$ is a ring homomorphism and $F(x) = \prod_{i = 1}^{k}(x - a_i) \implies q(F(x)) = f(x) = \prod_{i = 1}^{k}(x - \overline{a_i})$. Assume the contrary $p$ is not injective, then $\exists i, j \in [1, \dots, k] \ni \overline{a_j} = \overline{a_i}$, thus $(x - \overline{a_i})^2 | f(x) \implies f(x)$ has a double root $a_i$ which is a contradiction. Thus $p$ is injective.
+
+    Let $r$ be a root of $f$, then $(x - r) | f \implies (x - r) | \prod_{i = 1}^{k}(x - \overline{a_i}) \implies \exists i \in [1, \dots, k] \ni x - r = x - \overline{a_i} \implies r = \overline{a_i} \implies a_i = p(r)$. Thus $p$ is surjective. 
+
+    Thus $p_*(\left\{ a_1, \dots, a_k \right\}) = \left\{ \overline{a_1}, \dots, \overline{a_k} \right\}$ are all the roots of $f$ and they are distinct.     
+
+    Since $\forall i \in [1, \dots, k]$, $\overline{a_i} \in R / J \implies f$ splits over $R / J$. Moreover since $\overline{a_1}, \dots, \overline{a_j}$ are generators of $R / J$ thus $R / J$ is the splitting field of f. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+    Let $G^P$ be the stabilizer of G (for the natural action of G on S described in 3) ). Explain why there is a natural homomorphism $G^P \to Gal(f)$, and why this is injective.  Explain why $|G^P| \leq k$ (k is defined in 6))
+\end{PROB}
+\begin{proof}
+    $\forall g \in G$, define $\overline{g} : R / P \to R / g(P)$ where $r + P \to r + g(P)$. $\overline{g}$ is the map $\alpha$ in problem 6 and thus is a isomorphism between, $R / P$ and $R / g(P)$.    
+
+    $\forall g \in G^P$, $\overline{g}$ is a isomorphism of $G / P$ and $G / g(P) = G / P$ and thus a automorphism of $G / P$. Furthermore, $\forall r \in [0, \dots, p - 1]$, $\overline{g}(r + P) = g(r) + P$, $g(r) = r$, since $g \in Gal(F)$. Thus $\overline{g}(r + P) = r + P$. Thus $\overline{g}$ fixes elements of $F_p \in R / P$ and thus $\overline{g} \in Gal(f)$.
+    Let $\varphi: G^P \to Gal(f)$, where $g \to \overline{g}$. $\forall g, h \in G^P$, $\varphi(g \circ h) = \overline{g \circ h}$. $\forall r + P \in R / P$, $\overline{g \circ h}(r + P) = g(h(r)) + P = \overline{g}(h(r) + P) = (\overline{g} \circ \overline{h})(r + P)$. Thus $\varphi(g \circ h) = \overline{g \circ h} = \overline{g} \circ \overline{h}= \varphi(g) \circ \varphi(h)$. Thus $\varphi$ is a homomorphism. 
+    
+    $\forall g \in \ker \varphi$, any element of $G$ is determined by its permutation it induces on the roots of $F$, $a_1, \dots, a_k$. Thus, $\forall i \in [1, \dots, k]$, $\varphi(g)(a_i + P) = g(a_i) + P = \overline{g(a_i)} = a_i$. Assume the contrary that $g \neq id$, then $\exists j \in [1, \dots, k] \ni g(a_j) \neq a_j \implies \overline{g(a_j)} \neq \overline{a_j}$ by 5 (bijection between roots of f and roots of F). Thus $g \not \in \ker \varphi$ and a contradiction occurs. Thus $g$ must be $id$. Thus $\varphi$ is injective.
+    
+    Since $R / P$ is the splitting field of $f$, by the extension homework, $|Gal(f)| \leq [R / P: \F_p] = k$. Since $\varphi$ is injective, $|G^P| \leq |Gal(f)| \leq k \implies |G^P| \leq k$.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+    Explain why $|G| = d$, and why $d = |G^P| |G P|$. 
+\end{PROB}
+\begin{proof}
+    Assume the contrary that $F$ has double roots, wlog let $a_1$ be the root with multiplicity 1. Thus $F(a_1) = F'(a_1) = 0$. Then $f(\overline{a_1}) = f'(\overline{a_1}) = 0 \implies f$ has a double root over some extension. However this contradicts the assumption about $f$. Thus $F$ has no double roots and $\forall i, j \in [1, \dots, k], i \neq j \implies a_i \neq a_j$. Thus $F$ is seperable over $\Q$.
+    
+    There are 2 cases now: 
+    
+    \begin{enumerate}
+        \item F is irreducible: If $F$ is irreducible, it is the irreducible polynomial of $a_1, \dots, a_k$ and splits completely over $K$ and is seperable thus $K$ is galois (irreducibles of generators splitting and seperable $\implies$ irreducibles of all elements split and are seperable over $K$, proven is a previous homeowork). 
+        \item F is not irreducible: If $F$ is not irreducible, then $\exists g_1, \dots, g_n \in Q[X]$ irreducible where $F(x) = g_1(x) \dots g_n(x)$. Assume the contrary that $\exists i, j \in [1, \dots, n] \ni g_i$ and $g_j$ are not coprime and share a factor. Thus $\exists a_i \ni g_i(a_i)  = 0$ and $g_j(a_i) = 0$. Thus $(x - a_i) | g_i$ and $(x - a_i) | g_j$ thus $(x - a_i) | F(x)$. Thus $F(x)$ is has a repeated root which is a contradiction because $F$ is seperable. Thus $g_1, \dots, g_n$ are coprime and thus $\forall i \in  [1, \dots, k], a_i$ is a root of 1 and only 1 $g_j(x)$. Since $F$ is seperable, $g_j$ is seperable, $\forall j \in [1, \dots, n]$. Since $F$ splits over $K$, $g_j$ splits over $K$. Thus, $\forall i \in [1, \dots, k]$, the irreducible polynomial of $a_i$ splits completely over $K$ and is seperable. Thus $K$ is galois.            
+    \end{enumerate}
+    
+    Since $K$ is galois, $|G| = [K : Q] = d$. By Orbit Stabilizer Theorem, $d = |G| = |G^P| |G \cdot P| = m|G^P|$.   
+\end{proof}
+\bigskip
+
+\begin{PROB}{10}\label{Problem 10.}
+    Using the above, show that $G^P \to Gal(f)$ must be an isomorphism. 
+\end{PROB}
+\begin{proof}
+    By problem 9, $d = |G^P|m  \implies |G^P| = \frac{d}{m}$. By problem 6, $d \geq m k \implies k \leq d / m = |G^P|$. By problem 8, $|G^P| \leq k$. Thus $|G^P| = k$. However, $|Gal(f)| \leq k$. But $k = |G^P| = \leq |Gal(f)| \leq k \implies |G^P| = |Gal(f)| = k$. Since $G^P \to Gal(f)$ is a inclusion and since $|G^P| = |Gal(f)|$, the map is also surjective thus a isomorphism exists between, $G^P \to Gal(f)$. Thus $G^P \cong Gal(f)$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{11}\label{Problem 11.}
+    Explain why G acts transitively on S, ie why $S = G \cdot  P$ (ie there is just one orbit for the action of G on S).
+\end{PROB}
+\begin{proof}
+    Assume the contrary that $G$ doesn't act transitively on $S$. Thus $\exists Q \in S \ni \forall g \in G, g \cdot P \neq Q$. More generally that $\forall g, h \in G, g(P) \neq h(Q)$. As proven in problem 4, $R \to R / g(P) \times R / g(Q)$ is surjective for all $g \in G$, since $g(P) \in S$ and $g(Q) \in S$. Thus $\exists r \in R \ni r \to (0 + g(P), 1 + g(Q))$. Thus $r \in g(P)$ for all $g$ and $r \not \in g(Q)$ for all $g$. Let $G_r = \prod_{g \in G} g(r)$. Assume the contrary that $\exists g \in G \ni g(r) \in Q$, then $r \in g^{-1}(Q)$ which is a contradiction. Thus $\forall g \in G, g(r) \not \in Q$, moreover since $r \to 1 + g(Q)$, $\forall h \in G$, $h(r) \to h(1) + g(Q) = 1 + g(Q)$. Since $R \to R / g(Q)$ is a homomorphism of rings, $G_r \to (1 + g(Q)) ... (1 + g(Q)) = 1 + g(Q) \implies G_r \not \in g(Q) \implies G_r \not \in Q$.$\forall h \in G$, $h(G_r) = h(\prod_{g \in G} g(r))$ which simply reorders the product thus $h(G_r) = G_r$. Thus $G_r$ is fixed by $G$ thus $G_r \in \Q$. But since $G$ preserves $R$ and $r \in R$ and $R$ is closed under multiplication, thus $G_r \in R$. Thus $G_r \in R \cap \Q = \Z$. Since $r \in id(P) \implies r \in P$, thus by definition of ideals $G_r \in P \implies G_r \in P \cap \Z = p\Z$. However $p\Z \subset Q$, which contradicts the fact that $G_r \not \in Q$. Thus by contradiction, $G$ must act transitively on S.             
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{12}\label{Problem 12.}
+    Explain why there is a copy of $Gal(f)$ inside $Gal(F)$.  Is it necessarily unique?  If not, What is it unique up to.
+\end{PROB}
+\begin{proof}
+    Since $\forall P \in S$, $G^P \cong Gal(f)$ and since $G^P \leq Gal(F) \implies Gal(f) \leq Gal(F)$ through $G^P$. However since $S \cong G \cdot P$, by our favorite formula (stabilizer of $gP$ is conjugate to stabilizer of $P$), $\forall T \in G \cdot P$, $\exists g \in G \ni T = g(P)$ adn $G^T = G^{g \cdot P} = g G^P g^{-1}$. Thus $Gal(f) \leq Gal(F)$ is unique up to conjugation.          
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{13}\label{Problem 13.}
+    Why is this cool?
+\end{PROB}
+\begin{proof}
+    This is cool as it allows us to learn more about the galois group of the splitting field of a polynomial $F \in \Z[x]$. By studying the galois group of the the splitting field of the $F$ mod $p$ over a finite field, we can understand the subgroup structure of the galois group since $Gal(F \mod p ) \leq Gal(F)$. Moreover the fact that all copies of $Gal(F \mod p)$ are conjugate, gives us some additional conjugacy structure which we can exploit to study the group. This fact paired with the Sylow Theorems may allow us to figure out what a group is. Moreover $Gal(F \mod p)$ is likely much simpler due to the additional structure provided by finite fields. Overall the structure provided by the $Gal(f)$s would help us find and identify the galois group of the splitting field of $F$ or rule out possible groups which they cannot be, using the fact that different copies of $Gal(f)$ are conjugate.      
+\end{proof}
+
+\end{document}

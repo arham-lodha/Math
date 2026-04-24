@@ -1,0 +1,337 @@
+%HOMEWORK template for M 325K
+
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+	\newenvironment{#1}[1]
+	{%
+		\renewcommand\customgenericname{#2}%
+		\renewcommand\theinnercustomgeneric{##1}%
+		\innercustomgeneric
+	}
+	{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+		{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+		{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Linear Algebra Bootcamp 3}
+\author{Arham Lodha}%put your name here
+\date{August 29, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+	Let V be a vector space, and v a vector. Note +v gives an invertible map $+v: V \rarr V$ by $w \rarr w+v$. What is the inverse?
+
+	Show this is not linear unless $v=0$. Instead it is what is called "affine" show that if  $a + b =1$, $a,b \in F$, then    $(+v)(a X + b Y) = a (+v)X + b(+v)$Y, for X,Y in V.
+\end{PROB}
+\begin{solution}
+	The inverse of $+v$ is $-v : V \rarr V$ by $w \rarr w - v$. For all $w \in V$, $(+v)(-v)(w) = (+v)(w - v) = w - v + v = w$ and $(-v)(+v)(w) = (-v)(w + v) = w + v - v = w$.
+
+	\begin{claim}{1a}
+		$+v$ is linear iff $v = 0$.
+	\end{claim}
+	\begin{proof}
+		($\implies$): Suppose $+v$ is linear. By the definition of linearity, for all $w \in V$ and $c \in F$ $(+v)(cw) = c(+v)(w)$. $(+v)(cw) = cw + v$ and $c(+v)(w) = c(w + v) = cw + cv$. If $cw + v = cw + cv$ then $v = cv$. This is only true if $v = 0$.
+
+		($\impliedby$): Suppose $v = 0$. Then for all $x, y \in V$ and $c,d \in F$, $(+v)(cx + dy) = cx + dy + v = cx + dy$. $c(+v)(x) + d(+v)(y) = c(x+v) + d(y + v) = cx + cv + dy + dv = cx + dy$. Thus by definition $(+v)$ is linear.
+	\end{proof}
+
+	\begin{claim}{1b}
+		If $a + b =1$, $a,b \in F$, iff    $(+v)(a X + b Y) = a (+v)X + b(+v)$Y, for X,Y in V
+	\end{claim}
+	\begin{proof}
+		($\implies$): Suppose $a + b =1$, $a,b \in F$. Then for all $X,Y \in V$ $(+v)(a X + b Y) = aX + bY + v$. Since $a + b = 1$, then $aX + bY + v(a+ b) = aX + av + bY + bv = a(X + v) + b(Y + v) = a(+v)(X) = b(+v)(Y)$
+
+		($\impliedby$): Suppose for some $a,b \in F$ $(+v)(a X + b Y) = a (+v)X + b(+v)$Y, for X,Y in V. $(+v)(aX + bY) = aX + bY + v = a(+v)X + b(+v)Y = a(X + v) + b(Y + v) = aX + av + bY + bv = aX + bY + v(a+b) = aX + bY + v$. Then $v(a+b) = v$. By definition, $1 \in F$ is the only multiplicative identity, so $v * 1 = v$, thus $a + b = 1$.
+	\end{proof}
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+	A coset for a subspace W of V is a subset of form $(+v)(W)$ for some v, ie the set of vectors $\{v + w| w \in W\} =: v + W$. Say $X \sim Y$ if $X - Y \in W$. Show this is an equivalence relation, and $[v] = v + W$.  E.g. Take $V = \R^3$ and W a line through the origin. What are the cosets? Note $v + W$ is in bijection with W (by the map +v).  Let $Q := V/\sim$, which we write as $V/W$. Show that there is a unique vector space structure on Q so that the quotient map $V \rarr V/W$ is linear.
+\end{PROB}
+\begin{solution}
+	\begin{claim}{2a}
+		$X \sim Y$ if $X - Y \in W$ is an equivalence relation.
+	\end{claim}
+	\begin{proof}
+		\begin{enumerate}{}
+			\item \textbf{Reflexive:} Since $W$ is a subspace of $V$. By definition of subspaces, $W$ is not empty and thus there exists a $w \in W$. Furthermore by definition of subspaces, for all w in W, $0w \in W$ thus $0 \in W$. $X - X = 0$, thus $X - X \in W$ and $X \sim X$.
+			\item \textbf{Symmetric:} For all $X, Y \in V$, if $X \sim Y$ then $X - Y \in W$. Since $W$ is a subspace then $-(X - Y) \in W$ or $Y - X \in W$. Thus $Y \sim X$.
+			\item \textbf{Transitive:} For all $X, Y, Z \in V$, if $X \sim Y$ and $Y \sim Z$ then $X - Y \sim W$ and $Y - Z \sim W$. Since $W$ is a subspace, any linear combination is also in $W$ thus $(Y - Z) + (X - Y) \in W$ or $X - Z \in W$. Thus $X \sim Z$.
+		\end{enumerate}
+	\end{proof}
+
+
+	\begin{claim}{2b}
+		$[v] = v + W$
+	\end{claim}
+	\begin{proof}
+		By definition of equivalence classes, it means for all $w \in [v]$, $v \sim w$. By definition, $v \sim w$, iff $a = v - w \in W$. By the Symmetric property of equivalence relations, $w \sim v$ thus $-a = w - v \in W$. $w$ can be rewritten as $w = v - a = v + (w - v)$ for $-a \in W$. Thus $w \in v + W$. Since $w$ can be any element of $[v]$, and every $w \in v + W$, it means $[v] = v + W$.
+	\end{proof}
+
+	\begin{claim}{2c}
+		Take $V = \R^3$ and W a line through the origin. What are the cosets?
+	\end{claim}
+	\begin{solution}
+		The cosets of $W$, are any translation of $W$, or the line through the origin, by vector $v \in V = R^3$.
+	\end{solution}
+
+	\begin{claim}{2d}
+		Let $Q := V/\sim$, which we write as $V/W$.
+		Show that there is a unique vector space structure on Q so that the quotient map $V \rarr V/W$ is linear.
+	\end{claim}
+	\begin{proof}
+		Let $Q := V/\sim$, which we write as $V/W$.
+
+		\begin{enumerate}{}
+			\item \textbf{Addition:} For all $[v], [w] \in Q$, then $[v] + [w] = [v + w]$
+			\item \textbf{Scalar multiplication:} For all $[v] \in Q$ and $c \in F$. Then $c[v] = [cv]$
+		\end{enumerate}
+
+		Now lets apply these definitions to the properties of vector spaces to see if they hold.
+
+		\begin{enumerate}{}
+			\item \textbf{Vector Addition}:
+			      \begin{enumerate}{}
+				      \item \textbf{Commutativity of Vector Addition}: for all $[v], [w] \in Q$, $[v] + [w] = [v+w]=[w + v]$, by commutativity of vector addition in $V$. $[w + v] = [w] + [v]$ by definition of Addition in Q. Thus $[v] + [w] = [w] + [v]$
+				      \item \textbf{Associativity of Vector Addition}: for all $[x], [y], [z] \in Q$, $([x] + [y]) + [z] = [x + y] + [z] = [(x + y) + z] = [x + (y + z)]$ because of associativity of vectors addition in $V$. $[x + (y + z)] = [x] + [y + z] = [x] + ([y] + [z])$ by def. of addition in Q. Thus $([x] + [y]) + [z] = [x] + ([y] + [z])$.
+				      \item \textbf{Existance of additive identity or 0}: Let $0 \in V$ be the additive identity or zero. For all $[v] \in Q$, $[v] + [0] = [v + 0] = [v]$ and $[0] + [v] = [0 + v] = [v]$.
+			      \end{enumerate}
+			\item \textbf{Scalar multiplication}:
+			      \begin{enumerate}{}
+				      \item \textbf{Distributivity over Addition}: for all $[v], [w] \in Q$ and for all $c \in F$, $c([v] + [w]) = c[v+w]$ by the definition of addition in Q. $c[v+w] = [c(v+w)]$ by the def. of Scalar multiplication in Q. $[c(v+w)] = [cv + cw]$ by Distributivity over addition in V. $[cv+cw] = [cv] + [cw]$, by the definition of addition in Q. $[cv] + [cw] = c[v] + c[w]$ by the definition of Scalar multiplication in Q. Thus $c([v] + [w]) = c[v] + c[w]$.
+				      \item \textbf{Distributivity over Scalar addition}: For all $[v] \in Q$ and for all $a, b \in F$, $(a + b)[v] = [(a+b)v]$ by definition of Scalar multiplication in Q. $[(a+b)v] = [av + bv]$ by the Distributivity of Scalar multiplication in V. $[av + bv] = [av] + [bv]$ by the definition of addition in Q. $[av] + [bv] = a[v] + b[v]$ by the definition of Scalar multiplication in Q. Thus $(a+b)[v] = a[v] + b[v]$.
+				      \item \textbf{Compatibility with Scalar multiplication}: For all $[v] \in Q$ and for all $a, b \in F$. $(a * (b[v]) = a[bv]$ by the def. of Scalar multiplication in Q. $a[bv] = [abv]$ by the def. of Scalar multiplication in Q. $ab[v]$ by the def. of Scalar multiplication in Q. $ab[v] = (a*b)[v]$. Thus $(a*(b[v])) = ab[v]$
+				      \item \textbf{Scalar multiplication with identity}: For all $[v] \in Q$ and for $1 \in F$ s.t $1$ is the multiplicative identity. $1[v]= [1v] = [v]$, by the definition of Scalar multiplication in Q and by the property of Scalar multiplication wih identity in V.
+			      \end{enumerate}
+		\end{enumerate}
+
+		Thus $Q := V/W$ is a vector space by definition. Let $f : V \rarr V/W$ be defined as follows. For all $v \in V$, $f(v) = [v]$. For all $v, w \in V$ and $a, b \in F$, $f(av + bw) = [av + bw] = [av] + [bw]$ by the definition addition in Q. $[av] + [bw] = a[v] + b[w]$ by the definition of Scalar multiplication in Q. $a[v] + b[w] = af(v) + bf(w)$. Thus $f(av + bw) = af(v) + bf(w)$. Thus the quotient map is linear.
+	\end{proof}
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Let $f: V \rarr Z$ be an F-linear map, with kernel K. Show that f factors uniquely through V/K, that the induced map $F: V/K \rarr Z$ satisfied $F(v + W) = f(v)$, and that this induced map is injective. Conclude f is surjective iff F is an isomorphism.  Assuming V is finite dimensional, show $\dim V = \dim K + \dim V/K$. 
+\end{PROB}
+Let $f: V \rarr Z$ be an F-linear map, with kernel K. By definition $V/K = V/\sim$ where $\sim$ is a equivalence s.t for all $\forall v, w \in V$ $v \sim w$ iff $v - w \in K$. Let $p: V \rarr V/K$ be the natural quotient map. By the above problem for all $[a] \in V/K$, $[a] = a + K$.
+
+\begin{claim}{3a}
+    $f$ factors through $p$
+\end{claim}
+\begin{proof}
+    For all $a, b \in V$, if $p(a) = p(b)$, by the definition of p, $[a] = [b]$. Thus by the definition of equivalence class, $a \sim b$. By the definition of the equivalence relation, $a - b \in K$. By the definition of a kernel, $f(a - b) = 0$. By the definition of linear maps, $f(a - b) = f(a) - f(b) = 0$. Adding $f(b)$ to both sides, we see $f(a) = f(b)$. Thus $p(a) = p(b) \implies f(a) = f(b)$. By Prehomework problem 4, f factors through p and there exists a $F : V/K \rarr Z$ s.t $f = F \circ p$. 
+\end{proof}
+
+Henceforth assume $F$ exists s.t $f = F \circ p$.
+
+\begin{claim}{3b}
+    $f$ factors uniquely through $p$.
+\end{claim}
+\begin{proof}
+    Assume the contrary, there exists a element $[a] \in Z/K$, s.t there exists no $v \in V$ s.t $p(v) = [a]$. By definition, $a$ is a equivalence class where for every element $v \in [a]$ $v \sim a$ by the definition of equivalence classes. By the reflexive properties of equivalence relations, for every $v \in V$, $v \sim v$. Thus for every $v \in V$, $v \in [v]$. Thus $p(v) = [v]$ for every $v \in V$. Thus every element in $Q$, has at least 1 value which maps to it, thus forming a contradiction. Thus there does not exist a $[a] \in Z/K$ s.t there exists no $v \in V$ s.t $p(v) = [a]$. Thus $p$ is surjective. By prehomework problem 4, since $p$ is surjective then $f$ factors uniquely through $p$.
+\end{proof}
+
+Henceforth assume $F$ is unique and $p$ is surjective.
+
+\begin{claim}{3c}
+    $F$ is injective
+\end{claim}
+\begin{proof}
+    Suppose for all $[a], [b] \in V/K$, that $F([a]) = F([b])$. Since $p(a) = [a]$ and $p(b) = [b]$. Then $F(p(a)) = F(p(b))$. By the definition of F, $f(a) = f(b)$. Thus $f(a) - f(b) = 0$. By linearity, $f(a - b) = 0$. By the definition of kernel, $a - b \in K$. By the definition of the equivalence relation, $a \sim b$. By the definition of equivalence classes, $b \in [a]$ and $a \in [b]$. By the equivalence relation homework problem question 2, equivalence classes are either pairwise disjoint or equal. Then since $b \in [a]$ and $a \in [b]$, $[a] = [b]$. Thus $F$ must injective by definition. 
+\end{proof}
+
+Henceforth assume $F$ is injective.
+
+\begin{claim}{3d}
+    f is surjective iff F is an isomorphism.
+\end{claim}
+\begin{proof}
+    $(\implies)$: Suppose $f$ is surjective. By definition it means, $F \circ p$ must be surjective. By the properties of composition of functions, since $F \circ p$ is surjective, $F$ must be surjective as well. Since $F$ is surjective and injective, by definition of bijective functions, $F$ must be a bijection. By definition of isomorphism, since $F$ is a linear map and is a bijection, it is also a isomorphism.
+
+    $(\impliedby)$: Suppose $F$ was a isomorphism. Then by definition of isomorphisms, $F$ must be a bijective linear map. By the definition of bijection, $F$ must be surjective and injective. Since $F$ is surjective, $F \circ g$ must also be surjective by the properties of composition of functions. By definition $f$ is surjective 
+\end{proof}
+
+Henceforth assume $V$ is finite dimensional
+
+\begin{claim}{3e}
+    Show $\dim V$ = $\dim K$ + $\dim V/K$. 
+\end{claim}
+\begin{proof}
+    By Problem 2 of LA 2, we know $\dim V = \dim K + \dim f_*(V)$. Since $f = F \circ p$, then $f_*(V) = F_*(p_*(V))$. Since $p$ is surjective, $p_*(V) = V/K$. Thus $f_*(V) = F_*(V/K)$.
+
+    Since $F$ is injective, by linear algebra bootcamp problem 5, $\ker F = {0}$ and the dimension of the kernel of F is 0.
+
+    Let $m = \dim V/K$. By definition of dimension, there are $m$ basis vectors in $\dim V/K$. Let $\{[v_1], \ldots, [v_m]\}$ be the basis vectors in $V/K$.
+
+    \begin{claim}{3e.1}
+        The set $\{F([v_1]), \ldots, F([v_m])\}$ is linearly independent
+    \end{claim}
+    \begin{proof}
+        Assume the contrary, the set $A = \{F([v_1]), \ldots, F([v_m])\}$ is not linearly independent. By definition of linear independence, since $A$ is not linearly independent, there exists a linear combination $a_1F([v_1]) + \ldots + a_mF([v_m]) = 0$ where there exists a $a_i \neq 0$ s.t $i \in [1, \ldots, m]$. By linearity, $a_1F([v_1]) + \ldots + a_mF([v_m]) = F(a_1[v_1] + \ldots + a_m[v_m]) = 0$. Let $w = a_1[v_1] + \ldots + a_m[v_m]$, since at least 1 $a_i \neq 0$. $[v_i] \neq 0$ because if $[v_i] = 0$, then there exists a linear combination with non zero coefficents equal to 0. Thus $\{[v_1], \ldots, [v_m]\}$ is linearly dependent. This is a contradiction, due to the fact that is $\{[v_1], \ldots, [v_m]\}$ is a basis and thus by definition linearly independent. By contradiction, $[v_i] \neq 0$. Thus $w \neq 0$. Since $F(w) = 0$, then $w \in \ker F$. Thus by contradiction, the set $\{F([v_1]), \ldots, F([v_m])\}$ is linearly independent.
+    \end{proof}
+
+    \begin{claim}{3e.1}
+        The set $\{F([v_1]), \ldots, F([v_m])\}$ spans $F_*(V/K)$.
+    \end{claim}
+    \begin{proof}
+        For all $w \in V/K$. By definition of a basis, $\{[v_1], \ldots, [v_m]\}$ spans $V/K$. Thus $w$ can be represented as a linear combination of the elements in $\{[v_1], \ldots, [v_m]\}$. So $w = a_1[v_1] + \ldots + a_m[v_m]$ where $a_i \in F$ for all $i \in [1, \ldots, m]$. $F(w) = F(a_1[v_1] + \ldots + a_m[v_m])$. By the definition of linear map, $F(a_1[v_1] + \ldots + a_m[v_m]) = a_1F(v_1) + \ldots + a_mF(v_m)$. Thus $\{F([v_1]), \ldots, F([v_m])\}$ spans $F_*(V/K)$.
+
+    \end{proof}
+    
+    By the definition of basis, $\{F([v_1]), \ldots, F([v_m])\}$ is linearly independent and spans $F_*(V/K)$, thus $\{F([v_1]), \ldots, F([v_m])\}$ is a basis. Thus the $\dim F_*(V/K) = m$. Thus $\dim F_*(V/K) = \dim V/K$.
+
+    Thus $\dim V = \dim K + \dim V/K$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Consider a system of linear equations, which we can view as the matrix equation $Ax = b$ (for some $n \times m$ A, and $b \in F^n$, here X is the "variable"). Show that the solution set is either empty, or a coset for the kernel -- hopefully this reminds you of something from linear algebra.
+\end{PROB}
+\begin{proof}
+    Let $A \in M_{n \times m}$ s.t 
+
+    \begin{equation}{}
+        A = 
+        \begin{bmatrix}{}
+            c_1 && \cdots && c_m
+        \end{bmatrix}
+    \end{equation}.
+
+    Where $c_i$ for $i \in [1, \ldots, m]$ is the ith column of A. Let $x \in F^m$ and $b \in F^n$. $b$ can either be in or not in the column space of A.
+
+    \begin{enumerate}
+        \item If $b \not \in col A$: Then there exists no linear combination of $c_1, \ldots,c_n$ equal to $b$. Thus $Ax = \sum_{i = 0}^m x_ic_i \neq b$ for any $x \in F^m$. Thus there exists no $x \in F^m$, s.t $Ax = b$. Thus the solution set of $Ax = b$ is empty.
+        \item If $b \in col A$: Then there exists a linear combination of $c_1, \ldots,c_n$ equal to $b$. Thus there exists a $x \in F_m$, s.t $Ax = \sum_{i = 0}^m x_ic_i = b$. Thus the solution set is not empty. Let $v$ be an element in the solution set of $Ax = b$, so $Av = b$. There always exists a solution to $Ax = 0$, $x = 0$ so $Ax = \sum_{i = 0}^m 0c_i = 0$. Thus the $\ker A \neq \emptyset$. Let $\{n_1, ..., n_k\}$ be the basis elements of $\ker A$. By definition of a basis, $\{n_1, ..., n_k\}$ spans $\ker A$. For every $w \in \ker A$, w can be represented as a linear combination of the elements of $\{n_1, ..., n_k\}$ so $w = a_1n_1 + \ldots  + a_kn_k$ for $a_i \in F$. Furthermore by definition of kernel, since $w \in \ker A$, $Aw = 0$. Thus for all $w \in \ker A$, $A(v + w) = Av + Aw$ by linearity. Since $Av = b$ and $Aw = 0$, $A(v + w) = b + 0 = b$. Thus for all $w \in \ker A$, $v + w$ is a solution to $Ax = b$. By the definition of coset, $v + \ker A = \{ v + w \mid \forall w \in \ker A \}$. Thus by definition, all the elements of $v + \ker A$ are solutions to $Ax = b$.
+        
+        \begin{claim}{4a}
+            There exists no $u \not \in v + \ker A$ s.t $Au = b$.
+        \end{claim}
+        \begin{proof}
+            Let $V:= F^m$, $Z:= col A$, and $Q:= F^m/\ker A = F^m / \sim$, where $\sim$ is an equivalence relation defined as for all $a, b \in F^m$ $a \sim b$ iff $a - b \in \ker A$. Let $f: F^m \rarr col A$, be the linear map associated with the matrix $A$. Let $p: F^m \rarr Q$ be the natural quotient map, s.t $p(x) = [x] = x + \ker V$ for all $x \in F^m$. Finally let $F: Q \rarr Z$ be a linear map s.t $f = F \circ p$, thus $f$ factors through p. By the previous problem we proved that F is injective and unique. Assume the contrary, $f(w) = Aw = f(u) = Au = b$ s.t $w \not \in v + \ker A$ but $u \in v + \ker A$. Since $f = F \circ p$, $f(w) = F(p(w)) = F(w + \ker A)$ and $f(u) = F(p(u)) = F(u + \ker A)$. Since $u \in v + \ker A$, then $u + \ker A = v + \ker A$. Thus $F(u + \ker A) = F(v + \ker A)$. Thus $F(w + \ker A) = F(v + \ker A)$. Since $F$ is injective, by definition, $w + \ker A = v + \ker A$. Thus a contradiction forms since $w + \ker A = v + \ker A$ and $w \not \in v + \ker A$. Thus by contradiction, for all $w$ s.t $Aw = b$, $w \in v + \ker A$.
+        \end{proof}
+
+        Thus the solution set is $v + \ker A$, or a coset of the kernel.
+    \end{enumerate}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let $f: V \rarr W$ be a surjective map of sets, and $\sim$ the corresponding equivalence relation. Show that $f_*: Pow(V) \rarr Pow(W)$  and $f^*: Pow(W) \rarr Pow(V)$ induce inverse bijections between Pow(W) and the subset of Pow(V) consisting of subsets "closed under $\sim$", meaning subsets S of V such that if $s \in S$, and $x \sim s$ then $x \sim S$.  Now suppose f is a surjective linear map between vector spaces. Show these same maps gives a bijection between subspaces of W and subspaces of V that contain the kernel. Let K be a subspace of V. Explain why the set of V/K are in natural bijection with subspaces of V containing K. 
+\end{PROB}
+\begin{claim}{5a}
+    $f_*: Pow(V) \rarr Pow(W)$  and $f^*: Pow(W) \rarr Pow(V)$ induce inverse bijections between Pow(W) and the subset of Pow(V) consisting of subsets "closed under $\sim$", meaning subsets S of V such that if $s \in S$, and $x \sim s$ then $x \in S$.
+\end{claim}
+\begin{proof}
+	Let S be the set of subsets of V which are closed under "$\sim$". For all $X, Y \in S$, for all $a \in X$ and $b \in Y$. If $f(a) = f(b)$, then by definition of S, $a \sim b$, $b \in X$, and $a \in Y$. Define a function $g: S \rarr \Pow{W}$ as the following: for all $X \in S$
+
+	\begin{equation}{}
+		g(X) = f_*(X)
+	\end{equation}
+
+	If for all $X, Y \in S$, $g(X) = g(Y)$ then $f_*(X) = f_*(Y)$ by definition. Then by definition of images, for all $x \in X$ there exists a $y \in Y$ s.t $f(x) = f(y)$ thus $x \sim y$ thus $x,y \in X$ and $x, y \in Y$ since the sets of S are closed under the equivalence relation. Similarly, for all $y \in Y$ there exists a $x \in X$ s.t $f(x) = f(y)$ thus $x \sim y$ thus $x,y \in X$ and $x, y \in Y$ since the sets of S are closed under the equivalence relation. Since all the elements in X and Y are in both X and Y, $X = Y$. Thus $g$ is injective.
+
+	Define $h: \Pow{W} \rarr S$ as the following. For all $U \in \Pow{W}$:
+
+	\begin{equation}{}
+		h(U) = f^*(U)
+	\end{equation}
+
+	For all $X \in S$, $(h \circ g)(X) = h(g(X)) = h(f_*(X))$, by definition of g. Assume the contrary, $f^*(f_*(X)) \neq X$, then there exists an element $a \in f^*(f_*(X))$ s.t $a \not \in X$. By definition of a preimage, it means $f(a) \in f_*(X)$. Furthermore by definition of a image $f_*(X) = \{ f(x) | x \in X \}$. Thus there exists a $x \in X$ s.t $f(a) = f(x)$. By definition of the equivalence relation, $x \sim a$ and $a \in X$. This forms a contradiction, thus there exists no $a \in f^*(f_*(X))$ but not in $X$. Assume the contrary, exists a $a \in X$ s.t $a \not \in f^*(f_*(X))$. By definition of a image, $f(a) \in f_*(X)$. By definition of a preimage, for $T \in \Pow{W}$ $f^*(T) = \{s \mid s \in V, f(s) \in T\}$. Since $f(a) \in f_*(X)$, by definition of a preimage, $a \in f^*(f_*(X))$. Thus forming a contradiction. By contradiction there exists no $a \in X$ but not in $f^*(f_*(X))$. Thus forall $x \in f^*(f_*(X))$, $x \in X$ and for all $x \in X$, $x \in f^*(f_*(X))$. Thus $f^*(f_*(X)) = X$ and $(h \circ g)(X) = X$.
+
+	For all $T \in \Pow{T}$, $(g \circ h)(T) = g(h(T)) = g(f_*(T)) = f_*(f^*(T))$, by definition of $h$ and $g$. Assume the contrary, there exists a $t \in T$ s.t $t \not \in f^*(f_*(T))$. Since $f$ is surjective, there exists a $a \in V$ s.t $f(a) = t$. By definition of a preimage, $a \in f_*(T)$. Thus by the definition of a image, $f(a) \in f^*(f_*(T))$ thus $t \in f^*(f_*(T))$. Thus a contradiction forms. By contradiction, there exists no $t \in T$ s.t $t \not \in f^*(f_*(T))$. Similarly, assume the contrary, there exists a $t \in f^*(f_*(T))$ s.t $t \not \in T$. By definition of image, there exists $a \in f_*(T)$ s.t $f(a) = t$. Since $a \in f_*(T)$, and $f(a) = t$, by definition of a preimage $f(a) \in f_*(T)$ thus $t \in T$. Thus by contradiction there exists no $t \in f^*(f_*(T))$ s.t $t \not \in T$. Thus for all $t \in f^*(f_*(T))$, $t \in T$ and for all $t \in T$, $t \in f^*(f_*(T))$. Thus $f_*(f^*(T)) = T$ and $(g \circ h)(T) = T$. 
+
+	Thus $g$ and $h$ are inverses. By equivalence relation problem 8, $g$ and $h$ are bijections.
+\end{proof}
+
+\begin{claim}{5b}
+	Now suppose f is a surjective linear map between vector spaces. Show these same maps gives a bijection between subspaces of W and subspaces of V that contain the kernel.
+\end{claim}
+\begin{proof}
+	\begin{enumerate}{}
+		\item \textbf{$f^*$ and Subspaces of W}: Let $U$ be a subspace of W. Since $f$ is a surjective linear map, every element in $U$ has a preimage in $V$. For all $v_1, v_2 \in f^*(U)$, by definition of preimage, $f(v_1), f(v_2) \in U$. Then $f(v_1) + f(v_2) = f(v_1 + v_2) \in U$, because U is a subspace and closed under addition and by definition of a linear map. By definition of a preimage, $v_1 + v_2 \in f^*(U)$, Thus $f^*(U)$ is closed under addition. For all $v \in F^*(U)$ and for all $c \in F$. That means $f(v) \in U$. Since U is subspace, $c*f(v) \in U$. By definition of linear maps, $cf(v) = f(cv) \in U$. Thus by definition of a preimage, $cv \in f^*(U)$. Thus $f^*(U)$ is closed under scalar multiplication. Finally since $f$ is a linear map, it preserves the 0 vector. Therefore $f(0_v) = 0_w$. Since $0_w \in U$, because W is subspace, $0_v \in f^*(U)$. Moreover for all $k \in \ker f$, $f(k) = 0_w \in U$ by definition. Thus $k \in f^*(U)$ for all $k \in \ker f$, thus $\ker f \subset f^*(U)$. Thus $f_*(U)$ is a subspace with the kernal of f.
+		\item  \textbf{$f_*$ and Subspaces of W}: Let $X$ be a subspace of V with the kernel. For all $x, y \in X$, $f(x), f(y) \in f_*(X)$ by definition. Since $X$ is a subspace and closed under linear combinations, for all $a, b \in F$, $ax + by \in X$, then $f(ax + by) \in f_*(X)$. By definition of linear maps, $f(ax + by) = af(x) + bf(y) \in f_*(X)$. Thus $f_*(X)$ is also closed under linear combination. Thus $f_*(X)$ is a subspace in W. 
+	\end{enumerate}
+
+	For all subspaces $U$ in W, $f_*(f^*(U))$. By definition of preimage, $f^*(U)$ is the set of all $v \in V$, s.t $f(v) \in U$. This means $f^*(f_*(U))$ contains all $f(v)$ for $v \in f^*(U)$. But since $f(v) \in U$ for these v, $f_*(f*(U))$ contains all elements of U. Thus $U \subset f_*(f^*(U))$. For all $u \in f^*(f_*(U))$, then $u = f(v)$ for some $v \in f^*(U)$. By definition of preimage and the fact that f is function and can only assign a element in V to 1 element in W, $f(v) = u \in U$. Thus $f^*(f_*(U)) \subset U$. Thus since $U \subset f_*(f^*(U))$ and $f^*(f_*(U)) \subset U$, $f_*(f^*(U)) = U$
+
+	For all subspace $X$ in V which contain kernal f. For all $x \in X$, $f(x) \in f_*(X)$ by definition of a image. By definition of a preimage, since $f(x) \in f_*(X)$, $x \in f^*(f_*(X))$. Thus for all $x \in X$, $x \in f^*(f_*(X))$. Thus $X \subset f^*(f_*(X))$. For all $x \in f^*(f_*(X))$, by definition of a preimage $f(x) \in f_*(X)$. Let $y \in X$, s.t $f(y) = f(x)$. Since $f$ is a linear map, represent its equivalent matrix as $F$. By the previous problem we know that the set of the solutions to $Fb = f(x)$ for $b \in V$ are in the coset of $b + \ker{X}$. Since $\ker f \in X$ and X is a subspace and is thus closed under addition, and $Fy = f(y) = f(x)$ is a valid solution all solutions to $Fb = f(x)$ must be in $X$. Thus since $Fx =f(x) =f(x)$ $x \in X$. Thus for all $x \in f^*(f_*(X))$, $x \in X$. Thus $X \subset f^*(f_*(X))$ and $f^*(f_*(X)) \subset X$. Thus $X = f^*(f_*(X))$.
+
+	Thus $f_*$ and $f^*$ induce bijections between subspaces of W and subspaces of V that contain the kernel.
+\end{proof}
+
+Let $K$ be a arbitrary subspace in V. 
+
+\begin{claim}{5c}
+	$V/K$ are in natural bijection with the subspaces containing $K$.
+\end{claim}
+\begin{solution}
+
+	$p: V \rarr V/K$ is the natural quotient map.
+
+	Let $A$ be the set of subspaces of V containing $K$. Then $g: A \rarr \Pow{V/K}$ is defined as follows, for all $X \in A$, $g(X) = p_*(X)$. If for all $X, Y \in A$, $g(X) = g(Y)$, then for all $x \in X$, there exists a corresponding $y \in Y$ s.t $x 
+	+ K = y + K$. By the definition of $X/K$ as the set of equivalence classes under $\sim$ where if $a \sim b$ then $a - b \in K$. $x + K = [x] = [y] = y + K$. By definition of equivalence classes, $x \sim y$. Since this applies to each element of X, $X = Y$.
+
+	Let $h: \Pow{V/K} \rarr A$ where for all $T \in \Pow{V/K}$,	$h(T) = p^*(T)= \bigcup_{v + K \in T} v + K$. In other words, $h(T)$ is the set of all vectors who are in the cosets within $T$. 
+
+	For $X \in A$, $(h \circ g)(X) = h(g(X)) = h(p_*(X)) = p^*(\{ x + K \mid x \in X \}) = \bigcup_{x + K \in \{ x + K \mid x \in X \}} x + K = X$.
+	For $T \in \Pow{V/K}$, $(g \circ h)(T) = g(h(T)) = g(\bigcup_{v + K \in T} v + K) = p_*(\bigcup_{v + K \in T} v + K) = T$.
+
+	Thus $g$ and $h$ are natural inverses. Thus there exists a natural bijection from $\Pow{V/K} \text{ to }A$.
+
+\end{solution}
+\end{document}

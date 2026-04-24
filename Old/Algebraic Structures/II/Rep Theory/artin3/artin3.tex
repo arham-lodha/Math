@@ -1,0 +1,303 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Artin 3}
+\author{Arham Lodha}%put your name here
+\date{February 23, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{4.9}\label{Problem 4.9.}
+\end{PROB}
+\begin{proof}
+
+    Use the trivial character and $\chi_2$ to find out size of the last conjugacy class. Let $|[y]| = a$ and $\chi_2(y) = b$. By orthogonality relations, $1(1) + 2(1) + 2(1) - 3 + ab = 0 \implies ab = 3$. $a \in \N$, $3$ only has integer factors $1$ and $3$. If $a = 1$, then $|Z(G)| = 3$ but $|G| =10$ and $3  \nmid 10$, thus $a = 3$. Thus $b = 1$. Fill in the rest using row orthogonality relations and the regular representation 
+
+    \begin{tabular}{c | c c c c c c c }
+        & (1) & (1) & (2) & (2) & (3) & (3)  \\
+        & 1 & u & v & w & x & y \\
+        \cline{1-7}
+        $\chi_{1}$ & 1 & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_{2}$ & 1 & 1 & 1 & 1 & -1 & 1 \\
+        $\chi_{3}$ & 1 & -1 & 1 & -1 & i & -i \\
+        $\chi_{4}$ & 1 & -1 & 1 & -1 & -i & i \\
+        $\chi_{5}$ & 2 & 2 & -1 & -1 & 0 & 0 \\
+        $\chi_{6}$ & 2 & -2 & 1 & 1 & 0 & 0\\
+        $\chi_{reg}$ & 12 & 0 & 0 & 0 &0 & 0  
+    \end{tabular} 
+
+    $y$ must be $x^{-1}$ because $x^{-1}$ isn't anywhere else otherwise there would have been another column with $i$.    
+
+    $u \in Z(G)$, thus $\angles{u} \in Z(G)$, $|Z(G)| = 2 \implies |u| = 2$. 
+    
+    
+    $G$ has a sylow 3 and and a sylow 2 subgroup. The number of sylow 3 subgroups has to divide 2 and be 1 mod 3, thus there is only 1. Thus the sylow 3 subgroup is normal. Thus $\mu_3 \triangleleft G$.      
+    
+    Since $\forall$ 1 dimensional representations, $\chi(v) = 1$, $v \in [G, G]$. Only $3$ elements are in $[G, G]$, elements of $[v]$ and $1$. Thus $[G, G] = \mu_3$. Thus $|v| = 3$. 
+    
+    $|Z(w)| = 6$. $\mu_2 \leq Z(w)$ because $u \in Z(w)$. $w$ cannot have order 3 because there is only 1 order 3 subgroup of G, $[G, G]$ by sylow theorems. 
+    $|w|$ cannot be $2$, because its diagonalizable and thus its eigenvalues are 1 and / or -1. There is no possible sum of 2 numbers 1 and / or -1 which gives you 1. Thus $|w| = 2$, then having $\chi_6(w) = 1$ would not be possible. Thus $|w| = 6$.  
+
+    $|Z(x)| = 4$. Since $\chi_3(x) = i$, $|x| | 4$. Thus $|x| = 4$. Similarly, $|y| =  4$, because $\chi_4(y) = i$, $|y| | 4$ and $Z(y) = 4$. 
+    
+    $Z(w)$ is normal because $|Z(w)| = 6$ and index 2 subgroups are normal. $D_3$ is not a normal subgroup in $G$ because then either $x$ or $y$ is in $D_3$ because you need 1 conjugacy class of order 3 but then the conjugacy class would be missing $x^{-1}$ or $y^{-1}$  because $x^{-1} = y$. 
+    
+    
+    $\mu_3$ is normal as discussed above. 
+    
+    $Z(G) \cong \mu_2$ is normal because the center is always normal in a group. 
+    
+    
+    If $\mu_2 \times \mu_2$ or $\mu_4$ were normal, then there is a isomorphism from $G \to \mu_3 < C^*$, however in the one dimensional representations there are no characters which are 3rd roots of unity except for 1. 
+    
+    The only non abelian groups of order 12 are $D_6$, $\mu_3 \rtimes \mu_4$, and $A_4$. $A_4$ isn't possible because there are no elements of order 6. $D_3$ is normal in $D_6$ but $D^3 \not \triangleleft G$, thus $G \not \cong D_6$. Thus $G  \cong \mu_3 \rtimes \mu_4$.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.10}\label{Problem 4.10.}
+\end{PROB}
+\begin{proof}
+    You are missing a row of the character table, use the regular representation to find the final row.
+
+    \begin{tabular}{c | c c c c c }
+        & (1) & $(4)$ & $(5)$ & $(5)$ & $(5)$  \\
+        & 1 & $a$ & $b$ & $c$ & $d$  \\
+        \cline{1-6}
+        $\chi_1$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_2$ & 1 & 1 & -1 & -1 & 1 \\
+        $\chi_3$ & 1 & $1$ & $-i$ & $i$ & $-1$ \\
+        $\chi_4$ & $1$ & $1$ & $i$ & $-i$ & $-1$ \\
+        $\chi_5$ & 4 & -1 & 0 & 0 & 0 \\
+        $\chi_{reg}$ & 14 & 0 & 0 & 0 & 0 
+    \end{tabular}
+
+    $a \in Z(a) \cong \mu_5$. Thus $|a| = 5$.
+    
+    Since $\chi_4(b) = i$ and $\chi_3(c) = i$, $4 | |b|$ and $4 | |c|$. $Z(b) = 4$ and $Z(c) = 4$, thus $|b| = 4$ and $|c| = 4$. 
+    
+    $Z(d) = 4$. Thus $|d| = 2, 4$. $|\ker \chi_2| = 10$, thus $|d| | 10 \implies |d| = 2$.
+    
+    
+    $|\ker \chi_2| = 10$ and $\ker \chi_2 = N \triangleleft G$. Assume the contrary $N = \mu_{10}$, $\exists x \in \N$ such that $|x| = 10$ $x \in Z(x)$ but the only choices for $|Z(x)| = \left\{ 5, 4 \right\}$ but $\angles{x} \leq Z(x)$. Thus by contradiction, $N \neq \mu_{10}$. Thus $N = D_5$
+    
+    $D_5 \triangleleft G$, $C_5 = \ker \chi_4 \triangleleft G$. Since normal subgroups are disjoint unions of conjugacy classes, and no disjoint union produces a set of 2 and 4 elements, $\mu_2, \mu_4 \not \triangleleft G$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.11}\label{Problem 4.11.}
+\end{PROB}
+\begin{proof}
+    $\ker \chi_4 = \left\{ e \right\} \cup [a] \triangleleft G$. $\ker \chi_4 \cong C_7$ because only group with $7$ elements is $C_7$. Furthermore $N = \ker \chi_3 = \left\{ e \right\} \cup [a] \cup [b]\triangleleft G$. Since $a \in C_7$ and $a \neq 1$ then $|a| = 7$. Moreover since $\chi_4(b) = -1$, $2 | |b|$. However since, $|b| | 14$, it means $|b| = 2, 14$. However if $|b| = 14$, $N$ would be $\mu_{14}$. $b \in Z(b)$. However, $|Z(b)| = 6$. Thus by contradiction, $|b| \neq 14$.   Thus $|b| = 2$ and $\angles{b} = \mu_2$ . Furthermore since $\ker \chi_4 \triangleleft N$ because it is also the kernel of the character restricted to N, we know $\mu_7 \triangleleft N$. We know, $N$ is not isomorphic to $\mu_7 \times \mu_2$ because that is $\mu_{14}$. The only other group is $D_{14}$. This is true because there are only 2 choices for the 2 sylow group of $N$, its either normal or there are 7 conjugate subgroups. If it was normal, then it would be $N \cong \mu_{14}$. Thus $\mu_2 \to Aut(\mu_7) \cong \mu_6$, has only 1 nontrivial possibility $x \to x^3$. Thus $N \cong D_{7}$.
+    
+    Character Table of $D_7$. For the one dimensional representations, $y^2 = e \implies y = \pm 1$. Furthermore since $x^7 = 1$ and $yxy^{-1} = x^{-1}$ and $C^*$ is abelian, $x = x^{-1} \implies x^2 = 1$, thus $x = 1$  
+    
+    From the irredicuble representations of $D_n$ homework, we know the 2 dimension irredicubles of $D_7$ have the following form. $x \to \begin{bmatrix}
+        \rho^k \\ & \rho^{-k}
+    \end{bmatrix}$ where $\rho = e^{2 \pi i / 7}$ (8th root of unity) and $k \in \left\{1, 2, 3 \right\}$ and $y \to \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}$. In any of the 3 2d representations, the trace of y is 0. $tr(x) = \rho^{k} + \rho^{-k} = 2\cos(2k\frac{\pi}{7})$
+    
+    \begin{tabular}{c | c c c c c }
+        & e & $x$ & $x^2$ & $x^3$ & $y$  \\
+        \cline{1-6}
+        $\chi_A$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_B$ & 1 & 1 & 1 & 1 & -1 \\
+        $\chi_C$ & 2 & $2\cos(2\frac{\pi}{7})$ & $2\cos(4\frac{\pi}{7})$ & $2\cos(6\frac{\pi}{7})$ & 0 \\
+        $\chi_D$ & 2 & $2\cos(4\frac{\pi}{7})$ & $2\cos(6\frac{\pi}{7})$ & $2\cos(2\frac{\pi}{7})$ & 0 \\
+        $\chi_E$ & 2 & $2\cos(6\frac{\pi}{7})$ & $2\cos(2\frac{\pi}{7})$ & $2\cos(4\frac{\pi}{7})$ & 0 \\
+
+        $\chi_{reg}$ & 14 & 0 & 0 & 0 & 0 
+    \end{tabular}
+
+    Thus $\chi_1|N = \chi_2|N = \chi_3|N = \chi_A$, $ \chi_4|N = \chi_5|N = \chi_6|N = \chi_B$. $\chi_7|N = \chi_C + \chi_D + \chi_E$.
+    
+    
+    $|G| = 42 = 2 * 21 = 3 * 14 = 7 * 2$. The number of 2 sylow subgroups of $G$, has to divide 21 and be $1 \mod 2$. There are 3 such possibilities, $3,7, 21$, however it cannot be 3, because we know $N$ has 7 $\mu_2$ subgroups which are conjugate within itself. Furthermore since all the $2$-sylow subgroups are conjugate and $7$ of them are part of a normal subgroup, they all must be. Assume the contrary $A$ is a 2-sylow subgroup not in $N$ and $B$ is one of the 7 2-sylow subgroups in $N$. Thus $\exists g \in G \ni gAg^{-1} = B \implies A = (g^{-1})B(g^{-1})^{-1}$, but since $N$ is normal $(g^{-1})B(g^{-1})^{-1} \leq N$ so $A \leq N$. Thus by contradiction, $\not \exists$ a 2 sylow subgroup of $G$ which is not in N. Thus there are 7 2 sylows.     
+    
+    The number of $3$ sylow subgroups of $G$ has to divide 14 and be $1 \mod 3$, there is only 1 possibility for this, 7.
+    
+    The number of $7$ sylow subgroups of $G$ has to divide $2$ and be $1 \mod 7$, there is only 1 possibility for this $1$, which is true because $\ker_4 \cong C_7$ was normal and thus only 1 7 sylow subgroup existed.
+    
+    
+    $|Z(c)| = 6$, and since $\chi_2(c) = \omega$ and $\chi_6(c) = -1$  where $\omega$ is a 3rd root of unity implies, $3 | |c|$ and $2 | |c|$ . Thus $|c| = 6$. Similarly, $|d| = 6$ since $\chi_3(d) = \omega$ and $\chi_6(d) = -1$.
+    
+    Finally there are 7 conjugate $\mu_3$ subgroups so there have to be at 2 conjugacy classes with at least $7$ elements of order 3 or at 1 conjugacy class with at least $13$ elements, the latter doesn't exist. $[c], [d]$ do not qualify for the first one because there are 6 elements for each conjugacy which could have orders of 7 because $|c| = 6$ and $|d| = 6$. The only two remaining conjugacy classes with at least 7 elements are $[e]$ and $[f]$. Since $\chi_2(e) = \omega$ and $\chi_2(f) = \bar{\omega}$, it means $3 | |e|$ and $3 | |f|$. $e$ and $f$ must have orders of 3, by the fact above because there need to be 2 conjugacy classes with at least 7 elements with order of 3. $[c]$ and $[d]$ do not qualify so $[e]$ and $[f]$ remain which only have 7 elements and thus all elements must have orders of 3. Thus $|e| = 3$ and $|f| = 3$.
+    
+    A subgroup of order 21 is normal because it would have index 2. No subgroup of order 21 is abelian because $[1]$ must be in it and thus so must $[a]$, but $[a]$ has non 1 dimensional irredicubles and abelian groups do not have any multidimensional irredicubles. There is only 1 nonabelian subgroup of order 21, $\angles{x, y | x^7 = y^3 = 1, y^{-1}xy = x^2}$. 
+
+    $D_7$ is normal as shown above and $C_7$ is normal as shown above. 
+    
+    $C_{14}$ cannot be normal because if it was there would exist a map from $G \to \mu_3 \leq C^*$ which would be 1 dimensional representations. However any 1 dimensional representation which maps $G \to \mu_3$ has a kernel of $D_7$ as seen above. Thus since a map doesn't exists like so, $C_{14}$ cannot be normal. 
+    
+    
+    $C_6$ cannot be normal, because normal subgroups are disjoint unions of conjugacy classes, and no disjoint union of conjugacy classes which include $1$ give a set of size 6.
+    
+    $\mu_3$ and $\mu_2$ are not normal because there exist 7 2 and 3 sylows each. 
+    
+    Thus the only normal subgroups are $\angles{x, y | x^7 = y^3 = 1, y^{-1}xy = x^2}, D_{14},$ and $\mu_7$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.12}\label{Problem 4.12.}
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item $\sigma' = \sigma \circ C_a$ where $a \in G$. $C_a \in Aut_{group}(H)$ because $H$ is normal and $\sigma$ is a homomorphism from $G \to GL(V)$. $\forall g, h \in H$, $\sigma'(gh) = \sigma(agha^{-1}) = \sigma(aga^{-1}aha^{-1}) = \sigma(aga^{-1})\sigma(aha^{-1}) = \sigma'(g)\sigma(h)$. Thus $\sigma'$ is a homomorphism from $G \to GL(V)$ thus $\sigma'$ is a representation. 
+        \item $\chi = tr \circ \sigma$ and $\chi' = tr \circ \sigma'$. $\forall h \in H$, $\chi(h) = tr(\sigma(h))$ and $\chi'(h) = tr(\sigma(aha^{-1})) = tr(\sigma(a)\sigma(h)\sigma(a)^{-1}) = tr(\sigma(h)) = \chi(h)$ since trace is conjugacy invariant. By Frobenius's Theorem, since the characters are equal and thus $\sigma \cong \sigma'$. 
+        \item Since $[G : H] = 2$, $\forall a, b \not \in H$, $a, b \in aH \implies b = ah'$ for some $h' \in H$. Thus $\forall h \in H$, $\sigma''(h) = \sigma(bhb^{-1}) = \sigma(ah' h h'^{-1} a^{-1})= \sigma(ah'a^{-1} a h a^{-1} a h'^{-1} a^{-1}) = \sigma'(h')\sigma(h)\sigma(h')^{-1}$ since trace is conjugacy invariant, $tr(\sigma''(h)) = tr(\sigma'(h')\sigma'(h)\sigma(h')^{-1}) = tr(\sigma'(h))$. By Frobenius's theorem, since the characters are equal, the representations are isomorphic.    
+    \end{enumerate}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.2}\label{Problem 5.2.}
+\end{PROB}
+\begin{proof}
+    For $n \geq 5$, the only proper normal subgroup of $S_n$ is $A_n$ and since $A_n$ is a index 2 subgroup of $S_n$,  $S_n / A_n \cong \mu_2$. The map from $S_n \to S_n / A_n$ is the sign homomorphism. The only other normal subgroups are the trivial subgroup and the whole group. 
+    
+    For $n = 4$, the only proper normal subgroups of $S_4$ are $A_4$ and $K_4$. $S_4 / K_4$ is not abelian and thus cannot be isomorphic to a 1 dimensional representation which is isomorphic. $S_4 / A_4 \cong \mu_2 \leq C^*$ and the map from $S_4 \to \mu_2$ is canonically the sign map. 
+    
+    For $n = 3$, the only proper normal subgroup is $\mu_3 \cong A_3$ which is index 2. The map $S_3 \to S_3 / \mu_3 \cong \mu_2$ is canonically the sign map. 
+
+    For $n = 2$, $S_2 \cong \mu_2$ and $n = 2$ $S_1 \cong \left\{ e \right\}$.  
+    
+    $\forall n \in \N$, $S_n \to S_n$, isn't a 1 dimensional representation because $S_n \not \leq C^*$. The whole group sends $S_n \to {e}$ sends everything to 1 which is a 1 dimensional representation.
+    
+    Thus the only 1 dimensional representations of $S_n$ are the sign representation $S_n \to S_n / A_n \cong \mu_2$ and the trivial representation.     
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.3}\label{Problem 5.3.}
+\end{PROB}
+\begin{proof}
+    Suppose G is a group with exactly 2 irredicuble characters of dimension 1. Let $\chi$ be the nontrivial 1 dimensional character. $G \leq S_n$ for some $n \in \N$. Thus there exists a natural injective homomorphism from $t: G \to S_n$. Let $\rho$ be the induced 1 dimensional character of $S_n$ such that, $\chi = \rho \circ t$, $\rho$ cannot be trivial because $\chi$ is nontrivial and $\forall g \in G$, $g \in S_n$. Since $\rho$ is nontrivial, by 5.2 $\rho = sign$ thus $\forall g \in G$, $\chi(g) = \rho(t(g)) = \pm 1$, by the previous problem. Thus $\forall  g \in G$, $\chi(g) =\pm1$             
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.4}\label{Problem 5.4.}
+\end{PROB}
+\begin{proof}
+    $\forall g \in G$, $g$ is diagonalizable because $g^{|g|} = 1$ and thus satifies the equation, $x^{|g|} - 1 = 0$. Thus $g$ has eigenvalues, furthermore since all eigenvalues of $g$ also satify the equation, all eigenvalues of g are roots of unity. Furthermore since $\chi(g) = \sum_{i = 1}^{d} \lambda_i$ where $\lambda_i$ are the eigenvalues of g. Thus, by the triangle inequality $\abs{\chi(g)} = \abs{\sum_{i = 1}^{d} \lambda_i} \leq \sum_{i = 1}^{d} \abs{\lambda_i} = \sum_{i = 1}^{d}1 = d$. Furthermore equality only exists, if $\forall i \in \N_d$ all the $\lambda_i$ are parallel and point in the same direction, and since they all have modulus 1, this means $\lambda_i = \lambda_j$ $\forall i, j$. Thus $g = \lambda I$.
+    
+    
+    However if $\chi(g) = d$, by the above, $g = \lambda I$. Since the trace is the sum of the diagonal entries, $\sum_{n = 1}^{d} \lambda = d \lambda = d \implies \lambda = 1$. Thus $g = I$.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.5}\label{Problem 5.5.}
+\end{PROB}
+\begin{proof}
+    $\widehat{G}$ is the group of 1 dimensional characters of $G$ with the following multiplication rule, $\forall \alpha, \beta \in \widehat{G}$, $\forall g \in G$, $(\alpha\beta)(g) = \alpha(g)\beta(g)$.
+    
+    \begin{enumerate}
+        \item \textbf{Closure:} $\forall \alpha, \beta \in \widehat{G}$ $\alpha \beta$ by the properties of the multiplication is also a map from $G \to C^*$. Furthermore $\forall g, h \in G$, $(\alpha \beta)(g h) = \alpha(g h)\beta(g h) = \alpha(g)\alpha(g)\beta(g)\beta(h)$. Since $C^*$ is commutative, $(\alpha \beta)(g h)  = \alpha(g)\alpha(g)\beta(g)\beta(h) = \alpha(g)\beta(g) \alpha(h) \beta(h) = (\alpha \beta)(g) (\alpha \beta)(h)$. Thus $\alpha \beta$ is a homomorphism from $G \to C^*$ and is the a 1 dimensional representation and $\widehat{G}$ is closed under multiplication.
+        \item \textbf{identity: } $\exists t \in \widehat{G}$, or the trivial map. $\forall \alpha \in \widehat{G}$, $\forall g \in G$, $(t \alpha)(g) = t(g) \alpha(g) = \alpha(g) = \alpha(g) t(g) = (\alpha t)(g)$. Thus $t$ is the identity element. 
+        \item \textbf{Inverse: } $\forall \alpha \in \widehat{G}$, let $\beta: G \to C^* \ni g \to \alpha(g)^{-1}$. $\forall g, h  \in G$, $\beta(gh) = \alpha(gh)^{-1} = \alpha(h)^{-1} \alpha(g)^{-1} = \alpha(g)^{-1} \alpha(h)^{-1} = \beta(g) \beta(h)$, since $C^*$ is commutative. Thus $\beta$ is a homomorphism and a 1 dimensional representation. Thus $\beta \in \widehat{G}$. $\forall g \in G$, $(\alpha \beta)(g) = \alpha(g) \alpha(g)^{-1} = 1 = \alpha(g)^{-1} \alpha(g) = (\beta \alpha)(g)$. Thus $\alpha$ has inverse, $\beta$.
+        \item \textbf{Associativity: } $\forall \alpha, \beta , \gamma \in \widehat{G}, \forall g \in G$, $((\alpha \beta) \gamma)(g) = (\alpha \beta)(g) \gamma(g) = \alpha(g) \beta(g) \gamma(g) = \alpha(G) (\beta \gamma)(g) = (\alpha (\beta \gamma))(g)$, since multiplication is associative in $\C^*$. Thus $\widehat{G}$ is associative.                      
+    \end{enumerate}
+
+    Thus $\widehat{G}$ is a group. 
+    
+    By the previous homework, $\widehat{G}$ is in bijection with $G / [G, G]$.
+
+    Suppose $G$ is abelian, thus $G / [G , G]$ is the whole group because $[G, G] = e$. Thus $\widehat{G}$ is in bijection with $G$. Thus $|G| = |\widehat{G}|$  
+    
+    By Structure theorem all Finite abelian groups (Keel said we couldn't do this without structure theorem) are direct product of cyclic groups thus $G \cong C_{n_1} \times \dots C_{n_m}$ . Furthermore $\forall m \in \N$ and $\forall n_1, \dots, n_m \in \N$, $Hom_{gr}(C_{n_1} \times C_{n_2} \dots \times C_{n_m}, \C) = \left\{ x_1, x_2, \dots, x_m : x_1^{n_1} = x_2^{n_2} = \dots = x_m^{n_m} \right\} = C_{n_1} \times C_{n_2} \dots \times C_{n_m}$. Thus, any finite abelian group is isomorphic to its character. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.6}\label{Problem 5.6.}
+\end{PROB}
+\begin{proof}
+    Suppose $G = C_n$. For any irredicuble representation, $\rho: C_n \to C^*$, $x$ gets sent to something which satisfies the equation $x^n = 1$. The only elements of $C^*$ which satisfy this equation are elements of $\mu_n$. Thus $\rho$ is actually a map from $C_n \to \mu_n$. $x$ generates $C_n$ and $\omega$ generates $\mu_n$. $x$ can be mapped to any element $g \in \mu_n \ni g^n = 1$, $g = \omega^k$ for some $k \in \N_n$. Thus $\omega^{kn} = 1$. But since every element of $\mu_n$ satifies the equation, $p(a) = a^n - 1 = 0$, $k$ can be any element of $\N_n$. Thus x can be sent to any g. Thus the 1 dimensional representations of $C_n$ are $\rho_0, \dots, \rho_{n - 1}$ such that $\rho_k$ takes $x \to \omega^k$.
+
+    Define $\rho_k^m(x) := \prod_{n = 1}^{m} \rho_k(x)$. $\forall k \in \N_n$, $\forall x \in C_n$, $\rho_1^k(x) = \prod_{n = 1}^{m} \omega = \omega^k = \rho_k$, moreover, $\rho_1^n(x) = \prod_{n = 1}^{n} \omega = \omega^n = 1$. Thus $\widehat{G} \cong \mu_n = C_n$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.7}\label{Problem 5.7.}
+\end{PROB}
+\begin{proof}
+    Let $\widehat{\phi}: \widehat{G'} \to \widehat{G}$ which takes $\alpha \to \alpha \circ \phi$. $\alpha \in Hom_{gr}(G', \C)$ and $\phi \in Hom_{gr}(G, G')$, thus $\alpha \circ \phi \in Hom_{gr}(G, \C)$. Thus $\widehat{\phi}$ is a homomorphism from $\widehat{G'}$ to $\widehat{G}$
+        
+    
+    $\ker \widehat{\phi} = \left\{ f: G' \to \C^* : f \circ \phi = 1 \right\}$. $\forall f \in \ker \widehat{\phi}$, $\phi(G) \leq \ker f$, thus $f$ factors through $G' / \phi(G)$. Thus there is a 1 to 1 correspondence of $\ker \widehat{\phi}$ and $Hom(G' / \phi(G), \C)$, thus $\ker \widehat{\phi} \cong Hom(G' / \phi(G), \C) = \widehat{G' / \phi(G)}$. By 5.5, $|\ker \widehat{\phi}| = |\widehat{G' / \phi(G)}| = |\widehat{G'}| / |\widehat{\phi(G)}| = |G'| / |\phi(G)|$, by 5.5. Furthermore, $|\widehat{\phi}(\widehat{G})| = |\widehat{G'}| / |\ker \widehat{\phi}|$ thus $|\ker \widehat{\phi}| = |\widehat{G'}| / |\widehat{\phi}(\widehat{G'})|$ . Thus, $|\widehat{G'}| / |\widehat{\phi}(\widehat{G'})| = |G'| / |\widehat{\phi}\widehat{(G')}| = |G'| / |\phi(G)|$ 
+
+
+    $\implies: $ Suppose $\phi$ is injective. Then $|G| = |\phi(G)|$. Thus, $|G'| / |\phi(G)| = |G'| / |G| = |G'| / |\widehat{G}|$, by 5.5. Thus $|G'| / |\widehat{\phi}\widehat{(G')}| = |G'| / |\widehat{G}|\implies |\widehat{\phi}(\widehat{G'})| = |\widehat{G}|$. Thus $\widehat{\phi}(\widehat{G'}) \cong \widehat{G}$. Thus $\widehat{\phi}$ is surjective. 
+    
+    
+    $\impliedby: $. Suppose $\widehat{\phi}$ is surjective. Thus $|\widehat{\phi}(\widehat{G'})| = |\widehat{G'}| = |G| $ by 5.5.  Then $|G'| / |\widehat{\phi}\widehat{(G')}| = |G'| / |G| = |G'| / |\phi(G)|\implies |\phi(G)| = |G| \implies |\ker \phi| = 1$ because $|\phi(G)| = |G / \ker G| = |G| / |\ker G|$. Thus $G$ is injective.
+\end{proof}
+
+\end{document}

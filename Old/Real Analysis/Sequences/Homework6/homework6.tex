@@ -1,0 +1,197 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\left\vert #1\right \vert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 6}
+\author{Arham Lodha}%put your name here
+\date{February 27, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+\end{PROB}
+\begin{proof}
+    For $\epsilon > 0$, by the Archemedian Property, $\exists K \in \N$ such that $K > \frac{\sqrt{5}}{\sqrt{4\epsilon}}$ thus $\epsilon > \frac{5}{4K^2}$ . Then for any $n \geq K$:
+    
+    \begin{align*}
+        \abs{\frac{n^2 - 1}{2n^2 + 3} - \frac{1}{2}} = \abs{\frac{n^2 - 1 - \frac{1}{2}(2n^2 + 3)}{2n^2 + 3}} = \abs{\frac{\frac{-5}{2}}{2n^2 + 3}} &= \abs{-\frac{5}{4n^2 + 6}} \\
+        &= \frac{5}{4n^2 + 6} \text{ since $n > 0 \implies 4n^2 + 6 > 0$ and $|-5| = 5$} \\
+        &\leq \frac{5}{4n^2} \\
+        &\leq \frac{5}{4K^2} \text{ since $n \geq K$ } \\
+        &< \epsilon \text{ since $\epsilon > \frac{5}{4K^2}$ } 
+    \end{align*}
+
+    Thus $\lim \left(\frac{n^2 - 1}{2n^2 + 3}\right) = 0$.  
+
+\end{proof}
+
+\begin{PROB}{5b}\label{Problem 5b.}
+\end{PROB}
+\begin{proof}
+    For $\epsilon > 0$, by the Archemedian Property, $\exists K \in \N$ such that $K > \frac{1}{\epsilon}$ thus $\epsilon > \frac{1}{K}$. Then for any $n \geq K$, 
+    
+    \begin{align*}
+        \abs{\frac{(-1)^n n}{n^2 + 3} - 0} = \abs{\frac{(-1)^n n}{n^2 + 3}} &= \abs{(-1)^n} \abs{\frac{n}{n^2 + 3}} \\
+        &= \abs{\frac{n}{n^2 + 3}} \\
+        &\leq \abs{\frac{n}{n^2}} = \abs{\frac{1}{n}} = \frac{1}{n} \\
+        &\leq \frac{1}{K} \text{ since $n \geq K$} \\
+        &< \epsilon \text{ since $\epsilon > \frac{1}{K}$ }
+    \end{align*}
+
+    Thus $\lim \left(\frac{(-1)^n n}{n^2 + 3}\right) = 0$.  
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    
+\end{PROB}
+\begin{proof}
+    Let $(x_n)$ be a sequence where $lim x_n = x > 0$.   
+    Let $\epsilon = \frac{x}{20}$. Thus since $x > 0$, $\epsilon < \frac{x}{2} < x$ and $-\frac{x}{2} < -\epsilon$ and $\epsilon < x$. By definition of limit, for this $\epsilon$, $\exists K \in \N \ni \forall n \geq K$, $-\epsilon < x_n - x < \epsilon$. Thus since $-\frac{x}{2} < -\epsilon$ and $\epsilon < x$, $-\frac{x}{2} < x_n - x < x$. Thus $-\frac{x}{2} + x = \frac{x}{2} < x_n < x + x =2x$, thus $\frac{x}{2} < x_n < 2x$.            
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3a.}
+\end{PROB}
+\begin{proof}
+    Base case: $n = 1$, $1 < 2$. 
+    Induction Hypothesis: $\forall n \in \N$, $n < 2^n$
+    Inductive Step: By inductive hypothesis, $2n < 2^{n + 1}$. Since $n \in \N$, $n \geq 1$ thus $n + 1 \leq n + n = 2n$. Thus $n + 1 \leq 2^{n + 1}$. 
+    
+    Thus by induction, $\forall n \in \N$, $2^n > n$.    
+
+    $\forall h \in \R \ni h > 0$, let $m = \ceil h$, thus $m \geq h$ and $m \in \N$. Thus $m < 2^m$, thus $h < 2^m$. Thus $h$ is not a upperbound. Thus $x_n = 2^n$ has no upper bound and thus is unbounded. By the contrapositive of the theorem that convergent sequences are bounded, $x_n$ is unbounded thus divergent, not convergent.         
+\end{proof}
+
+\begin{PROB}{3b}\label{Problem 3b.}
+\end{PROB}
+\begin{proof}
+    Let $a_n = \frac{1}{n}$, $b_n = \frac{1}{n^2}$, $c_n = 4$, $d_n = 2$ .
+    $\forall \epsilon > 0$, by Archemedian property, $\exists K, L \in \N \ni K > \frac{1}{\epsilon}$ and $L > \frac{1}{\sqrt{\epsilon}}$, thus $\frac{1}{L^2} < \epsilon > \frac{1}{K}$. Also let $M = 1$.    Thus $\forall k \geq K, l \geq L, m \geq M$, 
+    
+    \begin{align*}
+        \abs{a_n - 0} = \abs{\frac{1}{k} - 0} &= \frac{1}{k} \\
+        &\leq \frac{1}{K} \text{ since $k \leq K$} \\
+        &< \epsilon \text{ since $\frac{1}{K} < \epsilon$ } 
+    \end{align*}
+
+    \begin{align*}
+        \abs{b_n - 0} = \abs{\frac{1}{l^2} - 0} &= \frac{1}{l^2} \\
+        &\leq \frac{1}{L^2} \text{ since $l \leq L$} \\
+        &< \epsilon \text{ since $\frac{1}{L^2} < \epsilon$ } 
+    \end{align*}
+
+    \begin{align*}
+        \abs{c_n  - 4} = \abs{4 - 4} = 0 < \epsilon 
+    \end{align*}
+
+    Thus $\lim a_n = 0$, $\lim b_n = 0$, $\lim c_n = 4$.
+    
+    Let $x_n = (2 + \frac{1}{n})^2 = 4 + \frac{4}{n} + \frac{1}{n^2} = c_n + 4a_n + b_n$
+    
+    Since scalar multiple of a sequence which converges also converges and the limit of a scalar multiple of a sequence is equal to the scalar multiple of the limit of the sequence, $\lim 4a_n = 4 \lim a_n = 0$. Since the sum of sequences which converge and their limit is equal to the sum of the limits, $x_n$ conveges because $c_n$, $4a_n$, and $b_n$ converge, and $\lim x_n = \lim c_n + \lim 4a_n + \lim b_n  = 4 + 0 + 0 = 4$.       
+\end{proof}
+
+\begin{PROB}{3c}\label{Problem 3c.}
+\end{PROB}
+\begin{proof}
+    $\forall \epsilon > 0$, by the Archemedian property, $\exists K \in \N \ni K > \frac{2}{\epsilon^2}$ thus $\epsilon > \frac{2}{\sqrt{K}}$. Thus $\forall n \geq K$, 
+    
+    \begin{align*}
+        \abs{x_n - 1} = \abs{\frac{\sqrt{n} - 1}{\sqrt{n} + 1} - 1} = \abs{\frac{\sqrt{n} - 1 - \sqrt{n} - 1}{\sqrt{n} + 1}} &= \abs{-\frac{2}{\sqrt{n} + 1}} \\
+        &= \frac{2}{\sqrt{n} + 1} \\
+        &< \frac{2}{\sqrt{n}} \text{ since $\sqrt{n} < \sqrt{n} + 1$} \\
+        &\leq \frac{2}{\sqrt{K}} \text{ since $K \leq n$} \\
+        &< \epsilon \text{ since $\frac{1}{\sqrt{K}} < \epsilon$ }
+    \end{align*}
+
+    Thus $\lim x_n = 1$ 
+\end{proof}
+
+\begin{PROB}{3d}\label{Problem 3d.}
+\end{PROB}
+\begin{proof}
+    Let $x_n = (-1)^n n^2$ 
+    $\forall h > 0$, let $m = \ceil h$. If $m \mod 2 = 0$, $m > 1$ thus $m^2 > m$ and $(-1)^m m^2 = m^2 > m \geq h$. Thus $h$ is not a upper bound. Otherwise let $n := m + 1$, thus $n \mod 2  = 0$ and $n >1$, thus $n^2 > n$ and $(-1)^n n^2 = n^2 > n > m \geq h$ Thus $h$ is not a upper bound. Thus $x_n$ is not bounded above and thus is unbounded. Thus by the contrapositive of the theorem that convergent sequences are bounded, since $x_n$ is unbounded it is not convegent and thus is divergent.                  
+\end{proof}
+
+\begin{PROB}{3e}\label{Problem 3e.}
+\end{PROB}
+\begin{proof}
+    Let $x_n = \frac{(-1)^n}{n + 2}$. $\forall \epsilon > 0$, by the Archemedian property, $\exists K \in \N \ni K > \frac{1}{\epsilon}$, thus $\epsilon > \frac{1}{K}$. Thus $\forall n \geq K$, 
+    
+    \begin{align*}
+        \abs{x_n - 0} = \abs{\frac{(-1)^n}{n + 2}} &= \frac{1}{n + 2} \\
+        &< \frac{1}{n} \text{ since $n < n + 2$} \\
+        &\leq \frac{1}{K} \text{ since $n \geq K$ } \\
+        &< \epsilon \text{ since $1/K < \epsilon$ }
+    \end{align*}
+
+    Thus $\lim x_n = 0$ 
+\end{proof}
+
+\end{document}

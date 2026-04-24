@@ -1,0 +1,186 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Free Group}
+\author{Arham Lodha}%put your name here
+\date{October 03, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let $i : X \to X$ be an "involution", i.e. a map from the set X to itself with $i \circ i = id_X$. Show that i is a bijection (in the most efficient way you can).
+\end{PROB}
+\begin{proof}
+    Let $i: X \to X$ be a involution thus $i \circ i = id_x$. Thus $i$ has a left inverse, $i$ it is surjective (Equivalence Relations Homeowork). Furthermore since $i$ has a right inverse it is injective (Equivalence Relations Homeowork). Since $i$ is surjective and injective it is a bijection.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Now let S be a set with a fixed point free involution $i: S \to S$ (ie i(s) is different from s for all s in S). By a "word" in S we mean a finite string of elements. We also allow the empty string. This set of words is a  "monoid", we can multiply them just by concatination.  It is easy to see that this operation is associative. But it is not yet a group, we have to introduce some cancelation.  If w is a word in S, and it contains two consecutive elements  s i(s)   (note this is also  i(t)t  for t := i(s) ), then the "simple reduction" is obtained by removing s and i(s).  A word obtained by a series of simple reductions is called a reduction. A word is called reduced, if there is no pair s i(s) of consecutive elements in the word.
+\end{PROB}
+\begin{solution}
+    There is no question here
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Show that every word has a reduced reduction.
+\end{PROB}
+\begin{proof}
+    Base Case: All words of length 1 are of reduced form.
+
+    Assume that all words with length k has a reduced reduction.
+
+    Assume $w$ is a word with length $k + 1$. If $w$ is reduced then $w$ is the word's reduced reduction. If $w$ is not reduced, there is some $x i(x) \in w$ for $x \in S$ then replace $x i(x)$ in w with $1$, thus length of $w$ decreases by one and thus length of w is k and thus w has a reduced reduction by our inductive hypothesis
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Show that the reduced reduction is unique.
+\end{PROB}
+\begin{proof}
+    Let $w_0$ be the reduced form of w. It is obtained by a series of cancellations on w. The first case is a pair $x,i(x)$ is cancelled at some step of the sequence. If so we may cancel $x,x(i)$ first. Thus for any cancellation we make we can move it to be step and still get the same word. On the other hand since $w_0$ is a reduced form $x,i(x) \not \in w$. Thus at least one of the symbols must be cancelled at a time. If the pair itself is not cancelled, the first cancellation involving the pair must look like $...i(x)\textbf{xi(x)} \to ...i(x)...$ or $...x\textbf{i(x)x}... \to ...x...$. This is the same as cancelling the pair $xi(x)$ giving us the first case. Thus the sequence of cancellations commutes thus any sequence of steps with the same elements as the steps to get $w_0$ for $w$ would still produce $w_0$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Show this is an equivalence relation, and show each equivalence class contains a unique reduced word.
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}{}
+        \item \textbf{Reflexive:} $\forall a \in W$ let the reduced form of $a$ be $a_0$. Then $a$ has the same reduced form as itself which is $a_0$.
+        \item  \textbf{Symmetric:} $\forall a, b \in W$ if $a$, $b$ have the same reduced from $w_0$. Then $b$ also have the same reduced form $w_0$.
+        \item \textbf{Transitive: } $\forall a, b, c \in W$, if $a$ and $b$ have the same reduced form $w_0$ and $b$ and $c$ have the same reduced form $w_1$. Since the reduced form of $b$ must be unique then $w_0=w_1$ and thus the reduced form of $c$ is $w_0$ and thus $a$ and $c$ have the same reduced form.
+    \end{enumerate}
+
+    Now we say that two words are equivalent if they have the same reduced reduction. Thus $\forall a, b \in W$, $a \sim b \iff $ they have the same reduced form where $\sim$ is a equivalence relation by above.
+
+    Furthermore, $\forall a\in W$, let $[a]$ be the equivalence class of $a$. Since $a$ must have a unique reduced form by problems 3 and 4, let $a_0$ be the reduced form of a. Since $a_0$ is the reduced form of $a$ and $a_0$ is the reduced form of itself, $a \sim a_0$ and $a_0 \in [a]$. Thus every equivalence class has a reduced form.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Now take F(S) the set of equivalence classes of words. We give it a multiplication $F(S) \times F(S) \to F(S)$ by  $[a][b]  := [red(red(a)red(b))]$ where  $red(a)$ $red(b)$ means concatinate the reduced version of a and b. Show this is well defined, and makes F(S) into a group.  
+\end{PROB}
+\begin{proof}
+    $\forall x \in S$, define to be $x_0 := red(x)$. Let $W$ be the words formed by S.
+
+    \textbf{Well Defined}: $\forall a, x \in W$, $\forall a, b \in [a]$ and $\forall x, y \in [x]$, since $a_0 \in [a]$ is the unique reduction of $a$ and $b$ and $x_0 \in [x]$ is the unique reduction of $x$ and $y$. $[a] \ast [x] = [red(red(a)red(x))] = [red(a_0x_0)]$ and $[b] \ast [y] = [red(red(b)red(y))] = [red(a_0x_0)]$ and since $[b] = [a]$ and $[x] = [y]$ and $[a] \ast [x] = [red(a_0x_0)] = [b] \ast [y]$. Thus $\ast$ is well defined. 
+
+    By definition of the multiplication on $F(S)$, $\forall a, b \in W$, $[a][b]  = [red(red(a)red(b))] \in F(S)$ thus $F(S)$ is closed. $[1] \in F(S)$ where 1 is the empty word which is by definition reduced, thus $\forall a \in S$ $[1] \ast [a] = [red(red(1)red(a))] = [red(1red(a))] = [red(a)] = [a]$ by definition of empty word and equivalence classes similarly $[a] \ast [1] = 1$. $\forall a \in W$, $a_0^{-1}$ is the word where $a_0$ is reversed and each "letter" is replaced with its involution. Assume the contrary, $a_0^{-1}$ is not reduced. Then there exists some $i(x) x$ or $x i(x)$ in $a_0^{-1}$ and thus reversing the inversing process there would be $x i(x)$ in $a_0$ meaning $a_0$ is not reduced thus forming a contradiction. Thus $\forall a\in W$ $[a] \ast [a_0^{-1}] = [red(red(a)red(a_0^{-1}))] = [red(a_0a_0^{-1})] = [1]$ and similarly $[a_0^{-1}] \ast [a] = [1]$. Thus each element has a inverse.
+
+    $F(S)$ is isomorphic to $W_r$ reduced words which is a subset of $W$ and thus since $W$ is a monoid, $W_r$ must have associativity and thus $F(S)$ must also have associativity.
+
+    Thus $F(S)$ is a group
+\end{proof}
+
+\bigskip
+
+The above is not exactly the standard treatment. Instead we start with a set X, take another set $X'$ with a bijection  $b: X\to X'$. Now we take S to be the disjoint union  of $X$ and $X'$ with its natural involution (its b on X and the inverse of b on X'). Now apply the above. We will call this $F(S)$ 
+
+Now let G be a group and $s: S --> G$ a map (of sets, S is just a set). We say that  $s: S --> G$ is a free group on S if s is universal for maps to groups, ie if given any other map of sets $t: S --> G'$, with G' a group, there exists a unique homomorphism of groups   $g: G --> G'$ with  $t = g \circ s $  ($\circ$ means composition). 
+
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Show that any two free groups on S are canonically isomorphic (meaning there is a distinguished iso, unique in a way you should make precise)
+\end{PROB}
+\begin{proof}
+    Let S be a set with free groups $G$ and $G'$. Thus there exists maps $s: S \to G$ and $t: S \to G'$ such that there exists unique homomorphisms $g: G \to G'$ and $g': G' \to G$. Thus since $g$ and $g'$ are unqiue, then $g' \circ g$ must also be a unqiue homomorphism from G to G. $id_G \in \Hom_{gr}(G, G)$ thus $g' \circ g$ is a unique homomorphism then $g' \circ g = id_G$. By symmetric logic, $g \circ g' = id_G'$ thus $g$ and $g'$ have left and right inverses thus they must be bijections. Thus $g$ and $g'$ are bijections and homomorphism and thus isomorphisms. Thus any two free groups on S are canonically isomorphic.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+    Suppose G is free on S, show that $s:S \to G$ is injective (using just the universal property)
+\end{PROB}
+\begin{proof}
+    Let G be a free group on S. Assume the contrary, $s: S \to G$ is not injective. If $|S| = 1$, then s is forced to be injective and thus a contradiction forms here. However if $|S| \geq 2$, then if $s$ is not injective then $\exists a, b \in S$ s.t $s(a) = s(b)$ where $a \neq b$. Order the elements of $S$, $s_1, s_2, \ldots, s_n$. Let $t: S \to \Z/\abs{S}\Z$ such that $s_i \to [i]$. Since s is not injective, $\exists i \neq j$ for $i,j \in [1, \ldots, n]$ such that $s(s_i) = s(s_j)$ and by prehomework this implies $t(s_i) = t(s_j)$ since t factors through s. However $t(s_i) = [i] \neq [j] = t(s_j)$ since $i \neq j$. This violates the universal property and $G$ cannot be free group. Thus a contradiction forms and s must be injective. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+    Suppose G is free on S, show that G is generated by s(S) (again, just using the universal property)
+\end{PROB}
+\begin{proof}
+    Suppose G is free on S. Let $s: S \to G$. Let $G' = \langle s(S) \rangle$. Then let $t: S \to G'$ such that $t = g \circ s$ and $\forall x \in S$ $x \to s(x)$. By definition of the universal property, there must be a unique homomorphism from $g: G \to G'$ which for all $x \in S$ takes $s(x) \to s(x)$. Since G is a free group, s must be injective by problem 8. Furthermore $\forall a, b \in G$, $g(a) = g(b)$ since $g(a), g(b) \in \langle s(S) \rangle$ $g(a) = g(b)$ sequence of $t(f_i)$ for $f_i \in S$. By definition of g $t(f_i) = s(f_i) = g(s(f_i))$ thus the sequence of $t(f_i)$ for $f_i \in S$ turns into a sequence of $g(s(f_i))$ thus a and b equal the same sequence of $s(f_i)$. Thus g is injective. Furthermore for all $a \in G'$, it is by definition a sequence of $s(f_i)$ thus by definition of g $g(s(f_i)) = s(f_i)$ and since g is a homomorphism $\exists a_g \in G$ where $a_g$ is the same sequence of $s(f_i)$ and since g is a homomorphism $g(a_g) = g(s(f_1)) \ldots g(s(f_n)) = s(f_1) \ldots s(f_n) = a$. Thus g is surjective. Thus g must be a bijection.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{10}\label{Problem 10.}
+    Show that  F(S) above is free on S. 
+\end{PROB}
+\begin{proof}
+    Let G be a group. Let S be a set. Let $s: S \to F(s)$ be a function where $\forall s\in S$ $s \to s \in F(s)$. Let $t: S \to G$. Define a function, $f: F(S) \to G$ such that $s \to t(s)$ and $s^{-1} \to t(s)^{-1}$ and such that for $a, b \in S$ $ab \to t(a)t(b)$. Thus $t = f \circ s$. For $W, V \in F(S)$, let $red(W) = a_1^{\pm1} \ldots a_n^{\pm1}$ and $red(V) = b_1^{\pm1} \ldots b_m^{\pm1}$ and $a_i \in S$ and $b_j \in S$ for all $i \in [1, \ldots, n]$ and all $j \in [1, \ldots m]$. $V \ast W = red(red(V)red(W))$ as seen above. Thus $f(V \ast W) = f(a_1^{\pm1} \ldots a_n^{\pm1} b_1^{\pm1} \ldots b_m^{\pm1}) = t(a_n^{\pm1})\ldots t(a_n^{\pm1}) t(b_1^{\pm1}) \ldots t(b_m^{\pm1}) = f(a_1^{\pm1} \ldots a_n^{\pm1})\ast f(b_1^{\pm1} \ldots b_m^{\pm1}) = f(red(V)) \ast f(red(W))$ and since $V \sim red V$ and $W \sim red(W)$ $f(red(V)) \ast f(red(W)) = f(V) \ast f(W)$ thus f is a homomorphism. Thus F(S) is free on S by the universal property.
+\end{proof}
+
+\end{document}

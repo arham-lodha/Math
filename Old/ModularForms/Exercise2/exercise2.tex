@@ -1,0 +1,427 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\HC}{\mathcal{H}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 2}
+\author{Arham Lodha}%put your name here
+\date{March 05, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+\end{PROB}
+\begin{proof}
+    $\forall A \in SL_2(\Z)$ and for all $\mu$-integrable functions  $f:\HC \to \C$. Let $A = \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}$. 
+    Let $\R^2_+ := \left\{ (x, y) \in \R^2 \mid y > 0 \right\}$.
+    
+    \begin{align*}
+        u + iv = w = A \cdot z &= \frac{az + b}{cz + d} \\
+        &= \frac{a(x + iy) + b}{c(x + iy) + d} \\
+        &= \frac{((ax + b) + iay)((cx + d) - icy)}{\abs{cz + d}^2} \\
+        &= \frac{((ax + b)(cx + d) + acy^2) + iy(-acxy - bc + ad + acxy)}{\abs{cz + d}^2} \\
+        &= \frac{((ax + b)(cx + d) + acy^2) + iy}{\abs{cz + d}^2}
+    \end{align*}
+
+    Note $z \to A \cdot z$ is holomorphic on $\HC$. The determinant of the jacobian (since for holomorphic $g$ determinant of jacobian is $\abs{g'}^2$   ) is 
+    
+    \begin{align*}
+        \abs{\frac{d}{dz}\left(\frac{az + b}{cz + d}\right)}^2 &= \abs{\frac{a(cz + d) - (az + b)c}{(cz + d)^2}}^2 \\
+        &= \abs{\frac{1}{(cz + d)^2}}^2 \\
+        &= \frac{1}{(cz + d)^2\overline{(cz + d)^2}} \\
+        &= \frac{1}{\abs{cz + d}^4} 
+    \end{align*}
+
+    Thus \[du dv = \frac{1}{\abs{cz + d}^4} dx dy\]. Thus 
+    
+    \[d \mu(w) = \frac{du dv}{v^2} = \frac{ dx dy}{\abs{cz + d}^4 \frac{y^2}{\abs{cx + d}^4}} = \frac{dx dy}{y^2} = d \mu(z) = d \mu(A^{-1} \cdot w)\]   
+
+
+    \begin{align*}
+        \int_{\HC} f(A \cdot z) d\mu(z) &= \int_{\HC} f(w)  d\mu(A^{-1} \cdot w) \\
+        &= \int_{\HC} f(w) d \mu(w)
+    \end{align*}
+
+    Thus $\mu$ is invariant under the $SL_2(\Z)$ action.    
+\end{proof}
+
+\begin{PROB}{1b}\label{Problem 1b.}
+\end{PROB}
+\begin{proof}
+    Let $f: \HC \to \C$ be modular of weight of $k \in \Z$. Let $\varphi: \HC \to \C$ where $z \to \abs{f(z)}\IM{z}^{\frac{k}{2}}$. $\forall A \in SL_2(\Z)$ where $A = \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}$ and $\forall z \in \HC$:
+    
+    
+    \begin{align*}
+        \varphi(A \cdot z) &= \abs{f(A \cdot z)} \IM{A \cdot z}^{\frac{k}{2}} \\
+        &= \abs{(cz + d)^k f(z)}\left(\frac{\IM{z}}{\abs{cz + d}^2}\right)^{\frac{k}{2}} \\
+        &= \frac{\abs{cz + d}^k}{\abs{cz + d}^k} \abs{f(z)}\IM{z}^{\frac{k}{2}} \\
+        &= \abs{f(z)}\IM{z}^{\frac{k}{2}} \implies \varphi \text{ is modular of weight 0}
+    \end{align*}
+\end{proof}
+
+\begin{PROB}{1c}\label{Problem 1c.}
+\end{PROB}
+\begin{proof}
+    Suppose $f$ is meromorphic on $\HC$ and modular of weight $k \geq 2$ . 
+    
+    $\implies:$ Suppose $f$ is a cusp form. Thus $f(z) = \sum_{n = 0}^{\infty} a_n e^{2 \pi i n z}$ and $a_0 = 0$. $\forall x \in \R$  
+
+    \begin{align*}
+        \lim_{y \to \infty}f(x + iy) &= \lim_{y \to \infty}\left(\sum_{n = 1}^{\infty} a_n e^{2 \pi i n x} e^{-2 \pi n y}\right) = 0
+    \end{align*}
+
+    Thus as $y \to \infty$, $f(x + iy) \to 0$ and $\abs{f(x + iy)} \to 0$ exponenentially. Moreover for large $y$, 
+    $\abs{f(x + iy)} \leq Ce^{-2 \pi y}$. Thus 
+    
+    
+    \begin{align*}
+        \varphi(x + iy) &= \abs{f(x + iy)}y^{\frac{k}{2}} \\
+        &= Ce^{- 2 \pi i y}y^{\frac{k}{2}}
+    \end{align*}
+
+    Exponential decay dominates polynomial growth so as $y \to \infty$, $\varphi(x + iy) \to 0$   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+\end{PROB}
+\begin{proof}
+    Let $f: \HC \to \C$ where \[f(z) = \prod_{n \geq 1}(1 - e(nz))\]. Let $g: \HC \to \C$ where \[g(z) = \prod_{n \geq 1}(1 + \abs{-e(nz)}) = \prod_{n \geq 1}(1 + \abs{e^{-2 \pi n \IM{z}}}) = \prod_{n \geq 1}(1 + e^{-2 \pi n \IM{z}})\]. Redefine $g: \HC \to \C$ to $g: (0, \infty) \to \R$ where \[g(y) = \prod_{n \geq 1}(1 + e^{-2 \pi n y})\]. Note $f$ is absolutely uniformly convergent iff $g$ is.     
+
+    Note, $\forall n \in \N$ and $\forall y \in (0, \infty)$, $0 < e^{- 2 \pi n y} < 1 \implies e^{-2 \pi n y} \neq -1$. Additionally note since $e^{-2 \pi n y} > 0 \implies \ln(1 + e^{-2 \pi n y}) < e^{-2 \pi n y}$   
+    
+    \begin{align*}
+        \ln(g(y)) &= \sum_{n \geq 1}\ln(1 + e^{-2 \pi n y})\\ 
+        &\leq \sum_{n \geq 1}e^{-2 \pi n y}
+    \end{align*}
+
+    $ \sum_{n \geq 1}e^{-2 \pi n y}$ is uniformly convergent thus absolutely uniformly convergent. Thus $\ln(g(y))$ is absolutely uniformly convergent by Wierstrass M Test thus $g(y)$ is absolutely uniformly convergent thus $f(z)$ is absolutely uniformly convergent. Thus $(f(z))^{24}$ is absolutely uniformly convergent and thus $\Delta(z)$ is absolutely uniformly convergent since $e(z)$ is entire and trivially absolutely uniformly convergent.
+    
+    Furthermore $e(z)$ and $(1 - e(nz))$ are holomorphic on $\HC$, thus $\Delta(z)$ is holomorphic on $\HC$     
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+\end{PROB}
+\begin{proof}
+    Note the zeros of $\sin(z)$ are $k \pi$ for $k \in \Z$. Since $\cot(z)$ is the ratio of two entire functions $\cos(z)$ and $\sin(z)$, it is holomorphic on $\C - \left\{ \text{zeros of }  \sin(z)\right\} = \C - \left\{ k \pi : k \in \Z \right\}$. Furthermore, $\frac{1}{\cot(k \pi)} = \tan(k \pi) = \frac{0}{(-1)^k} = 0$. Thus $\left\{ k \pi : k \in \Z \right\}$ are the only points in $\C$  where $\cot(z)$ isn't holomorphic and its poles. Thus $\cot(z)$ is meromorphic on $\C$. 
+    
+    Note 
+
+    \begin{align*}
+        \cot(z) &= \frac{\cos(z)}{\sin(z)} \\
+        &=  \frac{\cos(z)}{\sum_{n = 0}^{\infty} \frac{(-1)^{n + k}(x - k \pi)^{2n + 1}}{(2n + 1)!}} \\
+        &= \frac{\cos(z)}{(x - k \pi) \sum_{n = 0}^{\infty} \frac{(-1)^{n + k}(x - k \pi)^{2n}}{(2n + 1)!}} 
+    \end{align*}
+
+    Note $\sum_{n = 0}^{\infty} \frac{(-1)^{n + k}(x - k \pi)^{2n}}{(2n + 1)!}$ is not 0 around a neighbor hood of $k \pi$. So $\frac{\cos(z)}{\sum_{n = 0}^{\infty} \frac{(-1)^{n + k}(x - k \pi)^{2n}}{(2n + 1)!}}$ is holomorphic in a neighborhood around $k \pi$.   Thus $k \pi$ is a pole of order 1.
+    
+    Thus 
+
+    \begin{align*}
+        res_{k \pi}(\cot) &= \lim_{z \to k \pi}(z - k \pi)\frac{\cos(z)}{\sin(z)} \\
+        &= \lim_{z \to k \pi} \frac{\cos(z)}{\sum_{n = 0}^{\infty} \frac{(-1)^{n + k}(x - k \pi)^{2n}}{(2n + 1)!}} \\
+        &= \frac{\cos(k \pi)}{(-1)^k} = \frac{(-1)^k}{(-1)^k} = 1
+    \end{align*}
+
+
+    \begin{align*}
+        \cot(z) &= i\left(\frac{e^{i z} + e^{-iz}}{e^{iz} - e^{-iz}}\right) \\
+        &= i\left(\frac{e^{iz}(1 + e^{-2iz})}{e^{iz}(1 - e^{-2iz})}\right) \\
+        &=i\left(\frac{1 + e^{-2iz}}{1 - e^{-2iz}}\right) \\ 
+        &= -i\left(\frac{-1 - e^{-2iz}}{1 - e^{-2iz}}\right) \\
+        &= -i\left(\frac{1 - e^{-2iz} - 1 - 1}{1 - e^{-2iz}}\right) \\
+        &= -i\left(1 - \frac{2}{1 - e^{-2 iz}}\right)
+    \end{align*}
+\end{proof}
+
+\begin{PROB}{2c}\label{Problem 2c.}
+\end{PROB}
+\begin{proof}
+    Note $\tau \in \HC$ fixed.  
+    \begin{align*}
+        f_m(z) &:= \cot\left(\left(m + \frac{1}{2}\right) z \right) \cot\left(\left(m + \frac{1}{2}\right) z / \tau\right) \\
+        g_m(z) &:= \frac{f_m(z)}{z}
+    \end{align*}
+    
+    \begin{enumerate}
+        \item For $k \in \Z \setminus \left\{ 0 \right\}$ :  \begin{align*}
+            \frac{1}{g_m\left(\frac{\pi k}{m + \frac{1}{2}}\right)} &= \frac{\pi k \sin(\pi k) \sin(\frac{\pi k}{\tau})}{(m + \frac{1}{2}) \cos(\pi k) \cos(\frac{\pi k}{\tau})}\\
+            &= 0
+        \end{align*}
+
+        Thus $\frac{k \pi}{m + 0.5}$ is a pole of $g_m(z)$. 
+
+        Let $a - bi = \tau^{-1}$.  
+        
+        \begin{align*}
+            \sin\left(\frac{k \pi}{\tau}\right) &= \sin\left(k \pi a + ik \pi b\right) \\
+            &= \sin(k \pi a) \cosh(k \pi b) - i \cos(k \pi a)\sinh(k \pi b)
+        \end{align*}
+
+        This is only 0, if $\sin(k \pi a)\cosh(k \pi b) = 0$ and $\cos(k \pi a)\sinh(k \pi b) = 0$. Since $\cosh(x) \geq 1$ and $\sinh(x) > 0 $. Then $\sin(k \pi a) = 0 = \cos(k \pi b)$. This is a contradiction. Thus $\sin\left(\frac{k \pi}{\tau}\right) \neq 0$. Thus $\cot\left((m +\frac{1}{2})z / \tau\right)$ is homomorphic in a small neighborhood around $\frac{k \pi}{m  +0.5}$. Furthermore  $\cot\left((m +\frac{1}{2})z / \tau\right) / z$ is homomorphic around $\frac{k \pi}{m  +0.5}$.  
+        
+        \begin{align*}
+            \frac{d}{dz}\left(\tan((m + \frac{1}{2})z)(\frac{k \pi}{m + \frac{1}{2}})\right) = (m + \frac{1}{2})\frac{1}{\cos^2(k \pi)} &= (m + \frac{1}{2}) \neq 0
+        \end{align*}
+
+        Thus $k \pi / m + \frac{1}{2}$ is a 1st order pole of $\cot((m + \frac{1}{2}) z)$ and thus is a 1st order pole of $g_m(z)$  
+        
+        \item For $k \in \Z \setminus \left\{ 0 \right\}$ :  \begin{align*}
+            \frac{1}{g_m\left(\frac{\pi k \tau}{m + \frac{1}{2}}\right)} &= \frac{\pi k \sin(\pi k \tau) \sin(\pi k)}{(m + \frac{1}{2}) \cos(\pi k \tau) \cos(\pi k)}\\
+            &= 0
+        \end{align*}
+
+        Thus $\frac{\pi k \tau}{m + \frac{1}{2}}$ are poles of $g_m$. 
+        
+        Note $\sin(k \pi \tau) \neq 0$ for a similar arguement to above. Thus $\cot((m + \frac{1}{2}) z) / z$ is holomorphic in a neighborhood around $\frac{k \pi \tau}{m + 0.5}$.   
+        
+        
+        \begin{align*}
+            \frac{d}{dz}\left(\tan((m + \frac{1}{2})z / \tau)(\frac{k \pi \tau}{m + \frac{1}{2}})\right) = (m + \frac{1}{2}) / \tau \frac{1}{\cos^2(k \pi)} &= (m + \frac{1}{2}) / \tau \neq 0
+        \end{align*}
+
+        Thus $k \pi \tau / m + \frac{1}{2}$ is a 1st order pole of $\cot((m + \frac{1}{2}) z / \tau)$ and thus is a 1st order pole of $g_m(z)$ 
+        
+        \item $\tan(0) = 0$. Thus $0$ is a pole of $g_m$. Let $n = m + \frac{1}{2}$ 
+        
+        \begin{align*}
+            g_m(z) &= \frac{\cos(nz) \cos(n z / \tau)}{z \left(\sum_{j = 0}^{\infty} \frac{(-n)^{j}z^{2j + 1}}{(2j + 1)!}\right)\left(\sum_{j = 0}^{\infty} \frac{(-n / \tau)^{j}z^{2j + 1}}{(2j + 1)!}\right)} \\
+            &= \frac{\cos(nz) \cos(n z / \tau)}{z^3 \left(\sum_{j = 0}^{\infty} \frac{(-n)^{j}z^{2j}}{(2j + 1)!}\right)\left(\sum_{j = 0}^{\infty} \frac{(-n / \tau)^{j}z^{2j}}{(2j + 1)!}\right)}
+        \end{align*}
+
+        $\left(\sum_{j = 0}^{\infty} \frac{(-n)^{j}z^{2j}}{(2j + 1)!}\right)\left(\sum_{j = 0}^{\infty} \frac{(-n / \tau)^{j}z^{2j}}{(2j + 1)!}\right) = \frac{n^2}{\tau} \neq 0$. Thus
+        
+        \[\frac{\cos(nz) \cos(n z / \tau)}{\left(\sum_{j = 0}^{\infty} \frac{(-n)^{j}z^{2j}}{(2j + 1)!}\right)\left(\sum_{j = 0}^{\infty} \frac{(-n / \tau)^{j}z^{2j}}{(2j + 1)!}\right)}\]
+
+        is holomorphic in a neighborhood around 0. 
+
+        Thus $0$ is a order 3 pole of $g_m$.   
+    \end{enumerate}
+    
+\end{proof}
+\begin{PROB}{2d}\label{Problem 2d.}
+\end{PROB}
+\begin{proof}
+    Let $n = m + \frac{1}{2}$ 
+    \begin{enumerate}
+        \item For $k \in \Z \setminus \left\{ 0 \right\}$  
+        
+        \begin{align*}
+            Res_{\frac{k \pi}{n}}(g_m) &= \frac{n \cos(k \pi) \cot(k \pi / \tau)}{k \pi \left(
+                \sum_{j = 0}^\infty\frac{(-n)^{j + k}(x - \frac{k \pi}{n})^{2n}}{(2n + 1)!}
+            \right)|_{x = \frac{k \pi}{n}}} \\
+            &= \frac{n (-1)^{k} \cot(k \pi / \tau)}{k \pi (-n)^k} \\
+            &= \frac{ \cot(k \pi / \tau)}{k \pi}
+        \end{align*}
+
+        \item For $k \in \Z \setminus \left\{ 0 \right\}$  
+        
+        \begin{align*}
+            Res_{\frac{k \pi \tau}{n}}(g_m) &= \frac{n \cos(k \pi ) \cot(k \pi \tau)}{k \tau \pi \left(
+                \sum_{j = 0}^\infty\frac{(-n / \tau)^{j + k}(x - \frac{k \tau \pi}{n})^{2n}}{(2n + 1)!}
+            \right)|_{x = \frac{k \tau \pi}{n}}} \\
+            &= \frac{n (-1)^{k} \cot(k \pi \tau)}{k \pi \tau (-n / \tau)^k} \\
+            &= \frac{ \cot(k \pi \tau)}{k \pi}
+        \end{align*}
+
+        \item Note $\cot(z) = \frac{1}{z} + \frac{z}{3} + O(z^3)$. 
+        
+        So 
+
+        \begin{align*}
+            g_m(z) = \frac{1}{z} \cot(nz) \cot(n z / \tau) &= \frac{1}{z} \left(\frac{1}{nz} + \frac{nz}{3} + O(z^3)\right) \left(\frac{\tau}{ nz} + \frac{n z}{3 \tau} + O(z^3)\right) \\
+            &= \frac{1}{z^3} \left(\frac{1}{n} + \frac{nz^2}{3} + O(z^4)\right) \left(\frac{\tau}{n} + \frac{n z^2}{3 \tau} + O(z^4)\right) \\
+            &= \frac{1}{z^3} \left(\frac{\tau}{n^2} + \frac{z^2}{3 \tau} + \frac{z^2 \tau}{3} + O(z^3)\right)
+        \end{align*}
+
+        Thus 
+
+        \begin{align*}
+            Res_0(g_m) &= \frac{1}{2} \lim_{z \to 0} \frac{d^2}{dz^2} z^2 g_m(z) \\
+            &= \frac{1}{2} \lim_{z \to 0} \frac{d^2}{dz^2}\left(\frac{\tau}{n^2} + \frac{z^2}{3 \tau} + \frac{z^2 \tau}{3} + O(z^3)\right) \\
+            &= \lim_{z \to 0}\left(\frac{1}{3 \tau} + \frac{\tau}{3} + O(z)\right) \\
+            &= \frac{1}{3}(\tau + \tau^{-1})
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+\begin{PROB}{2e}\label{Problem 2e.}
+\end{PROB}
+\begin{proof}
+    WLOG $\tau \in \HC$ .   
+    Let $n = \frac{1}{2} + m$. 
+    
+    Since
+
+    \[\cot(nz) = i\left(\frac{2}{1 - e^{-2inz}} - 1\right) = i\left(\frac{2}{1 - e^{-2in\Re(z)}e^{2 i n \IM{z}}} - 1\right)\]
+
+    as proven above we see that, as $\IM{nz} \to -\infty$, $e^{2 i n \IM{z}} \to 0$ so $\cot(nz) = i$. as $\IM{z} \to \infty$, $e^{2 i n \IM{z}} \to \infty$ so $\cot(nz) \to -i$. 
+    
+    Thus for large $m$, hence large $n$, if $\IM{nz} >> 0 \implies \cot{nz} \approx -i$, otherwise if $\IM{nz} << 0 \implies \cot{nz} \approx i$. Similar analysis applies for $\cot{nz / \tau}$, where you look at the sign $\IM{nz / \tau}$ instead.
+    
+    $\forall a, b \in \C$, let $[a, b]$ be the line segment from $a$ to $b$ and let $(a, b) = [a, b] \setminus \left\{ a, b \right\}$. 
+
+    $\forall z \in [1, \tau]$, the sign of $\IM{nz}$ equals the sign of $\IM{n \tau}$, thus the value of $\cot(nz) \approx -i$ or $\cot{nz} \approx i$ throughout the edge. Likewise, the sign of $\IM{nz / \tau}$ is the same as sign of $\IM{\frac{n}{\tau}}$. Thus the value of $\cot(nz) \approx -i$ or $\cot{nz} \approx i$ throughout the edge. 
+    
+    Thus \[f_m(z) \to \pm 1 \text{ for $z \in [1, \tau]$ }\] 
+
+    meaning 
+
+    \[g_m(z) \to \pm \frac{1}{z} \text{ for $z \in [1, \tau]$ }\]
+    
+    Similar analysis applies for $[\tau, -1], [-1, -\tau], [-\tau, 1]$.
+
+    Not, $1, \tau, -1, -\tau$ are not any poles, so $f_m(z)$ and $g_m(z)$ don't blow up.    
+    
+    Note since no pole is included in $\Gamma$, each $g_m$ is bounded. $\abs{g_m(z)}$ stays close to $\abs{\frac{1}{z}}$. At the vertices no poles of $g_m$ occur.
+    
+    Therefore $g_m$ is uniformly bounded on $\Gamma$.
+    
+    Thus $\cot(nz) \approx -i$ for $z \in [1, \tau] \cup [\tau, -1]$, and $\cot(nz / \tau) = \cot(n z \overline{\tau} / \abs{\tau}^2) \approx i$ if $\IM{z \overline{\tau}} < 0$. 
+    
+    Note 
+
+    \[        \IM{z \overline{\tau}} = \IM{z} \Re{\tau} - \Re{z} \IM{\tau} < 0 \iff \IM{z} < \Re{z}\frac{\IM{\tau}}{\Re{\tau}} 
+\]
+
+    Thus $\cot(n z / \tau) \approx i$ for $z \in [1, \tau] \cup [-\tau, 1]$. 
+
+    Thus $f_m(z) = 1$ for $z \in [1, \tau] \cup [-1, \tau]$  and $f_m(z) = -1$ for $z \in [\tau, -1] \cup [-\tau, 1]$. 
+    
+    Thus by dominated convergence theorem 
+
+    \begin{align*}
+        \lim_{m \to \infty} \int_{\Gamma} g_m(z) dz &= \int_{\Gamma} \lim_{m \to \infty} g_m(z) dz \\
+        &= \int_{\Gamma} \lim_{m \to \infty} f_m(z) \frac{dz}{z} \\
+        &= \left(\int_{1}^{\tau} - \int_{\tau}^{-1} + \int_{-1}^{-\tau} - \int_{-\tau}^1\right) \frac{1}{z} dz \\
+        &= 2\left(\int_1^\tau - \int_{-\tau}^1\right)\frac{1}{z} dz \\
+        &= 2(\log(\tau) - \log(1) - \log(-\tau) + \log(1)) \\
+        &= 2(\log(\tau) - \log(-\tau)) \\
+        &= 4(\log(\tau) - \pi \frac{i}{2}) = 4\log(\tau / i)
+    \end{align*}
+
+    Thus \begin{align*}
+        \exp(3 \lim_{m \to \infty} \int_{\Gamma} g_m(z) dz) &= \exp(12 \log(\tau / i)) \\
+        &= \exp(\log(\tau / i))^{12} \\
+        &= \tau^{12}
+    \end{align*} 
+\end{proof}
+
+\begin{PROB}{2f}\label{Problem 2f.}
+\end{PROB}
+\begin{proof}
+    By the residue theorem, 
+
+    \begin{align*}
+        \int_{\Gamma} g_m(z) dz &= \frac{-2 \pi i \left(\tau + \tau^{-1}\right)}{3} + 2 \pi i\left(\sum_{i = 1}^{m} \frac{2}{\pi} \left(\cot(k \pi \tau) + \cot(k \pi / \tau)\right)\right) \\
+        &= \frac{-2 \pi i \left(\tau + \tau^{-1}\right)}{3} + 4i\left(\sum_{i = 1}^{m} -i \left(1 - \frac{2}{1 - e(k \tau)} + 1 - \frac{2}{1 - e(k / \tau)}\right)\right) \\
+        &= \frac{-2 \pi i \left(\tau + \tau^{-1}\right)}{3} - 8\left(\sum_{i = 1}^{m} \left(\frac{1}{1 - e(k \tau)} + \frac{1}{1 - e(k / \tau)}\right)\right)
+    \end{align*}
+
+\end{proof}
+
+\begin{PROB}{2g}\label{Problem 2g.}
+\end{PROB}
+\begin{proof}
+    \begin{align*}
+        \log\left(\frac{\Delta(-\frac{1}{\tau})}{\Delta(\tau)}\right) &= \log\left(\Delta(-\frac{1}{\tau})\right) - \log\left(\tau\right) \\
+        &= \left(\log\left(e(-\frac{1}{\tau})\right) + 24\sum_{k = 1}^{\infty}\log(1 - e(-k /\tau))\right) - \log\left(e(\tau)\right) + 24\sum_{k = 1}^{\infty}\log(1 - e(-k /\tau)) \\
+        &= 3\int_{\Gamma} g_m(z)dz
+    \end{align*}
+
+    Since the LHS doesn't depend on $m$, 
+    
+    \begin{align*}
+        \frac{\Delta(-\frac{1}{\tau})}{\Delta(\tau)} =\exp(3 \lim_{m \to \infty} \int_{\Gamma} g_m(z) dz) = \tau^{12}
+    \end{align*}
+
+    Note
+
+    \[\Delta(\begin{bmatrix}
+        & -1 \\ 1
+    \end{bmatrix} \tau) = \Delta(-\frac{1}{\tau }) = \tau^{12} \Delta(\tau)\]
+
+    Moreover since $\Delta \in M_{12}$, 
+    
+    \[\Delta(\begin{bmatrix}
+        1 & 1 \\ &1
+    \end{bmatrix} \tau) = \Delta(\tau + 1) = (0 \tau + 1)^{12} \Delta(\tau) = \Delta(\tau)\]
+
+    Since both matrices generate $PSL_2(\Z)$ it follows that $\Delta \in M_{12}^o$.  
+\end{proof}
+
+
+
+\end{document}

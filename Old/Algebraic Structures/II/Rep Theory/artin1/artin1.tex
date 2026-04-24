@@ -1,0 +1,266 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Artin Problems 1}
+\author{Arham Lodha}%put your name here
+\date{February 07, 2024}%enter the due date here
+\maketitle
+
+\section{Definitons}
+\begin{PROB}{1.1}\label{Problem 1.1.}
+    Show that the image of a representation of dimension 1 of a finite group is a cyclic group
+\end{PROB}
+\begin{proof}
+    Suppose we have a representation of dimension 1 of a finite group G under the field F.
+    $GL_1(F) = F^*$. Since $\forall g \in G$, $g^{|G|} = e$, thus the homomorphism $f: G \to F^*$ maps $g \to f(g)$ where $f(g)^{|G|} = I$. $\mu_G := \{x \in F | x^{|G|}= 1\}$. By claim 1.1a, $\mu_G$ is cyclic. $f_*(g) \leq \mu_G$ and all subgroups of a cyclic group are cylic. Thus $f_*(G)$ is cyclic.
+\end{proof}
+\begin{claim}{1.1a}\label{Claim 1.1a.}
+    Let $G \leq (F^*, *)$ be a finite subgroup. G is cyclic. 
+\end{claim}
+\begin{proof}
+    $|G| = k$. Assume the contrary that G is not a cyclic group. Let $x_1, \dots, x_n$ be generators of G where $m_i = o(x_i)$ . Let $lcm \left\{ m_i | i \in \left\{ 1, \dots n \right\} \right\} = a$.  $(x_1 \dots x_n)^a = (x_1^a ... x_n^a) = (1 * \dots * 1)$. If $a = k \implies o(x_1 \dots x_n) = k$ and thus $G$ is cyclic. If $a < k$, then there are $k$ solutions to $x^a - 1 = 0$ which has at most $a$ solutions. Thus a contradiction occurs and $G$ is cyclic.                               
+\end{proof}
+
+\bigskip
+
+\section{Irreducible Representations}
+\begin{PROB}{1.2a}\label{Problem 1.2a.}
+    Choose a suitable basis for $\R^3$ and write the standard representation of the octahedral group O explicitly.
+\end{PROB}
+\begin{proof}
+    The octahedral group is the same as the rotations of a cube. Choose the standard basis of $\R^3$, where $e_i$ intersect a face through their center. If we find the matrices for the generators of $O \cong S_4$ and then the representations of the rest of the elements are going to be products of the representations of the generators. There are 3 generators, rotations of $\frac{\pi}{2}$ along with axes of rotation intersecting the centers of different faces. So the generating matrices, $\begin{bmatrix}
+        1 & 0 & 0 \\
+        0 & \cos(\frac{\pi}{2}) & -\sin(\frac{\pi}{2}) \\
+        0 & \sin(\frac{\pi}{2}) & \cos(\frac{\pi}{2})
+    \end{bmatrix}, \begin{bmatrix}
+        \cos(\frac{\pi}{2}) & 0 & -\sin(\frac{\pi}{2}) \\
+        0 & 1 &  \\
+        \sin(\frac{\pi}{2}) & 0 & \cos(\frac{\pi}{2})
+    \end{bmatrix}$ and, $\begin{bmatrix}
+        \cos(\frac{\pi}{2}) & -\sin(\frac{\pi}{2}) & 0 \\
+        \sin(\frac{\pi}{2}) & \cos(\frac{\pi}{2}) & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}$
+\end{proof}
+
+\begin{PROB}{1.2b}\label{Problem 1.2b.}
+    Choose a suitable basis for $\R^3$ and write the standard representation of the $D_n$ explicitly.
+\end{PROB}
+\begin{proof}
+    Choose the standard basis of $\R^3$, where the $n-$gon is on the x-y plane and its center of mass is at the origin. If we find the matrices for the generators of $D_n$ and then the representations of the rest of the elements are going to be products of the representations of the generators. Let $x$ and $y$ be generators of $D_n$. Let $c = \cos(\frac{2\pi}{n})$ and $s = \cos(\frac{2\pi}{n})$. 
+    
+    \[
+        M_x = \begin{bmatrix}
+            c & -s & 0 \\
+            s & c & 0 \\
+            0 & 0 & 1
+        \end{bmatrix}, M_y = \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & -1 & 0 \\
+            0 & 0 & 1
+        \end{bmatrix}
+    \]
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.1}\label{Problem 2.1.}
+    Prove that the standard three-dimensional representation of the tetrahedral group T is irreducible as a complex representation.
+\end{PROB}
+\begin{proof}
+    Let $\alpha: G \to GL_3(\C)$ 
+
+    Assume the contrary that $\C^3$ is reducible thus it breaks down into 2 T-invariant subspaces of dimension 1 and 2. Let $x, y, z$ be the basis of $\C^3$ where $x$ is the T-invariant dimension 1 subspace and $y$ and $z$ are in the G-invariant dimension 2 subspace. Since $span(x)$ is the T-invariant subspace, then if $\forall t \in T$, $tx = \lambda x$ $span(x)$ is a g-invariant 1 dimensional subspace. Thus $x$ is a eigenvector of the representations of all the elements of $T$. Thus $\forall t \in T$, $t \to \begin{bmatrix}
+        \lambda_t \\
+        & B_t
+    \end{bmatrix}$ where $\lambda_t$ is the eigenvalue cooresponding to $x$ and $B_t$ is the block of the matrix cooresponding to the T-invariant subspace $span(y, z)$. There exists a map $f: T \to C^*$ where $t \to \lambda_t$. $\forall a,b \in T$, $f(ab) = \lambda_{ab} = \lambda_{a}\lambda_b = f(a)f(b)$, because the eigenvalue of $xy$ multiply because $\begin{bmatrix}
+        \lambda_a \\ & B_a
+    \end{bmatrix}\begin{bmatrix}
+        \lambda_b \\ & B_b
+    \end{bmatrix} = \begin{bmatrix}
+        \lambda_{a}\lambda_b \\ & B_{a}B_b
+    \end{bmatrix} = \alpha(xy)$. Thus $f$ is a homomorphism. However $f_*(T) \subset \mu_{12}$ since $\forall t \in T, t^{|T|} = t^{12} = 1$. Thus $f$ can be simplified from $T \to C^*$ to $T \to \mu_{12}$.       
+    
+    Since $T \cong A_4$ and the only normal subgroups of $A_4$ are the trivial group, $K_4$, and $A_4$. If the $\ker f = \left\{ e \right\}$, then $f$ is injective and $A_4 \subseteq \mu_{12}$, and since $|A_4| = |\mu_{12}|$, that would make f a isomorphism and imply $A_4$ is cyclic which is a contradiction. So $\ker f$ is not $e$.
+    
+    If $\ker f = A_4$, then everything gets mapped to 1. So the 1 eigenspaces of the representations of $T$ are all the same because it the eigenvalue of the vector $x$. The 1 eigenspaces of rotations corresponds to the rotation's axis of rotation. Let $u$ be the vector whose span is the axis of rotation of rotation A through 1 vertex. Let $v$ be the vector cooresponding whose span is the axis of rotation of rotation B through another vertex. Let $w$ be the vector whose span is the axis of rotation of rotation C through a 3rd vertex. $u, v, w$ are in their respective rotations' one eigenspace and are real (given the choice of coordinates). They are linearly independent over the reals due to pointing different directions, thus the matrix $M = \begin{bmatrix}
+        \vline & \vline & \vline \\
+        u & v & w \\ 
+        \vline & \vline & \vline \\
+    \end{bmatrix}$ has $det(M) \neq 0$ in the reals and since each of its entries are real, $\det(M) \neq 0$ over the complex. Thus $u,v,w$ are both linearly independent but also in the span of $x$ which is a contradiction. Thus $\ker f = A_4$ is not a possibility. 
+    
+        
+    Finally if $\ker f = K_4$, then $\forall k \in K_4, f(k) = 1$. The elements in $K_4$ coorespond to the rotations of $\pi$ through the opposite edges. Thus the 1 eigenspace, ie the axis of rotations Do the same thing as above, take 3 rotations $A, B, C$  through different vertices and let $u, v, w$ be the vectors whose span is the axis of rotation. The matrix, $M = \begin{bmatrix}
+        \vline & \vline & \vline \\
+        u & v & w \\ 
+        \vline & \vline & \vline \\
+    \end{bmatrix}$, has determinant 0 in $\R^3$, because $u, v, w$ point in different directions. In $\C^3$, since $u, v, w$ have real components, $M$ is a matrix with real entries and thus $\det(M) \neq 0$ in $\C$ as well. Thus $u, v, w$ are linearly independent and also the span of $x$, meaning they are linearly dependent as well. Thus a contradiction occurs and $\ker f \neq K_4$.
+    
+    Since $\ker f$ can be none the 3 possibilities, the homomorphism $f$ is not valid. Thus by contradiction, $\C^3$ cannot have a G-invariant subspace of dimension 1 and thus is irreducible.   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.2}\label{Problem 2.2.}
+    Consider the standard two-dimensional representation of the dihedral group $D_{n}$. For which n is this an irreducible complex representation?
+\end{PROB}
+\begin{proof}
+    If $\C^2$ is reducible it must be reducible into 2 1 dimensional subspaces. 
+
+    Let $c = \cos\left(\frac{2 \pi}{n}\right)$ and $s = \sin\left(\frac{2 \pi}{n}\right)$. Let $x, y$ be the generators of $D_n$. Let $M_x$ and $M_y$ be the representations of $x, y$. $M_x = \begin{bmatrix}
+        c & -s \\ s & c
+    \end{bmatrix}$ and $M_y = \begin{bmatrix}
+        1 & 0 \\ 0 & -1
+    \end{bmatrix}$. $\forall n > 2$, if a vector is $G-$invariant it must be an eigenvector for all the matrices. Take eigenvectors of $M_y$, $\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$ and $\begin{bmatrix}
+        0 \\ 1
+    \end{bmatrix}$. $\forall k \in \C$, $M_x \begin{bmatrix}
+        k \\ 0
+    \end{bmatrix} = \begin{bmatrix}
+        kc \\ s
+    \end{bmatrix} \not \in span(\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix})$ and $M_x \begin{bmatrix}
+        0 \\ k
+    \end{bmatrix} = \begin{bmatrix}
+        -ks \\ c
+    \end{bmatrix} \not \in span(\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix})$. Thus $M_x$ doesn't preserve the $1$ or $-1$ eigenspace of $M_y$. Thus $M_{x^k}$ doesn't preserve any eigenspace of $M_y$, thus $\C^2$ has not $D_n$- invariant subspace of dimension less than 2. For $n = 2$, $D_2 \cong \mu_2$, the x and $y$ axis are preserved because the rotation is a 180 degree rotation thus $\C^2$ is reducible to the x and y axis for $D_2$.                       
+\end{proof}
+
+\bigskip
+
+\section{Unitary Representations}
+
+\begin{PROB}{3.3a}\label{Problem 3.3a.}
+    Let $R: G \to SL_2(\R)$ be a faithful representation of a finite group by real 2x2 matrices with determinant 1. Use the results of Exercise 3.2 to prove that G is a cyclic group.
+\end{PROB}
+\begin{proof}
+    Since $R$ is a faithful representations by definition it is injective, thus $G \leq SL_2(\R)$. Since $G \leq SL_2(\R)$, $\forall g \in G$, $\det(g) = 1$. By 3.2 and as previously proven in bilinear forms, all finite groups of $GL_2(\R)$ are conjugate to a subgroup $O(2)$. Thus $G$ is conjugate to $H \leq O(2)$. Thus exists $P \in GL_2(\R) \ni H = PGP^{-1}$. Since conjugation is a isomorphism, $G \cong H$. Furthermore since determinant is a conjugation invariant, thus $\forall h \in H$, $\det(h) = 1$. By Theorem 6.41, from the book the only finite subgroups of $O(2)$ are $C_n$ and $D_n$. However since $\det(h) = 1$, $\forall h \in H$, $H \leq SO(2)$ and H has no reflection matrices which have determinant $-1$ and thus cannot be $D_n$ which has reflections matrices and thus must be $C_n$.                              
+\end{proof}
+\begin{PROB}{3.3b}\label{Problem 3.3b.}
+    Determine the finite groups that have a faithful real 2d representations
+\end{PROB}
+\begin{proof}
+    Let $G$ be a finite group. Let $R: G \to GL_2(\R)$ be a faithful real representation. Thus $G \leq GL_2$ because R is faithful.   
+    By 3.2 and as previously proven, all finite groups of $GL_2(\R)$ are conjugate to a subgroup $O(2)$. Thus $G$ is conjugate to $H \leq O(2)$. Thus exists $P \in GL_2(\R) \ni H = PGP^{-1}$. Since conjugation is a isomorphism, $G \cong H$. By Theorem 6.41, from the book the only finite subgroups of $O(2)$ are $C_n$ and $D_n$. Thus $G$ must be either $C_{|G|}$ or $D_{|G|/2}$.  
+\end{proof}
+\begin{PROB}{3.3c}\label{Problem 3.3c.}
+    Determine the finite groups that have faithful real three-dimensional representations with determinant 1.
+\end{PROB}
+\begin{proof}
+    Let $G$ be a finite group. Let $R: G \to SL_3(\R)$ be a faithful real representation where representations have determinant 1. Thus $G \leq SL_3(\R)$ since $R$ is faithful. Since $G \leq SL_2(\R)$, $\forall g \in G$, $\det(g) = 1$. By 3.2 and as previously proven, all finite groups of $GL_3(\R)$ are conjugate to a subgroup $O(3)$. Thus $G$ is conjugate to $H \leq O(2)$. Thus exists $P \in GL_2(\R) \ni H = PGP^{-1}$. Since conjugation is a isomorphism, $G \cong H$. Furthermore since determinant is a conjugation invariant, thus $\forall h \in H$, $\det(h) = 1$. Thus $H \leq SO(3)$. By Theorem 6.12.1, the only finite subgroups of $SO(3)$  are $C_k, D_n, T \cong A_4, O \cong S_4, I \cong S_5$     
+\end{proof}
+
+\begin{PROB}{3.4}\label{Problem 3.4.}
+    Let $\angles{,}$ be a nondegenerate skew-symmetric form on a vector space V, and let $\rho$  be a representation of a finite group G on V. Prove that the averaging process (10.3.7) produces a G-invariant skew-symmetric form on V,and show by example that the form obtained in this way needn't be nondegenerate.
+\end{PROB}
+\begin{proof}
+    $G$ acts on the set of skew symmetric bilinear forms, such that $< v,w >_g = <gv, gw>$ and $g * <, > = <,>_{g^{-1}}$.    
+
+    $[ , ] := \frac{1}{|G|} \sum_{g \in G} g * <,>$. $\forall h \in G$, $h * [,] = \frac{1}{|G|} \sum_{g \in G} hg * <,> = \frac{1}{|G|} \sum_{g' \in G} g' * <,> = [ , ]$, multiplying by h simply reindexes the elements of G. $\forall v,w \in V$, $[v, w] = \sum_{g \in G} g * \angles{v, w} = \sum_{g \in G} <v,w>_{g^{-1}} = \sum_{g \in G} -<w, v>_{g^{-1}} = - \sum_{g \in G} g * <w, v> = -[w, v]$. Thus $[,]$ is skew symmetric. $\forall v \in V$, $[v, v] = -[v,v] \implies [v, v] = 0$  
+    
+    Let $G = \mu_2$. Let $V = \R^2$. Let $A = \begin{bmatrix}
+        0 & 1 \\ -1 & 0
+    \end{bmatrix}$. Let $< , >$ be nondegenerate form, $\forall v,w \in \R^2$, $\angles{v, w} = v^TAw$.   
+    
+    
+    Let $g$ be the generator of $\mu_2$, send $g \to \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}$ since $g^2 \implies g$ is its own inverse . $[ , ] := \frac{1}{2} \sum_{g \in \mu_2} g * <,>$. $\forall a, b \in \R$, $[e_1, ae_1 + be_2] = a[e_1, e_1] + b[e_1, e_2] = b[e_1, e_2] = \frac{1}{2}[ \angles{e_1, e_2} + g \angles{e_1, e_2}] = \frac{1}{2}[1 + \angles{e_2, e_1}] = \frac{1}{2}[1 - 1] = 0$. Thus $[ , ]$ is degenerate.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.5}\label{Problem 3.5.}
+    Problem 3.5 in Artin
+\end{PROB}
+\begin{proof}
+    Let $G = C_p = \angles{x | x^p = 1}$ where p is prime. Define a representation which sends $x \to \begin{bmatrix}
+        1 & 1 \\ 0 & 1
+    \end{bmatrix}$. $x^n = \begin{bmatrix}
+        1 & n \\ 0 & 1
+    \end{bmatrix}$. $\det(x^n - \lambda I) = (\lambda - 1)^2 = 0$, thus the eigenvalues of $x^n$ is 1 for $\forall n \in F_p$. Assume the contrary $F_p^2$ is reducible, it would break apart into $2$ 1 dimensional G-invariant subspaces. Since they are 1 dimensional they would be subspaces of the 1 eigenspace. 
+    
+    All elements must preserve the 1 eigenspace of $x$. Let $\begin{bmatrix}
+        x \\ y
+    \end{bmatrix}$ be the eigenvector of $x$. $\begin{bmatrix}
+        1 & n \\ 0 & 1
+    \end{bmatrix}\begin{bmatrix}
+        x \\ y
+    \end{bmatrix} = \begin{bmatrix}
+        x + ny \\ y
+    \end{bmatrix}$, thus $x + ny \equiv x \implies ny \equiv 0$. $\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$ is preserved by all $x^n$ for all $n \in F_p$. However this is the only vector which is preserved because $\forall n \in F_p$, $ny \equiv 0 \iff y = 0$ thus no other vector in the 1 eigenspace of x is preserved by all $x^n$. Thus there are not 2 G invariant subspaces. Thus there is only 1 $G-$invariant subspace and thus $F^2_p$ can not be written as a direct sum of irreducible representations                
+\end{proof}
+
+
+
+
+\end{document}

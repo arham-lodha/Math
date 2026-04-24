@@ -1,0 +1,421 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Artin 2}
+\author{Arham Lodha}%put your name here
+\date{February 20, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{4.2}\label{Problem 4.2.}
+\end{PROB}
+\begin{proof}
+    Let G be a nonabelian group with order 55. Thus $|G| = 5 * 11$, by the Sylow theorems there is a sylow subgroup of order 5 and 11. Let $n$ be the number of sylow $11$ subgroups, $n | 5$ and $n \mod 11 = 1$ thus $n = 1$. Thus the Sylow 11 subgroup is normal in G. The number of sylow $5$ subgroups $m$, $m | 11$ and $m \mod 5 = 1$ thus $m = 1$ or $m = 11$. The sylow 11, is $N = \mu_{11}$ and the sylow 5 subgroup is $H = \mu_{5}$. $\mu_{11} \cap \mu_5 = e$ because $\mu_{11}$ and $\mu_5$ have no proper nontrivial subgroups. Suppose $\mu_5$ is normal. Let $\forall h \in \mu_{11}$, $\forall k \in \mu_5$, thus $hkh^{-1} \in \mu_5$ and $khk^{-1} \in \mu_{11}$ thus $hkh^{-1}k^{-1} \in \mu_5 \cap \mu_{11}$, thus $hkh^{-1}h^{-1} = e \implies hk=kh$ and $G$ is abelian. Thus by contradiction $\mu_5$ must not be normal. 
+    
+    Thus there are 11 sylow subgroups of order 5.   
+
+    $\phi: \mu_5 \to Aut(\mu_{11}) = \mu_{10}$, thus $x \to x^2$ or $x \to e$ to maintain the relations thus $G = \mu_{11} \rtimes \mu_{5} = \angles{x, y | x^{11} = y^{5} = e, yxy^{-1} = x^2}$. Thus $xyx^{-1} = x y x^{-1}y^{-1} y = x x^{9}y = x^{10}y$. Thus the are 4 more conjugation classes, $[y], [y^2], [y^3], [y^4]$. A normal subgroup is a union of conjugacy classes. So $10$ breaks up, however the sizes of the conjugacy classes divides the group because $|G| = Z(g)|[g]|$, by orbit stabilizer. Thus $10 = 5 +5$, or 2 conjugacy classes of order 5.     
+    
+    Thus the class equation is $1 + 5 + 5 + 11 + 11+ 11 + 11$. Thus there are 7 conjugation classes thus 6 irredicubles. 
+    
+    By the previous homework, $55 = \sum_{i = 1}^{7} (\dim V_i)^2$ where $V_i$ is a irredicuble. The dimensions of the irredicubles must divide $G$. Thus the only possible dimensions are 1, 5, 11. $G / \mu_{11} \cong \mu_{5}$ is abelian. $xyx^{-1}y^{-1} = x x^{9}  =x^{10}$ which generates $\mu_{11}$. Thus $\mu_{11} = [G, G]$. Thus $[G: \mu{11}] = 5$. Thus there are 5, 1 dimensional irreps of G. Thus the only possible combination which works is 5 1 dimensional and 2 5 dimensional irredicubles.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.3a}\label{Problem 4.3a.}
+    Determine the character tables for $K_4$ group. 
+\end{PROB}
+\begin{proof}
+    $K_4 = \mu_2 \times \mu_2$ is abelian so all the irredicuble are 1 dimensional and there are 4 of them because $4 = 4(1)$. $K_4 = \angles{x, y | x^2 = y^2 = e, xy= yx}$. Also each element is in its own conjugacy class. Both $x$ and $y$ can go to $\pm 1$. So the character table is as follows:
+
+    \begin{tabular}{c | c c c c }
+       & e & x & y & xy  \\
+       \cline{1-5}
+       $\chi_1$ & 1 & 1 & 1 & 1 \\
+       $\chi_2$ & 1 & -1 & 1 & -1 \\
+       $\chi_3$ & 1 & 1 & -1 & -1 \\
+       $\chi_4$ & 1 & -1 & -1 & -1 \\
+   \end{tabular} 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.3b}\label{Problem 4.3b.}
+    the quaternion group
+\end{PROB}
+\begin{proof}
+    $H = \angles{x, y | x^4 = y^4 = e, x^2 = y^2, yx=x^{-1}y}$. $|H| = 8$. Since the dimensions of the irreps divides 8 the possible dimensions are 1, 2, 4, 8. However since $\sum_{i} (\dim V_i)^2 = 8$, having a irredicuble of size 4 is not possible since since $16 > 8$. So the possible dimensions are 1 or 2. There is the trivial 1 dimensions representation, thus there are 4 1 dimensional representation and 1 2 dimensional representations. 
+    
+    For the 1 dimensional representations, if you send $-1 \to 1$ then $x, y \to \pm 1$. Thus there are 4 1 dimensional representations. 
+    
+    For the 2 dimensional representations, if you send $x^2 = y^2 \to I$ then $x, y  \to \pm I$, but then all elements of G are then mapped to scalar matrices which fix any subspace of a vectorspace, thus a G-invariant subspace gets created and the 2 dimensional representation is no longer irredicuble. 
+
+    If you send $-1 \to -I$. Then $x \to \begin{bmatrix}
+        i & 0 \\ 0 & -i
+    \end{bmatrix}$, $x^2 = -I$. Let $v$ be a eigenvector in the $i$ eigenspace. $xyv = y y^{-1} x y v = y x^{-1} v = -i yv$. But $y^2v = -v$. Thus under the basis $v, yv$, $y \to \begin{bmatrix}
+        0 & -1 \\ 1 & 0
+    \end{bmatrix}$. $x$'s eigenvectors are $e_1, e_2$ and y's eigenvectors are $\begin{bmatrix}
+        -i \\ 1
+    \end{bmatrix}$ and $\begin{bmatrix}
+        i \\ 1
+    \end{bmatrix}$. Thus there is no g-invariant subspace. Thus this is the irredicuble 2 representation of $H$.
+
+    By last semester, the conjugacy classes of $H$ are the following $[1], [-1], [x], [y], [xy]$. $\chi$, 1 - 4 corresponding to 1 dimensional representations and $\chi_5$ correspond to the 2 dimensional representation.     
+    
+    \begin{tabular}{c | c c c c c }
+        & e & $x^2$ & x & y & xy  \\
+        \cline{1-6}
+        $\chi_1$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_2$ & 1 & 1 & -1 & 1 & -1 \\
+        $\chi_3$ & 1 & 1 & 1 & -1 & -1 \\
+        $\chi_4$ & 1 & 1 & -1 & -1 & 1 \\
+        $\chi_5$ & 2 & -1 & 0 & 0 & 0 
+    \end{tabular} 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.3c}\label{Problem 4.3c.}
+    the dihedral group D4,
+\end{PROB}
+\begin{proof}
+    $D_4 = \angles{x, y | x^4 = y^2 = e, yxy^{-1}=x^{-1}}$. $|D_4| = 8$. 
+
+    For the dimension 1 irredicubles, since $y^2 = e$, $y \to \pm 1$. Furthermore since $x^4 = 1$ and $yxy^{-1} = x^{-1} \implies yxy^{-1}x = e$ and in the 1 dimensional representations, which are abelian, specifically $\C^*$, it means $x^2 = e$. Thus $x \to \pm 1$. Thus there are 4 1 dimensional irredicubles of $D_4$. Since dimensions of the irredicubles must divide 8 and the sum of the squares must add up to 8, there is only 1 irredicuble of dimension 2. 
+    
+    Let $V_1, V_2, V_3, V_4$ be the 1 dimension representation of $D_4$. Let $V_5$ be the 2 irredicuble dimensional representation.    
+    Furthermore since $\chi_{reg} = \sum_{i = 1} \dim V_i * \chi_{V_i}$. But $\chi_{reg}(e) = 8$ and $\chi_{reg}(g) = 0$ $\forall g \in D_4 \ni g \neq e$. $\chi_{V_5} = \frac{1}{2} (\chi_{reg} - \sum_{i = 1}^4 \dim V_i * \chi_{V_i})$. Use this to find the characters of the 2 dimensional irredicubles, the calculated values are below. Furthermore there are 5 conjugacy classes (from last semester), $e$, $x^2$, $x$, $y$, $xy$.
+    
+    
+    \begin{tabular}{c | c c c c c }
+        & e & $x^2$ & x & y & xy  \\
+        \cline{1-6}
+        $\chi_1$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_2$ & 1 & 1 & -1 & 1 & -1 \\
+        $\chi_3$ & 1 & 1 & 1 & -1 & -1 \\
+        $\chi_4$ & 1 & 1 & -1 & -1 & 1 \\
+        $\chi_5$ & 2 & -2 & 0 & 0 & 0 \\
+        $\chi_{reg}$ & 8 & 0 & 0 & 0 & 0 
+
+    \end{tabular} 
+\end{proof}
+\begin{PROB}{4.3d}\label{Problem 4.3d.}
+    the dihedral group D8,
+\end{PROB}
+\begin{proof}
+    $D_6 = \angles{x, y | x^6 = y^2 = e, yxy^{-1}=x^{-1}}$. $|D_6| = 12$. 
+
+    For the dimension 1 irredicubles, since $y^2 = e$, $y \to \pm 1$. Furthermore since $x^6 = 1$ and $yxy^{-1} = x^{-1} \implies yxy^{-1}x = e$ and in the 1 dimensional representations, which are abelian, specifically $\C^*$,  it means $x^2 = e$. Thus $x \to \pm 1$. Thus there are 4 1 dimensional irredicubles of $D_4$. Since dimensions of the irredicubles must divide 12 and the sum of the squares must add up to 12, there is only 2 irredicuble of dimension 2. So $4 + 4 + 4 = 12$. 
+    
+    From the irredicuble representations of $D_n$ homework, we know the 2 dimension irredicubles of $D_6$ have the following form. $x \to \begin{bmatrix}
+        \omega^k \\ & \omega^{-k}
+    \end{bmatrix}$ where $\omega = e^{\pi i / 3}$ (6th root of unity) and $k \in \left\{1, 2 \right\}$ and $y \to \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}$. In either representation, the trace of y and $xy$  is 0. $tr(x) = \omega^{k} + \omega^{-k} = 2\cos(k\frac{\pi}{3}) = (-1)^{k + 1} \sqrt{3}$  
+    
+    
+    \begin{tabular}{c | c c c c c }
+        & e & $x^2$ & x & y & xy  \\
+        \cline{1-6}
+        $\chi_1$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_2$ & 1 & 1 & -1 & 1 & -1 \\
+        $\chi_3$ & 1 & 1 & 1 & -1 & -1 \\
+        $\chi_4$ & 1 & 1 & -1 & -1 & 1 \\
+        $\chi_5$ & 2 & -2 & $\sqrt{3}$ & 0 & 0 \\
+        $\chi_6$ & 2 & -2 & $-\sqrt{3}$ & 0 & 0 \\
+        $\chi_{reg}$ & 12 & 0 & 0 & 0 & 0 
+
+    \end{tabular} 
+\end{proof}
+\begin{PROB}{4.3d}\label{Problem 4.3d.}
+    a nonabelian group of order 21
+\end{PROB}
+\begin{proof}
+    From the irredicuble representations of dihedral group homework, $G = \angles{x, y | x^7 = y^3 = 1, y^{-1}xy = x^2}$.
+    
+    We know the dimension of the irredicubles must divide 21 and the sum squares of the dimensions must sum to $21$. So the possible dimensions of the irredicubles are $1, 3$.   
+
+    $xyx^{-1}= y y^{-1} x y x^{-1} = y x$, $xyxx^{-1} = xy$, $x x y x^{-1} = x y x^{-1} = xy$. Thus $[y] = \left\{ y, xy, yx \right\}$. 
+    
+    $xy^2x^{-1} = y y^{-1} x y y x^{-1} = y x^2 y x^{-1} = y x y x = y x^2 y = x y^2$. Thus $[y^2] = y^2, xy^2, y^2x$  
+    
+    $[x] = x, x^2, x^4$ and $[x^3] = x^3, x^5, x^{6}$.
+
+    And $[e] = e$. 
+
+    Thus there are 5 conjugacy classes. For this sum to work out the only combination which works is 3 1 dimensional conjugacy classes and 2 3 dimensional irredicubles. 
+
+    From the irredicubles of the dihedral homework, we know $x \to 1$ and $y \to e^{2 i k \pi /3}$ where $k = 0, 1, 2$. Let $\omega = e^{2 i \pi /3}$ 
+
+
+    Let $\lambda = e^{2 \pi / 7}$ 
+    From the irredicubles of the dihedral homework, we know the two reps are as follows:
+    
+
+    \[
+        x \to \begin{bmatrix}
+            \lambda \\  & \lambda^{2} \\  & & \lambda^{4}
+        \end{bmatrix}, y \to \begin{bmatrix}
+            0 & 0 & 1 \\ 1 & 0 & 0 \\  0 & 1 & 0
+        \end{bmatrix} 
+    \] 
+
+    and 
+
+    \[
+        x \to \begin{bmatrix}
+            \lambda^3 \\  & \lambda^{5} \\  & & \lambda^{6}
+        \end{bmatrix}, y \to \begin{bmatrix}
+            0 & 0 & 1 \\ 1 & 0 & 0 \\  0 & 1 & 0
+        \end{bmatrix},
+    \]
+    
+    \begin{tabular}{c | c c c c c c }
+        & e & x & $x^3$ & y & $y^2$  \\
+        \cline{1-6}
+        $\chi_1$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_2$ & 1 & 1 & 1 & $\omega$  & $\bar{\omega}$  \\
+        $\chi_3$ & 1 & 1 & 1 & $\bar{\omega}$  & $\omega$  \\
+        $\chi_4$ & 3 & $\lambda + \lambda^2 +\lambda^4$ & $\lambda^3 + \lambda^6 +\lambda^5$ & 0 & 0 \\
+        $\chi_5$ & 3 &  $\lambda^3 + \lambda^6 +\lambda^5$ & $\lambda + \lambda^2 +\lambda^4$ & 0 & 0 \\
+        $\chi_{reg}$ & 21 & 0 & 0 & 0 & 0 
+
+    \end{tabular} 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.4}\label{Problem 4.4.}
+    
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item The relation that $x^5 = 1$, tells us that $x$ is diagonalizable with eigenvalues which are a part of the 5th roots of unity. 
+        \item Since $x$ is diagonalizable with eigenvalues of 5th roots of unity, $\lambda_1, \lambda_2$. $x^{-1}$ would have eigenvalues $\bar{\lambda_1}$ and $\bar{\lambda_2}$. Since the trace is conjugacy invariant, it means $\chi(x) = \lambda_1 + \lambda_2 = \bar{\lambda_1} +\bar{\lambda_2} = \chi(x^{-1}) \implies \chi(x) = \lambda_1 + \lambda_2 = \overline{\lambda_1 + \lambda_2} = \chi(x^{-1}) = \overline{\chi(x)} \implies \chi(x) \in \R$, this is only possible if $Im(\lambda_2) = - Im(\lambda_1)$. Thus $\sin(2 \pi k_1 / 5) = \sin( - 2 \pi k_2 / 5)$, thus $k_2 = k_1^{-1}$ in $\mu_5$. Thus $\chi(x) = 2\cos(2 k \pi /5)$ but $k = 1, 2$, because if $k > 2$, then you would get the same traces / eigenvalues.
+        \item \begin{tabular}{c | c c c c }
+            & e & $x$ & $x^2$ & y  \\
+            \cline{1-5}
+            $\chi_1$ & 1 & 1 & 1 & 1 \\
+            $\chi_2$ & 1 & 1 & 1 & -1 \\
+            $\chi_3$ & 2 & $2 \cos(\frac{2\pi}{5})$ & $2 \cos(4 \pi /5)$ & 0 \\
+            $\chi_4$ & 2 & $2 \cos(4 \pi /5)$ & $2 \cos(\frac{2\pi}{5})$ & 0 \\
+            $\chi_{reg}$ & 10 & 0 & 0 & 0
+    
+        \end{tabular} 
+
+        \item $\chi_A$, $\chi_B$, $\chi_C$, $\chi_D$   be some 1 dimensions of $C_5$. Let $\omega = e^{2 \pi i / 5}$ 
+        
+        \begin{tabular}{c | c c c c c }
+            & e & $x$ & $x^2$ & $x^3$ & $x^4$\\
+            \cline{1-6}
+            $\chi_A$ & 1 & $\omega$ & $\omega^2$ & $\omega^3$ & $\omega^4$ \\
+            $\chi_B$ & 1 & $\omega^4$ & $\omega^3$ & $\omega^2$ & $\omega^1$ \\
+            $\chi_C$ & 1 & $\omega^2$ & $\omega$ & $\omega^4$ & $\omega^3$ \\
+            $\chi_D$ & 1 & $\omega^3$ & $\omega^4$ & $\omega$ & $\omega^2$ \\
+        \end{tabular} 
+    \end{enumerate}
+
+    $\chi_3|_{C_5} = \chi_{A} + \chi_B$ and $\chi_4|_{C_5} = \chi_C + \chi_D$.   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.5}\label{Problem 4.5.}
+    
+\end{PROB}
+\begin{proof}
+    $G = \mu_5 \rtimes \mu_4 = \angles{x, y | x^5= y^4=e, yxy^{-1}=x^2}$. $|G| \leq 20$. $\mu_4 \to Aut(\mu_5) = \mu_4$, since every element has order 4 so sending $x \to x^2$ by conjugation is a valid automorphism of $\mu_5$. Thus $|G| = 20$. 
+    
+    $yxy^{-1} = x^2 \implies yx^2y^{-1} = x^4 \implies yxy^{-1} = x^3$ since conjugation is a homomorphism. Thus $[x] = x, x^2, x^3, x^4$. 
+    
+    
+    $xyx^{-1} = xyx^{-1}y^{-1}y = x^4y \implies x x^4 y x^{-1} = x^4 xyx^{-1} = x^3 y \implies x x^3 y x^{-1} = x^{3}x^{4}y = x^2y \implies x x^{2} y x^{-1} = xy$. Thus $[y] = y, xy, x^2y, x^3y, x^4y$. Since conjugation is a homomorphism, $[y^2] = y^2, xy^{2}, x^3y^2, x^4y^2$ and similarly for $[y^3]$. 
+    
+    Thus the conjugacy classes are $[e], [x], [y], [y^2], [y^3]$ 
+
+    
+    The dimensions of the irredicubles can be of sizes 1, 2, 4, 5, 10 since they must divide 20. The number of irredicubles is 5, number of conjugacy classes. The sum of the squares of the irredicubles is 20 and there is 1 trivial representation. Thus now the possible dimensions can be 1, 2, 4. However the only combination which works is $1 + 1 + 1 + 1 + 4$. 
+    
+    $\mu_5$ is a normal subgroup such that $G / \mu_5 = \mu_4$ which is abelian. Moreover, $[x, y] = xyx^{-1}y^{-1} = x^4 \in \mu_5$ moreover $x^4$ generates $\mu_5$. Thus $[G, G'] \subseteq \mu_5$ and $\mu_5 \subseteq [G, G']$. Thus $\mu_5 = [G,G']$. The 1 dimensional irredicubles of $\mu_4$ send $y \to \pm 1, \pm i$. Thus the 1 dimensional irredicubles of $G$, send $x \to 1$ and $y \to \pm 1, \pm i$.
+
+
+    Let $V_1, V_2, V_3, V_4$ be the 1 dimension representation of $G$. Let $V_5$ be the 4 irredicuble dimensional representation.    
+    Furthermore since $\chi_{reg} = \sum_{i = 1} \dim V_i * \chi_{V_i}$. But $\chi_{reg}(e) = 20$ and $\chi_{reg}(g) = 0$ $\forall g \in G \ni g \neq e$. $\chi_{V_5} = \frac{1}{4} (\chi_{reg} - \sum_{i = 1}^4 \dim V_i * \chi_{V_i})$. Use this to find the characters of the 4 dimensional irredicubles, the calculated values are below.
+
+    
+    \begin{tabular}{c | c c c c c }
+        & e & x & y & $y^2$ & $y^3$  \\
+        \cline{1-6}
+        $\chi_1$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_2$ & 1 & 1 & -1 & 1 & -1 \\
+        $\chi_3$ & 1 & 1 & i & -1 & -i \\
+        $\chi_4$ & 1 & 1 & -i & -1 & i \\
+        $\chi_5$ & 4 & -1 & 0 & 0 & 0 \\
+        $\chi_{reg}$ & 20 & 0 & 0 & 0 & 0 
+    \end{tabular}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.6}\label{Problem 4.6.}
+    
+\end{PROB}
+\begin{proof}
+    To turn the matrix $A$ made from the entries of the character table unitary you need to multiply each entry by the square root of the size of the conjugacy class divided by the size of the group. 
+    
+    Let the number of conjugacy classes be $n$. Let $x_1, \dots, x_n$ be the elements in distinct conjugacy classes. 
+    
+    B the the transformed matrix. Thus $B = \frac{1}{|G|}\begin{bmatrix}
+        \sqrt{|[x_i]|} \chi_i(x_i) & \dots & \sqrt{|[x_n]|} \chi_i(x_n) \\ 
+        \vdots & \vdots & \vdots \\
+        \sqrt{|[x_i]|} \chi_n(x_i) & \dots & \sqrt{|[x_n]|} \chi_n(x_n)
+    \end{bmatrix}$
+    
+    Let $\chi_i$ and $\chi_j$ be the characters of 2 representations. $\sum_{k = 1}^{n}\sqrt{|[x_k]|} \chi_i(x_k) \sqrt{|[x_k]|} \bar{\chi_j(x_k)}  = \sum_{k = 1}^{n} |[x_k]| \chi_i(x_k) \bar{\chi_j(x_k)} = \sum_{k = 1}^{n} \sum_{g \in [x_k]} \chi_i(g) \overline{\chi_j(g)}$, since characters are class functions. $\sum_{k = 1}^{n} \sum_{g \in [x_k]} \chi_i(g) \overline{\chi_j(g)} = \sum_{g \in G} \chi_i(g) \overline{\chi_j(g)} = |G| \angles{\chi_i, \chi_j}$.
+    
+    Thus $B \overline{B^T} = \frac{1}{|G|}[|G|\angles{\chi_i, \chi_j}]_{i,j} = I$, because traces of irredicubles form a orthonormal basis and thus are orthogonal. Thus B is unitary.  
+
+
+    Since $B$ is unitary so is, $\overline{B^T}$ and $B^T$ , which tells us the $\angles{c_i, c_j} = \delta(i, j)$ where $c_i$ and $c_j$ are columns of $B$ under the standard hermitian dot product    
+\end{proof}
+
+\begin{PROB}{4.7}\label{Problem 4.7.}
+    
+\end{PROB}
+\begin{proof}
+    Let $\pi: G \to G / N$. Let $\rho: G  / N \to V$ be a irredicuble representation of $G / N$. Define the representation, $\phi = \rho \circ \pi$ Suppose $W \leq V$ is a G-invariant subspace. Then $\forall g \in G$, $\phi(g) W \leq W \implies \rho (\pi(g)) W \leq W$ thus $W$ is a $G / N$ invariant subspace. Since $V$ is a irredicuble representation of $G / N$, the only $G / N$ invariant subspaces are $0$ and $V$. Thus $W = 0$ or $W = V$. Thus $V$ doesn't have any proper G-invariant subspaces and thus V is irredicuble wrt G.
+    
+    $\chi_G$ is the character of $G$ in the representation $V$. $\chi_G$ factors through $\chi_{G / N}$ by 1st semester prehomework and $\ker \chi_{G / N} \leq \ker \chi_G$ . Thus $\chi_G = \chi_{G / N} \circ \pi$. $\angles{\chi_{G}, \chi_{G}} = \frac{1}{|G|} \sum_{g \in G} \chi_G(g) \overline{\chi_G(g)} = \frac{1}{|G|} \sum_{g \in G} \chi_{G / N}(\pi(g)) \overline{\chi_{G / N}(\pi(g))}$. Since everything in the same coset will have the same character under $\chi_{G / N}$ and there are |N| elements in every coset, $\angles{\chi_{G}, \chi_{G}} = \frac{1}{|G|} \sum_{g \in G} \chi_{G / N}(\pi(g)) \overline{\chi_{G / N}(\pi(g))} = \frac{1}{|G|} |N| \sum_{gN \in G / N} \chi_{G / N}(gN) \overline{\chi_{G / N}(gN)} = \frac{1}{|G|/|N|} \sum_{gN \in G / N} \chi_{G / N}(gN) \overline{\chi_{G / N}(gN)} = \angles{\chi_{\frac{G}{N}}, \chi_{\frac{G}{N}}} = 1$. Thus by the Main Theorem, $V$ is irredicuble.         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.8}\label{Problem 4.8.}
+    
+\end{PROB}
+\begin{proof}
+    $|G| = 1 + 3 + 6 + 6 + 8 = 24$. The sum of the squares of the irredicubles must equal $24$. There are 5 conjugacy classes, but only 4 characters listed. So we need 1 more irredicuble reps. The current sum of the squares of the dimension is $1 + 1 + 9 + 9 = 20$. So we need a irredicubles of dimension 2. 
+    
+    By a previous homework, we know $\chi_{\C^G}(g) = |G| * \delta_e(g)$ and $|\C^G| = 24$. We also know, $\chi_{\C^G} = \sum_{i} \dim V_i * \chi_{V_i}$ thus $\chi_{\C^G} = 1 * (\chi_1 + \chi_2) + 3 * ( \chi_3 + \chi_4) + 2 * \chi_5 \implies \chi_5 = \frac{1}{2}\left[\chi_{\C^G} - 1 * (\chi_1 + \chi_2) - 3 * ( \chi_3 + \chi_4)\right]$
+
+    The table below has the results. 
+    
+    \begin{tabular}{c | c c c c c }
+        & (1) & (3) & (6) & (6) & (8)  \\
+        \cline{1-6}
+        $\chi_1$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_2$ & 1 & 1 & -1 & -1 & 1 \\
+        $\chi_3$ & 3 & -1 & 1 & -1 & 0 \\
+        $\chi_4$ & 3 & -1 & -1 & 1 & 0 \\
+        $\chi_5$ & 2 & 2 & 0 & 0 & -1 \\
+        $\chi_{\C^G}$ & 24 & 0 & 0 & 0 & 0 
+    \end{tabular}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.6}\label{Problem 2.6.}
+    Frobenius 2.6:  In 2.5 we found $Z:=  Z(C[G])$, the center of the group algebra. Note as a vector space it has $dim |G/G|$.   And in fact we have a vector space iso   $Hom_{sets}(G/G,C)$ to Z, taking  $f \to \sum_{g \in G} f(g) g$. (or we can put in the scaling factor $1/|G|$).  take the function $tr_V * dim(V)$  (I think the scaling is needed to get something nice). For V irreducible, what does it map to? Call it $p_V$. show $p_V^2$ (as an elements of this ring C[G]) = $p_V$, the various $p_V$ commute, and their sum is 1 -- the identity in this ring, and the $p_V$ together give a basis of Z.  Prove the map $C \times ... \times C \to Z$ that takes $(a_V) \times \sum a_V p_V$  (where the domain is the product of copies of C a ring in the dumb way, one copy for each irreducible V) is an iso. 
+\end{PROB}
+\begin{proof}
+    Let $V, W$ be irredicubles G-reps where $V \neq W$ . Let $P_v = \frac{\dim V}{|G|} \sum_{g \in G} tr_V g$. Since $tr_V \in Hom_{sets}(G / G, \C)$, $P_v \in Z(\C[G])$ as proven in the previous homework. $\forall v \in V$, $P_V V = (\frac{\dim V}{|G|} \sum_{g \in G} tr_V g)V = \frac{\dim V}{|G|} \sum_{g \in G} tr_V gV \subseteq \frac{\dim V}{|G|} \sum_{g \in G} tr_V V = V$, by linearity so $P_v$ preserves $V$. Moreover since $P_v \in Z(\C(G))$, $P_v$ and $g$ commute. 
+    
+    Thus $P_v \in Hom_G(V, V)$ and $P_V \in Hom_G(W, W)$. By Shur's Lemma and as proven previously, $P_v|_V = \lambda_v I$ and $P_v|_W = \lambda_w I$. Furthermore, $\dim V \lambda_v = \overline{tr_V(P_v|_V)} = \frac{\dim V}{|G|} \sum_{g \in G} tr_V(g) \overline{tr_V(g)} = \dim V \angles{tr_V, tr_V} = \dim V$, by (Shur's Lemma) theorems. Thus $\lambda_v = 1$.
+    
+    $\lambda_w \dim W = \overline{tr_W(P_v|_W)} = \frac{\dim V}{|G|} \sum_{g \in G} tr_V(g) \overline{tr_W(g)} = \dim W \angles{tr_V, tr_W} = 0$, by orthogonality relations, (Shur's Lemma). Thus $\lambda_w = 0$. Thus $P_V$ projects onto $V$. 
+    
+    Since $P_V|_V = I$ and $P_V|_W = 0$ where $W$ is a irredicuble representation not equal to $V$. Under any representation, $P_V = \begin{bmatrix}
+        I & 0 \\ 0 & 0
+    \end{bmatrix}$. Thu $P_V^2 = \begin{bmatrix}
+        I & 0 \\ 0 & 0
+    \end{bmatrix} = P_V$. 
+    
+    All the $P_V$'s commute since $tr_V * \dim V$ are class functions and thus all $P_V$'s are in the center by the previous homework.
+
+
+    Let $\left\{ V_i \right\}$ be the set of all irredicubles of $G$. 
+    
+    \begin{align*}
+        \sum_{i = 1} P_{V_i} &= \frac{1}{|G|} \sum_{i = 1} \dim V_i \sum_{g \in G} tr_{V_i}(g) g \\
+        &= \frac{1}{|G|} \sum_{g \in G} g \sum_{i = 1} \dim V_i tr_{V_i}(g) \\
+        &=\frac{1}{|G|}\sum_{g \in G} g [\sum_{i = 1} \dim V_i tr_{V_i}](g) \\
+        &= \frac{1}{|G|}\sum_{g \in G} \chi_{reg}(g) \\
+        &= \frac{1}{|G|} \chi_{reg}(e) \\
+        &= 1
+    \end{align*}
+ 
+    By Frobenius 2, we know $\left\{ tr_{V_i} \right\}$ is a basis for $\C^{G / G}$.
+    
+    $\forall a_i \in \C \ni \sum_{i = 1} a_i P_{v_i} = 0 = \frac{1}{|G|} \sum_{i = 1} a_i \dim V_i \sum_{g \in G} tr_{V_i}(g) g = \frac{1}{|G|} \sum_{g \in G}\left[ \sum_{i = 1} \dim V_i a_i tr_{V_i}\right](g) g = 0$. Since $G$ is a basis for $\C[G]$, it means, $\left[ \sum_{i = 1} \dim V_i a_i tr_{V_i}\right](g) = 0, \forall g \in G$. Thus $\sum_{i = 1} \dim V_i a_i tr_{V_i} = 0$. Thus $\dim V_i a_i = 0 \implies a_i = 0$, since $tr_{V_i}$ is a basis. Thus $\left\{ p_{v_i} \right\}$ is linearly independent. 
+
+    $\forall z \in Z(\C[G])$ thus $z = \sum_{g \in G} f(g) g$ for $f \in Hom_{sets}(G / G, \C)$ by the previous homework. However since $\left\{ tr_{V_i} \right\}$ is a basis for $\C^{G / G}$, $\left\{ \dim V_i tr_{V_i} \right\}$ is a basis for $\C^{G / G}$. $f = \sum_{i = 1} a_i \dim V_i tr_{V_i} = a_i \sum_{i = 1} \dim V_i tr_{V_i}$. Thus $z = \sum_{g \in G} \sum_{i = 1} a_i \dim V_i tr_{V_i}(g) = \sum_{i = 1} a_i \dim V_i \sum_{g \in G} tr_{V_i}(g) g = \sum_{i = 1} a_i P_{V_i}$, thus $z \in span(P_{V_i})$.
+
+    Since $P_{V_i}$ forms a basis, then $\forall (c_1, \dots, c_n) \in \C \times ... \times \C$, then for all $z \in Z$, as proven above $z = \sum_{i = 1}^{n} c_i P_{V_i}$. Thus the map is surjective. 
+    
+    Suppose $\forall (c_1, \dots, c_n), (b_1, \dots, b_n) \in \C \times ... \times \C$, such that $\sum_{i = 1} c_i P_{V_i} = \sum_{i = 1} b_i P_{V_i} \implies \sum_{i = 1}(c_i - b_i) P_{V_i}$, since $P_{V_i}$ is a basis, $c_i - b_i = 0 \implies c_i = b_i$. Thus $(c_1, \dots, c_n) =  (b_1, \dots, b_n)$     
+\end{proof}
+
+\end{document}

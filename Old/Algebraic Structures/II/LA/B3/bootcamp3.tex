@@ -1,0 +1,137 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Linear Algebra Bootcamp 3}
+\author{Arham Lodha}%put your name here
+\date{January 12, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{17}\label{Problem 17.}
+    Now we prove the main criterion for diagonalizability. Let $End_F(W) := Hom_F(W,W)$ = “square matrices”.  Explain why each matrix A determines a map of rings $F[X] \to End_F(W)$, sending the poly p(X) to the matrix p(A). 
+\end{PROB}
+\begin{solution}
+    For any polynomial, $p(x) \in F(X)$, where $p(x) = \sum_{i=0}^{k} a_ix^i$ we can send it to $p(A) = \sum_{i=0}^{k} a_iA^i$. This determines a map of rings $F[X] \to End_F(W)$. $p(A)$ is also a endomorphism due being a square matrix since A is also a square matrix.    
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{18}\label{Problem 18.}
+    The main theorem is that A is diagonalizable iff we can find a polynomial $p(X)$ which factors completely over F with distinct linear factors. Equivalently, we can find $f_1, \dots ,f_k$ distinct elements $f_i \in F$ such that $(A - f_1 I) \dots (A - f_k I) = 0$.  Show first that if A is diagonalizable, this is true, and indeed we can take for the $f_i$ the distinct eigenvalues for A
+\end{PROB}
+\begin{solution}
+    Suppose A is diagonalizable. Then by 14, there exists a basis of eigenvectors. By definition of eigenvector, for any eigenvector $v$ there exists a eigenvalue, $f$ such that $Av = fv$ or $(A - fI)v= 0 $. By definition, $v \neq 0 \implies A - fI = 0$. Let $f_1, \dots, f_k$ be the distinct eigenvalues. So $\forall i \in [1, \dots, k]$, $A - f_iI = 0$. Thus there k elements of $F$ such that $(A - f_1I)\dots(A - f_kI) = 0$.   
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{19}\label{Problem 19.}
+    Suppose $p(A) = 0$, and f is an eigenvalue for A. Prove $p(f)=0$. informally, whatever poly A satisfies, its eigenvalues satisfy.
+\end{PROB}
+\begin{solution}
+    Let $f$ be a eigenvalue of $A$. Let $p$ be a polynomial such that $p(A) = 0$. By definition of eigenvalue, $\exists v \in V \setminus \left\{0\right\} \ni Av = fv$. Let the degree of $p$ be $b$. $p(A) = \sum_{i=0}^{b} c_iA^i$. $p(A)v = \left(\sum_{i=0}^{b} c_iA^i\right)v = \sum_{i=0}^{b} c_i(A^iv) = \sum_{i=0}^{b} c_if^i v = p(f)v = 0 \implies p(f) = 0$.      
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{20}\label{Problem 20.}
+    Prove the other direction, that if you have dim V distinct eigenvalues, then A is diagonalizable
+\end{PROB}
+\begin{solution}
+    Suppose $A$ has $\dim V$ distinct eigenvalues, $f_1, \dots, f_{\dim V}$. Thus By definition of eigenvalue, $\dim V_{f_i} \neq 0$. The addition of $\dim V$ nonzero positive values is at least $\dim V$, so $\dim V_{f_1} + \dots + \dim V_{f_{\dim V}} \geq \dim V$. By 16b, A is diagonalizable and this sum is exactly $\dim V$.           
+\end{solution}
+
+\bigskip
+
+\begin{claim}{21a}\label{Claim 21a.}
+    Prove that $\dim \ker (AB) \leq \dim \ker(A) + \dim \ker(B)$ for any two matrices that have the right size so you can multiply them
+\end{claim}
+\begin{proof}
+    Let $A: W \rarr Z$ and $B: V \rarr W$ be linear maps. By problem 10, $\dim V = \dim((AB)_*(V)) + \dim \ker(AB)$, $\dim V = \dim B_*(V) + \dim \ker B$, $\dim W = \dim A_*(W) + \dim \ker A$. This implies, $\dim \ker(AB) = \dim V - \dim((AB)_*(V)), ~ \dim \ker B = \dim V - \dim B_*(V), ~ \dim \ker A = \dim W - \dim A_*(W)$. 
+    
+    $\dim \ker B + \dim \ker A - \dim \ker AB = \dim A + \dim((AB)_*(V)) - \dim B_*(V)$. By definition of $AB$ and the image of a linear map, $(AB)_*(V) = \left\{ABv \mid v \in V\right\}$ and $A_*(B_*(V)) = \left\{Aw \mid w \in \left\{Bv \mid v \in V\right\}\right\} = \left\{ABv \mid v \in V\right\} = (AB)_*(V)$. Restrict the domain of A to $B_*(V)$ and call this linear map $A'$. By problem 10, $\dim B_*(V) = \dim \ker A' + \dim (A'_*(B_*(V)))$. $A'_*(B_*(V)) = A_*(B_*(V)) = (AB)_*(V)$. By definition of A', $\ker A' = B_*(V) \cap \ker A$. So $\dim((AB)_*(V)) = \dim B_*(V) - \dim(\ker A \cap B_*(V))$. 
+    
+    So $\dim \ker B + \dim \ker A - \dim \ker AB = \dim A + \dim((AB)_*(V)) - \dim B_*(V) = \dim A + \dim B_*(V) - \dim(\ker A \cap B_*(V)) - dim B_*(V) = \dim A - \dim(\ker A \cap B_*(V))$. By definition, $\ker A \cap B_*(V) \subseteq \ker A$, thus $\dim(\ker A \cap B_*(V)) \leq \dim \ker A$. So $\dim \ker B + \dim \ker A - \dim \ker AB = \dim A - \dim(\ker A \cap B_*(V)) \geq 0 \implies \dim \ker B + \dim \ker A - \dim \ker AB \geq 0 \implies \dim \ker B + \dim \ker A \geq \dim \ker AB$.   
+\end{proof}
+
+\begin{claim}{21b}\label{Claim 21b.}
+    Show the same for a product a bunch of matrices.
+\end{claim}
+\begin{proof}
+    $(k = 2)$: Base Case proven above in 21a.
+    
+    Inductive Hypothesis: Suppose for $X_1, \dots, X_k$ where $X_1 \dots X_k$ is a valid matrices ie. multiplication is valid that, $\dim \ker(X_1 \dots X_k) \leq \sum_{i=1}^{k} \dim \ker X_i$
+    
+    Inductive Step. Let $X_1, \dots, X_{k + 1}$ be k + 1 matrices where the multiplication  $X_1 \dots X_{k + 1}$ is valid. By the base case, $\dim \ker(X_1 \dots X_{k + 1}) \leq \dim \ker(X_1 \dots X_k) + \dim \ker X_{k+1}$. By the Inductive Hypothesis, $\dim \ker(X_1 \dots X_k) \leq \sum_{i=1}^{k} \dim \ker X_i \implies \dim \ker(X_1 \dots X_k) + \dim \ker X_{k+1} \leq \sum_{i=1}^{k + 1}\dim \ker X_i \implies \dim \ker(X_1 \dots X_{k+1}) \leq \sum_{i=1}^{k} \dim \ker X_i$ 
+\end{proof}
+
+\begin{claim}{21c}\label{Claim 21c.}
+    A is diagonalizable iff we can find a polynomial p(X) which factors completely over F with distinct linear factors. Equivalently, we can find $f_1, \dots,f_k$ distinct elements $f_i \in F$ such that $(A - f_1 I) \dots (A - f_k I) = 0$.
+\end{claim}
+\begin{proof}
+    $(\implies):$ Proved in 18.
+    $(\impliedby):$ Suppose you can find a polynomial $p(x)$ which factors completely over F with distinct linear factors, or equivalently, we can find $f_1, \dots,f_k$ distinct elements $f_i \in F$ such that $(A - f_1 I) \dots (A - f_k I) = 0$. Then by 21b, $\dim(\ker((A - f_1 I) \dots (A - f_k I))) = \dim(\ker(0)) = \dim V \leq \sum_{i=1}^{k}\dim \ker (A - f_iI) = sum_{i=1}^{k} \dim V_{f_i}(A)$\. Thus by 16b, A is diagonalizable and $\sum_{i=1}^{k} \dim V_{f_i}(A) = \dim V$. 
+\end{proof}
+
+\end{document}

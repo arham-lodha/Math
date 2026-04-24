@@ -1,0 +1,116 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Galois 3}
+\author{Arham Lodha}%put your name here
+\date{April 18, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let $F = \Q(\omega)$ where $\omega = e^{2 \pi i / 3}$. Determine the splitting field of 
+    
+    \begin{enumerate}
+        \item $\sqrt[3]{2 + \sqrt{2}}$ 
+        \item $\sqrt{2 + \sqrt[3]{2}}$ 
+    \end{enumerate}
+    
+\end{PROB}
+\begin{PROB}{1a}\label{Problem 1a.}
+\end{PROB}
+\begin{proof}
+    The min polynomial is $(x^3 - 2)^2 - 2 = x^6 - 4x^3 + 4 - 2 = x^6 - 4x^4 + 2$. By Eisenstein its irreducible. Let $\beta =  \omega \sqrt[3]{2 + \sqrt{2}}$ and let $\gamma = \omega^2 \sqrt[3]{2 + \sqrt{2}}$, $\alpha' = \sqrt[3]{2 - \sqrt{2}}$. Define $\beta', \gamma'$ by flipping the internal plus to a minus. The other roots of the minimal polynomial are $\alpha, \beta, \gamma, \alpha', \beta', \gamma'$. $\forall g \in Gal(L / Q[\omega]), g$ fixes $\omega$ by definition of galois group, $\forall m \in L$, $g(\omega m) = g(\omega) g(m) = \omega g(m)$. Thus $G$ commutes with multiplication by $\omega$. Moreover multiplication by $\omega$ permutes the roots since $\alpha \to \beta \to \gamma \to \alpha$ and $\alpha' \to \beta' \to \gamma' \to \alpha'$. 
+    
+    $G \leq S_6$, permuting the 6 roots, and commutes with multiplication by $\omega$. Multiplication by $\omega$ corresponds to 2 disjoint 3 cycles. Thus $G \leq Z(\omega)$.  All disjoint 3 cycles are conjugate thus the conjugacy class of disjoint 3 cycles is 
+    
+    \begin{equation*}
+        \frac{\frac{6 * 5 * 4}{3} * \frac{3 * 2 *1}{3}}{2} = 20 * 2 = 40
+    \end{equation*}. 
+
+    By orbit stabilizer, $|Z(\omega)| = 18$. Thus $|G| = 6, 18$. Cannot be $9$ because there is a subfield of degree $6$, $Q[\omega, \alpha]$.
+    
+    $[Q[\alpha, \alpha'] : Q] = [L: Q[\omega]]]$, because $\omega$ is complex and $\alpha$ and $\alpha'$ are purely real. Once we add, $\omega$ to $Q[\alpha, \alpha']$ and $Q$ we get $L$ and $Q[\omega]$ respectively each which is degree 2 over their smaller fields. Thus $[L: Q[\omega]]]$ has the same degree as, $[Q[\alpha, \alpha'] : Q]$. 
+    
+
+    \[\begin{tikzcd}
+        & {\Q[\alpha, \sqrt{2}]} && {\Q[a, a', \sqrt{2}]} \\
+        \Q & {Q[\sqrt{2}]} \\
+        & {\Q[\omega]} && L
+        \arrow[from=1-2, to=1-4]
+        \arrow["2", from=1-4, to=3-4]
+        \arrow["6", from=2-1, to=1-2]
+        \arrow["2", from=2-1, to=2-2]
+        \arrow["2"', from=2-1, to=3-2]
+        \arrow["3", from=2-2, to=1-2]
+        \arrow[from=3-2, to=3-4]
+    \end{tikzcd}\]
+    
+    Thus if we prove that $[Q[\alpha, \alpha', \sqrt{2}] : Q] \geq 18 \implies [L: Q[\omega]]] = |G| \geq 18$ and since $|G| \leq 18 \implies |G| = 18 \implies G = Z(\omega)$.   
+    
+    Find the minimal polynomial of $\alpha'$ over $Q[\alpha, \alpha', \sqrt{2}]$. $-\alpha'^3 + 2 = \alpha^3 - 2$. Thus $\alpha'$ is a solution to $\alpha'^3 + \alpha^3 - 4 \implies \alpha'$ is a root of $x^3 + \alpha^3 - 4$. The factors of the polynomial are $x - a', x - \omega \alpha', x - \omega^2 a'$ and no product of linear factors is in $Q[\alpha]$. Thus the polynomial is irreducible and thus $[Q[\alpha, \alpha', \sqrt{2}] : Q[\alpha]] = 3$. $[Q[\alpha, \alpha', \sqrt{2}] : Q[\alpha]] \geq 3 \implies [Q[\alpha, \alpha', \sqrt{2}] : Q] \geq 18 \implies |G| = 18$ by the above and thus $G = Z(\omega). $                
+\end{proof}
+
+\end{document}

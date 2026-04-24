@@ -1,0 +1,462 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle{#1}\rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Dihedral 1}
+\author{Arham Lodha}%put your name here
+\date{September 15, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let $\langle, \rangle$ be the standard dot product on $R^n$. Let O(n) be the subset of matrices in $GL_n$ such that $\langle AX,AY \rangle = \langle X,Y \rangle$ Show this is a subgroup, and that A lies in O(n) iff $A A^T = I$, where $^T$ means transpose (note $\langle X,Y\rangle = X^t Y$, if X and Y are column vectors). 
+\end{PROB}
+
+\begin{claim}{1A}
+    $\forall A \in GL_n(\R)$, if $A^TA = I \iff A \in O(n)$
+\end{claim}
+\begin{proof}
+    ($\implies$): Suppose for $A \in GL_n(\R)$, $A^TA = I$. Then $\forall x, y \in \R^n$ then $\angles{Ax, Ay} = (Ax)^T Ay = x^T A^TA y = x^T I y = x^T y = \angles{x, y}$. Thus $A \in O(n)$,
+
+    ($\impliedby$): Suppose $A \in O(n)$. Then $\forall x, y \in \R^n$ then $\angles{Ax, Ay} = \angles{x, y}$, $\angles{Ax, Ay} = (Ax)^T Ay = x^t A^t A y $ and $\angles{x, y} = x^ty$. Thus $x^t A^t A y = x^t y$. Since this holds for all x and y let $x = e^n_i$ and $e^n_j$ for $i, j \in [1, n]$ where $e^n_k$ is the kth standard basis. $Ae^n_i = c_i$ or the ith column of A. $\angles{e^n_i, e^n_j} = \delta(i, j)$. Thus $\angles{Ae_i^n, Ae_j^n} = (Ae_i^n)^T Ae_j^n = c_i^T c_j = \delta(i, j)$. Let $A = \begin{bmatrix}
+        c_1 & \cdots & c_n
+    \end{bmatrix}$ where $c_i$ is the ith column vector. $A^T A = \begin{bmatrix}
+        c_1 \\ \vdots \\ c_n
+    \end{bmatrix} \begin{bmatrix}
+        c_1 & \cdots & c_n
+    \end{bmatrix} = \begin{bmatrix}
+        c_1^Tc_1 & \cdots & c_1^Tc_n \\
+        \vdots & \ddots & \vdots \\
+        c_n^T c_1 & \cdots & c_n^Tc_n
+    \end{bmatrix} = \begin{bmatrix}
+        \delta(1, 1) & \cdots & \delta(1, n) \\
+        \vdots & \ddots & \vdots \\
+        \delta(n, 1) & \cdots & \delta(n, n)
+    \end{bmatrix} = \begin{bmatrix}
+        1 & \cdots & 0 \\
+        \vdots & \ddots & \vdots \\
+        0 & \cdots & 1
+    \end{bmatrix} = I$. Thus $A^TA = I$.      
+\end{proof}
+
+\begin{claim}{1B}
+    O(n) is a subgroup of $GL_n(\R)$
+\end{claim}
+\begin{proof}
+    By definition, $O(n) \subset GL_n(\R)$. 
+
+    \begin{enumerate}{}
+        \item \textbf{Closure}: $\forall A, B \in O(n)$, $\forall x, y \in \R^n$, $\angles{ABx, ABy} = \angles{Ax, Ax} = \angles{x, y}$ by definition of A and B. Thus $AB \in O(n)$.
+        \item \textbf{Identity}: $I_n \in O(n)$, because $\forall x, y \in \R^n$ $I_n x = x$ and $I_n y = y$ thus $\angles{I_n x, I_n y} = \angles{x, y}$
+        \item \textbf{Inverses}: $\forall A \in O(n)$, $\forall x, y \in \R^n$ $\angles{A^{-1}x, A^{-1}y } = (A^{-1}x)^TA^{-1}y$. By the previous proof we know $A^TA = I$, thus $A^{-1} = A^T$. Thus $x^t(A^{-1})^TA^{-1}y = x^t A A^{-1}y = x^t y = \angles{x, y}$
+    \end{enumerate}
+
+    $O(n)$ is a subgroup of $GL_n(\R)$. 
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let $\angles{,}$ be the standard dot product on $C^n$ where $\angles{X, Y}$ is $X^t \bar{Y}$, where $\bar{}$ means take complex conjugate of all the coordinates. We let $U(n)$ be the subgroup of $GL_n$ that preserve this, show A lies in here iff $A (\bar A)^t = I$.
+\end{PROB}
+\begin{claim}{2A}
+    $\forall A \in GL_n(\C)$ if $A (\bar A)^T = I \iff A \in U(n)$
+\end{claim}
+\begin{proof}
+    $(\implies)$: Suppose $A \in GL_n(\R)$ and $A (\bar A)^T = I$. Then $\forall x, y$ 
+    
+    \begin{align*}{}
+        \angles{Ax, Ay} &= (Ax)^T \bar{(Ay)} \\
+        &=  x^T A^T \bar{A} \bar{y} \\
+        &=  x^T I \bar{y} \\
+        &= x^T \bar{y} \\
+        &= \angles{x, y}
+    \end{align*}
+
+    Thus by definition $A \in U(n)$
+
+    $(\impliedby)$: Suppose $A \in U(n)$. Then $\forall x, y$ 
+    
+    \begin{align*}{}
+        \angles{Ax, Ay} &= \angles{x, y} \\
+        (Ax)^T \bar{(Ay)} &=  x^t \bar{y} \\
+        x^T A^T \bar{A} \bar{y} &= x^t \bar{y}
+    \end{align*}
+
+    Since this holds for all x and y let $x = e^n_i$ and $e^n_j$ for $i, j \in [1, n]$ where $e^n_k$ is the kth standard basis. $Ae^n_i = c_i$ or the ith column of A. $\angles{e^n_i, e^n_j} = \delta(i, j)$. Thus
+
+    \begin{align*}{}
+        \angles{Ae^n_i, Ae^n_j} &= \angles{e^n_i, e^n_j} \\
+        (Ae^n_i)^T \bar{(Ae^n_j)} &= \delta(i, j) \\
+        (c_i)^T \bar{c_j} &= \delta(i, j) \\
+    \end{align*}
+
+    Let $A = \begin{bmatrix}
+        c_1 & \cdots & c_n
+    \end{bmatrix}$ where $c_i$ is the ith column vector. $A^T A = \begin{bmatrix}
+        c_1 \\ \vdots \\ c_n
+    \end{bmatrix} \begin{bmatrix}
+        \bar{c_1} & \cdots & \bar{c_n}
+    \end{bmatrix} = \begin{bmatrix}
+        c_1^T \bar{c_1} & \cdots & c_1^T \bar{c_n} \\
+        \vdots & \ddots & \vdots \\
+        c_n^T \bar{c_1} & \cdots & c_n^T \bar{c_n}
+    \end{bmatrix} = \begin{bmatrix}
+        \delta(1, 1) & \cdots & \delta(1, n) \\
+        \vdots & \ddots & \vdots \\
+        \delta(n, 1) & \cdots & \delta(n, n)
+    \end{bmatrix} = \begin{bmatrix}
+        1 & \cdots & 0 \\
+        \vdots & \ddots & \vdots \\
+        0 & \cdots & 1
+    \end{bmatrix} = I$. Thus $A^T \bar{A} = I$.
+\end{proof}
+
+\begin{claim}{2b}
+    U(n) is a subgroup of $Gl_n(\C)$
+\end{claim}
+\begin{proof}
+    By definition $U(n) \subset GL_n(\C)$.
+
+    \begin{enumerate}{}
+        \item \textbf{Closure}: $\forall A, B \in U(n)$, $\forall x, y \in \R^n$, $\angles{ABx, ABy} = \angles{Ax, Ax} = \angles{x, y}$ by definition of A and B. Thus $AB \in U(n)$.
+        \item \textbf{Identity}: $I_n \in U(n)$, because $\forall x, y \in \R^n$ $I_n x = x$ and $I_n y = y$ thus $\angles{I_n x, I_n y} = \angles{x, y}$
+        \item \textbf{Inverses}: $\forall A \in O(n)$, $\forall x, y \in \R^n$ $\angles{A^{-1}x, A^{-1}y } = (A^{-1}x)^T \bar{A^{-1}} \bar{y}$. By the previous proof we know $A^T \bar{A} = I$, thus $\bar{A}^{-1} = A^T$. Thus $x^t(\bar{A}^{-1})^T \bar{A}^{-1}y = x^t \bar{A} \bar{A}^{-1}y = x^t y = \angles{x, y}$
+    \end{enumerate}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem .}
+    Let A be in U(n) explain why all the eigenvalues have complex norm one. Conclude that in O(n), the det is either 1 or -1.
+\end{PROB}
+
+\begin{claim}{3a}
+    Let A be in U(n) then all its eigenvalues have complex norm one.
+\end{claim}
+\begin{proof}
+    Let $\lambda$ be a eigenvalue of $A$ with associated eigenvector $v$. Thus $Av = \lambda v$.
+
+    \begin{align*}{}
+        \angles{Av, Av} &= \angles{v, v} \\
+        {(Av)}^T \bar{(Av)} &= v^T \bar{v} \\
+        (\lambda v)^T \bar{(\lambda v)} &= v^T \bar{v}\\
+        \lambda \bar{\lambda} v^T \bar{v} &= v^T \bar{v}
+    \end{align*}
+
+    Since v is a eigenvector, $v \neq 0$. Thus $\lambda \bar{\lambda} = 1 = \abs{\lambda}^2$ because $ \lambda \bar{\lambda} v^T \bar{v} = v^T \bar{v}$ is true. Thus the complex norm of $\lambda = 1$
+\end{proof}
+
+\begin{claim}{3b}
+    $A \in O(n) \implies \det{A} = \pm 1$
+\end{claim}
+\begin{proof}
+    Suppose $A \in O(n)$. By Claim 1A, $A^T A = I$. By properties of the determinant, $\det(A^T) = \det(A)$. $\det(I) = 1 = \det(A) \det(A^T) = \det(A)^2$. Thus $\det(A) = \pm 1$
+
+\end{proof}
+\bigskip
+
+
+\begin{claim}{4}
+    $A \in O(n)$, show that its distinct eigenspaces are orthogonal
+\end{claim}
+\begin{proof}
+    Let $A \in O(n)$. Let $\lambda_1, \lambda_2$ be the eigenvalues whose respective eigenvectors are $v, w$. Since $A \in O(n)$, $\angles{Av, Aw} = \angles{v, w}$. Thus $\angles{\lambda_1v, \lambda_2 w} = \lambda_1 \bar \lambda_2 \angles{v, w} = \angles{v, w}$ Thus $(\lambda_1 \bar \lambda_2 - 1)\angles{v, w} = 0$. 
+    If $\lambda_1 \bar\lambda_2 - 1 = 0$, then $\lambda_1 \bar\lambda_2 = 1$, $\bar\lambda_2 = \lambda_1^{-1}$. Since $\abs{\lambda_1}^2  = 1 = \lambda_1 \bar \lambda_1$. Thus $\bar\lambda_2 = \bar \lambda_1$. Thus $\lambda_1 = \lambda_2$. Thus $v$ and $w$ are in the same eigenspace. 
+    
+    However if $\lambda_1 \lambda_2 - 1 \neq 0$, then  $\lambda_1 \neq \lambda_2$ and $\angles{v, w} = 0$. Thus vectors in distinct eigenspaces are orthogonal and the eigenspaces are orthogonal.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Now we think about $O(2)$. We have det: $O(2) \to \{+1,-1\}$ by 3).  The kernel is called $SO(2)$. Let A be in $Det^{-1}(-1)$ -- so the other coset of SO(2) (note SO(2) has index 2). Prove that its eigenvalues are 1 and -1. Now using 4 explain why A is a reflection. Note A is completely determined by its eigenspace $V_1(A)$ -- which is the line of reflection. 
+\end{PROB}
+
+\begin{claim}{5a}
+    $A \in \det^*(-1)$, eigenvalues are $1$ and $-1$.
+\end{claim}
+\begin{proof}
+    Let $A \in \det^*(-1)$. Assume the contrary $\lambda_1$ and $\lambda_2$ not be real. $P_A(\lambda)$ will have either 2 real roots or two complex roots which are conjugates. Thus $\lambda_1 =\lambda$ and $\lambda_2 = \bar \lambda$. Since $-1 = \lambda \bar \lambda = \abs{\lambda}$. But complex norm is always positive. This forms a contradiction thus the eigenvalues of $A$ must be real. Furthermore if the eigenvector of $\lambda_1$ is v, $\angles{Av, Av} = \lambda_1^2 \angles{v, v} = \angles{v, v}$ thus $\lambda_1^2 = 1$. Similarly $\lambda_2^2 = 1$. Thus $\lambda_1 \lambda_2 = -1$ for real $\lambda$ thus the eigenvalues must be $1$ and $-1$.
+    
+\end{proof}
+
+\begin{claim}{5b}
+    Now using 4 explain why A is a reflection. Note A is completely determined by its eigenspace $V_1(A)$ -- which is the line of reflection. 
+\end{claim}
+\begin{proof}
+
+    By 4b, $V_1(A) \perp V_{-1}(A)$. Moreover since $A$ has 2 distinct eigenvalues, it is diagonalizable, thus $\dim V_1(A) + \dim V_{-1}(A) = \dim A$. Let $v \in V_1(A)$ s.t $v \neq 0$, by definition $Av = v$, thus $V_1(A)$ is the subspace formed by $v \neq 0$ and is thus a line and all vectors on the line are fixed by A. Furthermore, $w \in V_{-1}(A)$ s.t $w \neq 0$, by definition $Aw = -w$, and thus $V_1(A)$ is the subspace formed by $w \neq 0$ and is thus a line and all vectors on the line are flipped by A. Further more for $x \in \R^2$, $x = av + bw$ and $Ax = aAv + bAw = av - bw$, thus the component of $x \parallel v$ is fixed and and component of $x \perp v$ is flipped. Thus A is a reflection
+
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Orientation: Note that for a non-zero vector in $R^2$, there are two orthogonal unit vectors, one on the left, one on the right (and they are negatives of each other).  For a matrix  $A \in O(2)$ explain why the two columns are orthogonal unit vectors. Show $A \in SO(2)$ iff $c_2$ is on the left of $c_1$  ($c_i$ being the ith column).  Show that rotation by some fixed angle is linear (don't use coordinates,use the "parallelogram" definition of vector addition), and lies in $SO(2)$. Show $SO(2)$ is exactly the set of rotations, and thus isomorphic to $U(1)$, the unit circle, as a group. 
+\end{PROB}
+
+\begin{claim}{6a}
+    $A \in O(n) \implies A$ is orthonormal
+\end{claim}
+\begin{proof}
+    By a part of the implied by section of claim 1A, I have proven, $\angles{c_i, c_j} = \delta(i, j)$ if $A \in O(n)$. Thus $\angles{c_i, c_i} = 1 = \abs{c_i}^2$ and $\abs{c_i} = 1$ and $\angles{c_i, c_j} = 0$ if $i \neq j$. Thus $i \neq j$, $c_i \perp c_j$. Thus every column of A has a norm of 1 and is orthogonal to all the other columns and A is orthonormal by definition.
+\end{proof}
+
+Thus $A \in O(2)$ is orthonormal.
+
+\begin{claim}{6b}
+    $A \in SO(2) \iff$ $c_2$ is on the left of $c_1$  ($c_i$ being the ith column).
+\end{claim}
+\begin{proof}
+    Let the first column of A be $c_1 = \begin{bmatrix}
+        a \\ b
+    \end{bmatrix}$ since A is in $SO(2)$ its orthonormal so $\abs{c_1} = 1$$a^2 + b^2 = 1$. $c_1 = Ae_1$ and $c_2 = Ae_2$ by definition of matrix multiplication. Since A preserves the inner product, $c_1 \perp c_2$, because $\angles{Ae_1, Ae_2}  =\angles{c_1, c_2} = \angles{e_1, e_2} = 0$. Thus there only two possibilities for $c_2 = \begin{bmatrix}
+        -b \\ a
+    \end{bmatrix} = w$ or $c_2 = \begin{bmatrix}
+        b \\ -a
+    \end{bmatrix} = w$. If $c_2 = w$, then $A = \begin{bmatrix}
+        a & b \\ b & -a
+    \end{bmatrix}$ and $\det(A) = -(a^2 + b^2) = -1$ so $A \not \in SO(2)$ which is a contradiction. Thus $c_2 = v$ which is on the left of $c_1$ and A is $\begin{bmatrix}
+        a & -b \\ b & a
+    \end{bmatrix}$ and $\det(A) = 1$ and $A \in SO(2)$.
+\end{proof}
+
+\begin{claim}{6c}
+    Rotation by a fixed angle is linear
+\end{claim}
+\begin{proof}
+    Let $R_x$ be the rotation operator by $x$ radians. Rotation preserves angles and lengths. 
+    
+    Let $OABC$ be a parallelogram with a corner at the origin. Let $OA$ and $OC$ be the spanning vectors of the parallelogram. $OB = OA + OC$ by definition of vector addition. $R_x(OA)$ and $R_x(OC)$ are rotations of x radians of OA and OC and since x is fixed $R_x(OA)$ and $R_x(OC)$ are rotated by the same angle. Furthermore $\abs{OA} = \abs{R_x(OA)}$ and $\abs{OC} = \abs{R_x(OC)}$. Furthermore the angle between $OA$ and $OC$ stays the same after the rotation because they are rotated by the same angle. $R_x(OA) + R_x(OC)$ form the same parallelogram because the angles and lengths of sides have not changed, Thus $R_x(OA) + R_x(OC) = R_x(OB)$.
+
+    Lets consider a vector $v$ and $R_x(v)$ is the result of rotating v. When we scale the v by a, we are simply scaling the angle and not changing the angle between it and $\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$ and thus after the rotation the length of $v$ doesn't change just the angle of rotation. Thus first rotating v and then scaling it will lead to the same result. $R_x(av) = aR_x(v)$
+
+    \textbf{Alternate Proof: } $R_x = \begin{bmatrix}
+        \cos(x) & -\sin(x) \\
+        \sin(x) & \cos(x)
+    \end{bmatrix}$ takes $\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix} \to \begin{bmatrix}
+        \cos(x) \\ \sin(x)
+    \end{bmatrix}$ and $\begin{bmatrix}
+        0 \\ 1
+    \end{bmatrix} \to \begin{bmatrix}
+        -\sin(x) \\ \cos(x)
+    \end{bmatrix}$. $\det R_x = \cos^2(x) + \sin^2(x) = 1$ and $R_x^T R_x = \begin{bmatrix}
+        \cos^2(x) + \sin^2(x) & -\cos(x)\sin(x) +  \cos(x)\sin(x) \\
+        \cos(x)\sin(x) -\cos(x)\sin(x) & \cos^2(x) + \sin^2(x)
+    \end{bmatrix} = \begin{bmatrix}
+        1 & 0 \\ 0 & 1
+    \end{bmatrix} = I_2$. Thus by claim 1A, $R_x$ is in $O(2)$. By problem 5, $R_x \in SO(2)$. Furthermore thus for all $x \in \R^2$, $\angles{Ax ,Ax} = \angles{x ,x} = \abs{x}^2$, thus applying A doesn't change the length of x. Thus $R_x$ is rotation by x degrees. Since $R_x$ is a matrix, rotation by a fixed degree x is linear.
+\end{proof}
+
+\begin{claim}{6d}
+    $\forall A \in SO(2)$, $A = R_x$ for some $x$.
+\end{claim}
+\begin{proof}
+    $\forall A = \begin{bmatrix}
+        a & b \\ c & d 
+    \end{bmatrix} \in SO(2)$. Since $A$ is orthonormal, $a^2 + c^2 = 1$, $b^2 + d^2 = 1$, $ab + cd = 0$. Furthermore since $A \in SO(2)$, $\det A = ad - bc = 1$. $a^2 = 1 - c^2$ thus $a \leq 1$. Let $x \in \R$, $a = \cos(x)$. Thus $c^2 = 1 - \cos^2(x) = \sin^2(x)$ by Pythagorean Identity and $c = \sin(x)$. $ab + cd = \cos(x)b + \sin(x)d = 0$ and $ad - cb = -\sin(x)b + \cos(x)d = 0$. Thus $\begin{bmatrix}
+        \cos(x) & \sin(x) \\ -\sin(x) & \cos(x)
+    \end{bmatrix}\begin{bmatrix}
+        b \\ d
+    \end{bmatrix} = R_x^T\begin{bmatrix}
+        b \\ d
+    \end{bmatrix} = \begin{bmatrix}
+        0 \\ 1
+    \end{bmatrix}$ because $\begin{bmatrix}
+        \cos(x) & \sin(x) \\ -\sin(x) & \cos(x)
+    \end{bmatrix} = R_x^T$ by definition. $\begin{bmatrix}
+        b \\ d
+    \end{bmatrix} = R_x \begin{bmatrix}
+        0 \\ 1
+    \end{bmatrix} = \begin{bmatrix}
+        \cos(x) & -\sin(x) \\ \sin(x) & \cos(x)
+    \end{bmatrix} \begin{bmatrix}
+        0 \\ 1
+    \end{bmatrix} = \begin{bmatrix}
+        -\sin(x) \\ \cos(x)
+    \end{bmatrix}$. $b = -\sin(x)$  and $c = \cos(x)$. Thus $A = \begin{bmatrix}
+        \cos(x) & -\sin(x) \\ \sin(x) & \cos(x)
+    \end{bmatrix} = R_x$. Thus all matrices in $SO(2)$ are rotation matrices.
+\end{proof}
+
+\begin{claim}{6e}
+    $SO(2)$ iso to $U(1)$
+\end{claim}
+\begin{proof}
+    By Claim 6d, $\forall A \in SO(2)$, $A = R_x$ for $x \in \R$ where $R_x$ is the rotation matrix by fixed angle x. Let $f: SO(2) \to U(1)$ such that it takes $R_x \to [e^{ix}]$. Let $g: U(1) \to SO(2)$ such that it takes $[e^{ix}] \to R_x$. Let $R_x \in SO(2)$, $g(f(R_x)) = g([e^{ix}]) = R_x$.  $\forall u \in U(1)$, $u = [e^{ix}]$ for some $x \in \R$, thus $f(g(u)) = f(g([g^{ix}])) = f(R_x) = [e^{ix}] = u$. Thus $f$ and $g$ are inverses are f is bijective. 
+
+    $R_xR_y = \begin{bmatrix}
+        \cos(x)\cos(y) - \sin(x)\sin(y) & -\cos(x)\sin(y) - \sin(x)\cos(y) \\
+        \sin(x)\cos(y) + \cos(x)\sin(y) &  \cos(x)\sin(y) + \sin(x)\cos(y)
+    \end{bmatrix} = \begin{bmatrix}
+        \cos(x + y) & -\sin(x + y) \\ \sin(x + y) & \cos(x + y)
+    \end{bmatrix} = R_{x + y}$. Thus $f(R_xR_y) = f(R_{x+y}) = [e^{i(x + y)}] = [e^{ix}][e^{iy}] = f(R_x)f(R_y)$. Thus $f$ is a homomorphism and is a isomorphism. Thus $SO(2)$ iso to $U(1)$.
+\end{proof}
+
+\bigskip
+
+
+\begin{claim}{7a}
+
+    Conjugation in O(2): Let $r_L$ be reflection in the line L, and g any element of O(2). Explain why $g r_L g^{-1}$ (the conjugate) is again reflection (hint, think determinant). 
+
+\end{claim}
+\begin{proof}
+    Because $r_L$ is a reflection, $r_L \in \det^*(-1)$ and $\det(r_L) = -1$. If $g \in O(2)$, $\det(g) = \pm 1$ by claim 3B. Since $g \in O(2)$, $g^{-1} = g^T$, and $\det{g^T} = \det(g)$. Thus $\det(gr_lg^{-1}) = \det(g)\det(r_l)\det(g^{-1}) = \det(r_l)\det(g)\det(g)$ because $\R$ is abelian wrt multiplication. $\det(gr_lg^{-1}) = -1(\pm 1)^2 =  -1(1) = -1$. Since $O(2)$ is a group, $gr_lg^{-1} \in O(2)$ and since $\det(gr_lg^{-1}) = -1$, $gr_lg^{-1}$ is a reflection.
+\end{proof}
+
+\begin{claim}{7b}
+    Each reflection is just a conjugation of reflection across the x axis by rotation
+\end{claim}
+\begin{proof}
+    By 7a, we know $gr_xg^{-1}$ is a reflection for all $g \in O(2)$. Let $g = R_x$ or a rotation about a fixed angle $x \neq 0$. If $x = 0$, then L is the line generated by $\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$. 
+
+    \[
+        R_xr_xR_x^{-1} = R_x r_x R_x^{T}
+        \begin{bmatrix}
+            \cos(x) & -\sin(x) \\ \sin(x) & \cos(x)
+        \end{bmatrix} \begin{bmatrix}
+            1 & 0 \\ 0 & -1
+        \end{bmatrix} \begin{bmatrix}
+            \cos(x) & \sin(x) \\ -\sin(x)  & \cos(x)
+        \end{bmatrix} = \begin{bmatrix}
+            \cos(2x) & \sin(2x) \\ \sin(2x) & -\cos(2x)
+        \end{bmatrix}
+    \]
+
+    Thus the matrix $\begin{bmatrix}
+        \cos(2x) & \sin(2x) \\ \sin(2x) & -\cos(2x)
+    \end{bmatrix}$ is a reflection. 
+
+    \[
+        R_x r_x R_x^{T} - I = \begin{bmatrix}
+            \cos(2x) - 1 & \sin(2x) \\ \sin(2x) & -(\cos(2x) + 1)
+        \end{bmatrix}
+    \]
+
+    Eigenvector with eigenvalue 1 is $v = \begin{bmatrix}
+        -\sin(2x) \\ \cos(2x) - 1
+    \end{bmatrix}$ where $x \in \R$. $\forall x \in \R$, $v$ generates all possible lines of reflection.
+
+    Thus every reflection is just a conjugation of the reflection over the x axis.
+\end{proof}
+
+\begin{claim}{7c}
+    The reflection line of $g r_L g^{-1}$ is $g(L)$
+\end{claim}
+\begin{proof}
+    For every $v \in g(L)$, $g^{-1} v = w$ where $w \in V_1(r_L) = L$. Thus $r_Lg^{-1} v = r_L w = w$. Then $g(w) = v$. $v \in V_1(g r_L g^{-1})$. Thus the reflection line is $g(L)$.
+\end{proof}
+
+\begin{claim}{7d}
+    Rotations commute
+\end{claim}
+\begin{proof}
+    All of $SO(2)$ is a rotation.
+    $\forall R_{x}, R_{y} \in SO(2)$. $R_xR_y = \begin{bmatrix}
+        \cos(x)\cos(y) - \sin(x)\sin(y) & -\cos(x)\sin(y) - \sin(x)\cos(y) \\
+        \sin(x)\cos(y) + \cos(x)\sin(y) &  \cos(x)\sin(y) + \sin(x)\cos(y)
+    \end{bmatrix} = \begin{bmatrix}
+        \cos(x + y) & -\sin(x + y) \\ \sin(x + y) & \cos(x + y)
+    \end{bmatrix} = R_{x + y}$ and $R_yR_x = \begin{bmatrix}
+        \cos(x)\cos(y) - \sin(x)\sin(y) & -\cos(x)\sin(y) - \sin(x)\cos(y) \\
+        \sin(x)\cos(y) + \cos(x)\sin(y) &  \cos(x)\sin(y) + \sin(x)\cos(y)
+    \end{bmatrix} = \begin{bmatrix}
+        \cos(x + y) & -\sin(x + y) \\ \sin(x + y) & \cos(x + y)
+    \end{bmatrix} = R_{x + y}$. Thus $R_xR_y = R_yR_x$ and thus $SO(2)$ is abelian.
+\end{proof}
+
+\begin{claim}{7d}
+    If $g$ is a rotation $g R_{\theta} g^{-1} = R_{\theta}$
+\end{claim}
+\begin{proof}
+    Since rotations commute by 7d, $g R_{\theta} g^{-1} = g g^{-1} R_{\theta} = R_{\theta}$.
+\end{proof}
+
+\begin{claim}{7e}
+    If $g$ is a reflection $g R_{\theta} g^{-1} = R_{-\theta}$
+\end{claim}
+\begin{proof}
+    Let $g \in \det^*(-1)$ and $g \in O(2)$. Thus $g$ is a reflection across a line x radians off the x axis and $g = \begin{bmatrix}
+        \cos(2x) & \sin(2x) \\ \sin(2x) & -\cos(2x)
+    \end{bmatrix}$. $R_{\theta} g^{-1} = R_{\theta} g^T = \begin{bmatrix}
+        \cos(2x+y) & \sin(2x-y) \\ \sin(2x+y) & -\cos(2x-y)
+    \end{bmatrix}$. $g R_{\theta} g^T = \begin{bmatrix}
+        \cos(y) & \sin(y) \\ -\sin(y) & \cos(y)
+    \end{bmatrix} = \begin{bmatrix}
+        \cos(y) & -\sin(-y) \\ \sin(-y) & \cos(y)
+    \end{bmatrix} = \begin{bmatrix}
+        \cos(-y) & -\sin(-y) \\ \sin(-y) & \cos(-y)
+    \end{bmatrix} = R_{-y}$.
+\end{proof}
+\end{document}

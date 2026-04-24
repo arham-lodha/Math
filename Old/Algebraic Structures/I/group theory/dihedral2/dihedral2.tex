@@ -1,0 +1,228 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle{#1}\rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Dihedral 2}
+\author{Arham Lodha}%put your name here
+\date{September 18, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Exhibit 2n elements of $D_n$ -- n rotations and n-reflections.  Note the difference for reflections in case n is even or odd
+\end{PROB}
+\begin{proof}
+    Assume the polygon's vertices are placed on the nth roots of unity.
+
+    $\rho_\theta = \begin{bmatrix}
+        cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta)
+    \end{bmatrix}$ is a rotation around the origin by a fixed angle $\theta$. $r_L$ is a reflection about the line $L$ through the origin. Define $r_{a,b}$ be the reflection across the line through points a, b. By definition $\forall \theta \in \R$ $\rho_\theta, r_L \in O(2)$.
+
+    The rotations in $D_n$ are $\rho_{2k\pi/n}$ $\forall k \in [0, 1, \ldots, n]$. The reflections in $D_n$ are a bit more complicated, and depends on whether $n$ is even or odd. Since the reflections in $D_n$ must flip the $n$-gon onto itself, it means the line must split the n-gon into equal areas. If n is even, these lines will pass through 2 vertices $e^{\frac{2ik\pi}{n}}$ and $-e^{\frac{2ik\pi}{n}}$ and the origin or through only the origin and in between vertices at $e^{\frac{2ik\pi}{n}}$ and $e^{\frac{2ik+1\pi}{n}}$, thus through point $e^{\frac{2i(k + 1/2)\pi}{n}}$, assuming the vertices of the ngon are placed on the roots of unity. Note lines through $e^{\frac{2ik\pi}{n}}$ and $-e^{\frac{2ik\pi}{n}}$ passing through the origin and lines passing through $-e^{\frac{2ik\pi}{n}}, 0, e^{\frac{2ik\pi}{n}}$ are the same. Thus we only have $n/2$ lines for even n and for lines passing through 2 vertices of the n-gon. Furthermore lines passing through $e^{\frac{2i(k + 1/2)\pi}{n}}, 0$ are the same as $-e^{\frac{2i(k + 1/2)\pi}{n}} = e^{\frac{\pi(2k + n + 1)}{n}}$ and 0, thus there are only $n/2$ choices for k. Thus the reflections if n is even are $\{r_{e^{\frac{ik\pi}{n}}, 0} \mid k \in [0, \ldots, n - 1]\}$. If $n$ is odd, the lines of reflections can only pass through the origin and one vertex. Since there are n vertices there must be n lines of reflection. The reflections in $D_n$ are $\{r_{e^{\frac{2ik\pi}{n}}, 0} \mid k \in [0, \ldots, n - 1]\}$
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2a}
+    Show that $\det: D_n \to R^*$ has image ${+1,-1}$. 
+\end{claim}
+\begin{proof}
+    Since $D_n \subset O(n)$, then for all $A \in D_n$ $\det(A)$ is 1 or -1 by the previous homework. Since $D_n$ contains reflections and rotations. By the previous homework we know that the determinant of a rotation is 1 and the determinant of a reflection is -1. Thus $\det^*(D_n) = \{1, -1\}$.
+\end{proof}
+
+\begin{claim}{2b}
+    Explain why these are uniquely determined by where they send any fixed vertex, that this must go to another vertex, and that thus there are at most n of them. Conclude there are exactly n, and that $\abs{D_n} = 2n$ and that the element you found in 1) are the whole group. 
+\end{claim}
+\begin{proof}
+    Consider a fixed vertex of $V$ of the regular n-gon. Any rotation in $R \in C_n$ must map this fixed vertex $V$ to another vertex to preserve the shape of polygon. Assume the contrary we have two different rotations $R_1, R_2$ such that $R_1V = R_2V$. Then $R_1R_2^{-1}V = V$. However the product of $R_1R_2$ is also a rotation because $SO(2)$ is a group. Moreover it means that $R_1R_2$ has a eigenvalue of 1 with eigenvector $V \neq 0$. However this only true if $R_1R_2^{-1} = R_0 = I$, Thus $R_1 = R_2^{-1^{-1}} = R_2$ and $R_1$ and $R_2$ are the same rotation thus forming a contradiction. Thus it means each rotation in $D_n$ is uniquely determined on which vertex it sends a vertex V to. Since there are n vertices in the $n$gon, thus there are n choices on where to send V to. Thus there are n rotations in $D_3$. Furthermore since all rotations form the group $C_n = \ker \det$ and all reflections form the coset $\det^*(-1) = \ker \det + r_{y=0}$ $\abs{C_n} = \abs{\det^*(-1)}$ and thus there are n reflections. Thus $\abs{D_n} = n$
+\end{proof}
+
+\begin{claim}{2c}
+    Explain why $C_n \cong \mu_n$, the group of nth roots of unity. 
+\end{claim}
+\begin{proof}
+    The vertices of the ngon are on the nth roots of unity and the nth roots of unity are rotations in an of themselves. Let $f: C_n \to \mu_n$, $f$ takes $R_{2 \pi k/n} \to e^{2i \pi k/n}$ for $k \in [0, \ldots, n - 1]$. Let $g: \mu_n \to C_n$, $g$ takes $z$ where $z = e^{2i \pi k/n}$ for $k \in [0, \ldots, n - 1]$ to $R_{2 \pi k/n}$. $\forall R_{2 \pi k/n} \in C_n$ $g(f(R_{2 \pi k/n} )) = g(e^{2 i\pi k/n}) = R_{2 \pi k/n}$. For all $e^{2i \pi k/n} \in \mu_n$, $f(g(e^{2i \pi k/n})) = g(R_{2 \pi k/n}) = e^{2i \pi k/n}$. Thus $f$ is bijective. $\forall R_{2 \pi k/n},R_{2 \pi l/n} \in C_n$, $f(R_{2 \pi k/n}R_{2 \pi l/n}) = f(R_{2 \pi (k+l)/n}) = e^{2i \pi (k+l)/n} =  e^{2i \pi (k)/n} e^{2i \pi (l)/n} = f(R_{2 \pi k/n})f(R_{2 \pi l/n})$. Thus f is a bijective homomorphism and is a isomorphism. Thus $C_n \cong \mu_n$.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{3a}
+    Let x be a generator of $C_n$ and $y \in D_n$ any reflection. Explain why $\angles{x,y} = D_n$, ie $D_n$ is generated by these two elements.
+\end{claim}
+\begin{proof}
+    $C_n = \angles{x} \subset D_n$ by definition of x and $C_n$. Since $C_n \cong \mu_n$, $\abs{C_n} = n$. Furthermore $\angles{x, y} \subset D_n$ is a subgroup of $D_n$ and $C_n \subset \angles{x, y}$ By Lagrange's Theorem, $\abs{C_n} \mid \abs{\angles{x, y}} = n \mid \abs{\angles{x, y}}$ or $\abs{\angles{x, y}} = kn$ for $k \in \Z$. Furthermore by Lagrange's Theorem, $\abs{\angles{x, y}} \mid \abs{D_n} = 2n$, thus $2n = akn$ for $a, k \in \N$ (order has to be positive). $ak = 2$, furthermore $k \neq 1$ because $\abs{\angles{x, y}} > \abs{\angles{x}}$ since $y \in \angles{x, y}$ but $y \not \in \angles{x}$. Thus $a = 1$ and $k = 2$. Thus $\abs{\angles{x, y}} = 2n = \abs{D_n}$, thus since the order is the same and $\angles{x, y}$ is a subgroup then $\angles{x, y} = D_n$
+\end{proof}
+
+\begin{claim}{3b}
+    Show they satisfy the relations $x^n = y^2 =1$ and $yxy = x^{-1}$.  
+\end{claim}
+\begin{proof}
+    $x$ by definition generates $C_n$. $C_n \cong \mu_n$ by claim 2c. thus $\abs{x}  =\abs{m}$ where $m$ is the generator of $\mu_n$, thus $\abs{m} = n$. Thus $\abs{x} = n$ and $x^n = 1$. 
+
+    $y$ is by definition a reflection. By the previous homework, we know its eigenvalues are $1, -1$. $\forall v \in V_1(y)$, $y^2v = yyv = yv = v = Iv$, and $\forall w \in V_2(y)$, $y^2w = y(-w) = w = Iw$. Moreover since $y$ has 2 distinct eigenvalues, and $y \in O(2)$ it must be diagonalizable and have two eigenvector basis $v, w$ s.t $yv = v$ and $yw = -w$ (eigenvalues are 1 and -1). Thus for all $x \in \R^2$, $x = av + bw$, and $y^2x = y(yx) = y(y(av + bw))$, by linearity $y(y(av + bw)) = y(ayv + byw) = ay^2v + by^2w = av + bw = x = Ix$. Thus $y^2 = 1$. By the previous homework problem 7, we know if $x = \rho_{\theta}$ and y is a reflection $yxy^{-1} = y\rho_\theta y^{-1} = \rho_{-\theta} = \rho_{\theta}^{-1} = x^{-1}$. Thus $yxy^{-1} = x^{-1}$.
+\end{proof}
+
+\begin{claim}{3c}
+    Now let G be any group generated by two elements $X,Y$ satisfying these relations. Explain why every element of G can written as $X^a Y^b$ with $a \in \{0, \ldots ,n-1\}$ and $b \in \{0, 1\}$.
+\end{claim}
+\begin{proof}
+    Since $G = \angles{x, y \mid x^n = y^2 = 1, yxy^{-1} = x^{-1}}$. Since in G, $yxy^{-1} = x^{-1}$ we know $yx = x^{-1}y$. Moreover we know $x^n = x^{n-a}x^a = 1$ thus $x^{-a} = x^{n-a}$ for $a \in [0, \ldots, n - 1]$. Thus we know $yx = x^{n - 1}y$ and equivalently $yx^{n-1} = xy$. However more generally we know, $yx^a = x^{n-1}yx^{a-1} = x^{-1}x^{-(a-1)}y = x^{n - 1}x^{n - a + 1}y = x^{2n - a}y = x^{-a}y$. Thus $yx^a = x^{-a}y$ and $yx^{-a} = x^{a}y$. Thus we have found a way to swap x and y neatly by utilizing their relations. Since x and y generate G, $\forall g \in G$, $g = x^{a_1}y^{b_1}\ldots x^{a_k}y^{b_k}$. However since $yx^{-a} = x^{a}y$, we can swap the values of x and y till we get $g = x^p y^q$ where $p, q$ depends on $a_i, b_i$ for all $i \in [1, \ldots, k]$ however since $x^n = y^2 = 1$,$g = x^p y^q = x^s y^t$ where $s = p \mod n$ and $t = q \mod 2$.
+\end{proof}
+
+\begin{claim}{3d}
+    In particular $|G| \leq 2n$. Show that in the case of $D_n$, this expression is unique, but give an example of a group where it is not (ie where $|G| < 2n$).
+\end{claim}
+\begin{proof}
+    There are only n options for s, $[0, \ldots, n - 1]$ and only 2 options for $t$, $\{0, 1\}$. Thus $|G| \leq 2n$. Since there are no additionally restrictions placed on $x, y$ then $\abs{D_n} = 2n$. Take $D_2 = \angles{x, y \mid x^2 = y^2 = 1, yx = x^{-1}y} = \angles{x \mid x^2 = 1}$ ,$\abs{D_2} = 2$. 
+\end{proof}
+
+\begin{claim}{3e}
+    Show that the relations completely determine the multiplication in G, ie show that $X^a Y^b  X^c Y^d = X^s Y^t$ for  s,t determined by a,b,c,d and the above relations.
+\end{claim}
+\begin{proof}
+    As previously shown, $yx^a = x^{-a}y$ for all $a \in \Z$. Thus = $X^a Y^b X^c Y^d = X^a Y^{b-1}X^{-c}YY^d = X^aX^{(-1)^bc}Y^bY^d = X^{a + (-1)^bc}Y^{b+d}$ Thus $X^aY^bX^cY^d = X^{a + (-1)^bc}Y^{b+d}$. However since $X^n = 1$ and $Y^2 = 1$, $X^{a + (-1)^bc} = X^{s}$ where $s = (a + (-1)^b c) \mod n$ and $Y^{b + d} = Y^t$ where $t = (b + d)\mod 2$. Thus  $X^aY^bX^cY^d = X^sY^t$ and the relations completely determine the multiplication in G.
+\end{proof}
+
+\bigskip 
+
+\begin{PROB}{4}\label{Problem 4.}
+    Now the goal is to show that, for any group G, $Hom_{Gr}(D_n,G)$ is naturally the set of pairs of elements $(X,Y) \in G$ which satisfy the above relations. We construct a natural bijection between this Hom set and this set of pairs. The forward direction is easy -- just evaluate at x and y. In the other direction let $(X,Y)$ be such a pair. 
+    
+    Explain why there is at most one homo from $D_n \to G$ sending $x \to X$ and $y \to Y$, we want to show one exists. First show that if it does exist then it sends $x^a y^b \to X^a Y^b$. Show there does exist a unique function which does this. Using 3) show this is a homomorphism. 
+\end{PROB}
+
+\begin{claim}{4a}
+    If there exists a homomorphism $f: D_n \to G$, it sends $x^a y^b \to X^a Y^b$
+\end{claim}
+\begin{proof}
+    Let $f: D_n \to G$ be a homomorphism. Since f is a homomorphism $f(x^a) = f(x)^a = X^a$ and $f(y^b) = f(y)^b = Y^b$. Moreover since f is a homomorphism, it must preserve the group structure and its relations so $X^n = Y^2 = 1$ and $YX = X^{-1}Y$. Thus since f is homomorphism, $f(x^a y^b) = f(x^a)f(y^b) = X^aY^b$
+\end{proof}
+
+\begin{claim}{4b}
+    There is a unique function that does this from $D_n \to G$
+\end{claim}
+\begin{proof}
+    Construct a function $f: D_n \to G$ as the following $f(x) = X$ and $f(y)= Y$ where $(X, Y) \in \{(X, Y) \mid X^n = Y^2 = 1, YX = X^{-1}Y\}$ and that $f(x^a) = X^a$, $f(y^b) = Y^b$, and $f(x^ay^b) = X^aY^b$. Since $\forall g \in D_n$, $g = x^s y^t$ for some $s \in [0, \ldots, n-1]$ and $t \in [0, 1]$, $f(g) = X^sY^t$. Thus the function is well defined over every element in $D_n$
+
+    Suppose there exist 2 functions $f, g$ such that $f(x^a) = f(x^a) = X^a$, $f(y^b) = g(y^b) = Y^b$, and $f(x^ay^b) = g(X^aY^b) = X^aY^b$. Then they agree on every value of G and thus must be the same function. Thus there is only 1 unique function
+\end{proof}
+
+\begin{claim}{4c}
+    The function is a homomorphism
+\end{claim}
+\begin{proof}
+    $f(x^ay^b)f(x^cy^d) = (X^aY^b)(X^cY^d) = X^aY^bX^cY^d$. Since the relations completely determine the multiplication in G and $(X, Y) \in \{(X, Y) \mid X^n = Y^2 = 1, YX = X^{-1}Y\}$ by definition, by 2d we know $X^aY^bX^cY^d = X^sY^t$ where and $s = (a + (-1)^bc) \mod n$ and $t = (b + d)\mod 2$. $f(x^ay^b)f(x^cy^d) = X^sY^t = f(x^sy^t)$, by 3b we know $x^ay^bx^cy^d = x^sy^t$. Thus $f(x^ay^b)f(x^cy^d) =f(x^sy^t) = f(x^ay^bx^cy^d)$. Thus f is a homomorphism.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    What 4) shows is that $D_n$ is "the group given by generators and relations $\angles{x, y \mid x^n = y^2 = 1, yxy^{-1} = x^{-1}}$" . Quotes because it is not such a simple thing to say what it means for a group to be "the group" given by some generators and relations.  This uses the notion of universal propery, 4) is an example. We will turn to this later.
+\end{PROB}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Consider $\mu_n$ (roots of unity), and let x be a generator. Note $x^n = e = 1$. Show this has the analogous universal property, ie $Hom_{gr}(\mu_n,G)$ is naturally the set of elements $g \in G$ which satisfy $g^n = e$. 
+\end{PROB}
+\begin{proof}
+    For all $f \in Hom_{gr}(\mu_n,G)$ and $x \in \mu_n$ s.t $\mu_n = \angles{x}$, $f(x) = g \in G$. Since $f$ is by definition a homomorphism, $f(x^n) = f(x)^n = g^n$, however $f(x^n) = f(e) =e$ because $x^n = e$ thus $g^n = e$. Thus for each $f \in Hom_{gr}(\mu_n,G)$, $\exists g \in G$ s.t $g^n = e$. Furthermore for every $g \in G$ s.t $g^n  = e$ there exists a function s.t $[x \to g]$. Thus the map $Hom_{gr}(\mu_n,G) \to \{g \mid g^n = e\}$ is surjective. Furthermore let $f_1, f_2 \in Hom_{gr}(\mu_n,G)$ such that $f_1(x) = f_2(x) = g$ since they take the generator to the same element and every $y \in \mu_n$ is $y = x^k$ for $k \in \Z$, $f_1(y) = f_2(y) = f_1(x^k) = f_1(x)^k = f_2(x^k) = f_2(x)^k$. Since both functions take every input value to the same output they must be the same function. Thus the map from $Hom_{gr}(\mu_n,G) \to \{g \mid g^n = e\}$ is bijective.
+    
+    Let $f: Hom_{gr}(\mu_n,G) \to \{g \mid g^n = e\}$ be the bijective map. It has a inverse map, $g = f^{-1} : \{g \mid g^n = e\} \to Hom_{gr}(\mu_n,G)$. Let $a, b \in \{g \mid g^n = e\}$, $g(ab) = [x \to ab] = [x \to a][x \to b] = g(a)g(b)$ thus g is a homomorphism and f must be a homomorphism as well
+    
+    Thus $Hom_{gr}(\mu_n,G) \cong \{g \mid g^n = e\}$.
+\end{proof}
+
+\begin{PROB}{7}\label{Problem 7.}
+    Even simpler is the group Z (integers under +). Let X = 1. Show that $Hom_{gr}(\Z,G)$ is naturally G -- the set of elements of G. 
+\end{PROB}
+\begin{proof}
+    (Same as group 3 problem 2B)
+
+    Let $f: \Hom_{groups}(\Z,G) \to G$ s.t it maps $\phi \to \phi(1)$.
+
+    Suppose $f(\phi_1) = \phi(\phi_2)$. Then, $\phi_1(1) = \phi_2(1)$. Since $\phi_1$ and $\phi_2$ are group homomorphisms acting on the group of integers with addition, thus $\phi(n) = \phi(1^n) = \phi(1)^n$ (not exponentiation is in context of group exponentiation), they are completely determined by their values on 1. Thus, $\phi_1 = \phi_2$, and $\phi$ is injective.
+
+    For any $g \in G$, consider the homomorphism $\phi_g: \Z \rightarrow G$ defined as $\phi_g(n) = g^n$. For all $a, b \in \Z$ $\phi_g(ab) = g^{ab} = g^ag^b=\phi_b(a)\phi_g(b)$. Now, notice that $f(\phi_g) = \phi_g(1) = g^1 = g$. Since we can find such a homomorphism $\phi_g$ for any $g \in G$, $f$ is surjective.
+
+    Since f is surjective and injective, it is bijective. Also since its also a homomorphism it is a isomorphism.
+\end{proof}
+
+\bigskip
+
+\begin{proof}
+    Can you find the group $\angles{x,y| xy = yx}$? So a group, D, such that $Hom_{gr}(D,G) = \{X,Y \in G| XY= YX\}$? We will show later that there exists a unique such group for any set of generators and relations. 
+\end{proof}
+\begin{proof}
+    $\Z^{2} = \angles{x,y| xy = yx}$, because $x = \begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$ and $y = \begin{bmatrix}
+        0 \\ y
+    \end{bmatrix}$ operation is addition. $x + y = \begin{bmatrix}
+        1 \\ 1
+    \end{bmatrix} = y + x$
+\end{proof}
+
+\end{document}

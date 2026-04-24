@@ -1,0 +1,164 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Conjugacy classes of $A_n$}
+\author{Arham Lodha}%put your name here
+\date{November 09, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Show that G naturally permutes the N-orbits, indeed show that $g(Nx) = N(gx)$. This gives an action of G on X/N. Show the natural $X \to X/N$ is a map of G-sets. Show that for the G action on $X/N$, N acts trivially, and so the action of G on $X/N$ factors through the quotient $G \to G/N$. 
+\end{PROB}
+\begin{proof}
+    Because $N \trianglelefteq G$, $\forall g \in G, gN = Ng$ so $g(N \cdot x) = (gN) \cdot (x) = (Ng) \cdot (x) = N(gx)$. The natural $f: X \to X/N$ is just $x \to N \cdot x$ by the previous statement $f(gx) = N \cdot gx = gN \cdot x = gf(x)$. Thus f is a homomorphism of G sets. 
+
+    For the g action on $X/N$, $N \cdot (N \cdot x) = N \cdot \{n \cdot x : n \in N\} = \{n_1 \cdot (n_2 \cdot x) : n_1, n_2 \in N\} = \{n \cdot x : n \in N\} = N \cdot x$.
+
+    Since N is in the kernel of the G action of $X/N$ and is the kernel of $G \to G/N$ by prehomework the action factors through the quotient. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Now suppose G acts transitively on X. Explain why N need not act transitively on X, but show that $G/N$ acts transitively on $X/N$. In particular if $G/N$ is finite, then $X/N$ is finite and its order divides $G/N$. 
+\end{PROB}
+\begin{proof}
+    If G acts transitively on X it just means when a subgroup of G acts on X you get X. The subgroup need not be normal.
+
+    Becuase G acts transitively on X, $\forall x, y \in X, \exists g \in G \ni g \cdot x = y$. Thus $gN \cdot (N \cdot x) = g \cdot (N \cdot x) = N \cdot (g \cdot x) = N \cdot y$. Thus $|G/N \cdot X/N| = 1$.
+
+    By orbit stablizier, $|G/N| = |X/N||G/N^{N\cdot x}|$. Thus $|X/N|$ is finite and must divide $|G/N|$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Suppose now G is finite, and acts transitively on X, and that N has prime index, p, in G. Show that either N acts transitively on X, or there are exactly p  N-orbits in X, all of the same size. In the second case, we'll say "X-breaks up" (into several equal size N-orbits)
+\end{PROB}
+\begin{proof}
+    By previous problem, $|G/N| = |X/N||G/N^{N\cdot x}|$ and $|X/N| | p$. Thus $|X/N| = 1$ or p. Thus N either acts transitively or there are p N-orbits.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Same assumptions as in 3) Let x be in X.  Consider $N^x$.  Explain why $N^x = N \cap G^x$ ($\cap$ means intersection). Explain (e.g. using the midterm, or just prove it here) why either $G^x = N^x$, or $N^x$ has index p in $G^x$. Show that the first case holds iff X breaks up.
+\end{PROB}
+\begin{proof}
+    By definition, $\forall n \in N^x, n \in N \ni n \cdot x = x$. But $N \trianglelefteq G$, then $n \in G^x$ so $N^x \in G^x$. But $N^x \in N$ so it is all the elements of $G^x$ which are in $N$ or $N^x = N \cap G^x$. 
+    
+    By the midterm, we know $\abs{G/N^x} = \abs{G/G^x}\abs{G^x/N^x}$. $\abs{G/N^x} = \abs{G/N}\abs{N/N^x} = p \abs{N/N^x}$. By orbit stablizer, $\abs{G/G^x}= |X|$. Thus $p \abs{N/N^x} = |X|\abs{G^x/N^x}$. By the previous problem X either breaks up into p N orbits or N acts transitively. By orbit stablizer, if X breaks up, $\abs{N/N^x} = |X|/p$, else $\abs{N/N^x} = |X|$. 
+
+    If X breaks up: $|X|/p * p = |X| = |X|\abs{G^x/N^x} \implies \abs{G^x/N^x} = 1 \implies N^x = G^x$.
+
+    If N acts transitively: $p|X| = |X|\abs{G^x/N^x} \implies [G^x : N^x] = p$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Now apply this: Take $G = S_n, N = A_n, p=2$, and let $X = [x]$, the $S_n$-conjugacy class of some element of $S_n$, with G acting on X by conjugation. Show that if x is not in $A_n$, then $A_n$ acts transitively on [x]. If x is in $A_n$, show that [x] breaks up iff Z(x) is contained in $A_n$.  
+\end{PROB}
+\begin{proof}
+    By the previous problem we know, if $A_n^x = S_n^x \iff [x]$ breaks up. $S_n^x = Z(x)$ by definition. Thus $A_n^x = S_n^x \cap A_n = Z(x) \cap A_n = Z(x) \implies Z(x) \subseteq A_n$ since $x \in Z(x)$ then $x \in A_n$ and $Z(x) \subseteq A_n \iff [x]$ breaks up. But if $x \not \in A_n \implies Z(x) \not \subseteq A_n \implies [x]$ doesn't break up but by the previous problem then $A^n$ acts transitively on [x].
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Write down the "$S_n$ -action equation" for the conjugation action of $S_n$ on $A_n$ -- i.e. Write $|A_n|$ as the sum of the orders of the $S_n$ conjugacy classes in $A_n$, for n = 3,4,5.  This should be easy (because conjugation in $S_n$ is easy).  Now use this, and the above, to find the class equation for $A_n$ for $n= 3 , 4 , 5$.
+\end{PROB}
+\begin{proof}
+    Any permutation in $S_n$ can be constructed with Young diagram and then conjugation. $\sum_{i = 1}^{k} n_i = n$ where $n_i$ describes the size of the cycle and $n_1 \leq \ldotp \leq n_k$ then the corresponding permutation would be $(a_1 \ldots a_{n_1})(a_{n_1 + 1} \ldots a_{n_1 + n_2}) \ldots (a_{\sum_{i}^{k-1}n_i + 1} \ldots a_{n})$ where $a_i$ are distinct and all conjugations of this are just parmuations of $a_i$ which are permutations of n elements. The number of conjugations is equal to $\frac{n!}{(\prod_{i = 1}^k n_i)r_i!\ldots r_j!}$ so the naive permutation of n elements divided by the permutations which simply cycle a one of the cycles and divided by the permutations which permute the r i cycles.
+
+    For $n = 3$. The possible sums whose corresponding permutations are in $A_3$ are 1 + 1 + 1 or 3. If it is 1 + 1 + 1, the permutation is the identity which is only conjugate to itself. If it is 3, using our formula we se the number of possible conjugations are $3!/3 = 2$. Thus $|A_3| = 1 + 2 = 3!/2$. 
+
+    For $n = 4$. The possible sums whose corresponding permutations are in $A_4$ are 1 + 1 + 1 + 1, 1 + 3, 2 + 2. If it is 1 + 1 + 1 + 1, the permutation is the identity which is only conjugate to itself. If it is 1 + 3, using our formula we se the number of possible conjugations are $4!/3 = 4 * 2 = 8$. If it is $2 + 2$, using our formula we have $4!/(2 * 2 * 2) = 3$ Thus $|A_4| = 1 + 3 + 8 = 12 = 4!/2$.
+
+    For $n = 5$. The possible sums whose corresponding permutations are in $A_5$ are 1 + 1 + 1 + 1 + 1, 1 + 1 + 3, 2 + 2 + 1, and 5. If it is 1 + 1 + 1 + 1 + 1, the permutation is the identity which is only conjugate to itself. If it is 1 + 1 + 3, using our formula we se the number of possible conjugations are $5!/(3 * 2) = 120/6 = 20$. If it is $2 + 2 + 1$, using our formula we have $5!/(2 * 2 * 2) = 120/8 = 15$. If it is a 5, $5!/5 = 4! = 24$ Thus $|A_5| = 1 + 15 + 20 + 24 = 60 = 5!/2$.
+
+
+    Class equations of $A_n$.
+
+    For $A_3 \cong C_3$, since $C_3$ is in the center of $D_3 \cong S_3$. The 2 conjugacy class breaks up
+    $|A_3| = 1 + 1 + 1$. 
+
+    The element $g$ in the $S_4$ conjugacy class of size 8 is a 3 cycle. $|Z(g)| = 3 = |\langle g \rangle|$. Thus $|\langle g \rangle = Z(g)$ thus $Z(g) \in A_4$. Thus 8 breaks up into 4 and 4.
+    $|A_4| = 1 + 3 + 4 + 4 = 12$. 
+
+    The element $g$ in the conjugacy class of size 20, are all the 3 cycles. The transposition of the 2 elements in the 2 cycle commutes with the 3 cycle. But individual transpositions are not in $A_5$. So 20 doesn't break.
+
+    The element $g$ in the conjugacy class of size 24 is a 5 cycle. Cyclic group of g is has order 5 and the centralizer also has order 5. Thus the cyclic group of order 5 must be the centralizer since the cyclic group is a subgroup of the centralizer. Thus 24 breaks up.
+    $|A_5| = 1  + 12 + 12 + 15 + 20 = 60$.
+\end{proof}
+
+
+
+
+\bigskip
+
+
+
+\end{document}

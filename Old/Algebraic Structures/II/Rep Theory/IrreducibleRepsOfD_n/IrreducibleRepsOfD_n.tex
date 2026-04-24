@@ -1,0 +1,476 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Irreducible Reps of $D_n$}
+\author{Arham Lodha}%put your name here
+\date{January 31, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let A and B be linear transformations of a finite dimensional vector space V. Show that if AB = BA then A and B preserve each others eigenspaces. If A is diagonalizable show the converse holds, ie a linear transformation B will commute with A iff B preserves the eigenspaces of A. Let G be a finite Abelian group. Show that every irreducible complex representation is one dimensional
+\end{PROB}
+\begin{claim}{1a}\label{Claim 1a.}
+    Let A and B be linear transformations of a finite dimensional vector space V. Show that if AB = BA then A and B preserve each others eigenspaces.
+\end{claim}
+\begin{proof}
+    For a linear transformation $T$, let $V_\lambda(T)$ be the eigenspace associated with $\lambda$.   
+
+    Let $L_A$ be the set of $A$'s eigenvalues. Let $L_B$ be the set of $B$'s eigenvalues. $\forall \lambda \in L_A$, $\forall v \in V_\lambda(A)$, $A(Bv) = BAv = B \left(\lambda v\right) = \lambda Bv \implies Bv \in V_\lambda(A)$. Thus $B$ preserves $A$'s eigenspaces. $\forall \lambda \in L_B$, $\forall v \in V_\lambda(B)$, $B(Av) = ABv = A \left(\lambda v\right) = \lambda Av \implies Av \in V_\lambda(B)$. Thus $A$ preserves $B$'s eigenspaces.
+\end{proof}
+\begin{claim}{1b}\label{Claim 1b.}
+    Suppose A is diagonalizable and B preserves the eigenspaces of A, then B will commute with A.
+\end{claim}
+\begin{proof}
+    Suppose A is diagonalizable and B preserves the eigenspaces of A. From Linear Bootcamp, since A is diagonalizable there exists a basis eigenvalues of A of $v_1, \dots, v_k$. Let $\lambda_i$ be the associated eigenvalue to $v_i$. $\forall w \in V$, $w = \sum_{i = 1}^{k}a_iv_i$, thus $ABw = AB(\sum_{i = 1}^{k}a_iv_i) = A(\sum_{i = 1}^{k}a_iBv_i)$. Since $B$ preserves the eigenspaces of $A$, $Bv_i  \in V_{\lambda_i}(A)$. Thus $A(\sum_{i = 1}^{k}a_iBv_i) = \sum_{i = 1}^{k}a_i\lambda_iBv_i = \sum_{i = 1}^{k}a_iB\lambda_iv_i = \sum_{i = 1}^{k}a_iBAv_i = BA\sum_{i = 1}^{k}a_iv_i = BAw$. Thus $AB = BA$.      
+\end{proof}
+\begin{claim}{1c}\label{Claim 1c.}
+    Let G be a finite Abelian group. Show that every irreducible complex representation is one dimensional.
+\end{claim}
+\begin{proof}
+    Suppose $V$ is an irreducible complex representation. Let $f: G \to GL(V)$ be the representation. Assume the contrary, that $\dim V > 1$. Since $G$ is finite Abelian, all elements of g commute and thus by claim 1a, they preserve each others eigenspace. If $A \in GL(V)$, $\exists \lambda \in F$ $\ni V_\lambda(A)$. By the linear algebra bootcamp, we know that the only subspace of V with dimension equal to $\dim V$ is $V$. Thus $\forall v \in V$, $Av = \lambda v$. Thus, A is scalar. Suppose $\forall g \in G$, $f(g) = \lambda_g I$. Then $\forall v \in V \ni v \neq 0$, $\forall g \in G $, $f(g)v = \lambda_gv \in span(v)$. So $span(v)$ is G-invariant. By Mashke's Theorem and the previous homework, $\exists W$ a g invariant subspace complement to $span(v)$ thus V can be broken down into 2 complementary g-invariant subpaces thus V is reducible. Thus by contradiction, V must have dimension 1 if all $\forall g \in G$, $f(g)$ has a eigenspace of dimension equal to the dimension of the vectorspace. 
+    
+    Suppose $\exists g \in G \ni dim V_{\lambda}(f(g))< \dim V$ where $\lambda$ is a eigenvalue of $f(g)$. Since $G$ is finite Abelian, all elements of g commute and thus by claim 1a, they preserve each others eigenspace. So all elements of $G$ preserve $V_{\lambda}(f(g))$ thus $V_{\lambda}(f(g))$ is G-invariant. By Mashke's Theorem and the previous homework, $\exists W$ a g invariant subspace complement to $span(v)$ thus V can be broken down into 2 complementary g-invariant subpaces thus V is reducible. Thus by contradiction, V must have dimension 1. 
+    
+    Thus $V$ must have dimension 1. 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2}\label{Claim 2.}
+    $D_n$ "is" the group given by generators x,y with relations $x^n=y^2=1$, $yxy= x^{-1}$ What does this mean? State the universal property for a group given by some (specific) generators and relations.
+\end{claim}
+\begin{proof}
+    Let $S = \left\{ x, y \right\}$. Let $G$ be a group given by the generators $x, y$ and relations $x^n = y^2 = 1$ and $yxy^{-1} = x^{-1}$. Let $\alpha: S \to G$ where $x \to x$ and $y \to y$. Let $\beta: S \to D_n$ where $x \to x$ and $y \to y$. By the universal property, $\exists$ unique homomorphisms $A: D_n \to G$ and $B: G \to D_n$ such that $\alpha = A \circ \beta$ and $\beta = B \circ \alpha$. Since $A$ and $B$ are unique homomorphisms, $A \circ B$ and $B \circ A$ must be unique homomorphisms. $A \circ B $ is the unique homomorphisms from $D_n \to D_n$, the identity is a homomorphism from $D_n \to D_n$. Since $A \circ B$ is the unique homomorphism from $D_n \to D_n$ $A \circ B = id_G$. Similarly since $B \circ A$ are the unique homomorphism from G to G, but the identity exists so $B \circ A = id_{D_n}$. Thus $A$ and $B$ are bijections and isomorphisms. Thus $G \cong D_n$. Thus up to isomorphisms, $D_n$ is the "is" the group given by generators x,y with relations $x^n=y^2=1$, $yxy^{-1} = x^{-1}$.                            
+\end{proof}
+
+\begin{claim}{3a}\label{Claim 3a.}
+    Let V be an irreducible finite dimensional representation. Explain why x and y are diagonalizable (see the remarks below about a basic diagonalizability result).
+\end{claim}
+\begin{proof}
+    Let $f: D_n \to GL(V)$ be a representation. 
+    Let V be an irreducible finite dimensional.
+
+    Since \[
+        I = f(e) = f(x^n) = f(x)^n.
+    \] and \[
+        I = f(e) = f(y^2) = f(y)^2
+    \].
+
+    Thus $f(x)$ satsifies the polynomial $p_x(t) = t^n - 1$ and $f(y)$ satisfies the polynomial $p_y(t) = t^2 - 1$. The 2nd and nth roots of unitys are the roots of $p_y(t)$ and $p_x(t)$ and thus are distinct. By the linear algebra bootcamp and the remarks below, $f(x)$ and $f(y)$ are diagonalizable and the eigenvalues are the nth roots of unity and the 2nd roots of unity respectively     
+\end{proof}
+\begin{claim}{3b}\label{Claim 3b.}
+    Suppose $f(x)v = \lambda v$ .
+    Show that $f(x) (f(y)v) = (\bar \lambda) f(y) v$.  
+\end{claim}
+\begin{proof}
+    $v = f(x)^{-1}f(x)v = f^{-1}(x) \lambda v = \lambda f(x)^{-1} v \implies \frac{1}{\lambda}v = f^{-1}(x)v$. $\frac{1}{\lambda} = \bar{\lambda}$, since $\lambda$ is a nth root of unity.   
+
+    Since $yxy = x^{-1} \implies xy = y^{-1}x^{-1} = yx^{-1}$, 
+
+    \[f(x)f(y)v = f(xy)v = f(yx^{-1})v = f(y)f(x)^{-1}v = f(y)\bar{\lambda}v\]
+\end{proof}
+\begin{claim}{3c}\label{Claim 3c.}
+    Show that $span{v, f(y) v}$ is $D_n$ invariant.
+\end{claim}
+\begin{proof}
+    $\forall w \in span(v, f(y)v)$, $w = av+ bf(y)v$ for $a, b \in F$. $f(x)w = f(x)(av + bf(y)v) = af(x)v + bf(x)f(y)v = a\lambda v + f(x)f(y)v = a \lambda v + \frac{1}{\lambda} f(y)v \in span(v, f(y)v)$. Thus $f(x)$ preserves $span(v, f(y)v)$. Suppose $f(x)^k w = w' \in span(v, f(y)v)$, then $f(x)^{k+1}w = f(x)f(x)^{k}w = f(x)w' \in span(v, f(y)v)$, since $f(x)$ preserves $span(v, f(y)v)$. Thus $\forall k \in \N$, $f(x^k) = f(x)^k$ preserves $span(v, f(y)v)$.
+    
+    $f(y) * v =f(y)v \in span(v, f(y)v)$ and $f(y) f(y)v = f(y^2)v = v \in span(v, f(y)v)$. Thus $f(y)$ swaps $v$ and $f(y)v$. Thus $f(y)$ preserves $span(v, f(y)v)$.        
+    
+    $\forall g \in D_n$, from last semester we know, $g = x^ay^b$ where $a = 1, \dots, n$ and $b = 0, 1$. Since $f(x^a)$ and $f(y^b)$ ($f(y^0) = I$) preserve $span(v, f(y)v)$. Since $f(x^a)f(y^b) = f(x^ay^b) = f(g)$ $f(g)$ preserves $span(v,f(y)v)$. 
+    
+    Thus $span(v, f(y)v)$ is $D_n$ -invariant. 
+\end{proof}
+
+\begin{claim}{3d}\label{Claim 3d.}
+    Conclude that if V is irreducible, it has dimension either 1 or 2.
+\end{claim}
+\begin{proof}
+    Suppose V is irreducible. By definition, there are no proper subspaces which are G-invariant. By the previous problem, $span(v, f(y)v)$ is G-invariant. Thus $span(v, f(y)v) = V$. $\dim span(v, f(y)v) = 1, 2$.      
+\end{proof}
+
+
+\begin{claim}{3e}\label{Claim 3e.}
+    Suppose the dimension is 1. Show $x^2$ is in the kernel
+\end{claim}
+\begin{proof}
+    Suppose $\dim V = 1$. Thus $\forall A \in GL(V)$, A is are scalar transformations. $\forall g \in G_n$ let $f(g) = \lambda_g I$. Since $f(y)f(y^{-1}) = f(y)f(y) = I \implies \lambda_y \lambda_{y^{-1}} I = \lambda_y^2 I = \lambda_y I \implies \lambda_y^2 = 1$. Since $\lambda_y  I= f(y) = f(y^{-1}) = \lambda_y^{-1} I$.  
+    
+    Since $\lambda_x I = \lambda_y \lambda_x \lambda_y I = f(y)f(x)f(y)^{-1} = f(x^{-1}) = \lambda_{x^{-1}} I \implies \lambda_x = \lambda_{x^{-1}}$. Since $f(x)f(x^{-1}) = \lambda_x \lambda_{x^{-1}} I = f(e) = I$. Thus $ I = \lambda_x \lambda_{x^{-1}} I = \lambda_{x} \lambda_{x} I = f(x)f(x) = f(x^2)$. Thus $x^2 \in \ker f$.   
+\end{proof}
+
+\begin{claim}{3f}\label{Claim 3f.}
+    Classify all the irreducible reps and check that there are the right number (i.e. the number of conjugacy classes).
+\end{claim}
+\begin{proof}
+    If $n$ is even, reflections through vertices are conjugate, reflections through edges are conjugate, and rotations are conjugate to their inverse. Since rotations are conjugate to their inverse $x^{\frac{n}{2}}$ is conjugate to itself. So the number of conjugacy classes is 2(size of the center) + $\frac{n - 2}{2}$(number of noncentral rotations) + 1 (vertex reflections) + 1(edge reflections) = $\frac{n - 2}{2} + 4$.
+    
+    If $n$ is odd, all reflections are conjugate, and rotations are conjugate to their inverse. So the number of conjugacy classes is 1(size of the center) + $\frac{n - 1}{2}$(number of noncentral rotations) + 1 (reflections) = $\frac{n - 1}{2} + 2$. 
+
+    \textbf{Dimension 1}: From the last claim, since 
+    
+    \[\lambda_x^2 I = f(x)^2 = f(x^2) = I.\]
+
+    This means $\lambda_x = \pm 1$ (can equal). Similarly since, 
+    
+    \[\lambda_y^2 I = f(y)^2 = f(y^2) = I.\]
+
+    This means, $\lambda_y = \pm 1$. However if $n$ is odd, then $f(x)^n = \lambda_x^n I = I  \implies \lambda_x^n = 1$. Assume the contrary, $\lambda_x = -1$, however, $\lambda_x^n = (-1)^n = -1$, since $n$ is odd. Thus $\lambda_x = 1$ if $n$ is even. If $n$ is even, if $\lambda_x = -1$, then $\lambda_x^n = 1$, so it does satify the necessary conditions. 
+    
+    Thus if $n$ is even, the possible reps send $x \to I$ and $y \to I$ or $y \to -I$. So 2 possible reps. If $n$ is even, the possible reps send $x \to I$ or $x \to -I$ and $y \to I$ or $y \to -I$. So 4 possible reps.
+    
+    \textbf{Dimension 2}: From claim 3b, we know, for a eigenvalue $\lambda$ of $f(x)$ and a eigenvector $v$, $f(x)f(y)v = \bar{\lambda} f(y)v \implies f(y)v \in V_{\bar{\lambda}}(f(x))$. Thus $f(x)$ has eigenvalues $\left\{ \lambda, \bar{\lambda} \right\}$.
+    
+    (Note from now on, $X$ means representation of $f(x)$ and similarly for $Y := f(y)$)
+
+    Suppose $\lambda \in \R$, then $\lambda = \bar{\lambda}$. Then $v, Yv \in V_\lambda(X)$. $X$ preserves $V_\lambda(X)$. From claim 3c, Y swaps $v$ and $Yv$, thus it preserves, $V_\lambda(X)$. Thus $V_\lambda(X)$ is G-invariant, thus a contradiction occurs and $\lambda \not \in \R$.
+    
+    Thus $v, Yv$ are linearly independent as they are in different eigenspaces. Take $v, Yv$ as the basis. 
+
+    Thus $X = \begin{bmatrix}
+        \lambda & 0 \\ 0 & \bar{\lambda}
+    \end{bmatrix}$ since $v \in V_\lambda(X)$ and $Yv \in V_{\bar{\lambda}}(X)$. By claim 3c, $Y = \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}$ since Y swaps $v$ and $Yv$.
+
+    Suppose $\omega = \bar{\lambda}$, and say $X = \begin{bmatrix}
+        x & 0 \\ 0 & \bar{x}
+    \end{bmatrix}$ then we have simply swapped $v$ and $Yv$ because $v \in V_{\bar{x}}(X) = V_{\lambda}(X)$ and $Yv \in V_{x}(X) = V_{\bar{\lambda}}(X)$. If two representations are the same under change of basis, they are isomorphic. 
+
+    Morever, representations with different characters are not isomorphic by the contrapositive of the converse of Frobenius Theorem (proved last homework). $tr(X) = \lambda + \bar{\lambda}$
+    
+    Let $\omega = e^{\frac{2\pi i}{n}}$.
+
+    Thus if n is even, the possible pairs of eigenvalues of x are $\left\{ \omega, \omega^{-1} \right\}, \dots, \left\{ \omega^{\frac{n - 2}{2}}, \omega^{-\frac{n - 2}{2}} \right\}$. Thus if $n$ is odd, the possible pairs of eigenvalues are, $\left\{ \omega, \omega^{-1} \right\}, \dots, \left\{ \omega^{\frac{n - 1}{2}}, \omega^{-\frac{n - 1}{2}} \right\}$.
+
+    
+
+
+
+    % By 3a, we know the eigenvalues of $y$ are 1 and $-1$ and the eigenvalues of x part of the nth roots of unity and the its two eigenvalues are conjugates (by the above). 
+
+    % Assume the contrary, x has real eigenvalues, then $\lambda = \bar{\lambda}$ and x is scalar, and thus preserves any subspace. However since $y$ is diagonalizable, the sum of the dimensions of the eigenspaces is $\dim V$. Moreover from 3a, the eigenvalues of $y$ can be 1 or -1. Suppose $y = \pm I$, then both $x$ and $y$ preserve any proper subspace of $V$ since they are both scalar and thus the subpace is G-invariant. By Mashke's theorem, $V$ is reducible. Thus by contradiction, $y \neq \pm I$. Suppose y's eigenvalues are $1$ and $-1$. Then $x$ preserves both the $V_1(y)$ subspace and $V_{-1}(y)$ subspace, thus both subspaces are G-invariant and complementary. Thus $V$ is reducible to $V_1(y) \times V_{-1}(y)$ which is a contradiction.        
+        
+    % Assume the contrary, $y = \pm I$. Then y preserves any subspace. Since x is diagonalizable, whose eigenvalues are part of the nth roots of unity. By the above $x$ has no real eigenvalues and thus isn't scalar. Let the eigenvalues of $x$ be $\omega$ and $\bar \omega$. Then $y$ preserves both the $V_\omega(x)$ and $V_{\bar{\omega}}(x)$ eigenspaces of X. Thus the two eigenspaces are G-invariant. By Mashke's Theorem, $V$ is reducible, which is a contradiction. Thus $y \neq \pm I$ and the eigenvalues of y are 1 and -1. 
+
+    
+    % Assume the contrary, the eigenvalue of x is 1, then its other eigenvalue must also be 1 because if $\lambda$ is a eigenvalue $\bar{\lambda}$ is also a eigenvalue, as stated above. Thus 1 is not a eigenvalue of x.
+    
+    % Assume the contrary, the eigenvalue of x is -1, then its other eigenvalue must also be 1 because if $\lambda$ is a eigenvalue $\bar{\lambda}$ is also a eigenvalue, as stated above. Thus -1 is not a eigenvalue of x.
+    
+    % Thus if n is even, the possible pairs of eigenvalues of x are $\left\{ \omega, \omega^{-1} \right\}, \dots, \left\{ \omega^{\frac{n - 2}{2}}, \omega^{-\frac{n - 2}{2}} \right\}$. Thus if $n$ is odd, the possible pairs of eigenvalues are, $\left\{ \omega, \omega^{-1} \right\}, \dots, \left\{ \omega^{\frac{n - 1}{2}}, \omega^{-\frac{n - 1}{2}} \right\}$.
+
+    % Note in the following, I write $x \to A$ and $y \to B$ for some $A, B \in GL_2(\C)$, what I mean is that under the representation $x$ is sent to $PAP^{-1}$ and $y$ is sent to $PBP^{-1}$ for any $P \in GL_2(\C)$. Basically up to isomorphisms of $\C^2$ , $x \to A$ and $y \to B$ are the representations.
+    
+    $\forall k \in \left\{ 1, \floor{\frac{n - 1}{2}} \right\}$.
+
+    $YXY = \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}\begin{bmatrix}
+        \omega^k & \\
+        & \omega^{-k}
+    \end{bmatrix}\begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix} = \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}\begin{bmatrix}
+        & \omega^k \\
+        \omega^{-k} & 
+    \end{bmatrix} = \begin{bmatrix}
+        \omega^{-k} & \\ & \omega^k
+    \end{bmatrix} = X^{-1} = \begin{bmatrix}
+        \omega^{-k} & \\ & \omega^k
+    \end{bmatrix}$. Thus this satisfies the condition, $yxy = x^{-1}$, and thus for any k $X = \begin{bmatrix}
+        \omega^k & \\
+        & \omega^{-k}
+    \end{bmatrix}$ and $Y = \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}$ is a valid representation. 
+    
+    Thus the 2D irreducible representation of $D^n$ send $x \to \begin{bmatrix}
+        \omega^k & \\
+        & \omega^{-k}
+    \end{bmatrix}$ for $k \in \left\{ 1, \floor{\frac{n - 1}{2}} \right\}$ and $y \to \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}$. For $n$ odd, the number of 2D irreducible representations is $\frac{n - 1}{2}$. For $n$ even, the number of 2D irreducible representations is $\frac{n - 2}{2}$. 
+    
+    The total number of irreducible representations:
+
+    For n even, there are 4 1D irreducible representations and $\frac{n - 2}{2}$ 2D irreducible representations. Thus $\frac{n - 2}{2} + 4$ irreducible representation. 
+    
+    For n odd, there are 2 1D irreducible representation and $\frac{n - 1}{2}$ 2D irreducible representation, thus $\frac{n - 1}{2} + 2$ irreducible representation.
+    
+    This matches the number of conjugacy classes thus we have found all of them. 
+
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4}\label{Claim 4.}
+    Now let G be a non-abelian group of order 21. Show $G = \angles{x,y| y^3=x^7=1, y^{-1}xy = x^2}$ .
+\end{claim}
+\begin{proof}
+    Let $G$ be a non-abelian group where $|G| = 21 = 3 * 7$. By the Sylow theorem I, $\exists H \leq G \ni |H| = 7$. Since $7$ is prime, $H$ must be cyclic. By Sylow Theorem III, the number of conjugate subgroups of $H$ is $[N(H) : H] = |N(H) / H|$ and $[N(H) : H]$ divides 3 and $[N(H) : H] \mod 7 = 1$. Since 3 is prime, the only numbers which divide it are 1 and 3. Assume the contrary, $[N(H) : H] = 3$ but $[N(H) : H] \mod 7 = 3$ and this leads to a contradiction. Thus $[N(H) : H]=1$. Thus there is only 1 conjugate subgroup of order 7. Thus $H$ is normal. Since $H$ is cyclic order 7, $H = C_7$ (Going forward $C_7$ is used). By the Sylow Theorem 1, $\exists A \leq G \ni |A| =3$. Since $3$ is prime, $A = C_3$. 
+
+    $C_3 \cap C_7 \leq C_3$ and $C_3 \cap C_7 \leq C_7$ so $|C_3 \cap C_7| | 3$ and $|C_3 \cap C_7| | 7$ thus $|C_3 \cap C_7 |= 1$, thus $C_3 \cap C_7 = 1$.     
+    
+    By direct product (last semester), $|C_3 \times C_7| = |C_3||C_7|/\gcd(7, 3) = |C_3||C_7|=21$. $\forall (a, b), (c,d) \in C_3 \times C_7, (a, b) * (c, d) = (ac, bd)$. Since $C_3$ and $C_7$ are abelian, $ac = ca$ and $bd= db$. Thus $(a, b) * (c, d) = (ac, bd) = (ca, db) = (c,d)*(a, b)$. Thus $C_3 \times C_7$. Thus $G \not \cong C_3 \times C_7$. 
+
+    Note $y$ is used as generator of $C_3$ and $x$ used as generator of $C_7$, and $C_7$ .    
+    
+    $\forall \phi \in Aut(C_7)$, takes $g \to g^k$ where $k$ is relatively prime to 7.  Thus $Aut(C_6) \to \left\{ 1, 2, 3, 4,5,6 \right\}$. The homomorphism $\phi: C_3 \to Aut(C_7)$ is nontrivial. Assume the contrary $\phi$ is trivial map, $C_7 \rtimes_\phi C_3 \cong \angles{x, y | x^7= y^3 = e, yxy^{-1} = x} = \angles{x, y | x^7= y^3 = e, yx = xy}$, which is abelian. 
+    
+    Thus $\phi$ is nontrivial, Thus $\phi: C_3 \to C_6$ takes $x \to y^k$ for some $k \in {0, \dots, 5}$ . $e = \phi(y^3) = \phi(y)^3 = (y^k)^3 = x^{3k} \implies 3k \equiv 0 \mod 6 \implies k = 2, 4$. 
+    
+    Suppose $\phi_1(y) = x^2$. Thus $C_7 \rtimes_{\phi_1} C_3 = \angles{x, y | x^7 = y^3 = e, y^{-1}xy = x^2}$. 
+    
+    Suppose $\phi_2(x) = y^4$. Thus $C_7 \rtimes_{\phi_2} C_3 = \angles{x, y | x^7 = y^3 = e, y^{-1}xy = x^4}$. Let $y^{-1}$ also generates $C_3$, so let $b = y^{-1}$. Let $x^4$ also generates $C_7$, so let $a = x^4$. thus $yxy^{-1} = x^4 \implies x = yx^{-4}y^{-1} \implies a^2 = b^{-1}ab$. Thus $C_7 \rtimes_\phi C_3 \cong \angles{a, b | a^7 = b^3 = 1, b^{-1}ab = a^2}$. Thus $C_7 \rtimes_{\phi_2} C_3 \cong C_7 \rtimes_{\phi_1} C_3$          
+    
+    Thus the only group of order 21 is $\angles{x, y | x^7 = y^3 = e, y^{-1}xy = x^2} = G$.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    $G = \angles{x,y| y^3=x^7=1, y^{-1}xy = x^2}$
+    Show every irreducible representation of G has dim 1 or 2, and classify the irreducible reps.
+\end{PROB}
+\begin{PROB}{5a}\label{Problem 5a.}
+    $x$ and $y$ are diagonalizable  
+\end{PROB}
+\begin{proof}
+    Let $f: G \to GL(V)$ be a representation. 
+    Let V be an irreducible finite dimensional.
+
+    Since \[
+        I = f(e) = f(x^7) = f(x)^7.
+    \] and \[
+        I = f(e) = f(y^3) = f(y)^3
+    \].
+
+    Thus $f(x)$ satsifies the polynomial $p_x(t) = t^7 - 1$ and $f(y)$ satisfies the polynomial $p_y(t) = t^3 - 1$.
+    
+    The 3nd and 7th roots of unitys are the roots of $p_y(t)$ and $p_x(t)$ and thus are distinct.
+    
+    Thus by the linear algebra bootcamp and the remarks below, $f(x)$ and $f(y)$ are diagonalizable. The eigenvalues of $f(x)$ and $f(y)$ are the 7th and 3rd roots of unity respectively.   
+\end{proof}
+\begin{claim}{5b}\label{Claim 5b.}
+    Suppose $f(x)v = \lambda v$ .
+    Show that $f(x)f(y)v = \lambda^2 f(y)v$ and that $f(x)f(y^2) v = \lambda^4 f(y^2)v$ . 
+\end{claim}
+\begin{proof}  
+    Since $y^{-1}xy = x^{2} \implies x^2y = yx$, 
+
+    \[f(x)f(y)v = f(xy)v = f(y y^{-1} x y)v = f(yx^2)v = f(y)\lambda^2v = \lambda^2 f(y) v\]
+
+    Thus $f(y)v \in V_{\lambda^2}(f(x))$. 
+    
+    
+    \[
+        f(x)f(y^2)v = f(y y^{-1} x y y)v = f(y x^2 y)v = f(y x x y)v = f(y x y x^2) v =f(y^2 x^4) v = \lambda^4 f(y^2) v
+    \].
+
+    Thus $f(y^2)v \in V_{\lambda^4}(f(x))$. 
+\end{proof}
+
+% \begin{claim}{5c}\label{Claim 5c.}
+%     $\forall g \in G$, $g = x^ay^b$ where $a \in \left\{ 0, 1, \dots, 7 \right\}$ and $b = \left\{0, 1, 2 \right\}$
+% \end{claim}
+% \begin{proof}
+         
+% \end{proof}
+
+\begin{claim}{5c}\label{Claim 5c.}
+    Show that $span(v, f(y)v, f(y^2)v)$ is $G$-invariant.
+\end{claim}
+\begin{proof}
+    $f(x)v = \lambda v \in span(v, f(y)v, f(y^2)v)$. By claim 5b, $f(x)f(y)v = \lambda^2 f(y) v \in span(v, f(y)v, f(y^2)v)$. By claim 5b, $f(x)f(y^2)v = \lambda^4 f(y^2) v \in span(v, f(y)v, f(y^2)v)$. Thus $f(x)$ preserves $span(v, f(y)v, f(y^2)v)$.
+    
+    $f(y)(v) = f(y)v \in span(v, f(y)v, f(y^2)v)$. $f(y)f(y)v = f(y^2)v \in span(v, f(y)v, f(y^2)v)$. $f(y)f(y^2)v = f(y^3)v = v \in span(v, f(y)v, f(y^2)v)$. Thus $f(y)$ preserves $span(v, f(y)v, f(y^2)v)$. Thus $f(y)$ sends $v \to f(y)v$, $f(y)v \to f(y^2)v$, and $f(y^2)v \to v$. Thus $f(y)$ preserves $span(v, f(y)v, f(y^2)v). $
+    
+    
+    $f(y^2)(v) = f(y^2)v \in span(v, f(y)v, f(y^2)v)$. $f(y^2)f(y)v = v \in span(v, f(y)v, f(y^2)v)$. $f(y^2)f(y^2)v = f(y)v \in span(v, f(y)v, f(y^2)v)$. Thus $f(y^2)$ sends $v \to f(y^2)v$, $f(y)v \to v$, $f(y^2)v \to f(y)v$. Thus $f(y^2)$ preserves $span(v, f(y)v, f(y^2)v)$.
+
+    Since $x, y$ generate G, if they preserve $span(v, f(y)v, f(y^2)v)$, $\forall g \in G$, $f(g)$ preserves $span(v, f(y)v, f(y^2)v)$ because $g$ can be written as a finite string of $x$ and $y$. 
+    Thus $span(v, f(y)v, f(y^2)v)$ is G-invariant.      
+\end{proof}
+
+\begin{claim}{5d}\label{Claim 5d.}
+    Vectorspace $V$ irreducible has dimension 1, 2, or 3 
+\end{claim}
+\begin{proof}
+    Suppose $V$ is irreducible. By definition, there are no proper subspaces which are G-invariant. By claim 5c, $span(v, f(y)v, f(y^2)v)$ is G-invariant. Thus $V = span(v, f(y)v, f(y^2)v)$. Thus $\dim V = 1, 2, 3$.      
+\end{proof}
+
+\begin{claim}{5e}\label{Claim 5e.}
+    If $V$ is a dimension 1 irreducible representation, then $x \in \ker f$.  
+\end{claim}
+\begin{proof}
+    If $\dim V = 1$, then $f: G \to GL_1(\C) = C^*$ and thus $\forall g \in G$, $f(g)$ commutes. 
+    
+    Thus, $f(x) = f(y)^{-1}f(x)f(y) = f(x^2) \implies f(x) = f(x)^{2} \implies f(x) = I$. Thus $x \in \ker f$  
+\end{proof}
+
+\begin{claim}{5e}\label{Claim 5e.}
+    Classify all the irreducible reps and check that there are the right number (i.e. the number of conjugacy classes).
+\end{claim}
+\begin{proof}
+    \textbf{Dimension 1}: From the last claim, $f(x) = I$ and $f(y) = \lambda_y I$. By the relations, $I = f(y^3) = \lambda_y^3 I \implies \lambda_y^3 = 1$. Thus $\lambda_y = e^{\frac{2 \pi i k}{3}}$ for $k \in \left\{ 0, 1, 2 \right\}$. Thus $f(x) = I$ and $f(y) = e^{\frac{2 \pi i k}{3}} I $ for $k \in \left\{ 0, 1, 2 \right\}$    
+    
+    (\textbf{Going forward, for the sake of notation, $X = f(x)$ and $Y = f(y)$})
+
+    \textbf{Dimension 2}: 
+    
+    By the linear algebra bootcamp, since $x$ is diagonalizable, sum of the dimensions of the eigenspaces is 2. Suppose $\lambda$ is a eigenvalue of $X$ then $\lambda^2$ and $\lambda^4$ are also eigenvalues of x by 5b. 
+    
+    Asssume the contrary, $\lambda = \lambda^2$. Since $\lambda$ is a 7th root of unity. $\lambda = 1$. Then, $X$ is scalar and $X = I$. Thus X preserves any subspace of V. $X$ commutes with Y since $X = I$. Then the representation is abelian and V cannot be a dimension 2 irreducible vectorspace by problem 1. Thus $\lambda \neq \lambda^2$. 
+    
+    
+    By linear algebra bootcamp, the number of distinct eigenvalues cannot exceed the dimension of the vectorspace. Thus by contradiction, there is no irreducible representation of G with dimension 2.   
+    
+    
+    
+             
+    \textbf{Dimension 3}: $\dim span(v, Yv, Y^2v)$ must have dimension 3, otherwise it is a proper G-invariant subspace of V, which would make V reducible, thus causing a contradiction. Thus $\dim span(v, Yv, Y^2v)$ and $v, Yv, Y^2v$ is a basis of V. 
+
+    Take $v, Yv, Y^2v$ as the basis.
+    
+    Let $\omega = e^{\frac{2 \pi i}{7}}$. By claim 5a, the possible eigenvalues are $\lambda \in \left\{ \omega^k | k \in \left\{ 0, 1, 2, 3, 4, 5, 6 \right\} \right\}$. 
+    
+    Thus $\forall k \in \left\{ 0, \dots, 6 \right\}$, $X = \begin{bmatrix}
+        \lambda \\  & \lambda^2 \\  & & \lambda^4
+    \end{bmatrix}$. Y takes $v \to Yv$ and $Yv \to Y^2v$ and $Y^2v \to v$. Thus $Y = \begin{bmatrix}
+        0 & 0 & 1 \\ 1 & 0 & 0 \\  0 & 1 & 0
+    \end{bmatrix}$.
+
+    Assume the contrary, $k = 0$, $X = I$, then $X$ preserves any subspace of V. Thus X commutes with everything and the representation is abelian, thus by problem 1 the only irreducible representations are dimension 1. Thus by contradiction, $X \neq I$.
+    
+    Thus the possible values of $\lambda$ are $\left\{ \omega^k : k \in \left\{ 1, 2, 3, 4, 5, 6 \right\} \right\}$. 
+
+    $\forall k \in \left\{1, 2, 3, 4, 5, 6 \right\}$
+    
+    $X^7 = \begin{bmatrix}
+        \omega^k \\  & \omega^{2k} \\  & & \omega^{4k}
+    \end{bmatrix}^7 = \begin{bmatrix}
+        \omega^{7k} \\  & \omega^{7k} \\  & & \omega^{14k}
+    \end{bmatrix} = I$.
+    
+    $Y^3 = \begin{bmatrix}
+        0 & 0 & 1 \\ 1 & 0 & 0 \\  0 & 1 & 0
+    \end{bmatrix}^3 = I
+    $
+
+    $Y^{-1}XY = \begin{bmatrix}
+        0 & 0 & 1 \\ 1 & 0 & 0 \\  0 & 1 & 0
+    \end{bmatrix}\begin{bmatrix}
+        \omega^k \\  & \omega^{2k} \\  & & \omega^{4k}
+    \end{bmatrix}\begin{bmatrix}
+        0 & 0 & 1 \\ 1 & 0 & 0 \\  0 & 1 & 0
+    \end{bmatrix}^{-1} = \begin{bmatrix}
+        \omega^{2k} & 0 & 0 \\
+        0 & \omega^{4k} & 0 \\
+        0 & 0 & \omega^{k}
+        \end{bmatrix} = X^2$
+        
+    Thus, all $k$ are valid.  
+
+    By the contrapositive of the converse of the Frobenius theorem, which we proved last homework, if characters are nonequal then representations are not isomorphic. 
+    
+    Even if you reorder, $\omega^{2k}, \omega^{4k}, \omega^{8k}$ in X, you simply change the ordering of the basis and thus the representations are the same up to change of basis. 
+    
+    Thus representations where X has eigenvalues, $\omega^{2}, \omega^{2}, \omega^{4}$ are isomorphic and any representations where X has eigenvalues, $\omega^{3}, \omega^{6}, \omega^{5}$ are isomorphic. The representations where X has eigenvalues $\omega^{2}, \omega^{2}, \omega^{4}$ and the representations where $\omega^{3}, \omega^{6}, \omega^{5}$ are not isomorphic because their traces are not equal because $\omega^1 + \omega^2 + \omega^4 \neq \omega^3 + \omega^3 + \omega^5$.
+
+
+    Thus the two representations are the following:
+
+    \[
+        x \to \begin{bmatrix}
+            \omega \\  & \omega^{2} \\  & & \omega^{4}
+        \end{bmatrix}, y \to \begin{bmatrix}
+            0 & 0 & 1 \\ 1 & 0 & 0 \\  0 & 1 & 0
+        \end{bmatrix},
+    \]
+
+    and
+
+    \[
+        x \to \begin{bmatrix}
+            \omega^3 \\  & \omega^{5} \\  & & \omega^{6}
+        \end{bmatrix}, y \to \begin{bmatrix}
+            0 & 0 & 1 \\ 1 & 0 & 0 \\  0 & 1 & 0
+        \end{bmatrix},
+    \]
+
+    Thus there are 2 irreducible representations of dimension 3, up to isomorphism. 
+
+    Thus there are 5 representations of G in total. 
+
+    
+\end{proof}
+
+
+
+\end{document} 

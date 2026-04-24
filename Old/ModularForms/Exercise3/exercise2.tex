@@ -1,0 +1,170 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\HC}{\mathcal{H}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 3}
+\author{Arham Lodha}%put your name here
+\date{March 28, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+\end{PROB}
+
+\begin{PROB}{1b}\label{Problem 1b.}
+\end{PROB}
+\begin{proof}
+    $\forall a, d, b, c \in \Z \ni ad - bc = 1$ and $\forall z \in \HC$. 
+
+    Note the following, $\forall (m, n) \in \Z \setminus \left\{ \left(0,0\right) \right\}$ 
+
+    \begin{align*}
+        \left(\frac{1}{m\left(\frac{az + b}{cz + d}\right) + n}\right)^2 &= \left(\frac{1}{\frac{m(az + b) + n(cz + d)}{cz + d}}\right)^2 \\
+        &= \left(\frac{cz + d}{z(ma + nc) + (mb + nd)}\right)^2
+    \end{align*}
+
+    Analogously
+
+    \[\frac{1}{\abs{m\left(\frac{az + b}{cz + d}\right) + n}^{2\epsilon}} = \frac{\abs{cz + d}^{2 \epsilon}}{\abs{z(ma + nc) + (mb + nd)}^{2 \epsilon}}\]
+
+    Thus,
+
+    \begin{align*}
+        G_{2, \epsilon}\left(\frac{az + b}{cz + d}\right) &= \frac{1}{2} \sum_{(m, n) \neq (0,0)} \left(\frac{1}{m\left(\frac{az + b}{cz + d}\right) + n}\right)^2 \frac{1}{\abs{m\left(\frac{az + b}{cz + d}\right) + n}^{2\epsilon}} \\
+        &= \frac{1}{2}(cz + d)^2\abs{cz + d}^{2 \epsilon} \sum_{(m, n) \neq (0,0)} \frac{1}{\abs{z(ma + nc) + (mb + nd)}^{2 \epsilon}} \frac{1}{\left(z(ma + nc) + (mb + nd)\right)^2} \\
+        &= \frac{1}{2}(cz + d)^2\abs{cz + d}^{2 \epsilon} \sum_{(u, v) \neq (0,0)} \frac{1}{\abs{uz + v}^{2 \epsilon}} \frac{1}{(u z + v)^2} \\
+        &= (cz + d)^2\abs{cz + d}^{2 \epsilon} G_{2, \epsilon}(z)
+    \end{align*}
+
+    Where the 2nd last equality comes from the fact that $\begin{bmatrix}
+        a & c \\ b & d
+    \end{bmatrix} \in SL_2(\Z)$ is a invertible linear transformation which takes every nonzero lattice element of $\Z^2$ to a unique nonzero lattice element of $\Z^2$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item $Ix = x$:  \[I x = \frac{1x}{1} = x\]
+        \item $\forall a_{i}, b_{i}, c_{i}, d_{i} \in \Z$ for $i \in [1, 2]$ where $a_id_i - b_ic_i = 0$. $\forall x \in P^1(\Q)$ 
+        
+        \begin{align*}
+            \left(\begin{bmatrix}
+                a_1 & b_1 \\ c_1 & d_1
+            \end{bmatrix} \begin{bmatrix}
+                a_2 & b_2 \\ c_2 & d_2
+            \end{bmatrix}\right) (x) &= \begin{bmatrix}
+                a_1a_2 + b_1c_2 & a_1b_2 + b_1 d_2 \\
+                c_1a_2 + d_1c_2 & c_1b_2 + d_1d_2
+            \end{bmatrix} (x) \\
+            &= \frac{x(a_1a_2 + b_1c_2) + a_1b_2 + b_1d_2}{x(c_1a_2+d_1c_2) + c_1b_2+d_1d_2} \\
+            &= \frac{a_1(a_2x + b_2) + b_1(c_2x + d_2)}{c_1(a_2x + b_2) + d_1(c_2x + d_2)} \\
+            &= \frac{a_1\frac{a_2x + b_2}{c_2x + d_2} + b_1}{c_1\frac{a_2x + b_2}{c_2x + d_2} + d_1} \\
+            &= \begin{bmatrix}
+                a_1 & b_1 \\ c_1 & d_1
+            \end{bmatrix}\left(\frac{a_2x + b_2}{c_2x + d_2}\right) \\
+            &= \begin{bmatrix}
+                a_1 & b_1 \\ c_1 & d_1
+            \end{bmatrix}\left( \begin{bmatrix}
+                a_2 & b_2 \\ c_2 & d_2
+            \end{bmatrix} x\right)
+        \end{align*}
+    \end{enumerate}
+    
+    Thus the mobius transform is a valid action on $P^1(\Q)$ 
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+\end{PROB}
+\begin{proof}
+    It suffices to show that $\forall x \in P^1(\Q)$, $\exists g \in SL_2(\Z) \ni g \cdot 0 = x$.  
+    
+    \begin{enumerate}
+        \item $0 \to \infty$: Let $g = \begin{bmatrix}
+            0 & -1 \\
+            1 & 0
+        \end{bmatrix} \implies g \cdot 0 = \frac{-1}{1*0} = \infty$
+        \item $0 \to x$ for $x \in \Q \setminus \left\{ 0 \right\}$: $x = \frac{p}{q}$ for $p, q\in \Z \setminus \left\{ 0 \right\} \ni (p, q) = 1$. Thus $\exists m, n \in \Z \ni mp - nq = 1$. Let $g = \begin{bmatrix}
+            -n & p \\ -m & q
+        \end{bmatrix} \in SL_2(\Z) \implies g \cdot 0 = \frac{-n(0) + p}{-n(0) + q} = \frac{p}{q}$ 
+        \item Note $0 \to 0$ is trivial since the mobius transform is an action.       
+    \end{enumerate} 
+    
+    Thus the action of $SL_2(\Z)$ on $P^1(\Q)$ is transitive since everything in $P^1(\Q)$ is in the orbit of $0$. 
+    
+    
+    \textbf{TODO}: Proof for finite orbits is trivial use finite index of $\Gamma$.  
+\end{proof}
+
+\end{document}

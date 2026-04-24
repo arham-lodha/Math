@@ -1,0 +1,416 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 1}
+\author{Arham Lodha}%put your name here
+\date{August 27, 2024}%enter the due date here
+\maketitle
+
+
+\begin{claim}{3a}\label{Claim 3a.}
+    Show that the composition of homotopy equivalences $X \to Y$ and $Y \to Z$ is a homotopy equivalence $X \to Z$. Deduce that homotopy equivalence is a equivalence relation.   
+\end{claim}
+\begin{proof}
+    \textbf{Transitive}: Suppose $X \simeq Y$ and $Y \simeq Z$. Thus there are functions $f_1, f_2, g_1, g_2$ where 
+    
+    \[\begin{tikzcd}
+        X && Y && Z \\
+        \\
+        X && Y && Z
+        \arrow["{f_1}", from=1-1, to=1-3]
+        \arrow["{f_2}", from=1-3, to=1-5]
+        \arrow["{g_1}"', from=3-3, to=3-1]
+        \arrow["{g_2}"', from=3-5, to=3-3]
+    \end{tikzcd}\]
+
+    where $f_1g_1$, $g_1f_1$, $f_2g_2$, and $g_2f_2$ are homotopic to the identity maps in their relavent spaces. 
+    
+    Let $f := f_2 f_1$ and let $g = g_1 g_2$. Thus let $F_1$ and $G_1$ be the the homotopies that give $g_2 f_2 \cong 1_{Y}$ and $g_1 f_1 \cong 1_X$ . Let $H: X \times [0, 1] \to X$ be the following:
+    
+    \begin{equation*}
+        H(x, t) := \begin{cases*}
+            g_1(F_1(f_1(x), 2t)) & \text{if } $t \in \left[0, \frac{1}{2}\right] $\\
+            G_1(x, 2t - 1) & \text{if } $t \in \left[\frac{1}{2}, 1\right] $
+        \end{cases*}
+    \end{equation*}
+    
+    $g_1(F_1(f_1(x), 2t))$ is continous on $[0, \frac{1}{2}]$ and $G_1(x, 2t - 1)$ is continous on $[\frac{1}{2}, 1]$. Furthermore at $t = \frac{1}{2}$, $F_1(f_1(x), 2t) = F_1(f_1(x), 1) = (1_Y \circ f_1)(x) = f_1(x) \implies  g_1(F_1(f_1(x), 2t)) = g_1(f_1(x))$ at $t = \frac{1}{2}$. Similarly at $t = \frac{1}{2}$, $G_1(x, 2t - 1) = (g_1 \circ f_1)(x)$. Thus $H$ is well defined and is continous by the Pasting Lemma. Furtheremore at $H(x, 0) = g_1(F_1(f_1(x), 0)) = g_1(g_2(f_2(f_1(x)))) = (g \circ f)(x)$ and $H(x, 1) = G_1(x, 1) = 1_X$. Thus $g \circ f \simeq 1_X$. 
+    
+    Let $F_2$ and $G_2$ be the homotopies that give you $f_1 g_1 \simeq 1_Y$ and $f_2 g_2 \simeq 1_Z$. Let $K: Z \times [0, 1] \to Z$ be the following:
+    
+    \begin{equation*}
+        K(z, t) := \begin{cases*}
+            f_2(F_2(g_2(z), 2t)) & \text{if } $x \in [0, \frac{1}{2}]$ \\
+            G_2(z, 2t - 1) & \text{if } $x \in [\frac{1}{2}, 1]$
+        \end{cases*}
+    \end{equation*}
+    
+    $f_2(F_2(g_2(z), 2t))$ is continous on $[0, \frac{1}{2}]$ and $G_2(z, 2t - 1)$ is continous on $[\frac{1}{2}, 1]$. Furthermore at $t = \frac{1}{2}$, $F_2(g_2(z), 2t) = F_2(g_2(z), 1) = (1_Y \circ g_2)(z) = g_2(z) \implies f_2(F_2(g_2(z), 2t)) = f_2(g_2(z))$ at $t = \frac{1}{2}$. Similarly at $t = \frac{1}{2}$, $G_2(z, 2t - 1) = (g_2 \circ f_2)(x)$. Thus $K$ is well defined and is continous by the Pasting Lemma. Furtheremore at $K(z, 0) = f_2(F_2(g_2(z), 2t)) = (f_2 \circ f_1 \circ g_1 \circ g_2)(z) = (f \circ g)(z)$ and $K(z, 1) = G_2(z, 1) = 1_Z$. Thus $f \circ g \simeq 1_Z$.
+    
+    Thus $X \simeq Z$.  
+
+    
+    \textbf{Symmetric}: Suppose $f: X \to Y$ is a homotopy equivalence. Thus there is a function $g: Y \to X$ such that $fg \simeq 1_Y$ and $gf \simeq 1_X$. Thus $g: Y \to X$ is a homotopy equivalence. Thus $Y \simeq X$. 
+    
+    \textbf{Reflexive}: Let $F(x, t) = x = (1_X \circ 1_X)(x) = 1_X(x)$, $F$ is continous. Thus $1_X \circ 1_X \simeq 1_X$. Thus $X \simeq X$. 
+    
+    Thus homotopy equivalences are equivalence relations. 
+\end{proof}
+
+\begin{claim}{3b}\label{Claim 3b.}
+    Show the relation of homotopy is an equivalence relation
+\end{claim}
+\begin{proof}
+    \begin{enumerate}
+        \item \textbf{Reflexive}: Let $f: X \to Y$. Then let $F: X \times [0 ,1] \to Y$ where $(x, t) \to f(x)$. For all open sets $U \subeq Y$, $F^{-1}(U) = \left\{ (x, t) \in X \times I \mid f(x) \in U \right\} = f^{-1}(U) \times I$ which is open. Thus $F$ is continous. $F(x, 0) = f(x)$ and $f(x, 1) = f(x)$. Thus $f \simeq f$. 
+        \item \textbf{Symmetric}: Let $f: X \to Y$ and $g: X \to Y$ where $f \simeq g$. Thus $\exists F: X \times [0, 1] \to X \ni F(x, 0) = f(x), F(x, 1) = g(x)$. Let $G: X \times I \to Y \ni G(x, t) = F(x, 1 - t)$ now $G(x, 0) = g(x)$ and $G(x, 1) = f(x)$. Note $(x, t) \to (x, 1-t)$ is continous because its identity map (which is continous) on $X$ and a linear map (which is continous) on $I$. Thus since $G$ is a composition of $F$ with $(x, t) \to (x, 1-t)$, it is continous. Thus $g \simeq f$. 
+        \item \textbf{Transitive}: Suppose $f \simeq g$ and $g \simeq h$. Let $F$ and $G$ be the homotopies that give you $f \simeq g$ and $g \simeq h$. $H: X \times I \to Y$ where 
+        
+        \begin{equation*}
+            H(x, t) = \begin{cases*}
+                F(x, 2t) & \text{if $x \in [0, \frac{1}{2}]$} \\
+                G(x, 2t - 1) & \text{if $x \in [\frac{1}{2}, 1]$}
+            \end{cases*}
+        \end{equation*}
+
+        \[g(x) = G(x, 0) = H\left(x, \frac{1}{2}\right) = F(x, 1) = g(x) \]
+        
+        Thus $H$ is well defined and by the pasting lemma it is also continous. $H(x, 0) = F(x, 0) = f(x)$ and $H(x, 1) = G(x, 1) = h(x)$. Thus $f \simeq h$.     
+    \end{enumerate}
+\end{proof}
+
+\begin{claim}{3c}\label{Claim 3c.}
+    Show that a map homotopic to a homotopy equivalence is a homotopy equivalence
+\end{claim}
+\begin{proof}
+    Suppose $f: X \to Y$ is a homotopy equivalence with $g: Y \to X$ be its corresponding homotopy equivalence from Y to $X$. Suppose $\alpha \simeq f$. Let $F_1, F_2$ be the homotopies which give $gf \simeq 1_X$ and $gf \simeq 1_Y$ respectively. Let $G$ be the homotopy which gives $\alpha \simeq f$. Let $H: X \times [0, 1] \to X$ where 
+    
+    \begin{equation*}
+        H(x, t) = \begin{cases*}
+            g(G(x, 2t)) & \text{if $x \in \left[0, \frac{1}{2}\right]$} \\ 
+            F_1(x, 2t - 1) & \text{if $x \in \left[\frac{1}{2}, 1\right]$}
+        \end{cases*}
+    \end{equation*}
+
+    $g(G(x, 2t))$ is continous because $g$, $G$, and $[(x, t) \to (x, 2t)]$ are continous and $g(G(x, 2t))$ is a composition of the three. $[(x, t) \to (x, 2t - 1)]$ is continous thus $F_1(x, 2t - 1)$ is continous. 
+    
+    \[g(f(x)) = g(G(x, 1)) = H\left(x, \frac{1}{2}\right) = F_1(x, 0) = g(f(x))\]
+
+    Thus $H$ is well defined and by the pasting lemma it is continous. Furthermore, $G(x, 0) = \alpha(x) \implies H(x, 0) = g(\alpha(x))$ and $F_1(x, 1) = 1_X \implies H(x, 1) = 1_X$. Thus $g \alpha \simeq 1_X$
+    
+    Let $K: Y \times I \to Y$ where 
+    
+    \begin{equation*}
+        K(x, t) = \begin{cases*}
+            G(g(y), 2t) & \text{if $x \in \left[0, \frac{1}{2}\right]$} \\ 
+            F_2(y, 2t - 1) & \text{if $x \in \left[\frac{1}{2}, 1\right]$}
+        \end{cases*}
+    \end{equation*}
+
+
+    Since $g$ is continous, $[(y, t) \to (g(y), 2t)]$ is continous. Thus $G(g(y), 2t)$ is continous because $g$, $G$, and $[(y, t) \to (g(y), 2t)]$ are continous and $G(g(y), 2t)$ is a composition of the three. $[(y, t) \to (y, 2t - 1)]$ is continous thus $F_2(y, 2t - 1)$ is continous. 
+
+    \[f(g(y)) =  G(g(y), 1) = K\left(y, \frac{1}{2}\right) = F_2(y, 0) = f(g(y))\]
+
+    Thus $Y$ is well defined and by the pasting lemma it is continous. Furthermore, $G(x, 0) = \alpha(x) \implies K(y, 0) = \alpha(g(y))$ and $F_2(y, 1) = 1_Y \implies H(y, 1) = 1_Y$. Thus $\alpha g \simeq 1_Y$. 
+
+    Thus $\alpha$ is a homotopy equivalence. 
+
+\end{proof}
+
+\bigskip
+
+\begin{claim}{5}\label{Claim 5.}
+    Show that if a space $X$ is a deformation retracts to a point $x_0 \in X$, then for each neighborhood $U$ of $x_0$ in $X$ there exists a neighborhood $V \subeq U$ of $x_0$ such that $V \xhookrightarrow{} U$ is nullhomotopic.          
+\end{claim}
+\begin{proof}
+    Fix a neighborhood $U$ of $x_0$ . Since $1_X \simeq [x \to x_0] \implies \exists F: X \times I \to X \ni F(x, 0) = 1_X(x) = x, F(x, 1) = x_0, F(x_0, t) = x_0$ for all $t \in I$. Since $F$ is a deformation retraction, $F(x_0 \times I) = \left\{ x_0 \right\} \subeq U \implies x_0 \times I \subeq F^{-1}(U)$. Since $I$ is compact, by the tube lemma $\exists V \subeq X$ a neighborhood of $x_0$ such that $x_0 \times I \subeq V \times I \subeq F^{-1}(U)$. Let $i: V \xhookrightarrow{} U$ be the natural inclusion map. Let $G: V \times I \to U \ni (x, t) \to F(x, t)$. Since $\forall (v, t) \in V \times I$, $F(v, t) \in U$, $G$ is a valid function. $G(x, 0) = F(x, 0) = 1_X(x) = i(x)$ and $G(x, 1) = x_0$ and since $G = F|_{V \times I}$ G is continous. Thus $i \simeq [v \to x_0]$ and thus is nullhomotopic.                     
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6a}\label{Problem 6a.}
+    Let $X$ be the subspace of $\R^2$ consisting of the horizontal segment $[0, 1] \times \left\{ 0 \right\}$ together with the vertical segments $\left\{ r \right\} \times [0, 1- t]$  for $r \in \Q \cap [0, 1]$. Show $X$ deformation retracts to any point in the segment $\left[0, 1\right] \times \left\{ 0 \right\}$ but not any other point.     
+\end{PROB}
+\begin{solution}
+    For all $x_0 \in [0, 1]$.  
+    Let $G: X \times I \to X$ where $((x, y), t) \to (x, (1 - t)y)$ and is continous. Thus $G(\vec{x}, 0) = \vec{x}$ and $G((x, y), 1) = (x, 0)$. Let $F: X \times I \to X$ where 
+    
+    \begin{equation*}
+        F((x, y), t) = \begin{cases*}
+            G((x, y), 2t) & \text{if $x \in [0, \frac{1}{2}]$} \\
+            (x + (x_0 - x)(2t - 1), 0) & \text{if $x \in [\frac{1}{2}, 1]$}
+        \end{cases*}
+    \end{equation*}
+
+    $G((x, y), 2t)$ is continous and $[((x, y), t) \to (x + (x_0 - x)(2t - 1), y)]$ is continous as well on $[0, \frac{1}{2}]$ and $[\frac{1}{2}, 1]$ respectively. 
+    
+    \[(x, 0) = G((x, y), 0) = F\left(x, \frac{1}{2}\right) = (x + (x_0 - x)(0), y) = (x, 0)\]
+
+    Thus $F$ is well defined and by the pasting lemma its continous. $F((x, y), 0) = G((x, y), 0) = 1_X(x, y)$ and $F((x, y), 1) = (x + (x_0 - x), 0) = (x_0, 0)$. $F((x, y), 1) = (x_0, 0)$ and $\forall t \in [0, \frac{1}{2}]$ $F((x_0, 0), t) = (x_0, t)$ and $\forall t \in [\frac{1}{2}, 1]$, $F((x_0, 0), t) = (x_0 + 0, 0) = (x_0, 0)$. Thus $F$ is a deformation retraction.
+    
+    $\forall r \in \Q \cap [0, 1]$ $\forall s \in [0, 1 - r]$, let $x_0 = (r, s)$. Let $J = [0, 1] \times \left\{ 0 \right\}$. Let $U = X \setminus J$, $U$ is open and $x_0 \in U$ . Note $X$ is path connected, however $U$ is not and the path components of $U$ are $U_q := \left\{ q \right\} \times (0, 1 - q]$ for $q \in \Q \cap [0, 1]$. For any open set $V \subeq U$, $V$ can be thought of as the union of the intersection of a collection of open balls with $U$ disjoint from $J$, and thus $V$ intersects $X$ at a countably infinite number of disjoint line segments and thus $V$ is not path connected. Assume the contrary that $X$ deformation retracts to $x_0$. Thus by Claim 5, $\exists V \subeq U  $ a neighborhood of $x_0$ such that the inclusion $i: V \xhookrightarrow{} U$ is nullhomotopic. Let $F: V \times I  \to \left\{ x_0 \right\}$ be the corresponding homotopy where $F(x, 0) = 1_V(x)$ and $F(x, 1) = x_0$  . Thus $\forall x \in V$ there is a path from $x \to x_0$ where $t \to f_t(x)$. Thus $V$ is path connected which is a contradiction. Thus by contradiction, $X$ cannot have a deformation retraction to a point in $X \setminus J$.                                  
+\end{solution}
+
+\bigskip
+
+\begin{claim}{9}\label{Claim 9.}
+    Show that a retract of a contractible space is contractible.
+\end{claim}
+\begin{proof}
+    Suppose $X$ is a contractible space and suppose $A \subseteq X$ is a retract of $X$, and let $r$ be the corresponding retraction. Since $X$ is contractible, $X \simeq \left\{ x_0 \right\}$ for some $x_0 \in X$. Thus $\exists f: X \times I  \to \left\{ x_0 \right\}$ where $x \to x_0$  and $\exists g: \left\{ x_0 \right\} \times I \to X$ where $g f \simeq 1_X$ and $f g \simeq 1_{\left\{ x_0 \right\}}$. Let $i: A \xhookrightarrow{} X$ be the natural inclusion.    
+    
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCJBIl0sWzIsMCwiWCJdLFs0LDAsInt4XzB9Il0sWzQsMSwieF8wIl0sWzIsMSwiWCJdLFswLDEsIkEiXSxbMSwyLCJmIl0sWzAsMSwiaSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzQsNSwiciJdLFszLDQsImciXV0=
+\[\begin{tikzcd}
+	A && X && \left\{ x_0 \right\} \\
+	A && X && \left\{ x_0 \right\}
+	\arrow["i", hook, from=1-1, to=1-3]
+	\arrow["f", from=1-3, to=1-5]
+	\arrow["r", from=2-3, to=2-1]
+	\arrow["g", from=2-5, to=2-3]
+\end{tikzcd}\]
+
+    Let $\alpha:= f \circ i$ and $\beta := r \circ g$. Let $F$ be the homotopy that gives you $gf \simeq 1_X$ and let $G$ be the homotopy that gives you $fg \simeq 1_{\left\{ x_0 \right\}}$. I will omit $i$ from now on and substitute $i(a)$ with $a$.    
+    
+    Let $H: A \times I \to A$ be $H(a, t) = r(F(a, t)) = (r \circ F)(a, t)$ and thus $H$ is continous. $H(a, 0) = r(F(a, 0)) = r(g(f(a))) = r(g(f(i(a)))) = (rgfi)(a) = (\beta \circ \alpha)(a)$. $H(a, 1) = r(1_X(a)) = r(a) = 1_A(a) = a$. Thus $\beta \alpha \simeq 1_X$. 
+    
+    Let $K: \left\{ x_0 \right\} \times I \to \left\{ x_0 \right\}$ where $K(x_0, t) = (\alpha \beta)(x_0) = f(i(r(g(x_0)))) = x_0 = 1_X$, thus $\alpha \beta = 1_X \implies \alpha \beta \simeq 1_X$. 
+    
+    Thus $A \simeq \left\{ x_0 \right\} \implies A$ is contractible.  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{10a}\label{Claim 10a.}
+    Show that a space X is contractible iﬀ every map $f: X \to Y$, for arbitrary Y, is nullhomotopic.
+\end{claim}
+\begin{proof}
+    $\implies$: Suppose $X$ is contractible. Fix a arbitrary topological space $Y$. Suppose $f: X \to Y$ is a continous function. $\forall y_0 \in Y$, by definition of contractible $X \simeq \left\{ y_0 \right\}$. Thus $g: X \to \left\{ y_0 \right\}$ and $h: \left\{ y_0 \right\} \to X$ are functions such that $hg \simeq 1_X$ and $gh \simeq 1_{\left\{ y_0 \right\}}$. Note that $\forall x \in X, (h \circ g)(x) = h(y_0)$. Let $F: X \times [0, 1] \to X$ be the homotopy that gives you $hg \simeq 1_X$. Let $G: X \times [0, 1] \to Y$ where $x \to (f \circ F)(x, t)$ which is continous. $\forall x \in X, G(x, 0) = f(F(x, 0)) = f(h(g(x))) = f(h(y_0)) \implies G(\cdot, 0) = [x \to  f(h(y_0))]$ (ie a constant function). $\forall x \in X$, $G(x, 1) = f(F(x, 1)) = f(1_X(x)) = f(x) \implies G(\cdot, 1) = f$. Thus $f \simeq [x \to  f(h(y_0))]$, thus $f$ nullhomotopic
+    
+    $\impliedby:$ Suppose every map $X \to Y$, for a arbitrary Y, is nullhomotopic. Then $1_X$ is nullhomotopic, thus $1_X \simeq [x \to x_0]$ for some $x_0 \in X$. Then let $g: \left\{ x_0 \right\} \xhookrightarrow{} X$ be the natural inclusion. Since $x_0 \in X$, $1_{\left\{ x_0 \right\}} : X \to X$ by factoring through the inclusion, thus $1_{\left\{ x_0 \right\}} \simeq [x \to x_0]$. $g 1_X \simeq [x \to x_0] \simeq 1_X \implies g 1_X \simeq 1_X$ and since $1_X(g(x_0)) = x_0 \in X \implies 1_X \circ g = 1_{\left\{ x_0 \right\}} \implies 1_X \circ g \simeq 1_{\left\{ x_0 \right\}}$. Thus $X \simeq \left\{ x_0 \right\} \implies X$ is contractible.        
+\end{proof}
+\begin{claim}{10b}\label{Claim 10b.}
+    Show X is contractible iﬀ every map $f: Y \to X$ is nullhomotopic.
+\end{claim}
+\begin{proof}
+    $\implies$: Suppose $X$ is contractible. Fix a arbitrary topological space $Y$. Suppose $f: Y \to X$ is a continous function. $\forall x_0 \in X$, by definition of contractible $X \simeq \left\{ x_0 \right\}$. Thus $g: X \to \left\{ x_0 \right\}$ and $h: \left\{ x_0 \right\} \to X$ are functions such that $hg \simeq 1_X$ and $gh \simeq 1_{\left\{ x_0 \right\}}$. Note that $\forall x \in X, (h \circ g)(x) = h(x_0) = x_1$. 
+    
+    Let $F: Y \times [0, 1] \to X$ be the homotopy that gives you $hg \simeq 1_X$. Let $G: X \times [0, 1] \to Y$ where $y \to F(f(y), t)$ which is continous. $\forall y \in Y, G(y, 0) = F(f(y), 0) = h(g(f(y))) = x_1 \implies G(\cdot, 0) = [x \to x_1]$ (ie a constant function). $\forall y \in Y$, $G(y, 1) = F(f(y), 1) = 1_X(f(y)) = f(y) \implies G(\cdot, 1) = f$. Thus $f \simeq [y \to x_1]$, thus $f$ nullhomotopic
+    
+    $\impliedby:$ Suppose every map $Y \to X$, for a arbitrary Y, is nullhomotopic. Then $1_X$ is nullhomotopic, thus $1_X \simeq [x \to x_0]$ for some $x_0 \in X$. Then let $g: \left\{ x_0 \right\} \xhookrightarrow{} X$ be the natural inclusion. Since $x_0 \in X$, $1_{\left\{ x_0 \right\}} : \left\{ x_0 \right\} \to X$ by factoring through the inclusion, thus $1_{\left\{ x_0 \right\}} \simeq [x \to x_0]$. Since $g: \left\{ x_{0} \right\} \to X \implies g \simeq [x \to x_0]$, $g 1_X = g \simeq [x \to x_0] \simeq 1_X \implies g 1_X \simeq 1_X$ and since $1_X(g(x_0)) = x_0 \in X \implies 1_X \circ g = 1_{\left\{ x_0 \right\}} \implies 1_X \circ g \simeq 1_{\left\{ x_0 \right\}}$. Thus $X \simeq \left\{ x_0 \right\} \implies X$ is contractible.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{14}\label{Claim 14.}
+    Given positive integers $v, e, f$ satisfying $v - e + f = 2$, construct a cell structure on $S^2$ having v 0-cells, $e$ 1 cells, and $f$ 2 cells     
+\end{claim}
+\begin{solution}
+    My examples are the normal CW construction for $S^2$ with 2 0 cells, 2 1 cells, and 2 2 cells, a tetrahedron, a cube, and a octahedron as all CW constructions will create a CW Complex homeomorphic to $S^2$. Other valid examples would be the other platonic solids as they are homeomorphic to $S^2$ and since they can be created into planar graphs they satisfy $v - e + f = 2$.     
+\end{solution}
+\pagebreak
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.15]{"./Chapter 0-5.jpg"}
+    \caption{Your image caption}
+    \label{fig:your-label}
+\end{figure}
+
+\pagebreak
+
+\begin{claim}{16}\label{Claim 16.}
+    Show that $S^\infty$ is contractible
+\end{claim}
+\begin{proof}
+
+    Hatcher defines $S^{\infty} = \bigcup_{n \in \N}$ as the CW complex with two n-cells (corresponding to the northern / southern hemispheres of $S^n$) for each $n \geq 0$. Note for all $n \geq 1$, you can contract the n-cell corresponding to the northern hemisphere of $S^n$ to $x_0$, one of the base points of $S^\infty$, transforming $S^n$ to $S^n$ where $S^n$ is created by a 0-cell and 1 $n$-cell.
+    
+    Let $F_n: S^n \times I \to S^\infty$ be this homotopy. Since $(S^\infty, S^n)$ is a CW pair, homotopy extension property applies by Proposition 0.16. Thus there exists a homotopy $G_n: S^\infty \times I \to S^\infty$ which contracts $S^n$ to $x_0$. Note $G_n(\cdot, 0) = 1_{S^\infty}$. Also note $G_{n, t} := G_n(\cdot, t)$.   Let $H: S^\infty \times I \to S^\infty$ where 
+    
+    \begin{equation*}
+        H(x, t) := \begin{cases*}
+            G_1(x, 2t) & \text{if $t \in [0, \frac{1}{2}]$ } \\
+            G_2(G_1(x, 1), 4t - 2) & \text{if $t \in [\frac{1}{2}, \frac{3}{4}]$ } \\
+            G_3(G_2(G_1(x, 1), 1), 8t - 6) & \text{if $t \in [\frac{3}{4}, \frac{7}{8}]$ } \\
+            \vdots \\
+            G_{n}((G_{n - 1, 1} \circ G_{n - 2, 1} \circ G_{n, 1})(x), 2^n(t - 1) + 2) & \text{if $t \in \left[1 - \frac{1}{2^{n - 1}}, 1 - \frac{1}{2^n}\right]$ } \\
+            \vdots \\
+            x_0 & \text{if $t = 1$}
+        \end{cases*}
+    \end{equation*}
+
+    Thus $H(\cdot, 0) = G_1(\cdot, 0) = 1_{S^{\infty}}$ and $H(\cdot, 1) = x_0$. Since $S^\infty$ is given the weak topology, $H$ is continous iff $H|_{S^n \times I}$ is continous for all $n$. This restriction is continous because $H|_{S^n \times I}$ does the work of $G_1, \dots, G_n$, by composition, where for each $[1 - \frac{1}{2^{n - 1}}, 1 - \frac{1}{2^n}]$ interval the starting position at that interval is the last position of the preceding interval. Then it stays stationary from $[1 - \frac{1}{2^n}, 1]$. By Pasting Lemma, $H|_{S^n \times I}$ is continous. Thus $H$ is continous. Thus $H$ is the homotopy which shows identity map is homotopic to constant map. Thus $S^\infty$ is contractible.                   
+
+    % Let $F: S^{\infty} \times I \to S^\infty$ where $(x_1, x_2, x_3, \dots) \to \frac{(x_1, x_2, x_3, \dots) + t\left((0, x_1, x_2, x_3, \dots) - (x_1, x_2, x_3, \dots)\right)}{\abs{(x_1, x_2, x_3, \dots) + t\left((0, x_1, x_2, x_3, \dots) - (x_1, x_2, x_3, \dots)\right)}}$ is a homotopy which gives $1_{S^\infty} \simeq \left[(x_1, x_2, x_3, \dots) \to \frac{(0, x_1, x_2, x_3, \dots)}{\abs{(0, x_1, x_2, x_3, \dots)}}\right]$. Let $G: S^\infty \times I \to S^\infty$ where $\vec{x} \to \frac{(0,x_1, x_2, \dots) + t((1, 0, \dots) - (0,x_1, x_2, \dots))}{\abs{ (0,x_1, x_2, \dots) + t((1, 0, \dots) - (0,x_1, x_2, \dots)}}$ is a homotopy which gives you $[\vec{x} \to (0,x_1, x_2, \dots)] \simeq [\vec{x} \to (1, 0, \dots)]$. Thus by equivalence of homotopy $1_X \simeq [\vec{x} \to (1, 0, 0, 0, \dots)]$. Thus $S^\infty$ is contractible.        
+\end{proof}
+
+\bigskip
+
+\begin{claim}{17}\label{Claim 17.}
+    Show that the mapping cylinder of every map $f: S^1 \to S^1$ is a CW complex.
+\end{claim}
+\begin{proof}
+    For all continous maps, $f: S^1 \to S^1$ let $M_f := (S^1 \times I) \sqcup_f S^1$. Here is the construction to create $M_f$ as a $CW$-complex: 
+    
+    \begin{enumerate}
+        \item Fix some $x_0 \in S^1$, start with two points $X^0 := \left\{ x_0, f(x_0) \right\}$. 
+        \item Add three 1 cells as follows:
+        \begin{enumerate}
+            \item Add a one cell with both endpoints on $x_0$: $e_1$ 
+            \item Add a one cell with both endpoints on $f(x_0)$: $e_2$ 
+            \item Add a one cell with a endpoint at $x_0$ and a end point at $f(x_0)$: $e_3$      
+        \end{enumerate}
+        
+        \item Add a two cell with top attached to $e_1$, two sides (left and right) attached to $e_3$, and the bottom side attached to $e_2$ based on the map $f: S^1 \to S^1$.   
+    \end{enumerate}
+    
+\end{proof}
+\begin{claim}{17b}\label{Claim 17b.}
+\end{claim}
+\begin{proof}
+    There is a retraction from the annulus and the mobius strip onto their center circles $S^1_A$ and $S^1_M$. Let $r, s$ be the respective retractions. Let $A' :=   S^1_A \bigsqcup_{r} A$ and $M' := S^1_A \bigsqcup_{r} M$. Similar to a mapping cylinder, $A'$ deformation retracts to $S^1_A$ and $M'$ deformation retracts to $S^1_M$. Now connect $A'$ and $M'$ with a cylinder to create the space X. So now $A'$ is on one end of the cylinder and $M'$ is on the other. To get the deformation retraction onto $A$, retract $M'$ onto $S^1_M$, retract the cylinder onto $A'$, then retract $A'$ onto $A$. The process is identical for $M$, but switch $A$ with $M$ and $A'$ with $M'$.            
+\end{proof}
+
+\bigskip
+
+\begin{claim}{18a}\label{Claim 18a.}
+    Show that $S^1 \ast S^1 = S^3$.  
+\end{claim}
+\begin{proof}
+    On page 9 of Hatcher, $S^{n - 1} \cong X_1 \ast ... \ast X_n$ where $X_i \cong S^0$. Thus $S^1 \cong X_1 \ast X_2$. Thus $S^1 \ast S^1 = X_1 \ast X_2 \ast X_1 \ast X_2 = X_1 \ast X_2 \ast X_3 \ast X_4$ where $X_3 \cong X_1 \cong S^0$ and $X_4 \cong X_3 \cong S^0$. Thus $S^1 \ast S^1 = X_1 \ast X_2 \ast X_3 \ast X_4 = S^3$       
+\end{proof}
+\begin{claim}{18b}\label{Claim 18b.}
+    Show that $S^m \ast S^n = S^{m + n + 1}$ 
+\end{claim}
+\begin{proof}
+    $S^{m + n + 1} \cong X_1 \ast ... \ast X_{m + n + 2}$ where $X_i = S_0$. 
+
+    Thus 
+
+    \begin{align*}
+        S^{m + n + 1} &\cong (X_1 \ast \dots \ast X_{m + 1}) \ast (X_{m + 2} \ast \dots \ast X_{m + n + 2}) \\
+        &\cong S^m \ast S^n
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{claim}{21}\label{Claim 21.}
+    If X is a connected Hausdorﬀ space that is a union of a finite number of 2 spheres, any two of which intersect in at most one point, show that X is homotopy equivalent to a wedge sum of $S^1$'s  and $S^2$’s.
+\end{claim}
+\begin{proof}
+    This question is very similar to example 0.9 in Hatcher using a very similar algorithm. 
+    Base Case: Suppose $X$,connected Hausdorﬀ space, is composed of two 2-spheres which intersect at at most 1 point. Since $X$ is connected, the two 2-spheres must interesect at at least 1 point. Thus the two spheres intersect at 1 point. Thus by definition of wedge product. X is the wedge sum of $S^2$'s and thus is a wedge sum of $S^1$'s and $S^2$'s. Thus $X$ is homotopy equivalent to a wedge sum of $S^1$'s and $S^2$’s. 
+    
+    Inductive Hypothesis: Assume that if $X$, is a connected Hausdorﬀ space, and is a union of $n$ 2 spheres, any two of which intersect in at most one point, then $X$ is homotopy equivalent to a wedge sum of $S^1$'s  and $S^2$’s.
+
+    Inductive Step: Let $X$, be a connected Hausdorﬀ space, where $X$ is a union of $n + 1$ 2 spheres, any two of which intersect in at most one point. Take a arbitrary $2$-sphere label it $A$. We want to show that $X \simeq A \vee Y$ where $Y$ is a connected Hausdorﬀ space and is a union of $n$ 2 spheres, any two of which intersect in at most one point. Let $\left\{ B_1, \dots, B_k \right\}$ be the spheres which intersect with A. Note there must be at least 1 since $X$ is connected. Let $\left\{ x_1, ..., x_n \right\}$ be the points at which $A$ and $B_i$ intersect. We want to build intermediate spaces $Z_i$ which are homotopy equivalent to $X$. 
+    
+    \begin{enumerate}
+        \item Let $Z_1$ be $X$.
+        \item Let $i = 2$. 
+        \item While $i < k$ do the following:
+        \begin{enumerate}
+            \item If $B_{i - 1}$ and $B_i$ in $Z_{i - 1}$ have a intersection. Figure 2 has the entire details of this section (any intersection other than $A. B_{i - 1}, and B_i$ is ommited as they don't matter in this stage. ) Create a string, 1 cell, between $B_{i - 1}$ and $B_i$ where the endpoints, $b_{i - 1}$ and $b_i$, are the intersection point. Seperate the intersection points, so they are no longer identified with each other. This is space $W_i$. $X \simeq W_i$.
+            \begin{enumerate}
+                \item Then collapse the arcs of $b_{i - 1}, x_{i - 1}$ (take $b_{i - 1} \to x_{i - 1}$ ) on $B_{i - 1}$, $x_{i - 1}, x_{i}$ (take $x_{i - 1} \to x_{i}$ ) on $A$, $x_{i}, b_i$ (take $b_{i} \to x_{i}$ ) on $B_i$ to get $Z_i$. Now $B_{i - 1}, A, B_i$ and a copy of $S_1$ all intersect at 1 point . Finally $X \simeq Z_i$. Since we collapsed the arcs of $b_{i - 1}, x_{i - 1}$ in $B_{i - 1}$ and $x_{i}, b_i$ and $B_{i - 1}$, there is still only one intersection between $B_{i - 1}$ and $B_i$.
+            \end{enumerate}
+            \item Otherwise, collapse the arc $x_{i - 1}, x_{i}$ (take $x_{i - 1} \to x_{i}$ ) on $A$. Now $B_{i - 1}, A, B_i$ all intersect at 1 point. Finally $X \simeq Z_i$.                           
+        \end{enumerate}
+    \end{enumerate}
+
+    After this process, in space $Z_k$, A should intersect the other spheres at $X$ at one point and only one point. Furtheremore $A$ and any of the $S^1$'s created in the previous algorithm intersects the rest of $Z_k$ at only 1 point, $x_k$. Thus $Z_k$ is a wedge sum of $A$ (a copy of $S^2$), all the $S^1$'s created in the algorithm, and a space $Y$, a union of $n$ 2-spheres where any two of which only intersect at 1 point. Y is created by removing $A$, all the copies of $S^1$ created in the algorithm, and adding the point $x_k$ to ensure intersections aren't broken. By the inductive hypothesis, $Y$ is a wedge sum of $S^2$s and $S^2$s. Thus $X \simeq Z_k$ and $Z_k$ is homotopy equivalent to a of wedge sum of $S^2$s and $S^2$s. Thus $X$ is homotopy equivalent to a of wedge sum of $S^2$s and $S^2$s  
+    
+
+    Thus by induction for any finite $n$, $X$ would be the wedge sum of $S^1$s and $S^2$s.     
+\end{proof}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.15]{"./Chapter 0-4.jpg"}
+    \caption{Section 3a }
+    \label{fig:Part a in algorithm.}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.15]{"./Chapter 0-3.jpg"}
+    \caption{Your image caption}
+    \label{fig:Part b in algorithm}
+\end{figure}
+
+
+
+
+\end{document}

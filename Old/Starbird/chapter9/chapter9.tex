@@ -1,0 +1,519 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+
+
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 9}
+\author{Arham Lodha}%put your name here
+\date{July 21, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{9.1}\label{Problem 9.1.}
+    Prove the following functions are actually metrics:
+    \begin{enumerate}
+        \item $\R$ - $d(x, y) = \abs{x - y}$
+        \item $\R^n$ - $d(x, y) = \sqrt{(y_1 - x_1)^2 + \dots + (y_n - x_n)^n}$
+        \item $\R^2$ - $d(x, y) = \max\left\{ \abs{x_1 - y_1}, \abs{x_2 - y_2} \right\}$
+        \item $\R^2$ - $d(x, y) = \abs{x_1 - y_1} + \abs{x_2 - y_2}$
+        \item $X$ - $d(x, y) = 1 - \delta(x, y)$
+        \item $L^1$, $L^2$, $L^\infty$ norms on $C[0, 1]$               
+    \end{enumerate}
+    
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item Usual norm on $\R$
+        \begin{enumerate}
+            \item $\forall x, y \in \R \ni d(x, y) = 0 \implies d(x, y) = \abs{x - y} = 0 \implies x - y = 0 \implies x = y$. $\forall x \in \R$, $d(x,x) = \abs{x - x} = 0$
+            \item $\forall x, y \in \R \ni d(x, y) = \abs{x - y} \geq 0$. 
+            \item $\forall x, y \in \R , d(x, y) = \abs{x - y}= \abs{y - x} = d(y, x)$
+            \item $\forall x, y, z \in \R$, 
+            
+            \begin{align*}
+                d(x, z) &= \abs{x - z}\\
+                &= \abs{x - y + y - z}\\
+                &\leq \abs{x - y} + \abs{y - z} = d(x, y) + d(y, z)
+            \end{align*}
+        \end{enumerate}
+        
+        \item Euclidean norm on $\R^n$
+        \begin{enumerate}
+            \item $\forall x, y \in \R^n \ni d(x, y) = 0 \implies \sqrt{(x_1 - y_1)^2 + \dots + (x_n - y_n)^2} = 0 \implies (x_1 - y_1)^2 + \dots + (x_n - y_n)^2 = 0 \implies x_i - y_i = 0$ since $(x_i - y_i)^2 \geq 0$. Thus $x_i = y_i \implies x = y$. $\forall x \in \R^n,$ $d(x, x) = \sqrt{\sum_{i = 1}^n(x_i - x_i)^n} = 0$
+            \item Squares of real values are nonnegative. Sum of positive numbers is nonnegative. Square root of positive number is nonnegative.
+            \item \[                d(x, y) = \sqrt{\sum_{i = 1}^{n}(x_i - y_i)^2} = \sqrt{\sum_{i = 1}^{n}(y_i - x_i)^2} = d(y, x)
+            \]     
+            \item \begin{align*}
+                d(x,z)^2 &= \sum_{i = 1}^{n}(x_i - z_i)^2\\
+                &= \sum_{i = 1}^{n}(x_i - y_i + y_i - z_i)^2 \\
+                &= \sum_{i = 1}^n\left[(x_i - y_i)^2 + 2(x_i - y_i)(y_i - z_i) + (y_i - z_i)^2\right]\\
+                &= d(x, y)^2 + d(y, z)^2 + 2\sum_{i = 1}^{n}(x_i - y_i)(y_i - z_i) \\
+                &= d(x, y)^2 + d(y, z)^2 + 2\angles{x - y, y - z} \\
+                &\leq d(x, y)^2 + d(y, z)^2 + 2d(x - y, 0)d(y- z, 0) \\
+                &= d(x, y)^2 + d(y, z)^2 + 2d(x,y)d(y, z) \\
+                &= (d(x, y) + d(y, z))^2
+            \end{align*}
+        \end{enumerate}
+        \item Square norm on $\R^2$
+        \begin{enumerate}
+            \item $\forall x, y  \in \R^2 \ni d(x, y) = 0 \implies \max\left\{ \abs{x_1 - y_1}, \abs{x_2 - y_2} \right\} = 0 \implies x_1 = y_1$ and $x_2 = y_2$
+            
+            $\forall x \in \R^2 \implies d(x, x) = \max(0, 0) = 0$
+            
+            \item absolute value is nonnegative. max of nonnegative values is nonnegative.
+            \item \[d(x,y) = \max\left\{ \abs{x_1 - y_1}, \abs{x_2 - y_2} \right\} =\max\left\{ \abs{y_1 - x_1}, \abs{y_2 - x_2} \right\} = d(y, x)\] 
+            \item \begin{align*}
+                d(x, z) &= \max\left\{ \abs{x_1 - z_1}, \abs{x_2 - z_2} \right\} \\
+                &\leq \max\left\{ \abs{x_1 - y_1} + \abs{y_1 - z_1}, \abs{x_2 - y_2} + \abs{y_2 - z_2} \right\} \\
+                &\leq \max\left\{\abs{x_1 - y_1}, \abs{x_2 - y_2}  \right\} + \max\left\{ \abs{y_1 - z_1}, \abs{y_2 - z_2} \right\} \\
+                &= d(x,y) + d(x,z)
+            \end{align*}
+        \end{enumerate}
+        \item Taxicab norm on $\R^2$
+        \begin{enumerate}
+            \item $\forall x, y \in R^2 \ni d(x, y) = 0 \implies \abs{x_1 - y_1} + \abs{x_2 - y_2} = 0 \implies x_1 = y_1$ and $x_2 = y_2$. Thus $x = y$. 
+            $\forall x \in \R^2$, $d(x, x) = 0 + 0 = 0$  
+            \item Absolute value is nonnegative. Sum of nonnegative values is nonnegative. 
+            \item Pretty trivial
+            \item \begin{align*}
+                d(x, z) &= \abs{x_1 - z_1} + \abs{x_2 - z_2} \\
+                &\leq \abs{x_1 - y_1} + \abs{x_2 - y_2} + \abs{y_1 - z_1} + \abs{y_2 - z_2} \\
+                &= d(x,y) + d(y, z)
+            \end{align*}  
+        \end{enumerate}
+        \item Discrete norm on $X$
+        \begin{enumerate}
+            \item Pretty trivial
+            \item Pretty trivial
+            \item pretty trivial
+            \item \begin{align*}
+                d(x, y) &= 1 - \delta(x, y) \leq 1 - \delta(x, z) + 1 - \delta(z, y) = d(x, z) + d(z, y)
+            \end{align*}
+        \end{enumerate}
+        \item $L^1$ - Triangle inequality
+        \item $L^2$
+        \begin{align*}
+            d_{2}(f, g)^2 &= \int_{0}^{1} (f(x) - g(x))^2 dx \\
+                &= \int_{0}^{1} (f(x) - h(x))^2 + 2(f(x) - h(x))(h(x)- g(x) ) + (h(x) - g(x))^2 dx \\
+                &= d_2(f, h) + d_2(h, g) + 2\angles{f - h, h - g}_{L^2} \\
+                &\leq d_2(f, h) + d_2(h, g) + 2d_2(f - h, 0)d_2(h - g, 0) \\
+                &= d_2(f, h) + d_2(h, g) + 2d_2(f, h)d_2(h, g)\\
+                &= (d_2(f, h) + d_2(h, g))^2
+        \end{align*}
+        \item $L^{\infty}$ - Triangle inequality      
+    \end{enumerate}
+    
+\end{solution}
+
+\bigskip
+
+\begin{claim}{8.2}\label{Claim 8.2.}
+    $X$ and $Y$ metrizable $\implies$ $X \times Y$ metrizable     
+\end{claim}
+\begin{proof}
+    Let $d_{X \times Y}(a, b) = \max\left(d_x(a_1, b_1), d_y(a_2, b_2)\right)$. $d_{X \times Y}$ is a metric (Proof very similar to square norm on $\R^2$). $\forall W \in \T_{X \times Y}$, $W = \bigcup_{\alpha \in \lambda}(U_\alpha \times V_\alpha)$. $\forall x = (x_1, x_2) \in W$, $x \in U_\alpha \times V_\alpha$ for some $\alpha \in \lambda$. By definition of basis, $\exists a \in X, \epsilon_1 > 0 \ni x_1 \in B^X_{\epsilon_1}(a) \subeq U_\alpha$. WLOG $a = x_1$. Similarly $x_2 \in B^Y_{\epsilon_2}(x_2) \subeq V_{\alpha}$. Thus $x \in B^X_{\epsilon_{1}}(x_1) \times B^Y_{\epsilon_{2}}(x_2) \subeq U_\alpha \times V_\alpha$. $\forall y \in B^X_{\epsilon_{1}}(x_1) \times B^Y_{\epsilon_{2}}(x_2), d(x, y) \leq \max\left(\epsilon_1, \epsilon_2\right)$. Let $\epsilon = \min(\epsilon_1, \epsilon_2)$. Thus $x \in B_{\epsilon}^{X \times Y}(x) \subeq B^X_{\epsilon_{1}}(x_1) \times B^Y_{\epsilon_{2}}(x_2) \subeq U_\alpha \times V_\alpha$. Thus $\B_{d_{X \times Y}}$ is a basis. Thus $X \times Y$ is metrizable.           
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.3}\label{Claim 8.3.}
+    Prove that every metrizable space is Hausdorff.
+\end{claim}
+\begin{proof}
+    $\forall x, y \in X \ni x \neq y \implies d(x, y) > 0$. Let $\epsilon = \frac{d(x, y)}{2}$  Thus $y \not \in B_\epsilon(x) \ni x$ and $x \not \in B_\epsilon(y) \ni x$. $\forall z \in B_{\epsilon}(x) \cap B_{\epsilon}(y) \implies d(x,z) < \epsilon$ and $d(y, z) < \epsilon$. Thus $d(x, y) \leq d(x,z) + d(z, y) < \epsilon + \epsilon < d(x,y) \implies d(x, y) < d(x, y)$, a contradiction. Thus both open balls are disjoint. Thus $X$ is Hausdorff.         
+\end{proof}
+
+\bigskip
+
+\begin{claim}{8.4}\label{Claim 8.4.}
+    Let $X = C[0, 1]$. Prove $F: X \to \R$ where \[F(f) = \int_{0}^1 f(x) dx \] is continous.  
+\end{claim}
+\begin{proof}
+    $\forall f \in X$, $\forall \epsilon > 0$. Let $\delta = \epsilon$. $\forall g \in B_{X}(f, \delta)$. 
+    
+    \begin{align*}
+        \abs{F(f) - F(g)} &= \abs{\int_{0}^1 (f(x) - g(x)) dx} \\
+        &\leq \int_{0}^1 \abs{f(x) - g(x)} dx < \delta = \epsilon
+    \end{align*}
+
+    Thus $f \subeq B_{X}(f, \delta) \subeq F^{-1}(B_{\R}(F(f), \epsilon))$. Thus, $F^{-1}(B_{\R}(F(f), \epsilon))$ is a open set. Thus $F$ is continous.   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8.5}\label{Problem 8.5.}
+    $(X, d)$ is a metrix space. Let $\alpha: X \times X \to \R$ where $\alpha(x, y) = \min(1, d(x,y))$. Let $\beta: X \times X \to \R$ where 
+    
+    \[\beta(x, y) = \frac{d(x,y)}{1 + d(x, y)}\]
+    
+    \begin{enumerate}
+        \item Prove $\alpha$ and $\beta$ are metrics
+        \item Prove $(X, \alpha)$ and $(X, \beta)$ are bounded. 
+        \item Prove $\alpha$ and $\beta$ generate $\T$       
+    \end{enumerate}
+    
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item \begin{enumerate}
+            \item \begin{enumerate}
+                \item $\forall x, y \in X \ni \alpha(x, y) = 0 \implies d(x, y) = 0 \implies x = y$. If $x = y \implies d(x, y) = 0 \implies \alpha(x, y) = 0$
+                \item $\alpha(x, y) = \min(1, d(x, y)) \geq 0$ since $d(x, y) \geq 0$.  
+                \item $\alpha(x, y) = \min(1, d(x,y))= \min(1, d(y,x)) = \alpha(y,x)$
+                \item \begin{align*}
+                    \alpha(x, z) &= \min(1, d(x, z)) \\
+                    &\leq \min(1, d(x, y) + d(x, z)) \\
+                    &\leq d(x, y) + d(x, z)
+                \end{align*}  
+            \end{enumerate}
+            \item \begin{enumerate}
+                \item $\forall x, y \in X \ni \beta(x, y) = 0 \implies d(x, y) \implies x = y$. If $x =y \implies d(x, y) = 0 \implies \beta(x, y) = 0$ 
+                \item $\beta(x, y) = \frac{d(x, y)}{1 + d(x, y)} \geq 0$ because $d(x, y) \geq 0$. 
+                \item $\beta(x, y) = \frac{d(x, y)}{1 + d(x, y)} = \frac{d(y,x)}{1 + d(y,x)} = \beta(y,x)$
+                \item \begin{align*}
+                    \beta(x, z) &= \frac{d(x,z)}{1 + d(x,z)} \\
+                    &\leq \frac{d(x, y)}{1 + d(x, y) + d(y,z)} + \frac{d(y, z)}{1 + d(x, y) + d(y,z)} \\
+                    &\leq \beta(x, y) + \beta(y ,z)
+                \end{align*}   
+            \end{enumerate}
+        \end{enumerate}
+        \item \begin{enumerate}
+            \item $\alpha(x, y) = \min\left(1, d(x, y)\right)\leq 1$
+            \item $\beta(x, y) - 1 = \frac{-1}{1 + d(x, y)} \leq 0 \implies \beta(x, y) \leq 1$  
+        \end{enumerate}
+        
+        \item \begin{enumerate}
+            \item $\forall U \in \T$, $\forall x \in U$, $\exists \epsilon > 0 \ni x \in B_d(x, \epsilon) \subeq U$. Let $\delta = \min(0.5, \epsilon)$. $\forall y \in B_{\alpha}(x, \delta)$, $\alpha(x,y) < \min(1, d(x, y)) < \delta \leq \epsilon \implies d(x, y) < \epsilon$. Thus $x \in B_{\alpha}(x, \delta)\subeq B_{d}(x, \epsilon) \subeq U$. Thus $\alpha$ generates a basis for $\T$. Thus $\alpha$ generates $\T$. 
+            \item $\forall U \in \T$, $\forall x \in U$, $\exists \epsilon > 0 \ni x \in B_d(x, \epsilon) \subeq U$. Let $\delta = \frac{\epsilon}{1 + \epsilon}$. Thus $\forall y \in B_\beta(x, \delta)$, let $d(x, y) = u$ 
+            \begin{align*}
+                &\beta(x, y) = \frac{u}{1 + u} < \frac{\epsilon}{1 + \epsilon} \\
+                &\implies u + \epsilon u < \epsilon + \epsilon u \\
+                &\implies u < \epsilon
+            \end{align*}
+
+            Thus $x \in B_{\beta}(x, \delta) \subeq B_{d}(x, \epsilon) \subeq U$.Thus $\beta$ generates a basis for $\T$. Thus $\beta$ generates $\T$.    
+        \end{enumerate}
+    \end{enumerate}    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{9.6}\label{Claim 8.6.}
+    $(X, \alpha)$ and $(Y, \beta)$ are metric spaces. Let $f: X \to Y$ be a surjective isometry. Prove $f$ is a homeomorphism  
+\end{claim}
+\begin{proof}
+    $\forall x, y \in X \ni f(x) = f(y) \implies \beta(f(x), f(y)) = 0 \implies \alpha(x, y) = 0$, by definition of isometry. Thus $x = y$. Thus $f$ is injective. 
+    
+    $\forall x \in X$ and $\forall \epsilon > 0$, $f(B_{X}(x, \epsilon)) \subeq B_{Y}(f(x), \epsilon)$. $\forall y \in B_{Y}(f(x), \epsilon)$, by surjectivity and definition of isometry, $\exists a \in B_{X}(f, \epsilon) \ni f(a) = y$. Thus $f(B_{X}(x, \epsilon)) = B_{Y}(f(x), \epsilon)$. Thus $f$ is a open function. 
+    
+    $\forall y \in Y$ and $\forall \epsilon > 0$, by injectivity $\exists! x \in X \ni f(x) = y$ and $f^*(B_Y(y, \epsilon)) \subeq B_X(x, \epsilon)$, since $f$ is a isometry. Since $f(B_X(x, \epsilon) = B_Y(y, \epsilon)\implies B_X(x, \epsilon) \subeq f^*(B_Y(y, \epsilon))$. Thus $f$ is continous by 7.13.
+    
+    By 7.28, $f$ is a continous open bijection thus $f$ is a homeomorphism.  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7}\label{Claim 7.}
+    $X$ is a metric space with metric d. For nonempty subsets $A$ and $B$ and for $x \in X$, define 
+    
+    \[d(x, A) = \inf\left\{ d(x, a) \mid a \in A \right\}\]
+    \[d(A, B) = \inf\left\{ d(a, b) \mid a \in A, b \in B \right\}\]
+
+    \begin{enumerate}
+        \item Show both are well defined
+        \item Show that if $A \cap B \neq \empset$ then $d(A, B) = 0$
+        \item Give an example that the previous implication does not reverse
+        \item Show that these definitions are connected in the following ways:
+        \begin{enumerate}
+            \item $d(x, A) = d(\left\{ x \right\}, A)$
+            \item $d(A, B) = \inf\left\{ d(a, B) \mid a \in A \right\} = \inf\left\{ d(b, A) \mid b \in B \right\}$  
+        \end{enumerate}
+        
+        \item Show that $A \subeq X$ is closed (in the topology generated by d) if and only if $d(x, A) \neq 0$ for all $x \in X - A$.
+    \end{enumerate}
+\end{claim}
+\begin{proof}
+    \begin{enumerate}
+        \item $\left\{ d(x, a) \mid a \in A \right\}$ is bounded below by 0. Thus $d(x, A) = \inf\left\{ d(x, a) \mid a \in A \right\}$ exists. Same for $d(A, B)$.
+        \item Suppose $A \cap B \neq \empset \implies \exists x \in A \cap B$, thus $0 \in \left\{ d(a, b) \mid a \in A, b \in B \right\}$. $\forall x, y \in X$, $d(x, y) \geq 0$. Thus $\forall (a, b) \in A \times B \implies d(a, b) \geq 0$. Thus 0 is a lower bound and is the greatest lower bound. Thus $d(A, B) = 0$.         
+        \item $A = (0, \infty)$ and $B = (-\infty, 0)$ for $\R$  
+        \item $d(x, A) = \inf\left\{ d(x, a) \mid a \in A \right\} = \inf\left\{ d(b, a) \mid b \in {x}, a \in A \right\} = d(\left\{ x \right\}, A)$. 
+        
+        $d(A, B) = \inf\left\{ d(a, b) \mid a \in A, b \in B \right\} = \inf\left\{ \inf\left\{ d(a, b) \mid b \in B \right\} \mid a \in A \right\} = \inf\left\{ d(a, B) \mid b \in B \right\}$
+        
+        \item Suppose $\exists x \in X - A \ni d(x, A) = 0$. Thus $\forall \epsilon > 0$, $\exists a \in A \ni d(x, a) < \epsilon$ by definition of infimum. Thus $a \in B_{\epsilon}(x)$. Thus $B_{\epsilon}(x) \cap A \neq \empset$. Thus $\forall U \in X \ni x \in U, U \cap A \neq \empset$ since $B_{\epsilon}(x) \subeq U$ for some $\epsilon$. Thus $A$ is not closed. Thus by contrapositive if $A$ is closed then $\forall x \in X - A, d(x, A) \neq 0$. 
+        
+        Assume the contrary that A is not closed. Thus $\exists x \in \overline{A} - A$. Thus $d(x, A) = \epsilon > 0$. Let $\delta = \frac{\epsilon}{2}$. Thus $\forall a \in A$, $d(x, a) \geq \epsilon > \frac{e}{2} \implies a \not \in B_{\delta}(x)$. Thus $x \not \in A$. Which is a contradiction. Thus $\overline{A} = A$. A is closed.         
+    \end{enumerate}
+    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{9.8}\label{Claim 9.8.}
+    Let $X$ be a metrizable space. X is regular  
+\end{claim}
+\begin{proof}
+    Let $d$ be the metric which generates $\T$. $\forall A \in \mathcal{C} \ni A \neq X$ and $\forall x \in X - A$. $\exists \epsilon > 0 \ni x \in B_\epsilon(x) \subeq X - A$. Let $V = \bigcup_{a \in A}B_{\frac{\epsilon}{2}}(a)$ and $U = B_{\frac{\epsilon}{2}}(x) \subeq B_{\epsilon}(x)$ . 
+    
+    Assume the contrary $U$ and $V$ aren't disjoint. Thus $\exists y \in  U \cap V$. Thus $d(x, y) < \frac{\epsilon}{2}$ and $d(y, a) < \frac{\epsilon}{2}$ for some $a \in A$. 
+    
+    \begin{align*}
+        d(x, a) &\leq d(x, y) + d(y, a)\\
+        &< \frac{\epsilon}{2} + \frac{\epsilon}{2} < \epsilon
+    \end{align*}
+
+    Thus $a \in U$ which is a contradiction since $U \subeq X -A$. Thus $U \cap V = \empset$ and $X$ is regular 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{9.10}\label{Claim 9.10.}
+    Let $X$ be a metrizable space. X is normal
+\end{claim}
+\begin{proof}
+    Let $d$ be the metric which generates $\T$. $\forall A, B \in \mathcal{C} \ni A \cap B = \empset$. $\forall x \in A$, $\exists \epsilon_x > 0 \ni x \in B_{\epsilon_x}(x) \subeq X - B$. $\forall y\in B$, $\exists \delta_y > 0 \ni y \in B_{\delta_y}(x) \subeq X - A$  Note $e_x \leq d(x, B) \leq d(x, b)$ and $\delta_y \leq d(y, A) \leq d(y, a)$.
+    
+    
+    \[U = \bigcup_{x \in A} B_{\frac{\epsilon_x}{2}}(x)\]
+    \[V = \bigcup_{y \in B} B_{\frac{\delta_y}{2}}(y)\]
+
+    Assume the contrary that $U \cap V \neq \empset$. $\exists y \in U \cap V \implies \exists a \in A, \exists b \in B \ni d(y, a) < \epsilon_a, d(y, b) < \delta_b$. 
+    
+    Thus, 
+
+    \begin{align*}
+        d(a, b) &\leq d(a, y) + d(y, b) \\
+        &< \frac{\epsilon_a}{2} + \frac{\delta_b}{2}\\
+        &\leq \frac{d(a, b)}{2} + \frac{d(a, b)}{2} \\
+        &= d(a, b)
+    \end{align*}
+
+    Which is a contradiction. Thus $U \cap V = \empset$. Thus $X$ is normal.  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{9.11}\label{Claim 9.11.}
+    Let (X, $\T$) be a metrizable, topological space with the countable chain condition. Let d be a metric on X that generates the topology T . All $\epsilon$ -balls we refer to below will be with respect to this metric.
+
+    \begin{enumerate}
+        \item Fix $n \in \N$. Show that there exists a maximal collection of mutually disjoint $\frac{1}{n}$-balls in X. (Maximal with respect to inclusion. That is, show that there is a collection Bn of mutually disjoint $\frac{1}{n}$-balls in X that is not properly contained in any larger such collection.)
+        (Hint: Use Zorn's Lemma.)
+        \item For each $n \in \N$, suppose $B_n$ is a collection as in the previous part. Let $C_n \subeq X$ be the collection of centres of the balls in $B_n$, and finally let $C = \bigcup_{n \in \N}C_n$ . Show that C is a countable, dense subset of X. Conclude that X is separable.
+        \item Now that we know that X is separable. Prove that every separable metrizable space is second countable. (Hint: Use the fact that every point in a metric space has a particularly nice countable local basis.)
+    \end{enumerate}
+    
+\end{claim}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $P$ be the set of all collections of $\frac{1}{n}$-balls of X, $P$ is a poset with a partial ordering of inclusion. $\left\{ B_{\frac{1}{n}}(x) \right\}_{x \in X}$ is the upper bound of any chain in $P$. Let $A$ be the subset of P, of collections of disjoint $\frac{1}{n}$ balls. By Zorn's Lemma, $A$ has a maximal element. Let $B_n$ be the maximal element of $A$. Thus $B_n$ is the maximal collection of disjoint $\frac{1}{n}$-balls. 
+        \item $C$ is a countable union of countable sets, thus $C$ is countable. Assume the contrary $C$ is not dense. Thus $\exists U \in \T - \left\{ \empset \right\}\ni U \cap C = \empset$. For $x \in U$, $\exists \epsilon > 0 \ni x \in B_{\epsilon}(x) \subeq U \implies B_{\epsilon}(x) \cap C = \empset$. $\exists n\in \N \ni \epsilon > \frac{2}{n} \implies x \in B_{\frac{2}{n}}(x) \subeq B_{\epsilon}(x) \subeq U$. $B_{\frac{2}{n}}(x) \cap C = \empset$. Thus for all $c \in C_n, B_{\frac{2}{n}}(x) \cap B_{\frac{1}{n}}(c) = \empset$. Thus $B_n \cup B_{\frac{1}{n}}(x)$ is a disjoint collection of $\frac{1}{n}$ balls, contradicting the maximality of $B_n$. Thus by contradiction $C$ is dense.       
+        \item Let $\B = \bigcup_{n \in \N} B_n$. $\forall U \in \T$ and $\forall x \in U$, $\exists n \in \N \ni x \in B_{\frac{2}{n}}(x) \subeq U$. By definition of density, $\exists y \in B_{\frac{1}{n}}(x) \cap C$. Thus, $\forall z \in B_{\frac{1}{n}}(x)$ 
+        
+        \begin{align*}
+            d(y, z) &\leq d(x, y) + d(x, z) \\
+            &< \frac{1}{n} + \frac{1}{n} = \frac{2}{n}
+        \end{align*}
+
+        Thus $x \in B_{\frac{1}{n}}(y) \subeq B_{\frac{2}{n}}(x) \subeq U$. 
+    \end{enumerate}
+    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{9.12a}\label{Claim 9.12a.}
+    Let $X$ be a set and $(Y, d)$ a metric space. Suppose $\left\{ f_n \right\}_{n \in \N}$ is a sequence of functions $f_n: X \to Y$ that converges uniformly to a $f$. Prove that $\left\{ f_n \right\}_{n \in \N}$ converges pointwise to $f$.        
+\end{claim}
+\begin{proof}
+    $\forall x \in X$, and $\forall U \in \T_Y \ni f(x) \in U$, $\exists \epsilon > 0 \ni B_\epsilon(f(x)) \subeq U$. By definition of uniform convergence, $\exists K \in \N \ni \forall n \geq K, f_{n}(x) \in B_{\epsilon}(f(x)) \subeq U$. Thus by definition of limit of sequence $f(x)$ is the limit of $f_n(x)$. Thus $f_n$ converges pointwise to $f$.            
+\end{proof}
+
+\begin{PROB}{9.12b}\label{Problem 9.12b.}
+    Give an example of a sequence of functions which converges pointwise to $0$ but not uniformly 
+\end{PROB}
+\begin{proof}
+    Let \[
+    f_n(x) := \begin{cases}
+        (n + 2)x & x \in [0, \frac{1}{n+2}) \\
+        -(n + 2)x - 2 & x \in [\frac{1}{n + 2}, \frac{2}{n + 2}) \\
+        0 & x \in [\frac{2}{n + 2}, 1]
+    \end{cases}
+    \]
+
+    $f_n \to 0$ pointwise but not uniformly.  
+\end{proof}
+
+\begin{claim}{9.12c}\label{Claim 9.12c.}
+    If $f_n \to f$ uniformly where $f_n$ is continuous then $f$ is continuous    
+\end{claim}
+\begin{proof}
+
+    $\forall U \in \T_Y$, $\forall x \in f^{-1}(U)$.  $\exists \epsilon > 0 \ni x \in f^*(B_\epsilon(f(x))) \subeq f^{-1}(U)$. 
+    
+    $\exists K \in \N \ni \forall n
+    \geq K, \abs{f_n - f}_{\infty} < \frac{\epsilon}{3}$.
+    
+    $\forall x \in X$, $\forall a \in f_K^*(B_{\epsilon}(f(x)))$  
+
+    \begin{align*}
+        d(f(x), f(a)) &\leq d(f(x), f_n(x)) + d(f_K(x), f_K(a)) + d(f_K(a), f(a)) \\
+        &< \frac{\epsilon}{3} + \frac{\epsilon}{3} + \frac{\epsilon}{3} \\
+        &= \epsilon
+    \end{align*}
+
+    Thus, $x \in f_K^*(B_{\frac{\epsilon}{3}}(f(x))) \subeq f^*(B_\epsilon)(f(x)) \subeq U$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9.13a}\label{Problem 9.13a.}
+    Example of a metric space and function $f$ for which $d(f(x), f(y)) < d(x, y)$ but $f$ is not a contraction mapping   
+\end{PROB}
+\begin{proof}
+    Let $X = [0, \infty)$ with standard metric. $f(x) = \log(1 + x)$ is not a contraction mapping.  
+\end{proof}
+\begin{claim}{9.13b}\label{Claim 9.13b.}
+    Every contraction mapping has at most 1 fixed point
+\end{claim}
+\begin{proof}
+    Assume the contrary, that $f$ is a contraction mapping more than 1 fixed points. $\exists x, y \in X \ni x \neq y$ and $f(x) = x$ and $f(y) = y$. Thus $d(x, y) = d(f(x), f(x)) < \alpha d(x, y)$ for $\alpha \in (0, 1)$. Thus $d(x, y) < \alpha d(x, y) < d(x, y)$ since $d(x, y) \geq 0$ and $\alpha \in (0, 1)$. This is a contradiction. Thus by contradiction, $f$ has at most 1 fixed point.               
+\end{proof}
+
+\bigskip
+
+\begin{claim}{9.14}\label{Claim 9.14.}
+    Let $F$ be a finite set of points in $\R^n$. Prove there is a unique closed ball of minimal radius which encloses $F$.    
+\end{claim}
+\begin{proof}
+    Note that $B_\epsilon(x)$ will be the closed ball of radius $\epsilon$ centered at $x$. 
+    
+    
+    Let P be the set of all closed balls of $\R^n$ with the partial ordering of size of radius (the smaller the size of the radius, the "greater" the ball). Let A be the set of all balls which enclose $F$. For any chain in A, the upper bound is a ball whose radius is less than $\min(d(f, g) \mid f, g \in F \ni f \neq g)$, thus the ball doesn't enclose $F$. Thus by Zorn's lemma $A$ has a maximal element. Thus there exists a ball $B$ which encloses $F$ with minimal radius. 
+    
+    Let $m(x) = \max\left\{ d(f, x) \mid f \in F \right\}$. $\forall x \in \R^n$, $\forall f \in F$, $d(f, x) \leq m(x) \implies f \in B_{m(x)}(x)$. For all $r < m(x)$, by definition of maximum, $\exists f\in F \ni d(f, x) = m > r$. Thus for all points $x \in X$, the ball of radius $m(x)$ is the ball of minimal radius centered at $x$ such that the ball completely encloses $F$.              
+
+    Let $B$ be one of the maximal elements of $P$ such that the radius of $B$ is minimal. Let $c$ be the center of $B$. Thus the radius of $B$ is the minimum value of $m$ for all $\R^n$. Let $M$, be the radius of B. By the above $M = \min\left\{ m(x) \mid x \in \R^n \right\} = m(C)$. 
+    
+    Assume the contrary, $\exists d \in \R^n \setminus c \ni m(x) = M$. Thus $F \subeq B_M(c) \cap B_M(c)$. Thus $d(c, d) \leq 2M$. $u = \frac{c + d}{2} \in B_M(c) \cap B_M(d)$. Let $a = \frac{d(c,d)}{2}$. Let $r = \sqrt{M^2 - r^2}$. Note $r < M$.  Thus $\forall x \in B_M(c) \cap B_M(c)$. 
+    
+    \[
+    d(u, x) = 
+    \] 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{9.14}\label{Claim 9.14.}
+    Let $(X, d)$ be a complete metric space. If $f: X \to X$ is a contraction. Then $f$ has a fixed point   
+\end{claim}
+\begin{proof}
+    Let $f_n: X \to X$ where $f_n = f \circ f_{n-1}$ where $f_1 = f$.   
+    $\forall x \in X$, $d(f_2(x), f(x)) \leq \alpha d(f_1(x), x) \implies d(f_{n + 1}(x), f_n(x)) \leq \alpha^n d(f(x), x)$. Let $x_n = f_n(x)$ and let $x_0 = x$ . WTS $x_n$ is cauchy. 
+    
+    
+    $\forall \epsilon > 0$. By the archemedian property, $\exists K \in \N \ni K < \log_{\alpha}\left(\frac{\epsilon (1- \alpha)}{d(x_1, x_0)}\right)$. Thus $\forall m, n \geq K$, 
+    
+    
+    \begin{align*}
+        d(x_m, x_n) &\leq d(x_m, x_{m - 1}) + \dots + d(x_{n + 1}, x_n) \\
+        &= \sum_{k = n}^{m - 1}d(x_{k + 1}, x_k) \\
+        &\leq \sum_{k = n}^{m - 1}\alpha^k d(x_{1}, x_0) \\
+        &= a^n d(x_{1}, x_0) \sum_{k = 0}^{m - n - 1}\alpha^k \\
+        &< a^n d(x_{1}, x_0) \sum_{k = 1}^{\infty}\alpha^k \\
+        &\leq \frac{\alpha^K d(x_1, x_0)}{\alpha - 1} < \epsilon
+    \end{align*}
+
+    Thus $x_n$ is cauchy. By completeness of $X$, $\exists x \ni x_n \to x^*$. By continuity of $f$, $f(x^*) = f(\lim_{n \to \infty} x_n) = \lim_{n \to \infty} x_{n + 1} = x^*$. Thus $x^*$ is a fixed point.    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{9.15}\label{Claim 9.15.}
+    Let $X$ be a complete metric space, and let $
+    \left\{ U_i \right\} _{i \in \N}$ be a collection of open dense subsets of $X$. Then $\bigcup_{i \in \N} U_i$ is a dense subset of $X$      
+\end{claim}
+\begin{proof}
+    $\forall U \in X$, $\exists x_1 \in U \cap U_1$ by definition of a dense subset. 
+    
+    $\exists 0 < r_1 < 1 \ni x_1 \in \overline{B_{r_1}(x_1)} \subeq U \cap U_1$. By definition of dense subset, $\exists x_2 \in B_{r_1}(x_1) \cap U_2 \subeq U \cap U_1 \cap U_2$. $\exists 0 < r_2 < \frac{1}{2} \ni x_2 \in \overline{B_{r_2}(x_2)} \subeq B_{r_1}(x_1) \cap U_2$. Thus $B_{r_1}(x_1) \cap U_2 \supseteq \overline{B_{r_2}(x_2)}$. This can be done recursively, to find a pair of sequences $x_n$ and $0 < r_n < \frac{1}{n}$ where
+    
+    $\overline{B_{r_n}(x_n)} \subeq B_{r_{n - 1}}(x_{n-1}) \cap U_n$ 
+
+    Thus $x_n$ is cauchy and $\exists x$ such that $x_n \to x$ because $X$ is complete. Since $X$ is metrizable thus 1st countable, $x \in \overline{B_{r_n}(x_n)}$ for all $n \in \N$. Since $\overline{B_{r_n}(x_n)} \subeq U_n \cap U \implies x\in U_n \cap U$ for all $n$. Thus  $x \in U \cap (\bigcup_{n \in \N} U_n)$. Thus $\bigcup_{n \in \N} U_n$ is dense.             
+\end{proof}
+
+
+\end{document}

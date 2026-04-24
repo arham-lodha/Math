@@ -1,0 +1,173 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\ext}[2]{\text{Ext}_{#1}^{#2}}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Field Symmetries}
+\author{Arham Lodha}%put your name here
+\date{March 30, 2024}%enter the due date here
+\maketitle
+
+Take $L / K$ a finite extension. Goal is to bound $G := Gal(L / K)$.   
+
+Consider another field $F$. Let $g: K \to F$ be a map of rings. 
+
+Let $Ext_K^L(g) := \left\{ h: L \to F | h|_K = g \right\}$.  
+\begin{PROB}{1}\label{Problem 1.}
+    Show that if F = L, and g the original inclusion, then this Ext is just G. 
+\end{PROB}
+\begin{proof}
+    $\forall h \in Ext_K^L(g)$, $h$ is a inclusion and thus a isomorphism of rings (more specifically automorphism). If $g$ is the original inclusion, it is a identity map. Thus $h|_K = id_K$. Thus by definition of Galois Group, $h \in G$. Thus $Ext_K^L(g) \subseteq G$ 
+    $\forall h \in G$, $h|_K = id_K = g$, by definition of Galois Group. Thus $h \in Ext_K^L(g)$. Thus $G \subseteq Ext_K^L(g)$.
+    Thus $Ext_K^L(g) = G$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+    Suppose $L = K[a]$, and $p(X) \in K[X]$ is the minimal monic poly. Construct a canonical bijection between Ext and the roots of $g(p)[X]$ in $F[X]$  (note g induces $L[X] \to F[X]$, a ring homo, just applying g to the coefficients and sending X to X).
+\end{PROB}
+\begin{proof}
+    The canonical map between $\ext{K}{L}(g)$ and the roots of $g(p)(X)$ is the following $h \to h(a)$.
+
+    Suppose $\forall h, k \in \ext{K}{L}(g)$, $h(a) = k(a) \implies \forall x + ya, h(x + ya) = g(x) + g(y)h(a) = g(x) + g(y)k(a) = k(x+ ya) \implies h = k$.
+    
+    $\forall r$ in the roots of $g(p)[X]$, there exists some function which sends $a \to r$. Thus the canonical map is surjective.
+    
+    Thus the map is bijection.  
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+    Conclude $|Ext|$ is at most the degree of $L / K$, with equality iff $g(p)$ has all its roots in F and there are no double roots.
+\end{PROB}
+\begin{proof}
+    Thus $|\ext{K}{L}|$ is at equal the number of unique roots of $g(p)$ in $F$ which is at most the number of unique roots of $p$ which is at most $\deg p = [L : K]$. Thus $|\ext{K}{L}| \leq [L : K]$.
+
+    Suppose $|\ext{K}{L}| = [L : K]$. Then the number of unique roots of $g(p)$ in F is $[L : K]$. $\deg g(p) = \deg(p) = [L : K]$. Thus the number of unique roots of $g(p)$ in F is equal to the number of possible roots of $g(p)$ (or the degree). Thus every root is unique and $g(p)$ has no double root. Thus since the number of roots of $g(p)$ in $F$ is equal to the number of roots of $g(p)$, all roots are in $F$. Thus $g(p)$ has all roots in $F$ and no double roots. 
+    
+    Suppose $g(p)$ has all roots in $F$ and no double roots. The number of unique roots of $g(p)$ in $F$ is equal to $\deg g(p) = \deg p = [K : L]$. Since $|\ext{K}{L}|$ equals the number of number of unique roots of $g(p)$ in $F$, $|\ext{K}{L}| = [K : L]$.        
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Suppose we have $K \subseteq L \subseteq M$, all fields.  Note there is a natural map $\alpha: \ext{K}{M}(g) \to \ext{K}{L}(g)$. Show that the fibre over q is exactly $\ext{L}{M}(q)$ . 
+\end{PROB}
+\begin{proof}
+    $\alpha^*(q) := \left\{ h \in \ext{K}{M}(g) \mid \forall l \in L h(l) = q(l) \right\} = \left\{ h \in \ext{K}{M}(g) \mid h|_L = q \right\} = \ext{L}{M}(q)$, by the definition of ext.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Now show $\ext{K}{L}(g)$  has order at most degree L/K, with equality iff for every a in K, $g(p_a)$ has all its roots in F and these are all distinct, where $p_a$ means the minimal monic for a in K[X]. 
+\end{PROB}
+\begin{proof}
+    Let $L_i := L_{i - 1}[\alpha]$ for some $\alpha \in L_i$. Let $L_0 = K$ and let there be some $N \in \N \ni \forall m \geq N, L_m = L$.    
+
+    Base Case: $L_1 = K[\alpha]$. By problem 2b, $\ext{L_0}{L_1}(g) \leq \left[K[\alpha] : K\right]$ with the needed equality condition. 
+    
+    Inductive Hypothesis: Suppose $\ext{K}{L_{n - 1}}(g)$ satifies the theorem.
+    
+    Inductive Step: $L_{n} = L_{n - 1}[\alpha]$ for some $\alpha \in L_n$. 
+    Take $r: \ext{K}{L_{n}}(g) \to \ext{K}{L_{n - 1}}(g)$. By the inductive hypothesis, $\ext{K}{L_{n - 1}}(g) \leq [L_{n - 1} : K]$. Furthermore from 3, we know $\forall q \in \ext{K}{L_{n - 1}}(g)$, $r^*(q) = \ext{L_{n - 1}}{L_n}(q)$   
+    
+    Let $p$ be the minimal polynomial of $\alpha$ over $L_{n - 1}$. 
+
+    By 2b, $\ext{L_{n - 1}}{L_n}(q) \leq [L_{n - 1} : L_n]$ with equality when $q(p)$ has all its roots in $L_i$ with no double roots.
+
+    Thus, $|\ext{K}{L_{n}}(g)| = \sum_{q \in \ext{K}{L_{n - 1}}(g)} |r^*(q)| \leq |\ext{K}{L_{n - 1}}(g)| |\ext{L_{n - 1}}{L_n}(q)| \leq [L_{n - 1} : K][L_{n} : L_{n - 1}] = [L_{n} : K]$. Thus $|\ext{K}{L_{n}}(g)| \leq [L_{n} : K]$
+    
+    
+    
+
+    Suppose, $\forall a \in L_n$, $p_a \in K[X]$, the minimum polynomial for $a$, $g(p_a)$ has all its roots in $F$ and they are all distinct. Since $K \subseteq L_{n - 1} \subseteq L_{n}$, then the minimal polynomial of $a$ in $L_{n - 1}$, $p'_a$, divides $p_a$. Since $g(p_a)$ has all its roots in $F$ and the roots are distinct, $q(p'_a)$ must also have all its roots and they must be distinct. Thus $\ext{L_{n - 1}}{L}(q) = [L_n : L_{n - 1}]$. Since $L_{n - 1} \subseteq L_n$, by induction hypothesis, $|\ext{K}{L_{n- 1}}| = [L_{n - 1} : K]$. Thus, $r$ is surjective since every element in $\ext{K}{L_{n- 1}}$ has the same fibre. Thus, since $\ext{K}{L}(g) = \sum_{q \in \ext{K}{L_{n - 1}}(g)} |r^*(q)| = \sum_{q \in \ext{K}{L_{n - 1}}(g)} [L_{n} : L_{n - 1}] = [L_{n - 1} : K] [L_n : L_{n - 1}] = [L : K]$
+    
+    
+    Suppose, $\ext{K}{L_n}(g) = [L : K]$. $\forall a \in L_n$. $K \subseteq K[a] \subseteq L_n$. Thus, $\ext{K}{K[a]}(g) = [K[a] : K]$. Thus $g(p_a)$ factors completely over $F$ with distinct roots. 
+    
+    
+    Thus the theorem is true for $\ext{K}{L}(g)$ by induction.   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Now go back to the original problem, with $G := Gal(L/K)$. Show $|G|$ is at most the degree with equality iff for every a in L, its monic min polynomial over K[X] has all its roots in L, and  these are all distinct. 
+\end{PROB}
+\begin{proof}
+    Suppose $F = L$ and $g = id$. By 1, $G = \ext{K}{L}(id_K)$. By problem 4, $|G| = |\ext{K}{L}(id_K)| \leq [L : K]$ with equality iff for every a in L, its monic min polynomial over K[X] has all its roots in L, and  these are all distinct.   
+\end{proof}
+
+\begin{PROB}{6}\label{Problem 6.}
+    Show in char 0 that any irreducible polynomial has distinct roots (in any field extension).
+\end{PROB}
+\begin{proof}
+    Let $p$ be the given irreducible with a root $\alpha$. Assume the contrary, $p$ has a repeated root r. Thus $p'$, derivative of $p$ wrt x, also has a root at x, because the condition for a repeated root is $p(x) = 0$ and $p'(x) = 0$. Thus $\gcd(p, p') \neq f \in F$. However since $f$ is irreducible, its divisors are $f$ and units. Thus $\gcd(p, p') = p$. However in $char F \neq 0$, $f'$ is zero (if $f$) constant which contradicts our assumption of irreduciblility, or must have degree less than $f$. But then $f$ cannot divide $f'$. Thus a contradiction occurs. Thus $f$  has no repeated roots.     
+\end{proof}
+
+
+\end{document}

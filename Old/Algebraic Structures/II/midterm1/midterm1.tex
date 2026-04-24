@@ -1,0 +1,249 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Midterm 1}
+\author{Arham Lodha}%put your name here
+\date{March 01, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let X and Y be finite sets, suppose $f_1,...,f_k$ are a basis of $Hom_{sets}(X,\C)$ and $h_1,..,h_s$ a basis of $Hom_{sets}(Y,\C)$.  Explain why ${f_i h_j}_{i,j}$ is naturally a basis of $Hom_{sets}(X \times Y, \C)$
+\end{PROB}
+\begin{proof}
+    $\forall (x, y) \in X \times Y$, $\forall i \in [1, \dots, k], \forall j \in [1, \dots, s]$, let $(f_i h_j)(x, y) = f_i(x)h_j(y)$. Thus $\forall i \in [1, \dots, k], \forall j \in [1, \dots, s]$, $f_i h_j \in Hom_{sets}(X \times Y, \C)$. 
+    
+    $\forall c_{i, j} \in \C \ni \sum_{i = 1}^{k} \sum_{j = 1}^{s} c_{i, j}f_i h_j = 0$ Thus
+    $\sum_{i = 1}^{k} \sum_{j = 1}^{s} c_{i, j}f_i h_j = \sum_{i = 1}^{k} f_i \left(\sum_{j = 1}^{s} c_{i, j}h_j\right) = 0$. Since ${f_i}_i$ is a basis for $Hom_{sets}(X, \C)$, it is linearly independent, thus $\sum_{j = 1}^{s} c_{i, j}h_j = 0$. Since $\left\{ h_j \right\}_j$ is a basis for $Hom_{sets}(Y, \C)$ and is linearly independent, $c_{i, j} = 0$, $\forall i, j$. Thus $\left\{ f_i h_j \right\}_{i,j}$. 
+    
+    Thus $\dim span(\left\{ f_i h_j \right\}_{i,j}) = |\left\{ f_i h_j \right\}_{i, j}| = |X||Y| = |X \times Y|$. Furthermore, since $Hom_{sets}(X \times Y, \C) \cong \C^{X \times Y}$, $\dim Hom_{sets}(X \times Y, \C) = \dim \C^{X \times Y} = |X \times Y|$. Finally, since $span(\left\{ f_i h_j \right\}_{i,j}) \leq Hom_{sets}(X \times Y, \C)$ and $\dim span(\left\{ f_i h_j \right\}_{i,j}) = |X \times Y| = \dim Hom_{sets}(X \times Y, \C)$, $span(\left\{ f_i h_j \right\}_{i,j}) \cong Hom_{sets}(X \times Y, \C)$. Thus since $\left\{ f_i h_j \right\}_{i,j}$ are linearly independent and span $Hom_{sets}(X \times Y, \C)$, they are a basis for $Hom_{sets}(X \times Y, \C)$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let G and H be finite groups, V a rep for G, W a rep for H. Explain how $Hom(V,W)$ is naturally a rep of $G \times H$ and give a formula for the trace (in terms of $tr_V$ and $tr_W$). 
+\end{PROB}
+\begin{proof}
+    Let $G, H$ be finite groups. Let $V$ be a representation for G and let $W$ be a representation for $H$. Define the representation of $G \times H$ on $Hom(V, W)$ as follows: $\forall (g, h) \in G \times H$, $(g, h) \to L_{h} \circ R_{g^{-1}}$, where $L$ is the left multiplication operator and $R$ is the right multiplication operator. Thus $\forall f \in Hom(V, W)$, $(g, h) \cdot f = (L_{h} \circ R_{g^{-1}})(f) = hfg^{-1}$  
+    
+    $\forall (g_1, h_1), (g_2, h_2) \in G \times H$, $\forall f \in Hom(V, W)$, 
+    
+    \[[(g_1, h_1)(g_2, h_2)]\cdot f = (g_1g_2, h_1h_2) \cdot f = h_1h_2fg_2^{-1}g_1^{-1} = (g_1, h_1) \cdot (h_2fg_2^{-1}) = (g_1, h_1) \cdot (g_2, h_2) \cdot f\]
+    
+    $tr_{Hom(V, W)}((g, h)) = tr_{Hom(V, W)}(L_h \circ R_{g^{-1}})$. By claim 2b, $tr_{Hom(V, W)}(L_h \circ R_{g^{-1}}) = tr_W(h) tr_V(g^{-1})$.
+    
+    Since $g$ satisfies the polynomial, $x^{|G|} - 1$, by the linear algebra bootcamp, it is diagonalizable, since the polynomial has distinct roots, with eigenvalues which are solutions to the polynomial and thus part of the $|G|$-roots of unity. Thus $g$ has eigenvalues $\lambda_1, \dots, \lambda_{\dim V}$ and is conjugate to the matrix $D = \begin{bmatrix}
+        \lambda_1 & 0 & \hdots \\
+        0 & \ddots & \vdots \\
+        \vdots & 0 & \lambda_{\dim V}
+    \end{bmatrix}$ and $g^{-1}$ is conjugate to $D^{-1} = \begin{bmatrix}
+        \lambda_1^{-1} & 0 & \hdots \\
+        0 & \ddots & \vdots \\
+        \vdots & 0 & \lambda_{\dim V}^{-1}
+    \end{bmatrix}$ and thus has eigenvalues $\lambda_1^{-1}, \dots, \lambda_{\dim V}^{-1}$ . However since all $\lambda$s are roots of unity, $\lambda_i^{-1} = \overline{\lambda_i}$. Thus $g^{-1}$ has eigenvalues $\overline{\lambda_i}, \dots, \overline{\lambda_{\dim V}}$. Since the trace is equal to the sum of the eigenvalues, $tr(g^{-1}) = \overline{\lambda_i}+ \dots+ \overline{\lambda_{\dim V}} = \overline{tr(g)}$.     
+    
+    Thus $tr_{Hom(V, W)}((g, h)) = tr_W(h)\overline{tr_V(g)}$.    
+\end{proof}
+\begin{claim}{2b}\label{Claim 2b.}
+    $\forall g \in G$ and $\forall h \in H$, $tr(L_h \circ R_g) = tr_V(g)tr_W(h)$. Note this claim is used to prove the problem above.   
+\end{claim}
+\begin{proof}
+    $\forall g \in G$, since $g^{|G|} = 1$, $g$ satisfies the polynomial $x^{|G|} - 1 = 0$ which has distinct roots which are a part of $|G|$th - roots of unity. Thus $g$ is diagonalizable. Similarly, $\forall h \in H$, since $h^{|H| = 1}$, $h$ satisfies the polynomial $x^{|H|} - 1 = 0$ which has distinct roots which are a part of $|G|$th - roots of unity. Thus $h$ is diagonalizable.
+    
+    $\forall A \in GL(V)$, $A^T (A^{-1})^T = (A^{-1}A)^T = I$ and $(A^{-1})^T A^T = (AA^{-1})^T = I$. Thus $(A^{-1})^T = (A^T)^{-1}$.    
+    
+    Since $g$ is diagonalizable, $\exists A$, a isomorphism between $C^{\dim V}$ and $V$, and $D$, a diagonal transformation, such that $g = ADA^{-1}$. Thus $g^T = (ADA^{-1})^T = (A^{-1})^T D^T A^{T} = (A^T)^{-1} D A^{T}$, thus $g^T$ is diagonalizable.
+
+    Since $h$ is diagonalizable, $\exists \left\{  X_i\right\}_i$ a column eigenvector basis of $h$ where the corresponding eigenvalues are $\left\{ a_i \right\}_i$      
+    Since $g^T$ is diagonalizable, $\exists \left\{ Y_j^T \right\}_j$ a row eigenvector basis of $g$ where the corresponding eigenvalues are $\left\{ b_j \right\}_j$
+    
+    $|\left\{ X_iY_j^T \right\}_{i, j}| = |\left\{ X_i \right\}_i| |\left\{ Y_j^T \right\}_j| = \dim V \dim W = \dim Hom(V, W)$. 
+    
+    $\forall \alpha_{i, j} \in \C \ni \sum_{i = 0}^{\dim W} \sum_{j = 1}^{\dim V} \alpha_{i, j} X_{i} Y_{j}^T = 0$. $\sum_{i = 0}^{\dim W} \sum_{j = 1}^{\dim V} \alpha_{i, j} X_{i} Y_{j}^T = \sum_{i = 0}^{\dim W} X_{i} \sum_{j = 1}^{\dim V} \alpha_{i, j} Y_{j}^T$. 
+    Let $Z_i := \sum_{j = 1}^{\dim V} \alpha_{i, j} Y_{j}^T$ is a row vector. $\sum_{i = 1}^{\dim W} X_iZ_i = 0$ is the zero matrix. The only way for the qth column of the matrix to be zero is if, $(\sum_{i = 1}^{\dim W} X_iZ_i)e_q = \sum_{i = 1}^{\dim W} X_iZ_ie_q = 0$ is the qth basis of $W$. Since $Z_i$ is a row vector and $e_q$ is a column vector, $Z_ie_q \in \C$ for all $q$. Thus, $\sum_{i = 1}^{\dim W} X_iZ_ie_q = \sum_{i = 1}^{\dim W} (Z_ie_q) X_i = 0 \implies Z_ie_q = 0$ since $\left\{ X_i \right\}_i$ is a basis for $W$ and thus is linearly independent. Since $Z_ie_q = 0$ for all q, it means every component of $Z_i$ is 0, thus $Z_i = 0$. Thus $0 = Z_i = \sum_{j = 1}^{\dim V} \alpha_{i, j} Y_j^T$, thus $\alpha_{i, j} = 0$ because $\left\{ Y_j^T \right\}$ is a basis for $V$ and is linearly independent. Thus $\alpha_{i, j} = 0$ for all $i, j$, thus $\left\{ X_i Y_j^T \right\}_{i, j}$ is linearly independent. Thus, since $span(\left\{ X_i Y_j^T \right\}_{i, j}) \leq Hom(V, W)$ and $\dim span(\left\{ X_i Y_j^T \right\}_{i, j}) = \dim V \dim W = \dim Hom(V, W)$, $span(\left\{ X_i Y_j^T \right\}_{i, j}) \cong Hom(V, W)$. Thus since $\left\{ X_i Y_j^T \right\}_{i, j}$ is linearly independent and spans $Hom(V, W)$ it is a basis for $Hom(V, W)$.   
+    
+    
+    $\forall i \in [1, ..., \dim W] , j \in [1, \dots, \dim V]$ $(L_h \circ R_g)(X_i Y_j^T) = hX_iY_j^Tg = a_iX_ib_jY_j^T = a_iX_iY_j^T$, thus for all i and j, $X_iY_j^T$ is a eigenmatrix with a eigenvalue of $a_ib_j$ for the operator, $L_h \circ R_g$.
+    
+    Since the trace is equal to the sum of the eigenvalues, 
+    \[
+        tr_{Hom(V, W)}(L_h \circ R_g) = \sum_{i = 1}^{\dim W} \sum_{j = 1}^{\dim V} a_ib_j = \left(\sum_{i = 1}^{\dim W} a_i \right) \left(\sum_{j = 1}^{\dim V} b_j\right) = tr_W(h) tr_V(g)
+    \]
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Show that if V and W (as in 2) ) are irreducible then Hom(V,W) is an irreducible G x H rep.
+\end{PROB}
+\begin{proof}
+    Let G and H be finite groups and let $V$ be a irreducible for $G$ and $W$ an irreducible for $H$. Let $\angles{}$, be a bilinear form on $Hom_{sets}(G / G, \C)$ such that $\forall f, g \in Hom_{sets}(G / G, \C)$, $\angles{f, g} = \frac{1}{|G|} \sum_{g \in G} f(g) \bar{g(g)}$.
+
+    By Orthogonality Relations of Characters, $\angles{tr_v, tr_v} = 1$ and $\angles{tr_w, tr_w} = 1$ since $V$ and $W$ are irreducible. 
+
+    Thus, 
+    
+    \begin{align*}
+        \angles{tr_{Hom(V, W)}, tr_{Hom(V, W)}} &= \frac{1}{|G \times H|} \sum_{(g, h) \in G \times H} tr_{Hom(V, W)}((g, h)) \overline{tr_{Hom(V, W)}((g, h))} \\
+        &= \frac{1}{|G||H|} \sum_{(g, h) \in G \times H} tr_W(h) \overline{tr_W(h)} \overline{tr_V(g)} \overline{(\overline{tr_V(g)})}\\
+        &= \frac{1}{|G||H|} \sum_{(g, h) \in G \times H} tr_W(h) \overline{tr_W(h)} tr_V(g) \overline{tr_V(g)} \\
+        &= \left(\frac{1}{|G|} \sum_{g \in G}  tr_V(g) \overline{tr_Vg)}\right)\left(\frac{1}{|H|} \sum_{h \in H}tr_W(h) \overline{tr_W(h)} \right) \\
+        &= \angles{tr_V, tr_V} \angles{tr_W, tr_W} = 1
+    \end{align*}
+
+    Thus by Orthogonality Relations of Characters, since $\angles{tr_{Hom(V, W)}, tr_{Hom(V, W)}} = 1$, $Hom(V, W)$ is irreducible.   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Explain why $Hom(V,W)$ over all irreducible reps gives all the irreducible reps of $G \times H$
+\end{PROB}
+\begin{proof}
+    Let $G$ and H be finite groups.  
+    Let $\left\{ V_i \right\}_i$ be the set of nonisomorphic irreducible representations of $G$. Let $\left\{ W_i \right\}_j$ be the set of nonisomorphic irreducible representations of $H$. Let $A_{i, j} = Hom(V_i, W_j)$. By theorem that the sum of squares of the dimensions of a group's nonisomorphic irreducibles is equal to the order of the group, $\left(\sum_{i} (\dim V_i)^2\right) = |G|$ and $\left(\sum_{j} (\dim W_j)^2\right) = |H|$   
+    
+    Take the following sum:
+    \begin{align*}
+        \sum_{i, j} \left(\dim A_{i, j}\right)^2 &= \sum_{i, j} \dim V_i^2 \dim W_j^2 \\
+        &= \left(\sum_{i} (\dim V_i)^2\right) \left(\sum_{j} (\dim W_j)^2\right) \\
+        &= |G| |H| = |G \times H|
+    \end{align*}
+
+    Since the order of a group is equal to the sum of the squares of the dimensions of its nonisomorphic irreducibles, $|G \times H|$ is equal to the sum of the squares of the dimensions of its nonisomorphic irreducibles. $\sum_{i, j} \left(\dim A_{i, j}\right)^2$ is a part of the sum which is already equal to $|G \times H|$. Since squares of dimensions are positive, if there were more irreducibles the value of the sum would exceed $|G \times H|$ thus $\sum_{i, j} \left(\dim A_{i, j}\right)^2$ is the whole sum. Meaning there are no other irreducibles of $G \times H$. Thus $\left\{ Hom(V_i, W_j) \right\}_{i, j}$ is the set of all nonisomorphic irreducibles of $G \times H$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let $G \times G$ act on G by $(a,b)(g) = a g b^{-1}$.  This gives an action of $G \times G$ on $C^G$. Decompose this into irreducible reps of $G \times G$.   
+\end{PROB}
+\begin{claim}{5a}\label{Claim 5a.}
+    The action of $(a, b) \in G \times G$ on $G$ has a fixed point $h$ if and only if $a$ and $b$ are conjugate by the fixed point, ie $a = C_h(b) = hbh^{-1}$.   
+\end{claim}
+\begin{proof}
+    $(\implies)$: Suppose the action of $(a, b) \in G \times G$ on $G$ has a fixed point $h$, then $ahb^{-1} = h \implies a = hbh^{-1}$. Thus $a$ and $b$ are conjugate and they are specifically conjugate by the fixed point, since $a = C_h(b) = hbh^{-1}$. 
+    
+    $(\impliedby):$ Suppose $a$ and $b$ are conjugate, then $\exists h \in G \ni a = hbh^{-1}$, thus $(a, b)(h) = ahb^{-1} = hbh^{-1}hb^{-1} = h$. Thus the action of $(a, b)$ has a fixed point.    
+\end{proof}
+\begin{claim}{5b}\label{Claim 5b.}
+    If $g, h \in G$ are fixed points of the action $(a, b) \in G \times G$ then $g, h \in gZ(b)$.   
+\end{claim}
+\begin{proof}
+    Suppose $g, h \in G$ are fixed points of the action of $(a, b)$ on G. Then by claim 1a, $a = gbg^{-1} = hbh^{-1}$. Thus, $b = (h^{-1}g)bg^{-1}h = (h^{-1}g)b(h^{-1}g)^{-1} \implies b(h^{-1}g) = (h^{-1}g)b \implies h^{-1}g \in Z(b)$. Thus $h h^{-1} g = g \in hZ(b)$. However this means, $\exists z \in Z(b) \ni g = hz$ and $hZ(b) = hzZ(b) = gZ(b)$. Since $h \in hZ(b)$ and $g \in gZ(b)$, then $g, h \in gZ(b)$.            
+\end{proof}
+\begin{claim}{5c}\label{Claim 5c.}
+    If $g \in G$ is a fixed point of the action of $(a, b) \in G \times G$ then $gZ(b)$ is the set of all fixed points.  
+\end{claim}
+\begin{proof}
+Suppose $g$ is a fixed point of the action $(a, b) \in G \times G$. $\forall z \in Z(a)$, $gz \in gZ(b)$, by claim 1a, $a = C_g(b) = gbg^{-1}$. Thus, $(a, b)(gz) = agzb^{-1} = gbg^{-1}gzb^{-1} = gbzb^{-1} = gzbb^{-1}$, since $z \in Z(b)$. Thus $(a, b)(gz) = gzbb^{-1} = gz$. Thus $gz$ is a fixed point. Thus all elements of $gZ(b)$ are fixed points of the action of $(a, b)$. Furthermore since $g$ is a fixed point, all other fixed points are part of $gZ(b)$ by claim 5b, thus $gZ(b)$ is the set of all the fixed points of the action of $(a, b)$ on $G$.      
+\end{proof}
+\begin{claim}{5}\label{Claim 5.}
+    $C^G \cong \bigoplus_{i = 1}^{|G / G|} Hom(V_i, V_i)$ 
+\end{claim}
+\begin{proof}
+    Let $\left\{ V_i \right\}$ be the set of all the nonisomorphic irreducible representations of $G$. 
+
+    The trace of a permutation representation gives the number of fixed points of the element. $\forall (a, b) \in G \times G$, by claim 5a, $tr_{reg}(a, b) = 0$ if $a$ and $b$ are not conjugate since there are no fixed points. By claim 5c, the set of fixed points is given by a coset of $Z(b)$, thus $tr_{reg}(a, b) = |Z(b)|$. Let $H_{i,j} = Hom(V_i, V_j)$. From last semester, $\forall g \in G$, $Z(gbg^{-1}) = gZ(b)g^{-1}$, thus $|Z(b)| = |gZ(b)g^{-1}| = |Z(gbg^{-1})|$. 
+    
+    $\C^G \cong \bigoplus_{i,j} Hom(V_i, V_j)^{m_{i, j}}$, because every representation is a direct sum of irreducibles.  
+    
+    Thus, 
+    \begin{align}
+        m_{i, j} = \angles{tr_{reg}, tr_{H_{i, j}}} &= \frac{1}{|G \times G|} \sum_{(g, h) \in G \times G} tr_{reg}(g, h) \overline{tr_{H_{i, h}}(g,h)} \\
+        &= \frac{1}{|G \times G|} \sum_{[g] \in G / G} \sum_{a, b \in [g]} tr_{reg}(a, b) \overline{tr_{H_{i, h}}(a,b)} \text{ (since for nonconjugate elements $tr_{reg}$ is 0)} \\
+        &= \frac{1}{|G \times G|} \sum_{[g] \in G / G} \sum_{a, b \in [g]} |Z(b)| \overline{tr_{V_j}(b)} tr_{V_i}(a) \\
+        &= \frac{1}{|G \times G|} \sum_{[g] \in G / G} \sum_{a, b \in [g]} |Z(b)| tr_{V_i}(g)\overline{tr_{V_j}(g)} \text{ (since trace is conjugacy invariant)} \\
+        &=\frac{1}{|G \times G|} \sum_{[g] \in G / G} \sum_{a, b \in [g]} |Z(g)| tr_{V_i}(g)\overline{tr_{V_j}(g)} \text{ (since g is conjugate thus centralizers are conjugate)} \\
+        &= \frac{1}{|G \times G|} \sum_{[g] \in G / G} |[g]|^2 Z(g) tr_{V_i}(g)\overline{tr_{V_j}(g)} \\
+        &= \frac{1}{|G|^2} \sum_{[g] \in G / G} |G||[g]| tr_{V_i}(g) \text{ (by Orbit Stabilizer)} \\
+        &= \frac{1}{|G|}|G| \angles{V_i, V_j} = \angles{V_i, V_j} = \delta(i, j) \text{ (by Orthogonality)}.
+    \end{align}
+
+    Thus, $\C^G \cong \bigoplus_{i,j} Hom(V_i, V_j)^{\delta(i, j)} = \bigoplus_{i = 1}^{|G / G|} Hom(V_i, V_i)$. 
+
+    So $\C^G \cong \bigoplus_{i = 1}^{|G / G|} Hom(V_i, V_i)$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Explain our "wierd" formula that $|G|$ is the sum of the squares of the dimensions of the irreducible reps
+\end{PROB}
+\begin{proof}
+    Let $\left\{ V_i \right\}$ be the set of all the nonisomorphic irreducible representations of $G$. 
+
+    Since $\dim \C^G = |G|$ and by problem 5, $\C^G \cong \bigoplus_{i = 1}^{|G / G|} Hom(V_i, V_i)$, $|G| = \dim C^G = \dim\left(\bigoplus_{i = 1}^{|G / G|} Hom(V_i, V_i)\right)$.
+    
+    $\dim C^G = \dim\left(\bigoplus_{i = 1}^{|G / G|} Hom(V_i, V_i)\right) = \sum_{i = 1}^{|G / G|} \dim Hom(V_i , V_i) = \sum_{i = 1}^{|G / G|} \dim V_i \dim V_i = \sum_{i = 1}^{|G / G|} \dim V_i^2$.
+    
+    Thus $|G| = \sum_{i = 1}^{|G / G|} \dim V_i^2$. This agrees with the result we got if we decomposed $\C^G$ into irreducibles of $G$ where $\C^G \cong \bigoplus_{i = 1}^{|G / G|} V_i^{\dim V_i}$ thus $|G| = \dim C^G = \sum_{i = 1}^{|G / G|} \dim V_i \dim V_i = \sum_{i = 1}^{|G / G|} \dim V_i^2$.
+    
+    Thus our $|G|$ is the sum of squares of the dimensions comes from breaking down $\C^G$ into irreducibles of $G \times G$ or $G$ .     
+\end{proof}
+
+
+\end{document}

@@ -1,0 +1,457 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Bilinear Forms}
+\author{Arham Lodha}%put your name here
+\date{January 24, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{5a}\label{Problem 5a.}
+    Now we turn to a real symmetric matrix A. What we will show is that we can find orthogonal P so that $P^tAP = diagonal$.  You would think the Th above is a step in this direction. I do not see how to use it. If you do, of course make some noise. Instead, let [ ] be standard dot product. Note A symmetric is equiv to [Av,w] = [ v, Aw] for all v,w. 
+    
+    Now to prove the theorem, we want a coordinate free formulation of symmetric matrix. 
+    
+    Thm 2: Let V be a real vector space, and [ ] a symmetric form which is "positive def", ie $[v,v] >0$ for $v \neq 0$. Let A: V --> V be linear with [Av,w] =[v,Aw] for all v,w (this is called "self adjoint").  
+    
+    Then there is a basis, orthonormal w/r to [,], consisting of eigenvectors. 
+    Lemma: all eigenvalues of A are real. 
+    
+    Assume the lemma,  prove the Thm 2  by induction on the dimension of V. Deduce from it the original statement (that a real symmetric matrix is orthogonally diagonalizable). 
+\end{PROB}
+\begin{proof}
+    (Base Case) (k = 1): Suppose $V$ is a real vector space with dimension 1. Thus for some $v \in V \ni v \neq 0$, $\dim span(v) = \dim V \implies span(v) = V$. Thus $\forall w \in V$, $w = av$. For all $A \in Hom_\R(\R, \R)$, $Av \in V = span(v)$, thus $Av = \lambda v$ thus by definition $v$ is a eigenvector. $[\frac{1}{\sqrt{[v, v]}} v, \frac{1}{\sqrt{[v, v]}} v] = \frac{1}{[v,v]} [v, v] = 1$ thus $\frac{1}{\sqrt{[v, v]}} v$ is normal. $\forall w \in V$, since $V$ is a one dimensional real vector space and $v \neq 0$ thus $\dim span(v) = 1$. Thus $span(v) \subset V$ and $\dim V = span v \implies v$ is a basis of V. Thus there exists a orthonormal eigenbasis for V. 
+    
+    Induction Hypothesis: Suppose the theorem is true for all real vector spaces with dimension k - 1.
+
+    Inductive Step: Let $V$ be a real vector space with dimension k, and $[ ]$ be a symmetric form which is positive definite. Let $A: V \to V$ be a linear map which is self adjoint with [ ]. Because in complex vector space $V$, any linear map $A : V \to V$ is diagonalizable since $\chi_{A}$ has all its roots in $A$. Thus $A$ has all its eigenvalues in $\C$. But all the eigenvalues of $A$ are real by the Lemma. Thus there exists a real eigenvalue $f$. Thus the linear map $B = A - \lambda I$ is real, since $A$ and I are real linear maps. To calculate the $\ker(A - \lambda I)$ one must do gaussian elimination after choosing a basis for $V$, both of which do not add any complex dependence. Thus $\ker(A - \lambda I)$ is nonzero and has real vectors. Thus $\exists$ a eigenvector $v \in \ker(A - \lambda I) \ni v \neq 0 $ and $v$ is real. Furthermore since $[ , ] > 0$ (postive definite), $[v,v] \neq 0$ since $v \neq 0$.  WLOG $v$ is normal or $[v, v] = 1$.
+
+    
+    $\forall w \in span(v) \cap v^\perp$, $[v, w] = 0$, since $w \in v^\perp$. But since $w \in span(v), w = av$ for some $a \in \R$. Thus $a [v, v] = [v, av] = [v, w] = 0$. Since $[v ,v] \neq 0$ because $[, ]$ is positive definite, $a = 0$ and $w = 0$. Thus $span(v) \cap v^\perp = 0$. $span(v) \oplus v^\perp \to V$ is injective.
+    
+    Let $f : W \to \R$ which takes $w \to [v, w]$. $v^\perp := \ker(f) = \left\{ w \in V : [v, w] = 0 \right\}$. $f(v) = 1$ and $\forall x \in \R$, $f(xv) = x$. Thus $f_*(V) = \R$ and $\dim f_*(V) = 1$. By rank nullity, $\dim V = \dim f_*(V) + \dim v^\perp \implies \dim v^\perp = \dim V - \dim \R = \dim V -1 = k - 1$. Since $span(v) \oplus v^\perp \to V$ is injective and $\dim span(v) + \dim v^\perp = 1 + \dim V - 1 = \dim V$, the map is surjective and thus is a bijection. $\forall (v, w), (x, y) \in V \oplus W $ and $a, b \in \R$, $a(v, w) + b(x, y) \cong av + bx + aw + by \cong (av + bx, aw + by)$ thus the map is also linear and thus a isomorphism. 
+    
+    
+    $\forall u, w \in v^\perp$, $[u, w] = [w, u]$ because $[]$ is symmetric. Furthermore, $[Au, w] = [Aw, u]$, by the fact that A is self adjoint to the symmetric form. Furthermore, $\forall w \in v^\perp$  $[v, Aw] = [Av, w]$ since $A$ is self adjoint to the symmetric form. Thus $[v, Av] = [Av, w] = [\lambda v, w] = \lambda [v, w] = 0$. Thus $Aw \in v^\perp$. Thus $Av^{perp} \subset v^\perp$. Thus $A|v^\perp : v^\perp \to v^\perp$. Restrict A and the Bilinear form to $v^\perp$. By the inductive Hypothesis exists a orthonormal eigenbasis, $b_1, ..., b_{k-1}$. By definition of $v^\perp$, $[v, b_i] = 0$ and by definition of orthonormal eigenbasis, $[b_i, b_j] = \delta(i, j)$. Thus $v, b_i, ..., b_{k - 1}$ is a orthonormal eigenbasis for V.                 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5b}\label{Problem 5b.}
+    It remains to prove the lemma. Choose an orthonormal basis (with respect to [,]), so that $A:V \to V$ becomes a matrix. Show this matrix is symmetric. So the lemma is equivalent to showing a real symmetric matrix has real eigenvalues.  More generally, show that if B is a square complex matrix with $B^t = \bar B$ := complex conjugate, then for [ ,] the standard hermition dot product, [Bv,w] = [ v,Bw], and show all the eigenvalues are real. 
+\end{PROB}
+\begin{claim}{5bi}\label{Claim 5bi.}
+    A is symmetric. 
+\end{claim}
+\begin{proof}
+    Since a orthonormal basis $b_1, \dots, b_k$ is chosen. $[b_i, b_j] = \delta(i, j)$. Additionally under this basis, we can write, $[x, y] = x^TMy$ for some matrix M. $[b_i, b_i]= b_i^TMb_i = 1 \implies M_{i, i} = 1$, and if $i \neq j$, $[b_i, b_j] = b_i^T M b_j = 0 \implies M_{i, j} = 0$. So $M = I$. 
+    
+    $[Ab_i, b_j] = b_i^T A^T I b_j = b_i^T I A b_j = [b_i, Ab_j] \implies b_i A^T b_j = b_i^T A b_j \implies A_{i,j} = A_{j, i} \implies A = A^T$.
+
+    Thus A is symmetric.
+\end{proof}
+\begin{claim}{5bii}\label{Claim 5bii.}
+    Show that if B is a square complex matrix with $B^t = \bar B$ := complex conjugate, then for [ ,] the standard hermition dot product, [Bv,w] = [ v,Bw], and show all the eigenvalues are real.
+\end{claim}
+\begin{proof}
+    Let $\lambda$ be a eigenvalue of B and $v$ be the associated eigenvector. By the properties of the standard hermetian dot product where $\forall w \in V$, $[w, w] = 0 \iff w = 0$ otherwise $[w, w] = w^T \bar{w} > 0$, thus $[v, v] > 0$ since $v \neq 0$.  $[Bv, v] = [v, Bv] \implies [\lambda v, v] = [v, \lambda v] \implies (\lambda v)^T\bar{v} = v^T \bar{\lambda v} \implies \lambda v^T v = \bar{\lambda} v^T v$. Since $v^Tv = [v, v] > 0$, it means $\lambda = \bar{\lambda} \implies \lambda \in \R$. $\forall v, w in V$, $[Bv, w] = (Bv)^T \bar{w} = v^T B^T \bar{w} = v^T \bar{B} \bar{w}= [v, Bw]$.    
+\end{proof}
+\begin{claim}{5biii}\label{Claim 5biii.}
+    Lemma is true
+\end{claim}
+\begin{proof}
+    $A = \bar{A} = A^T \implies$ all eigenvalues of A are real by 5bii.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Note the main thing in proving Thm 2, is that A behaves well with respect to a positive def form. For a generalization of Thm 2, see the "Spectral Theorem" in Artin chapter 8.
+\end{PROB}
+\begin{solution}
+    Not a question
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Let $\angles{,}$ be a symmetric form on a finite dim real V. Show there is a basis $b_1,..,b_n$ with $\angles{b_i,b_j} = 0$ for $i \neq j$, and $\angles{b_i,b_i}$  either 1,-1 or 0.  Show that the numbers p, q, r of 1s, -1s and zeros are invariants of $\angles{ , }$  (ie the same for any two such bases). Show first that k is the dim of the kernel of $\angles{,}$  (define what that means, there is only one reasonable definition). Let $V \to V/K$ be quotient by the kernel, show that $\angles{,}$  induces a form on V/K.  Let D be a subspace on which <,> is definite (either positive def, or negative definite). Show $D \cap K = 0$. Conclude its enough to prove the theorem when K=0. Let P and Q be subspaces on which <,> is positive and negative. Show $P \cap Q = 0$. Now prove the invariance. 
+\end{PROB}
+\begin{claim}{7a}\label{Claim 7a.}
+    Show there is a basis $b_1,..,b_n$ with $\angles{b_i,b_j} = 0$ for $i \neq j$, and $\angles{b_i,b_i}$  either 1,-1 or 0.
+\end{claim}
+\begin{proof}
+    Define $\abs{x} = \sqrt{x^2}$
+
+
+    By 5, $\exists$ basis $v_1, \dots, v_n \ni \angles{v_i, v_j} = 0$ for $i \neq j$. Create a basis $b_1, \dots, b_j$ where $b_i = \frac{1}{\sqrt{\abs{\angles{v_i, v_i}}}}v_i$ if $\angles{v_i, v_i} \neq 0$ else $b_i = v_i$. If $\angles{v_i, v_i} \neq 0$, $\angles{b_i, b_i} = \angles{\frac{1}{\sqrt{\abs{\angles{v_i, v_i}}}}v_i, \frac{1}{\sqrt{\abs{\angles{v_i, v_i}}}}v_i} = \frac{1}{\abs{\angles{v_i, v_i}}}\angles{v_i, v_i} = \pm 1$. If $\angles{v_i, v_i} = 0 \implies \angles{b_i, b_} = 0$. So we have a created a basis where $\angles{b_i, b_j} = 0$ if $i \neq j$ and $\angles{b_i, b_i} = 0, 1, -1$.             
+\end{proof}
+\begin{claim}{7b}\label{Claim 7b.}
+    Show first that k is the dim of the kernel of $\angles{,}$  (define what that means, there is only one reasonable definition).
+\end{claim}
+\begin{proof}
+    Let $u_1, \dots, u_p v_1, \dots, v_q, w_1, \dots w_r$ be basis of V where the Bilinear form evaluated on any two different basis vectors is 0 and $\angles{u_i, u_i} = 1$ and $\angles{v_i, v_i} = -1$ and $\angles{w_i, w_i} = 0$. $W = \left\{ w_i : i = [1, \dots, r ] \right\}$ is the set of basis vectors where $\angles{w_i ,w_i} = 0$. $r = |W|$.
+
+    $K = \ker{\angles{ , }} := \left\{ x | \angles{x, v} = 0, \forall v \in V \right\}$. $\forall w_i$, $\angles{w_i, \sum_{i = 1}^{p}a_iu_i + \sum_{i = 1}^{q}b_iv_i + \sum_{i = 1}^{r}c_iw_i} = \sum_{i = 1}^{r}c_i \angles{w_i, w_i} = 0 \implies w_i \in K$. Thus $W \subset K \implies span(W) \subseteq K$. 
+    
+    $\forall v \in K$, $v = \sum_{i = 1}^{p}a_iu_i + \sum_{i = 1}^{q}b_iv_i + \sum_{i = 1}^{r}c_iw_i$. $\angles{v, u_i} = a_i\angles{u_i, u_i} = 0 \implies a_i = 0$ ($\angles{u_i, u_i} = 1$) and $\angles{v, v_i} = b_i \angles{v_i, v_i} = 0 \implies b_i = 0$ ($\angles{v_i, v_i} = -1$). Thus $v \in span(W)$. Thus $span(W) \cong K$. $\dim K = \dim span(W) = r$     
+
+    So any basis vector $b_i \ni Q(b_i) = 0 \implies b_i \in \ker Q$. Thus $k = \dim \ker Q$.     
+\end{proof}
+
+\begin{claim}{7c}\label{Claim 7c.}
+    $\angles{,}$  induces a form on $V / K$ 
+\end{claim}
+\begin{proof}
+    $\forall vK, wK \in V / K$, $[vK, wK] = \angles{v, w}$.
+    
+    $\forall k_1, k_2 \in K$ and $\forall v, w \in V$, $v + k_1 \in vK$ and $w + k_2 \in wK$, $[(v + k_1)K, (w + k_2)K] = \angles{v + k_1, w + k_2} = \angles{v, w} + \angles{v, k_2} + \angles{k_1, w} + \angles{k_1, k_2} = \angles{v, w} = [vK, wK]$. Form is well defined.
+    
+    $\angles{ , }$ factors through $[ , ]$ form and thus induces it on $V / K$.    
+
+\end{proof}
+\begin{claim}{7d}\label{Claim 7d.}
+    Let D be a subspace on which <,> is definite (either positive def, or negative definite). Show $D \cap K = 0$.
+\end{claim}
+\begin{proof}
+    $\forall v \in D \cap K$, by definition, $v \in D$ and $v \in K$. So, $Q(v) = 0$. By definition of definite, if $v \neq 0 \implies Q(v) \neq 0$, else $Q(v) = 0$. Since $Q(v) = 0 \implies v = 0$. So $D \cap K = 0$         
+\end{proof}
+\begin{claim}{7e}\label{Claim 7e.}
+    Let P and N be subspaces on which $\angles{, }$ is positive and negative. Show $P \cap N = 0$. 
+\end{claim}
+\begin{proof}
+    $\forall v \in P \cap N$, by definition, $\angles{v, v} \geq 0$ and $\angles{v, v} \leq 0$. Thus $\angles{v, v} = 0$. But $\forall a \in P$ and $\forall b \in N$, $\angles{a, a} = 0 \iff a = 0$ and $\angles{b, b} = 0 \iff b = 0$. So $v = 0$. So $P \cap N = 0$
+\end{proof}
+
+We can consider $K = 0$ because otherwise we can consider $V / K$ and its induced form for the theorem WLOG.  
+
+\begin{claim}{7f}\label{Claim 7f.}
+    Prove the invariance. 
+\end{claim}
+\begin{proof}
+    Natural addition map $P \oplus N \to V$ is injective because $P \cap N = 0$ as proven above . Let $B_1$ and $B_2$ be two orthonormal basis. Let $P_1$ be the subspace formed by the positive definite basis vectors of $B_1$ and $N_1$ be the subspace of the negative definite basis vectors of the same. Similarly let $P_2$ be the subspace formed by the positive definite basis vectors of $B_2$ and $N_2$ be the subspace of the negative definite vectors of $B_2$. 
+    
+    So $P_1 \cap N_1 = 0$, $P_1 \cap N_2 = 0$, $P_2 \cap N_2 = 0$, $P_2 \cap N_1 = 0$ as proven above. Because if $v \in P_i \cap N_j \implies 0 \geq \angles{v, v} \leq 0 \implies \angles{v, v} = 0$ and $K = 0 \implies v = 0$. 
+    
+    $a: P_1 \subset V$ and let $b: V \twoheadrightarrow V / N_2$ be the natural quotient map. $\ker[b \circ a] = P_1 \cap N_2 = 0 \implies q \circ p$ is injective and $P_1 \subseteq P_2 = V / N_2$. Argument is symmetric for $P_2 \subseteq P_1$. $c: P_2 \subset V$ and let $d: V \twoheadrightarrow V / N_1$. $\ker[d \circ c] = P_2 \cap N_1 = 0 \implies d \circ c$ is injective and $P_2 \subseteq P_1 = V / N_1$. Thus $P_1 = P_2 \implies N_1 = N_2$. Thus the number of +1 and -1 is invariant.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8a}\label{Problem 8a.}
+    We say a bilinear form on a real vector space is non-degenerate if there are no zeros. Show this is the same as having an invertible matrix, in any basis 
+\end{PROB}
+\begin{proof}
+    Suppose $\angles{ , }$ is nondegenerate. By 7a, $\exists$ a orthonormal basis where $i \neq j \implies \angles{b_i, b_j} = 0$ and $\angles{b_i, b_i} = 0, 1, -1$. Since $\angles{ , }$ is nondegenerate there is no basis vector $b \ni \angles{b ,b} = 0$. Let M be the matrix associated with the Bilinear form under this basis. So $\angles{x, y} = x^T M y$. $M$ would have 0s on the off diagonal entries since $\angles{b_i, b_j} = 0$ for $i \neq j$ and $\pm 1$ on the diagonal entries. Since the determinant of a diagonal matrix is the product of the diagonal entries and no diagonal entries are 0, $\det(M) \neq 0$. Let $P$ be a matrix to change the basis. By def, $det(P) \neq 0$. So $\det(PMP^{-1}) = \det(P)\det(M)\frac{1}{det(P)} = \det(M) \neq 0$ and $\det(P^T M P) = \det(P)^2 \det(M) \neq 0$. Thus under any basis the matrix will be invertible.                  
+\end{proof}
+
+\begin{PROB}{8b}\label{Problem 8b.}
+    Show that for any real matrix A (not necessarily square) $A^T A$ is symmetric, and positive semi-definite, and moreover positive definite iff A is invertible (in particular square).  Now suppose B is semi-definite and symmetric. Show $B = A^t A$ for some square A. 
+\end{PROB}
+\begin{proof}
+    Let $A$ be a real matrix. $(A^T A) ^T = A^T A^{T^T} = A^T A \implies A^T A = (A^T A) ^T$. So A is symmetric. Let $[ , ]_{A^TA}$ be the Bilinear form associated with $A^TA$. By 7, there is a basis where $ i \neq j \implies [b_i, b_j]_{A^TA} = 0$ and $[b_i, b_i]_{A^TA} = 1, -1, 0$. Thus $[b_i, b_i]_{A^TA} = b_i^TA^TAb_i = (Ab_i)^T \cdot (Ab_i) \geq 0$ by standard dot product. So $[b_i, b_i]_{A^TA} \geq 0$, thus $A^TA$ is positive semidefinite.
+    
+    Suppose A is positive definite, then $[b_i, b_i]_{A^TA} = 1 = b_i A^TA b_i \implies [A^T A]_{i, i} = 1$. Thus offdiagonals of $A^TA$ is 0 and diagonal entries are 1. Thus $A^TA = I$. $\forall v \in \ker(A^TA)$, $A^TAv = 0 \implies \forall w \in V, [w, v]_{A^TA} = 0 = w^T A^T A v = (Aw) \cdot (Av) = 0$. For $w = v$, $(Av) \cdot (Av) = 0 \implies Av = 0$ (by standard dot product). Thus $v \in \ker A$. Thus $\ker A^TA \subset \ker A$. $\forall v \in \ker A \implies Av = 0 \implies A^T A v = 0 \implies v \in \ker A^T A \implies \ker A \subseteq \ker A^TA \implies \ker A^TA = \ker A = \ker I = 0  $. Thus A is invertible.
+    
+    Suppose A is invertible. $\det(A^TA) = \det(A)^2 \neq 0$ thus no diagonal entries can be 0. So $[b_i, b_i] = b_i^T A^T A b_i = [A^T A]_{i, i} \neq 0$. So $A^TA$ is positive definite.
+    
+    Now suppose B is semi-definite and symmetric. Under the orthonormal basis of the bilinear form $\angles{v, w} = v^T B w$ (Bilinear form between basis is 0 and Bilinear form of basis with itself is 0 or 1). The basis vectors can be ordered with those which are positive and which are 0. So $B$ is diagonal under this basis. So $B = \begin{bmatrix}
+        1 \\
+        & \ddots \\
+        & & 0 \\
+        & & & \ddots
+    \end{bmatrix}$, let A = B. $A^TA = B$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+    Let $\angles{,}$  be a symmetric non-degenerate form on a finite dim complex vector space. Show there is a basis in which the associated matrix is the identity. If we want to measure distance, then the right notion is "Hermitian symmetric". This means $\angles{,}$ is linear in the first variable, conjugate linear in the second, and $\angles{x, y} = \bar{\angles{y, x}}$. Show this holds iff the associated matrix satisfies $A^T = \bar A$.  Now copy the above to prove that given a hermitian symmetric matrix, there is a unitary matrix g such that $g A g^{-1} = diagonal$. Unitary means that g preserves the standard (hermitian symmetric) dot product on $\C^n$. equivalently   $g^t \bar g = I.$  
+\end{PROB}
+\begin{claim}{9a}\label{Claim 9a.}
+    Let $\angles{,}$  be a symmetric non-degenerate form on a finite dim complex vector space. Show there is a basis in which the associated matrix is the identity.
+\end{claim}
+\begin{proof}
+    By 7a, we can create a basis $b_1, \dots, b_k$ where $\angles{b_i, b_j} = 0$ if $i \neq j$  and $\angles{b_i, b_i} = 0, 1, -1$. Since $\angles{ , }$ is nondegenerate, $\forall b_i, \angles{b_i, b_i} \neq 0$. Create a basis $v_1, \dots, v_k$, where $v_i = b_i \iff \angles{b_i, b_i} = 1$ else $v_i = ib_i \iff \angles{b_i, b_i} = -1$. Thus if $\angles{b_i, b_i} = 1 \implies \angles{v_i, v_i} = 1$. If $\angles{b_i, b_i} = -1 \implies \angles{v_i, v_i} = i^2 \angles{b_i, b_i} = 1$. Thus the associated matrix has 1s on the diagonal. For all $i \neq j$, $\angles{v_i, v_j} = \angles{b_i, b_j} = 0$, thus the associated matrix has 0 off the diagonal. Thus the associated matrix is I by definition. Since $\angles{b_i, b_j} = b_i M b_j = \delta(i, j) \implies M = [\delta(i, j)]_{i, j} = I$               
+\end{proof}
+
+\begin{claim}{9b}\label{Claim 9b.}
+    Show this holds iff the associated matrix satisfies $A^T = \bar A$.
+\end{claim}
+\begin{proof}
+    $\forall x, y \in V, \angles{x, y} = x^T A \bar{y} = \bar{\angles{y, x}} = \bar{y^T A \bar x} = \bar{y}^T \bar{A} x \implies (x^T A \bar{y})^T = \bar{y}^T A^T x = \bar{y}^T \bar{A} x \implies A^T = \bar A$ 
+\end{proof}
+
+\begin{claim}{9c}\label{Claim 9c.}
+    Let $V$ be the complex vector space and $[,]$ be a positive definite hermitian symmetric bilinear form. Let $A: V \to V \ni \forall v, w \in V,~ [Av, w] = [v, Aw]$. There exists a orthonormal eigenvector basis wrt to $[ , ]$ and $A$.     
+\end{claim}
+\begin{proof}
+    Base Case ($\dim V = 1$): Let $v$ be a eigenvector. WLOG, $v$ is normal. $v$ is a orthonormal eigenbasis.
+    
+    Let the claim be true for all complex vectorspaces with $\dim V = k - 1$. 
+    
+    Suppose $V$ is a complex vector space with $\dim V = k$ and let $\lambda$ be its corresponding eigenvalue . Let $v$ be a eigenvector of $A$. WLOG $v$ is normal. $f : V \to \C \ni w \to [v, w]$. $v^\perp := \ker(f)$. $\dim \ker f = \dim V - \dim f_*(V) = \dim V - 1$. $\forall w \in span(v) \cap v^\perp \implies [w, w] = 0 \implies w = 0 \implies span(v) \cap v^\perp = 0$. $\dim span(v) + \dim \ker f = \dim V$. Thus $span(v) \oplus v^\perp \cong V$. $\forall w \in span(v), w = av, a \in \C$, $Aw = Aav = a\lambda v \in span(v)$. So $A_*(span(v)) \subseteq span(v)$. $\forall w \in v^\perp, [Aw, v] = [w, Av] = \lambda[w, v] = 0 \implies A_*(v^\perp) \subset v^\perp$. Restrict A and the [,] to $v^\perp$, by inductive hypothesis $\exists$ orthonormal eigenbasis of $v^\perp$, $b_1, \dots, b_{k - 1}$. By definition $[b_i, b_j] = 0$ for $i \neq j$ and $[v, b_i] = 0$. Thus $v, b_1, \dots, b_{k - 1}$ is orthonormal eigenbasis for V.            
+\end{proof}
+
+\begin{claim}{9d}\label{Claim 9d.}
+    Now prove that given a hermitian symmetric matrix, there is a unitary matrix g such that $g A g^{-1} = diagonal$.
+\end{claim}
+\begin{proof}
+    Let $\angles{ , }$ be the standard hermitian dot product. Since $A^T = \bar A$, $\forall v, w \in C^n$, $[Av, w] = v^T A^T \bar{w} = v^T \bar{A} \bar{w} = [v, Aw]$. By the 9c, there is a orthonormal eigenbasis wrt to A and standard hermitian dot product, $b_1, \dots, b_n$. Let $P \in GL_n(\C)$ be the corresponding automorphism which sends old basis to new orthonormal eigenbasis. $[b_i, b_j] = [Pv_i, Pv_j] = v_i^T P^T \bar{P} \bar{v_j} = \delta(i, j) \implies P^T \bar{P} = I$. $PAP^{-1}$ = diagonal because of eigenbasis basis.            
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{10}\label{Problem 10.}
+    What does it mean that the Hessian is positive definite, or negative definite? Or semi-definite? 
+\end{PROB}
+\begin{solution}
+    If the Hessian at a critical point is positive definite, the critical point is a local minimum of the function (function is concave up). If it is negative definite at the critical point, the critical point is a local maxima of the function (function is concave down). If it is semi-definite, then the critical point is inconclusive, over some subspace the critical point can be a local minimum (concave up), over the complementary subspace it could be flat.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{11}\label{Problem 11.}
+    Let < > be a skew form on a finite dim vector space over a field of characteristic other than 2. Assume <,> is non-degenerate (meaning, no kernel). Then there is a basis $e_1,f_1,...,e_k,f_k$
+    with $<e_i,f_j> = <e_i,e_j> = <f_i,f_j> = 0$ for all $i \neq j$, and $<e_i,f_i> =1$.  
+\end{PROB}
+\begin{proof}
+    (Base Case): Let $V$ be a vector space over a field of characteristic other than 2, where $\dim V = 2$. Let $\angles{ , }$ be a nondegenerate skew from on the V. $e \in V \ni e \neq 0$. By nondegeneracy, $\exists f' \in V \ni \angles{e, f'} \neq 0$. $f := \frac{1}{\angles{e, f'}}f'$, so $\angles{e, f} = \frac{1}{\angles{e, f'}} \angles{e, f'} = 1$. $e, f$ are the basis which satisfies the theorem.   
+    
+    (Inductive Hypothesis): Let the theorem be true for any vector space $V$ over a field $F$ ($char F \neq 2$), where $\dim V < k$. 
+    
+    Inductive Step: Let $V$ be a vector space over a field of characteristic other than 2, where $\dim V = k$. Let $\angles{ , }$ be a nondegenerate skew from on the V. $e \in V \ni e \neq 0$. By nondegeneracy, $\exists f' \in V \ni \angles{e, f'} \neq 0$. $f := \frac{1}{\angles{e, f'}}f'$, so $\angles{e, f} = \frac{1}{\angles{e, f'}} \angles{e, f'} = 1$       
+    
+    
+    Let $S = span(e, f)$. Let $\alpha: V \to F^2$, where $v \to \begin{bmatrix}
+        \angles{e, v} \\
+        \angles{f, v}
+    \end{bmatrix}$. Let $S^\perp = \left\{ a \in V \ni \angles{a, b} = 0, \forall b \in S \right\} = \ker \alpha$. 
+    
+    $\forall v \in S \cap S^\perp$, $v = ae + bf$, $\angles{v, e} = a\angles{e, e} - b\angles{e, f} = -b\angles{e, f} = 0 \implies b = 0$. $\angles{v, f} = a\angles{e, f} + b\angles{f, f} = a\angles{e, f} = 0 \implies a = 0$. Thus $v = 0$. Thus $S \cap S^\perp = 0$. 
+    
+    By Rank Nullity, $\dim \ker \alpha = \dim V - \dim \alpha_*(V)$. $\alpha(e) = \begin{bmatrix}
+        0 \\ -1
+    \end{bmatrix}$, and $\alpha(f) = \begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$, thus $\alpha(f)$ and $\alpha(e)$ are linearly independent. $2 \leq \dim \alpha_*(V)$. Thus $\dim S^\perp = \dim \ker \alpha \geq \dim V - 2$. Thus $\dim V \leq \dim S^\perp + \dim S \implies \dim S^\perp + \dim S = \dim V \implies S^\perp \oplus S \to V$ is a isomorphism. $\forall v \in S^\perp$, $\angles{v, s} = 0$, $\forall s \in S$. However by nondegeneracy, $\exists w \in V \ni \angles{v, w} \neq 0$, by previous statement $w \not \in S \implies w \in V / S = S^\perp$. Thus the restriction of $\angles{ , }$ to $S^\perp$ must be nondegenerate. By induction, $\exists$ basis     $e_1,f_1, \dots, e_k,f_k$ with $\angles{e_i,f_j} = \angles{e_i, e_j} = \angles{f_i, f_j} = 0$ for all $i \neq j$, and $\angles{e_i,f_i} =1$. $\angles{e, e_i} = 0 = \angles{e, f_i} = \angles{f, f_i}$ (by definition of $S^\perp$). Thus the basis $e, f, e_1, f_1, \dots, e_k, f_k$ is a basis which satisfies the theorem.                
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{12}\label{Problem 12.}
+    Any invertiblee skew symmetric matrix, over a field of char not equal to two, must have even size (ie if its n x n, then n is even)
+\end{PROB}
+\begin{proof}
+    $A^T = -A$. $\det(A) = \det(A^T) = \det(-A) = (-1)^n \det(A) \implies (-1)^n = 1$. Assume the contrary, $n$ is odd and $(-1)^n = 1$. So $n = 2k + 1$ for some $k \in F$. $(-1)^{2k + 1} = (-1)^{2k}(-1) = ((-1)^2)^k(-1) = 1^k(-1) = 1(-1) = -1$. Thus a contradiction exists and $n$ must be even.         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{13}\label{Problem 13.}
+    Any two invertible skew symmetric n x n matrices over a field of $char \neq 2$ are "equivalent" for the action of $GL_n(F)$ on n x n matrices by  $g \cdot M := g M g^t$, ie show that the invertible skew symmetric matrices are a single orbit.  What are the other orbits for the action on skew symmetric matrices? How about $GL_n(\R)$ acting on symmetric real $n \times n$ matrices?
+\end{PROB}
+\begin{proof}
+    Let $K$ be the set of invertible skew symmetric n x n matrices over $char \neq 2$. 
+
+    $\forall A, B \in K$. Let $\angles{ , }$ be a skew symmetric bilinear form where $\forall v, w \in F^n$, $\angles{v, w} = v^T A w$. Let $[ , ]$ be a skew symmetric Bilinear form where $\forall v, w \in F^n$, $[v, w] = v^T B w$. Let $B = s_1, \dots, s_n$ be the standard basis. $\angles{s_i, s_j} = s_i^T A s_j = A_{i, j} = - A_{j, i} = s_j^T A s_i = \angles{s_j, s_i}$. $[s_i, s_j] = B_{i, j} = -B_{j, i} = [s_j, s_i]$. $\angles{ , }$ and $[ , ]$ are nondegenerate since A and B are invertible. 
+    
+    By 11, $\exists$ basis $B_1 = e_1,f_1, \dots, e_k,f_k$ with $\angles{e_i,f_j} = \angles{e_i, e_j} = \angles{f_i, f_j}$ for all $i \neq j$, and $\angles{e_i,f_i} =1$ and $\exists$ basis $B_2 = a_1,b_1, \dots, a_k,b_k$ with $[a_i,b_j] = [a_i, a_j] = [b_i, b_j] = 0$ for all $i \neq j$, and $[a_i, b_i] =1$. Let $C \in GL_n(F)$ be the linear transformation which transforms basis B to $B_1$. Let $D \in GL_n(F)$ be the linear transformation which transforms basis $B$ to $B_2$. 
+    
+    $\angles{e_i, f_j} = \angles{Cs_{2i - 1}, Cs_{2j}} = s_{2i - 1}^T C^T A C s_{2j} = [C^T A C]_{2i - 1, 2j} = 0$, 
+    
+    $\angles{e_i, e_j} = \angles{Cs_{2i - 1}, Cs_{2j - 1}} = s_{2i - 1}^T C^T A C s_{2j - 1} = [C^T A C]_{2i - 1, 2j - 1} = 0$
+    
+    $\angles{f_i, f_j} = [C^T A C]_{2i, 2j} = 0$
+
+    $\angles{e_i, e_i} = 0 = [C^T A C]_{2i - 1, 2i - 1} = 0$.
+    
+    $\angles{f_i, f_j} = 0 = [C^T A C]_{2i, 2i} = 0$
+    
+    $\angles{e_i, f_i} = 1 = [C^T A C]_{2i - 1, 2i} = 1$
+    
+    $\angles{f_i, e_i} = -1 = [C^T A C]_{2i, 2i - 1} = 1$
+
+    Let $S_n$, be the $n \times n$ matrix which has 1s on the diagonal above the main diagonal, and -1s on the diagonal under the main diagonal and 0s everywhere else.
+
+    So $C^T A C = \begin{bmatrix}
+        S_2 \\
+        & S_2 \\
+        & & \ddots
+    \end{bmatrix} = G$ 
+
+    Similarly, $[a_i, b_j] = [Ds_{2i - 1}, Ds_{2j}] = s_{2i - 1}^T D^T B D s_{2j} = [D^T B D]_{2i - 1, 2j} = 0$, 
+    
+    $[a_i, a_j] = {Ds_{2i - 1}, Ds_{2j - 1}} = s_{2i - 1}^T D^T B D s_{2j - 1} = [D^T B D]_{2i - 1, 2j - 1} = 0$
+    
+    ${b_i, b_j} = [D^T B D]_{2i, 2j} = 0$
+
+    ${a_i, a_i} = 0 = [D^T B D]_{2i - 1, 2i - 1} = 0$.
+    
+    ${b_i, b_i} = 0 = [D^T B D]_{2i, 2i} = 0$
+    
+    ${a_i, b_i} = 1 = [D^T B D]_{2i - 1, 2i} = 1$
+    
+    ${b_i, a_i} = -1 = [D^T B D]_{2i, 2i - 1} = 1$
+
+    Thus $D^T B D = \begin{bmatrix}
+        0 & 1 & 0 & 0 & \hdots\\
+        -1 & 0 & 1 & \ddots & \ddots\\
+        0 & -1 & 0 & 1 & \ddots\\
+        \vdots & \ddots& \ddots & \ddots & \ddots
+    \end{bmatrix} = G$.
+    
+    Thus $D^T B D = C^T A C$. Let $H = D^{-1}$. $H^{T} D^T B D H = B = H^T C^T A C H = (CH)^T A CH$. Thus all elements of $K$ are in the same orbit.
+
+
+
+    
+    
+    Let $Skew(F^n)$ be the set of skew symmetric matrices. $\forall A \in F^n$, $F^n \setminus \ker A \cup \left\{ 0 \right\} \oplus \ker A \cong V$. Apply theorem to $F^n \setminus \ker A \cup \left\{ 0 \right\}$ for the skew symmetric bilinear form, $\angle{v, w}_A = v^T A w$. Thus there exists a basis of $F^n \setminus \ker A \cup \left\{ 0 \right\}$, $e_1,f_1, \dots, e_k,f_k$ with $\angles{e_i,f_j} = \angles{e_i, e_j} = \angles{f_i, f_j}$ for all $i \neq j$, and $\angles{e_i,f_i} =1$. Add the basis of $\ker A$, $k_1, \dots, k_n$. $ \ker\angles{ , }_A \subset \ker A$. So under the change of basis automorphism $P$. $P^T A P = \begin{bmatrix}
+        S_{\dim V - \dim \ker A} & 0 \\
+        0 & 0
+    \end{bmatrix}$.
+    
+    
+    $\forall A, B \in GL_n(F)(A)$, by the above $\exists P, Q \in GL_n(F)(A)$, $P^TAP = \begin{bmatrix}
+        S_{n - \dim \ker A} & 0 \\
+        0 & 0
+    \end{bmatrix} = A'$ and $Q^TBQ = \begin{bmatrix}
+        S_{n - \dim \ker B} & 0 \\
+        0 & 0
+    \end{bmatrix} = B'$. Since $A', B' \in GL_n(F)(A)$, $\exists P' \in GL_n(F)$, $P'T\begin{bmatrix}
+        S_{n - \dim \ker A} & 0 \\
+        0 & 0
+    \end{bmatrix}P = \begin{bmatrix}
+        S_{n - \dim \ker B} & 0 \\
+        0 & 0
+    \end{bmatrix}$. By 13B, $\dim \ker \begin{bmatrix}
+        S_{n - \dim \ker A} & 0 \\
+        0 & 0
+    \end{bmatrix} = \dim \ker A = \dim \ker B = \dim \ker \begin{bmatrix}
+        S_{n - \dim \ker B} & 0 \\
+        0 & 0
+    \end{bmatrix}$. Thus skew symmetric matrices in the same orbit have the same kernel. 
+    
+    Let $A$ and $B$ be skew symmetric matrices where $\ker A = \ker B = k$. $\exists P, Q \in GL_n(F) \ni P^TAP = \begin{bmatrix}
+        S_{n - k} & 0 \\
+        0 & 0
+    \end{bmatrix} = Q^TBQ \implies A, B \in GL_n(F)(A)$.
+\end{proof}
+
+\begin{PROB}{13b}\label{Problem 13b.}
+    How about $GL_n(\R)$ acting on symmetric real $n \times n$ matrices?
+\end{PROB}
+\begin{proof}
+    $GL_n(\R)$ is acting on the set of real symmetric matrices. Let $[ , ]$ be the standard dot product. 
+
+    $\forall A, B \in GL_n(\R)(A)$, by definition $A, B$ are self adjoint to the dot product. By 7, $\exists$ a eigenbasis for A and B where the dot product of 2 different basis elements is 0 and the dot product of a basis element with itself is 0, -1, or 1. Let $u_1, \dots, u_{n_a}, v_1, \dots, v_{m_a}, w_1, \dots, w_{k_a}$ be the eigenbasis for A where $\angles{u_i, u_i} = 1$, $\angles{v_i, v_i} = -1$ and $\angles{w_i, w_i} = 0$. Similarly let $x_1, \dots, x_{n_b}, y_1, \dots, y_{m_b}, z_1, \dots, z_{k_b}$ be the corresponding eigenbasis for B. Thus there $\exists P, Q \in GL_n(\R) \ni P^T A P = M = \begin{bmatrix}
+        I_{n_a} & 0 & 0 \\ 0 & -I_{m_a} & 0 \\ 0 & 0 & 0_{k_a}
+    \end{bmatrix},$ 
+    $Q^T B Q = N = \begin{bmatrix}
+        I_{n_b} & 0 & 0 \\ 0 & -I_{m_b} & 0 \\ 0 & 0 & 0_{k_b}
+    \end{bmatrix}$. $N, M  \in GL_n(\R)(A)$. By number 7, the number of 1s, -1s, and 0s stays invariant of choice of basis. So $m_a = m_b$, $n_a = n_b$, and $k_a = k_b$. So all matrices in the same orbit have the same number of 1s, 0s, and -1s. 
+
+    Say $A, B$ have the same number of 1s, 0s, and -1s. $\exists P, Q \in GL_n(\R) \ni P^T A P = \begin{bmatrix}
+        I_{n} & 0 & 0 \\ 0 & -I_{m} & 0 \\ 0 & 0 & 0_{k}
+    \end{bmatrix} = Q^T B Q \implies B = (PQ^{-1})^T A PQ^{-1} \implies B \in GL_n(\R)(A)$.   
+\end{proof}
+
+\begin{claim}{13c}\label{Claim 13c.}
+    $\forall P \in GL_n(F)$, $\dim \ker AP = \dim \ker PA = \dim \ker A$  
+\end{claim}
+\begin{proof}
+    $\forall v \in \ker A$, $PAv = 0 \implies v \in \ker PA \implies \ker A \subset \ker PA$. By TKL, $\dim \ker P A \leq \dim \ker P + \dim \ker A = \dim \ker A$. So $\dim \ker A \leq \dim \ker PA \leq \dim \ker A$. 
+    
+    $(AP)_*(V) = \left\{ APv | v \in V \right\} = A_*(P_*(V)) = A_*(V)$ (since P is invertible). By rank Nullity, $\dim \ker AP = \dim V - \dim (AP)_*(V) = \dim V - \dim A_*(V) = \dim \ker A$. 
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{14}\label{Problem 14.}
+    Are any two invertible skew symmetric matrices conjugate? Prove they are, or give a simples example to show they need not be. 
+\end{PROB}
+\begin{proof}
+    Two matrices are conjugate if they have the same eigenvectors. 
+
+    Take $A = \begin{bmatrix}
+        1 & 1 \\ -1 & 1
+    \end{bmatrix}$ and $B = \begin{bmatrix}
+        2 & 1 \\ -1 & 2
+    \end{bmatrix}$ in $Gl_2(\C)$. 
+    
+    $P_A(\lambda) = (1 - \lambda)(2 - \lambda) + 1 = \lambda^2 - 2\lambda + 2$
+    $P_B(\lambda) = (2 - \lambda)(2 - \lambda) + = \lambda^2 - 4\lambda + 5$. 
+
+    Eigenvalues of A are $1 \pm 1i$. Eigenvalues of B are $4 \pm 2i$. A and B are not conjugate.
+
+       
+\end{proof}
+
+
+
+\end{document}

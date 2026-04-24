@@ -1,0 +1,243 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 3}
+\author{Arham Lodha}%put your name here
+\date{February 01, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Using only the fundamental algebraic properties of R, prove the following for $a, b \in \R$:
+
+    \begin{enumerate}
+        \item If a + b = 0 then b = -a
+        \item (-1)a = -a
+        \item -(-a) = a
+        \item (-1)(-1) = 1
+    \end{enumerate}
+\end{PROB}
+\begin{claim}{1a}\label{Claim 1a.}
+    If a + b = 0 then b = -a
+\end{claim}
+\begin{proof}
+    $\forall a, b \in \R$, suppose $a + b = 0$. By the existence of negative numbers, $\exists -a \in \R \ni a + (-a) = 0$ and $(-a) + a = 0$. Thus, by left adding by $-a$ to both sides,   
+    
+    \[
+    0 + b = -a + a + b = -a + 0
+    \].
+
+    By the existence of the 0 element and its definition, $0 + b = b$ and $-a + 0 = -a$. Thus $b = -a$.   
+\end{proof}
+\begin{claim}{1b}\label{Claim 1b.}
+    (-1)a = -a
+\end{claim}
+\begin{proof}
+    $\forall a \in \R$, by distributivity of multiplication, $(-1)a + a = a(-1 + 1)$. By the existence of negative numbers, $-1 + 1 = 0$. So $a(-1 + 1) = a(0)$. 
+    
+    $\forall r \in \R$, by distributivity of multiplication, $r + r*0 = r(1 + 0)$. By the existence of zero element and its properties, $1 + 0 = 1$. Thus $r(1 + 0) = r*1$. By the properties fo the unit element, $r * 1 = r$. Thus $r + r*0 = r$. By the existence of negative numbers, $-r + r = 0$. Thus $-r + r + r*0 = -r + r$, thus $r*0 = 0$. 
+    
+    Thus $a*0 = 0$. Thus $(-1)a + a = 0$. By the existence of negative numbers, $(-1)a + 0 = (-1)a + a + (-a) = 0 + (-a)$. By the properties of $0$ element, $(-1)a = -a$.     
+\end{proof}
+
+\begin{claim}{1c}\label{Claim 1c.}
+    $-(-a) = a$ 
+\end{claim}
+\begin{proof}
+    $\forall n \in \R$, $n + (-n) = 0$. $\forall a \in \R$, substitute n for $a$, thus $a + (-a) = 0$. Since addition commutes in $\R$ , $(-a) + a = 0$ . Substitute $n$ for $-a$ thus $(-a) + (-(-a)) = 0$. Thus $a + (-a)= (-a) +(-(-a))$. Addition commutes in $\R$, thus $a + (-a) = (-(-a)) +(-a) \implies a + (-a) + a = (-(-a)) + (-a) + a$. Thus $a + 0 = (-(-a)) + 0$. By properties of the 0 element in $\R$, $a = a + 0 = (-(-a)) + 0 = (-(-a)) \implies a= -(-a)$.                   
+\end{proof}
+\begin{claim}{1d}\label{Claim 1d.}
+    $(-1)(-1) = 1$ 
+\end{claim}
+\begin{proof}
+    $\forall x \in \R$, by the existence of a multiplicative identity and its properties, $x * 1 = x$. By the existence of a additive identity and its properties, $1 + 0 = 1$. Thus $x * (1 + 0) = x$. By the distributivity of multiplication, $x*1 + x*0 = x(1 + 0) = x$. By the properties of the multiplicative identity, $x + x*0 =x*1 + x*0 = x$. By the existence of additive inverse, $\exists -x \in \R \ni x + (-x) = 0$ and $(-x) + x = 0$ since addition is commutative. Thus $(-x) + x + x*0 = (-x) + x$. Thus $0 + x*0 = 0 \implies x * 0 = 0$, by the properties of the additive identity.    
+
+    By the existence of additive inverses, $1 + (-1) = 0$. $-1 (1 + (- 1)) = -1(0) = 0$, by the above. Since multiplication is distributive, $-1(1) + (-1)(-1)= -1(1 + (-1)) = 0$. By the properties of the unit element of $\R$, $-1(1) = -1$, thus, $-1 + (-1)(-1) = 0$. Add 1 to both sides, since by the existence of additive inverses, $1 + (-1) = -1 + 1 = 0$. Thus $1 + (-1) + (-1)(-1) = 0 + (-1)(-1)= 0 + 1$. By the properties of the additive identity, $(-1)(-1) = 1$.   
+\end{proof}
+
+\bigskip
+\begin{PROB}{2}\label{Problem 2.}
+    Solve the following equations, justifying each step by referring to the fundamental algebraic properties of $\R$ or theorems:
+
+    \begin{enumerate}
+        \item $3x + 5 = 10$
+        \item $x^2 = 3x$
+        \item $x^2 - 3 = 6$
+        \item $(x - 3)(x + 5) = 0$    
+    \end{enumerate}
+\end{PROB}
+\begin{PROB}{2a}\label{Problem 2a.}
+    3x + 5 = 10
+\end{PROB}
+\begin{proof}
+    By the existence of additive inverse, $\exists -5 \in \R \ni 5 + -5 = 0$. Add $-5$ to both sides, thus $3x + 0 = 3x + 5 - 5 = 10 - 5 = 5$. By the properties fo the additive identity, $3x + 0 = 3x$. Thus $3x = 5$. By the existence of multiplicative inverses for all numbers not equal to zero, $\exists \frac{1}{3} \in \R \ni 3(\frac{1}{3}) = 1$. Multiply both sides by $\frac{1}{3}$, thus $1x = (\frac{1}{3})3x = 5(\frac{1}{3})$. By the properties of the multiplicative identity, $1x =x$. Thus $x = 5(\frac{1}{3}) = \frac{5}{3}$.      
+\end{proof}
+\begin{PROB}{2b}\label{Problem 2b.}
+    $x^2 = 3x$ 
+\end{PROB}
+\begin{proof}
+    Since an additive inverse exists for all real numbers, $\exists -3x \in \R \ni 3x + (-3x) = 0$. Add $-3x$ to both sides, thus $x^2 - 3x = 0$. Since multiplication is distributive in $\R$, $x(x-3) = x^2 - 3x = 0$. Thus $x(x-3) = 0$. 
+    
+    $\forall a,b \in \R,$ if $ab = 0$. Suppose $a \neq 0$, then by the existence of multiplicative identity for nonzero element $\exists \frac{1}{a} \in \R \ni a(\frac{1}{a}) = 1$. Multiply both sides by $\frac{1}{a}$, thus $\frac{1}{a}ab = 0 * \frac{1}{a}$. Since multiplication is associative and commutative, $\frac{1}{a}ab = (\frac{1}{a} * a) * b = (a * \frac{1}{a})*b = 1*b$. By the properties of the multiplicative identity, $1*b  = b$. Since 0 multiplied by any real number is 0 as proven in 1d, $0 * \frac{1}{a} = 0$. Thus $b = 0$.         
+    
+    Thus either $x = 0$ or $x - 3 = 0$. Thus $x = 0 $ is a solution. If $x - 3 = 0$, by the properties of a additive inverse, $-3 + -(-3) = 0$, thus $x - 3 +(-(-3)) =  0 + (-(-3)) \implies x + 0 =0 + (-(-3))$. By the properties of 0, $x + 0 = x$ and $0 + (-(-3)) = (-(-3))$. Thus $x = (-(-3))$. By 1c $-(-3) = 3$. Thus $x = 3$                      
+\end{proof}
+\begin{PROB}{2c}\label{Problem 2c.}
+    $x^2 - 3 = 6$
+\end{PROB}
+\begin{proof}
+    By the existence of additive inverse, $\exists -6 \in \R \ni 6 + (-6) = 0$. Thus $x^2 - 3 = 6 \implies x^2 - 3 -6 = 6 + (-6) = 0 \implies x^2 - 9 = 0$. By the existence of additive inverses, $3x + (-3x) = 0$. By the properties of the additive identity 0, $0 = x^2 - 9 = x^2 - 9 + 0$. Since additive is commutative, $x^2 + 0 - 9 = 0$. Substitute $3x + (-3x)$ for 0, thus $x^2 + 3x -3x - 9 = x^2 + 0 - 9 = 0$. Since multiplication is distributive, $x(x + 3) = x^2 + 3x$ and $-3(x + 3) = -3x + (-3)(3)$. By claim 1a, $-3 = -1(3)$. Thus $-3(3)= -1(3)(3) = -1(9)$. Again by 1a, $-1(9) = -9$. Thus $-3(x + 3) = -3x + (-3)(3) = -3x- 9$. Thus $x(x+3) - 3(x+3) = x^2 + 3x - 3x - 9$. Since multiplication is distributive and commutative, $(x+3)(x - 3) = x(x + 3) - 3(x+3)$. Thus $(x+3)(x-3) = x^2 - 9 = 0$. By problem 2b, if the product of 2 numbers is 0 either one of the numbers is 0. Thus $x+ 3 = 0$ or $x-3 = 0$. If $x + 3 = 0$. By the properties of additive inverse $3 + (-3) = 0$ and by the properties fo additive identity, $x = x+0 = x + 3 - 3 = 0 +(-3) = -3$. Thus $x = -3$. If $x -3 = 0$, by the properties of additive inverse $-3 + (-(-3)) = 0$, and by the properties fo additive identity, $x = x+0 = x - 3 + (-(-3)) = 0 +(-(-3)) = (-(-3))$. By 1c, $(-(-3)) = 3$. Thus $x = 3$. Thus $x = -3$ and $x=3$.                                
+\end{proof}
+\begin{PROB}{2d}\label{Problem 2d.}
+    $(x - 3)(x + 5) = 0$ 
+\end{PROB}
+\begin{proof}
+    By problem 2b, if the product of 2 numbers is 0 either one of the numbers is 0. Thus either $x - 3 = 0$ or $x + 5 = 0$. Suppose $x - 3 = 0$. By the existence of additive inverses, $\exists -(-3) \in \R \ni -3 + (-(-3)) = 0$. Thus $x + 0 = x - 3 + (-(-3)) = 0 + (-(-3))$. By properties of 0 and by 1c, $x = (-(-3)) = 3$. Suppose $x + 5 = 0$, By the existence of additive inverses, $\exists -5 \in \R \ni 5 + (- 5) = 0$. Thus $x + 0 = x + 5 -5 = 0 -5$. By properties of 0, $x = x + 0 = 0 + (-5) =-5$. Thus $x=-5$. Thus $x =3$ and $x = -5$.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Prove $\forall x, y \in \R \ni x \neq 0, y \neq 0$, $\frac{1}{xy} = \frac{1}{x} * \frac{1}{y}$  
+\end{PROB}
+\begin{proof}
+    By properties of multiplicative inverse, $\frac{1}{xy} * xy = 1$. Multiply both sides by $\frac{1}{x}*\frac{1}{y}$. Thus $\frac{1}{xy} * xy *\frac{1}{x} * \frac{1}{y} = 1 * \frac{1}{x} * \frac{1}{y}$. By properties of the additive identity and the the fact that multiplication is commutative, $\frac{1}{xy} * x * \frac{1}{x} * y * \frac{1}{y} = \frac{1}{x} * \frac{1}{y}$. By the associativity of multiplication and the properties of the multiplicative inverses, $\frac{1}{xy} * 1 * 1 = \frac{1}{xy} * (x * \frac{1}{x}) * (y * \frac{1}{y}) = \frac{1}{x} * \frac{1}{y}$. By the properties of the multiplicative identity 1, $\frac{1}{xy} * 1 * 1 = \frac{1}{xy}$. Thus $\frac{1}{xy} = \frac{1}{x} * \frac{1}{y}$       
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    If $y \in R$ and $y · y = y$, prove that either $y = 0$ or $y = 1$.
+\end{PROB}
+\begin{proof}
+    If $y \in \R$, $y * y = y$. Then by the existence of a additive inverse, $y + (-y) = 0$, thus $y^2 - y = y * y - y = y - y = 0$. Due to multiplication being distributive, $y(y - 1) = y^2 - y = 0$. By problem 2b, $\forall a, b \in \R$ if $ab = 0 \implies a = 0$ or $b = 0$. Thus either $y = 0$ or $y - 1 = 0$. By the existence of a additive inverse for any real, $\exists -(-1) \in \R \ni 1 + (-(-1)) = 0$. Thus $y - 0 = y - 1 + (-(-1)) = 0 - (-(1))$. By properties of the additive identity, $y = -(-1)$. By 1c, $y = 1$. Thus $y =0$ or $y =1$.                   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let $c \in \R$:
+
+    \begin{enumerate}
+        \item If $0 < c < 1$ show that $0 < c^2 < c < 1$. 
+        \item If $1 < c$, show that $0 < c < c^2$  
+    \end{enumerate}
+\end{PROB}
+\begin{claim}{5a}\label{Claim 5a.}
+    If $0 < c < 1$ show that $0 < c^2 < c < 1$.
+\end{claim}
+\begin{proof}
+    Since $c > 0$ and the fact the multiplication of any positive number doesn't change the direction of the ordering symbol, thus $0c < c^2 < 1c$. By the properties of the unit element, $1c = c$ and by 1d, $0c = 0$. Thus $0 < c^2 < c$. By assumption, $c < 1$. By the transitive properties of ordering, since $c^2 < c$ and $c < 1$ it means $c^2 < 1$. Thus, $0 < c^2 < c <1$.   
+\end{proof}
+\begin{claim}{5b}\label{Claim 5b.}
+    Since $1 < c$ and $0 < 1$, by transitive properties of ordering, this means, $0 < c$. Thus $c$ is positive and the multiplication of a positive real on both sides of a inequality doesn't change the direction of the inequality, thus $1c < c^2$. By the properties of the multiplicative identity, $1c = c$. Thus $c < c^2$. Furthermore since $0 < c$ and $c < c^2$, by the transitive properties of order, $0 < c^2$. Putting all the inequalities together, we get, $0 < c < c^2$.          
+\end{claim}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Let $a, b \in \R$:
+    
+    \begin{enumerate}
+        \item Assume a and b are rational numbers. Prove that $a + b$ and $ab$ are also rational numbers.
+        \item Prove that if $a$ is a rational number and b is an irrational number, then $a + b$ is an irrational number. If in addition $a \neq 0$, show that ab is an irrational number.
+    \end{enumerate}
+    
+\end{PROB}
+\begin{claim}{6a}\label{Claim 6a.}
+    Assume a and b are rational numbers. Prove that $a + b$ and $ab$ are also rational numbers.
+\end{claim}
+\begin{proof}
+    Suppose $\forall a, b \in \Q$, then by definition of rational numbers, $\exists p,q, m, n \in \Z \ni a = \frac{p}{q}, b = \frac{m}{n}, q \neq 0, n \neq 0$. Thus $a + b = \frac{p}{q} + \frac{m}{n} = \frac{pn}{qn} + \frac{mq}{qn} = \frac{pn + mq}{qn}$. Since $p, n, m, q \in \Z$, $pn, mq, qn \in \Z$, thus $pn + mq \in \Z $. Thus $a + b = \frac{pn + mq}{qn} \in \Q$. 
+    
+    $ab = \frac{pm}{qn}$, as stated above $qn \in \Z$. But $pm \in \Z$ as well. Thus $ab = \frac{pm}{qn} \in \Q$.  
+\end{proof}
+\begin{claim}{6b}\label{Claim 6b.}
+    Prove that if $a$ is a rational number and b is an irrational number, then $a + b$ is an irrational number. If in addition $a \neq 0$, show that ab is an irrational number.
+\end{claim}
+\begin{proof}
+    Suppose $\forall a \in \Q$ and $b$ is any irrational number. 
+    
+    Assume the contrary that $a + b \in \Q$, $-1 = -\frac{1}{1} \in Q$, by 1b, $-1(a) = -a$. By 6a, $-a \in \Q$  By claim 6a, since $a + b \in \Q$ and $-a \in \Q$, then $a + b - a \in \Q$. Since addition is commutative in the real numbers, thus $0 + b = a - a + b = a + b - a \in \Q$. By properties of the additive identity, $0 + b = b \in \Q$. This contradicts our assumption that $b$ is irrational thus by contradiction $a + b \not \in \Q$.
+    
+    Suppose $a \neq 0$, assume the contrary that $ab \in \Q$. By definition of rational, $\exists p, q \in \Z \ni a = \frac{p}{q}, q \neq 0$. By the existence of a multiplicative identity for nonzero element in $\R$, $\exists \frac{1}{a} \in \R \ni \frac{1}{a} = \frac{1}{\frac{p}{q}} = \frac{q}{p}$. Since $q, p \in \Z$, then $\frac{1}{a} = \frac{q}{p} \in \Q$. By problem 6a, $\frac{1}{a}(ab) \in \Q$. By the fact that multiplication is associative, $\frac{1}{a}(ab) = (\frac{1}{a}a)b = 1b \in \Q$. By the properties of the multiplicative identity, $1b = b \in \Q$, which contradicts our assumption that b is irrational. Thus by contradiction, $ab \not \in \Q$.         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Show that there does not exist a rational number t such that $t^2 = 3$ .
+\end{PROB}
+\begin{proof}
+    Assume the contrary that $\exists t \in \Q \ni t^2 = 3$. By the definition of rational numbers, $\exists p, q \in \Z \ni t = \frac{p}{q}, q \neq 0$. Assume $g = gcd(p, q) \neq 1$, thus $p = ag$ and $q = bg$ where $a, b \in \Z$ and $gcd(a, b) = 1$ . Thus $t = \frac{p}{q} = \frac{ag}{bg} = \frac{a}{b}$. Thus without loss of generality, $gcd(p, q) = 1$. Thus $(\frac{p}{q})^2 = \frac{p^2}{q^2} = 3$. By the existence of a multiplicative inverse for any non zero element, $\exists \frac{1}{\frac{1}{q^2}} = q^2 \in \R \ni \frac{q^2}{q^2} = 1$. Thus $q^2 \frac{p^2}{q^2} = 1 * p^2 = 3q^2$. By the properties of the multiplicative identity, $1*p^2 = p^2$. Thus $p^2 = 3q^2$. Thus $p^2$ is a factor of 3, thus 3 is also a factor of $p$. Since $gcd(p, q) = 1$, 3 cannot divide q.  
+    
+    
+    Thus $p = 3m $ for some $m \in \Z$. Thus $9m^2 = 3q^2$. There exists $\frac{1}{3} \in \R \ni 3 * \frac{1}{3} = 1$, thus $3m^2 = \frac{9}{3}m^2 = q^2$. Thus $3$ is a factor of $q^2$, thus 3 is also a factor $q$. Thus 3 divides q. 
+
+    Thus 3 is a factor of q and is also not a factor of q, which leads to a contradiction. Thus since the statement that $\exists p, q \in \Z \ni q \neq 0, (\frac{p}{q})^2 = 3$ leads to a contradiction thus by contradiction, $\not \exists t \in \Q \ni t^2 = 3$. Thus t must be irrational.    
+\end{proof}
+
+
+\end{document}

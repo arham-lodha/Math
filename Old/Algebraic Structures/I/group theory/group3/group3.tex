@@ -1,0 +1,285 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Group Theory 3}
+\author{Arham Lodha}%put your name here
+\date{September 13, 2023}%enter the due date here
+\maketitle
+
+\begin{claim}{1A}
+    Let f: $G\to H$ and q: $G \to Q$ be homomorphisms of groups.
+    Show that f factors through q (via a homo $Q \to H$) iff Ker(q) is contained in Ker(f).
+\end{claim}
+\begin{proof}
+    ($\implies$): Suppose f factors through q, via a homomorphism $F: Q \to H$ s.t $f = F \circ q$. For all $x \in \ker q$, by definition of the kernel of a homomorphism $q(x) = e_Q$. Furthermore by definition of a homomorphism, $F(e_Q) = e_H$. Thus $f(x) = (F \circ q)(x) = F(q(x)) = F(e_Q) = e_H$. Thus by definition of kernel, $x \in \ker (f)$. Thus every element in the kernel of q is also in the kernel of f, thus $\ker(q) \subseteq \ker(f)$.
+
+    ($\impliedby$): Suppose $\ker(q) \subseteq \ker(f)$. For all $a, b \in G$ s.t $q(a) = q(b)$, $q(a)q(b)^{-1} = e_Q$. Since homomorphisms keep group structure and take inverses to inverses by definition, $q(a)q(b)^{-1} = q(a)q(b^{-1})$. Furthermore by definition of groups, $q(ab^{-1})=e_Q$. Thus by definition of kernels we know, $ab^{-1} \in \ker(q)$. By our assumption, $\ker(q) \subseteq \ker(f)$, thus $ab^{-1} \ker(f)$. Thus $f(ab^{-1}) = e_H$. By definition of homomorphisms, $f(ab^{-1}) = f(a)f(b^{-1}) = f(a)f(b)^{-1} = e_H$. Thus $f(a) = f(b)$. Thus $q(a) = q(b) \implies f(a) = f(b)$. By the prehomework, f factors through q. q must be surjective for f to factor through q with a homomorphism
+\end{proof}
+
+From now on assume q is surjective.
+\bigskip
+\begin{claim}{1B}
+    If f factors as a function, it factors as a homomorphism (ie if we can find a function $Q \to H$ of the sort we want, we can find a group homomorphism). 
+\end{claim}
+\begin{proof}
+    Let f: $G\to H$ and q: $G \to Q$ be homomorphisms of groups. Suppose $f$ factors through $q$ as a function. Let $F$ be the function s.t $f = F \circ q$. 
+    
+    For all $g \in G$, $f(g) = F(q(g))$. If both $x, y \in q_*(G)$ which by definition of surjective functions is true: By definition of a image there exists a $a, b \in G$ s.t $q(a) = x$ and $q(b) = y$. Furthermore since $f = F \circ q$ and $f(a) = F(q(a)) = F(x)$ and $f(b) = F(q(b)) = F(y)$. Thus $f(a)f(b) = F(x)F(y)$ and $f(ab) = F(q(ab)) = F(q(a)q(b)) = F(xy)$. Since f is a homomorphism, $f(a)f(b) = F(x)F(y) = F(xy) = f(ab)$. Thus F is a homomorphism.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2A}
+    Show that if H is an Abelian group, and G a group, then $\Hom_{groups}(H,G)$ is naturally a group. 
+\end{claim}
+\begin{proof}
+    Let H be a Abelian group, and G a abelian group. Let $A = \Hom_{groups}(H,G)$ with binary operation $\ast$ s.t $f, g \in A$ $(f \ast g)(x) = f(x)g(x)$. 
+    
+    \begin{enumerate}{}
+        \item \textbf{Closure: } For all $x, y \in H$ and $f, g \in A$. $(f \ast g)(xy) = f(xy)g(xy) = f(x)f(y)g(x)g(y)$. Because $G$ is abelian, $f(x)g(x)f(y)f(x) = (f \ast g)(x)(f\ast g)(y)$. Thus A is closed under $\ast$.
+        \item \textbf{Identity: } $\exists $ $f \in A$, s.t $\forall h \in H$, $f(h) = e_G$. For all $g \in A$, $\forall h \in H$, $(g \ast f)(h) = g(h)f(h) = g(h)e_G = g(h)$ and $(f \ast g)(h) = f(h)g(h) = e_G g(h)= g(h)$. Thus f is the Identity element of A.
+        \item \textbf{Inverse: } $\forall f \in A$, $\exists g \in A$ s.t $\forall h \in H$, $g(h) = f(h)^{-1}$. $\forall h \in H$, $(f \ast g)(h) = f(h)g(h) = f(h)f(h)^{-1} = e_H$ and $(g \ast f)(h) = g(h)f(h) = f(h)^{-1}f(h) = e_H$. Thus every element has a inverse.
+        \item \textbf{Associativity: } $\forall a, b, c \in A$, $\forall h$ $((a \ast b) \ast c)(h) = (a \ast b)(h)c(h) = a(h)b(h)c(h)$ and $(a \ast (b \ast c))(h) = a(h)(b \ast c)(h) =a(h)b(h)c(h)$. Thus $((a \ast b) \ast c)(h) =  (a \ast (b \ast c))(h)$ and A is associative.
+    \end{enumerate}
+
+    Thus A is a group.
+\end{proof}
+\begin{claim}{2B}
+    Show that $\Hom_{groups}(\Z,G)$ is naturally iso to G (where Z means integers under + ).  
+\end{claim}
+\begin{proof}
+    Let $f: \Hom_{groups}(\Z,G) \to G$ s.t it maps $\phi \to \phi(1)$.
+
+    Suppose $f(\phi_1) = \phi(\phi_2)$. Then, $\phi_1(1) = \phi_2(1)$. Since $\phi_1$ and $\phi_2$ are group homomorphisms acting on the group of integers with addition, thus $\phi(n) = \phi(1^n) = \phi(1)^n$ (not exponentiation is in context of group exponentiation), they are completely determined by their values on 1. Thus, $\phi_1 = \phi_2$, and $\phi$ is injective.
+
+    For any $g \in G$, consider the homomorphism $\phi_g: \Z \rightarrow G$ defined as $\phi_g(n) = g^n$. For all $a, b \in \Z$ $\phi_g(ab) = g^{ab} = g^ag^b=\phi_b(a)\phi_g(b)$. Now, notice that $f(\phi_g) = \phi_g(1) = g^1 = g$. Since we can find such a homomorphism $\phi_g$ for any $g \in G$, $f$ is surjective.
+
+    Since f is surjective and injective, it is bijective. Also since its also a homomorphism it is a isomorphism.
+
+\end{proof}
+
+\begin{claim}{2C}
+    Show that $\Hom_{groups}(\Z/n\Z,G)$ is naturally a subgroup of $\Hom_{groups}(Z,G)$. Which subgroup?
+\end{claim}
+\begin{proof}
+
+    Let $\Hom_{groups}(\Z/n\Z,G) = B$ and $\Hom_{groups}(Z,G) = A$. Define $f: B \to A$ s.t for all $\phi \in B$ and $\forall x \in \Z$, $f(\phi)(x) = \phi([x]_n)$. For all $\phi, \theta \in B$ s.t $f(\phi) = f(\theta)$, then for all $x \in \Z$ $f(\phi)(x) = \phi([x]_n) = \theta([x]_n)$. This means for all values of $[x]_n \in \Z/n\Z$, $\phi([x]_n) = \theta([x]_n)$. Thus $\phi = \theta$. Thus $f$ is injective. Furthermore f is by definition surjective into its image. $f$ is isomorphism into its image. Since $f_*(B) \subset A$ then $B$ is isomorphic to a subset of A.
+    
+    Furthermore since $\Z/n\Z$ and G are abelian then $\Hom_{groups}(\Z/n\Z,G) $ is a group. Thus $\Hom_{groups}(\Z/n\Z,G)$ is a subgroup of $\Hom_{groups}(Z,G)$. 
+
+
+    Furthermore since we know $\Hom_{groups}(Z,G)$ is iso to G. $\Hom_{groups}(\Z/n\Z,G)$ must also be iso to subgroup in G. For all $f \in \Hom_{groups}(\Z/n\Z,G)$ there exists a element $g \in G$ s.t $f([1]_n) = g$ then $f([1]_n^n) = g^n$ but $[1]_n^n = [0]_n$ and since f is a homomorphism $f([0]_n) = e_G = g^n$. Thus $\Hom_{groups}(\Z/n\Z,G) \cong \{g \mid g \in G : g^n = e_G\}$ or the set of elements of order n.
+\end{proof}
+
+\bigskip
+
+\section*{Isomorphisms}
+
+\begin{PROB}{6.1}\label{Problem 6.1.}
+    Let G' be the group of real matrices of the form $\begin{bmatrix*}{}
+        1 & x \\
+         & 1
+    \end{bmatrix*}$. Is the map $\R^+ \to G'$ that sends $x$ to this matrix an isomorphism?
+\end{PROB} 
+\begin{solution}
+    Let $f: \R^+ \to G'$ take $\begin{bmatrix*}{}
+        1 & x \\
+         & 1
+    \end{bmatrix*} \to x$ and let $g: G' \to \R^+$ take $a \to \begin{bmatrix*}{}
+        1 & a \\
+         & 1
+    \end{bmatrix*}$. $\forall A, B \in G'$ $AB = \begin{bmatrix*}{}
+        1 & ab \\
+        & 1
+    \end{bmatrix*}$. Then $f(AB) = ab = f(A)f(B)$. Thus f is a homomorphism. Furthermore $\forall A \in G'$ $(g \circ f)(A) = g(a) = A$ and for all $a \in G'$ $(f \circ g)(a) = f(A) = a$. Thus f and g are inverses and are bijective. Thus f is a isomorphism.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{6.2}\label{Problem 6.2.}
+    Describe all homomorphisms $\phi : \Z^+ \to \Z^+$. Determine which are injective, which are surjective, and which are isomorphisms.
+\end{PROB}
+\begin{solution}
+    Since $\Z^+$ is by definition a cyclic group whose generator is $1$. Then for all $x \in \Z$, $\phi(x) = \phi(1^x) = \phi(1)^x$ (Note exponentiation is in context of groups, in this context it just means repeated addition). Thus $\phi(1)$ is the only value we care about for any homomorphism from $\Z^+ \to \Z^+$. So if $\phi(1) = n$ then $\phi(x) = nx$.
+
+    Thus all homomorphisms $\phi$ will take $x \to nx$ for $n \in \Z$ where $n = \phi(1)$. Let $\phi_n$ be a homomorphism s.t $\phi_n(1) = n$ 
+
+    All $\phi_n$ s.t $n \neq 0$ are injective. Because for all $a, b \in \Z^+$ if $\phi(a) = \phi(b)$ then $na = nb$ then $na - nb = 0$. Then $n(a - b) = 0$. We know $\phi(1) \neq 0$. Thus $a - b = 0$ and $a = b$. Thus for all $\phi_n$ where $n \neq 0$ are injective. If $n = 0$, then $n(a - b) = 0(a - b) = 0$ for all $a, b \in \Z^+$.
+    
+    Only $\phi_1$ and $\phi_{-1}$. $\phi_1$ is by definition the identity which is by definition surjective. For all $y \in Z^{+}$, there exists $-y \in Z^{+}$ s.t $\phi_{-1}(-y) = y$. Thus $\phi_{-1}$ is surjective. 
+
+    Let $\phi_n$ be surjective. Then $\forall x \in Z^{+}$, there exists a $y \in Z^{+}$ s.t $\phi_n(y) = x = ny$. Thus $n | x$ for all $x \in Z^{+}$. Suppose $x = 2$ or the smallest prime number this is only true when $n = \pm 1$. Thus $n = \pm 1$.
+
+    Thus only $\phi_1$ and $\phi_{-1}$ are injective and surjective.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{6.3}\label{Problem 6.3.}
+    Show that the functions f = 1/x, g = (x—1)/x generate a group of functions, the law of composition being composition of functions, that is isomorphic to the symmetric group $S_3$.
+\end{PROB}
+\begin{proof}
+    $S_3 = \langle x, y \mid y^3 = x^2 = e, xy = y^2x\rangle$.
+
+    Let $G = \langle f, g \rangle$. The identity element of G is x. $f \circ f = \frac{1}{\frac{1}{x}} = x$. Thus order of f is 2. $g \circ g = \frac{-1}{x-1}$ and $g^2 \circ g = x$. Thus $\abs{g} = 3$. Furthermore $f\circ g = \frac{x}{x-1}$ and $g^2 \circ f = \frac{-x}{1-x} = \frac{x}{1-x}$. Thus f is iso to x and g is iso to y and thus G is iso to $S_3$ because it follows its rules and generator structure.
+\end{proof}
+
+
+\bigskip
+
+\begin{claim}{6.4}
+    In a group, the products ab and ba are conjugate elements.
+\end{claim}
+\begin{proof}
+    \begin{align*}{}
+        a^{-1}(ab)a &= (a^{-1}a)ba \\
+        &= ba
+    \end{align*}
+
+    Thus there exists a element $g=a$ s.t $g^{-1}abg = ba$. Thus the products are conjugate elements.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.5}\label{Problem 6.5.}
+    Decide whether or not the two matrices $A = \begin{bmatrix}
+        3 & \\
+        & 2
+    \end{bmatrix}$ and $B = \begin{bmatrix}{}
+        1 & 1 \\
+        -2 & 4
+    \end{bmatrix}$ are conjugate
+    elements of the general linear group $GL_2(\R)$.
+\end{PROB}
+\begin{proof}
+    Let $A = \begin{bmatrix}
+        3 & \\
+        & 2
+    \end{bmatrix}$ and $B = \begin{bmatrix}{}
+        1 & 1 \\
+        -2 & 4
+    \end{bmatrix}$. The characteristic polynomial of B is $P_B(x) = (1-x)(4-x)+2= x^2 -5x + 6 = (x -3)(x-2)$. Thus the characteristic polynomial has distinct roots $x = 3, 2$. By a previous homework, we know that B is diagonalizable thus $B = P^{-1}DP$ and there exists a an eigenvector basis. Let P be the automorphism which takes the standard basis to the eigenvector basis s.t the eigenvector correspodding to 3 is first and eigenvector correspodding to 2 is second. Since we need to make sure $An_i = x_in_i$ D must have 3 and 2 on the diagonal thus $D = B$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.6}\label{Problem 6.6.}
+    Are the matrices $A = \begin{bmatrix}
+        1 & 1 \\
+        & 1
+    \end{bmatrix}$ and $B = \begin{bmatrix}{}
+        1 & 0\\
+        1 & 1
+    \end{bmatrix}$ conjugate elements in $GL_2(\R)$ and $SL_2(\R)$
+\end{PROB}
+\begin{proof}
+    Yes, A and B are conjugate through $X = \begin{bmatrix}{}
+        0 & 1\\
+        1 & 0
+    \end{bmatrix}$ in $GL_2(\R)$. For $SL_n(\R)$, we look at the general matrix $P = \begin{bmatrix}
+        a & b \\
+        c & c
+    \end{bmatrix}$ which needs to satisfy the equation $AP = PB$ if A and B are conjugates. $AP = \begin{bmatrix}
+        a + c & b+d \\
+        c & d
+    \end{bmatrix}$ and $BP = \begin{bmatrix}
+        a + b & b \\
+        c + d & d
+    \end{bmatrix}$. Thus $a + b = a + c$, $b + d = b$, $c + d = c$, and $d = d$. Thus $b = c$ and $d = 0$. Thus $P = \begin{bmatrix}
+        a & b \\
+        b & 0
+    \end{bmatrix}$. $\abs{P} = -b^2$ and if $P \in SL_2(\R)$, then $-b^2 = 1$ and $b^2 = -1$ which isn't possible if $b \in \R$. Thus A and B are not conjugate in $SL_n(\R)$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.10A}\label{Problem 6.10A.}
+    Find all automorphisms of a cyclic group of order 10
+\end{PROB}
+\begin{solution}
+    All cyclic groups of nth order are iso to $\Z/n\Z$ because you take the generator to $[1]_n$ and vice versa. Let G be any cyclic group of order 10 thus $G \cong \Z/10\Z$. Thus we are looking for the set $\Hom_{groups}(\Z/10\Z,G) \cong \Hom_{groups}(\Z/10\Z,\Z/10\Z) = B$. By problem 2C we know $\Hom_{groups}(\Z/10\Z,G) \cong \{g \mid g \in G : g^10 = e_G\} \cong \{[x]_{10} \mid [x]_{10} \in \Z/10\Z : [x]_{10}^{10} = [0]_{10}\} \cong B$. Thus we are looking for the set of $[x]_{10}$ whose order is 10. Thus the elements in the target set must generate $\Z/10\Z$. By the previous homework we know that only elements $[x]_n$ s.t $x$ is coprime to $10$ can generate $\Z/10\Z$. Thus only $[1]_{10}, [3]_{10}, [7]_{10}, [9]_{10}$ can generate $\Z/10\Z$. Define $f_x: \Z/10\Z \to \Z/10\Z$ which takes $[1]_{10} \to [x]_{10}$. Then the set of automorphisms is $\{f_x \mid \gcd(10, x) = 1\}$.
+\end{solution}
+
+\begin{PROB}{6.10B}\label{Problem 6.10B.}
+    Find all the automorphisms of $S_3$.
+\end{PROB}
+\begin{solution}
+    The generator of $S_3 = \langle x, y \mid y^3 = x^2 = e, xy = y^2x\rangle$ is $x$ and $y$. Thus every element in $S_3$ is a sequence of compositions of x and y. Furthermore any homomorphism, $\phi$ keeps those compositions intact and keeps the group structure intact so for every element since we can represent it as a sequence of x and y compositions and then act on the sequence and just act on x and y individually for any homomorphism on $S_3$ it only matters where x and y map to. 
+
+    Assume the contrary, isomorphisms don't preserve the order of a element in a group. Let $G$ be a group and $x \in G$ let $\abs{x} = n$. Let $f: G \to H$ where H is also a group and f is a isomorphism. Then $f(x^n) \neq f(x)^n$. However $f(x \ast \ldots \ast x) = f(x) \ast \ldots \ast f(x) = f(x)^n$ thus forming a contradiction and isomorphisms keep order of a element.
+
+    And since automorphism are isomorphisms from a group to itself, thus there are at most 6 possibilities. Because $x$ can only map to $x$ or $x^2$ and $y$ can only map to $y, y^2, y^3$.
+
+    \begin{claim}{6.10BI}
+        There is a natural homo from $G \to Aut(G)$
+    \end{claim}
+
+    Define $f: G \to Aut(G)$ as the following $for all g \in G$ and for all $x \in G$ $f(g)(x) = g^{-1}xg$. For all $g, h \in G$ and for all $x \in G$ $f(gh) =(gh)^{-1}xgh = h^{-1}g^{-1}xgh = (f(h) \circ f(g))(x)$. Thus f is a homomorphism.
+
+    Let the kernel of $f$ be K. For all $k \in K$, $f(k) =id$ and $\forall g \in G$, $f(kg) = id * f(g) = f(g) * id = f(gk)$, thus $gk = kg$ and k is commutative. Thus $K$ is the center of G.
+
+
+    $\abs{S_3} = 6 = \abs{Aut(G)} = \abs{f_*(S_3)}$ where $f: S_3 \to Aut(S_3)$ is the natural homo. Thus the only automorphisms are the congugation automorphisms.
+\end{solution}
+\end{document}

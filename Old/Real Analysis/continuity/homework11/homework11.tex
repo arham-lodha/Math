@@ -1,0 +1,167 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 11}
+\author{Arham Lodha}%put your name here
+\date{April 11, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+\end{PROB}
+\begin{proof}
+    Suppose $f$ is continous at $0$ with $f(0) > 0$. Let $\epsilon = f(0) / 2$. By the definition of continuity, for this $\epsilon$, $\exists \delta > 0$ such that $\forall x \in \R \ni \abs{x - 0} = \abs{x} < \delta$, $-\epsilon < f(x) - f(0) < \epsilon$. Thus, $-\epsilon + f(0) = \frac{f(0)}{2} < f(x) < \frac{3f(0)}{2}$. $\frac{3f(0)}{2} - 2f(0) = f(0)(\frac{3}{2} - 2) = -\frac{f(0)}{2} < 0$, since $f(0) > 0$. Thus $\frac{3f(0)}{2} < 2f(0)$. Thus $\frac{f(0)}{2} < f(x) < \frac{3f(0)}{2} < 2f(0)$ and thus $\frac{f(0)}{2} < f(x) < 2f(0)$. Thus, $\frac{f(0)}{2} \leq f(x) \leq 2f(0)$.             
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+\end{PROB}
+\begin{proof}
+    $f : \R \to \R$ where $\forall x \in \R$: 
+    
+    \begin{equation*}
+        f(x) := \begin{cases}
+            x & \text{ if } x \in \Q \\
+            0 & \text{ if } x \in \R \setminus \Q
+        \end{cases}
+    \end{equation*}. 
+    
+    Thus $f$ is defined on $x = 0$.   
+    
+    $\forall \epsilon > 0$, let $\delta = \epsilon$. $\forall x \in \R \ni \abs{x - 0} = \abs{x} < \delta$:
+    
+    \begin{enumerate}
+        \item If, $x \in \Q$:
+        
+        \begin{align*}
+            \abs{f(x) - f(0)} &= \abs{x - 0}\\
+            &< \delta = \epsilon
+        \end{align*}
+
+        \item If, $x \in \R \setminus \Q$: 
+        
+        \begin{align*}
+            \abs{f(x) -f(0)} &= 0 < \epsilon \\
+        \end{align*} 
+    \end{enumerate}
+
+    Thus, $\abs{f(x) - f(0)} < \epsilon$. Thus by definition of continuity, $f$ is continous at $c = 0$.  
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+\end{PROB}
+\begin{proof}
+    $\forall c \in \R \ni c \neq 0$. 
+     
+    Let
+    
+    \begin{equation*}
+        x_n = \frac{\floor{c * 10^n}}{10^n}
+    \end{equation*}
+
+    and
+
+    \begin{equation*}
+        y_n = c + \frac{1}{\pi^n} 
+    \end{equation*}. 
+
+    Both $x_n$ and $y_n$ converge to $c$. Furthermore $x_n$ is a rational sequence because $10^n$ is a integer and $\floor{c * 10^n}$ is a integer as well. $y_n$ is a irrational sequence because $\pi$ is irrational, so $\pi^n$ is irrational so $\frac{1}{\pi^n}$ is irrational and finally $c+ \frac{1}{\pi^n}$ is irrational.
+    
+    $\forall \epsilon > 0$, let $K = 1$. $\forall n \geq K$, 
+    
+    \begin{align*}
+        \abs{f(y_n) - 0} &= \abs{0 - 0} = 0 < \epsilon 
+    \end{align*}
+
+    and
+
+    Since $x_n$ converges to c, for this $\epsilon$, $\exists M \in \N \ni \forall n \geq M$, $\abs{x_n - c} < \epsilon$.    
+    
+    \begin{align*}
+        \abs{f(x_n) - x} &= \abs{x_n - x} < \epsilon
+    \end{align*}
+
+    Thus $\lim_{n \to \infty} f(y_n) = 0$ and $\lim_{n \to \infty} f(x_n) = 0$. However, $\lim_{n \to \infty} f(x_n) = c \neq  0 = \lim_{n \to \infty} f(y_n)$. By the sequential criterion for discontinuity, $f$ is discontinous.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+\end{PROB}
+\begin{proof}
+    Let $A \subset \R$. Suppose $f: A \to \R$ where $f$ is unbounded on $A$. Construct the sequence $(x_n)$ in A as follows. For each $n \in \N$, by the definition of unbounded, $\exists x \in A \ni f(x) > n$, thus let $x_n = x$. $\forall \alpha \in \R$.
+    
+    \begin{enumerate}
+        \item If $\alpha \leq 0$, let $K = 1$ thus $\alpha < K$. $\forall n \geq K$, since $f(x_n) > n \geq K > \alpha$, $f(x_n) > \alpha$. 
+        \item If $\alpha > 0$, by the Archemedian property, $\exists K \in \N \ni K > \alpha$. $\forall n \geq K$, since $f(x_n) > n \geq K > \alpha \implies f(x_n) > \alpha$.               
+    \end{enumerate}
+
+    Thus $(f(x_n))$ is properly divergent to infinity and $\lim_{n \to \infty} f(x_n) = + \infty$.  
+    
+\end{proof}
+
+\end{document}

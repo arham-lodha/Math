@@ -1,0 +1,260 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle{#1}\rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Dihedral 3}
+\author{Arham Lodha}%put your name here
+\date{September 20, 2023}%enter the due date here
+\maketitle
+
+\begin{claim}{1a}
+    For each $m >0$ dividing n, let $K_m$ be the set of solutions to $x^m =1$, in $\mu_n$. Show that $K_m$ is a cyclic subgroup. 
+\end{claim}
+\begin{proof}
+    Let $g$ be the generator of $\mu_n$. 
+    Let $k \neq 0$ be the smallest integer s.t $a = g^k$ and $a^m = 1$ thus $a \in K_m$. 
+    
+    
+    If there exists no $k \neq 0$ satisfying this condition, then $K_m = \{1\}$ or the trivial subgroup. Assume the contrary, there exists a $b \in \mu_n$ s.t $b^m = 1$ by definition $b = g^x$ for some $x \in [1, \ldots, n - 1]$ then $k = x$ which is a contradiction, thus $K_m = \{1\}$ if $k \not \exists$.
+
+    If $k$ exists. Then $\forall s \in \Z$, $g^{skm} = (g^{m})^{sk} = 1^{sk} = 1$ thus $g^{sk} \in K_m$, meaning $\angles{g^m} \subseteq K_m$. $\forall a \in K_m$, since $a \in K_m \subset \mu_n$, $a = g^{p}$. By remainder theorem, $p = sk + r$ for $s \in \Z$ and $r \in [0, \ldots, k - 1]$. Thus $a = g^{ks + r}$. $a^m = 1 = (g^{ks+r})^m = g^{m(ks + r)} = g^{mks + mr} = g^{mks}g^r = g^{mr}$. Thus $(g^r)^m = 1$, however since $k$ is by definition the smallest non zero integer s.t $(g^k)^m = 1$ and $r < k$ $r = 0$ because otherwise $r \neq 0$ and $r < k$ would be a contradiction.thus $a = sk + r = sk$. Thus $\forall a \in K_m$ $a \in \angles{g^k}$ thus $K_m \subset \angles{g^k}$. Thus since $K_m \subset \angles{g^k}$ and $\angles{g^k} \subset K_m$, $\angles{g^k} = K_m$ and $K_m$ is cyclic.
+\end{proof}
+
+\begin{claim}{1b}
+    Show $K_m$ has order $m$
+\end{claim}
+\begin{proof}
+    Let $g$ be the generator for $\mu_n$. Since $n \mid n $ then $n \ m \in \Z$. $\forall s\in \Z$, $(g^{\frac{n}{m}s})^m = g^{ns} = e$. Thus $\forall s \in \Z$, $g^{\frac{n}{m}s} \in K_m$ thus $\angles{g^{\frac{n}{m}}} \subseteq K_m$. Let $g^a \in K_m$, by definition $g^{am} = e = g^{sn}$ for $s \in \Z$. Then $am = sn$ and $a = sn/m$ thus $g^a = g^{s\frac{n}{m}}$ thus $g^a \in \angles{g^{\frac{n}{m}}}$. Thus $K_m \subset \angles{g^{\frac{n}{m}}}$ and $\angles{g^{\frac{n}{m}}} = K_m$.
+\end{proof}
+
+\begin{claim}{1c}
+    Show that $K_m$ for $m \mid n$ are the only subgroups of $\mu_n$
+\end{claim}
+\begin{proof}
+    By a previous homework, we know that subgroups of cyclic groups are cyclic as well. Let G be a cyclic subgroup group of $\mu_n$, $\frac{\abs{\mu_n}}{\abs{G}} \in \Z$. Furthermore since $K_m$ is a cyclic group of order m, $K_m \cong \mu_m$. Thus any G is also isomorphic to some $\mu_m$ where $m \mid n$. Thus $K_m = G$. Thus $K_m$ for $m \mid n$ are the only subgroups of $\mu_n$.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2}
+    Show every subgroup of the rotations, $C_n = \mu_n$, is normal in $D_n$.
+\end{claim}
+\begin{proof}
+    For any subgroup G of the rotations $C_n = \mu_n$ by definition G must contain only rotations. $\forall x \in D_n$ and $\forall g \in G$, by the previous homework (Problem 7) $xgx^{-1}$ is a rotation. Futhermore by problem 7, we know if $x$ is a reflection $xgx^{-1} = g^{-1}$ and if $x \in SO(2)$ (or is a rotation) $xgx^{-1} = g$ and since $G$ is a group by definiton by the inverse axiom, $g^{-1}, g \in G$. Thus the conjugation of any element of G by any element in $D_n$ gives a element of G, thus $xGx^{-1} = G$ for all $x \in D_n$. Thus $G$ must be normal. And since G is any subgroup of $C_n$ all subgroups of $C_n$ are normal in $D_n$
+\end{proof}
+
+\bigskip
+
+\begin{claim}{3a}
+    Show that when n is odd that all reflections are conjugate in $D_n$. 
+\end{claim}
+\begin{proof}
+    Let $r_L \in D_n$ be a reflection across the line $L$. By the definition of $D_n$, when $n$ is odd, $L$ is a line passing through one vertex, $V_i$, for some $i \in [0, \ldots, n-1]$.
+
+    Now, consider any element $g \in D_n$. By a result from a previous problem (problem 7 of the last homework), we know that $gyg^{-1} = r_{g_*(L)}$.
+    
+    Furthermore, by the definition of the cyclic group $C_n$, an element $x \in C_n$ represents a rotation that moves a fixed vertex, say $V_i$, to another vertex, say $V_j$. Let $r_L$ be the reflection passing through the vertex $V_i$. Then, for any $x \in C_n$, we have $xr_Lx^{-1} = r_{x_*(L)}$, where $x_*(L)$ is now the image of the line under the rotation $x$. Importantly, this rotation only changes angles and not distances, so it still passes through $V_j$.
+    
+    Thus, $r_{x_*(L)}$ is a reflection in $D_n$, and since there are exactly $n$ different rotations in $C_n$, we can obtain all $n$ possible reflections by conjugating them with these rotations.
+    
+    Therefore, all reflections in $D_n$ are conjugate when $n$ is odd, as they can all be transformed into one another through the conjugation action of the rotations in $C_n$.
+\end{proof}
+
+\begin{claim}{3b}
+    When n is even there are exactly two conjugacy classes -- having to do with either vertices, or edges, of the n-gon. 
+\end{claim}
+\begin{proof}
+    Let $r_L \in D_n$ be a reflection across a line L. By the definition of $D_n$, when $n$ is even, $L$ either passes through 2 vertices and the origin or through the midpoints of 2 edges and the origin.
+
+    Now, consider any element $g \in D_n$. By a result from a previous problem (problem 7 of the last homework), we know that $gyg^{-1} = r_{g_*(L)}$.
+
+    Furthermore, by the definition of the cyclic group $C_n$, an element $x \in C_n$ represents a rotation that moves a fixed vertex, say $V_i$, to another vertex, say $V_j$. 
+    
+    \begin{enumerate}{}
+        \item Let $r_L$ be the reflection passing through two vertices $V_i$ and $V_b$ and the origin. Then, for any $x \in C_n$, we have $xr_Lx^{-1} = r_{x_*(L)}$, where $x_*(L)$ is now the image of the line under the rotation $x$. Importantly, this rotation only changes angles and not distances, so it passes through $V_j$. Thus, $r_{x_*(L)}$ is a reflection in $D_n$, and since there are exactly $n$ different rotations in $C_n$, we can obtain all $n/2$ possible reflections about lines passing through two vertices by conjugating them with these rotations.
+        \item Let $r_L$ be a reflection across a line passing through the midpoints of 2 edges and the origin, one of the edges is the edge from $V_i$ and $V_{(i + 1) \mod n}$. Then, for any $x \in C_n$, we have $xr_Lx^{-1} = r_{x_*(L)}$, where $x_*(L)$ is now the image of the line under the rotation $x$. Importantly, this rotation only changes angles and not distances, so it passes through the midpoint of $V_{j}$ and $V_{(j + 1) \mod n}$. Thus, $r_{x_*(L)}$ is a reflection in $D_n$, and since there are exactly $n$ different rotations in $C_n$, we can obtain all $n/2$ possible reflections about lines passing through a midpoint of a edge and the origin by conjugating them with these rotations.
+    \end{enumerate}
+
+    Thus we have n reflections and 2 conjugation classes.
+    
+    Then, for any $x \in C_n$, we have $xr_Lx^{-1} = r_{x_*(L)}$, where $x_*(L)$ is now the image of the line under the rotation $x$. Importantly, this rotation only changes angles and not distances, so it still passes through $V_j$.
+
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4}
+    Show that if n is odd show that the subgroups of $C_n$ are the only normal subgroups (other than $D_n$ itself).
+\end{claim}
+\begin{proof}
+    Suppose $n$ is odd. Assume the contrary, that $K \subset D_n$ be a normal subgroup of $D_n$ but $K$ is not a subgroup of $C_n$ and $K \neq D_n$. Thus there exists a $r_L \in K$ or a reflection across a line. Let $x \in C_n$ be the generator of $C_n$. By 3a, we know that $xr_Lx^{-1} \in D_n$ furthermore since $K$ is normal $xr_Lx^{-1} \in K$. Additionally, $xr_Lx^{-1} = r_{x_*(L)}$ is a reflection by problem 7 of the previous homework. Additionally because K is a group and is closed, then $r_Lr_{x_*(L)} \in K$ and $r_Lr_{x_*(L)}$ is a rotation, because $\det(r_Lr_{x_*(L)}) = \det(r_L)\det(r_{x_*(L)}) = -1(-1) = 1$. Since $r_Lr_{x_*(L)}$ is a rotation its in $r_Lr_{x_*(L)} \in C_n$. Furthermore since $C_n$ is a cyclic group $r_Lr_{x_*(L)} = x^k$ for $k \in [0, \ldots, n-1]$. Furthermore, $r_Lr_{x_*(L)} = r_L x r_L x^{-1}$. By the previous homework, we can represent $r_Lr_{x_*(L)} = r_L^a x^b$ using our relations.  $r_L x r_L x^{-1} = r_L^2 x^{-1}x^{-1} = x^{-2} = x^{n - 2}$. Since n is odd, $n = 2k +1$ for $k \in \Z$, $\gcd(n-2, n) = \gcd(2k - 1, 2k + 1)$, by Euclid's algorithm $\gcd(2k - 1, 2k + 1) = \gcd(2k - 1, 2k + 1 - (2k - 1)) = \gcd(2k - 1, 2) = 1$. Thus $\gcd(n-2, n) = 1$ and $n - 2$ and $n$ are coprime. Thus $x^{n-2}$ generates $C_n$ by beginning group theory 1 problem 6. Thus $r_Lr_{x(L)} = x^{n-2}$ is a generator and in $K$. By Dihedral group 2 problem 3, a generator of $C_n$ and a reflection in $D_n$ following the rules of $D_n$ generate $D_n$. Thus since $K$ is a subgroups of $D_n$, $D_n$ rules are followed. Furthermore, a generator $x^{n-2} \in K$ and a reflection of $D_n$ in K. Thus $K = D_n$, forming a contradiction. Thus the subgroups of $C_n$ are the only normal subgroups (other than $D_n$ itself).
+\end{proof}
+
+\bigskip
+
+\begin{claim}{5a}
+    Now suppose $n =2k$. Let  $N \neq D_n$ be a normal subgroup containing a reflection. Show that N contains $Q:= x^2$ = rotation by "2 vertices" (the square of the standard generator of $\mu_n$). 
+\end{claim}
+\begin{proof}
+    Let $N \neq D_n$ be a normal subgroup containing a reflection, $r_L$. Let $x$ be the standard generator of $\mu_n$ and thus $C_n$. Since N is normal $xr_Lx^{-1} \in N$. By closure, $r_Lxr_Lx^{-1} \in N$. Because $xr_L = r_Lx^{-1}$ in $D_n$ by rules of $D_n$, $r_Lxr_Lx^{-1} = r_L^2x^{-2} = x^{-2} \in N$. By definition of groups, since $x^{-2} \in N \implies x^2 = Q \in N$.
+\end{proof}
+
+\begin{claim}{5b}
+    $N \cong D_k = \angles{Q, r_L \mid Q^k = r_L^2 = 1, r_LQr_L = Q^{-1}}$
+\end{claim}
+\begin{proof}
+    $(x^2)^k = x^{2k} = e$ since $x$ generates $C_n$ and $n = 2k$. Thus $\abs{\angles{x^2}} = k$, thus $\angles{x^2} = C_k$. Furthermore N inherits the rule that $r_L^2$ and $r_Lx^2r_L = (x^2)^{-1}$. By the previous homework, we proved that a group is determined by its generator and relations (its presentation) and a group with at least these rules will be $\abs{N} \leq 2k$. Thus $N = \angles{x^2, r_L \mid (x^2)^k = r_L^2 = 1, r_Lx^2r_L = (x^2)^{-1}}$. Furthermore, by our rules in N and the ambient group $D_{2k}$, every element in $g \in N$ can be written as $g = (x^2)^a r_L^b = x^{2a} r_L^b$ where $a \in [0, \ldots, k]$, and $b \in [0, 1]$. Thus $\abs{N} = 2k = \abs{D_k}$.  $D_k = \angles{Q, r_L \mid Q^k = r_L^2 = 1, r_LQr_L = Q^{-1}}$. Since both N and $D_k$ have the same presentation there is a surjective homomorphism from $N \to D_k$ and since they have the same order the map is also injective and thus $N \cong D_K$.
+\end{proof}
+
+\begin{claim}{5c}
+    Conclude there are exactly two proper normal subgroups not contained in $C_n$.
+\end{claim}
+\begin{proof}
+    In problem 3b, we have proven that in $D_n$ where n is even, there are 2 conjugacy classes having to do with the vertices of the ngon or the edges of the ngon. Thus if $N$, a normal subgroup not in $C_n$, has a reflection $r_L$ across a line through a vertex and the origin then elements in its conjugacy class (proven in 3b), which are all the rotations and reflections across a line through a vertex and the origin, would be in $N$. Similarly if $N$, a normal subgroup not $C_n$, has a reflection $r_L'$ across a line through the midpoint of a edge and the origin then elements in its conjugacy class, which are all the rotations and reflections across a line through the midpoint of a edge and the origin (proven in 3b), would be in $N$. Thus if we have any reflection in normal group $N$, then we have its entire conjugacy class. And since there are only 2 conjugacy classes there must be only two normal subgroups not contained in $C_n$.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6}
+    Show that the center of $D_n$ is trivial when n is odd, and $\{I,-I\}$ when n is even (here $-I$ is the map from $R^2$ to $R^2$ given by this matrix, it sends each vector to its negative, its rotation by 180 degrees).
+\end{claim}
+\begin{proof}
+    $D_n$ by definition has the rule that $yxy^{-1} = yxy = x^{-1}$ where $x^n = y^2 = 1$. 
+    If $n = 2$, then $x = x^{-1}$ b/c $x^2 = 1$. Then $yx = xy$. And everything is commutative.
+
+    Suppose $n > 2$, 
+    Thus $xy = yx^{-1}$. Let $a \in [0, \ldots, n-1]$. Left multiplying by $x^{a - 1}$, we see $x^ay = x^{a-1}yx^{-1} = x^{a - 2}yx^{-2}$ and thus $x^{a}y = yx^{-a}$. $x^{-a} = x^{n - a}$. Thus $x^{a}y = yx^{n - a}$. Suppose $g$ is an element of the center, by the previous homework $g = x^ay^b$ for some $a \in [1, \ldots, n - 1]$ and $b \in [0, 1]$. Since $g$ in the center, $gx = x^{a}y^bx = xg = x^{a + 1}y^b$ thus $x^{a}y^bx = x^{a + 1}y^b = x^{a}xy^b$. Thus after left multiplying by $x^{-a}$, $y^bx = xy^b$. Assume the contrary, $b = 1$. Then 
+
+    \begin{align*}{}
+        yx &= xy \\
+        &= yx^{-1} \\
+        x &= x^{-1} \\
+        x^2 &= e
+    \end{align*}
+
+    However the order of $x$ is $n$ and $n > 2$, thus $a^2 \neq e$. Thus $b \neq 0$ and $g = x^a$. Since g in the center, $gy = x^ay = yg = yx^a$
+
+    \begin{align*}{}
+        x^ay &= yx^a \\
+        &= x^{-a}y \\
+        &= x^{-a}y \\
+        x^a &= x^{-a} \\
+        x^{2a} &= e = x^{n} \\
+    \end{align*}
+
+    By definition of order of group element, $n \mid 2a$. However since $0 \leq a \leq n$, $a = 0$ or $n = 2a$. If $n$ is odd, $n \neq 2a$ and thus only $a = 0$ is true and $x^0 = e$ in the center of $D_n$. However if $n$ is even, $n = 2a$ can be true thus $x^{n/2}$ in the center and $x^0 = e$ which is by definition in the center because the identity commutes.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Explain why its reasonable to view $D_1 := \{1,-1\}$ and $D_2$ as $\mu_2 \times \mu_2$
+\end{PROB}
+\begin{proof}
+    $D_1 = \angles{x, y \mid x = y^2 = 1, yxy{-1} = x}$. ${1, -1}$ also has the same presentation where $x = 1$ and $y = -1$ and $x = y^2 = 1$ and $yxy^{-1} = yxy = 1 = x$. Thus since the two have the same presentation thay are isomorphic and thus the same. $D_2 = \{e, \rho_{\pi}, r_{x = 0}, r_{y=0}\}$ which is isomorphic $\mu_2 \times \mu_2 = \{(1, 1), (-1, -1), (1, -1), (-1, 1)\}$ where the first index is what happens to the x and 2nd is what happens to y and thus $\mu_2 \times \mu_2$ performs the same action as $D_2$
+\end{proof}
+
+\bigskip
+\begin{PROB}{8}\label{Problem 8.}
+    Let N be a normal subgroup of finite index in the group G, and H a subgroup of G. Show that $N \cap H$ is a normal subgroup of H whose index divides the index of N in G (Hint, consider the composition $H \subset G \to\to G/N$. What is the kernel? What is the image?) . 
+\end{PROB}
+\begin{claim}{8a}
+    Show that $N \cap H$ is a normal subgroup of H.
+\end{claim}
+\begin{proof}
+    Let $N \triangleleft G$ and $H \leq G$. Then $\forall a \in N \cap H$ and for all $h \in H$, since N is normal subgroup $hah^{-1} \in N$ and since H is closed and $a \in H$(by definition) $hah^{-1} \in H$. Thus by definition of intersection, $hah^{-1} \in N \cap H$. Thus by definition $N \cap H \triangleleft H$.
+\end{proof}
+
+\begin{claim}{8b}
+    Index of $N \cap H$ divides the index of N in G.
+\end{claim}
+\begin{proof}
+    Since $H \subset G$, there exists a natural injective map $id: H \to G$. Let $m: G \to G/N$. Let $f = m \circ id$. Create a natural quotent homomorphism $q: H \to H / \ker f$. Furthermore by the definition, $\ker id = \{e\}$ thus $\ker f = N \cap H$. Thus if $a \in H$ and $a \in \ker q$ then by definition $a \ker f$. Thus for all $a, b \in H$ if $q(a) = q(b)$, $q(ab^{-1}) = e$ then $ab^{-1} \in \ker q$ and $ab^{-1} \in \ker q$ then $ab^{-1} \in \ker f$ and $f(a) = f(b)$. Thus $f = F \circ q$ where $F$ is a homomorphism from $H / \ker f \to H / N$. However since $\ker f = H \cap N$ this map is injective because we have already removed the kernel. Assume there was a element $h \in H$, s.t $F(h \ker f) = eN$ (identity coset of N), then because $f = F \circ q$ must factor properly $f(h) = F(q(h)) = eN$ thus $h \in N$ and thus $h \in \ker f$. Thus F is injective. Thus $H / \ker f$ is a subgroup of $G / N$. Thus $\abs{H / \ker f}$ divides $H / N$, by lagranges theorem. By definition, $H / \ker f = H/N\cap H$ and $\abs{H/N\cap H}$ is the index of $N \cap H$ and $\abs{G / N}$ is the index of N. Thus index of $N \cap H$ divides the index of N in G.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+    Let N be one of the two special normal subgroups of $D_{2k}$.  Show N has index 2, and contains the center of $D_{2k}$ iff k is even. 
+\end{PROB}
+\begin{proof}
+    ($\implies$): Suppose N has index 2 and contains the center of $D_{2k}$. By 6, $Z(D_{2k}) = \{1, -1\}$. Let x be the standard generator of $C_{2k}$. By 5b, $N \cong D_k$. Let $g \in C_k$ be the standard generator of $C_k$. By 5b $g \cong x^2$. Since $-1 = x^a$ and $-1^2 = 1$ so $x^{2a} = e$. Thus order of $x^{2a}$ is 2. Since $x^{2a} = g^a \in N \cong D_k$, and $g^a \in C_k$. By lagranges theorem $\abs{\angles{g^a}} | C_k$ thus $2 | k$ and k must be even.
+
+    $(\impliedby)$ We know that $Z(D_{2k}) = {1, -1}$, and since k is even, there exists an element in $D_{2k}$ of the form $x^k$, where $x$ is the standard generator of $C_{2k}$. This element is equal to $-1$ in $D_{2k}$ because $x^k \neq e$ but $(x^k)^2 = x^{2k} = e$. Since all the cosets of $N$ have the same order since $N$ is normal, $\abs{D_{2k}} = \abs{N}[D_k : N]$. Thus $[D_k : N] = \abs{D_{2k}}/\abs{N}$. By lagranges theorem $\abs{N}$ divides $\abs{D_{2k}}$. By 5b, $N \cong D_k$, thus $\abs{N} = \abs{D_{k}} = 2k$. Thus $[D_k : N] = 4k/2k = 2$. Thus index of N is 2.
+\end{proof}
+
+\bigskip
+\begin{claim}{10}
+    Let H be a subgroup of $D_n$, not contained in $C_n$. Let  $R := C_n \cap H$. Explain why this has index 2 in H, and generated by $x^m$ for some m dividing n, where x generates $C_n$. Show H is isomorphic to $D_{m}$, generated by $x^k$ and any of its reflections. 
+\end{claim}
+\begin{proof}
+    By the counting formula, we know $[H : R] = \abs{H}/\abs{R}$. $\abs{R}$ will be a subgroup of $H$ consisting of only rotations and $\abs{H}$ subgroup of $C_n$ because all rotations are in $C_n$ and $\forall r_a, r_b \in R$ $r_a, r_b \in H$ and by closure $r_ar_b \in H$ and $r_ar_b \in C_n$ and $r_ara_b \in R$. Furthermore since $C_n$ and $H$ are groups they must maintain properties of inverses and identity so $C_n \cap H$ must have inverses and identities as well for its common elements. By a previous homework, we know $C_n \cong \mu_n$. By problem 1, we know, $K_m$ for $m \mid n$ are the only subgroups of $\mu_n$. Thus $R \cong K_m$. Thus $\abs{R} = m$. Furthermore since $H \not \subset C_n$, there exists a reflection $y \in H$. Since generator of $K_m \cong R \in H$ and $y \in H$ and $x^m = e = y^2$, where $x$ is the standard generator of $K_m \cong R$ and $y$ is a reflection. Furthermore $ygy^{-1} = g^{-1}$ is true (g generator of $C_n$). Then $yg = g^{-1}y$ is true. Then $yg^a = g^{-1}y$. Since $x \in \angles{g}$, $yx = x^{-1}y$ is true and $yxy^{-1} = x^{-1}$ in H. Thus $H = \angles{x, y \mid x^m = y^2 = 1, yxy^{-1} = x^{-1}}$ and $\abs{H} \leq 2m$. Furthermore by the previous homework, any group with at least these rules will have a expression for each of its elements of the form $x^ay^b$ where $a \in [0, \ldots, m]$ and $b \in [0, 1]$. Thus $\abs{H} = 2m = \abs{D_m}$. Thus since a group is determined by its generator and relations there exists a surjective homomorphism from this group to other groups with the same generators and at least these rules. Furthermore since the orders of both groups are equal, the homomorphism is also injective thus there exists a isomorphism from $H \to D_m$ and $H \cong D_{m}$. Thus $\abs{H} = 2m$. And $[H : R] =2m/m = 2$.
+\end{proof}
+
+\bigskip
+
+
+\end{document}

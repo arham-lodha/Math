@@ -1,0 +1,214 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Permutation Representation}
+\author{Arham Lodha}%put your name here
+\date{October 31, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+
+    Let G act on the cosets $G/H$, by left multiplication.  Show that the kernel (ie the kernel of the map $G \to Perm(G/H)$) is the intersection of all conjugates of H. Show that this is a normal subgroup of G, contained in H, and moreover it contains every normal subgroup of G that is contained in H, so its the unique largest subgroup of H which is normal in G.  Call this subgroup $LN(H)$ (for largest normal in H, this is not at all standard notation).
+
+\end{PROB}
+\begin{claim}{1a}
+    Show that the kernel (ie the kernel of the map $G \to Perm(G/H)$) is the intersection of all conjugates of H.
+\end{claim}
+\begin{proof}
+    By the previous homework we know the stablizer of $aH \in G/H$ is $aHa^{-1}$. The elements of the kernel stablize all cosets as they map each coset to the identity thus it has to be intersections of the stablizer of all the cosets and thus $\bigcap_{g \in G} gHg^{-1}$
+\end{proof}
+
+\begin{claim}{1b}
+    Show that this is a normal subgroup of G
+\end{claim}
+\begin{proof}
+    $\forall h \in G$ and $h(\bigcap_{g \in G} gHg^{-1})h^{-1} = \bigcap_{g \in G} hgHg^{-1}h^{-1} = \bigcap_{g \in G} gHg^{-1}$. Thus $LN(H)$ is normal. Also kernel of homomorphism so is a normal subgroup.
+\end{proof}
+
+\begin{claim}{1c}
+    $\bigcap_{g \in G} gHg^{-1} \subseteq H$
+\end{claim}
+\begin{proof}
+    $\forall h \in \bigcap_{g \in G} gHg^{-1}$, $h \in eHe = H$. Thus $\bigcap_{g \in G} gHg^{-1} \subseteq H$.
+\end{proof}
+
+\begin{claim}{1d}
+    $\forall N \triangleleft G \ni N \subseteq H, N \subseteq \bigcap_{g \in G} gHg^{-1}$
+\end{claim}
+\begin{proof}
+    Suppose $N \triangleleft G \ni N \subseteq H$. $\forall g \in G$, $gNg^{-1} = N$ and since $N \subseteq H$, $\forall g \in G$, $gNg^{-1} = N \subseteq gHg^{-1}$. Thus $N \subseteq \bigcap_{g \in G} gHg^{-1}$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let Q be the quaternion group. Show that every non-trivial subgroup contains $Z = \{1,-1\}$, the center of Q. Conclude that the only way that $G = Q$ can act faithfully on the disjoint union of a bunch of $G/H_i$ is if one of the $H_i$ is trivial. Conclude that Q cannot act faithfully on a set with less than 8 elements. Which set with 8 does it act faithfully on?
+\end{PROB}
+\begin{claim}{2a}
+    Show that every non-trivial subgroup contains $Z = \{1,-1\}$, the center of Q.
+\end{claim}
+\begin{proof}
+    $\forall S \subseteq Q$ where S is a non trivial subgroup. $1 \in S$ because 1 is identity of Q. If $S = Z$, $Z \subseteq S$. If $i \in S$, then $i * i = -1 \in S$. Similarly if $j \in S$, $-1 \in S$ and $k \in S$, $-1 \in S$. If $-i \in S$, $-i * -i = i^2 = -1 \in S$. Similarly if $-j \in S$ or $-k \in S$ then $-1 \in S$. All this is by closure. So $Z \subseteq S$. 
+\end{proof}
+\begin{claim}{2b}
+    Conclude that the only way that $G = Q$ can act faithfully on the disjoint union of a bunch of $G/H_i$ is if one of the $H_i$ is trivial.
+\end{claim}
+\begin{proof}
+    If G acts faithfully on a set it acts faithfully on a disjoint union of qoutient sets. But since $\forall H_i \neq \{e\}$ $Z \subset H_i$. $\forall H_i \neq \{e\}$ $Z \subseteq \bigcap_{i \in 1...k}LN(H_i)$ thus G cannot act faithfully if $\not \exists H_i = \{e\}$. Thus G can only act faithfully if $\exists H_i = \{e\}$. Thus $\bigcap_{i \in 1...k}LN(H_i) = e$.
+\end{proof}
+\begin{claim}{2c}
+    $G \subset S_8$
+\end{claim}
+\begin{proof}
+    Thus since $\exists H_i = e$, Q must act faithfully on a set of 8 elements and cannot act faithfully on a set of less than 8 elements because then $H_i \neq e$ and thus contradicting the previous theorem.
+
+    Since Q cannot act faithfully on a set with less than 8 elements but acts faithfully on a set of 8 elements it must act on $S_8$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Show that $aHg^{-1}$ is a coset for $gHg^{-1}$.  Show that $aH \to aHg^{-1}$ gives a well defined map $G/H  \to G/gHg^{-1}$, and moreover this is an isomorphism of G-sets (the map is a bijection, commuting with the action of G by left mult on both quotients).   Show that the actions of G on G/H and G/K are isomorphic iff H and K are conjugate. 
+\end{PROB}
+\begin{claim}{3a}
+    Show that $aHg^{-1}$ is a coset for $gHg^{-1}$.
+\end{claim}
+\begin{proof}
+    For $gHg^{-1} \in G/gHg^{-1}$. Left multiply by $ag^{-1}$ thus $ag^{-1} gHg^{-1} = aHg^{-1}$. Thus $aHg^{-1} \in G/gHg^{-1}$
+\end{proof}
+
+\begin{claim}{3b}
+    Show that $aH \to aHg^{-1}$ gives a well defined map $\alpha: G/H \to G/gHg^{-1}$
+\end{claim}
+\begin{proof}
+    Suppose $aH, bH \in G/H \ni aH = bH$. Then $\exists h \in H \ni b = ah$. Thus $bH = ahH$. $aH \to aHg^{-1}$ and $bH = ahH \to ahHg^{-1}$ $bHg^{-1} = ahHg^{-1} = aHg^{-1}$. The the map is well defined.
+\end{proof}
+
+\begin{claim}{3c}
+    $\alpha$ is isomorphism of G sets.
+\end{claim}
+\begin{proof}
+    $\forall agHg^{-1} \in G/gHg^{-1}$, $agHg^{-1} = (a'g^{-1})gHg^{-1} = a'Hg^{-1} \ni a = a'g^{-1}$ $\exists a'H \in G/H$ thus $\alpha(a'H) = a'Hg^{-1}$. Thus $\alpha$ is surjective.
+
+    $\forall aH, bH \in G/H \ni \alpha(aH) = \alpha(bH)$ then $aHg^{-1} = bHg^{-1}$ then $\exists h_1, h_2 \in H$ s.t $ah_1g^{-1} = bh_2g^{-1} \implies b = ah_1h_2^{-1}$. Thus $b \in aH$ and $aH = bH$. thus $\alpha$ is injective.
+
+    Thus $\alpha$ is bijection.
+
+    $\forall x \in G$, $x \cdot aH = xaH$ by left multiplication. $\alpha(x \cdot aH) = \alpha(xaH) = xaHg^{-1} = x \cdot aHg^{-1} = x \cdot \alpha(aH)$. Thus $\alpha$ is a iso of G sets.
+\end{proof}
+
+\begin{claim}{3d}
+    Show that the actions of G on G/H and G/K are isomorphic iff H and K are conjugate.
+\end{claim}
+\begin{proof}
+    $\implies$: Suppose the action of G on G/H and G/K are isomorphic. Then there exists a isomorphism of G-sets $\alpha: G/H \to G/K$. Thus $\exists X$ some set where the action on X is transitive and is iso to $G/H$ and $G/K$. Thus $H \cong G^x$ and $K \cong G^y$ for $x, y \in X$. Since the action is transitive, $y = gx$. By (our favorite conjugation formula) previous homework we know two stablizers are conjugates if the elements are in the same orbit. Thus H and K are conjugate. 
+    
+    
+    $\impliedby:$ If $H$ and $K$ are conjugate then by the previous parts there exists a isomorphism of G sets. Thus the actions are isomorphic.
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{Artin 7a}\label{Problem Artin 7a.}
+    For $D_4$, find the smallest integer n such that the group has a faithful operation on a set of order n:
+\end{PROB}
+\begin{solution}
+    Suppose $\phi: D_4 \to S_n$ is injective. Then $D_4 \subseteq S_n$ in a natural way. Thus $|S_4| \geq D_4$. This implies $n \geq 4$ because $|S_2| = 2, |S_3| = 6$ and $|S_4| = 24$. $D_4$ acts transitively on the $Verts(S)$ the 4 vertices of a square. Because all rotations map any vertex to any other vertex. Suppose $k \in \ker \phi$ then $\forall v \in Verts(S)$ $kv = v$. Thus all 4 vertices are fixed thus there are 4 vector, the vector from 0 to each vertex, which span $\R^2$ which are fixed thus $\R^2$ must be fixed and $k = I$. Thus $\ker \phi$ is trivial and $\phi$ is injective and faithful.
+\end{solution}
+
+\begin{PROB}{Artin 7b}\label{Problem Artin 7b.}
+    For $D_6$, find the smallest integer n such that the group has a faithful operation on a set of order n:
+\end{PROB}
+\begin{solution}
+    Suppose $\phi: D_6 \to S_n$ is injective. Then $D_6 \subseteq S_n$ in a natural way. $|S_2| = 2$ and $|S_3| = 6$ are invalid choices thus $n$ is 4 or more.
+
+    \begin{enumerate}{}
+        \item $S_4$: If $D_6$ acts on 4 things tranitively then $[S_4 : D_6] = 2 \implies D_6 \cong A_4$. But $A_4$ has no order 6 element.
+        
+        Cannot act on 1 and 3 items because it just becomes $S_3$. Cannot act on 2 and 2 items because $|S_2 \times S_2|  = 4 < |D_6|$. Thus $n \neq 4$
+        \item $S_5$: Cannot act transitively on 5 items because $5 \not | |D_6|$. (2 and 3): 
+        
+        \begin{claim}{7bi}
+            $D_6 \cong \mu_2 \times D_3 \cong S_2 \times S_3$
+        \end{claim}
+        \begin{proof}
+            $D_6 = \langle x ,y | x^6 = y^2 = 1, xy = x^{-1}y \rangle$. $D_3 = \langle x^2, y | (x^2)^3 = y^2 = 1, xy = x^{-1}y \rangle$. Thus $D_3 \subseteq D_6$. $\mu_2 = \{1, x^3\}$ where $1 = I$ and $x^3$ is a rotation by $\pi$ and thus equal to $-I$. $\mu_2 \subseteq Z(D_6)$ naturally. Thus $\mu_2D_3 = D_3\mu_2$. Furthermore $x^3 \in \mu_2$ and $x^4 \in D_3$ we can get $x^3 \times x^4 = x$ and $e \in \mu_2$ and $y \in D_3$ $e \times y = y$. Thus we can get the generators of $D_6$ thus homomorphism from $\mu_2 \times D_3 \to D_6$ is surjective. Finally $\{e\} = \mu_2 \cap D_3$. Thus $D_6 \cong \mu_2 \times D_3 \cong S_2 \times S_3$.
+        \end{proof}
+
+        Thus $D_6 \cong S_2 \times S_3$ which is the same thing as $D_6$ faithfully permutes 2 and 3 elements seperately and thus permutes 5 elements faithfully.
+    \end{enumerate}
+
+    Thus n = 5
+\end{solution}
+
+\begin{PROB}{Artin 7c}\label{Problem 7c.}
+    For $Q_8$, find the smallest integer n such that the group has a faithful operation on a set of order n:
+\end{PROB}
+\begin{proof}
+    Already proven in problem 2
+\end{proof}
+
+\end{document}

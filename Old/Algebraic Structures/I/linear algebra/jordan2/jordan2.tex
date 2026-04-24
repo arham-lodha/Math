@@ -1,0 +1,153 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Jordan 2}
+\author{Arham Lodha}%put your name here
+\date{October 10, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Now we assume A has all its eigenvalues in F and show that it is conjugate to a jordan form (which you should look up). Explain why we can assume A is nilpotent, and that in this case, the existence of Jordan form is equivalent to showing we have a basis of form
+
+$w_1, Aw_1,..., A^{s_1}w_1,$ 
+
+$w_2, Aw_2... A^{s_2} w_2$  
+
+.
+
+.
+
+.
+
+$w_k Aw_k ... A^{s_k} w_k$, with $A^{s_i} w_i$ in Ker A. 
+
+To prove it, use induction on the dimension. First consider $A(V) \subset V$. Explain why this is lower dimensional and $A: A(V) \to A(V)$ is nilpotent, so induction applies.   Now use induction. 
+\end{PROB}
+\begin{solution}
+    Let A be any matrix with all its eigenvalues in F. By the previous homework $\oplus_{f \in F}GV_f(A) = V$ thus we know that $(A - fI)$ for $f$ being a generalized eigenvector is nilpotent. If $(A - fI)$ has a jordan form then A has a jordan form. Thus assume A is nilpotent.
+
+    Since A is nilpotent let k be the smallest natural number such that $A^k = 0$
+
+    $A(V) \subset V$ where $\dim(V) > \dim A(V)$, because $\forall v \in V$ $A^{k-1}v \in \ker A$. Thus $\dim \ker A \neq 0 $. Thus thus $A(V)$ is lower dimensional than V.
+    
+    $\forall v \in A(V)$, $Av \in A(V)$. Thus $A: A(V) \to A(V)$. 
+    
+    \textbf{Base Case}: Suppose $\dim V = 1$, then $\forall v \in V$ s.t $v \neq 0$. Thus $Av = 0$. Thus v a basis of the form seen above.
+
+    \textbf{Inductive Hypothesis}: Assume all vector spaces $V$ with $\dim V \leq k$ for any nilpotent matrix $A$ have a basis of the form above
+
+    \textbf{Inductive Step}: Let V be a vector space with $\dim V = k + 1$. $\dim A(V) \leq k$. Thus it has a basis of the form above let this basis be B. For all $w_i \in B$, define $z_i = Aw_i$ where $z_i \in V$. Thus for all $\{z_i, Az_i(=w_i), \ldots, A^{s_i}z_i | A^{s_i}z_i \neq 0, A^{s_i + 1}z_i = 0, i \in \N\} = B$. Create a linear combination of B equal to 0 with nonzero coefficients. Apply A to the linear combination. All $A^{s_i}z_i$ will be killed and all $A^{j}z_i$ for $j < s_i$ will become $A^{j + 2}z_i$. This new linear combination will contain all the elements of $B$ except $z_i$ and will only equal 0 if the coefficients are zero thus the elements are linearly independent. $A^{s_i}z_i$ are linearly independent because they are parts of basis. Thus $B$ is linearly independent. $\forall x \in V$, $Ax = As$ s.t $s \in span(B)$ thus $A(x - s) = 0$ and $x - s \in \ker A$. Thus there are elements which are not in the span of $B$. $x \in \ker A - span B$ $x$ is linearly independent from B. Furtheremore since $x \in \ker A$ it satified our condition such that $Ax = 0$, $B = B \cup x$. Then check again if there exists $x \in \ker A - span B$ and if it does add it into $B$. Thus $\dim span B = \dim \ker A \dim A(V) = V$ and is linearly independent and thus is a basis of the required form.
+
+
+    Thus by induction any vectorspace has a basis of the required form and thus is conjugate to a Jordan form.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Assuming A has all its eigenvalues in F, there exist N, S, N nilpotent, S diagonalizable with the properties 
+    
+    a)$ N + S = A$
+    
+    b)$ N$ and $S$ commute with every transformation that commutes with A (in particular they commute with A and with each other) Moreover, N and S are unique.
+    
+    Show first that N and S exist (eg use the Jordan form)
+\end{PROB}
+\begin{proof}
+    Since A has eigenvalues in F. A has a jordan form $A = PJP^{-1}$ where J is its Jordan form. Write $J = D + N$ where D is its diagonal entries and N is the rest. N is strictly upper triangular since J is upper triangular. Thus N is nilpotent. Thus there exists a $k$ such that $N^k = 0$. $A = PJP^{-1} = P(D + N)P^{-1}$ and since conjugatation is automorphism $A = PDP^{-1} + PNP^{-1}$. $S = PDP^{-1}$ is a diagonalizable matrix by definition. Furtheremore, $(PNP^{-1})^k = \prod_{i = 1}^{k}PNP^{-1} = P\prod_{i = 1}^{k - 1}N(P^{-1}P) NP^{-1} = PN^kP^{-1} = 0$. Thus $PNP^{-1}$ is nilpotent.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Suppose A and B commute, show that they preserve each others eigenspaces, and if A is diagonalizable the converse holds (if B preserves As eigenspaces, then B commutes with A).
+\end{PROB}
+\begin{proof}
+    $(\implies)$: Suppose A and B commute. Let $f$ be a eigenvalue of A. $\forall v \in V_f(A)$ thus $Av = fv$. Then $BAv = Bfv = fBv$ but since $AB = BA$, $BAv = ABv = fBv$ thus $Bv \in V_f(A)$. Let $g$ be a eigenvalue of B. $\forall v \in V_g(B)$ thus $Bv = gv$. Then $ABv = Agv = gAv = BAv$ thus $Av \in V_g(B)$. Thus A and B preserve each others eigenspaces.
+
+    $(\impliedby)$: Suppose A is diagonalizable and that B preserves A's eigenspaces. Then thus $\forall v \in V_f(A)$ $Bv \in V_f(A)$. Since A is diagonalizable there exists a basis of eigenvectors $\{v_1, \ldots, v_{\dim V}\}$ where the eigenvalue for $v_i$ is $f_i$. Then for all $v \in V$, $v = \sum_{i = 1}^{\dim V}a_iv_i$ and $Bv = \sum_{i = 1}^{\dim V}a_iBv_i$ and $ABv = \sum_{i = 1}^{\dim V}a_iABv_i$ but since B preserves the eigenspace, $ABv = \sum_{i = 1}^{\dim V}a_if_iBv_i = \sum_{i = 1}^{\dim V}a_iBf_iv_i = B\sum_{i = 1}^{\dim V}a_if_iv_i = B\sum_{i = 1}^{\dim V}a_iAv_i = BA\sum_{i = 1}^{\dim V}a_iv_i = BAv$. Thus $\forall v \in V$, $ABv = BAv$ thus $AB = BV$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Suppose A is diagonalizable and W is a subspace of V preserved by A. Explain why $A: W \to W$ is diagonalizable. 
+\end{PROB}
+\begin{proof}
+    Since A is diagonalizable there is a eigenvector basis $B = \{v_1, \ldots, v_{\dim V}\}$. Form a subspace $W'$ with dimension $\dim W$ by taking the basis $B' = \{v_1, \ldots, v_{\dim W}\}$, there are $\dim W$ linearly independent vectors. Let the basis of $W$ be $\{w_1, \ldots, w_{\dim W}\}$. Create a linear map $Q: W' \to W$ thus $v_i \to w_i$ for $i \in [1, \ldots, \dim W]$ Q is a bijection because it maps distict bases in W' to distict bases in W. Since $W'$ has a eigenvector basis with regards to A then A restricted to $W'$ is diagonalizable. $A = PDP{-1}$. Furtheremore A restricted to W, $A = QPDP^{-1}Q^{-1}$ let $R = QP$, thus A restricted to W is $A = RDR^{-1}$ and A is diagonalizable.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Suppose $A = N_1 + S_1 = N_2 + S_2$ with the above properties. So we have $N_1 - N_2 = S_2 - S_1$. Explain why $N_1 - N_2$ is nilpotent and $S_2 - S_1$ is diagonalizable. conclude $N_1 = N_2$ and $S_2 = S_1$. 
+\end{PROB}
+\begin{proof}
+    Let $N_1^r = 0$ and $N_2^s = 0$. Since $N_1$ and $N_2$ commute with A and thus by the properties they must commute with each other. Thus the binomial theorem applies. $(N_1 - N_2)^{r + s} = \sum_{i = 0}^{s + r}(-1)^i{s+r \choose i}N_1^{s + r - i}N_2^{i}$ thus $s + r - i > r$ or $i > s$. Thus $(N_1 - N_2)^{r + s} = 0$. Thus $N_1 - N_2$ is nilpotent. By the properties of $S_1$ and $S_2$ they commute with $A$ and thus commute with each other. Thus they preserve each others eigenspaces by problem 3.   
+    
+    The only nilpotent diagonalizable matrix is 0. Thus $N_1 - N_2 = 0$ and $S_1 - S_2 = 0$. Thus $N_1 = N_2$ and $S_1 = S_2$.    
+\end{proof}
+
+\end{document}

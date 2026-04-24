@@ -1,0 +1,339 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand*{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{$GL_3(\F_2)$}
+\author{Arham Lodha}%put your name here
+\date{March 03, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Show that $X^3 +1 = (x +1)(X^2 + X + 1), (X + 1)^3 = X^3 + x^2 + x + 1, X^3 + X^2 + 1$, and $X^3 + X + 1$ are the possible characteristic polys for such a matrix check that all these polys except for $(x+1)^3$ have distinct roots in any field containing $F_2$ -- recall you can check for double roots (in some bigger field) by checking whether the poly and its formal derivative have a common factor (we will reprove this this term). Recall also from last term the cool fact that if F inside G is a subfield, then two square matrices over F are conjugate over F iff they are conjugate over G. Conclude that if we fix one of the polys other than $(x+1)^3$, all the matrices with this char poly are conjugate.  So we get three conjugacy classes corresponding to those three polys
+\end{PROB}
+\begin{proof}
+    Any cubic polynomial in $\F_2$  would be of the form, $x^3 + ax^2 + bx + c$, where $a, b, c \in \F_2$. Thus the only polynomials would be:
+    
+    \begin{enumerate}
+        \item $x^3 + 1 = (x +1)(X^2 + X + 1)$
+        \item $X^3 + x^2 + x + 1 = (X + 1)^3$
+        \item $X^3 + X^2 + 1$ 
+        \item $X^3 + X + 1$ 
+    \end{enumerate}
+    
+
+    To check for double roots we take the second derivatives and check for common linear factors.
+     
+    
+    \begin{enumerate}
+        \item $\frac{d}{dx}(x^3 + 1) = 3x^2$, no common linear factors. Thus no double roots for polynomial 1. Thus over a larger field containing $\F_2$  matrices with this characteristic polynomial are diagonalizable, because there are distinct roots, thus conjugate, because they have the same eigenvalues. By last semester, we know if matricies are conjugate in a larger field they are conjugate in the smaller feild, in our case $\F_2$. 
+        \item Checking for $(x + 1)^3$ is redundant because it already has 1 root with multiplicity 3.
+        \item $\frac{d}{dx}(X^3 + X^2 + 1) = 3x^2 + 2x = x(3x + 1)$, no common linear factors. Thus no double roots for polynomial 3. Thus over a larger field containing $\F_2$  matrices with this characteristic polynomial are diagonalizable, because there are distinct roots, thus conjugate, because they have the same eigenvalues. By last semester, we know if matricies are conjugate in a larger field they are conjugate in the smaller field, in our case $\F_2$.
+        \item $\frac{d}{dx}(X^3 + X + 1) = 3x^2 + 1 $, no common linear factors. Thus no double roots for polynomial 4. Thus over a larger field containing $\F_2$  matrices with this characteristic polynomial are diagonalizable, because there are distinct roots, thus conjugate, because they have the same eigenvalues. By last semester, we know if matricies are conjugate in a larger field they are conjugate in the smaller field, in our case $\F_2$.
+    \end{enumerate}
+    
+    Thus if we fix poly 1, 3, or 4, all matrices with this characteristic poly are conjugate as stated above, so we get 3 conjugacy classes corresponding to this polynomial. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Explain why there are are exactly three conjugacy classes of matrices with $(x+1)^3$ as their poly -- consider the jordan forms (and use our fact that conjugate over a bigger field is the same as conjugate over the given field). Recall if a matrix has all the roots of its characteristic poly, then it has a Jordan form over the given field.
+\end{PROB}
+\begin{proof}
+    There are 3 conjugacy classes corresponding to the matrices with $(x + 1)^3$ as their characteristic polynomial, because they correspond to the possible jordan forms, any matrix with this characteristic polynomial has a jordan form which its conjugate to. The possible jordan forms are $I, \begin{bmatrix}
+        1 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 1
+    \end{bmatrix}$, and $\begin{bmatrix}
+        1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1
+    \end{bmatrix}$. Since every matrix with this characteristic poly, has a jordan form thus is conjugate to one of these jordan forms. Thus each of the jordan forms create 3 more conjugacy classes. 
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+    Representative elements for each conjugacy class and orders of size of conjugacy class. 
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item $X^3 + x^2 + x + 1 = (X + 1)^3$
+        \begin{enumerate}
+            \item I
+            \item $A = \begin{bmatrix}
+                1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1
+            \end{bmatrix}$. Suppose $\begin{bmatrix}
+                a & b & c \\ d & e & f \\ g & h & i
+            \end{bmatrix} \in \Z\left(A\right)$. Then $\begin{bmatrix}
+                a & b & c \\ d & e & f \\ g & h & i
+            \end{bmatrix} A = A \begin{bmatrix}
+                a & b & c \\ d & e & f \\ g & h & i
+            \end{bmatrix}$, thus $\begin{bmatrix}
+                a + d & b + e & c + f \\ d & e & f \\ g & h & i
+            \end{bmatrix} = \begin{bmatrix}
+                a & a + b & c \\ d & d + e & f \\ g & g + h & i
+            \end{bmatrix}$. Thus $a = e$, $d = f = g =0$ . $\begin{bmatrix}
+                a & b & c \\ 0 & a & 0 \\ 0 & h & i
+            \end{bmatrix} \in Z(A)$. But since the determinant must be 1, $a^2i = 1 \implies a = i =1$. Thus the centralizer of A consists of matrices, $\begin{bmatrix}
+                1 & b & c \\ 0 & 1 & 0 \\ 0 & h & 1
+            \end{bmatrix}$ where $b, c, h \in \F_2$. Thus there are 8 elements in the centralizer. By orbit stabilizer, $[A] = \frac{168}{8}= 21$.              
+            \item  $B = \begin{bmatrix}
+                1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1
+            \end{bmatrix}$. Suppose $\begin{bmatrix}
+                a & b & c \\ d & e & f \\ g & h & i
+            \end{bmatrix} \in \Z\left(B\right)$. Then $\begin{bmatrix}
+                a & b & c \\ d & e & f \\ g & h & i
+            \end{bmatrix} B = B \begin{bmatrix}
+                a & b & c \\ d & e & f \\ g & h & i
+            \end{bmatrix}$. Thus $\begin{bmatrix}
+                a + d & b + e & c + f \\ d + g & h + e & f + i \\ g & h & i
+            \end{bmatrix} = \begin{bmatrix}
+                a & a + b & b + c \\ d & d + e & f + e \\ g & g + h & h + i
+            \end{bmatrix}$. Thus $d = g = h = 0$, $a = e = 1$, $f = b$. Thus the matrices in $Z(B)$ have the form, $\begin{bmatrix}
+                a & b & c \\ 0 & a & b \\ 0 & 0 & a
+            \end{bmatrix}$, however since the determinant is 1, $a^3 = 1 \implies a = 1$. Thus the matrices look like, $\begin{bmatrix}
+                1 & b & c \\ 0 & 1 & b \\ 0 & 0 & 1
+            \end{bmatrix}$. Thus $|Z(B)| = 4$ and $[B] = 168 / 4= 42$.   
+        \end{enumerate}
+        \item $x^3 + 1 = (x +1)(X^2 + X + 1)$. A representative element is $C = \begin{bmatrix}
+            1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 1
+        \end{bmatrix}$, Suppose $\begin{bmatrix}
+            a & b & c \\ d & e & f \\ g & h & i
+        \end{bmatrix} \in \Z\left(C\right)$. Then $\begin{bmatrix}
+            a & b & c \\ d & e & f \\ g & h & i
+        \end{bmatrix} C = C \begin{bmatrix}
+            a & b & c \\ d & e & f \\ g & h & i
+        \end{bmatrix}$. Thus $\begin{bmatrix}
+            a & b & c \\ g & h & i \\ d + g & h + e & f +i
+        \end{bmatrix} = \begin{bmatrix}
+            a & c & b + c \\ d & f & f + e \\ g & i & h + i
+        \end{bmatrix}$. Thus $b = c = d = g = 0$, $f = h$, $i = f + e$. However since commuting matrices preserve the eigenspaces, $a = 1$. Thus the matrices have the form, $\begin{bmatrix}
+            1 & 0 & 0 \\ 0 & e & f \\ 0 & f & e + f
+        \end{bmatrix}$ where the determinant is 1, thus $e^2 + ef - f^2$, this is nonzero unless $e = f= 0$. Thus there are 3 choices and $|Z(C)| = 3 \implies [C] = \frac{168}{3} = 56$
+        \item  $x^3 + x + 1$. $D = \begin{bmatrix}
+            0 & 0 & 1 \\ 1 & 0 & 1 \\ 0 & 1 & 0
+        \end{bmatrix}$.
+
+        Suppose $\begin{bmatrix}
+            a & b & c \\ d & e & f \\ g & h & i
+        \end{bmatrix} \in \Z\left(D\right)$. Then $\begin{bmatrix}
+            a & b & c \\ d & e & f \\ g & h & i
+        \end{bmatrix} D = D \begin{bmatrix}
+            a & b & c \\ d & e & f \\ g & h & i
+        \end{bmatrix}$. Thus $\begin{bmatrix}
+            g & h & i \\ a + g & b + h & c + i \\ a + d & b + e & c + f
+        \end{bmatrix} = \begin{bmatrix}
+            b + c & c & a + b \\ f + e & f & d + e \\ h + i & i & g + h
+        \end{bmatrix}$. Thus matrices have the form, $\begin{bmatrix}
+            a & b & c \\ b & a & b + c \\ b + c & c & a +b
+        \end{bmatrix}$ and the determinant must be 1, so $a(a(a + b) - c(b + c)) - b(b(a + b) - (b + c)^2) + c(bc - ab - ac) = a(a^2 + ab - bc - c^2) - b(ab + b^2 - b^2 - 2bc - c^2) + c(bc - ab - ac) = a(a^2 + ab - bc - c^2) - b(ab - 2bc - c^2) + c(bc - ab - ac) = a^3 + a^2b - abc - ac^2 - ab^2 + 2b^2c + bc^2 + bc^2 - abc - ac^2 = a^3 + a^2b = a^3 - ab^2 + a^2b - 2ac^2 + 2bc^2 + 2b^2c - 2abc$ which is nonzero unless $a = b =c = 0$. Thus there are 7 possibilities for the matrices. Thus $Z(D) = 7$ and $[D] = \frac{168}{7} = 24$
+        
+        \item $X^3 + X^2 + 1$. Representative element is  $D = \begin{bmatrix}
+            0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 1
+        \end{bmatrix}$. This must be the last conjugacy class thus $[E] = 168 - [A] - [B] - [C] - [D] = 24$.  
+    \end{enumerate}    
+\end{proof}
+\bigskip
+\begin{PROB}{3}\label{Problem 3.}
+    Consider the action on $X = F_2^3 \setminus 0$, the natural permutation action. Show that the trace of an element  g (for the action of G  on $C^X$) is the number of eigenvectors. Subtract off the triv, and see you get Artin's $\chi_6$.
+\end{PROB}
+\begin{proof}
+    $\forall M \in GL_{3}(\F_2)$, suppose $x \in F_2^3 / setminus 0$ is a eigenvector of $M$, thus $\lambda \in \F_2 \ni Mx = \lambda x$. However $\lambda$ can either be 0 or 1, but since $M$ is invertible and $x \neq 0$, $Mx \neq 0$, thus $\lambda = 1$.  Thus $x$ is a fixed point of $M$. Similarly suppose $x$ is a fixed vector of $M$, then $Mx = x \implies x$ is a 1 eigenvector of $M$. 
+    
+    
+    For any permutation matrix, the trace gives the number of fixed points a matrix has. Thus $\forall g \in GL_{3}(\F_2)$, $tr(g) = $ is the number of fixed fixed vectors of $g$, which is equal to the number of 1 eigenvectors, since a fixed point is a 1 eigenvector of $g$. Thus the character of the action of X, is the following:
+    
+    
+    \begin{tabular}{c | c c c c c c }
+        & (1) & (21) & (42) & (56) & (24) & (24) \\
+        & [I] & $[A]$ & $[B]$  & $[C]$ & $[D]$ & $[E]$   \\
+        \cline{1-7}
+        $\chi_{(X)}$ & 7 & 3 & 1 & 1 & 0 & 0 \\
+        $\chi_6 = \chi_{(X)} - \chi_{triv}$ & 6 & 2 & 0 & 0 & -1 & -1 
+    \end{tabular}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Consider the action of G on X. Show its "doubly transitive" ie acts transitively on pairs of distinct elements. Show that the stabilizer for the action on pairs is iso to $F_2^2$ ( the vector space, as additive group). Now consider the action on X and the stablizer $G^x$. Show this has a surjective map to $GL_2(F_2)$ (by considering the quotient of $F_2^3$ by the subspace spanned by x). Show again the kernel is $F_2^2$. Prove the stabilizer $G^x$ is $S_4$.   When we have talked about induced reps. this will give us a way to come up with some further reps (taking reps of $S_4$ and looking at the "induced" reps). 
+\end{PROB}
+\begin{proof}
+    Let $G := GL_3(F_2)$ 
+    $Y := \left\{ (x, y) \in F_2^3 \times F_2^3 | x \neq y \right\}$. $\forall (x, y), (x', y') \in Y$, since $x \neq 0$, $y \neq 0$, $x' \neq 0$, $y' \neq 0$ $x$ and $y$ are linearly independent and $x'$ and $y'$ are linearly independent. Choose $z, z' \in X$, such that $span(x, y, z) = F_2^3$ and $span(x', y', z') = F_2^3$. Thus $\begin{bmatrix}
+        x & y & z
+    \end{bmatrix}$ and $\begin{bmatrix}
+        x' & y' & z'
+    \end{bmatrix}$ are in $GL_3(F_2)$. By closure of groups, $\exists M \in GL_3(F_2) \ni M = \begin{bmatrix}
+        x' & y' & z'
+    \end{bmatrix} \begin{bmatrix}
+        x & y & z
+    \end{bmatrix}^{-1}$, thus $M\begin{bmatrix}
+        x & y & z
+    \end{bmatrix} = \begin{bmatrix}
+        x' & y' & z'
+    \end{bmatrix}$ and $Mx =x'$ and $My = y'$. Thus $M(x, y) = (x', y')$. Thus $M$ is doubly transitive.
+    
+    
+    Let $x = (e_1, e_2)$. $G^x = \left\{ g \in GL_3(F_2) : g(e_1, e_2) = (e_1, e_2) \right\}$. Thus $\forall g \in G^x$, $g = \begin{bmatrix}
+        1 & 0 & a\\ 0 & 1 & b \\ 0 & 0 & c 
+    \end{bmatrix}$, however since $g \in GL_3(\F_2)$, $c = 1$. Thus $g = \begin{bmatrix}
+        1 & 0 & a\\ 0 & 1 & b \\ 0 & 0 & 1
+    \end{bmatrix}$. There are 4 possible pairs for $a$ and $b$. Thus $|G^x| = 4$. Let $\phi: F_2^2 \to G^x$ where $\begin{bmatrix}
+        a \\ b
+    \end{bmatrix} \to \begin{bmatrix}
+        1 & 0 & a\\ 0 & 1 & b \\ 0 & 0 & 1
+    \end{bmatrix}$. $\forall \begin{bmatrix}
+        a \\ b
+    \end{bmatrix}, \begin{bmatrix}
+        c \\ d
+    \end{bmatrix} \in F_2^2$, $\phi(\begin{bmatrix}
+        a \\ b
+    \end{bmatrix})\phi(\begin{bmatrix}
+        c \\ d
+    \end{bmatrix}) = \begin{bmatrix}
+        1 & 0 & a\\ 0 & 1 & b \\ 0 & 0 & 1
+    \end{bmatrix}\begin{bmatrix}
+        1 & 0 & c\\ 0 & 1 & d \\ 0 & 0 & 1
+    \end{bmatrix} = \begin{bmatrix}
+        1 & 0 & a + c\\ 0 & 1 & b + d \\ 0 & 0 & 1
+    \end{bmatrix} = \phi(\begin{bmatrix}
+        a \\ b
+    \end{bmatrix} + \begin{bmatrix}
+        c \\ d
+    \end{bmatrix})$. Thus $\phi$ is a homomorphism   
+    
+    $\forall v = \begin{bmatrix}
+        a \\ b
+    \end{bmatrix} \in \ker \phi$, it means $a = 0$ and $b = 0$, since $\phi(v) = I$, so $a = [I]_{1,3} = 0$ and $b = I_{2, 3} = 0$. Thus $\ker \phi = 0$ and $\phi$ is injective. Since $|F_2^2| = 4 = |G^x|$ and since $\phi$ is injective, the map is a isomorphism.
+    
+    Thus $G^x \cong \F_2^2$. 
+
+
+    $\forall x \in X$, $F_2^3 / span(x) \cong F_2^2$. $\forall g \in G^x$, $g = \begin{bmatrix}
+        1 & * & * \\ 0 & a & b \\ 0 & c & d
+    \end{bmatrix}$, the block $\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix} \in GL_2(F_2)$. Thus there is a map from $\phi: G^x \to GL_2(F_2)$, where $\begin{bmatrix}
+        1 & * & * \\ 0 & a & b \\ 0 & c & d
+    \end{bmatrix} \to \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}$. $\forall A = \begin{bmatrix}
+        1 & * & * \\ 0 & a & b \\ 0 & c & d
+    \end{bmatrix}, B = \begin{bmatrix}
+        1 & * & * \\ 0 & e & f \\ 0 & g & h
+    \end{bmatrix} \in G^x$. $\phi\left(AB\right)= \phi\left(\begin{bmatrix}
+        1 & * & * \\ 0 & bg + ae & af + bh \\ 0 & dg + ce & cf + dh
+    \end{bmatrix}\right) = \begin{bmatrix}
+        bg + ae & af + bh \\ dg + ce & cf + dh
+    \end{bmatrix} = \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}\begin{bmatrix}
+        e & f \\ g & h
+    \end{bmatrix} = \phi(A)\phi(B)$. Thus $\phi$ is a homomorphism. $\forall \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix} \in Gl_2(F_2)$, $\exists g = \begin{bmatrix}
+        1 & * & * \\ 0 & a & b \\ 0 & c & d
+    \end{bmatrix} \in GL_{3}(F_2) \ni \phi(g) = \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}$. Thus $\phi$ is surjective. Let $\rho: \F_2^2 \to \ker \phi$, where $\begin{bmatrix}
+        a \\ b
+    \end{bmatrix} \to \begin{bmatrix}
+        1 & a & b \\ 0 & 1 & 0 \\ 0 & 0 & 1
+    \end{bmatrix}$. $\rho(\begin{bmatrix}
+        a + c \\ b +d
+    \end{bmatrix}) = \begin{bmatrix}
+        1 & a + c & b + d \\ 0 & 1 & 0 \\ 0 & 0 & 1
+    \end{bmatrix} = \begin{bmatrix}
+        1 & a & b \\ 0 & 1 & 0 \\ 0 & 0 & 1
+    \end{bmatrix}\begin{bmatrix}
+        1 & c & d \\ 0 & 1 & 0 \\ 0 & 0 & 1
+    \end{bmatrix} = \rho(\begin{bmatrix}
+        a \\ b
+    \end{bmatrix})\rho(\begin{bmatrix}
+        c \\ d
+    \end{bmatrix})$. Thus $\rho$ is homomorphism. $|F_2^2| = |\ker \phi|  =4$. $\forall k \in \ker \rho$, $k = \begin{bmatrix}
+        0 \\ 0
+    \end{bmatrix}$, thus $\ker \rho = 0$, and $\rho$ is injective. Thus $\rho$ is isomorphism.         
+    
+    $GL_2(F_2)$ acts on $\left\{ (e_1, e_2), (e_1, e_1 + e_2), (e_2, e_1 + e_2) \right\}$. Let $k$ be the permutation which fixes all the basis, thus $ke_1 = e_1$ and $ke_2 = e_2$, thus $k = \begin{bmatrix}
+        1 & 0 \\ 0 & 1
+    \end{bmatrix}$. Thus $k = I$, thus the action is faithful. Thus $GL_2(F_2) \leq S_3$ but $|GL_2(F_2)| = |S_3| = 6$, thus $GL_2(F_2) \cong S_3$    
+    
+    Thus $G^x \cong F_2^2 \rtimes GL_2(F_2)\cong K_4 \rtimes S_3$. $S_3 \cong GL_2(F_2) \to GL_2(F_2)$, is so we send every automorphism of $F_2$ to itself. Let $y = \begin{bmatrix}
+        0 & 1 \\ 1 & 1
+    \end{bmatrix}$ and $z = \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}$. Thus $G^x \cong \angles{e_1, e_2, y, z| e_1^2 = e_2^2 = y^3 = z^2 = 1,  e_1e_2 = e_2e_1, ye_1y^{-1} = e_2, ye_2y^{-1} = e_1e_2, ze_{1}z^{-1}  =e_1, ze_2z^{-1} = e_2} \cong S_4$, by universal properties because $S_4$ also has these relations.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Show that G has 8 sylow 7 subgroups
+\end{PROB}
+\begin{proof}
+    $|G| = 168 = 2^3 * 3 * 7$.
+    
+    The number of sylow $7$ are divide $24$ and are 1 mod 7. The only possibilities are $1$ and $8$ however if it was 1, the sylow 7 would be normal, however no disjoint union of conjugacy classes gives a set of size 7. Thus the sylow 7 cannot be normal an thus the number of sylow 7s are 8.      
+\end{proof}
+
+\end{document}

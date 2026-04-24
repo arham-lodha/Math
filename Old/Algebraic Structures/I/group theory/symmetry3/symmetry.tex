@@ -1,0 +1,184 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Symmetry 3}
+\author{Arham Lodha}%put your name here
+\date{October 27, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{8.2}\label{Problem 8.2.}
+    What is the stabilizer of the coset $[aH]$ for the operation of G on $G/H$?
+\end{PROB}
+\begin{solution}
+    $\forall g \in G^{[aH]}$, $g * aH = gaH = aH$ thus $\exists h \in H$ s.t $ga = ah \implies ga = ah \implies a^{-1}ha = g$. Thus $g \in aHa^{-1}$ and $G^{[aH]} = aHa^{-1}$
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{8.3}\label{Problem 8.3.}
+    Exhibit the bijective map (6.8.4) explicitly, when G is the dihedral group $D_4$ and S is the set of vertices of a square.
+\end{PROB}
+\begin{solution}
+    Label the vertices of the square clockwise $v_1, v_2, v_3, v_4$. Thus $S = \{v_0, v_1, v_2, v_3\}$.
+
+    Let $v = v_0 \in S$ be a vertex of the square. Let $g \in G^v$, $gv = v$ means that v is fixed. If a vertex (point) is fixed in 2D the transformation is either the identity or a reflection through the point. The reflection fixes $v$ and $-v$ and permutes the two points to each other thus the square is fixed. Thus $G^v = \{I, r_v\}$. The orbit of the square is all vertices because $\rho_{kpi/2}$ takes v to the kth vertex clock wise to it thus all 4 vertices. Thus $G/G^v = \{G^v, \rho_{pi/2}G^v, \rho_{pi/}G^v, \rho_{3pi/2}G^v\}$. Let $f: G/G^v \to S$ s.t $f(\rho_{kpi/2}G^v) = \rho_{kpi/2}v_1 = v_k$. $\forall \rho_{kpi/2}G^v \in G^v$, $\rho_{kpi/2}G^v = \rho_{kpi/2}r_v G^v$, $f(\rho_{kpi/2}r_v G^v) = \rho_{kpi/2}r_v v = \rho_{kpi/2}v = v_k$ since $r_v$ fixes v. Thus $f$ is well defined. Thus $f(G^v) = v$, $f(\rho_{kpi/2}G^v) = v_k$ for $k = 1, 2, 3$. Thus f hits all four vertices thus it is surjective. Since $|G/G^v| = |S|$ the map is injective and thus a bijective.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{8.4}\label{Problem 8.4.}
+    Let H be the stabilizer of the index 1 for the operation of the symmetric group $G = S^n$ on the set of indices $\{1, \ldots, n\}$. Describe the left cosets of H in G and the map (6.8.4) in this case.
+\end{PROB}
+\begin{solution}
+    All the elements that permute the indices 2 through n are the stablizers of the index 1 because they keep 1 fixed. Thus $G^1 \cong S^{n-1}$. There are $(n-1)!$ elements. For $a \in S_n$, the elements in $\forall \phi = aG^1$, $a(1) = \phi(1)$ since $ah(1) = a(1)$ since $h(1) = 1$ $\forall h \in H$. Since the coset contains $(n-1)!$ permutations there are $(n-1)!$ $\phi \ni \phi(1) = a(1)$. Thus the bijection sends each coset $aH \to a(1)$.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{9.2}\label{Problem 9.2.}
+    Let G be the group of rotational symmetries of a cube, let $G_v$, $G_e$, $G_f$ be the stabilizers of a vertex v, an edge e, and a face f of the cube, and let $V, E, F$ be the sets of vertices, edges, and faces, respectively. Determine the formulas that represent the decomposition of each of the three sets into orbits for each of the subgroups.
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}{}
+        \item $G_v$: $G^v$ consists of the rotations which fixes the vertex (ie axis of rotation through v) then since the cube is preserved it has to map the adjacent vertices of v to the other adjacent vertices of v. Thus it has to preserve the triangle formed by the three adjacent vertices of V. Thus $G^v = \{\rho_{v, 0}, \rho_{v, 120}, \rho_{v, 240}\}$ This fixes the vertex and the diagonal it is on thus fixing $-v$. $G^v$ acts transtively on the 3 vertices adjacent to $v$ and acts transitively on the three vertices adjacent to $-v$. There are 4 orbits, $v, -v,$ the three vertices adjacent to v, and the 3 vertices adjacent to $-v$. Thus $|V| = 1 + 1 + 3 + 3 = 8$. 
+        \item $G^e$: If the elements of $G^e$ fix the edge they must fix its midpoint, M and the preserve vertices at its endpoints. The axis of rotation passess through the edge and either fixes the endpoints or swaps them. Thus $G^e = \{I, \rho_{M, pi}\}$. Since 0 and the midpoint are fixed, the opposite midpoint, $-M$ is also fixed and thus the opposite edge is also preserved. None of the other 10 edges are preserved. Each edge which is not preserved are in the same orbit to the edge which is parallel to it and perpendicular to e thus these two edges will swap under the rotation by $\pi$ since they are in the perp of the axis of rotation. Thus there are 5 orbits of 2 edges and 2 orbits of 1 edge. Thus $|E| = 1 + 1 + 2(5) = 12$.
+        \item $G^f$: If the elements of $G^f$ fix a face they fix the center of the face, $c$, and the normal of the face. Then they have to rotate and preserve the face which is a square. So $G^f = \{r_{k\pi/2} : k \in 0, \ldots, 3\}$. If the center of the face gets fixed then $-c$ which is the center of the opposite face also gets fixed. Thus the top and bottom faces are preserved. $G^f$ acts transtively on the adjacent faces. Thus $|F| = 1 + 1 + 4 = 6$
+    \end{enumerate}
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{9.5}\label{Problem 9.5.}
+    Let F be a section of an I-beam, which one can think of as the product set of the letter I and the unit interval. Identify its group of symmetries, orientation-reversing symmetries included.
+\end{PROB}
+\begin{proof}
+    Let the edges I beam be $E(I)$. $E(I) = Vert(I) \times [0, 1]$ where $ Verts(I)$ is the vertices of the cross section. $\forall e \in E(I)$. Let S be the group of rotational symmetries. If a cross section of the I beam is preserved, then its center and normal vector are preserved thus the axis of rotation passes through the center. $\rho_{c, \pi}$ will preserve the face and send e to $-e$ $\forall e \in E(I)$. Thus the orbit is 2. The stabilizer of the edge $e$ is any rotation which fixes the center of the edge which is a axis of rotation which passes through the midpoint of the edge and preserves the endpoints. Thus there are only 2, 0 and the rotation by $\pi$ which fixes the midpoint. Thus by the orbit stabilizer theorem, $|S| = 2 * 2$. $S \subseteq G$. $\det: G \to \{1, -1\}$ is a homomorphism. There is a reflection in G, the reflection through the plane parallel to the I cross sections. Thus $\det$ is surjective. Thus $[G : S] = 2$. Thus $|G| = 8$.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{1a}
+    Let V and W be finite dim vector spaces over F, Then $Aut(V)$, and $Aut(W)$ act on $Hom_F(V,W)$ by composition.  Show that two linear transformations are in the same $Aut(W)$ orbit iff they have the same kernel.
+\end{claim}
+\begin{proof}
+    ($\implies$): $\forall A, B \in Hom_F(V,W) \ni B \in Aut(W) \cdot A$ (B in the same $Aut(W)$ orbit as A). Then by definition, $\exists X \in Aut(W) \ni B = XA$. $\forall k \in \ker A$, $Bk = XAk = X0 = 0$ by definition of kernel and linear transformations. Thus $k \in \ker B$. If $B = XA \implies A = X^{-1}B$ thus $\forall l \in \ker B$ $Al = X^{-1}Bl = 0 \implies l \in \ker A$. Thus $\ker B = \ker A$. 
+
+    $(\impliedby)$: $\forall A, B \in Hom_F(V, W) \ni \ker A = \ker B$. $\dim(V - \ker A) = \dim(V - \ker B)$. Let $\{a_1, \ldots, a_n\}$ be the subset of the basis of V which isn't in the kernel of A and let $\{b_1, \ldots, b_n\}$ be the subset of basis of V which isn't in the kernel. Then $\{Aa_1, \ldots, Aa_n\}$ is a basis of W and $\{Bb_1, \ldots, Bb_n\}$ is a basis of W. Then there exists a automorphism of W which performs a change of basis. Thus A and B are in the same orbit.
+\end{proof}
+\begin{claim}{1b}
+    Two linear transformations are in the same $Aut(V)$ orbit iff they have the same image. 
+\end{claim}
+\begin{proof}
+    $(\implies)$: $\forall A, B \in Hom_F(V,W) \ni B \in Aut(V) \cdot A$. Then by definition, $\exists X \in Aut(V) \ni B = AX$. Let $S = \{a_1, \ldots, a_n\}$ be the subset of the basis of V which isn't in the kernel of A. $\forall a_i \in S$, $BX^{-1}a_i = AXX^{-1}a_i = Aa_i$. Thus the image of A is in B up to a change of basis in the domain. With a symmetric arguement the image of B is is in A up to a change of basis in the domain. Thus they have the same image. 
+
+    $(\implies)$: $\forall A, B \in Hom_F(V, W) \ni A_*(V) = B_(V)$. $\forall a \in A_*(V) \exists x \in V \ni Ax = a$ and since $A_*(V) = B_*(V)$. Then there also $\exists y \in V \ni By = a$. Let the basis of $A_*(V) = B_*(V)$ be $B_W = \{w_1, \ldots, w_n\}$. Thus there exists 2 basis in V, $B_A = \{a_1, \ldots, a_m\}$ and $B_B = \{b_1, \ldots, b_m\}$ s.t $Aa_i \in B_w$ and $Ba_i \in B_W$. Then there exists a automorphism of V which does a change of basis between $B_A$ and $B_B$. Thus A and B are in the same orbit of automorphism of V.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2a}
+    Let $G : G_n:= GL_n(F_p)$.  Let G act on $V := F_p^n$ (column vectors) by left multiplication. Explain why the action on V \ {0} is transitive. 
+\end{claim}
+\begin{proof}
+    $\forall v, w \in V \ \{0\}$, it is possible to create two bases of V $\{v_1 (= v), \ldots, v_n\}$ and $\{w_1 (= w), \ldots, w_n\}$. Then There is a automorphism of V in other words a invertible matrix, $X$, which performs a change of bases s.t $v_i \to w_i$. Thus $Xv = Xv_1 = Xw_1 = w$. Thus any nonzero column vector can be transformed to another nonzero column vector and the action is transitive.
+\end{proof}
+\begin{claim}{2b}
+    Show that $G_n^{e^1}$ is in natural bijection with $F_p^{n-1} \times G_{n-1}$.
+\end{claim}
+\begin{proof}
+    $G_n^{e^1}$ consists of all matrices with 1 in the upper left corner with zeros under neath it and anything else anywhere else. So $G_n^{e^1} = \{\begin{bmatrix}
+        1 & a\\
+        0 & A
+    \end{bmatrix}\}$ A in this matrix must be a invertible $(n - 1)$ matrix because the determinant cannot be 0 and the $a$ is a element $F_p^{n-1}$. Let $f : F_p^{n-1} \times G_{n-1} \to G_n^{e^1}$ s.t $\forall (a, A) \in F_p^{n-1} \times G_{n-1}$, $f(a, A) = \begin{bmatrix}
+        1 & a\\
+        0 & A
+    \end{bmatrix}$. Suppose $f(a) = f(b)$, then $\begin{bmatrix}
+        1 & a\\
+        0 & A
+    \end{bmatrix} = \begin{bmatrix}
+        1 & b\\
+        0 & B
+    \end{bmatrix}$ then $a = b$ and $A = B$. Thus f is injective. All matrices of the $G_n^{e^1}$ are of the form $\begin{bmatrix}
+        1 & a\\
+        0 & A
+    \end{bmatrix}$ thus f must be surjective. Thus f is a bijection.
+\end{proof}
+\begin{claim}{2c}
+    Prove $|G_n| = (p^n -1)(p^n - p) \ldots (p^n - p^{n-1})$
+\end{claim}
+\begin{solution}
+    Suppose $n = 1$, then there are only $p - 1$ matrices in $GL_1(F^p)$ which are invertible.
+
+    Inductive Hypothesis: Assume $|G_k| = (p^k -1)(p^j - p) \ldots (p^k - p^{k-1})$
+
+    Inductive Step: Suppose $n = k + 1$. For all $A \in GL_n(F^p)$. The first column must be a linearly independent column vector v. By the first problem all nonzero vectors are in the same oribit. Thus there exists a $B \in GL_n(F^p)$ s.t $v = Be_1$. Then there exists a $C \in G_n^{e^i}$ s.t $A = CB$. C is in bijection with $(a, A)$ where $a \in F_p^{k}$ and $A \in G_{k}$. By inductive Hypothesis, $|G_k| = (p^k -1)(p^j - p) \ldots (p^k - p^{k-1})$. $|F_p^{k}| = p^k$. Thus $|G_{k + 1}| = |G_{k}||p^k| = (p^{k + 1} -1)(p^j - p) \ldots (p^{k + 1} - p^{k})$. 
+    
+    Thus by induction $|G_k| = (p^k -1)(p^j - p) \ldots (p^k - p^{k-1})$
+\end{solution}
+
+
+
+
+\end{document}

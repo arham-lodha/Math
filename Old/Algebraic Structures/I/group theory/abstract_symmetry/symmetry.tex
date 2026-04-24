@@ -1,0 +1,283 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Abstract Symmetries}
+\author{Arham Lodha}%put your name here
+\date{October 26, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{7.5}\label{Problem 7.5.}
+    Let G be the group of symmetries of a cube, including the orientation-reversing symmetries. Describe the elements of G geometrically.
+\end{PROB}
+\begin{proof}
+    For the orientation preserving symmetries, for each face we can rotate about the center of the face by $k\pi/4$ for $k = 0, 1, 2, 3$. Thus there are 24 rotations. There is a inversion symmetry such that it takes $\forall v \in Vert(V)$ to $-v$. There are 3 reflections about planes about 3 coordinate planes. There are 6 reflections about diagonal planes. The remaining elements are compositions of the previous elements. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.6}\label{Problem 7.6.}
+    Let G be the group of symmetries of an equilateral triangular prism P, including the orientation-reversing symmetries. Determine the stabilizer of one of the rectangular faces of P and the order of the group.
+\end{PROB}
+\begin{claim}{7.6a}
+    Let $S = SO(3) \cap G$, $S \cong D_3$
+\end{claim}
+\begin{proof}
+    Let $Vert(P)$ be the vertices of P. Let $v \in Vert(P)$. Let F be the equilateral triangular face which v is on. Let $\vec{c}$ be the vector from O to the center of F. All rotations which preserve the equilateral triangle are the rotations $\rho_{\vec{c}, k\pi/3}$ for $k = 0, 1, 2$. These rotations take each $v$ to the other vertices on the equilateral face. Then take the rectangular face which isn't adjacent to $v$. Let $\vec{c_r}$ be the center of the rectangular face. Apply $\rho_{\vec{c_r}, \pi}$ on v, it will send v to a vertex to a vertex on the other face. Since $\vec{c} \perp F$ and the other face is parallel to $F$ and is just $F$ translated. all rotations $\rho_{\vec{c}, k\pi/3}$ would give all the vertices on the other equivalent triangle. Thus all vertices are in 1 orbit. 
+
+    Let $g \in S \ni gv = v$. So either $g = I$ or g is a rotation with $v \in V_1(g)$. But there is no non identity rotation in G which fixes v because then the vertices would not be mapped to vertices. Thus $g = I$. Thus $|S^v| = 1$. By orbit Stablizer theorem, $|S| = |S^v||Sv| = 6$. 
+    
+    Take a plane, $X$ and bisect $P$ and $X \parallel F$. Such that $X \cap P = T$ is a equilateral triangle and $O \in X$. Any rotation which preserve the face $F$ preserve T. Because the equilateral triangles $F_1, F_2, T$ are congruent and just translated. Any rotation which don't preserve F preserve T because $F_1, F_2$ are switched but since the distance between T and $F_1$ and $F_2$ is the same. Thus this distance must be maintained thus $T$ must be preserved these would be the reflections of $T$. $S \subseteq D_3$ because each transformation in S is the corresponding transformation of $T$. Suppose $K \in \ker K$, k fixes $T$ the only transformation which fixes $T$ is I. Thus the function is injective. Thus $S \cong D_3$. 
+\end{proof}
+\begin{claim}{7.6b}
+    Show $G \cong \mu_2 \times D_3$
+\end{claim}
+\begin{proof}
+    Let $P$ be the plane which bisects $X$ in such a way that it passes through 2 vertices which share a rectangular edge. $r_P \not \in D_3$. $\det: \{I, r_P\} \subseteq \mu_2$ by is injective and surjective. $\mu_2$ commutes with everything. Since $\mu_2 \times D_3 \to G$ is a homomorphism, thus $\mu_2 \times D_3 \cong G$
+\end{proof}
+\begin{claim}{7.6c}
+    Determine the stabilizer of one of the rectangular faces of P and the order of the group.
+\end{claim}
+\begin{proof}
+    Let F be a rectangular face of P. The stabilizer would be reflections across the planes which bisects F and the identity as well as any compositions of these reflections.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.7}\label{Problem 7.7.}
+    Let $G = GL_n(\R)$ operate on the set $V = \R^n$ by left multiplication.
+    \begin{enumerate}{}
+        \item Describe the decomposition of V into orbits for this operation.
+        \item What is the stabilizer of $e_i$?
+    \end{enumerate}
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}{}
+        \item One orbit is $\{0\}$. Because $\forall A \in GL_n(\R)$, $A0 = 0$. Forall $v, w \in V \ni v, w \neq 0$. Choose two bases of $V$, such that $B_1 = \{v_1 = (v), v_2, \ldots, v_n\}$ and $B_2 = \{w_1 = (w), w_2, \ldots, w_n\}$. There exists a $A \in GL_n(\R)$ which changes the basis of $V$ from $B_1$ to $B_2$. Thus $Av = w$. Thus all non zero column vectors are in another orbit.
+        \item $G^{e_i} = \{\begin{bmatrix}
+            1 & * \\
+            0 & A
+        \end{bmatrix} : A \in GL_{n - 1}(\R)\}$. $\begin{bmatrix}
+            1 & * \\
+            0 & A
+        \end{bmatrix}e^i = \begin{bmatrix}
+            1 \\ \vdots \\ 0
+        \end{bmatrix}$
+    \end{enumerate}
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{7.8}\label{Problem 7.8.}
+    Decompose the set $\C^{2 \times 2}$ of $2 \times 2$ complex matrices into orbits for the following operation of $GL_2(\C)$:
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}{}
+        \item One orbit is $\{0\}$. Let $M \in \C^{2 \times 2} \cap GL_2(\C)$ by closure another orbit is $GL_2(\C)$. Let $M \in \C^{2 \times 2} \ni M \not \in GL_2(\C), M \neq 0$. Row operations of gaussian elimination can be represented as a invertible matrix. Let A be the invertible matrix which performs gaussian elimination. Thus $AM = \begin{bmatrix}
+            1 & x \\ 0 & 0
+        \end{bmatrix} = R$. Say there exists a $S$ such that $\exists B \in GL_2(\C)$ s.t $BM = S = \begin{bmatrix}
+            1 & y \\ 0 & 0
+        \end{bmatrix}$. Let $C = \begin{bmatrix}
+            a & b \\ c & d
+        \end{bmatrix}$. $CR = \begin{bmatrix}
+            a & b \\ c & d
+        \end{bmatrix}\begin{bmatrix}
+            1 & x \\ 0 & 0
+        \end{bmatrix} = \begin{bmatrix}
+            a & ax \\ c & cx
+        \end{bmatrix} = \begin{bmatrix}
+            1 & y \\ 0 & 0
+        \end{bmatrix}$ thus a = 1 and $x = y$. Thus for any matrix there is only one row reduced form. Let $M, N \in \C^{2 \times 2}$ have the reduced form $R$. Then there is $A, B \in GL_2(\C)$ s.t $AM = R$ and $BN = R$. Thus $AM = BN$ thus $B^{-1}AM = N$ thus M and N are in the same orbit. Thus all non invertible matrices are in the orbit of their reduced forms and different reduced forms are in different orbits.
+        \item One orbit is $\{0\}$. By jordan form homework every linear map is conjugate to a jordan canonical form matrix. Let $J \in C^{2 \times 2}$ be a matrix in jordan canonical form. All the matrices conjugate to it have the same jordan form and thus the same generalized eigenspaces. Thus the orbits are the matrices with the same generalized eigenspaces.
+    \end{enumerate}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.9a}\label{Problem 7.9a.}
+    Let S be the set $\R^{m \times n}$ real $m \times n$ matrices, and let $G= GL_m(\R) \times GL_n(\R)$. 
+    Prove that the rule $(P, Q) * A = PAQ^{-1}$ define an operation of G on S.
+\end{PROB}
+\begin{proof}
+    $\forall A \in S$
+    \begin{enumerate}{}
+        \item $(I_m, I_n) * A = I_n A I_m = A$
+        \item $\forall X, P \in GL_m(\R)$ and $\forall Y, Q \in GL_n(\R)$, $(X, Y) * ((P, Q) * A) = (X, Y) * (PAQ^{-1}) = XPAQ^{-1}Y^{-1} = (XP, YQ) \ast A = ((X, Y) \ast (P, Q)) * A$. Thus compatability
+    \end{enumerate}
+
+    Thus by group action axioms. The operation is a group action.
+\end{proof}
+\begin{PROB}{7.9b}\label{Problem 7.9b.}
+    Describe the decomposition of S into G-orbits.
+\end{PROB}
+\begin{solution}
+    For any matrix $M \in \R^{m \times n}$ the row operations which produces row echelon from can be represented as a $m \times m$ invertible matrix let such a matrix be A. The column operations which produces reduced row echelon form ones or zeros on the diagonal and zeros everywhere else can be represented as a $n \times n$ invertible matrix. Thus M is in the same orbit as its reduced row echelon form matrix. There is no way for 2 different reduced row echelon form matrices to be in the same orbit. If m is in the same orbit as its reduced row echelon form all elements in the orbit have the rank. Thus elements in the same orbit have the same rank and elements in different orbit have different ranks. Thus G-orbits partition S by the rank of the matrices.
+\end{solution}
+\begin{PROB}{7.9c}\label{Problem 7.9c.}
+    Assume that $m \leq n$.What  is the stabilizer of the matrix $A = \begin{bmatrix}
+        I_m & \vert & 0
+    \end{bmatrix}$?
+\end{PROB}
+\begin{solution}
+    $G^A = \{(P, \begin{bmatrix}
+        P^{-1} & 0\\
+        * & *
+    \end{bmatrix}^{-1}) : P \in GL_m(\R)\}$. $\forall P, Q \in GL_m{\R}$ and $R \in GL_n{\R} \ni R^{-1} = \begin{bmatrix}
+        Q & X \\
+        Y & Z
+    \end{bmatrix}$
+
+    $(P, R) \ast A = P \begin{bmatrix}
+        I_m & \vert & 0
+    \end{bmatrix} \begin{bmatrix}
+        Q & X \\
+        Y & Z
+    \end{bmatrix} = \begin{bmatrix}
+        P & \vert & 0
+    \end{bmatrix}\begin{bmatrix}
+        Q & X \\
+        Y & Z
+    \end{bmatrix} = \begin{bmatrix}
+        PQ & PX
+    \end{bmatrix} = \begin{bmatrix}
+        I_m & \vert & 0
+    \end{bmatrix}$. Thus $Q = P^{-1}$ and $X = 0$.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{7.10a}\label{Problem 7.10a.}
+Describe the orbit and the stabilizer of the matrix $X = \begin{bmatrix}
+    1 & 0 \\ 0 & 2
+\end{bmatrix}$ under conjugation in the $GL_2(\R)$.
+\end{PROB}
+\begin{solution}
+    Orbit: Any matrix whose eigenvalues are 1 and 2.
+
+    Stablizer: $\forall A \in GL_2(\R) \implies AXA^{-1} = X \implies AX = XA$. A must be a diagonal with non zero scalars on the diagonal by a previous homework. $A = \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}$. $\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}\begin{bmatrix}
+        1 & 0 \\ 0 & 2
+    \end{bmatrix} = \begin{bmatrix}
+        a & 2b \\ c & 2d
+    \end{bmatrix} = \begin{bmatrix}
+        a & b \\ 2c & 2d
+    \end{bmatrix} = \begin{bmatrix}
+        1 & 0 \\ 0 & 2
+    \end{bmatrix}\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}$. Thus $2b = b$ and $2c = c$ thus $b = c = 0$.
+\end{solution}
+
+\begin{PROB}{7.10b}\label{Problem 7.10b.}
+    Interpreting the matrix in $GL_2(F_5)$, find the order of the orbit.
+\end{PROB}
+\begin{proof}
+    $\forall A \in GL_2(F_5)$. $|GL_2(F_5)^X| = 16$ 4 nonzero possibilities for each diagonal element. There are 25 possible column vectors in $F_5^2$, a column in a invertible matrix cannot be 0. Thus there are 24 choices for the first column of A. For the second column of A, the choice of the first column excludes the 4 column vectors which are scalar multiples of the first column of A. Thus there are 20 choices. Thus $|GL_2(F^5)| = 480$. By orbit stabilizer theorem, $|GL_2(F^5)| = 480 = |GL_2(F_5) * X||GL_2(F_5)| \implies |GL_2(F_5) * X| = 480 / 16 = 30$. Thus the size of the orbit is 30.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.11}\label{Problem 7.11.}
+    Prove that the only subgroup of order 12 of the symmetric group $S_4$ is the alternating group $A_4$.
+\end{PROB}
+\begin{claim}{7.11a}
+    $|G/A| = 2 \implies A \triangleleft G$
+\end{claim}
+\begin{proof}
+    $\forall g \in A$, $gA = A = Ag$. $\forall g \not \in A$. Since left cosets are disjont (or equal) and their union is $G$. Then $gA = G \setminus A$. Similarly since right cosets are disjont or equal and their union is G, $Ag = G \setminus A$. Thus $gA = G \setminus A = Ag$. Thus forall $g \in G$, $gA = Ag$. Thus A is normal.
+\end{proof}
+\begin{claim}{7.11b}
+    Let A be an index 2 subgroup of a group G. Explain why if g, h are NOT in A, then gh is.
+\end{claim}
+\begin{proof}
+    If A is a index 2 subgroup of a group G. Thus $G/A = \{A, G \setminus A\}$. Suppose $g, h \not \in A$. Then $g, h \in G \setminus A$ thus $h^{-1} \in G \setminus A$. Thus $g, h \in h^{-1}A$. Thus there exists a $a \in A$ s.t $g = h^{-1}a$ thus $gh = h^{-1}ah \in A$ since $A \triangleright G$ by the previous theorem. Thus $\forall g, h \not \in A$ $gh \in A$. 
+\end{proof}
+\begin{claim}{7.11c}
+    $\forall A \leq G \ni |S_n/A| = 2 \implies A$ contains no two cycle
+\end{claim}
+\begin{proof}
+    By claim 2a, $A \triangleleft G$.
+    Assume the contrary, A contains a two cycle $(i,j)$. $\forall \sigma \in S_n$, $\sigma(i, j)\sigma^{-1} = (\sigma(i), \sigma(j))$, thus all two cycles are conjugations of each other. Since A is normal $(\sigma(i), \sigma(j)) \in A$. However if we get all two cycles we get generate $S_n$. Thus $A \cong S_n$. However since $|S_n/A| = 2$ this forms a contradiction. Thus $A$ contains no two cycle.
+\end{proof}
+\begin{claim}{7.11d}
+    $A = A_n$
+\end{claim}
+\begin{proof}
+    Since A contains no two cycles but by claim 2b it contains the product of two things which it doesn't contain. A must contain all products of a pair of 2 cycle. Since all product of a pair of two cycles are in A. By closure A must also contain products of the products of pairs. Thus A must contain all permutations which are the product of $2n$ 2 cycles $n \in \N$. Thus A must contain all even permutations. Thus $A = A_n$ by definition of $A_n$. 
+\end{proof}
+\begin{claim}{2e}
+    $S \cong A_3$. S is from problem 1
+\end{claim}
+\begin{proof}
+    Since $G \cong S_4$ and $|S_4/S| = 2$. Thus $S \cong A_3$ by the claim 2d.
+\end{proof}
+\begin{proof}
+    Let $A \subseteq S_4 \ni \abs{A} = 24$. $[S_4 : A] = 24/12 = 2$. By the symmetries of platonic solids problem 2, $A = A_4$.
+\end{proof}
+
+\end{document}

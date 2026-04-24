@@ -1,0 +1,196 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{class equation of the Icosohedral group}
+\author{Arham Lodha}%put your name here
+\date{November 16, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Show the 60 rotations come naturally into sets according to whether their axis is a "vertex" -- $6 * 4 = 24$ of these.  
+    Face: there are $10 * 2 = 20$ of these. 
+    "edge", there are 15 of these, and the identity.  
+    Explain why each of these is a union of conjugacy classes.
+\end{PROB}
+\begin{proof}
+    Any axis of rotation preserves the plane normal to it and fixes all the points on its axis. 
+
+    Each face is paired with its opposite. Each face is a triangle and there are only 2 non identity rotations which preserve a tringle. Any rotation of one face is also in the bottom. 10 pairs x 2 rotations for each pair which preserve faces thus 20 rotations. Rotations of $(2\pi/3)$.
+
+    Each edge is also paired with its opposite edge. Any rotation which preserves it only has the choice to flip the edge or fix it. If it fixes it the rotation is the identity. So the only option is the rotation around the center of the edge by $\pi$. Since this rotation would do the same thing to the opposite edge pairs exhibit same behavior. Thus $15$ pairs and 1 rotation per pair. Thus 15 edge rotations.
+    
+    Each vertex has a pair and a rotation around the vertex must preserve the pentagon which it is the center of. 4 rotations and 6 pairs. 24 vertex rotations. Rotations correspond to $2\pi/5$
+
+
+    Since a rotation is conjugate to other rotations with the same angle of rotation and since each set of rotations have different angles of rotation two elements of different sets of rotations are conjugate to each other.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+    Show all the "edge" rotations are conjugate.
+\end{PROB}
+\begin{proof}
+    Let $\sim$ be a equivalence relation between opposite edges. All edge rotations have an angle of $\pi$. Let $I$ be the icosohedron. Let edges $a$ and $b$ be edges of the icosehedron. $\exists \bar a \in [a], \bar b \in [b] \ni \bar a, \bar b$ lie on the same triangle or pentagon and thus a rotation through the center of the shape takes $\bar a \to \bar b$. Since any edge can be taken to any other edge you can take the line through the center of the edge to the line through the center of any other edge. By the conjugation formula, $\alpha r_{\vec{v}, \pi} \alpha^{-1} = r_{\alpha{\vec{v}}, \pi}$ you can take any rotation to any other edge rotation by conjugation since you can transform the axis of rotations to each other.
+\end{proof}
+\begin{PROB}{2b}\label{Problem 2b.}
+    Explain when we conjugate rotation around a face (meaning the axis is pep to the face, and through its center) by an angle, we get rotation by a face, by either this angle or its negative.
+\end{PROB}
+\begin{proof}
+    Given the rotation conjugacy formula, we know $\alpha r_{\vec{v}, \theta} \alpha^{-1} = r_{\alpha(\vec{v}), \theta}$. So we either get a rotation by the angle or its negative ($alpha{\vec{v}}$ can flip, same effect). This happens for faces and vertices
+    
+    
+    Refer to Isometries 2 homework for detailed proof.
+\end{proof}
+\begin{PROB}{2c}\label{Problem 2c.}
+    Compute the conjugacy class of vertex rotation -- by computing the stabilizer (by conjugation).
+\end{PROB}
+\begin{proof}
+    We want the rotations $\alpha$ such that the if $A = r_{\vec{v}, \theta}$ (a vertex rotation) conjugated by $\alpha$ gives us the rotation back. If any rotation which passes through the same axis commutes with $A$. We want such rotations which preserve the pentagonal collections of triangular faces. There are 5 such rotations. Thus by orbit stabilizer the size of the conjugacy class of a vertex rotation is $60/5 = 12$. 
+\end{proof}
+\begin{PROB}{2d}\label{Problem 2d.}
+    Compute the conjugacy class of face rotation -- by computing the stabilizer (by conjugation).
+\end{PROB}
+\begin{proof}
+    The stabilizer of the face rotation is any rotation which commutes with the rotation. The only rotations which commute with a non $\pi$ rotation are the ones through the same axis of rotation. Any such rotation must also preserve the triangle face. This is simply $C_3$. Thus by orbit stabilizer, the size of the conjugacy class is $20$.
+\end{proof}
+\begin{PROB}{2e}\label{Problem 2e.}
+    Class equations
+\end{PROB}
+\begin{proof}
+    By previous problems the class equation is $60 = 1 + 20 + 15 + 12 + 12$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Show the group S is "simple", ie has no non-trivial proper normal subgroup. Hint, just use the class equation.
+\end{PROB}
+\begin{proof}
+    Any normal subgroup must be a union of the conjugacy classes and must have the identity element as well. No combination conjugacy classes which includes the identity conjugacy class and isn't just all the conjugacy classes together gives a sum which divides 60. Thus S must not have a nontrivial proper normal subgroup. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Show that the map $S \to S_5$ above is injective.
+\end{PROB}
+\begin{proof}
+    Let the map $f: S \to S_4$. S acts on the 4 cubes inscribed in the isocohedron. 
+
+    Let $k \in \ker f$, thus k fixes all the cubes.
+    Say $k$ doesn't fix a cube. It permutes the other cubes. Thus $k$ must fix all the cubes. For any cube the vectors to the 3 vertices are linearly independent and since k fixes the cubes the vectors are fixed as well and thus all of $\R^3$ is fixed. Thus $k = I$. Thus $f$ is injective.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.4.1}\label{Problem 7.4.1.}
+    The icosahedral group operates on the set of five inscribed cubes in the dodecahedron. Determine the stabilizer of one of the cubes.
+\end{PROB}
+\begin{proof}
+    Let $A$ be an inscribed cube of the icosehedron. $S^A \subseteq S \cong A_4$ is the group of even permutations of $A_4$ which fix 1 element which is essentially a even permutation which permutes the other 3 cubes thus $S^A = A_3$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.4.2}\label{Problem 7.4.2.}
+    Is $A_5$ the only proper normal subgroup of $S_5$?
+\end{PROB}
+\begin{proof}
+    Let $N \leq S_5 \ni N \trianglelefteq S_5$. Then the set $N' \subseteq N$ consisting of the even permutations of N must also be normal since the conjugate of any even permutation is even as well. Thus $N' \subseteq A_5$ and $N' \trianglelefteq S_5 \implies N' \trianglelefteq A_5$. But $A_5$ is a simple by problem 3 so it can't have any nontrivial proper subgroups. Thus either $N' = e$ or $N' = A_5$. If $N' = e$ or $N' = A_5$. 
+    
+    If $N'$ is trivial then $N$ is the identity and odd permutation. Let $\sigma \in N$ be a odd permutation. $\sigma^2 = e$ because if it doesn't it would be a nontrivial even permutation which contradicts the fact that N' is trivial. Suppose $\alpha \in N \ni \alpha \neq e$ then $\alpha \sigma \in A_5$ but $N' \cap A_5 = \{e\}$, $\sigma = \alpha^{-1} = \alpha$. Thus $N = \{e, \sigma\}$. This is trivially not normal take a conjugation of sigma it wouldn't be in N
+
+    If $N' = A_5$, then $N = S_5$. Thus $A_5$ is the only normal subgroup of $S_5$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.4.6}\label{Problem 7.4.6.}
+    Prove that the tetrahedral group T is isomorphic to the alternating group A4, and that the octahedral group O is isomorphic to the symmetric group S4 .Hint: Find sets of four elements on which the groups operate. Two tetrahedra can be inscribed into a cube C, each one using half the vertices. Relate this to the inclusion A4 C S4.
+\end{PROB}
+\begin{proof}
+    Solved in Platonic Solids Homework
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.4.8a}\label{Problem 7.4.8a.}
+    Suppose that the centralizer $Z(x)$ of a group element x has order 4. What can be said about the center of the group?
+\end{PROB}
+\begin{proof}
+    Since $Z(G) \subseteq Z(x)$, $|Z(A)| = 1, 2, 4$ (Lagrange's Theorem).
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.4.8b}\label{Problem 7.4.8b.}
+    Suppose that the conjugacy class C(y) of an element y has order 4. What can be said about the center of the group?
+\end{PROB}
+\begin{proof}
+    $Z(y) = |G|/4 \implies Z(G) | |G|/4 \implies |G|/4 = kZ(G) k \in \N, Z(G) = |G|/(4k)$
+\end{proof}
+
+\end{document}

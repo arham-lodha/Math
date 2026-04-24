@@ -1,0 +1,215 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Isometries}
+\author{Arham Lodha}%put your name here
+\date{October 19, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    $A: R^n \to R^n$ preserves distance, ie $d(A(x), A(y)) = d(x,y)$ := distance from x to y.  
+    Show A takes straight line segments to straight line segments, of the same length (e.g. by generalizing the statement that there is a unique point a distance $d/2$ from two points distance d apart, and it lies on the straight segment between them)
+\end{PROB}
+\begin{proof}
+    $\forall x, y \in R^n$, let $d = d(x, y)$. $\forall z \in R^n$ such that $d(x, z) = a$ and $d(z, y) = d - a$ thus z lies on the line segment between x and y. After applying A, $d(A(x), A(y)) = d(x, y) = d$ by definition of A and thus the line segment between $A(x)$ and $A(y)$ are of the same length as x and y. Furthermore, $d(A(x), A(z)) = d(x, z) = a$ and $d(A(z), A(y)) = d(z, y) = d - a$ thus $A(z)$ lies on the line between $A(x)$ and $A(y)$ by the triangle inequality. Thus all points on the line segment $xy$ get mapped to the line segment $A(x)A(y)$ which is the same length.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Show that A takes triangles to similar triangles. Conclude (by some familar euclidean geometry) that it preserves angles. 
+\end{PROB}
+\begin{proof}
+    Let $\forall X, Y, Z \in R^n$. Let $\triangle XYZ$ be the triangle. The line segments of the triangle don't intersect except at $X$, $Y$, $Z$ by definition. Since A maps line segments to Line segments of the same length, thus $A(X)A(Y) \cong XY$, $A(X)A(Z) \cong XZ$, $A(Y)A(Z) \cong YZ$ and the lines intersect at $X, Y, Z$. Thus since the lines are congruent, $\triangle XYZ \cong \triangle A(X)A(Y)A(Z)$ thus A takes triangle to congruent triangles, a stronger condition to similar triangles. Since $\triangle XYZ \cong \triangle A(X)A(Y)A(Z)$, all angles of $XYZ$ are congruent to corresponding angles in triangles $A(X)A(Y)A(Z)$. Thus for any triangle in $R^n$ all of its angles are preserved under A, since all angles are part of a triangle in $R^N$ they are also preserved.
+\end{proof}
+
+Now assume A(0) = 0. We show A is linear and lies in O(n)
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Show A preserves norm, ie $||A(x)|| = ||x||$, and dot product. 
+\end{PROB}
+\begin{proof}
+    By definition of A and norm, $||A(x)|| = d(0, Ax) = d(0,x) = ||x||$. 
+    $\angles{x, y} = ||x||||y||cos(\theta)$. Since all angles and distances are preserved, then $||x||||y||cos(\theta) = ||Ax||||Ay||cos(\theta) = \angles{Ax, Ay}$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Let B be the matrix with columns $A(e^1),..,A(e^n)$. Explain why B is orthogonal. Now consider $Z:= B^{-1} \circ A$. Explain why its enough to prove Z is the identity.  Explain why Z is rigid, fixes 0, and all the $e^i$. Using the above conclude Z = I. 
+\end{PROB}
+\begin{proof}
+    \[
+        B = \begin{bmatrix}{}
+            \vline & \vline & \vline \\
+            A(e^1) & \cdots & A(e^n) \\
+            \vline & \vline & \vline \\
+        \end{bmatrix}
+    \]
+
+    Since $e_i^Te_j = \delta(i, j)$ since standard basis is orthogonal and since A preserves angles, $(Ae_i)^T(Ae_j) = \delta(i, j)$
+
+    \[
+        B^T B = \begin{bmatrix}{}
+            A(e^1)^T \\
+            \vdots \\
+            A(e^n)^T
+        \end{bmatrix} B = \begin{bmatrix}{}
+            \vline & \vline & \vline \\
+            A(e^1) & \cdots & A(e^n) \\
+            \vline & \vline & \vline \\
+        \end{bmatrix} = \begin{bmatrix}
+            \angles{e_1, e_1} & \cdots & \angles{e_1, e_n} \\
+            \vdots & \ddots & \vdots \\
+            \angles{e_1, e_n} & \cdots & \angles{e_n, e_n}
+        \end{bmatrix} = \begin{bmatrix}
+            \delta(1, 1) & \cdots & \delta(1, n) \\
+            \vdots & \ddots & \vdots \\
+            \delta(1, n) & \cdots &  \delta(n, n)
+        \end{bmatrix} = I
+    \]
+
+    $\forall x,y \in \R^n, \angles{Bx, By} = (Bx)^TBy= x^TB^TBy = x^Ty = \angles{x, y}$. Thus $B$ is orthogonal.
+
+    If we prove that Z is the identity, then Z. Since O(n) is a group, $A, B \in O(n) \implies B^{-1} \in O(n) \implies B^{-1} \circ A \in O(n)$. Since B preserves distance and A preserves distance, $B^{-1}$ preserves distance thus $B^{-1} \circ A$ preserves distance because otherwise A or $B^{-1}$ do not preserve distance and thus causing a contradiction. $A(0) = 0$, $B(0) = 0$ because B is a matrix thus a linear map, and $B^{-1}(0) = 0$. Because $B^TB = I$, $B^{-1} = B^T$. Furthermore $(B^{-1} \circ A)(e^i) = B^{-1}(A(e^{i})) = \begin{bmatrix}
+        \delta(i, 1) \\
+        \vdots \\
+        \delta(i , i) \\
+        \vdots \\ 
+        \vdots(i, n)
+    \end{bmatrix} = e^i$. Since Z fixes origin and all the standard basis then Z must be I.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let $Rig(R^n)$ be the group of rigid (ie distance preserving) transformations of $R^n$. Show there is a natural inclusion of $(R^n,+)$ inside Rig (as translations).  
+\end{PROB}
+\begin{proof}
+    $\forall v \in (R^n, +)$, let $f_v: R^n \to R^n \ni \forall w \in R^n, f_v(w) := w + v$. Since 0, y, x v, y + v form a parellogram thus $\abs{f_v(y)} = d(f_v(0), f_v(y)) = d(0, y) = \abs{y}$. Thus $f_v \in Rig(\R^n)$ and $g: (R^n, +) \to Rig(\R^n)$ s.t $v \to f_v$. $\forall v, w \in R^n$ suppose $g(v) = g(w)$ thus $f_v = f_w$ thus $f_v(0) = v = w = f_w(0)$ thus $g$ is injective.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Let G act on the set X. Show that $G^x$ and $G^{gx}$ are conjugate (recall $G^x$ is the stabilizer of x).  Show that $Rig^0 = O(n)$, and that $Rig^P$ is conjugate (in particular, isomorphic) to $O(n)$.  Show that Rig is generated by $O(n)$ together with  $T:= R^n$ (the translations)
+\end{PROB}
+\begin{proof}
+    $G^x = \{f \in G : fx = x\}$, $G^{gx} = \{h \in G: hgx = gx\}$. $\forall h \in G^{gx}$, $hgx = gx \implies g^{-1}hgx = x \therefore g^{-1}hg \in G^x$. $\therefore g^{-1}G^{gx}g = G^x$. Thus $Rig^0 = O(n)$ and $Rig^P$ are conjugate by the previous statements. Let $f: O(n) \to Rig^P$ s.t $v \to (+P)x(-P)$ ($(\pm P)$ is translation which takes 0 to $\pm P$). Conjugation is always a homomorphim. $g: Rig^P \to O(n) \ni x \to (-P) x (+P)$. $\forall x \in O(n)$, $g(f(x)) = g((+P)x(-P)) = (-P)(+P)x(-P)(+P) = x$ and $\forall y \in Rig^P$, $f(g(y)) = (+P)(-P)y(+P)(-P) = y$. Thus $f$ is a isomorphism and O(n) and $Rig^P$ are isomorphic.
+
+    By problem 8, $O(n)$ and $T$ generate $Rig$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Which subgroup, T or O(n) in Rig is "better"? Which one is more "canonical"? Which one is normal?  Take A, and think of $A: \R^n \to \R^n$. Explain why this is differentiable, and prove that the derivative is a constant matrix. Show the map $D:  Rig \to GL_n$ is a group homomorphism, with image O(n). Show the kernel is T. 
+\end{PROB}
+\begin{proof}
+    T is better because it is normal and is more canonical because it doesn't depend on choice of origin. By problem 8, $\forall A \in Rig(\R)$, $A = T_v \circ B$ for $B \in O(n)$ and $T_v \in T$. Thus $\forall T_w \in T$, $A^{-1} T_w A = B^{-1} \circ T_{-v} \circ T_w \circ  T_v \circ B = B^{-1} \circ T_w \circ B$. $\forall x \in \R^n$, $(B^{-1} \circ T_w \circ B)x = B^{-1}(Bx + w) = B^{-1}Bx + B^{-1}w = x + B^{-1}w =  T_{B^{-1}(w)}(x)$
+
+    So $A^{-1}T_wA = T_{B^{-1}(w)}$
+
+    A is differentiable, because by problem 8 $\forall A \in Rig(\R)$, all transformations are the product of a $B \in O(n)$ with the input vector and then adding a constant vector. The derivative of such a function is exists and is B, a constant matrix. $J_A = J_{Bx + v} = B$. 
+
+    Let $D: Rig \to GL_n \ni v \to J_v$. $\forall v, w \in Rig$, $v = T_x \circ B_1$ and $w = T_y \circ B_2$. $D(xy)= x'(y)y'$. However since $x' = B_1$ and $y' = B_2$. Then $D(xy) = B_1B_2 = D(x)D(y)$. Thus the derivative is a group homomorphism. Moreover $\forall A \in Rig$, $D(A) = B$ but $B \in O(n)$. So $D_*(Rig) \subseteq O(n)$. But $\forall B \in O(n)$, $D(B) = B \in D_*(Rig)$ so $O(n) \subseteq D_*(Rig)$. Thus $D_*(Rig) = O(n)$. $D(A) = 0 \iff A = T_v \circ B = T_v \circ 0$ thus $A = T_v$. Thus $T = \ker D$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+    Show that for any A in Rig, there is an orthogonal matrix B and a vector v, so that A(X) = BX + v, ie the composition  $T_v \circ B$ (where $T_v$ is translation by v).
+\end{PROB}
+\begin{proof}
+    Let A be a rigid transformation. Let $a = A(0)$. Let $B = T_{-a}A$, then $A = T_{a}\circ B$. $B(0) = T_{-a}(A(0)) = T_{-a}(a) = 0$, thus B fixes the origin and $B \in O(n)$. Expression $A = T_{a} \circ B$ is unique because since $B(0) = 0$, so $a = A(0)$ and then $B = T_{-a} \circ A$. Thus $A(x) = Bx + a$
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+    Compute $A \circ T_v A^{-1}$  $A \in Rig$ (we know T is normal, so this has to be a translation)
+\end{PROB}
+\begin{proof}
+    $\forall A \in Rig(\R)$, $A = T_v \circ B$ for $B \in O(n)$ and $T_v \in T$. Thus $\forall T_w \in T$, $A^{-1} T_w A = B^{-1} \circ T_{-v} \circ T_w \circ  T_v \circ B = B^{-1} \circ T_w \circ B$. $\forall x \in \R^n$, $(B^{-1} \circ T_w \circ B)x = B^{-1}(Bx + w) = B^{-1}Bx + B^{-1}w = x + B^{-1}w =  T_{B^{-1}(w)}(x) = T_{D(A^{-1})}(x)$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{10}\label{Problem 10.}
+    Construct a natural homomorphism from Rig to {+1,-1} (by taking det of the derivative). 
+\end{PROB}
+\begin{proof}
+    Create the homomorphism $f: Rig \to {+1, -1} \ni f = \det \circ D$. Since determinant and D are homomorphisms then f must be a homomorphism. Since $D_*(Rig) = O(n)$ and $\det_*(O(n)) = \pm 1$, $f_*(Rig) = \pm 1$.
+\end{proof}
+
+
+
+
+\end{document}

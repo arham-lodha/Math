@@ -1,0 +1,266 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Galois 2}
+\author{Arham Lodha}%put your name here
+\date{April 16, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    The galois group of a polynomial means the galois group of a splitting field.  Explain why the galois group is a subgroup of Perm(roots of f). Explain why f is irreducible iff this galois group acts transitively on the roots
+\end{PROB}
+\begin{proof}
+    As previously shown, $Gal(K[f] / K)$ is in bijection with the roots of $f$ with the evaluation homomorphism. Suppose $r$ is a root of $f$, $\forall g \in Gal(K[F] / K), f(g(r)) = g(f(r)) = 0$. Thus $g(r)$ is root. Thus $g$ takes roots to roots. For $2$ distinct roots since $g$ is a automorphism it must take 2 distinct roots to 2 distinct roots thus, $g$ is a permutation of roots. Furthermore since each element of Gal is determined by where it sends any root of f, no two elements of $Gal$ cause the same permutations of roots thus $Gal(K[F] / K) \subseteq Perm(roots of f)$. 
+    
+    Suppose $f$ is reducible. Thus $\exists g, h \in K[X] \ni f(x) = g(x) h(x)$ where wlog $g, h \not \in K $ and $gcd(g, h) = 1$ . WLOG suppose $r$ is a root of $g$ and $s$ is a root of $h$. Then $\forall \sigma \in Gal(K[f]/  K), \sigma(r) $ is a root of $g$ and $\sigma(s)$ is a root of $h$. Thus there are 2 orbits, $Gal(K[f]/K) \cdot r $ and $Gal(K[f] / K) \cdot s$. Thus the action is not transitive. Thus if the action is transitive then its irreducible. 
+
+    Suppose $f$ is irreducible. Assume the contrary that $G$ is not transitive. Then let $s, r$ be elements of the roots of $f$ in distinct orbits of $G$. Then let $g(x) = \prod_{\alpha \in H \cdot r}(x - \alpha)$ and $h(x) = \prod_{\beta \in H \cdot s}(x - \beta)$ and $g, h | f$. Moreover $g, h$ are fixed by Gal and thus, $g, h \in K[x]$. Moreover by a previous homework, $g, h$ are irreducible. Thus $f$ factors into 2 irreducible polynomials thus $f$ is reducible and thus by contradiction, G must be transitive.             
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Consider $K[\sqrt{a}, \sqrt{b}]$  where a,b are in K and neither a nor b is a square.  Char 0 (all you really need is char other than 2).  Show the galois group is either $\mu_2 \times \mu_2$ , or $\mu_2$, with $\mu_2$ iff ab is a square. ($\mu_n$ means the multiplicative cyclic group). 
+\end{PROB}
+\begin{proof}
+    The minimum polynomial of $\sqrt{a}$ over $K$ is $p_{\sqrt{a}}(x) = x^2 - a$. The minimum polynomial of $\sqrt{b}$ over $K$ is $p_{\sqrt{b}}(x) = x^2 - b$. The roots to $p_{\sqrt{a}}(x) = x^2 - a$ are $\sqrt{a}$ and $-\sqrt{a}$. Similarly the roots to $p_{\sqrt{b}}(x) = x^2 - b$ are $\sqrt{b}$ and $-\sqrt{b}$. Thus, $K[\sqrt{a}] / K$ is galois and $K[\sqrt{a}, \sqrt{b}] / K$ is galois and $K[\sqrt{b}] / K$ is galois.   
+    
+    \[\begin{tikzcd}
+        & {K[\sqrt{a}, \sqrt{b}]} \\
+        {K[\sqrt{a}]} && {K[\sqrt{b}]} \\
+        & K
+        \arrow["{\leq 2}", hook, from=2-1, to=1-2]
+        \arrow["{\leq 2}"', hook, from=2-3, to=1-2]
+        \arrow["{\leq 4}"', from=3-2, to=1-2]
+        \arrow["2", hook', from=3-2, to=2-1]
+        \arrow["2"', hook, from=3-2, to=2-3]
+    \end{tikzcd}\]
+
+    $\implies:$ Suppose $ab \in K$ is a square. Then $\exists c^2 \in K \ni ab = c^2 \implies b = \frac{a}{c^2} \implies \sqrt{b} = \frac{\sqrt{a}}{c} \implies \sqrt{b} \in K[\sqrt{a}]$. Thus $K[\sqrt{a}, \sqrt{b}] = K[\sqrt{a}] \implies Gal(K[\sqrt{a}, \sqrt{b}] \ K) = Gal(K[\sqrt{a}] / K)$. Since $p_a$ is seperable and splits over $K[\sqrt{a}] \implies Gal(K[\sqrt{a}] / K) = [K[\sqrt{a}] : K] = 2 \implies Gal(K[\sqrt{a}] / K) = \mu_2$. Thus $Gal(K[\sqrt{a}, \sqrt{b}] / K) = \mu_2 $. 
+    
+    $\impliedby: $ Suppose $Gal(K[\sqrt{a}, \sqrt{b}] / K) = \mu_2$. Since $p_{\sqrt{a}}$ and $p_{\sqrt{b}}$ are seperable and split over $K[\sqrt{a}, \sqrt{b}]$. Thus $K[\sqrt{a}, \sqrt{b}] / K$ is galois. Thus, $[K[\sqrt{a}, \sqrt{b}] : K] = |Gal(K[\sqrt{a}, \sqrt{b}] / K)| = 2 \implies [K[\sqrt{a}, \sqrt{b}] : K[\sqrt{a}]] = 1 \implies \sqrt{b} \in K[\sqrt{a}]$. Thus $\exists x, y \in K \ni \sqrt{b} = x + y \sqrt{a} \implies b = x^2 + 2xy\sqrt{a} + ay^2$. Since $b \in K$ and $\sqrt{a} \not \in K \implies xy = 0$. Assume the contrary, $y = 0$. Then $b = x^2$ and thus b is square in $K$ which is a contradiction. Thus, $y \neq 0$ and $x = 0$. Thus $b = ay^2 \implies ab =a^2y^2 \implies \sqrt{ab} = \sqrt{a^2 y^2} = ay \in K$. Thus $ab$ is square in K. 
+    
+    
+    Suppose $ab$ is square in K. $\exists c^2 \in K \ni ab = c^2 \implies b = \frac{a}{c^2} \implies \sqrt{b} = \frac{\sqrt{a}}{c} \implies \sqrt{b} \in K[\sqrt{a}]$.
+    
+    Suppose $ab$ is not square in $K$. Thus $b \not \in K[\sqrt{a}]$. Thus, $[K[\sqrt{a}, \sqrt{b}] : K[\sqrt{a}]] = 2 \implies [K[\sqrt{a}, \sqrt{b}] : K] = 4$. Since, $[K[\sqrt{a}, \sqrt{b}] : K]= 4$. Thus $Gal(K[\sqrt{a}, \sqrt{b}] : K) = \mu_4$ or $Gal(K[\sqrt{a}, \sqrt{b}] : K) = \mu_2 \times \mu_2$. By Galois Coorespondence, since $[K[\sqrt{a}, \sqrt{b}] : K[\sqrt{a}]] = 2$ and $[K[\sqrt{a}, \sqrt{b}] : K[\sqrt{b}]] = 2$, and both extensions are galois,  $Gal(K[\sqrt{a}, \sqrt{b}] : K)$ has two subgroups isomorphic to $\mu_2$. Thus $Gal(K[\sqrt{a}, \sqrt{b}] : K) = \mu_2 \times \mu_2$. 
+\end{proof}
+
+\bigskip
+
+\section*{Artin Part 9}
+
+\begin{PROB}{3}\label{Problem 3.}
+    Consider a nested square root $a = \sqrt{r + \sqrt{t}}$ with $r, t \in F$. Assume $\alpha$ has degree 4 over $F$, let $f$ be the irreducible polynomial of $\alpha$ over $F$, and let $K$ be a splitting field of $f$ over F.       
+\end{PROB}
+\begin{PROB}{3a}\label{Problem 3a.}
+    Compute the irreducible polynomial of $\alpha$ over $F$. Prove that $G(K / F)$ is one of teh groups $D_4$, $C_4$, or $D_2$.      
+\end{PROB}
+\begin{proof}
+    \begin{align*}
+        \alpha^4 &= (r + \sqrt{t})^{2} \\
+        &= r^2 + 2r\sqrt{t} + t
+    \end{align*}
+
+    \begin{align*}
+        \alpha^4 -  2r\alpha^2 - t + r^2 &= r^2 + 2r\sqrt{t} + t - 2r(r + \sqrt{t}) - t + r^2 \\
+        &= r^2 - 2r^2 +r^2  +2r\sqrt{t} - 2r\sqrt{t} + t - t \\
+        &= 0.
+    \end{align*}
+
+    Thus $\alpha$ is a solution to 
+    
+    \begin{align*}
+        x^4 - 2rx - t +r^2
+    \end{align*}
+
+    Since $\alpha$ has degree 4, this is the minimum polynomial thus $f(x) = x^4 - 2rx + r^2 - t = (x^2 - r^2)^2 - t$. Let $\beta = \sqrt{r - \sqrt{t}}$. Thus the roots of $f$ are $\pm \alpha, \pm \beta$. Let $S = \left\{ \alpha, -\alpha, \beta, -\beta \right\}$. Thus $K = F[\alpha, \beta]$ 
+    
+
+    $\beta$ is a solution to $x^2 + \alpha^2 + r$ over $F[\alpha]$. Thus $[F[\alpha, \beta] : F[\alpha]] \leq 2$. Thus $[F[\alpha, \beta] : F] \leq 8$. Thus $|G(K / F)| \leq 8$.           
+    
+    
+    Note for all $g \in Gal(K / F)$, $\forall s \in S$ if $g(-s) = -g(s)$. Thus a notion of "opposites" must be maintained. Thus the elements of $S$ can be placed on the square any action of G must be a rigid transformation of the square which maintains the structure of opposite pairs. 
+    
+    \[\begin{tikzcd}
+        \alpha && {\beta} \\
+        \\
+        {-\beta} && {-\alpha}
+        \arrow[dashed, no head, from=1-1, to=1-3]
+        \arrow[dashed, no head, from=1-1, to=3-1]
+        \arrow[no head, from=1-1, to=3-3]
+        \arrow[dashed, no head, from=1-3, to=3-3]
+        \arrow[no head, from=3-1, to=1-3]
+        \arrow[dashed, no head, from=3-1, to=3-3]
+    \end{tikzcd}\]
+
+    Thus $G \subseteq D_4 = \angles{x, y | x^4 = y^2 = 1, yxy = x^{-1}}$. Moreover G acts transitively on the roots by problem 1. The only subgroups of $D_2$, $\angles{x} \cong \mu_4$, and $\angles{x^2, y} \cong K_4$, $\angles{x^2}$, and $\angles{y}$.
+    
+    $D_4$ is transitive. The orbit of the "vertex" $\alpha$ under $\mu_4$ (not really the actual value), is $\alpha$, $-\beta$, $-\alpha$, $\beta$. The orbit of $\alpha$ over $D_2$ is $\alpha$, $-\beta$, $\beta$, $-\alpha$, and then cycles. Thus the these tree subgroups are transitive. 
+    
+    The orbit of $\alpha$ over $\angles{x^2}$ is $\alpha, -\alpha, \alpha \dots$. The orbit of $\alpha$ over $\angles{y}$ is $\alpha, \beta, \alpha \dots$.
+    
+    Thus the transitive subgroups of $D_4$ are $D_4$, $\angles{x} \cong \mu_4$, and $\angles{x^2, y} \cong D_2$. $D_4, \mu_4 \triangleleft D_4$.
+    
+
+    $\alpha$ and $\beta$ are not squares over $F[\sqrt{t}]$. 
+    
+    \[\begin{tikzcd}
+        {K} \\
+        {F[\alpha]} & {F[\beta]} \\
+        {F[\sqrt{t}]} \\
+        F
+        \arrow[no head, from=2-1, to=1-1]
+        \arrow[no head, from=2-2, to=1-1]
+        \arrow["2", no head, from=3-1, to=2-1]
+        \arrow["2"', no head, from=3-1, to=2-2]
+        \arrow["2", no head, from=4-1, to=3-1]
+    \end{tikzcd}\]
+
+    $\alpha^2 \beta^2 = r^2 - t$. By the previous problem, $r^2 - t$ not square over $F[\sqrt{t}]$ $\iff$ $Gal(K / F[\sqrt{t}]) = \mu_2 \times \mu_2 \iff [K : F[\sqrt{t}]] = 4 \iff [K : F] = 8 \iff Gal(K / F) = D_4$. Furthermore, $r^2 - t$ not square over $F[\sqrt{t}] \implies r^2 - t$ not square over $F$. Thus $r^2 - t$ not square over $F$ $\implies$ $Gal(K / F) = D_4$  
+    
+    We have two generators of $D_2$, $\sigma, \rho$ where $\sigma(\alpha) = -\alpha$ and $\sigma(\beta) = -\beta$ and $\rho(\alpha) = \beta$ and $\rho(\beta) = \alpha$. 
+    
+    $\alpha \beta = \sqrt{r^2 - t}$ is in $K$ $\iff$ $\alpha \beta$ is fixed by $Gal(K / F)$. Suppose, $\forall g \in G(K / F)$, $g(\alpha) = -\alpha \implies g(\beta) = g(\alpha \beta) / g(\alpha) = \alpha \beta / -\alpha = -\beta$. $g^2$ takes $\alpha \to \alpha$ and $\beta \to \beta$. Thus $g$ has order $2$. Thus $g = \sigma$.
+    
+    If $\forall g \in G(K / F)$, $g(\alpha) = \beta \implies g(\beta) = g(\alpha \beta) / g(\alpha) = \alpha \beta = \beta = \alpha$. $g^2$ takes $\alpha \to \beta \to \alpha$ and $\beta \to \alpha \to \beta$. Thus $g$ has order 2 and $g = \rho$. 
+    
+    If $\forall g \in G(K / F)$, $g(\alpha) = -\beta$. Then $g(\beta) = g(\alpha \beta) / g(\alpha) = \alpha \beta / -\beta = -\alpha$. $g = \rho \circ \sigma$ because $\alpha \to -\alpha \to -\beta = g(\alpha)$ and $\beta \to -\beta \to -\alpha = g(\beta)$. And $g = \sigma \circ \rho$ because $\alpha \to \beta \to -\beta = g(\alpha)$ and $\beta \to \alpha \to -\alpha = g(\beta)$. 
+    
+    Thus $Gal(K / F)$ is $D_2$. 
+    
+    $G(K / F) = C_4$ if $G(K / F) \neq D_4, C_4$ so if $r^2 - t$ is sqaure in $F[\sqrt{t}]$ and $r^2 - t$ is not square in $F$. If $r^2 - t$ is square in $F[\sqrt{t}]$, $\exists x, y \in F[\sqrt{t}]$, $r^2 - t = (x + y\sqrt{t})^2 = x^2 + 2xy\sqrt{t} + y^2$ since $r^2 - t \in K$, $2xy \sqrt{t} = 0$. If $y = 0$, then $r^2 - t = x^2 \implies r^2 - t$ is a square in K which is a contradiction. Thus $x = 0$. Thus $r^2 - t = y^2 t \implies y^2 = \frac{r^2 -t}{t}$. Thus $G(K / F) = C_4 \iff \frac{r^2 -t}{t}$ sqaure in $F$.
+    
+    
+    \[\begin{tikzcd}
+        && {\langle 1 \rangle} \\
+        {\langle r^2 \rangle} & {\langle s \rangle} & {\langle sr \rangle} & {\langle sr^2 \rangle} & {\langle sr^3 \rangle} \\
+        & {\langle r \rangle} & {\langle s, r^2 \rangle} & {\langle sr, r^2 \rangle} \\
+        && {D_4} \\
+        && K \\
+        {F\left(\frac{\alpha \beta}{\sqrt{t}}, \alpha\beta\right)} & {F(\alpha\beta, \alpha + \beta)} & {F(\beta)} & {F(\alpha\beta, \alpha - \beta)} & {F(\alpha)} \\
+        & {F\left(\frac{\alpha \beta}{\sqrt{t}}\right)} & {F(\alpha \beta)} & {F(\alpha^2 - \beta^2)} \\
+        && F
+        \arrow[no head, from=2-1, to=1-3]
+        \arrow[no head, from=2-1, to=3-4]
+        \arrow[no head, from=2-2, to=1-3]
+        \arrow[no head, from=2-2, to=3-3]
+        \arrow[no head, from=2-3, to=1-3]
+        \arrow[no head, from=2-4, to=1-3]
+        \arrow[no head, from=2-5, to=1-3]
+        \arrow[no head, from=3-2, to=2-1]
+        \arrow[no head, from=3-3, to=2-1]
+        \arrow[no head, from=3-3, to=2-3]
+        \arrow[no head, from=3-3, to=2-4]
+        \arrow[no head, from=3-4, to=2-3]
+        \arrow[no head, from=3-4, to=2-5]
+        \arrow[no head, from=4-3, to=3-2]
+        \arrow[no head, from=4-3, to=3-3]
+        \arrow[no head, from=4-3, to=3-4]
+        \arrow[no head, from=6-1, to=5-3]
+        \arrow[no head, from=6-1, to=7-2]
+        \arrow[no head, from=6-1, to=7-3]
+        \arrow[no head, from=6-1, to=7-4]
+        \arrow[no head, from=6-2, to=5-3]
+        \arrow[no head, from=6-2, to=7-3]
+        \arrow[no head, from=6-3, to=5-3]
+        \arrow[no head, from=6-3, to=7-3]
+        \arrow[no head, from=6-3, to=7-4]
+        \arrow[no head, from=6-4, to=5-3]
+        \arrow[no head, from=6-4, to=7-3]
+        \arrow[no head, from=6-5, to=5-3]
+        \arrow[no head, from=6-5, to=7-4]
+        \arrow[no head, from=7-3, to=8-3]
+        \arrow[no head, from=8-3, to=7-2]
+        \arrow[no head, from=8-3, to=7-4]
+    \end{tikzcd}\]
+    
+    Since all the subgroups with lines between them are have indexes of 2, we know the degree of any two subfields with a line between them have a degree of 2, so once we find one element which is fixed not in the below subfields, we know what the extension of the subfield above it is. Note I worked with Prajith to make the diagrams. $r$ is a rotation counter clockwise and $s$ is a vertical reflection across the y axis. 
+    
+    For $\angles{r}$ and $\angles{s , r^2}$ we used the results above to help us. 
+    
+    
+    $F(\alpha \beta) / F$.  Thus $f = \alpha \beta + \sqrt{t} = \alpha \beta + \sqrt{t} = \alpha \beta + \alpha^2 - r$   
+
+    $\angles{r^2} \triangleleft D_4 \implies Gal(F(\sqrt{t}, \alpha \beta) / F) = D_4 / \mu_2 = \left\{ r, s, rs, 1 \right\}$ 
+
+    $r(f) = -\alpha \beta + \beta^2 - r$ 
+
+    $r(r(f)) = \alpha \beta + \alpha^2 - r$
+    
+    $s(f) = \alpha \beta + \beta^2 - r$
+    $s(s(f)) = \alpha \beta + \alpha^2 - r$
+    
+    $s(r(f)) = -\alpha \beta + \alpha^2 - r$
+    $s(r(s(r(f)))) = s(r(-\alpha \beta + \alpha^2 - r))= \alpha \beta + \alpha^2 - r$
+    
+    Thus $f$ has a orbit of size 4. Thus $F(\alpha \beta, \sqrt{t}) = F(\alpha \beta + \sqrt{t})$  
+    
+\end{proof}
+
+
+\end{document}

@@ -1,0 +1,278 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Artin 4}
+\author{Arham Lodha}%put your name here
+\date{February 28, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{6.4}\label{Problem 6.4.}
+\end{PROB}
+\begin{proof}
+    By last semester, $O \cong S_4$.  
+    The conjugacy classes are denoted by the partition of $n$ elements. So [1] is trivial, [2 + 1 + 1] is a two cycle, [2 + 2]  is a double 2 cycle, [3 + 1] is a three cycle, and $[4]$ is a four cycle. 
+
+    By last semester, $|[1]| = 1$, $|[2 + 1]| = {4 \choose 2} = 6$, $|[2 + 2]| = \frac{4!}{2^2 2!} = 3$, $|[3 + 1]| = \frac{4!}{[3 * 1] * 1} = 8$, and $[4] = 6$.
+    
+    The corresponding rotations for each conjugacy class are the following:
+    \begin{enumerate}
+        \item $[1] : I$
+        \item $[2 + 1 + 1] : R_{F, \pi}$, rotation through face by $\pi$ radians, because these rotations are 2 cycles.
+        \item $[2 + 2]: R_{E}$, edge rotations
+        \item $[3 + 1]: R_{V}$, vertex rotations fix 1 diagonal and cycle the other 3 diagonals.
+        \item $[4] : R_{F, \frac{\pi}{2}}$, rotation through face by $\frac{\pi}{2}$ radians have order 4 and cycle all diagonals.    
+    \end{enumerate}
+
+    $\chi_{faces}$ is the character of the permutation representation which permutes all faces. $\chi_{FP}$, is the character for the permutation representation which permutes all face pairs (opposite faces). $\chi_{V}$, is the character for the permutation representation which permutes set of vertices. $\chi_{D}$, standard permutation representation of $S_n$ i.e permutation representation which permutes diagonals. $\chi_{E}$, permutation representation which permutes opposite edges. $\chi_{tets}$, permutation representation which permutes the inscribed tetrahedron. 
+    
+    \begin{tabular}{c | c c c c c }
+        & (1) & $(3)$ & $(6)$ & $(6)$ & $(8)$   \\
+        & I & $R_{F, \pi}$ & $R_{E}$ & $R_{F, \frac{\pi}{2}}$ & $R_{V}$   \\
+        & 1 & $2 + 2$ & $2 + 1 + 1$ & $4$ & $3 + 1$   \\
+        \cline{1-6}
+        $\chi_{faces}$ & 6 & 2 & 0 & 2 & 0 \\
+        $\chi_{FP}$ & 3 & 3 & 1 & 1 & 0 \\
+        $\chi_{V}$ & 8 & 0 & 0 & 0 & 2 \\
+        $\chi_{D}$ & $4$ & 0 & 2 & 0 & 1 \\
+        $\chi_{E}$ & 6 & 0 & 2 & 0 & 0 \\
+        $\chi_{tets}$ & 2 & 2 & 0 & 0 & 2 
+    \end{tabular}
+    
+    \begin{tabular}{c | c c c c c }
+        & (1) & $(3)$ & $(6)$ & $(6)$ & $(8)$   \\
+        & I & $R_{E}$ & $R_{F, \pi}$ & $R_{F, \frac{\pi}{2}}$ & $R_{V}$   \\
+        & 1 & $2 + 2$ & $2 + 1 + 1$ & $4$ & $3 + 1$   \\
+        \cline{1-6}
+        $\chi_{triv}$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_{sign}$ & 1 & 1 & -1 & -1 & 1 \\
+        $\chi_{3} = \chi_{FP} - \chi_{triv}$ & 2 & 2 & 0 & 0 & -1 \\
+        $\chi_{4} = \chi_{D} - \chi_{triv}$ & 3 & -1 & 1 & -1 & 0 \\
+        $\chi_{5} = \chi_4 * \chi_{sign}$ & 3 & -1 & -1 & 1 & 0 
+    \end{tabular}
+
+    All the self inner products are 1 and the number of characters are equal to the number of conjugacy classes.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.5}\label{Problem 6.5.}
+\end{PROB}
+\begin{proof}
+    $\forall n \in \N$, $\C_{triv} = span(e_1 + \dots + e_n)$ because any permutation matrix fixes $\begin{bmatrix}
+        1 \\ \vdots \\ 1
+    \end{bmatrix}$ and any scalar multiples of it. So start by decomposing $\C^n = \C_{triv} \oplus \C_{triv}^{\perp}$, where $C_{triv}^{\perp}$ are the set of vectors perpendicular under the hermitian dot product to $e_1 + \dots + e_n$. Thus $\forall v \in C_{triv}^{\perp}$, $\sum_{i = 1}^{n} v_i = 0$. Let $W \leq \C_{triv}^{\perp}$, suppose $W$ is $S_n$-invariant. $\forall v \in W \ni v \neq 0$, any linear combination of $v$ and the permutation of the components of $v$ is in $W$ because $S_n$ are permutation matrices. Moreover all the components of $v$ are not equal because then $v \in \C_{triv}$, but $C_{triv} \cap C_{triv}^\perp = 0$. Since $v \in W$ and its permutations are in $W$, permute $v$ such that the order of its components are descending and redefine $v = (v_1, \dots, v_n)$ to such a permutation (where $v_i \geq v_j$ if $i \leq j$) then $v' = (v_2, v_1, v_3, \dots, v_n) \in W$, since permutations of $v \in W$. $v - v' = (v_1 - v_2, v_2 - v_1, 0, \dots, 0) \in W$, then $\frac{v - v'}{v_1 - v_2} = (1, -1, 0, \dots, 0) = e_1 - e_2 \in W$. With a similar argument (taking a different permutation) you can get all $e_1 - e_j \in W$ for all $j > 1$. $\forall a_2, \dots, a_{n} \in \C$, $0 = \sum_{j = 2}^{n} a_j(e_1 - e_j) = e_1(n - 1)\sum_{j = 2}^{n} a_j + \sum_{j = 2}^{n}(-a_je_j)$, $\left\{ e_i \right\}_i$ is the standard basis and thus is linear independent thus $a_j = 0$ and $\sum_{j = 2}^{n} a_j$. Thus $\left\{ e_1 - e_j \right\}_{1<j\leq n}$ is linearly independent. $\dim span{\left\{ e_1 - e_j \right\}_{1<j\leq n}} = n - 1 \leq \dim \C_{triv}^\perp = n-1$ and $span{\left\{ e_1 - e_j \right\}_{1<j\leq n}} \leq W \leq C_{triv}^\perp$, thus $\C_{triv}^\perp = span{\left\{ e_1 - e_j \right\}_{1<j\leq n}}= W$. Thus $C_{triv}^\perp$ is the only $S_n$ invariant proper subspace of $C_{triv}^\perp$, thus $C_{triv}^\perp$ is irreducible.                                  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.6}\label{Problem 6.6.}
+\end{PROB}
+\begin{proof}
+    $I \cong A_5$. Here are the elements wrt to I, $R_{F}$ (rotation through face), $R_E$ (rotation through edge), $R_{V1}$ (rotation of 72 degrees through vertices), $R_{V2}$ (rotation of 144 degrees through vertices). 
+    
+    By last semester, $|[I]| = 1$. $|[R_F]| = 20$, $|[R_{E}]| = 15$, $|[R_{V1}]| = |[R_{V2}]| = 12$. 
+    
+
+    \begin{tabular}{c | c c c c c }
+        & (1) & $(12)$ & $(12)$ & $(15)$ & $(20)$   \\
+        & I & $R_{V1}$ & $R_{V2}$ & $R_{E}$ & $R_F$   \\
+        \cline{1-6}
+        $\chi_{F}$ & 20 & 0 & 0 & 0 & 2\\
+        $\chi_{V}$ & 12 & 2 & 2 & 0 & 0 \\
+        $\chi_{E}$ & 30 & 0 & 0 & 2 & 0 \\
+    \end{tabular}
+
+    From Artin's section on the character table of $I \cong A_5$. Let $\alpha = 2\cos(2 \pi /5) + 1$ and $\beta  = 2cos(4 \pi /5) + 1$    
+
+    \begin{tabular}{c | c c c c c }
+        & (1) & $(12)$ & $(12)$ & $(15)$ & $(20)$   \\
+        & 1 & $[5]$ & $[5]$ & $[2 + 2 + 1]$ & $[3 + 1]$   \\
+        & I & $R_{V1}$ & $R_{V2}$ & $R_{E}$ & $R_F$   \\
+        \cline{1-6}
+        $\chi_{1}$ & 1 & 1 & 1 & 1 & 1\\
+        $\chi_{2}$ & 3 & $\alpha$ & $\beta$ &  -1 & 0 \\
+        $\chi_{3}$ & 3 & $\beta$  & $\alpha$  & -1 & 0 \\
+        $\chi_{4}$ & 4 & -1 & -1 & 0 & 1 \\
+        $\chi_{5}$ & 5 & 0 & 0 & 1 & -1 \\
+    \end{tabular}
+
+
+    Use the inner product to determine the multiplicities of the irreducibles.
+
+    \begin{enumerate}
+        \item $\angles{\chi_F, \chi_1} = \frac{1}{60}\left(20 + 40\right) = 1$. $\angles{\chi_F, \chi_2} = \frac{1}{60}(60) = 1$. $\angles{\chi_F, \chi_3} = 1$. $\angles{\chi_F, \chi_4} = \frac{1}{60}\left(80 + 40\right) = 2$. $\angles{\chi_F, \chi_5} = \frac{100 - 40}{60} = 1$. Thus $\chi_F = \chi_1 + \chi_2 + \chi_3 + 2\chi_4 + \chi_5$. Thus $V_F = V_1 \oplus V_2 \oplus V_3 \oplus V_4^2 \oplus V_5$  
+        \item $\angles{\chi_V, \chi_1} = \frac{1}{60}\left(12 + 24 + 24\right) = 1$. $\angles{\chi_V, \chi_2} = \frac{1}{60}(36 + 24\alpha + 24\beta) = \frac{1}{60}\left(36 + 24 + 24 - 24\right) = 1$. $\angles{\chi_V, \chi_3} = 1$. $\angles{\chi_V, \chi_4} = \frac{1}{60}\left(48 - 24 - 24\right) = 0$. $\angles{\chi_V, \chi_5} = \frac{60}{60} = 1$. Thus $\chi_V = \chi_1 + \chi_2 + \chi_3 + \chi_5$. Thus $V_V = V_1 \oplus V_2 \oplus V_3 \oplus V_5$
+        \item $\angles{\chi_E, \chi_1} = \frac{1}{60}\left(30 + 30\right) = 1$. $\angles{\chi_E, \chi_2} = \frac{1}{60}(90 - 30) = 1$. $\angles{\chi_E, \chi_3} = 1$. $\angles{\chi_E, \chi_4} = \frac{1}{60}\left(120\right) = 2$. $\angles{\chi_E, \chi_5} = \frac{150 + 30}{60} = 3$. Thus $\chi_F = \chi_1 + \chi_2 + \chi_3 + 2\chi_4 + 3\chi_5$. Thus $V_E = V_1 \oplus V_2 \oplus V_3 \oplus V_4^2 \oplus V_5^3$  
+    \end{enumerate}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.7}\label{Problem 6.7.}
+\end{PROB}
+\begin{proof}
+    From $4.12$, we know that $\forall \sigma \in A_n$, conjugation by $\sigma$ doesn't change the conjugacy classes since $\sigma \in A_n$ and thus characters don't change. $\forall \sigma \not \in S_n$ we know that some conjugacy classes may be permuted depending on their sizes, from last semester. From last semester we know the class equation of $A_5$ in $S_5$ is $1 + 24 + 15 + 20$ where $24$ corresponds to the conjugacy class of the 5 cycles, $15$ is the double transpositions cycles, and $20$ is the 3 cycles. Thus when we restrict to $A_5$ we know that the conjugacy class of 5 cycles is the only one to break apart, and conjugation of a 5 cycle by $\alpha$ produces a 5 cycle in the other conjugacy class. Thus conjugation by sigma swaps the characters of the 2 conjugacy class of the 5 cycles. This only effects the dimension 3 characters, as all other characters have the same value for both conjugacy classes. Thus the resultant character table is: 
+
+
+    \begin{tabular}{c | c c c c c }
+        & (1) & $(12)$ & $(12)$ & $(15)$ & $(20)$   \\
+        & 1 & $[5]$ & $[5]$ & $[2 + 2 + 1]$ & $[3 + 1]$   \\
+        \cline{1-6}
+        $\chi_{1} \circ C_\sigma$ & 1 & 1 & 1 & 1 & 1\\
+        $\chi_{2} \circ C_\sigma$ & 3 & $\beta$ & $\alpha$ &  -1 & 0 \\
+        $\chi_{3} \circ C_\sigma$ & 3 & $\alpha$  & $\beta$  & -1 & 0 \\
+        $\chi_{4} \circ C_\sigma$ & 4 & -1 & -1 & 0 & 1 \\
+        $\chi_{5} \circ C_\sigma$ & 5 & 0 & 0 & 1 & -1 \\
+    \end{tabular}
+
+    This swap of the resultant values preserves all the characters corresponding to the irreducibles of dimension other than three. However this swaps the irreducibles with dimension three as $\chi_2 \circ C_\sigma = \chi_3$ and $\chi_3 \circ C_\sigma = \chi_2$. Thus the conjugation action swaps the iso classes of irreducibles with characters corresponding to $\chi_2$ and $\chi_3$ and fixes the other iso classes. Thus the conjugation action of $S_5$ on the isomorphic classes of irreducibles of $A_5$ either swap the 3 dimensional irreducibles or fix everything.       
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.10}\label{Problem 6.10.}
+\end{PROB}
+\begin{proof}
+    The only non abelian groups of order 12, are $A_4$, $D_6$, and $\mu_3 \rtimes \mu_4$.
+
+    The conjugacy classes of $A_4$ are $[1], [2 + 2], [3 + 1]_a, [3 + 1]_b$, where $a$ and $b$ denote the different 3 cycle conjugacy classes. The sizes are 1, 3, 4, 4 respectively. $K_4$ is the only normal subgroup of $A_4$ and $A_4 / K_4 \cong \mu_3$, thus $K_4 \cong [A_4, A_4]$. There are 3 maps from $\mu_3 \to \mu_3 \leq C^*$, trivial map, identity map, and inversion map. Each map corresponds to one of the 1 dimensional representations. Thus the dimension of the last representation is $\sqrt{12 - 3(1)} = \sqrt{9} = 3$.           
+    $\chi_{stan}$ is the standard representation. $\chi_4 = \chi_{stan} - \chi_{1}$ and the self inner of $\angles{\chi_4, \chi_4} = \frac{1}{12} (3 * 3 + 3(1)) = 1$, thus $\chi_4$ is irreducible. Let $\omega = e^{\frac{2\pi}{3}}$ 
+    
+    \begin{tabular}{c | c c c c}
+        & (1) & $(3)$ & $(4)$ & $(4)$   \\
+        & 1 & $[2 + 2]$ & $[3 + 1]_a$ & $[3 + 1]_b$   \\
+        \cline{1-5}
+        $\chi_1$ & 1 & 1 & 1 & 1 \\
+        $\chi_2$ & 1 & 1 & $\omega$ & $\bar{\omega}$ \\
+        $\chi_3$ & 1 & 1 & $\omega$ & $\bar{\omega}$ \\
+        $\chi_4$ & 3 & -1 & 0 & 0 \\
+        \cline{1-5}
+        $\chi_{reg}$ & 12 & 0 & 0 & 0 \\
+        $\chi_{stan}$ & 4 & 0 & 1 & 1
+    \end{tabular}
+
+    \bigskip
+
+
+    The character table for $D_6$ was calculated in problem 4.3 in Artin 2. 
+    
+    From the irredicuble representations of $D_n$ homework, we know the 2 dimension irredicubles of $D_6$ have the following form. $x \to \begin{bmatrix}
+        \omega^k \\ & \omega^{-k}
+    \end{bmatrix}$ where $\omega = e^{\pi i / 3}$ (6th root of unity) and $k \in \left\{1, 2 \right\}$ and $y \to \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}$. In either representation, the trace of y and $xy$  is 0. $tr(x) = \omega^{k} + \omega^{-k} = 2\cos(k\frac{\pi}{3}) = (-1)^{k + 1} \sqrt{3}$  
+    
+    
+    \begin{tabular}{c | c c c c c }
+        & e & $x^2$ & x & y & xy  \\
+        \cline{1-6}
+        $\chi_1$ & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_2$ & 1 & 1 & -1 & 1 & -1 \\
+        $\chi_3$ & 1 & 1 & 1 & -1 & -1 \\
+        $\chi_4$ & 1 & 1 & -1 & -1 & 1 \\
+        $\chi_5$ & 2 & -2 & $\sqrt{3}$ & 0 & 0 \\
+        $\chi_6$ & 2 & -2 & $-\sqrt{3}$ & 0 & 0 \\
+        $\chi_{reg}$ & 12 & 0 & 0 & 0 & 0 
+
+    \end{tabular}
+    
+    \bigskip
+
+    The character table for $G = \mu_3 \rtimes \mu_4 = \angles{x, y | x^3 = y^4 = 1, yxy^{-1} = x^{-1}}$ was determined for $4.9$ from Artin 3. Here is my derivation of it, $\mu_3 \triangleright G$ and $yxy^{-1}x^{-1} = x^{-2} = x$. Thus $\angles{x} = \mu_3 \leq [G, G]$. But $G / \mu_3 = \mu_4$ which was abelian, thus $\mu_3 = [G, G]$. Thus all endomorphisms for $\mu_4$ give all the 1 dimensional representations of $G$.
+    
+    
+    Let $V$ be a 2 dimensional representation. Since $x^3 = 1$, $x$ is diagonalizable with eigenvalues being 3rd roots of unity. Let $\lambda$ be a eigenvalue and $v$ be a corresponding eigenvector. 
+    
+    
+    $xy^{-1}v = y y^{-1} x y v = y^{-1} x^{-1} v = \bar{\lambda} y^{-1}v$. Thus $\bar{\lambda}$ is a eigenvalue of $x$ with $y^{-1}v$ being the corresponding eigenvector. 
+    
+    Thus $x = \begin{bmatrix}
+        \lambda & 0 \\ 0 & \bar{\lambda}
+    \end{bmatrix}$ and $y^{-1} = y = \begin{bmatrix}
+        0 & 1 \\ 1 & 0
+    \end{bmatrix}$. $\lambda \not \in \R$, because then $span(v + y^{-1}v)$ is G-invariant.  Thus let $\lambda  = e^{2 \pi \frac{i}{3}}$. $tr(x) = \lambda + \bar{\lambda} = 2\cos(2 \frac{\pi}{3}) = -1$ and $tr(y) = 0$. This representation is is irreducible, because $\angles{\chi_5, \chi_5} = \frac{1}{12} (4 + 4 + 2 + 2) = 1$. Now to get $\chi_6$ use the regular representation           
+    
+    
+    \begin{tabular}{c | c c c c c c c }
+        & (1) & (1) & (2) & (2) & (3) & (3)  \\
+        & 1 & $y^2$ & $x$  & $xy^2$ & $y$  & $y^{-1}$ \\
+        \cline{1-7}
+        $\chi_{1}$ & 1 & 1 & 1 & 1 & 1 & 1 \\
+        $\chi_{2}$ & 1 & 1 & 1 & 1 & -1 & 1 \\
+        $\chi_{3}$ & 1 & -1 & 1 & -1 & i & -i \\
+        $\chi_{4}$ & 1 & -1 & 1 & -1 & -i & i \\
+
+
+
+        $\chi_{5}$ & 2 & 2 & -1 & -1  & 0 & 0  \\
+        $\chi_{6}$ & 2 & -2 & -1 & 1 & 0 & 0 \\
+        $\chi_{reg}$ & 12 & 0 & 0 & 0 &0 & 0  
+    \end{tabular}
+\end{proof}
+
+
+
+\end{document}

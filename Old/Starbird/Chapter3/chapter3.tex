@@ -1,0 +1,357 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 3}
+\author{Arham Lodha}%put your name here
+\date{May 13, 2024}%enter the due date here
+\maketitle
+
+\begin{definition}
+    Let $\T$ be a topology on $X$ and let $\B \subset \T$. Then $\B$ is a \textbf{basis} for the topology $\T$ if and only if every open set in $\T$ is a union of elements in $\B$. If $B \in \B$ we say B is a \textbf{basis element} or a \textbf{basis open set}.        
+\end{definition}
+
+\begin{claim}{3.1}\label{Claim 3.1.}
+    Let $(X, \T)$ be a topological space, and let $\B$ be a collection of subsets of X. Then $\B$ is a basis of $\T$ if and only if
+    
+    \begin{enumerate}
+        \item $\B \subseteq \T$
+        \item $\forall U \in \T$ and $\forall p \in U$, $\exists V \in \B \ni p \in V \subseteq U$   
+    \end{enumerate}
+    
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $\B$ is a basis of $\T$. Then by definition $B \subseteq T$. Moreover, by definition of basis, $\forall U \in \T,$ $\exists \left\{ B_\alpha \right\}_{\alpha \in \lambda} \subseteq \B$ a subcollection such that $U = \bigcup_{\alpha \in \lambda} B_\alpha$. Thus by definition of union, $\forall p \in U, \exists B_\alpha \ni p \in B_\alpha \subseteq U$. 
+    
+    $\impliedby:$ Suppose 1 and 2 are true. Then $\forall U \in T$, $\forall p \in U$ $\exists V_p \in \B \ni p \in V_p \subseteq U$ then $U = \bigcup_{p \in U} V_p$. Then by definition of a basis of topological space, $\B$ is a basis of $\T$          
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.2a}\label{Problem 3.2a.}
+    Let $\B_1 = \left\{ (a, b) \subset \R \mid a, b \in \Q \right\}$. Show that $\B_1$ is a basis for the standard topology on $\R$.    
+\end{PROB}
+\begin{solution}
+    $\B_1 \subseteq \T$. $\forall U \in \T$, $\forall p \in U, \exists \epsilon \in \R^+ \ni p \in (p - \epsilon, p + \epsilon) \subseteq U$. By the density of rationals in $\R$, $\exists r \in \Q \ni p - \epsilon \leq r < p$ and $\exists s \in \Q \ni p < s \leq p + \epsilon$, thus $p \in (r, s) \subseteq (p - \epsilon, p + \epsilon) \subseteq U$ and $(r, s) \in \B_1$. Thus by claim 3.1, $\B_1$ is a basis of $\T$.          
+\end{solution}
+
+\begin{PROB}{3.2b}\label{Problem 3.2b.}
+    Let $\B_2 = \left\{ (a, b) \cup (c, d) \subseteq \R \mid a, b, c, d \in \R \setminus \Q, a < b < c < d \right\}$. Show $\B_2$ is a basis for the standard topology on $\R$.    
+\end{PROB}
+\begin{solution}
+    $\B_2 \subseteq \T$. $\forall U \in \T, \forall p \in U, \exists \epsilon \in \R^+ \ni p \in (p - \epsilon, p + \epsilon) \subseteq U$. By the density of irrationals in $\R$, $\exists a, b, c, d \in \R \setminus \Q \ni p - \epsilon < a < p < p + \frac{\epsilon}{4} < c < p +\frac{3\epsilon}{4} < d < p + \epsilon$. Thus $p \in (a, b)$ and $(a, b) \cup (c, d) \subseteq (p - \epsilon, p + \epsilon) \subseteq U$. Thus $\B_2$ is a basis by claim 3.1.        
+\end{solution}
+
+\bigskip
+
+\begin{claim}{3.3}\label{Claim 3.3.}
+    Suppose $X$ is a set and $\B$ is a collection of subsets of $X$. Then $\B$ is a basis for some topology on $X$ iff 
+    
+    \begin{enumerate}
+        \item each point of $X$ is in some element of $\B$
+        \item if $U, V \in \B$ and $p \in U \cap V$ then $\exists W \in \B \ni p \in W \subseteq U \cap V$.     
+    \end{enumerate}
+    
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $\B$ is a basis for some topology $\T$ . Since $X \in \T$, by claim 3.1 $\forall x \in X, \exists V \in \B \ni p \in V \subseteq X$. Thus $1$ is true. $\forall U, V \in \B$, $U \cap V$ is a open set of $X$. By claim 3.1, $\forall p \in U \cap V, \exists W \in \B \ni p\in W \subseteq U \cap V$. Thus $2$ is true. 
+    
+    $\impliedby$: Suppose 1 and 2 are true. Let $\T$ be the collections of sets formed by taking unions of collections of elements of $\B$. $\emptyset \in \T$ take the union of a empty collection. Since $\forall x \in X, \exists B_x \in \B \ni x \in B_x \implies X = \bigcup_{x \in X} B_x \implies X \in \T$. Let $\left\{ U_\alpha \right\}_{\alpha \in \lambda} \subseteq \T$, by definition $\forall \alpha$ $\exists \left\{ B_{\alpha, \beta} \right\}_{\beta} \subseteq \B \ni U_\alpha = \bigcup_{\beta} B_{\alpha, \beta} \implies \bigcup_{\alpha} U_\alpha = \bigcup_{\alpha} \bigcup_{\beta} B_{\alpha, \beta}\in \T$. Since $\forall B_1, B_2 \in \B, \forall p \in B_1 \cap B_2, \exists B_3 \in B \ni p \in B_3 \subseteq B_1 \cap B_2 \implies B_1 \cap B_2 \in \T$, by taking the union of all $B_3$ per element of $p \in B_1 \cap B_2$. Thus $\forall U, V \in \T$, $\exists \left\{ U_\alpha \right\}_{\alpha}, \left\{ V_\beta \right\}_{\beta} \subseteq \B$ such that $U = \bigcup_{\alpha} U_\alpha$ and $V = \bigcup_{\beta} V_\beta$. Thus $U \cap V = \bigcup_{\alpha} U_\alpha \cap \bigcup_{\beta} V_\beta = \bigcup_{\alpha, \beta} U_{\alpha} \cap V_{\beta} \in \T$ since $\left\{ U_\alpha \cap V_{\beta} \right\}_{\alpha, \beta} \subseteq \T$. Thus $\T$ is a topology and $\B$ is a basis of a topology.             
+\end{proof}
+
+\bigskip
+
+\begin{definition}
+    $\R_{L L}$ is the lower limit topology on $\R$ which is generated by the basis $\left\{ [a, b) \mid a, b \in \R, a < b \right\}$.    
+\end{definition}
+
+\bigskip
+
+\begin{PROB}{3.4}\label{Problem 3.4.}
+    Check the basis provided for $\R_{L L}$ is in fact a basis  
+\end{PROB}
+\begin{solution}
+    $\forall x \in \R$, $x \in [x, x + 1) \in \B$. $\forall [p, q), [r, s) \in \B$, WLOG $r < q$ and $s > p$, because otherwise $[p, q) \cap [r, s) = \emptyset$. Thus $[p, q) \cap [r, s) = [\max(r, s), \min(q, s)) \in \B$. Thus $\B$ is a basis.             
+\end{solution}
+\bigskip
+
+\begin{claim}{3.5}\label{Claim 3.5.}
+    Every open set in $\R_{s t d}$ is a open set in $\R_{L L}$ but not vice versa  
+\end{claim}
+\begin{proof}
+    It suffices to prove that $(a, b) \in \R_{L L}$ for $a < b$ since they form a basis of $\R_{s t d}$. $\forall p \in (a, b), p \in [p, b) \implies (a, b) = \bigcup_{p \in (a, b)}[p, b) \implies (a, b) \in R_{L L}$. Thus $\R_{s t d} \subseteq \R_{L L}$.
+    
+    Assume the contrary that $[a, b)$ is open in $\R_{s td}$. By claim 2.3, $\exists \epsilon \in \R^+ \ni (a - \epsilon, a + \epsilon) \subseteq [a, b)$, but this is a contradiction. Thus $[a,b)$ is not open in $\R_{L L}$.     
+\end{proof}
+
+\bigskip
+
+\begin{definition}
+    Suppose $\T$ and $\T'$ are two topologies on $X$. If $\T \subseteq \T'$ then $\T'$ is \textbf{finer} than $\T$. Alternatively $\T'$ is \textbf{coarser} than $\T$. Additionally, we say \textbf{strictly finer} or \textbf{strictly coarser} if $\T \neq \T'$.
+\end{definition}
+
+\bigskip
+
+\begin{PROB}{3.6}\label{Problem 3.6.}
+    Give a example of 2 topologies on $\R$ such that neither topologies are comparable.  
+\end{PROB}
+\begin{solution}
+    $\R_{s td}$ and $\R_{fin}$ or $\R_{count}$   
+\end{solution}
+
+\bigskip
+
+\begin{definition}
+    Construct the Double Headed Snake Topology. Let $\R_{+00}$ be the set $\R_{+}$ with points $0'$ and $0''$. Put a topology on it whose basis are all intervals $(a, b)$ or $(0, b) \cup \left\{ 0' \right\}$ or $(0, b) \cup \left\{ 0'' \right\}$ for $a, b \in \R_+$.         
+\end{definition}
+
+\bigskip
+
+\begin{PROB}{3.7}\label{Problem 3.7.}
+    Show the collection of sets that we specify as a basis for the Double Headed Snake actually forms a basis
+\end{PROB}
+\begin{solution}
+    $\forall x \in \R_{+ 0 0}$, $x \in \R_{+}$ or $x = 0'$ or $x = 0''$. If $x \in \R_{+}$, $\forall \epsilon > 0$, $x \in (0, x + \epsilon)$. If $x = 0'$ then $x \in (0, 1) \cup \left\{ 0' \right\}$ and the same for $0''$. 
+    
+    $\forall U, V \in \B$ wlog $U, V$ are the same type or they are simple open intervals. 
+    
+    \begin{enumerate}
+        \item U and $V$ are the same type. WLOG they are both 0' as the case for 0'' is symmetric and if they are simple open intervals it defaults to the case below. $U = (0, b) \cup \left\{ 0' \right\}$ and $V = (0, d) \cup \left\{ 0' \right\}$. $U \cap V = (0, \min(b, d)) \cup \left\{ 0 \right\} \in \B$. 
+        \item $U$ and $V$ are open intervals. $U = (a, b)$ and $V = (c, d)$ where $max(a, c) < min(b, d)$ otherwise the intersection is empty. $U \cap V = (max(a, c), min(b, d))\in \B$        
+    \end{enumerate}
+
+    Thus $\B$ is a basis for the topology by 3.3. 
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{3.8}\label{Problem 3.8.}
+    In the Double Headed Snake Topology every point is a closed set, and it is impossible to find disjoint open sets $U$ and $V$ such that $0' \in U$ and $0'' \in V$    
+\end{PROB}
+\begin{proof}
+    $\forall x \in \R_{+00}$. If $x \in \R_{+}$, then $\R_{+00} \setminus \left\{ x \right\} = (0, x) \cup \left\{ 0', 0'' \right\} = ((0, x) \cup \left\{ 0' \right\}) \cup \left((0, x) \cup \left\{ 0'' \right\}\right) \implies R_{+ 00} \setminus \left\{ x \right\} \in \T \implies \left\{ x \right\}$ is closed by claim 2.14. If $x = 0'$, then $A = \R_{+00} \setminus \left\{ 0' \right\}= \R_{+} \cup \left\{ 0'' \right\} = \R_{+} \cup (0, 1) \cup \left\{ 0' \right\} \implies A \in \T \implies \left\{ 0' \right\}$ is closed. The arguement is symmetric for $0''$.
+    
+    Assume the contrary $\exists U, V \in \T \ni U \cap V =\emptyset, 0' \in U, 0'' \in V$. $U$ is of the form $I \cup (0, a) \cup \left\{ 0' \right\}$ and $J \cup (0, b) \cup \left\{ 0'' \right\}$. $I$ and $J$ are union of open intervals of $\R_+$. Since $U \cap V = \emptyset \implies (I \cup (0, a)) \cap (J \cup (0, b)) = \emptyset \implies (0, a) \cap (0, b) = \emptyset$ which is not true if $0 < a$ and $0 < b$. Thus a contradiction occurs and it is impossible to find disjoint open sets $U$ and $V$ such that $0' \in U$ and $0'' \in V$.                     
+\end{proof}
+
+\bigskip
+
+\pagebreak
+
+\section*{Subbases}
+\begin{PROB}{3.13}\label{Problem 3.13.}
+    A basis for a topology is also a subbasis for that topology
+\end{PROB}
+\begin{solution}
+    Let $\B_1$ be a basis for a given topology. Let $\B_2$ be the set collection consisting of the finite intersections of $\B_1$. Thus $\forall A \in \B_2$, $\exists \left\{ U_i \right\}_{i = 1}^{n} \subseteq \B_1 \ni A = \bigcap_{i = 1}^{n} U_i$. Since $\B_1$ is a basis and thus $\forall x \in X, \exists U_x \in \B_1 \ni x \in U_x $ and since $U_x \in \B_2$, the first condition is trivially satsified. $\forall A_1, A_2 \in \B_2$, $A_1 \cap A_2 = \left(\bigcap_{i = 1}^{n} U_i\right) \cap \left(\bigcap_{i = 1}^{m} V_i\right) \in \B_2$, by definition of $\B_2$. Thus by claim 3.3, $\B_2$ is a basis thus by definition of subbasis, $\B_1$ is a subbasis.               
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{3.14}\label{Problem 3.14.}
+    Show that R with the standard topology has a subbasis $S$ consisting of rays $(-\infty, a)$  and $(a, \infty)$ for $a \in \R$.
+\end{PROB}
+\begin{solution}
+    $\B_1$ consist of all finite intersections of $S$. We want to show that $\B := \left\{ (a, b) \mid a, b \in \R, a < b \right\} \subseteq \B_1$. $\forall (a, b) \in \B$, $(a, b) = (a, \infty) \cap (-\infty, b)$. Thus $\B \subseteq \B_1$. Thus $\B_1$ is a basis. Thus $S$ is a subbasis.          
+\end{solution}
+
+\bigskip
+
+\begin{claim}{3.15}\label{Claim 3.15.}
+    Let $(X, \T)$ be a topological space, and let $S$ be a collection of subsets of $X$. Then $S$ is a subbasis for $\T$ if and only if:
+    
+    \begin{enumerate}
+        \item $S \subseteq \T$
+        \item $\forall U \in \T$ and $\forall p \in U$, $\exists \left\{ V_i \right\}_{i = 1}^{n}\ni p \in \bigcap_{i = 1}^{n} V_i \subseteq U$    
+    \end{enumerate}
+\end{claim}
+\begin{proof}
+    $\implies$: Suppose $S$ is a subbasis for $\T$. Let $\B$ be its corresponding basis. Since $\B$ is a basis, $\B \subseteq \T$. Since $S \subseteq \B \implies S \subseteq \T$. By 3.1, $\forall U \in \T$ and $\forall p \in U$, $\exists V \in \B \ni p \in V \subseteq U$. By definition $V$ is a finite intersection of a collection of elements in $S$. Thus 2 is also satified. 
+    
+    $\impliedby:$ Suppose 1 and 2 are satified. Let $\B$ be the collection of finite intersections of $S$. 3.1 is satified thus $\B$ is a basis. Thus $S$ is a subbasis.      
+\end{proof}
+
+\bigskip
+
+\begin{claim}{3.16}\label{Claim 3.16.}
+    Suppose $X$ is a set and $S$ is a collection of subsets of $X$. Then $S$ is a subbasis $\iff$ $\forall x \in X, \exists U_x \in S \ni x \in U_x$       
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $S$ is a subbasis. Assume the theorem isn't true, $\exists x \in X \ni \forall U \in S, x \not \in U$. Let $\B$ be its corresponding basis, ie collection of finite intersections. Thus $x$ isn't in any element of $\B$. Thus $\B$ isn't a basis which is a contradiction. Thus the theorem is true. 
+    
+    $\impliedby:$ Trivially accomplishes 3.3.   
+\end{proof}
+
+\pagebreak
+
+\section*{Subspaces}
+
+\begin{definition}
+    Let $(X, \T)$ be a topological space. For $Y \subseteq X$, the collection
+    
+    \[\T_Y := \left\{ U \mid U = V \cap Y \text{ for some } V \in \T  \right\}\]
+
+    is a topology on $Y$ called the subspace topology.  
+\end{definition}
+
+\bigskip
+
+\begin{claim}{3.25}\label{Claim 3.25.}
+    Let $(X, \T)$ be a topological space and $Y \subseteq X$. Then the collection of sets $\T_Y$ is in fact a topology on $Y$  
+\end{claim}
+\begin{proof}
+    $\emptyset \in \T \implies \emptyset \cap Y = \emptyset \in \T_Y$. $X \in \T \implies X \cap Y = Y \in \T_Y$. $\forall U_1, U_2 \in \T_Y$, $\exists V_1, V_2 \in \T \ni U_1 = V_1 \cap Y$ and $U_2 = V_2 \cap Y$. Thus $U_1 \cap U_2 = V_1 \cap Y \cap V_2 \cap Y = V_1 \cap V_2 \cap Y = (V_1 \cap V_2) \cap Y$. $V_1 \cap V_2 \in \T \implies (V_1 \cap V_2) \cap Y \in \T_Y \implies U_1 \cap U_2 \in \T_Y$. Let $\left\{ U_\alpha \right\}_{\alpha \in \lambda}$ be collection in $\T_Y$. $U_\alpha = V_\alpha \cap Y$. Thus $\bigcup_{\alpha \in \lambda} U_\alpha = \bigcup_{\alpha \in \lambda} V_\alpha \cap Y = \left(\bigcup_{\alpha \in \lambda} V_\alpha\right)\cap Y \implies \bigcup_{\alpha \in \lambda} U_\alpha \in \T_Y$. Thus $\T_Y$ is a topology on $Y$.                
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.26}\label{Problem 3.26.}
+    Consider $Y = [0, 1)$ as a subspace of $\R_{s td}$. Is $[\frac{1}{2}, 1)$ open, closed, both, or neither? 
+\end{PROB}
+\begin{proof}
+    $[0, \frac{1}{2}) = (-\frac{1}{2}, \frac{1}{2}) \cap Y \implies [0, \frac{1}{2}) \in \T_Y$. Thus $[\frac{1}{2}, 1)$ is closed. $(\frac{1}{2}, 1)$ is open. Assume the contrary, that $[\frac{1}{2}, 1)$ is open. Then $(\frac{1}{2}, 1) \cap [\frac{1}{2}, 1) = \left\{ \frac{1}{2} \right\}$ is open which is a contradiction (look at $\R_{s td}$ and intersect with Y). Thus $[\frac{1}{2}, 1)$ is not open.           
+\end{proof}
+
+\bigskip
+
+\begin{claim}{3.28}\label{Claim 3.28.}
+    Let $(Y, \T_Y)$ be a subspace of $(X, \T)$. A subset $C \subseteq Y$ is closed in $(Y, \T_Y)$ if and only if $\exists D \subseteq X$, closed in $(X, \T)$, such that $D \cap Y = C$        
+\end{claim}
+\begin{proof}
+    $\implies$: Suppose $C \subseteq Y$ is closed in $(Y, \T_Y)$. By 2.14, $Y \setminus C$ is open. By definition of subspace, $\exists U \in \T \ni U \cap Y = Y \setminus C$. Thus $X \setminus U$ is closed. $(X \setminus U) \cap Y = Y \setminus (U \cap Y) = Y \setminus (Y \setminus C) = C$. 
+    
+    $\impliedby:$ Suppose $\exists D \subseteq X$, closed, such that $D \cap Y = C$. Then $X \setminus D$ is a open set. Thus $(X \setminus D) \cap Y = Y \setminus (D \cap Y) = Y \setminus C$ is open in $\T_Y$ . Thus $C$ is closed in $\T_Y$.        
+\end{proof}
+
+\bigskip
+
+\begin{claim}{3.29}\label{Claim 3.29.}
+    Let $(Y, \T_Y)$ be a subspace of $(X, \T_X)$. A subset $C \subseteq Y$ is closed in $(Y, \T_Y)$ iff $Cl_X(C) \cap Y = C$.     
+\end{claim}
+\begin{proof}
+    $\implies:$ $C \subseteq Y$ is closed in $(Y, \T_Y)$. $C \subseteq Cl_X(C) \cap Y$. $\forall x \in Cl_X(C) \cap Y$, $\forall U \in \T \ni x \in U$, $U \cap C \neq \emptyset$. Since $x \in Y$ and $C \subseteq Y$, $(U \cap Y) \cap C \neq \emptyset$. Thus $x$ is a limit point of $C$ in $(Y, \T_Y)$. Thus $x \in Cl_Y(C)= C$. Thus $Cl_X(C) \cap Y = C$. 
+    
+    $\impliedby:$ Suppose $Cl_X(C) \cap Y = C$. Then $C$ is closed by 3.28   
+\end{proof}
+
+\bigskip
+
+\begin{claim}{3.30}\label{Claim 3.30.}
+    Let $(X, \T)$ be a topological space, and let $(Y, \T)$ be a subspace. If $\B$ is a basis for $\T$, then $\B_{Y} := \left\{ B \cap Y \mid B \in \B \right\}$ is a basis for $\T_Y$.       
+\end{claim}
+\begin{proof}
+    Since $\B \subseteq \T \implies \B_Y \subseteq \T_Y$. $\forall U_Y \in \T_Y$ $\exists U \in \T \ni U \cap Y = U_Y$. $\forall p \in U, \exists V \in \B \ni p \in V \subseteq U$. $\forall p \in U_Y, \exists V \in \B \ni p \in V \subseteq U$, since $p \in Y$, $p \in V \cap Y \in \B_Y$. Moreover since $V \subseteq U \implies V \cap Y \subseteq U_Y$. Thus by 3.1, $\B_Y$ is a basis for $\T_Y$.            
+\end{proof}
+
+\pagebreak
+
+\section*{Product Spaces}
+
+\begin{PROB}{3.32}\label{Problem 3.32.}
+    Verify the collection of basic open sets above sastifies theorem 3.3, thus confirming this collection is a basis for a topology
+\end{PROB}
+\begin{solution}
+    $X \in \T_X$ and $Y \in \T_Y$. Let $\B = \T_X \times \T_Y$. Thus $X \times Y \in \B$. Thus 1 is satisfied. $\forall A, B \in \B$, $A = U_1 \times V_1$ and $B = U_2 \times V_2$. $A \cap B = (U_1 \cap U_2) \times (V_1 \cap V_2) \in \B$ since $U_1 \cap U_2 \in \T_X$ and $V_1 \cap V_2 \in \T_Y$. Thus $\B$ is a basis.            
+\end{solution}
+
+\bigskip
+
+\begin{claim}{3.35}\label{Claim 3.35.}
+    Show that the product topology on $X \times Y$ is the same as the topology generated by the subbasis $S = \left\{ \pi_x^{-1}(U) \mid U \in \T_X \right\} \cup \left\{ \pi_y^{-1}(V) \mid V \in \T_y \right\}$.  
+\end{claim}
+\begin{proof}
+    $\forall U \in \T_X$ and $\forall V \in \T_Y$, $\pi_x^{-1}(U) = U \times Y$ and $\pi_y^{-1}(V) = X \times V$, both of which are open since $X \in \T_X$ and $Y \in \T_Y$. Thus $S \subseteq \T$. $\forall U \in \T$, $U$ is formed by the union of the products of open sets of $X$ and $Y$. Thus $U = \bigcup_{\alpha \in \lambda}\left(U_\alpha \times V_\alpha\right)$ for $U_\alpha \in \T_X$ and $V_\alpha \in \T_Y$. Thus $\forall p \in U$, $\exists \alpha \in \lambda \ni p \in U_\alpha \times V_\alpha$. $U_\alpha \times V_\alpha = U_\alpha \times Y \cap X \times V_\alpha = \pi_x^{-1}(U_\alpha) \cap \pi_Y^{-1}(V_\alpha)$. Thus $p \in \pi_x^{-1}(U_\alpha) \cap \pi_Y^{-1}(V_\alpha) \subseteq U$. Thus $S$ is a subbasis of $\T$ the product topology on $X \times Y$             
+\end{proof}
+
+\bigskip
+
+\begin{claim}{3.37}\label{Claim 3.37.}
+    A basis for the product topology on $\prod_{\alpha \in \lambda} X_\alpha$ is a collection of all sets of the form $\prod_{\alpha \in \lambda} U_\alpha$ where $U_\alpha$ is open in $X_\alpha$ and $U_\alpha = X_\alpha$ for all but finitely many $\alpha$.       
+\end{claim}
+\begin{proof}
+    Let $\T$ be the product topology on $\prod_{\alpha \in \lambda} X_\alpha$ and $\B$ be the collection described above. $\forall U \in \B$, by definition $U = \prod_{\alpha \in \lambda} U_\alpha$ and $U_\alpha$ is open in $X_\alpha$, by definition of product topology $U \in \T$. Thus $\B \subseteq \T$. $\forall U \in \T$, $U = \bigcup_{\beta \in \varphi} \prod_{\alpha \in \lambda} U_{\beta, \alpha}$. Thus $\forall p \in U$, $\exists \beta_p \in \varphi \ni p \in \prod_{\alpha \in \lambda} U_{\beta_p, \alpha} \in \B$. By definition of union,  $\prod_{\alpha \in \lambda} U_{\beta_p, \alpha} \subseteq U$. Thus $\forall U \in \T, \forall p \in U, \exists V \in \B \ni p \in V \subseteq U$. Thus by claim 3.1, $\B$ is a basis on the product topology.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.38a}\label{Problem 3.38a.}
+    Let $T$ be a topology on $2^X$ with a basis generated by subbasis $S:= \left\{ U(a, \delta)  \mid a \in X, \delta \in \left\{ 0, 1 \right\}\right\}$ where $U(a, \delta) := \left\{ f \in 2^X \mid f(a) = \delta \right\}$. Show that every basic open set in $2^X$ is both open and closed.   
+\end{PROB}
+\begin{solution}
+    Let $\B$ be the basis generated by $S$. $\forall A \in \B$, A is by definition open. 
+    
+    $\forall a \in X$, $2^X - U(a, 1) = U(a, 0)$. Thus $\forall A \in S, A$ is both open and closed. Thus $\forall B \in \B$, $B$ is closed since $B = \bigcap_{\alpha \in \lambda} A_\alpha$ thus $B$ is closed. 
+\end{solution}
+\begin{PROB}{3.38b}\label{Problem 3.38b.}
+    Show that if a collection of subbasic open sets of $2^X$  has the property that every point of $2^X$  lies in at least one of those subbasic open sets, then there are two subbasic open sets in that collection such that every point of $2^X$  lies in one of those two subbasic sets.
+\end{PROB}
+\begin{solution}
+    
+\end{solution}
+
+\end{document}

@@ -1,0 +1,274 @@
+%HOMEWORK template for M 325K
+
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[2]{\text{Hom}(#1, #2)}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+	\newenvironment{#1}[1]
+	{%
+		\renewcommand\customgenericname{#2}%
+		\renewcommand\theinnercustomgeneric{##1}%
+		\innercustomgeneric
+	}
+	{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{QU}{Question}
+\newcustomtheorem{claim}{Claim}
+
+
+\newenvironment{solution}
+  {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+  {\end{proof}}
+
+
+%End custom theorems
+\begin{document}
+
+\title{Equivalence Relations}
+\author{Arham Lodha}%put your name here
+\date{August 23, 2023}%enter the due date here
+\maketitle
+
+\begin{QU}{1}\label{Question 1}
+	Define an equivalence relation, $\sim$, on set $Q$.
+\end{QU}
+\begin{proof}
+
+	A binary relation is
+
+	An equivalence relation, $\sim$, is a $R \subset Q x Q$, which is reflexive, transitive, and Symmetric, such that $a, b \in Q$ $a\sim b \iff (a,b) \in R$.
+
+	\begin{enumerate}
+		\item Symmetric: if $a \sim b$ then $b \sim a$ thus $(a, b), (b, a) \in R$ for all $a, b \in Q$.
+		\item Reflexive: $a \sim a$ thus $(a,a) \in R$ for all $a \in Q$.
+		\item Transitive: if $a \sim b$ and $b \sim c$ then $a \sim c$.
+	\end{enumerate}
+	% For any $a, \item Refb \in \Q$, where $a = \frac{p_1}{q_1}$ and $b = \frac{p_2}{q_2}$ with $p_1, p_2, q_1, q_2 \in \Z$ and $q_1, q_2 \neq 0$, $a \sim b$ iff $p_1 * q_2 = p_2 * q_1$.
+
+	% \begin{enumerate}
+	% 	\item Reflexive: For all $a \in \Q$, by definition of rational numbers $a = \frac{p}{q}$ where $p, q \in \Z$ and $q \neq 0$. $a \sim a$ is true because $p_1 * q_1 = p_1 * q_1$
+
+	% 	\item Symmetric: For all $a, b \in \Q$, by the definition of rational numbers $a = \frac{p_1}{q_1}$ and $b = \frac{p_2}{q_2}$ where $p_1, p_2, q_1, q_2 \in \Z$ and $q_1, q_2 \neq 0$. If $a \sim b$ then $p_1 * q_2 = p_2 * q_1$. Since equality of integers is symmetric by definition of equivalence relations, $p_2 * q_1 = p_1 * q_2$ hence $b \sim a$.
+
+	% 	\item Transitivity: For all $a, b, c \in \Q$, by the definition of rational numbers $a = \frac{p_1}{q_1}$, $b = \frac{p_2}{q_2}$, $c = \frac{p_3}{q_3}$ where $p_1, p_2, p_3, q_1, q_2, q_3 \in \Z$ and $q_1, q_2, q_3 \neq 0$. If $a \sim b$ and $b \sim c$, then $p_1 * q_2 = p_2 * q_1$ and $p_2 * q_3 = p_3 * q_2$.
+
+	% 	      \begin{align*}
+	% 		      p_1 * q_2 * q_3 & = p_2 * q_1 * q_3 &  &                                                  \\
+	% 		                      & = q_1 * p_2 * q_3 &  & \text{Commutivity of multiplication in Integers} \\
+	% 		                      & = q_1 * p_3 * q_2 &  & \text{Use equality above}                        \\
+	% 		      p_1 * q_2 * q_3 & = q_1 * p_3 * q_2 &  &                                                  \\
+	% 		      p_1 * q_3 * q_2 & = q_1 * p_3 * q_2 &  & \text{Commutativity of multiplication}           \\
+	% 	      \end{align*}
+
+	% 	      Since $q_2 \neq 0$, $p_1 * q_3 = q_1 * p_3$, so $a \sim c$.
+
+\end{proof}
+
+\begin{QU}{2}\label{Question 2}
+	Let $\sim$ be an equivalence relation on X.  For x in X let [x] be the subset of elements of X that are equivalent to x. It is called the equivalence class. Show that the equivalence classes partition X -- i.e. they are non-empty, their union is all of X, and they are pairwise disjoint. Conversely, suppose we are given a partition of X (into pairwise disjoint non-empty subsets with union X), show there is a unique equivalence relation with these equivalence classes.  Explain why an equivalence relation on a set is "the same thing" as a partition (quotes because of course they are not exactly the same thing, instead what I mean is that the two concepts are equivalent). Let $Q := X/\sim$ be the set of equivalence classes (the collection of subsets that form the partition). Explain why $X/\sim$ is a subset of Pow(X) -- meaning the power set of X (the set of subsets of X)
+\end{QU}
+
+\begin{claim}{2a}
+	Equivalence classes partition X -- i.e. they are non-empty, their union is all of X, and they are pairwise disjoint
+\end{claim}
+\begin{proof}
+	\begin{enumerate}
+		\item For all $x \in X$ $x \sim x$, by the definition of a equivalence relation. So since $x \sim x$, then $x \in [x]$. Thus $\abs{[x]} \neq 0$ for all $x \in X$. So equivalence classes are nonempty.
+		\item Since each equivalence class $[x]$ will at least contain $x$, where $x \in X$, and $\forall x \in X$ $\exists$ a $[x]$, the union of all equivalence classes of $X$ will contain all the elements of $X$ and thus will be equal to $X$.
+		\item There are two cases needed to be proven to show that all the equivalence classes are pairwise disjoint:
+		      \begin{enumerate}
+			      \item For all $a, b \in X$ s.t $a \sim b$ is true. Then $a, b \in [a]$ and $a, b \in [b]$, by the definition of equivalence classes. Furthermore, $\forall c \in [a]$, by the definition of equivalence classes, $c \sim a$. By the Transitive property of equivalence relations, $c \sim b$, thus $c \in [b]$. Thus if $a \sim b$, then $[a] = [b]$.
+			      \item For all $a, b \in X$ s.t $a \sim b$ is false. Assume the contrary, $\exists$ a $c$ in $[a]$ and $[b]$. Then, by the definition of equivalence classes, $a \sim c$ and $b \sim c$. By the Transitive property of equivalence relations, $a \sim b$ which is a contradiction with our assumption. Thus by contradiction, we know that $[a]$ and $[b]$ share no elements if $a \sim b$ is false.
+			            Thus $[a] \bigcap [b] = \emptyset$.
+		      \end{enumerate}
+		      Thus equivalence classes either share all elements and are thus equal, or share no element and are thus pairwise disjoint.
+	\end{enumerate}
+
+	Thus since equivalence classes are nonempty, their union is $X$, and are pairwise disjoint they partition X.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2b}
+	An equivalence relation on a set is "the same thing" as a partition.
+\end{claim}
+\begin{proof}
+	Equivalence relations and partitions are the same concept. A equivalence relation can be set up from a partition such that items in the same partition subset are equivalent. This relation is Reflexive because an element is always in the same subset as itself. This relation is symmetric, because if $a$ and $b$ are in the same subset then $b$ and $a$ are also in the same subset. Finally its transitive, if $a$ and $b$ are in the same subset and $b$ and $c$ are in the same subset, then $a$ and $c$ must also be in the same subset. Thus equivalence classes naturally form. A partition can be formed from a equivalence relation where the partition is set of all the equivalence classes.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2c}
+	Let $Q := X/\sim$ be the set of equivalence classes (the collection of subsets that form the partition). Explain why $X/\sim$ is a subset of Pow(X) -- meaning the power set of X (the set of subsets of X)	\end{claim}
+\begin{proof}
+	Since as stated above, $Q := X/\sim$ partitions X, it means its elements are subsets of X, where all the elements of the subset are equivalent under the equivalence relation which generated the equivalence classes. Since $Q$ is a set of subsets of X and $\Pow{X}$ contains all the subsets of X, then $Q \subset \Pow{X}$.
+\end{proof}
+
+\bigskip
+
+
+\begin{QU}{3}\label{Question 3.}
+	Define a function $q: X \rarr X/\sim$
+\end{QU}
+\begin{proof}
+	For all $x \in X$,
+	\begin{equation}
+		q(x) := [x]
+	\end{equation}
+\end{proof}
+
+\begin{QU}{4}\label{Question 4.}
+	Write $Q:= X/\sim$ and let $q: X \rarr Q$ be the above function (it sends x to [x]). Let $f: X \rarr Z$ be another function. When does f factor through q?  (in the sense of the pre-homework).
+\end{QU}
+\begin{proof}
+	For all $a, b \in X$, if $a \sim b$ meaning $[a] = [b]$ or $q(a) = q(b)$ then $f(a) = f(b)$, then $f$ factors through $q$.
+\end{proof}
+
+\begin{QU}{5a}\label{Question 5a.}
+	Let $f: X \rarr Z$ be a function (between two sets). Define functions $f_*: \Pow{X} \rarr \Pow{Z}$ (Pow means the set of all subsets), and  $f^*: Pow(Z) \rarr Pow(X)$. There is only one reasonable definition for either.
+\end{QU}
+\begin{proof}
+	For all $S \in \Pow{X}$, let $f_*(S) := \{f(s) | s \in S\}$.
+
+	For all $T \in \Pow{Y}$, let $f^*(T) := \{ s | f(s) \in T\}$.
+\end{proof}
+
+
+\begin{QU}{5b}\label{Question 5b.}
+	Define an equivalence relation on X by $a \sim b$ iff $f(a) = f(b)$. Let $p: X \rarr X/\sim$ be the natural map, ie $a \rarr [a]$. Show that $f$ factors, uniquely, through $p$,  ie $f = F \circ p$ for a unique function $F : X/\sim \rarr Z$, and that $F([x]) = f(x)$ for all x in X.
+\end{QU}
+\begin{proof}
+	Let the $\sim$ equivalence relation on X be defined as the following $a \sim b$ iff $f(a) = f(b)$ $\forall a, b \in X$, if $p(a) = p(b)$, by definition, it means $[a] = [b]$. By definition of equivalence classes, $a \sim b$ so $f(a) = f(b)$. Thus $p(a) = p(b) \implies f(a) = f(b)$, meaning there exists a function $F: X/\sim \rarr Y$ s.t $f = F\circ p$ and $f$ factors through p. 
+
+	Since every element of $X/\sim$ is an equivalence class and is thus nonempty and $p$ maps each element of $X$ to its corresponding equivalence class, $p$ must be surjective. Thus by the prehomework theorem, $F$ must be unique since $p$ is surjective.
+\end{proof}
+
+\begin{QU}{5c}\label{Question 5c.}
+	Show $F$ is injective and bijective iff $f$ is surjective.
+\end{QU}
+\begin{proof}
+	$\implies$: Suppose F is injective and bijective. Since $X/\sim$ is the set of equivalence classes and $p: X \rarr X/\sim$ is the natural quotient map. It means for all $x \in X$, $p(x) = [x]$. Furthermore since $X/\sim$ is the set of equivalence classes. As previously proven, equivalence classes are nonempty, pairwise disjoint, and whose union is X, thus there doesn't exist a $a \in X/\sim$ such that $a = \emptyset$. Thus all $[x] \in X/\sim$ have at least one corresponding $x\in X$ s.t $p(x) = [x]$. Thus $p$ is surjective. Finally since $F$ is bijective, it means it is surjective as well by the definition of bijective functions. Furthermore since $F$ is surjective, for all $z \in Z$, $\exists$ a $[x] \in X/\sim$ s.t $F([x]) = z$. Since $p$ is surjective, for all $[x] \in X/\sim$, $\exists$ a $x \in X$ s.t $p(x) = [x]$. Thus $F(p(x)) = z$. Thus for all $z \in Z$, there exists a $x \in X$ s.t $F(p(x)) = f(x) = z$. Thus $f: X \rarr Z$ is surjective.
+
+	$\impliedby$: Suppose $f: X \rarr Z$ is surjective. 
+	
+	Assume the contrary $F$ is not surjective meaning there exists a $z \in Z$ such that there doesn't exist a $[x] \in X/\sim$ where $F([x]) = z$. Now consider $f = F \circ p$, since f is surjective, then for all $a \in Z$, there exists a $x \in f^*(a)$. However since $F^*(z) = \emptyset$, this forms a contradiction, because $f^*(y)$ is not empty but $F^*(z)$ is even though $f = F \circ p$. Thus by contradiction, $F$ must be surjective.
+
+	Take $[x], [y] \in X/\sim$, if F([x]) = F([y]), then $f(x) = f(y)$ meaning $x \sim y$. Thus by the definition equivalence classes, $[x] = [y]$. Thus $F$ is injective. 
+
+	Since $F$ is surjective and injective, $F$ must be bijective by definition of bijective functions.
+
+ 
+	
+\end{proof}
+
+\begin{QU}{5d}\label{Question 5d.}
+	Explain why an equivalence relation is "the same thing" as a surjective function. 
+\end{QU}
+\begin{proof}
+	Equivalence relations create Equivalence classes of the following form: for $x \in X$, $[x] = \{a | x \sim a, \forall a \in X\} \in X/\sim$. Whereas surjective function $f: X \rarr Y$ assigns every value of $y \in Y$ a corresponding x. This also creates a set of sets of $f$ let $I:= \{f_*(y) | y \in Y\}$. I is a partition because no set in I is empty by the definition of a surjective function. All sets are disjoint and the union of all the sets is X, by the definition of a function. Thus a surjective function creates a partition for X. As stated above, the set of equivalence classes is a partition over X. Thus both a surjective and equivalence relation create a partition over X and thus are one an the same.
+\end{proof}
+
+
+\begin{QU}{6}\label{Question 6.}
+	For each positive integer n let  $Z/nZ =: Z/\sim$, where $\sim$ is the equivalence relation mod n (ie $a\sim b$ iff $b-a$ is divisible by $n$). Let $q_n: Z \rarr Z/nZ$ be the natural quotient map. When does $q_n$ factor through $q_m$?
+\end{QU}
+\begin{claim}{6}
+	If $n | m$, then $q_n$ factors through $q_m$.
+\end{claim}
+\begin{proof}
+	For all $z \in \Z$, let $q_n(z) := [z]_n$ and $q_m(z) := [z]_m$.
+	Suppose $n | m$. Let $a, b, k \in \Z$ s.t $b = a + km$. $b - a = km + a - a = km$, thus $(b - a) |m = km | m$ so $b \sim a = a \sim b$ is true under m. Thus, by the definition of equivalence classes, $[a]_m = [b]_m$, meaning $q_m(a) = q_m(b)$. Furthermore, because $n | m$, $m = sn$ where $s \in \Z$ and $s \geq 0$. Thus $b = a + ksn$. $b - a = (ksn + a) - a = ksn$, thus $(b - a) | n = ksn | n$, meaning $b \sim a = a \sim b$ is true under n. Thus, by the definition of equivalence classes, $[a]_n = [b]_n$, meaning $q_n(a) = q_n(b)$. Since $q_m(a) = q_m(b) \implies q_n(a) = q_n(b)$, by the prehomework theorem, it means that $q_n$ factors through $q_m$.
+\end{proof}
+
+\begin{QU}{8}\label{Question 7.}
+	Let $\sim$ and $--$ be two equivalence relations on the same set X. When does $p: X \rarr X/\sim$ factor through $q: X \rarr X/---$?
+\end{QU}
+
+\begin{claim}{7}
+	$p: X \rarr X/\sim$ factors through $q: X \rarr X/---$ iff for all $a, b \in X$ if $a --- b \rarr a \sim b$.
+\end{claim}
+\begin{proof}
+	$\implies$ Suppose $p: X \rarr X/\sim$ factors through $q: X \rarr X/---$. For all $a, b \in X$, if $q(a) = q(b)$, then it means $[a] = [b]$ under the equivalence relation of $---$ and by the definition of equivalence classes, $a --- b$. By the prehomework theorem, if $p$ factors through $q$ then for all $a, b \in X$, if $q(a) = q(b) \implies p(a) = p(b)$. Thus $q(a) = q(b)$, meaning $[a] = [b]$ under the equivalence relation of $\sim$ and by the definition of equivalence classes, $a \sim b$. Thus $a --- b \rarr a \sim b$.
+
+	$\impliedby$ Suppose for all $a, b \in X$, if $a --- b \rarr a \sim b$. Thus by the definition of equivalence classes, for all $a, b \in X$ if $a --- b$ then $[a] = [b]$ under the equivalence relation of $---$ and $a \sim b$ meaning $[a] = [b]$ under the equivalence relation of $\sim$. Thus if $[a] = [b]$ under $---$ it means that $[a] = [b]$ under $\sim$. Since for all $x \in X$, by definition $q(x) = [x]$ under $---$ and $p(x) = [x]$ under $\sim$. It means $q(a) = q(b) \implies p(a) = p(b)$. By the prehomework theorem, this means $p$ factors through $q$.
+\end{proof}
+
+\begin{QU}{8}\label{Question 8.}
+	For $f: X \rarr Y$ show that f has a "right inverse", ie there exists $r: Y \rarr X$ so $f \circ r = id_Y$, iff  f is surjective, and has a "left inverse" (define it) iff f is injective.  Show f has both a left and right inverse iff f is a bijection, and in this case either is unique.
+\end{QU}
+\begin{claim}{8a}
+	For $f: X \rarr Y$ has a "right inverse" iff  f is surjective.
+\end{claim}
+\begin{proof}
+	$\implies$: Suppose there exists a function $r : Y \rarr X$ such that $f \circ g = id_y$. Then for each $y \in Y$, $x_y = r(y) \in X$. By the definition of a function, since f maps each element in X to a element in Y, it means $x_y$ is in the domain of f. Thus for all $y \in Y$, $f(x_y) = (f \circ g)(y) = id_y(y) = y$. Meaning f maps to all $y \in Y$ and is thus surjective.
+
+	$\impliedby$: Suppose $f$ is surjective. Then by the definition of a surjective function, for all $y \in Y$ there exists $x_y \in X$ such that $f(x_y) = y$. Construct a function $g : Y \rarr X$, s.t. $\forall y \in Y$ $r(y) = x_y$ s.t if there are multiple $x_y$ choose a arbitrary one out of the choices available. By making this choice, it excludes the possibility that $g$ maps a y to 2 unique values. Thus $\forall y \in Y$, $(f \circ g)(y) = f(g(y)) = f(x_y) = y = id_y(y)$, thus $f \circ g = id_y$.
+\end{proof}
+
+\begin{claim}{8b}
+	$ f: X \rarr Y $ has a "left inverse" iff f is injective.
+\end{claim}
+\begin{proof}
+	$\implies$: Suppose there exists a function $h: Y \rarr X$ s.t $h \circ f = id_x$. Let $a, b \in X$, when $f(a) = f(b)$. Then $(h \circ f)(a) = h(f(a))$. By substitution, $h(f(a)) = h(f(b))$. Furthermore by the definition, $h(f(a)) = id_x(a) = a$ and $h(f(b)) = id_x(b) = b$ thus $a = b$. Thus for all $a, b \in X$ if $f(a) = f(b)$ then $a = b$. Thus by definition, f is injective.
+
+	$\impliedby$: Suppose $f: X \rarr Y$ is injective. Choose a $x_0 \in X$. Construct a function $h : Y \rarr X$. For $y \in Y$,
+
+	\begin{enumerate}
+		\item if $\exists$ $x \in X$ s.t $f(x) = y$ then $h(y) = y$
+		\item else $h(y) = x_0$
+	\end{enumerate}
+
+	For case one, if $h(y) = x_1$ and $h(y) = x_2$, it means $f(x_1) = y = f(x_2)$. By definition of injective functions, since $f(x_1) = f(x_2)$, $x_1 = x_2$. Thus $h$ is well defined.
+
+	For all $x \in X$, $(h \circ f)(x) = h(f(x)) = x = id_x(x)$. Thus $h \circ f = id_x$.
+\end{proof}
+\begin{claim}{8c}
+	Show f has both a left and right inverse iff f is a bijection, and in this case either is unique.
+\end{claim}
+\begin{proof}
+	$\implies$: Suppose $f$ has both a left and right inverse. By the previous proofs, $f$ must be both injective and surjective. By definition of bijective functions, since $f$ is surjective and injective, it means $f$ is bijective.
+
+	$\impliedby$: Suppose $f$ is bijective. By the definition of bijective functions, f is injective and surjective. Thus by the the previous functions they must have left and right inverses, $g: Y \rarr X$ and $h: X \rarr Y$. Furthermore, because $f$ is injective and surjective, it means each unique element in $X$ maps to a unique element in $Y$ and each element in Y has a corresponding value in x which maps to it. So with the previous definition of a left inverse above $h$, only the first case matters because, by the definition of surjective functions, there is no $y$ s.t there exists no $x$ such that $f(x) = y$. Thus $h$ would be unique. Furthermore, with the previous definition of $g$ the right inverse of f, if $f(x_1) = y = f(x_2)$ since f is injective $x_1 = x_2$ so there is no ambiguity and choice needed in this case. The lack of choice means that there is only one possibility for $g$ meaning $g$ is unique. 
+\end{proof}
+
+
+
+\end{document}

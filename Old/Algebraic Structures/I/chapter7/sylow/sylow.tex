@@ -1,0 +1,219 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Normalizers and Sylow Theorems}
+\author{Arham Lodha}%put your name here
+\date{November 28, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    For finite group G, construct an injective homo $G \to GL_{|G|}(F)$, for any field F. this shows in particular that every finite group occurs as a subgroup of $GL_n(F_p)$ for some p and n. Write down $|GL_n(F_p)|$ and show that the largest power of p that divides this is $k:= 1 + 2 + .. + n-1$.   Look at that number. Exhibit a subgroup of $GL_n(F_p)$ of order $p^k$ (look for a set if  matrices where you have to choose an element of $F_p k$ times).
+\end{PROB}
+\begin{proof}
+    $S_{|G|} \subset GL_{|G|}(F)$ as the permutation matrices. $G \subset S_{|G|}$ because G acting on G by left multiplication. Thus $G \subset GL_{|G|}(F)$. Where $G \to GL_{|G|}(F)$ sends $g$ to its corresponding permutation matrix.
+
+    $|GL_n(F_p)| = \prod_{i = 0}^{i = n - 1}(p^n - p^{i}) = \prod_{i = 0}^{i = n - 1}p^i(p^{n - i} - 1) = \prod_{i = 0}^{i = n - 1}(p^i) \prod_{i = 0}^{i = n - 1}(p^{n - i} - 1) = p^{k}\prod_{i = 0}^{i = n - 1}(p^{n - i} - 1)$ $k := 1 + \ldots + n-1$.
+
+    Matrices which are upper triangular with ones on the diagonal and anything else in the triangle above the diagonal. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let H  be a finite group acting on a set X, with $|X|$ not divisible by p. Let $p^k$ be the highest power of p that divides $|H|$. Show that $p^k$ divides the order of some stabilizer. 
+\end{PROB}
+\begin{proof}
+    $|H| = p^kq$ where $p \nmid q$
+    .
+    X may orbits which divide p and orbits which don't.
+    $|X| = kp + |Y|$ where $k$ is the size of the orbits which are divisible by p divided by p and $Y \subseteq X$ is the subset of elements with orbits which don't divide p. $\exists y \in Y$, because $ p \nmid |X|$. 
+
+    $\forall y \in |Y|$, $p \nmid |H \cdot y|$. If $|H \cdot y| = 1$, then $p^kq = |H^y||H\cdot y| = |H^y|$ and so $p^k \mid |H^y|$. If $|H \cdot y| \neq 1$, $|H \cdot y| \mid p^kq$ and since $p$ is prime, $|H \cdot y| \mid q$, let $a := q/|H \cdot y|$. $p^kq = |H^y||H\cdot y| \implies p^ka|H \cdot y| = |H^k||H \cdot y| \implies p^ka = |H^k| \implies p^k \mid |H^k|$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3a.}
+    Now suppose H is a subgroup of G and G has a p-sylow, P.  Let H act on G/P. Explain why the stabilizer of gP is $ H \cap gPg^{-1}$
+\end{PROB}
+\begin{proof}
+    Suppose G acts on G/P. $\forall gP \in G/P$, $\forall h \in G^{gP}$, $hgP = gP$. Thus $hg = gp \ni p \in P$ thus $h = gpg^{-1}$. Thus $h \in gPg^{-1}$. $\forall h \in gPg^{-1}$, $hgP = gpg^{-1}gP$ for $p \in P$, $gpP = gP = hgP$. Thus $h \in G^{gP}$. Thus $G^{gP} = gPg^{-1}$
+
+    If $H$ acts on $gP$, then stabilizer of $gP$ would be the intersection of $H$ and $G^{gP}$ because $H \leq g$ thus $H^{gP} = H \cap gPg^{-1}$.
+\end{proof}
+\begin{PROB}{3b}\label{Problem 3b.}
+    Show that one of these is a p-sylow subgroup of H.
+\end{PROB}
+\begin{proof}
+    Since $P$ is a p-sylow subgroup of G, $p \nmid [G : P]$. $\exists gP \in G/P \ni p \nmid |H \cdot gP|$ because otherwise $p \mid [G : P]$. By problem 2, we know that $p^k | H^{gP}$ where k is the highest power of p which divides $|H|$. Thus $p \nmid [H : H^{gP}]$
+\end{proof}
+
+\bigskip
+\begin{PROB}{4a}\label{Problem 4a.}
+    Now show that if G is a finite group and P is a sylow p, and H is a p-subgroup (meaning |H| is a power of p), that H is contained in some conjugate of P.
+\end{PROB}
+\begin{proof}
+    By problem 3, $H \cap gPg^{-1}$ is p sylow in H but since $H$ is a p group so $|H| = p^n$ so by definition $|H \cap gPg^{-1}| = p^n$ so $H = H \cap gPg^{-1}$ so $H \subseteq gPg^{-1}$
+\end{proof}
+
+\begin{PROB}{4b}\label{Problem 4b.}
+    In particular conclude that all the sylow p subgroups are conjugate. 
+\end{PROB}
+\begin{proof}
+    Suppose $H$ is p sylow it has order $p^k$ and all P sylow subgroups of G have order $p^k$. Since $H \subseteq gPg^{-1}$ and since $|H| = p^k$ and $|gPg^{-1}| = p^k$. Thus $H = gPg^{-1}$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.4}\label{Problem 6.4.}
+    Let H be a normal subgroup of prime order p in a finite group G. Suppose that p is the smallest prime that divides the order of G. Prove that H is in the center Z(G).
+\end{PROB}
+\begin{proof}
+    Let G act on $H \setminus {e}$ by conjugation. That gives a homomorphism of $f: G \to S_{p-1}$. $f_*(G)$ is a subgroup of $S_{p-1}$ and thus divides $S_{p-1}$ but $f_*(G) | G$ and p is the smallest prime which divides the order of G thus $f_*{G} = 1, p$. If $|f_*{G}| = p$ then it can't divide $S_{p-1}$ so $|f_*{G}| = 1$. Thus everything in G when it conjugates H, $ghg^{-1} = h$ thus everything in g commutes with H. Thus $H \in Z(G)$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.6}\label{Problem 6.6.}
+    Let H be a proper subgroup of a finite group G. Prove: The group G is not the union of the conjugate subgroups of H. There is a conjugacy class C that is disjoint from H.
+\end{PROB}
+\begin{proof}
+    The number of conjugate subgroups of H in G is [G:N(H)]=|G|/|N(H)|. But $|N(H)|\geq|H|$, so the number of conjugate subgroups is at most |G|/|H|. However, all conjugate subgroups share the identity element, so the size of the union of these subgroups is at most $1+(|H| - 1)|G|/|H|=|G|+1 - |G|/|H|$. Since |H| is a proper subgroup, this value is less than |G| , so this proves part (a). Part (b) is obviously equivalent to part (a).
+\end{proof}
+
+\begin{PROB}{7.3}\label{Problem 7.3.}
+    How many elements of order 5 might be contained in a group of order 20?
+\end{PROB}
+\begin{proof}
+    $|G| = 20 = 5 * 4$. All p sylow groups are conjugate. G acts on the sylow p groups by conjugation and the set of sylow p groups is transitive. So number of sylow p groups must divide 20. By 3rd sylow theorems, n = number of sylow p groups $n \equiv 1 \mod p$.Thus n must divide 20 and must be congruent to 1 mod 5. Thus there is only 1 sylow p group and thus only 1 subgroup with order 5. Every element except e will have order 5. Thus 4 elements have order 5. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.4a}\label{Problem 7.4a.}
+    Prove that no simple group has order pq, where p and q are prime.
+\end{PROB}
+\begin{proof}
+    Assume the contrary, let G be a simple group with order pq where p and q are prime where q > p. Then there exists a q sylow group P with order q. The n which number of q sylow subgroups must divide pq and be congruent to 1 mod q, then n must divide p thus $n = 1$ or p. But since $q > p$, if $n = p$ $p \equiv 1 mod q$ which would mean $p = 1$ but p is prime so $n = 1$. Thus the number of conjugate subgroups is 1 and thus q sylow group is normal. Thus a contradiction forms and G is no longer normal. Thus no simple group have order pq.  
+\end{proof}
+\bigskip
+\begin{PROB}{7.4b}\label{Problem 7.4b.}
+    Prove that no simple group has order $p^2q$, where p and q are prime.
+\end{PROB}
+\begin{proof}
+    There are $1, p, p^2$ q sylow subgroups.
+
+    \begin{enumerate}{}
+        \item If there are only 1 q-sylow subgroup, then it is normal. 
+        \item If there are p q-sylow subgroups. Then $p \equiv 1 \mod q \implies p > q$. Let n be the number of $p^2$-sylow subgroups. $n \mod p = 1$ and $n | p^2q$, so $n = 1, q$ since q is prime. If $n = q$ then $q \mod p = 1$ which is impossible since $p > q$ and q is prime. Thus $n =1$. Thus the $p^2$ - sylow subgroup is normal.
+        \item All the q sylow subgroups are cyclic and thus don't share any element except the identity. Thus the number of elements with order q is $p^2(q - 1)$. Any element in $p^2$ sylow subgroup doesn't have order q. The number of elements in G without order q is $p^2q - p^2(q - 1) = p^2$. Thus there is only 1 $p^2$ sylow subgroup which is normal.
+    \end{enumerate}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.5a}\label{Problem 7.5a.}
+    Find Sylow 2-subgroups for $D_{10}$
+\end{PROB}
+\begin{proof}
+    $D_{10} = \langle x, y | x^{10} = y^2 = e, yxy^{-1} = x^{-1} \rangle$
+    One sylow 2-subgroup is $\{e, x^5, y, x^5y\}$. All conjugations are of the form $\{e, x^5, x^ky, x^{k + 5}y\}$
+\end{proof}
+
+\begin{PROB}{7.5b}\label{Problem 7.5b.}
+    Find Sylow 2-subgroups for $T$
+\end{PROB}
+\begin{proof}
+    Identity and the 3 180 degree rotations. This is Klien 4 subgroup which is normal and thus is the only 2-sylow
+\end{proof}
+
+\begin{PROB}{7.5c}\label{Problem 7.5c.}
+    Find Sylow 2-subgroups for $O$
+\end{PROB}
+\begin{proof}
+    The group O has order 24 = 8 * 3 = $2^3 * 3$, so we seek a subgroup of order 8. $O \cong C$. $D_4 < O \cong S_4$. There are 3 $D_4$ subgroups in $S_4$ because $D_4$ is determined by the 4 elements in the set with a adjacency relation and there are 3 possible adjacency relation. Because for any point there is 3 elements in the set which it is not adjacent to and this fixes the rest. Thus there are 3 $2$ sylow subgroups each which are $D_4$.
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{7.5c}\label{Problem 7.5c.}
+    Find Sylow 2-subgroups for $I$
+\end{PROB}
+\begin{proof}
+    The group I has order 60, so we seek a subgroup of order 4. The Klein 4 subgroup in $I \cong A_5$ is a sylow subgroup. Furthermore there is only 1 as this is only 4 element subgroup of $A_5$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.5.6}\label{Problem 7.5.6.}
+    
+\end{PROB}
+\begin{proof}
+    According to Proposition 7.7.7(c), such a group has an element x of order 7 and an element y of order 3, and these elements satisfy $yxy^{-1}=x$ . Now the only elements of $S_7$ that have order 7 are the 7-cycles, so, without loss of generality, let x=(1 2 3 4 5 6 7) , so that x2=(1 3 5 7 2 4 6) . We must find y such that y relabels x to $x^2$ and has order 3. The obvious relabelling from the way x and $x^2$ are written, above, is y=(2 3 5)(4 7 6) , which indeed has order 3. Since we have the rule yx=$x^2$y , the elements $x^iy^j$ with i from 0 to 6 and j from 0 to 2 form a subgroup of S7 of order at most 21. This subgroup contains both ⟨x⟩ and ⟨y⟩ as subgroups, so its order is divisible by 21. Therefore its order is exactly 21.
+\end{proof}
+
+
+\end{document}

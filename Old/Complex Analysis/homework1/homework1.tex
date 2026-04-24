@@ -1,0 +1,598 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 1}
+\author{Arham Lodha}%put your name here
+\date{January 29, 2024}%enter the due date here
+\maketitle
+
+
+\begin{PROB}{1a}\label{Problem 1a.}
+    For $v, w \in \C$, show the triangle inequality
+
+    \[| x - y | \leq |x| + |y| \]
+\end{PROB}
+\begin{proof}
+    Let $w = -y$.
+    \begin{align*}
+        |x - y|^2 &= |x + (-y)|^2 \\ 
+        &= |x + w|^2 \\
+        &= (x + w)\overline{(x + w)} \quad \text{(Definition of Square of Complex Modulus)} \\
+        &= (x + w)(\bar{x} + \bar{w}) \\
+        &= x \bar{x} + w \bar{w} + x\bar{w} + w\bar{x} \\
+        &= |x| + |w| + x\bar{w} + w\bar{x} \\
+        &= |x| + |w| + (x\bar{w} + \overline{(\bar{w})}\bar{x}) \quad \text{(Complex number is equal to its conjugate's conjugate)}\\
+        &= |x| + |w| + (x\bar{w} + \overline{(x\bar{w})}) \\
+        &= |x| + |w| + 2\Re(x\bar{w}) \quad \text{(The sum of a complex number and its conjugate is twice its real part)}\\
+        &\leq |x| + |w| + 2|x \bar{w}| \quad \text{(The modulus of a complex number is always at least its real component)} \\
+        &= |x| + |w| + 2|x||\bar{w}| \\
+        &= |x| + |w| + 2|x||w| \\
+        &= (|x| + |w|)^2 \\
+        &= (|x| + |y|)^2
+    \end{align*}
+
+    Thus $|x - y|^2 \leq (|x| + |y|)^2 \implies |x - y| \leq |x| + |y|$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{1b}\label{Problem 1b.}
+    How is this metric inherited from the Euclidian metric on $\R^2$ ?
+\end{PROB}
+\begin{solution}
+    The metric on the complex plane is in inherited from the Euclidian metric of $\R^2$ with the identification of any complex number $z = a + bi$ with the point $(a, b) \in \R^2$. So the complex number $a + bi$ cooresponds to the point $(a, b) \in \R^2$. The distance of two complex numbers $z_1 = a + bi$ and $z_2 = c + di$ is the same as the euclidian distance between its corresponding points. 
+    
+    \begin{align*}
+        |z_1 - z_2| &= \sqrt{(z_1 - z_2)\overline{(z_1 - z_2)}}\\ 
+        &= \sqrt{((a - c) + i(b - d))((a - c) - i(b - d))}\\ 
+        &= \sqrt{(a - c)^2 + (b - d)^2} = d\left(\begin{bmatrix}
+            a \\ b
+        \end{bmatrix}, \begin{bmatrix}
+            c \\ d
+        \end{bmatrix}
+        \right)
+    \end{align*}
+
+    Thus the metric is inherited, because one can associate with any complex number $z$  a corresponding point $(\Re(z), \Im(z)) \in \R^2$, and thus taking the distance between 2 complex numbers just turns into calculating the Euclidian distance between their corresponding points in $\R^2$. 
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Work out all the details of the cubic roots of unity.
+
+    What do you see as the importance of the cyclic group?
+\end{PROB}
+\begin{solution}
+    Define $\omega := e^{\frac{2 \pi i}{3}} = \cos(\frac{2 \pi i}{3}) + i \sin(\frac{2 \pi i}{3})$.
+
+    \begin{claim}{2a}\label{Claim 2a.}
+        $1, \omega, \omega^2$ are roots to $x^3 - 1 = 0$  
+    \end{claim}
+    \begin{proof}
+        $\forall k \in \left\{ 0, 1, 2 \right\}$, 
+        $(\omega^k)^3 - 1= (e^{\frac{2 \pi  i}{3}})^{3k} - 1 = e^{2 \pi ik} - 1$
+        
+        By Euler's formula, $e^{2 \pi ik} = \cos(2pi k) + i\sin(2pi k) = 1$,
+        
+        Thus $(\omega^k)^3 - 1 = 1 - 1 = 0$. Thus $1, \omega, \omega^2$ are roots to $x^3 - 1 = 0$. By Fundamental Theorem of Algebra, the number of roots of a polynomial with degree n is n. Since $1, \omega, \omega^2$ are roots to $x^3 - 1$, they are the only roots.  
+    \end{proof}
+
+    \begin{claim}{2b}\label{Claim 2b.}
+        $1 + \omega + \omega^2 = 0$ 
+    \end{claim}
+    \begin{proof}
+        From $1 - \omega^3 = 0$, we have
+        
+        \[
+        (1 + \omega + \omega^2)(1 - \omega) = (1 + \omega + \omega^2) - (\omega + \omega^2 + \omega^3) = 1 - \omega^3 = 0.
+        \]
+
+        By definition, $\omega \neq 1$, so $1 - \omega \neq 0$. Thus $1 + \omega + \omega^2 = 0$.   
+    \end{proof}
+
+    \begin{claim}{2c}\label{Claim 2c.}
+        $x^3 - 1 = (x - 1)(x - \omega)(x - \omega^2)$ 
+    \end{claim}
+    \begin{proof}
+        As proven above, $1, \omega, \omega^2$ are all roots of $x^3 - 1$ and are distinct so $x^3 - 1$ can be factored into linear factors $(x - \omega^k)$ for $k = \left\{ 0, 1, 2 \right\}$  thus $x^3 - 1= (x - 1)(x - \omega)(x - \omega^2)$    
+    \end{proof}
+
+    \begin{claim}{2d}\label{Claim 2d.}
+        Using the roots of unity, show the commonly used $\cos(\frac{2 \pi}{3}) = \frac{1}{2}$ and $\sin(\frac{2 \pi}{3}) = \sqrt{3}/2$     
+    \end{claim}
+    \begin{proof}
+        $\cos(\frac{2 \pi}{3}) = \Re(\omega) = \frac{\omega + \bar{\omega}}{2}$
+
+        $\sin(\frac{2 \pi}{3}) = \Im{\omega} = \frac{\omega - \bar{\omega}}{2i}$ 
+        
+        $\bar{\omega} = \cos(\frac{2 \pi}{3}) - i\sin(\frac{2 \pi}{3}) = \cos(\frac{2 \pi}{3}) + \sin(-\frac{2 \pi}{3}) = \cos(-\frac{2 \pi}{3}) + \sin(-\frac{2 \pi}{3}) = \cos(2\pi -\frac{2 \pi}{3}) + \sin(2\pi -\frac{2 \pi}{3}) = \cos(\frac{4 \pi}{3}) + \sin(\frac{4 \pi}{3}) = \omega^2$
+        
+        Thus $\omega + \bar{\omega} + 1 = 0 \implies \omega + \bar{\omega} = -1$ 
+
+        So $\cos(2 \pi \frac{i}{3})= \frac{\omega + \bar{\omega}}{2} =-\frac{1}{2}$.
+
+
+        Thus $(\omega - \bar{\omega})^2 = \omega^2 + \bar{\omega}^2 - 2\omega\bar{\omega} = \omega^2 + \bar{\omega}^2 - 2 = \omega^2 + \omega - 2 \implies \omega + \omega^2 = (\omega + \bar{\omega})^2 + 2$.
+        
+
+        \[
+            (\omega - \bar{\omega})^2 + 3 = 1 + \omega + \omega^2 = 0
+        \]
+
+        Thus $\omega - \bar{\omega} = i\sqrt{3}$, so $\sin(2 \pi \frac{i}{3})= \frac{\omega - \bar{\omega}}{2i} = \frac{\sqrt{3}}{2}$.
+    \end{proof}
+
+    \begin{claim}{2e}\label{Claim 2e.}
+        Factorize $x^3 - 1$ into product of real polynomials 
+    \end{claim}
+    \begin{proof}
+        By claim 2c, $x^3 - 1 = (x - 1)(x - \omega)(x - \omega^2)$. By claim 2d, $\omega^2 = \bar{\omega}$. Thus 
+        
+        \[
+            x^3 - 1 = (x - 1)(x - \omega)(x - \omega^2) = (x - 1)(x - \omega)(x - \bar{\omega}).
+        \].
+
+        $(x - \omega)(x - \bar{\omega}) = x^2 + \omega\bar{\omega} - x(\omega + \bar{\omega})$. Since $\omega \bar{\omega} = 1$ and $\omega + \bar{\omega} = -1$. $(x - \omega)(x - \bar{\omega}) = x^2 + x + 1$.
+        
+        Thus $x^3 - 1 = (x-1)(x^2 + x + 1)$. 
+    \end{proof}
+
+
+    \begin{claim}{2f}\label{Claim 2f.}
+        The roots of unity create a cyclic group of finite order.
+    \end{claim}
+    \begin{proof} 
+
+        Denote the Set, $S(n) := \left\{ 0, \dots, n-1 \right\}$.
+
+        $C_n := \left\{ e^{\frac{2 \pi i k}{n}} : k \in S(n) \right\}$.
+        
+        $\forall k, l \in S(n)$, $e^{\frac{2 \pi i k}{n}}, e^{\frac{2 \pi i l}{n}} \in C_n$, Thus $e^{\frac{2 \pi i k}{n}} * e^{\frac{2 \pi i l}{n}} = e^{\frac{2 \pi i (k + l)}{n}} = e^{\frac{2 \pi i ((k + l) \mod n)}{n}}$. Thus $C_n$ is closed. 
+        
+        $\exists 1 \in C_n$, $\forall g \in C_n$, $g * 1 = g * 1 = g$, thus $C_n$ has the identity.
+        
+        $\forall g \in C_n$, $g = e^{\frac{2 \pi i k}{n}}$, $\exists h \in C_n \ni h = e^{\frac{2 \pi i -k}{n}}$, thus $g * h = e^{\frac{2 \pi i * 0}{n}} = 1 = h *g$. Thus every element has a inverse. 
+        
+        $C_n$ inherits associativity from the associativity of multiplication in complex numbers. 
+        
+        Thus $C_n$ is a group.
+        
+        Let $x := e^{\frac{2 \pi i}{n}}$, by definition $\forall g \in G, g = e^{\frac{2 \pi i k}{n}} = x^k$. Thus $C_n$ is cyclic. 
+        
+        
+        $x^n = e^{\frac{2 \pi i n}{n}} =e^{2 \pi i} = 1 = x^0$, thus $|C_n| = n$.  
+    \end{proof}
+    \begin{claim}{2g}\label{Claim 2g.}
+        $C_3$ has no proper nontrivial subgroup 
+    \end{claim}
+    \begin{proof}
+        By lagrange's theorem, the order of a subgroup divides the order of the group. Thus the order of any subgroup of $C_3$ divides 3 and thus the order of any subgroup is 1, 3. If the order of any subgroup is 1, the subgroup is trivial. If the order of the subgroup is 3, then the subgroup is $C_3$ itself. Thus there is not any proper nontrivial subgroup of $C_3$  
+    \end{proof}
+    \begin{claim}{2h}\label{Claim 2h.}
+        Let $x \in C_n$ be a generator of $C_n$. $x^k$ generates $C_n$ if and only if $gcd(k, n) = 1$   
+    \end{claim}
+    \begin{proof}
+        $\implies$: Suppose $gcd(k , n)= 1$, there exists $u, v \in \Z \ni uk + vn = 1$. Thus $\forall m \in \Z$, $x^m = x^{m(1)} = x^{m(uk + vn)} = x^{umk + vnm} = x^{ukm} + x^{vnm} = x^{ukm} = (x^k)^{um}$. Thus $x^k$ generates.
+        
+        $\impliedby$: Suppose $x^k$ generates, then $\exists u \in \Z \ni x = (x^k)^u \implies ku \mod n = 1 \implies \exists u, v \in \Z \ni 1 = ku + nv \implies gcd(k, n) = 1$, by bezout's identity in number theory.
+        
+        
+        Thus for $n = 3$, $k = 1, 2$ generate. Thus any nontrivial element in $C_3$ generates. So any nontrivial element of $C_3$ is a primitive 3rd root of unity.      
+    \end{proof}
+
+    Overall the cyclic group is deeply connected to the euler totient function where the number of generators of $C_n$ is equal to the euler totient function evaluated on n. 
+\end{solution}
+
+
+\begin{PROB}{3a}\label{Problem 3a.}
+    (Problem 7 from Stein Chapter 1): The family of mappings introduced here plays an important role in complex analysis. These mappings, sometimes called Blaschke factors, will reappear in various applications in later chapters.
+
+    Let z, w be two complex numbers such that $\bar{z}w \neq 1$. Prove that
+
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} < 1 \quad \text{if $|z| < 1$ and $|w| < 1$}\] 
+
+    and also that 
+
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} < 1 \quad \text{if $|z| = 1$ or $|w| = 1$}\]
+\end{PROB}
+\begin{claim}{3a.i}\label{Claim 3ai.}
+    It suffices to assume $z$ is real and to prove $(r - w)(r - \bar{w}) \leq (1 - rw)(1 - r\bar{w})$ with equality for appropriate $r$ and $|w|$. 
+\end{claim}
+\begin{proof}
+    Suppose 
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} \leq 1\]
+    is true. This is true $\iff$ the following is true.
+    
+    \begin{align*}
+        |w - z| \leq |1 - \bar{w}z| &\iff |w-z|^2 \leq |1 - \bar{w}z| \\
+        &\iff (w-z)\overline{(w - z)} \leq (1 - \bar{w}z)\overline{(1 - \bar{w}z)} \\ 
+        &\iff (w-z)(\bar{w} - \bar{z}) \leq (1 - \bar{w}z)(1 - \overline{\bar{w}z}) \\
+        &\iff w\bar{w} - w\bar{z} - z\bar{w} + z\bar{z} \leq (1 - \bar{w} z)(1 - w\bar{z}) \\
+        &\iff w\bar{w} - w\bar{z} - z\bar{w} + z\bar{z} \leq 1 - w \bar {z} - \bar{w} z + w\bar{w}z\bar{z} \\
+        &\iff w\bar{w} + \bar{z} z \leq 1 + w\bar{w}z\bar{z}
+    \end{align*}
+
+    In the final inequality, we are looking at $z \bar{z} \in \R$. So instead of using $z$ as a parameter we can use $r = |z| = \sqrt{\bar{z}z}$ as a parameter. 
+
+    So 
+
+    \begin{align*}
+        w\bar{w} + \bar{z} z \leq 1 + w\bar{w}z\bar{z} &\iff w\bar{w} + r^2 \leq 1 + r^2w\bar{w} \\
+        &\iff w\bar{w} + r^2 - rw - r\bar{w} \leq 1 + r^2w\bar{w}- rw - r\bar{w} \\
+        &\iff (r - w)(r - \bar{w}) \leq (1 - rw)(1 - r\bar{w})
+    \end{align*}
+
+    Since we only care about $r = |z|$, wlog we can assume z is real and since all these statements are related by if and only if statements it suffices to prove $(r - w)(r - \bar{w}) \leq (1 - rw)(1 - r\bar{w})$ for the appropriate r and w.
+\end{proof}
+
+\begin{claim}{3a.ii}\label{Claim 3aii.}
+    Let z, w be two complex numbers such that $\bar{z}w \neq 1$. Prove that
+
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} < 1 \quad \text{if $|z| < 1$ and $|w| < 1$}\]
+\end{claim}
+\begin{proof}
+    Suppose $z, w \in \C \ni |z| < 1$ and $|w| < 1$. 
+
+    By claim 3ai, it suffices to assume $z$ is real and to prove $(r - w)(r - \bar{w}) < (1 - rw)(1 - r\bar{w})$ where $r = |z| = z$ (z is real).
+
+    \begin{align*}
+        (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) &=
+        r^2 - r(\bar{w} + w) + w\bar{w} - (1 - r(w + \bar{w}) + r^2w\bar{w}) \\
+        &= r^2 - r^2w\bar{w} + w\bar{w} - 1 \\
+        &= (r^2 - 1)(1 - w\bar{w})
+    \end{align*} 
+
+    Since $r = |z| < 1 \implies r^2 < 1 \implies r^2 - 1 < 0$ and since $|w| < 1 \implies w\bar{w} < 1 \implies 1 - w\bar{w} > 0$. A positive number multiplied by a negative number is a negative number. Thus $(r^2 - 1)(1 - w\bar{w}) < 0$. Since $(r^2 - 1)(1 - w\bar{w}) = (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) \implies (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) < 0 \implies (r - w)(r - \bar{w}) < (1 - rw)(1 - r\bar{w})$. By claim 3ai, this implies $\abs{\frac{w - z}{1 - \bar{w}z}} < 1$. 
+\end{proof}
+\begin{claim}{3a.iii}\label{Claim 3aiii.}
+    Let z, w be two complex numbers such that $\bar{z}w \neq 1$. Prove that
+
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} = 1 \quad \text{if $|z| = 1$ or $|w| = 1$}\]
+\end{claim}
+\begin{proof}
+    Suppose $z, w \in \C \ni |z| = 1$ or $|w| = 1$. 
+
+    By claim 3ai, it suffices to assume $z$ is real and to prove $(r - w)(r - \bar{w}) = (1 - rw)(1 - r\bar{w})$ where $r = |z| = z$ (z is real).
+
+    \begin{align*}
+        (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) &=
+        r^2 - r(\bar{w} + w) + w\bar{w} - (1 - r(w + \bar{w}) + r^2w\bar{w}) \\
+        &= r^2 - r^2w\bar{w} + w\bar{w} - 1 \\
+        &= (r^2 - 1)(1 - w\bar{w})
+    \end{align*} 
+
+    If $r = |z| = 1 \implies r^2 = 1 \implies r^2 - 1 = 0$. So $(r^2 - 1)(1 - w\bar{w}) = 0$. 
+    
+    If $|w| = 1 \implies w\bar{w} = 1 \implies 1 - w\bar{w} = 1$. So $(r^2 - 1)(1 - w\bar{w}) = 0$. 
+    
+    Thus in either case $(r^2 - 1)(1 - w\bar{w}) = 0$, so $(r^2 - 1)(1 - w\bar{w}) = 0$. Since $(r^2 - 1)(1 - w\bar{w}) = (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) \implies (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) = 0 \implies (r - w)(r - \bar{w}) = (1 - rw)(1 - r\bar{w})$. By claim 3ai, this implies $\abs{\frac{w - z}{1 - \bar{w}z}} = 1$.    
+\end{proof}
+
+\begin{PROB}{3b}\label{Problem 3b.}
+    Prove that for a fixed w in the unit disk $\mathbb{D}$, the mapping
+
+    \[F: z \to \frac{w - z}{1 - \bar{w}z}\]
+
+    satisfies the following conditions:
+
+    \begin{enumerate}
+        \item $F$ maps the unit disk to itself, and is holomorphic
+        \item $F$ interchanges 0 and w, namely $F(0) = w$ and $F(w) = 0$
+        \item $|F(z)| = 1$ if $|z| = 1$.
+        \item $F: \mathbb{D} \to \mathbb{D}$ is bijective. 
+    \end{enumerate}
+\end{PROB}
+\begin{claim}{3b.i}\label{Claim 3bi.}
+    $F$ maps the unit disk to itself, and is holomorphic
+\end{claim}
+\begin{proof}
+    Let $w \in \mathbb{D}$ be fixed. Let $F: \C \to \C \ni z \to \frac{w - z}{1 - \bar{w}z}$.
+
+    Let $g: \C \to \C \ni z \to w - z$ and $h: \C \to \C \ni z \to \bar{w}z$. Let $w = a + bi$. Suppose $\exists z \in \C \ni h(z) = 0 $. Let $z = c + di$. Thus $(a - bi)(c + di) = 1 \implies (ac + bd) + i(ad - bc) = 1 \implies ac + bd = 1$ and $-bc + ad = 0$. Solve for $c$ and $d$.
+    
+    $\begin{bmatrix}
+        a & b \\ -b & a
+    \end{bmatrix}\begin{bmatrix}
+        c \\ d
+    \end{bmatrix} = \begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$. This system is not solvable if and only if $a^2 + b^2 = 0$ but if $a^2 + b^2 = 0 \implies a + bi = 0 \implies w = 0 \implies \bar{w} = 0$ and $0z = 0$ $\forall z \in C$ so $h(z) = 1$ which contradicts our assumption so $w \neq 0$. So $\begin{bmatrix}
+        c \\ d
+    \end{bmatrix} = \frac{1}{a^2 + b^2}\begin{bmatrix}
+        a & -b \\ b & a
+    \end{bmatrix}\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix} = \frac{1}{a^2 + b^2} \begin{bmatrix}
+        a \\ b
+    \end{bmatrix} \implies z = \frac{1}{a^2 + b^2}(a + bi) = \frac{1}{|w|^2}w \implies |z| = \frac{1}{|w|}$. Since $w \in \mathbb{D} \implies |w| < 1 \implies |z| > 1 \implies z \not \in \mathbb{D}$. So $h(z) = 0 \iff w \neq 0$ and $z \not \in \mathbb{D}$. So $\forall z \in \mathbb{D}$, $h(z) \neq 0$.
+    
+    $\forall z \in \mathbb{D}$, by definition of unit disk, $|z| < 1$. Since $|w| < 1$ and $h(z) \neq 0 \implies \bar{w}z \neq 1$ as well, by Claim 3ai, $\abs{\frac{w - z}{1 - \bar{w}z}} < 1 \implies F(z) = \frac{w - z}{1 - \bar{w}z} \in \mathbb{D}$. Thus $F$ maps the unit disk to itself.
+    
+    $h$ and $g$ are holomorphic over all $\C$. $F(z) = \frac{g(z)}{h(z)}$. By Proposition 2.22, since $g$ and $h$ are holomorphic over $\mathbb{D}$, F is holomorphic at a point $z_0 \iff h(z_0) \neq 0$. Since $\forall z \in \mathbb{D}, h(z) \neq 0 \implies F$ is holomorphic at every point in $\mathbb{D}$ thus holomorphic over $\mathbb{D}$.            
+\end{proof}
+
+\begin{claim}{3b.ii}\label{Claim 3bii.}
+    $F$ interchanges 0 and w, namely $F(0) = w$ and $F(w) = 0$
+\end{claim}
+\begin{proof}
+    Let $w \in \mathbb{D}$ be fixed. Let $F: \C \to \C \ni z \to \frac{w - z}{1 - \bar{w}z}$.
+
+    \[F(0) = \frac{w - 0}{1 - \bar{w}(0)} = \frac{w}{1} = w\]
+    \[F(0) = \frac{w - w}{1 - \bar{w}w} = \frac{0}{1 - \bar{w}w}\]
+
+    Since $w \in \mathbb{D}$, $|w| < 1 \implies w\bar{w} < 1 \implies 1 - \bar{w}{w} > 0$. So $F(w) = 0$.   
+\end{proof}
+
+\begin{claim}{3b.iii}\label{Claim 3biii.}
+    $|F(z)| = 1$ if $|z| = 1$.
+\end{claim}
+\begin{proof}
+    Let $w \in \mathbb{D}$ be fixed. Let $F: \C \to \C \ni z \to \frac{w - z}{1 - \bar{w}z}$. 
+
+    Let $h: \C \to \C \ni z \to \bar{w}z$. Let $w = a + bi$. Suppose $\exists z \in \C \ni h(z) = 0 $. Let $z = c + di$. Thus $(a - bi)(c + di) = 1 \implies (ac + bd) + i(ad - bc) = 1 \implies ac + bd = 1$ and $-bc + ad = 0$. Solve for $c$ and $d$.
+    
+    $\begin{bmatrix}
+        a & b \\ -b & a
+    \end{bmatrix}\begin{bmatrix}
+        c \\ d
+    \end{bmatrix} = \begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$. This system is not solvable if and only if $a^2 + b^2 = 0$ but if $a^2 + b^2 = 0 \implies a + bi = 0 \implies w = 0 \implies \bar{w} = 0$ and $0z = 0$ $\forall z \in C$ so $h(z) = 1$ which contradicts our assumption so $w \neq 0$. So $\begin{bmatrix}
+        c \\ d
+    \end{bmatrix} = \frac{1}{a^2 + b^2}\begin{bmatrix}
+        a & -b \\ b & a
+    \end{bmatrix}\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix} = \frac{1}{a^2 + b^2} \begin{bmatrix}
+        a \\ b
+    \end{bmatrix} \implies z = \frac{1}{a^2 + b^2}(a + bi) = \frac{1}{|w|^2}w \implies |z| = \frac{1}{|w|}$. Since $w \in \mathbb{D} \implies |w| < 1 \implies |z| > 1$. 
+    
+    So $\forall z \in \C \ni |z| = 1 \implies h(z) \neq 0 \implies 1 - \bar{w}z \neq 0 \implies \bar{w}z \neq 1$. Since $|z| = 1$ and $\bar{w}z \neq 1$, by claim 3aiii, $|F(z)| = \abs{\frac{w - z}{1 - \bar{w}z}} = 1$
+\end{proof}
+
+\begin{claim}{3b.iv}\label{Claim 3biv.}
+    $F: \mathbb{D} \to \mathbb{D}$ is bijective.
+\end{claim}
+\begin{proof}
+    Let $w \in \mathbb{D}$ be fixed. Let $F: \mathbb{D} \to \mathbb{D} \ni z \to \frac{w - z}{1 - \bar{w}z}$.
+
+    $\forall z \in \mathbb{D}$,
+    
+    \begin{align*}
+        (F \circ F)(z) &= \frac{w - F(z)}{1 - \bar{w}F(z)} \\
+        &= \frac{w - \frac{w - z}{1 - \bar{w}z}}{1 - \bar{w}\frac{w - z}{1 - \bar{w}z}} \\
+        &= \frac{w - \frac{w - z}{1 - \bar{w}z}}{1 - \bar{w}\frac{w - z}{1 - \bar{w}z}} \frac{1 - \bar{w}z}{1 - \bar{w}z} \\
+        &= \frac{w(1 - \bar{w}z) - (w - z)}{(1 - \bar{w}z) - \bar{w}(w - z)} \\
+        &= \frac{w - w\bar{w}z - w + z}{1 - \bar{w}z - \bar{w}w + \bar{w}z} \\
+        &= \frac{z - w\bar{w}z}{1 - \bar{w}w} \\
+        &= z\frac{1 - w\bar{w}}{1 - w\bar{w}}
+    \end{align*}
+
+    Because $w \in \mathbb{D}$, $|w| < 1 \implies w\bar{w} < 1 \implies 1 - w\bar{w} \neq 0$, so $(F \circ F)(z) = z$. So $F$ is its own inverse function. Since $F$ has both a left and right inverse (itself), $F$ is a bijection.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Show that it is impossible to define a total ordering on $\C$ . In other words, one cannot find a relation $\succ$  between complex numbers so that:
+
+    \begin{enumerate}
+        \item For any two complex numbers $z, w$, one and only one of the following is true: $z \succ w, w \succ z$, or $w = z$. 
+        \item For all $z_1, z_2, z_3 \in \C$ the relation $z_1 \succ z_2 \implies z_1 + z_2 \succ z_2 + z_3$
+        \item Moreover, for all $z_1, z_2, z_3 \in \C$ with $z_3 \succ 0$, then $z_1 \succ z_2 \implies z_1 z_3 \succ z_2 z_3$        
+    \end{enumerate}
+\end{PROB}
+\begin{proof}
+    Assume the contrary, $\exists$ a total ordering on $\C$ $\succ$. By 1, $i \succ 0$, $i \prec 0$, or $i = 0$. But $i = 0$ is a contradiction in and of itself, so $i \succ 0$ or $i \prec 0$.       
+    
+    \begin{enumerate}
+        \item Case 1: Suppose $i \succ 0$, by 3, that implies $i^2 = -1 \succ 0$. By 2, that implies $0 \succ 1$. By 3, $i^3 = -i \succ 0$ and $i^4 = 1 \succ 0$. Thus a contradiction exists and a total ordering cannot exist where $i \succ 0$.
+        \item Case 2: Suppose $i \prec 0$. By 2, $0 \prec -i$. By 3, $-1 \succ 0$. Again by 3, $i \succ 0$ which is a contradiction. Thus a total ordering cannot exist where $i \prec 0$.     
+    \end{enumerate}
+
+    Thus by contradiction, a total order cannot exist on $\C$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Consider the function $f$ defined on $\R$ by 
+    
+    \[f(x) = \begin{cases}
+        0 & \text{if } x \leq 0 \\
+        e^{-\frac{1}{x^2}} & \text{if } x > 0
+    \end{cases}\]
+
+    Prove that $f$ is indefinitely differentiable on $\R$, and that $f^{(n)}(0) = 0$ for all $n \geq 1$. Conclude that $f$ does not have a converging power series expansion $\sum_{n=0}^{\infty}a_n x^n$       
+\end{PROB}
+\begin{claim}{5a}\label{Claim 5a.}
+    Let $P_n(x) = \sum_{i = 0}^{3n}a_{n, i}x^i$. $\forall x \in (0, \infty)$, $f^{(n)}(x) = P_{n}\left(\frac{1}{x}\right) f(x)$ $\forall n \geq 1$. 
+\end{claim}
+\begin{proof}
+    Base Case (k = 1, 2, 3): $\forall x \in (0 , \infty)$, 
+    
+    $f(x) = e^{-\frac{1}{x^2}}$. 
+    
+    $f'(x) = e^{-\frac{1}{x^2}} \left(\frac{2}{x^3}\right)$.     
+    
+    $f'$,exists forall $x \in (0, \infty)$.
+
+    Let $P_1(x) = 2x^3$.  Thus $f'(x) = P_1(\frac{1}{x})f(x)$.        
+    
+    Inductive Hypothesis: Suppose $\forall x \in \R$, $f^{(n - 1)}(x) = P_{n - 1}\left(\frac{1}{x}\right) f(x)$
+
+    Inductive Step: \begin{align*}
+        f^{(n)}(x) &= \frac{d}{dx}\left[ P_{n - 1}\left(\frac{1}{x}\right) f(x) \right] \\
+        &= f'(x)P_{n - 1}\left(\frac{1}{x}\right) + f(x)P_{n - 1}'\left(\frac{1}{x}\right)\left(-\frac{1}{x^2}\right)\\
+        &= f(x)\left[P_{1}\left(\frac{1}{x}\right)P_{n - 1}\left(\frac{1}{x}\right) - P_{n - 1}'\left(\frac{1}{x}\right)\left(\frac{1}{x^2}\right) \right]
+    \end{align*}
+
+    Let $t = \frac{1}{x}$. $P_{1}\left(\frac{1}{x}\right)P_{n - 1}\left(\frac{1}{x}\right) - P_{n - 1}'\left(\frac{1}{x}\right)\left(\frac{1}{x^2}\right) = P_{1}\left(t\right)P_{n - 1}\left(t\right) - P_{n - 1}'\left(t\right)\left(t^2\right)$ is a polynomial of degree $3 + 3n - 3 = 3n$ with respect to t. Let $P_n(t) := P_{1}\left(t\right)P_{n - 1}\left(t\right) - P_{n - 1}'\left(t\right)\left(t^2\right)$. Thus $f^{(n)}(x) = P_n(t) f(x) = P_n(\frac{1}{x})f(x)$. $f^{(n)}(x)$ exists for all $x \in (0, \infty)$. In this domain $f$ is indefinitely differentiable.  
+\end{proof}
+
+\begin{claim}{5b}\label{Claim 5b.}
+    $f$ is indefinitely differentiable on $\R$ and that $f^(n)(0) = 0$ for all $n \geq 1$.    
+\end{claim}
+\begin{proof}
+    $\forall x \in (-\infty, 0)$, $f^{(n)}(x) = 0$. 
+    
+
+    Base Case: $\lim_{h \to 0^-} \frac{f(h) - f(0)}{h} = 0$. $\lim_{h \to 0^+} \frac{f(h) - f(0)}{h} = \lim_{h \to 0^+} \frac{f(h)}{h} = \lim_{h \to 0^+} \frac{e^{-\frac{1}{h^2}}}{h} = 0$ since $e^{-\frac{1}{x^2}}$ decays at a faster rate than h. Thus $f'(0) = 0$. 
+    
+    Inductive Hypothesis: Assume that $f^{(n - 1)}(0) = 0$
+    
+    Inductive Step: $\lim_{h \to 0^-} \frac{f^{(n - 1)}(h) - f(0)}{h} = 0$
+
+    By claim 5a, $\forall m \in \N$ $\forall x > 0$ $f^{m}(x) = P_n(\frac{1}{x})f(x)$. 
+
+    \[\lim_{h \to 0^+} \frac{f^{(n - 1)}(h) - f(0)}{h} = \lim_{h \to 0^+} \frac{f^{(n - 1)}(h)}{h} = \lim_{h \to 0^+} \frac{P_n(\frac{1}{h})f(h)}{h} = \lim_{h \to 0^+} P_n(\frac{1}{h^2})f(h)\]
+
+    
+    $P_n(\frac{1}{h^2})$ is a rational function with a polynomial of degree 6n in the denominator. Thus $f(h)P_n(\frac{1}{h^2})$ is also a rational function with a polynomial of degree 6n in the denominator.    
+    However $f(h)$, the exponential term, decays at a faster rate as $x \to 0$ than any polynomial of finite degree. Thus $\lim_{h \to 0^+} P_n(\frac{1}{h^2})f(h) = 0$. Thus $f^{(n)}(0) = 0$. 
+    
+    
+    Thus $f(x)$ is indefinitely differentiable, $\forall x \in \R$.
+\end{proof}
+
+\begin{claim}{5c}\label{Claim 5c.}
+    Conclude that $f$ does not have a converging power series expansion $\sum_{n=0}^{\infty}a_n x^n$
+\end{claim}
+\begin{proof}
+    By Claim 5b, $f^{(n)}(0) = 0$ for all $n \in \mathbb{N}$. Since the Taylor expansion of $f$ at $x_0 = 0$ sets coefficients $a_n = \frac{f^{(n)}(0)}{n!}$, thus $a_n = 0$ for all $n \in \mathbb{N}$. So the power series expansion of $f$, $g(x) = \sum_{n=0}^{\infty}a_n x^n = 0$. For all $x > 0$, $g(x) \neq f(x)$, thus the radius of convergence is 0. Therefore, $f$ does not have a converging power series.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Show that if $|a| < r < |b|$, then
+    
+    \[\int_{\gamma}^{} \frac{1}{(z - a)(z - b)} dz = \frac{2\pi i}{a -b}.\]
+
+    where $\gamma$ denotes a circle centered at the origin, of radius r, with positive orientation.
+\end{PROB}
+\begin{proof}
+
+    Let $D := \left\{ z \in \C : |z| \leq r \right\}$ .
+
+    Let
+    \begin{equation}
+        f(z) = \frac{1}{(z - a)(z - b)} = \frac{\frac{1}{a - b}}{z - a} + \frac{\frac{1}{b - a}}{z - b} = \frac{1}{a - b}\left( \frac{1}{z - a} - \frac{1}{z - b} \right).
+    \end{equation}
+
+    Let $g(z) = \frac{1}{z - a}$ and let $h(z) =\frac{1}{z - b}$. 
+    Thus 
+
+    \[
+        \int_{\gamma}^{} f(z) dz = \frac{1}{a - b} \int_{\gamma}^{} \left(\frac{1}{z - a} - \frac{1}{z - b}\right) dz = \frac{1}{a - b} \left( \int_{\gamma}^{} g(z) dz + \int_{\gamma}^{} h(z) dz \right).
+    \]
+
+    $\forall z \in \C \ni z - b = 0 \implies z = b \implies |z| = b > r$. So $\forall z \in D, |z| < r \implies z - b \neq 0$. So $h$ is holomorphic over $D$. $D$ is the interior of $\gamma$.   
+    
+    Thus $\int_{\gamma}^{} h(z) dz = 0$ by Cauchy's Theorem. 
+    
+    Thus, \[\int_{\gamma}^{} f(z) dz = \frac{1}{a - b} \int_{\gamma}^{} g(z) dz. \]
+
+    \begin{align*}
+        \int_{\gamma}^{} g(z) dz &= \int_{0}^{2\pi} g(e^{it})(ire^{it}) dt \\
+        &= i \int_{0}^{2\pi} \frac{re^{it}}{re^{it} - a} dt \\
+        &= i \int_{0}^{2\pi} \frac{1}{1 - \left(\frac{a}{r} \right)e^{-it}} dt
+    \end{align*}
+
+    By assumption, $|a| < r \implies |\frac{a}{r}e^{-it}| < 1 \implies \frac{1}{1 - \left(\frac{a}{r} \right)e^{-it}}= \sum_{k = 0}^{\infty} (\frac{a}{r}e^{-it})^k = \sum_{k = 0}^{\infty} \left(\left(\frac{a}{r}\right)^ke^{-ikt}\right) = 1 + \sum_{k = 1}^{\infty} \left(\left(\frac{a}{r}\right)^ke^{-ikt}\right)$. 
+    
+    Thus, 
+    \begin{align*}
+        \int_{\gamma}^{} g(z) dz &= i \int_{0}^{2\pi} \left[1 + \sum_{k = 1}^{\infty} \left(\left(\frac{a}{r}\right)^ke^{-ikt}\right) \right] dt \\
+        &= i \left[\int_{0}^{2\pi} 1 dt + \sum_{k = 1}^{\infty} \left(\left(\frac{a}{r}\right)^k \int_{0}^{2\pi} e^{-ikt} dt\right) \right] \\
+        &= i \left[2\pi + \sum_{k = 1}^{\infty} \left(\left(\frac{a}{r}\right)^k \int_{0}^{2\pi} e^{-ikt} dt\right) \right].
+    \end{align*}
+
+    \begin{align*}
+        \int_{0}^{2\pi} e^{-ikt} &= \frac{1}{ik} \left[e^{-ikt}\right]^{0}_{2\pi} \\
+        &= \frac{1}{ik}(e^{0} - e^{2\pi ik}) \\
+        &= 0.
+    \end{align*}
+
+    Thus,
+    
+    \begin{align*}
+        \int_{\gamma}^{} g(z) dz &= i \left[2\pi + \sum_{k = 1}^{\infty} \left(\left(\frac{a}{r}\right)^k \int_{0}^{2\pi} e^{-ikt} dt\right) \right] \\
+        &= 2\pi i.
+    \end{align*}
+
+    Thus, 
+
+    \begin{align*}
+        \int_{\gamma}^{} f(z) dz &= \frac{1}{a - b} \int_{\gamma}^{} g(z) dz = \frac{2\pi i}{a - b}
+    \end{align*}
+\end{proof}
+
+
+
+
+\end{document}

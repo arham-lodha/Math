@@ -1,0 +1,223 @@
+%HOMEWORK template for M 325K
+
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+	\newenvironment{#1}[1]
+	{%
+		\renewcommand\customgenericname{#2}%
+		\renewcommand\theinnercustomgeneric{##1}%
+		\innercustomgeneric
+	}
+	{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+		{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+		{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Linear Algebra Bootcamp 4}
+\author{Arham Lodha}%put your name here
+\date{August 31, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+	Let $A: V \rarr W$ be a linear map between finite dimensional F vector spaces. For a subspace S in W show that $\dim A^*(S)$ is less than or equal to $\dim(S) + \dim(\ker A)$, with equality iff S is contained in the image of V.
+\end{PROB}
+\begin{claim}{1a}
+	$\dim A^*(S) \leq \dim S + \dim \ker{A}$
+\end{claim}
+\begin{proof}
+	By Linear Algebra Bootcamp 3 problem 5, since S is a subspace in W, we know $\ker A \subset A^*(S)$.
+
+	By Linear Algebra Bootcamp 2 problem 2, we know $\dim V = \dim A_*(V) + \dim \ker{A}$.
+
+	Let $B: A^*(S) \rarr W$ be defined as A restricted on the domain of $A^*(S)$. By Linear Algebra Bootcamp 2 problem 2, we $\dim A^*(S) = \dim B_*(A^*(S)) + \dim \ker{B}$. Since $\ker A \subset A^*(S)$, and $B$ is defined as A with its domain restricted, $\dim \ker {B} = \dim \ker {A}$. So $\dim A^*(S) = \dim B_*(A^*(S)) + \dim \ker{A}$. Since we know $A^*(S)$ is a subspace of V with the kernal, by Linear Algebra Bootcamp 3 problem 5, we know $B_*(A^*(S))$ is a subspace.
+
+
+	For all $s \in B_*(A^*(S))$, by definition of image, there exists $v \in A^*(S)$ s.t $Bv = Av = s$. By definition of a preimage, $Av = s \in S$. Thus for all $s \in B_*(A^*(S))$, $s \in S$. Thus $B_*(A^*(S)) \subset S$.
+
+	\begin{enumerate}{}
+		\item If $S \subset A_*(V)$, for all $s \in S$ there exists a $v \in V$ s.t $Av = s$. Thus by definition of preimage, $v \in A^*(S)$. By the definition of a image, $Bv = Av = s \in B_*(A^*(S))$. Thus for all $s \in S$, $s \in B_*(A^*(S))$. Thus $S \subset B_*(A^*(S))$. Since $B_*(A^*(S)) \subset S$ and $S \subset B_*(A^*(S))$, then $S =  B_*(A^*(S))$. Then $\dim S = \dim B_*(A^*(S))$. Thus $\dim A^*(S) = \dim S + \dim \ker{A}$.
+		\item If $S \not \subset A_*(V)$, there exists a $s \in S$ s.t there exists no $v \in V$ s.t $Av = s$. Since there exists no $v \in V$ and since $A^(S) \subset V$ by definition, thus there exists no $v \in A^*(S)$ s.t $Bv = Av = s$. Thus by definition of image, $s \not \in  B_*(A^*(S))$. Thus $S \not \subset B_*(A^*(S))$. Thus since $B_*(A^*(S)) \subset S$ and $S \not \subset B_*(A^*(S))$, by Linear Algebra Bootcamp 1 problem 7, $\dim B_*(A^*(S)) < \dim S$. Thus $\dim A^*(S) < \dim S + \dim \ker{A}$.
+	\end{enumerate}
+
+	Thus $\dim A^*(S) < \dim S + \dim \ker{A}$.
+\end{proof}
+
+\begin{claim}{1b}
+	$\dim A^*(S) = \dim S + \dim \ker{A} \iff S \subset A_*(V)$
+\end{claim}
+\begin{proof}
+	($\implies$): Suppose $\dim A^*(S) = \dim S + \dim \ker{A}$. By Linear Algebra Bootcamp 2 problem 2, we know $\dim A^*(S) = \dim B_*(A^*(S)) + \dim \ker{A}$. Thus $\dim B_*(A^*(S)) = \dim S$. Assume the contrary, $S \not \subset A_*(V)$, thus there exists a $s \in S$ s.t there exists no $v \in V$ s.t $Av = s$. Since there exists no $v \in V$ and since $A^(S) \subset V$ by definition, thus there exists no $v \in A^*(S)$ s.t $Bv = Av = s$. Thus by definition of image, $s \not \in  B_*(A^*(S))$. Thus $S \not \subset B_*(A^*(S))$.  Thus since $B_*(A^*(S)) \subset S$ and $S \not \subset B_*(A^*(S))$, by Linear Algebra Bootcamp 1 problem 7, $\dim B_*(A^*(S)) < \dim S$. This forms a contradiction, thus $S \subset A_*(V)$.
+
+	($\impliedby$): Proven above. Refer above.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+	Let $A: V \rarr W$ and $B: W \rarr Z$ be linear maps. Show $\dim \ker (BA) \leq \dim \ker (A) + \dim \ker (B)$ with equality iff ker B is contained in $A_*(V)$.
+\end{PROB}
+\begin{claim}{2a}
+	$\dim \ker (BA) \leq \dim \ker (A) + \dim \ker (B)$
+\end{claim}
+\begin{proof}
+	By Linear Bootcamp 2 problem 2, we know $\dim V = \dim (BA_*(V)) + \dim \ker BA$, $\dim V = \dim A_*(V) + \dim \ker A$, and $\dim W = \dim B_*(W) + \dim \ker B$. Thus we know $\dim \ker BA = \dim V - \dim (BA_*(V))$, $\dim \ker A = \dim V - \dim A_*(V)$, and $\dim \ker B = \dim W - \dim B_*(W)$.
+
+	Thus $\dim \ker A + \dim \ker B - \dim \ker BA = \dim V - \dim A_*(V) + \dim \ker B - (\dim V - \dim (BA_*(V))) = \dim \ker B - \dim A_*(V) + \dim (BA_*(V))$. By definition of $BA$ and image, $BA_*(V) = \{BAv | v \in V\}$ and $B_*(A_*(V)) = B_*(\{Av | v \in V\}) = \{Bw | w \in \{Av | v \in V\}\} = \{B(Av) | v \in V\} = \{BAv | v \in V\}$, thus $BA_*(V) = B_*(A_*(V))$. Restrict the domain of B to $A_*(V)$ and call this function $B'$, by Linear Bootcamp 2 problem 2 we know $\dim A_*(V) = \dim B'_*(A_*(V)) + \dim \ker B'$. $B'_*(A_*(V)) = B_*(A_*(V))$ by definition. By definition of $B'$, $\ker B'$ is the kernel of B inside the domain $A_*(V)$. Thus $\ker B' = \ker B \cap A_*(V)$. Thus $B_*(A_*(V)) = \dim A_*(V) - \dim (\ker B \cap A_*(V))$. Thus $\dim \ker B - \dim A_*(V) + \dim (BA_*(V)) = \dim \ker B - \dim A_*(V) + \dim A_*(V) - \dim (\ker B \cap A_*(V)) = \dim \ker B - \ker B \cap A_*(V)$. By definition of intersection, $\ker B \cap A_*(V)$ is the set of elements which are in both $ \ker B$ and $A_*(V)$, thus $\ker B \cap A_*(V) \subseteq \ker B$. By Linear Algebra Bootcamp 1 problem 7, $\dim \ker B \cap A_*(V) \leq \dim \ker B$. Thus $\dim \ker A + \dim \ker B - \dim \ker BA = \dim \ker B - \dim \ker B \cap A_*(V) \geq 0$. Thus $\dim \ker A + \dim \ker B - \dim \ker BA \geq 0$ and $\dim \ker BA \leq \dim \ker A + \dim \ker B $.
+\end{proof}
+\begin{claim}{2b}
+	$\dim \ker (BA) = \dim \ker (A) + \dim \ker (B) \iff \ker B \subseteq A_*(V)$
+\end{claim}
+\begin{proof}
+	The proof is very similar to the one above.
+
+	($\implies$): Suppose $\dim \ker (BA) = \dim \ker (A) + \dim \ker (B)$. Then $\dim \ker (A) + \dim \ker (B) - \dim \ker (BA) = 0$.
+
+	By Linear Bootcamp 2 problem 2, we know $\dim V = \dim (BA_*(V)) + \dim \ker BA$, $\dim V = \dim A_*(V) + \dim \ker A$, and $\dim W = \dim B_*(W) + \dim \ker B$. Thus we know $\dim \ker BA = \dim V - \dim (BA_*(V))$, $\dim \ker A = \dim V - \dim A_*(V)$, and $\dim \ker B = \dim W - \dim B_*(W)$.
+
+	Thus $\dim \ker A + \dim \ker B - \dim \ker BA = \dim V - \dim A_*(V) + \dim \ker B - (\dim V - \dim (BA_*(V))) = \dim \ker B - \dim A_*(V) + \dim (BA_*(V))$. By definition of $BA$ and image, $BA_*(V) = \{BAv | v \in V\}$ and $B_*(A_*(V)) = B_*(\{Av | v \in V\}) = \{Bw | w \in \{Av | v \in V\}\} = \{B(Av) | v \in V\} = \{BAv | v \in V\}$, thus $BA_*(V) = B_*(A_*(V))$. Restrict the domain of B to $A_*(V)$ and call this function $B'$, by Linear Bootcamp 2 problem 2 we know $\dim A_*(V) = \dim B'_*(A_*(V)) + \dim \ker B'$. $B'_*(A_*(V)) = B_*(A_*(V))$ by definition. By definition of $B'$, $\ker B'$ is the kernel of B inside the domain $A_*(V)$. Thus $\ker B' = \ker B \cap A_*(V)$. Thus $B_*(A_*(V)) = \dim A_*(V) - \dim (\ker B \cap A_*(V))$. Thus $\dim \ker B - \dim A_*(V) + \dim (BA_*(V)) = \dim \ker B - \dim A_*(V) + \dim A_*(V) - \dim (\ker B \cap A_*(V)) = \dim \ker B - \ker B \cap A_*(V)$. By definition of intersection, $\ker B \cap A_*(V)$ is the set of elements which are in both $ \ker B$ and $A_*(V)$, thus $\ker B \cap A_*(V) \subseteq \ker B$. By Linear Algebra Bootcamp 1 problem 7, $\dim \ker B \cap A_*(V) \leq \dim \ker B$. Thus $\dim \ker B - \dim \ker B \cap A_*(V) = 0$. Thus $\dim \ker B = \ker B \cap A_*(V)$. Since
+	$\ker B \cap A_*(V) \subseteq \ker B$, by definition of intersection this is only possible if $ker B \cap A_*(V) = \ker B$, so all of $\ker B$ is in $ A_*(V)$. Thus $\ker B \in A_*(V)$.
+
+	($\impliedby$): Suppose $\ker B \in A_*(V)$. Then by the above proof,  $\dim \ker A + \dim \ker B - \dim \ker BA = \dim \ker B - \dim \ker B \cap A_*(V) \geq 0$. If $\ker B \in A_*(V)$, then $\ker B \cap A_*(V) = \ker B$ by definition of intersection. Then $\dim \ker B \cap A_*(V) = \dim \ker B$. Thus $\dim \ker A + \dim \ker B - \dim \ker BA = \dim \ker B - \dim \ker B \cap A_*(V) = 0$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+	Show that every injective (resp surjective) linear map has a linear left (resp right) inverse.
+\end{PROB}
+\begin{claim}{3a}
+	Every injective linear map has a linear left inverse.
+\end{claim}
+\begin{proof}
+	Let $V, W$ be F-vector spaces. Let $f: V \rarr W$ be a injective linear map. Since $f_*(V) \cong V/\ker{f}$ and $V/\ker{f}$ is a vectorspace, $f_*(V)$ must also be a vectorspace and since $f_*(V) \subseteq W$ it is a subspace of W. Let the basis of $f_*(V)$ be the set $B_{f_*(V)} = \{b_1, \ldots, b_n\}$. We can expand this basis to get the basis of W, $B_W = \{b_1, \ldots, b_n, w_1, \ldots, w_m\}$.
+
+	% By problem 7 of Equivalence Relations homework, any injective function has a left inverse. Thus there exists a $g: W \rarr V$ such that $g \circ f = id_v$. 
+	Define $g: W \rarr V$, as the following: 
+	
+	For all $w \in W$ such that $w \in f_*(V)$. By definition of image, we know there exists a $v \in V$ s.t $f(v) = w$. Thus let $g(w) = v$. For all $w \in W / f_*(V)$, by definition of basis, $B_W$ spans W. Thus $w = \sum_{i=1}^{n}a_ib_i + \sum_{j=1}^{m}c_jw_i$ where $a_i, b_j \in F$. Since $\sum_{i=1}^{n}a_ib_i$ is a linear combination of the basis elements of $f_*(V)$, by definition of a subspace $\sum_{i=1}^{n}a_ib_i = x \in f_*(V)$. Thus $g(w) = g(\sum_{i=1}^{n}a_ib_i) = g(x)$ where since $x \in f_*(V)$ we use the case above.
+
+	$\forall v \in V$, $(g \circ f)(v) = g(f(v))$. Since $f$ is injective, if $f(a) = f(b) \implies a = b$. Thus $f^*(\{f(v)\}) = v$. So $g(f(v)) = v = id_V(v)$. So $g$ is a left inverse.
+
+	$\forall v, w \in W$ and $p, q \in F$, $v = \sum_{i=1}^{n}a_ib_i + \sum_{j=1}^{m}c_jw_i$ and $w = \sum_{i=1}^{n}d_ib_i + \sum_{j=1}^{m}e_jw_i$. $g(pv+qw) = g(p\sum_{i=1}^{n}a_ib_i + q\sum_{i=1}^{n}d_ib_i) = g(\sum_{i=1}^{n}(pa_i + qd_i)b_i)$. Let $x = \sum_{i=1}^{n}(pa_i + qd_i)b_i$, $x \in f_*(V)$ thus there exists a $u \in V$ such that $f(u) = x$. $g(\sum_{i=1}^{n}(pa_i + qd_i)b_i) = g(x) = u = \sum_{i=1}^{n}(pa_i + qd_i)v_i$, because f is linear. $pg(v) + qg(w) = pg(\sum_{i=1}^{n}a_ib_i) + qg(\sum_{i=1}^{n}d_ib_i)$. Let $y = \sum_{i=1}^{n}a_ib_i$ and $z = \sum_{i=1}^{n}a_ib_i$. $pg(v) + qg(w) = pg(y) + qg(z)$. There exists a $r, s \in V$, such that $f(r) = y$ and $f(s) = z$. Since $f$ is linear, $r = \sum_{i=1}^{n}a_iv_i$ and $s = \sum_{i=1}^{n}d_iv_i$. Thus $pg(y) + qg(z) = pr + qs = \sum_{i=1}^{n}(pa_i + qd_i)v_i = u$. 
+	Thus g is linear
+\end{proof}
+\begin{claim}{3b}
+	Every surjective linear map has a linear right inverse.
+\end{claim}
+\begin{proof}
+	Let $V, W$ be F-vector spaces. Let $f: V \rarr W$ be a surjective linear map.
+
+	Since f is surjective $f_*(V) = W$. Then the preimage of every element in W is nonempty. Let $g: W \rarr V$ such that for all $w \in W$, $g(w)$ randomly chooses an element in $f^*(\{w\})$.
+
+	$\forall v, w \in V$, since $f$ is surjective there exists $a, b \in V$ such that $f(a) = v$ and $f(b) = w$. Furthermore since $f$ is linear, $f(a + b) = f(a) + f(b) = v + w$. By definition $f(g(v + w)) = v + w$. $v + w = f(a + b)$. $g(v + w) = a + b = g(v) + g(w)$. For all $c \in F$, since f is linear $cf(a)= cv =f(ca)$. Thus $g(cv) = ca = cg(v)$. Thus g is linear. 
+\end{proof}
+\begin{PROB}{4}\label{Problem 4.}
+	Let K be a subspace of an F-vector space W. Show that K is the kernel of some linear map (from W to some F-vector space).
+	Let K be a subspace of $F^m$. Show that there is an $n \times m$ matrix with kernel K. Show further there is an $m \times m$ matrix with kernel K.  Explain why every subspace of $F^m$ is the solution set to an m x m system of homogeneous linear equations.
+\end{PROB}
+\begin{claim}{4a}
+	Let K be a subspace of an F-vector space W. Show that K is the kernel of some linear map.
+\end{claim}
+\begin{proof}
+	Let $V$ be a arbitrary F-vector space where $\dim V \geq \dim W - \dim K$. This choice for the dimension, ensures that there is enough "room" in V to map the entirety of W while leaving enough dimensions to capture the kernel of the map. By definition of a vector space, there must exists a $0_v \in V$ which is the additive identity.
+
+	Let set $B_K = \{k_1, \ldots, k_m\}$ be the basis set of subspace $K \subseteq W$. By definition of a basis, $B_K$ is linearly independent and spans K. Moreover by definition of a subspace, $B_K \subset W$. By Linear Algebra Bootcamp 2 problem 1, $B_K \subseteq B_W$ where $B_W$ is a basis of W. Let $B_W = \{w_1, \ldots, w_n, k_1, \ldots, k_m \}$. Let $B_V = \{v_1, \ldots, v_p\}$ is the basis set of V where by definition of dimension, $p \geq \dim W - \dim K$. Define a linear map $g: W \rarr V$ where $g(w_i) = v_j$ for all $i \in [1, \ldots, n]$ and some $j \in [0, \ldots, p]$ and $g(k_i) = 0$ for all $i \in [1, \ldots, m]$. Thus all the basis vectors of K get mapped to 0. Since $B_K$ spans $K$ by definition, $\forall k \in K$, $g(k) = g(\sum_{i=1}^{m}a_ik_i) = \sum_{i=1}^{m}a_ig(k_i) = 0$ for all $a_i \in F$. Thus $K \subseteq \ker g$. However since the basis vectors in $B_W$ which map to 0, are the basis vectors of K, then $\ker g \subseteq K$. Thus $K = \ker g$. Thus K is the kernel of some linear map with domain of W.
+\end{proof}
+
+\begin{claim}{4b}
+	Let K be a subspace of $F^m$. Show that there is an $n \times m$ matrix with kernel K.
+\end{claim}
+
+
+\begin{proof}
+	Let $W = F^m$ and let K be a subspace of W. Let $V = F^n$ where $\dim V = n \geq \dim W - \dim K = m - \dim K$. By the previous proof, we know there exists a $f: W \rarr V$ where kernel of $f$ is K. Since linear maps between vector spaces can also be written as a matrix $A$. By definition of $A$, $\ker f = \ker A = K$. Furthermore, by definition of the induced matrix the size of A is $\dim V \times \dim W = n \times m $ thus $A \in M_{n \times m}$. Thus there exists a $A \in M_{n \times m}$ such that $\ker A = K$.
+\end{proof}
+
+\begin{claim}{4c}
+	Let K be a subspace of $F^m$. Show that there is an $m \times m$ matrix with kernel K.
+\end{claim}
+\begin{proof}
+	Let $W = F^m$ and K be a subspace of W. Let $V = F^n$ where $\dim V = n \geq \dim W - \dim K = m - \dim K$. If $n = m$, then this condition is satisfied because $m \geq m - \dim K$. Thus by the previous proof there exists a matrix $A \in M_{n \times m}$, and thus a matrix $A \in M_{m \times m}$ s.t $\ker A = K$.
+\end{proof}
+
+\begin{claim}{4d}
+	Explain why every subspace of $F^m$ is the solution set to an $m \times m$ system of homogeneous linear equations.
+\end{claim}
+\begin{solution}
+	$K$ in the previous proof can be any subspace of $F^m$. Thus you can create a matrix $A \in M_{m \times m}$ such that its kernel is $K$ for any K. Thus all $x \in K$ satisfy $Ax = 0$. And any $x \in F^m$ that satisfies $Ax = 0$ is in the kernel of A and thus in K.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+	Let A by an $n \times m$ matrix of rank k. Let $r_1,..,r_k$ be rows of A spanning the row space, and $c_1,..,c_k$, columns of A spanning the column space. Let S by the $k \times k$ matrix you get using these k rows and k columns (the $k^2$ entries are the intersections of the k rows with the k columns).
+	Show S is invertible. Hint. Let A' be the  $k \times m$ matrix you get by dropping all the rows other than $r_1,..,r_k$. Note each column, c, of A naturally gives a column, c', of A'. Explain why A' has rank k,
+	and $c_1',..,c_k'$ span the columns space of A'.  Explain why we can replace A by A' , and so can assume from the start that the rows of A are independent. Now do the analogous thing with column to reduce
+	to the case when A is square with independent rows and columns.
+\end{PROB}
+\begin{proof}
+	Consider the matrix $A' \in M_{k \times m}$ obtained by keeping only rows $r_1, \ldots, r_k$ of A. Each column, c, of A naturally gives a column, c', of A'. Since each column c of A naturally gives a column $c'$. Each column $c_1, \ldots, c_k$ has a natural analog in A', $c_1', \ldots, c_k'$. Furthermore since $c_1, \ldots, c_k$ spans column space of A, $c_1', \ldots, c_k'$ spans the column space of A'. By definition of rank, A' has rank k. We can replace A' with A, because the residual rows of A are linear combinations of the rows in $r_1, \ldots, r_k$. Thus those rows add no new information. Now do the analogous thing for A' so the square and since its rows and columns are basis elements in the column space and row space of A they are linearly independent. Since the rank of A is equal to the number of rows and columns of A and A is square, by definition of invertible matrices, A is a invertible matrix.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+
+	Explain the statement: Up to choosing bases the only linear maps between finite dimensional vector spaces are the maps $A: F^m --> F^n$ given by $A(x_1,...x_n) = (x_1,..,x_k,0,..,0)$ for some k.
+
+\end{PROB}
+\begin{solution}
+	By Linear Algebra Bootcamp 1 problem 7, there exists isomorphisms $R: F^n \rarr F^n$ and $C: F^m \rarr F^m$ such that $RAC$ is a "diagonal matrix" which is a matrix with a identity matrix of some size flanked by 0s. R and C represent change of basis. Thus for all $e^m_i \in F^m$ which is the standard basis, $RACe^m_i = e^n_i$ or $RACe^m_i = 0$. Thus for all $v \in F^m $, $RACv = RAC(\sum_{i=1}^{m}a_ie_i^m) = a_i\sum_{i=1}^m(RACe_i^m)$, is a vector with $a_i$ in the ith position if $RACe_i^m \neq 0$. Thus the only choice afforded to us is the choice of bases in the vector space and thus the only linear maps are the maps $A(x_1,...x_n) = (x_1,..,x_k,0,..,0)$ for some k.
+\end{solution}
+
+\end{document}

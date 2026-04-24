@@ -1,0 +1,295 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 03}
+\author{Arham Lodha}%put your name here
+\date{March 05, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+\end{PROB}
+\begin{solution}
+    Note 
+    \[\PR_x(H_y < \infty, H_y > n \mid X_n = z) = \PR_x(H_y < \infty \mid X_n = z) \PR_x(H_y > n \mid H_y < \infty, X_n = z)\]
+
+    and 
+
+    \[\PR_x(H_y < \infty, H_y > n \mid X_n = z) = \PR_x(H_y > n \mid X_n = z) \PR_x(H_y < \infty \mid H_y > n, X_n = z)\]
+
+    \begin{enumerate}
+        \item $\PR_{z}(H_y > n) \PR_{x}(H_y < \infty \mid X_n = z)$: $\PR_{z}(H_y > n) \neq \PR_x(H_y > n \mid X_n = z)$. Thus this product isn't equal to the given. 
+        \item $\PR_x(H_y < \infty)\PR_z(H_y > n \mid X_n = x)$: Not equal
+        \item $\PR_z(H_y < \infty) \PR_x(H_y > n \mid X_n = z)$: Note $\PR_x(H_y < \infty \mid H_y > n, X_n = z) = \PR_z(H_y < \infty)$ by the strong markov property. Thus this product is equal.
+        \item $\PR_x(H_y > n)P_z(H_y < \infty \mid H_n = x)$: Not equal
+        \item $\PR_x(H_y < \infty, H_y > 2n \mid X_{2n} = z)$: Not equal     
+    \end{enumerate}
+    
+\end{solution}
+
+\begin{PROB}{1b}\label{Problem 1b.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item Doesn't hold
+        \item Holds
+        \item Holds
+        \item Doesn't Hold
+        \item Holds
+    \end{enumerate}
+    
+\end{solution}
+
+\begin{PROB}{1c}\label{Problem 1c.}
+    
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item Holds
+        \item Holds
+        \item Holds
+        \item Doesn't Hold
+        \item Holds
+    \end{enumerate}
+    
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{3.2a}\label{Problem 3.2a.}
+    
+\end{PROB}
+\begin{proof}
+    \begin{align*}
+        E_\mu[f((X_{k +n})_{n \geq 0}) \mid \F_k] &= E_\mu[f((X_{k +n})_{n \geq 0}) \mid (X_1, \dots, X_k)] \\
+        &= E_\mu[f((X_{k +n})_{n \geq 0}) \mid X_k] \\
+        &=  E_{X_k}[f((X_{k +n})_{n \geq 0})] \\
+        &= g(X_k)
+    \end{align*} 
+\end{proof}
+
+\begin{PROB}{3.2b}\label{Problem 3.2b.}
+\end{PROB}
+\begin{proof}
+    \begin{align*}
+        E_{\mu}[f((X_{T + n})_{n \geq 0}) \mid \F_T] &= \sum_{m = 1}^{\infty}1_{T = m}E_{\mu}[f((X_{T + n})_{n \geq 0}) \mid \F_T] \\
+        &= \sum_{m = 1}^{\infty}1_{T = m}E_{\mu}[f((X_{T + n})_{n \geq 0}) \mid \F_m] \\
+        &= \sum_{m = 1}^{\infty}1_{T = m}g(X_m) \\
+        &= g(X_T)
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.3a}\label{Problem 3.3a.}
+\end{PROB}
+\begin{proof}
+    Let $h_N(x): [0, \dots, N] \to [0, 1]$ where $h_N(x)  = P_x(\tilde{H}_N < \tilde{H}_0)$ for $N \in \N \setminus \left\{ 0 \right\}$.
+    
+    \begin{enumerate}
+        \item $h(0)$: Note $\PR_0(\tilde{H}_0 = 0) = 1$. Thus $h(0) = \PR_0(\tilde{H}_N < \tilde{H}_0) = \PR_0(\tilde{H}_N < 0) = 0$
+        \item $h(N)$: Note $\PR_N(\tilde{H}_N = 0) = 1$. Thus $h(N) = \PR_N(\tilde{H}_N < \tilde{H}_0) = \PR_N(0 < \tilde{H}_0) = 1$
+        \item For $x \in [1, \dots, N - 1]$: \begin{align*}
+            h(x) &= \PR_x(\tilde{H}_N < \tilde{H}_0)\\
+            &= \PR_x(X_1 = x - 1)\PR_x(\tilde{H}_N < \tilde{H}_0 \mid X_1 = x - 1) +  \PR_x(X_1 = x + 1)\PR_x(\tilde{H}_N < \tilde{H}_0 \mid X_1 = x + 1) \\
+            &= \PR_x(X_1 = x - 1)\PR_{x - 1}(\tilde{H}_N < \tilde{H}_0) +  \PR_x(X_1 = x + 1)\PR_{x + 1}(\tilde{H}_N < \tilde{H}_0) \\
+            &= \frac{1}{2}h(x - 1) + \frac{1}{2}h(x + 1)
+        \end{align*} 
+    \end{enumerate}
+       
+\end{proof}
+
+\begin{PROB}{3.3b}\label{Problem 3.3b.}
+\end{PROB}
+\begin{proof}
+    Thus $-2h(x) + h(x - 1) + h(x + 1) = 0$. The characteristic equation is $\lambda^2 - 2\lambda + 1 = 0 \implies (\lambda - 1)^2 = 0$. Thus $h(x) = A + Bx$. $h(0) = A = 0$ and $h(N) = BN = 1 \implies B = \frac{1}{N}$. Thus $h(x) = \frac{x}{N}$.       
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{3.4}\label{Problem 3.4.}
+\end{PROB}
+\begin{proof}
+    Let $y \in S$ where $n(y) = N$.   
+    For $x \in S$: 
+    
+    \begin{align*}
+        \PR_x(\tau_C \leq N) &\geq \PR_x(\tau_C \leq n(x)) \\
+        &\geq \PR_y(\tau_C \leq N) \\
+        &\geq \epsilon
+    \end{align*}
+
+    Thus $\PR_x(\tau_C > N) = 1 - \PR_x(\tau_C \leq N) \leq \PR_y(\tau_C > N) = 1 - \PR_y(\tau_C \leq N) \leq \leq 1 - \epsilon$.
+    
+    Suppose for some $k \in \N$, $\PR_x(\tau_C > kN) = (1- \epsilon)^k$
+    
+    \begin{align*}
+        \PR_x(\tau_C > (k + 1)N) &= \PR_x(\tau_C > kN) \PR_x(\tau_C > (k + 1)N \mid \tau_C > N) \\
+        &\geq (1 - \epsilon)^k \PR_y(\tau_C > N) \\
+        &\geq (1 - \epsilon)^{k + 1}
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.5a}\label{Problem 3.5a.}
+\end{PROB}
+\begin{proof}
+    $\forall n \in 2\N$ and $\forall a \in \N \ni a \mod 2 = 1$. Let $A = \max(X_m : 0 \leq m \leq n)$ and $B = \max(X_m : 0 \leq m < n)$  
+    
+    \begin{align*}
+        \PR_0[A \geq a ] &= \PR_0(A \geq a \mid X_n > a) \PR(X_n > a) + \PR_0(A \geq a \mid X_n \leq a)\PR_0(X_n \leq a)\\
+        &=  \PR(X_n > a) + \PR_0(A \geq a \mid X_n \leq a)\PR_0(X_n \leq a) \\
+        &= \PR(X_n > a) + \PR_0(A \geq a , X_n \leq a)
+    \end{align*}
+
+    Note the following, that since a is odd, $a = 2k + 1$ for some $k \in \N$. Let $x$ be the number of $+1$ moves and $y$ be the number of $-1$ moves. Thus $x + y= n$ and $x - y = a$. Thus $2x = n + a = n + 2k + 1 \implies x = \frac{n}{2} + k + \frac{1}{2}$. Note $n$ is even so $\frac{n}{2} \in \Z$ so $x \not \in \N$. Thus $X_n \neq a$. 
+    
+    Thus $\PR_0(A \geq a, X_n < a) = \PR_0(A \geq a , X_n \leq a)$. Note if $A \geq a$ and $X_n < a$ imply that $\exists m \in [0, n] \cap \N \ni X_m = a$. Thus $\PR_0(A \geq a, X_n < a) = \PR_0(H_a \leq n, X_n < a)$. Thus,
+    
+    \begin{align*}
+        \PR_0[A \geq a ] &= \PR_0(X_n > a) + \PR_0(A \geq a , X_n \leq a) \\
+        &= \PR_0(X_n > a) + \PR_0(H_a \leq n, X_n < a)
+    \end{align*}
+\end{proof}
+
+\begin{PROB}{3.5b}\label{Problem 3.5b.}
+\end{PROB}
+\begin{proof}
+    \begin{align*}
+        \PR_0(H_a \leq n, X_n < a) &= \sum_{m \in \N}\PR_0\left(H_a = m\right)\PR\left(H_a \leq n, X_n < a \mid H_a = m\right) \\
+        &= \sum_{0 \leq m \leq n}\PR_0\left(H_a = m\right)\PR\left(H_a \leq n, X_n < a \mid H_a = m\right) \\
+        &= \sum_{0 \leq m \leq n}\PR_0\left(H_a = m\right)\PR\left(X_n < a \mid H_a = m\right) 
+    \end{align*}
+
+    Let $Y_k = X_{k + m} - a$. 
+    
+    Thus $\PR_0(X_n < a \mid H_a = m) = \PR_0(X_n < a \mid H_a = m, X_0 = 0) = \PR_0(X_n < a \mid X_m = a) = \PR(Y_{n -m} < 0 \mid Y_{0} = 0) = \PR_0(Y_{n - m} < 0) = \PR_0(Y_{n - m} > 0)$ where the second equality is 1 step markov property and last equality is because of the reflexive property of SRW. Then $\PR_0(Y_{n - m} > 0) = \PR(Y_{n - m} > 0 \mid Y_0 = 0) = \PR(X_n > a \mid X_m = a) = \PR(X_n > a \mid H_a = m) = \PR_0(X_n > a \mid H_a = m)$. 
+    
+    Thus
+
+
+    \begin{align*}
+        \PR_0(H_a \leq n, X_n < a) &=  \sum_{0 \leq m \leq n}\PR_0\left(H_a = m\right)\PR\left(X_n < a \mid H_a = m\right) \\ 
+        &= \sum_{0 \leq m \leq n} \PR_0(X_n > a \mid H_a = m) \PR_0\left(H_a = m\right) \\
+        &= \PR_0(X_n > a)
+    \end{align*}
+
+    Thus 
+
+    \begin{align*}
+        \PR_0[A \geq a ] &= \PR_0(X_n > a) + \PR_0(H_a \leq n, X_n < a) \\
+        &= \PR_0(X_n > a) + \PR_0(X_n > a) \\
+        &= \PR_0(X_n < -a) + \PR_0(X_n > a) \\
+        &= \PR_0(\abs{X_n} > a) \\
+        &= \PR_0(\abs{X_n} \geq a)
+    \end{align*}
+
+    The third equality comes from reflection property of simple random walk and last equality comes from the fact that $\PR_0(\abs{X_n} = a) = 0$ since $n$ is even and $a$ is odd.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3.6a}\label{Problem 3.6a.}
+\end{PROB}
+\begin{proof}
+    Let $k_i = E_i(H_9)$. Note the computation of $k_8$, $k_9$, $k_6$, $k_3$, $k_2$ is redundant as they are the heads of snakes, bases of ladders, or finish so a user doesn't stay there for a turn. We get the following relations after:
+    
+    \begin{align*}
+        k_1 &= \frac{1}{2}k_7 + \frac{1}{2}k_5 + 1\\
+        k_4 &= \frac{1}{2}k_5 + \frac{1}{2}k_1 + 1\\
+        k_5 &= \frac{1}{2}k_1 + \frac{1}{2}k_7 + 1\\
+        k_7 &= \frac{1}{2}k_4 + 1
+    \end{align*}
+
+    Solving the relations we see $k_1 = 7$, $k_4 = 8$, $k_5 = 8$, $k_7 = 5$. Thus on average it takes 7 turns to finish the game.      
+\end{proof}
+
+\begin{PROB}{3.6b}\label{Problem 3.6b.}
+\end{PROB}
+\begin{proof}
+    The question is effectively asking to find for $i = 5$, $\PR_i(H_1 > \infty)$. Let $f_i = \PR_i(H_1 > \infty)$. Note $f_9 = 1$, $f_1 = 0$. Note the computation of $f_8$, $f_6$, $f_3$, $k_2$ is redundant as they are the heads of snakes, bases of ladders, or finish so a user doesn't stay there for a turn.
+    
+    \begin{align*}
+        f_1 &= 0 \\
+        f_4 &= \frac{1}{2}f_5 \\
+        f_5 &= \frac{1}{2}f_7 \\
+        f_7 &= \frac{1}{2}f_4 + \frac{1}{2}
+    \end{align*}
+
+    Thus $f_5 = \frac{2}{7}$. Thus $\PR_5(H_1 > \infty) = \frac{2}{7}$.   
+\end{proof}
+
+\end{document}

@@ -1,0 +1,804 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+
+
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 7}
+\author{Arham Lodha}%put your name here
+\date{June 10, 2024}%enter the due date here
+\maketitle
+
+\begin{claim}{7.1}\label{Claim 7.1.}
+    Let $X$ and $Y$ be topological spaces, and let $f: X \to Y$ be a function. Then the following are equivalent
+    
+    \begin{enumerate}
+        \item $f$ is continuous function
+        \item For every closed set $K$ in Y, $f^*(K)$ is closed in $X$
+        \item For every limit point $p$ of a set $A$ in $X$, $f(p) \subseteq \overline{f_*(A)}$
+        \item For every $x \in X$ and a open set V containing $f(x)$, there is a open set $U$ containing x such that $f_*(U) \subeq V$            
+    \end{enumerate}
+\end{claim}
+\begin{proof}
+    $\mathbf{(1) \implies (2)}$: Suppose $(1)$ is true. Let $K$ be any closed set in $Y$. Then $K^c$ is a open set. By definition of a continuous function, $f^*(K^c)$ is open. $\forall x \in f^*(K^c)$, $f(x) \not \in K \implies x \not \in f^*(K) \implies x \in X - f^*(K)$. Thus $f^*(K^c) \subeq X - f^*(K)$. $\forall x \in X - f^*(K)$, $x \not \in f^*(K) \implies f(x) \not \in K \implies f(x) \in K^c \implies x \in f^*(K^c)$. Thus $X - f^*(K) \subeq f^*(K^c) \implies X - f^*(K) = f^*(K^c) \implies X - f^*(K)$ is open. Thus $f^*(K)$ is closed. 
+    
+    $\mathbf{(2) \implies (3)}$: Suppose $(2)$ is true. $\forall A \subeq X$, $\forall p \in X$, where $p$ is a limit point of a A. $\overline{f_*(A)}$ is closed in $Y$, by 2 $f^*(\overline{f_*(A)})$ is closed in $X$. Since $A \subeq f^*(\overline{f_*(A)})$, p is a limit point of $f^*(\overline{f_*(A)})$, but since $f^*(\overline{f_*(A)})$ is closed $p \in f^*(\overline{f_*(A)})$. Thus $f(p) \in \overline{f_*(A)}$. 
+    
+    $\mathbf{(3) \implies (1)}$: Suppose $(3)$ is true. The statement is the same as $\forall A \subeq X$, $f(\overline{A}) \subeq \overline{f(A)}$. $\forall U \in \T_Y$, $f^*(Y - U) = X - f^*(U)$. $f_*(\overline{X - f^*(U)}) \subeq \overline{f_*(X - f^*(U))} = \overline{Y - U} = Y - U$. But since $X - f^*(U) \subeq \overline{X - f^*(U)}$, and $f_*(X - f^*(U)) = Y -U  \implies Y- U \subeq f_*(\overline{X - f^*(U)}) \implies f_*(\overline{X - f^*(U)}) = Y - U \implies \overline{X - f^*(U)} \subeq X - f^*(U) \implies X - f^*(U) = \overline{X - f^*(U)}$. Thus $X - f^*(U)$ is closed and $f^*(U)$ is open. 
+    
+    Thus $(1) \implies (2) \implies (3) \implies (1)$. 
+    
+    $(1) \implies (4)$: Assume $(1)$ is true. $\forall x \in X$ and $\forall V \in \T_Y \ni f(x) \in V$. Thus $U = f^*(V) \in \T_X$ by definition of continuous function. Thus $f(p) \in f_*(U) = V$.
+    
+    $(4) \implies (1)$: Assume 4 is true. $\forall V \in \T_Y$, $\forall x \in f^*(V), \exists U_x \in \T_X \ni x \in U_x \subeq f^*(V)$. $\bigcup_{x \in f^*(V)} U_x = f^*(V)$ is open. Thus $f$ is continuous.
+    
+    Thus $(1) \implies (4) \implies (1)$ 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.2}\label{Claim 7.2.}
+    Let $X , Y$ be topological spaces and $y_0 \in Y$. The constant map $f(x) = y_0$ for all $x \in X$    
+\end{claim}
+\begin{proof}
+    $\forall U \in \T_Y$, if $y_0 \in U \implies X = f^*(U)$ else if $y_0 \not \in U \implies U = \empset$ because $f_*(X) = \left\{ y_0 \right\}$. $X$ and $\empset$ are respectively open in X. Thus $f$ is continuous.        
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.3}\label{Claim 7.3.}
+    Let $X \subeq Y$ be topological spaces. The natural inclusion map is $i: X \to Y$ is continuous   
+\end{claim}
+\begin{proof}
+    By definition, for all subsets U of Y, $i^{-1}(U) = U \cap X$. Thus $\forall U \in \T_Y, i^{-1}(U) = U \cap X \in \T_X$ by definition of subspace topology.     
+\end{proof}
+
+
+\bigskip
+
+\begin{claim}{7.5}\label{Claim 7.5.}
+    A function $f: \R_n \to \R_n$ is continuous iff $\forall x \in \R$ and $\forall \epsilon > 0$ $\exists \delta > 0$ such that $\forall y \in \R \ni d(x, y) < \delta$, $d(f(x), f(y)) < \epsilon$.       
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $f: \R_n \to \R_n$ is continous. $\forall x \in \R$ and $\forall \epsilon > 0$ , by defintion of standard topology on $\R$, $V = (f(x) - \epsilon, f(x) + \epsilon) \in \T_{R_n}$. By Claim 7.1 $1 \implies 4$, $\exists U \in \T_{\R_n} \ni x \in U$ and $f(U) \subseteq V$. By definition of basis, $\exists \delta \in \R \ni (x - \delta, x + \delta) \subseteq U \implies f_*(((x - \delta, x + \delta))) \subseteq V$. Thus $\forall y \in \R \ni y \in (x - \delta, x + \delta) \implies f(y) \in V$. Thus the implication direction is true.
+    
+    $\impliedby:$ Suppose that a function $f: \R_n \to \R_n$ has the property that $\forall x \in \R$ and $\forall \epsilon > 0$, $\exists \delta > 0$ such that $\forall y \in \R \ni d(x, y) < \delta$, $d(f(x), f(y)) < \epsilon$. $\forall x \in \R_{n}, \forall V \in \T_{\R_n} \ni f(x) \in V$, by the definition of basis $V = \bigcup_{\alpha \in \lambda} (m_\alpha, n_\alpha)$. If $f(x) \not \in (m_\alpha, n_\alpha)$, let $\epsilon_{\alpha} = \frac{\abs{n_{\alpha} - m_{\alpha}}}{2}$ and let $p_{\alpha} = \frac{m_{\alpha} + n_{\alpha}}{2}$ thus $(m_{\alpha}, n_{\alpha}) \supset (p_{\alpha} - e_{\alpha}, p_{\alpha} + \epsilon_{\alpha})$. If $f(x) \in (m_\alpha, n_\alpha)$, let $\epsilon_{\alpha} = \min(d(f(x), m_\alpha), d(f(x), n_\alpha))$ and let $p_{\alpha} = f(x)$ thus $(m_{\alpha}, n_{\alpha}) \supset (p_{\alpha} - e_{\alpha}, p_{\alpha} + \epsilon_{\alpha})$. $\forall q \in f^{*}(\left\{ p_{\alpha} \right\}), \exists \delta_{q} > 0 \ni \forall y \in \R \ni d(q, y) < \delta_{q}$, $d(f(y), p_\alpha) < \epsilon_{\alpha}$ thus $f_*((q - \delta_q, q + \delta_q)) \subseteq (p_{\alpha} - e_{\alpha}, p_{\alpha} + \epsilon_{\alpha}) \subseteq V$. Thus $U_{\alpha} = \bigcup_{q \in f^*(\left\{ p_\alpha \right\})} (q - \delta_q, q + \delta_q)$ and $f(U_a) \subseteq V$. Thus $U = \bigcup_{\alpha \in \lambda} U_\alpha$ and $f(U) \subseteq V$. Thus by 7.1, $f$ is continuous.               
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.6}\label{Claim 7.6.}
+    Let $X$ be a 1st countable space, and let $Y$ be a topological space. Then $f: X \to Y$ is continuous iff for every convergent sequence $x_n \to x$ in $X$, $f(x_n) \to f(x)$ in $Y$.       
+\end{claim}
+\begin{proof}
+    $\implies$: Suppose $f$ is continous. $\forall x \in X$, $\forall (x_n) \subseteq X$ such that $x_n \to x$. $\forall V \in \T_Y \ni f(x) \in V$, by the definition of continuity $\exists U \in \T_X \ni x \in U$ and $f_*(U) \subseteq V$. By the defintion of convergent sequences, $\exists K \in \N \ni \forall n \geq K, x_n \in U$ and since $f_*(U) \subseteq V \implies f(x_n) \in V$. Thus $f(x_n) \to f(x)$. 
+    
+    $\impliedby:$ Suppose for every convergent sequence $x_n \to x$ in $X$, $f(x_n) \to f(x)$ in $Y$. $\forall A \subseteq X$, let $\forall x \in \delta A$, all limit points. By Theorem 5.18, $\exists (x_n) \subseteq A \ni x_n \to x$. By assumption $f(x_n) \to f(x)$. Note $(f(x_n)) \subseteq f_*(A)$. By Theorem 2.30, $f(x) \in \overline{f_*(A)}$. Thus by Theorem 7.1 (Alternate definitions of continuity), $f$ is continuous.              
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.7}\label{Claim 7.7.}
+    Let X be a space with a dense set D,and let Y be Hausdorff. Let $f: X \to Y$  and $g: X \to Y$ be continuous functions such that for every a in D, $f(a) = g(a)$. Then for all $x \in X$, $f(x) = g(x)$ .
+\end{claim}
+\begin{proof}
+    Assume the contrary that $\exists x \in X \ni f(x) \neq g(x)$. By the definition of Hausdorff, $\exists V_1, V_2 \in \T_Y \ni f(x) \in V_1, g(x) \in V_2, V_1 \cap V_2 = \empset$. By 7.1, $\exists U_1, U_2 \in \T_X \ni x \in U_1 \cap U_2$ and $f_*(U_1) \subeq V_1$ and $f_*(U_2) \subeq V_2$. By definition of dense set, $\exists d \in D \ni d \in U_1 \cap U_2$. $g(d) = f(d) \in V_1$ and $f(d) = g(d) \in V_2$ thus $f(d) = g(d) \in V_1 \cap V_2$. However this contradicts the fact that $V_1 \cap V_2 = \empset$. Thus a contradiction occurs, and thus $\forall x \in X$, $f(x) = g(x)$.                
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.8}\label{Claim 7.8.}
+    The cardinality of $Hom_{cont}(\R, \R)$ is the same as $\R$.    
+\end{claim}
+\begin{proof}
+    By the previous theorem, all continous functions are completely determined by where they send each element of $\Q$ since $\Q$ is dense in $\R$ and $\R$ is Hausdorff. Thus for each $q \in \Q$ you are choosing out of $\abs{\R} = 2^{\aleph_0}$ values. Thus there are at most $(2^{\aleph_0})^{\aleph_0} = 2^{\aleph_0 * \aleph_0} = 2^{\aleph_0}= \abs{\R}$. There are $\abs{\R}$ constant functions.          
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.9}\label{Claim 7.9.}
+    If $f: X \to Y$ and $g: Y \to Z$  are continuous, then their composition $g \circ f = X \to Y$ is continuous.
+\end{claim}
+\begin{proof}
+    Let $W \in \T_Z$, by the continuity of $g$, $g^{-1}(W) \in \T_Y$. By continuity of $f$, $f^{-1}(g^{-1}(W)) \in \T_X$. $f^{-1}(g^{-1}(W)) = (f^{-1} \circ g^{-1})(W) = (g \circ f)^{-1}(W)$. Thus $g \circ f$ is continous.         
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.10}\label{Claim 7.10.}
+    Let $X = A \cup B$ , where $A$, $B$ are closed in $X$ . Let $f: A \to Y$  and $g: B \to Y$ be continuous functions that agree on $A \cap B$. Then the function $h: A \cup B \to Y$ defined by $h \equiv f$ on A and $h|_{B} \equiv g$  is continuous.
+\end{claim}
+\begin{proof}
+    For every closed subset $K$ of $Y$. $h^{-1}(K) = (h^{-1}(K) \cap A) \cup (h^{-1}(K) \cap B)$. $h^{-1}(K) \cap A = f^{-1}(K)$ and $h^{-1}(K) \cap B = g^{-1}(K)$ are both closed in $A$ and $B$ respectively by continuity of $f$ and $g$. Since $A$ and $B$ are closed, $f^{-1}(K)$ and $g^{-1}(K)$ are closed. By finite union of closed sets is closed, thus $h^{-1}(K)$ is closed. Thus $h$ is continous.                  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.11}\label{Claim 7.11.}
+    Let $X = A \cup B$ , where $A$, $B$ are open in $X$ . Let $f: A \to Y$  and $g: B \to Y$ be continuous functions that agree on $A \cap B$. Then the function $h: A \cup B \to Y$ defined by $h \equiv f$ on A and $h|_{B} \equiv g$  is continuous.
+\end{claim}
+\begin{proof}
+    For every open subset $K$ of $Y$. $h^{-1}(K) = (h^{-1}(K) \cap A) \cup (h^{-1}(K) \cap B)$. $h^{-1}(K) \cap A = f^{-1}(K)$ and $h^{-1}(K) \cap B = g^{-1}(K)$ are both open in $A$ and $B$ respectively by continuity of $f$ and $g$. Since $A$ and $B$ are open, $f^{-1}(K)$ and $g^{-1}(K)$ are closed. By finite union of closed sets is closed, thus $h^{-1}(K)$ is open. Thus $h$ is continous.                
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.12}\label{Claim 7.12.}
+    Let $f: X \to Y$ be a function and $\B$ be a basis for Y. Then $f$ is continous iff for every open set $B \in \B$, $f^{-1}(B) \in \T_X$     
+\end{claim}
+\begin{proof}
+    $\implies:$ $f$ is continous directly means that $\forall B \in \B, f^{-1}(B) \in \T_X$. 
+    
+    $\impliedby:$ Suppose $\forall B \in \B$, $f^{-1}(B) \in \T_X$. $\forall V \in \T_Y$, $V = \bigcup_{\alpha \in \lambda} B_\alpha$ for $B_\alpha \in \B$. $f^{-1}(V) = f^{-1}\left(\bigcup_{\alpha \in \lambda} B_{\alpha}\right) = \bigcup_{\alpha \in \lambda} f^{-1}(B_{\alpha}) \in \T_X$. Thus $f$ is continous.          
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.13}\label{Claim 7.13.}
+    Let $f: X \to Y$ be a function and $\B$ be a subbasis for Y. Then $f$ is continous iff for every open set $B \in \B$, $f^{-1}(B) \in \T_X$     
+\end{claim}
+\begin{proof}
+    $\implies:$ $f$ is continous directly means that $\forall B \in \B, f^{-1}(B) \in \T_X$. 
+    
+    $\impliedby:$ Suppose $\forall B \in \B$, $f^{-1}(B) \in \T_X$. For all basis elements $V$  of $\T_Y$, $V = \bigcap_{i = 1}^n B_{i}$ for $B_i \in \B$. $f^{-1}(V) = f^{-1}(\bigcap_{i = 1}^n B_i)= \bigcap_{i = 1}^n f^{-1}(B_i) \in \T_X$. By 7.12, f is continuous.              
+\end{proof}
+
+\pagebreak
+
+\section*{Properties Preserved by Continous Functions}
+
+\begin{claim}{7.15}\label{Claim 7.15.}
+    If $X$ is compact and $f: X \to Y$ is continous and surjective, then $Y$ is compact   
+\end{claim}
+\begin{proof}
+    For any $\left\{ V_\alpha \right\}_{\alpha \in \lambda}$ open cover, $\left\{ f^{-1}(V_{\alpha}) \right\}_{\alpha \in \lambda}$ is a open cover of $X$ because $f^{-1}(Y) = X$. By the compactness of $X$, there is a finite subcover $\left\{ f^{-1}(V_{\alpha_i}) \right\}_{i = 1}^n$  of $\left\{ f^{-1}(V_{\alpha}) \right\}_{\alpha \in \lambda}$. Since $X = \bigcup_{i = 1}^n f^{-1}(V_{\alpha_i})$ and since $f$ is surjective, $f(\bigcup_{i = 1}^n f^{-1}(V_{\alpha_i})) = \bigcup_{i = 1}^n f(f^{-1}(V_{\alpha_i})) = \bigcup_{i = 1}^n V_{\alpha_i} = Y$. Thus there is a finite subcover of $Y$.         
+\end{proof}
+
+
+\bigskip
+
+\begin{claim}{7.16}\label{Claim 7.16.}
+    If $X$ is Lindelof and $f: X \to Y$ is continous and surjective, then $Y$ is Lindelof   
+\end{claim}
+\begin{proof}
+    Pretty similar to 7.15
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.17}\label{Claim 7.17.}
+    If $X$ is Lindelof and $f: X \to Y$ is continous and surjective, then $Y$ is Lindelof   
+\end{claim}
+\begin{proof}
+    Pretty similar to 7.15 and 7.16
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.18}\label{Claim 7.18.}
+    Let D be a dense set of a topological space X,and let $f: X \to Y$ be continuous and surjective. Then $f(D)$ is dense in Y.
+\end{claim}
+\begin{proof}
+    $\forall V \in \T_Y \setminus \left\{ \empset \right\}$, $f^{-1}(V)$ is open in $U$ and is nonempty since $f$ is surjective. By 5.1, $f^{-1}(V) \cap D \neq \empset$. Thus $\exists x \in f^{-1}(V) \cap D$. Thus $f(x) \in f(f^{-1}(V) \cap D) = V \cap f(D)$. Thus by 5.1, $f(D)$ is dense in Y.          
+\end{proof}
+
+\bigskip
+
+
+
+\begin{claim}{7.21}\label{Claim 7.21.}
+    If X is normal and $f: X \to Y$ is continuous, surjective, and closed, then $Y$ is normal.
+\end{claim}
+\begin{proof}
+    $\forall A, B \in \mathcal{C}_Y \ni A \cap B = \empset$. $f^{-1}(A), f^{-1}(B) \in \mathcal{C}_X$. 
+    
+    \[f^{-1}(A) \cap f^{-1}(B) = f^{-1}(A \cap B) = f^{-1}(\empset) = \empset\]. 
+    
+    By Theorem 4.10, by the normality of X, $\exists U, V \in \T_X \ni A \subeq U, B \subeq V, \overline{U} \cap \overline{V} = \empset$. By closure of f, $f(\overline{U}), f(\overline{V}) \in \mathcal{C}_Y$. $f(\overline{U})\cap f(\overline{V}) = f(\overline{U} \cap \overline{V}) = \empset$. Moreover by surjective, $A \subseteq f(f^{-1}(A)) \implies A \subeq f(\overline{U})$ similarly $B \subeq f(\overline{U})$. 
+    
+    By Theorem 4.10, $Y$ is normal.        
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.22}\label{Claim 7.22.}
+    If $\left\{ B_\alpha \right\}_{\alpha \in \lambda}$ is a basis for $X$ and $f: X \to Y$ is continous, surjective, and open, then $\left\{ f(B_{\alpha}) \right\}_{\alpha \in \lambda}$.     
+\end{claim}
+\begin{proof}
+    By openess of $f$, $\left\{ f(B_{\alpha}) \right\}_{\alpha \in \lambda} \subeq \T_Y$. $\forall U \in \T_Y$ and $\forall p \in U$, by the surjectivity of $f$, $\exists x \in f^{-1}(p)$. By Theorem 3.1, $\exists B_{\alpha} \ni x \in B_\alpha \implies f(p) \in f(B_{\alpha})$. By Theorem 3.1, $\left\{ f(B_{\alpha}) \right\}_{\alpha \in \lambda}$ is a basis        
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.23}\label{Claim 7.23.}
+    If $X$ is 2nd countable and $f: X \to Y$ is continuous, surjective, and open, then $Y$ is 2nd countable.
+\end{claim}
+\begin{proof}
+    By the 2nd countablity of $X$, $\exists \left\{ B_{n} \right\}_{n \in \N}$ a countable basis for $X$. By theorem 7.22, $\left\{ f(B_{n}) \right\}_{n \in \N}$ is a basis for $Y$. Thus Y is 2nd countable.      
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.24}\label{Claim 7.24.}
+    Let $X$ be compact, and let $Y$ be Hausdorff. Then any continuous function $f: X \to Y$ is closed.
+\end{claim}
+\begin{proof}
+    $\forall A \in \mathcal{C}_X$. $\forall x \in Y \setminus f(A)$. $\forall y \in f(A)$, by the Hausdorff property, $\exists U_y, V_y \ni x \in U_y, y \in V_y, U_y \cap V_y = \empset$. Thus there exists a open cover of $f(A)$, $\left\{ V_y \right\}_{y \in f(A)}$ with a corresponding collection $\left\{ U_y \right\}_{y \in f(A)}$. Thus $\left\{ f^{-1}(V_y) \right\}_{y \in f(A)}$ is a open cover of $A$ by continuity of f. By compactness of X, $A$ is compact because its closed. Thus there exists a finite subcover given by $y_1, \dots, y_n$ where $y_i \in f(A)$. Thus $\left\{ f^{-1}(V_{y_i}) \right\}_{i = 1}^n$ is a finite subcover of $A$. Let $F = \bigcup_{i = 1}^n f^{-1}(V_{y_i}) = f^{-1}\left(\bigcup_{i = 1}^n V_{y_i}\right) \in \T_X$ and $G = \bigcap_{i = 1}^n f^{-1}(U_{y_i}) = f^{-1}(\bigcap_{i = 1}^n f^{-1}(U_{y_i})) \in \T_X$ and $F \cap G = \empset$. Thus $f^{-1}(x) \not \subeq \overline{A} = A$ and more specifically $G \cap A = \empset$. Thus $x \in f(G) = \bigcap_{i = 1}^n f^{-1}(U_{y_i})$ and thus $f(G \cap A) = f(G) \cap f(A) = \empset$. Thus $x \not \in \overline{f(A)}$. Thus $\overline{f(A)} = f(A)$ and $f(A)$ is closed. Thus $f$ is a closed continous map.                                  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.25}\label{Claim 7.25.}
+    Let $X$ be compact and 2nd countable, and let $Y$ be Hausdorff. If $f: X \to Y$ is continuous and surjective, then $Y$ is 2nd countable.
+\end{claim}
+\begin{proof}
+    By claim 7.24, $f$ is closed. Since $Y$ is Hausdorff, singletons are closed. By continuity, inverse images of singletons are closed. Let $\B_X$ be the countable basis of $X$. WLOG, $\B_X$ is closed under finite union (countably many of these). $\forall B \in \B$, $V(B) := Y - f(X - B)$. 
+
+    $\forall B \in \B$, $\forall b \in B$, $b \not \in X - B \implies f(b) \not \in f(X - B) \implies f(b) \in Y - f(X - B) \implies f(B) \subeq Y - f(X - B)$    
+    
+    $\forall D \in \T_Y$, $\forall y \in D$. Since $f$ is surjective, $f^{-1}(y) \neq \empset$. By continuity, $f^{-1}(D) \in \T_X$. For all $x \in f^{-1}(y)$, $\exists B_x \in \B \ni x \in B_x \subeq f^{-1}(D)$. $\left\{ B_x \right\}_{x \in f^{-1}(y)}$ is a open cover of $f^{-1}(y)$ which is compact because $X$ is compact. Thus $\exists B_{x_1}, \dots, B_{x_n} \ni f^{-1}(y) \in B_{x_1} \cup \dots \cup B_{x_n} \subeq f^{-1}(D)$. But since $\B$ is closed under finite unions, $\exists B \in \B \ni B = B_{x_1} \cup \dots \cup B_{x_n}$. Thus $f^{-1}(y)\subeq B \subeq f^{-1}(D)$. $\forall v \in V(B)$, by surjectivity $\exists u \in X$, $v = f(u)$. $f^{-1}(V(B)) = f^{-1}(Y - f(X - B)) = X - f^{-1}(f(X - B)) = X - (X - B) = B \implies u \in B \subeq f^{-1}(D) \implies v \in D$. Thus $V(B) \subeq D$. Thus $y 
+    \in V(B) \subeq D$. By 3.1, $\left\{ V(B_i) \right\}_{i = 1}^n$ is a basis. By definition its countable. Thus Y is 2nd countable.                                         
+\end{proof}
+
+\pagebreak
+
+\section*{Homeomorphisms}
+\begin{claim}{7.28}\label{Claim 7.28.}
+    \textbf{If $f: X \to Y$ is continous}, the following are equivalent:
+    \begin{enumerate}
+        \item f is a Homeomorphism
+        \item f is a closed bijection
+        \item f is a open bijection
+    \end{enumerate}
+\end{claim}
+\begin{proof}
+    $1 \implies 2:$ If $f$ is a Homeomorphism, it is a bijection and its inverse, $g$, is continous. Thus $\forall A \in \C_X$, $g^{-1}(A) \in \C_Y$ by continuity. Since $f$ is a bijection, $f(A) = g^{-1}(A) \in \C_Y$. Thus f is a closed bijection.
+    
+    $2 \implies 3:$ If $f$ is a closed bijection. $\forall A \in \T_X$, $f(X - A) \in \C_Y$. By surjectivity, $f(X - A) = Y - f(A) \in \C_Y \implies Y - f(X - A) = Y - (Y - f(A)) = f(A) \in \T_Y$. Thus $f$ is a open bijection. 
+    
+    $3 \implies 1$: If $f$ is a open bijection. That means that there exists a inverse function $g$ and that $\forall A \in \T_X \implies f(A) \in \T_Y$. Thus $\forall A \in \T_X$, since $g^{-1}(A) = f(A) \in \T_Y$. Thus $g$ is continous. Thus $f$ is a continous bijection with a continous inverse function. Thus $f$ is a Homeomorphism. 
+    
+    
+    Thus $1 \implies 2 \implies 3 \implies 1$ 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.29}\label{Claim 7.29.}
+    Suppose $f: X \to Y$ is a continuous bijection where $X$ is compact and $Y$ is Hausdorff. Then $f$ is a homeomorphism.
+\end{claim}
+\begin{proof}
+    By 7.24, $f$ is closed. Thus by 7.28, since $f$ is a closed continous bijection, $f$ is a homeomorphism.     
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.31}\label{Claim 7.31.}
+    Let $X$ be a compact space, and let Y be Hausdorff. If $f: X \to Y$  is a continuous, injective map, then $f$ is an embedding.
+\end{claim}
+\begin{proof}
+    Let $Z = f(X) \subeq Y$ and let $Z$ have the subspace topology of $Y$. Thus redefine $f$ as $f: X \to Z$, f is now a bijection. Thus $f$ is still a continous function. By 7.29, $f$ is a homeomorphism. Thus $X \cong f(X) \subeq Y$ naturally.        
+\end{proof}
+
+\pagebreak
+
+\section*{Product Space and Continuity}
+
+\begin{claim}{7.32}\label{Claim 7.32.}
+    Let $X$ and $Y$ be topological spaces. The projection maps are continous, surjective, and open  
+\end{claim}
+\begin{proof}
+    It suffices to show that $\pi_x$ is continous, surjective, and open. $\forall U \in \T_X$, $\pi_X^{-1}(U) = U \times Y \in \T_{X \times Y}$. Thus $\pi_X$ is continous. 
+    
+    $\forall x \in X$, $\forall y \in Y$, $\pi_{X}(x, y) = x$. Thus $\pi_x$ is surjective. 
+    
+    $\forall A \in \T_{X \times Y}, \exists \left\{ U_\alpha \right\}_{\alpha \in \lambda} \subeq \T_X, \left\{ V_{\alpha} \right\}_{\alpha \in \lambda} \subeq \T_Y \ni A = \bigcup_{\alpha \in \lambda}(U_\alpha \times V_\alpha)$. 
+    
+    Thus $\pi_X(A) = \pi_X\left(\bigcup_{\alpha \in \lambda} U_\alpha \times V_\alpha\right) = \bigcup_{\alpha \in \lambda} \pi_X(U_\alpha \times V_\alpha) = \bigcup_{\alpha \in \lambda} U_\alpha \in \T_X$. Thus $\pi_X$ is open.     
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.33}\label{Claim 7.33.}
+    Let $X$ and $Y$ be topological spaces. The product topology on $X \times Y$ is the coarsest topology on $X \times Y$  that makes the projection maps $\pi_X$, $\pi_Y$ on $X \times Y$  continuous.
+\end{claim}
+\begin{proof}
+    Let $\T = \T_{X \times Y}$.  
+    Assume the contrary that $\exists \T'_{X \times Y}$ such that $\T' \subeq \T$ such that $\pi_X$, $\pi_Y$ is continous on $X \times Y$. Thus $\exists A \in \T \setminus \T', A = \bigcup_{\alpha \in \lambda}(U_\alpha \times V_\alpha)$ where $U_\alpha \in \T_X$ and $V_\alpha \in \T_Y$. By continuity of $\pi_X$, $\pi_X^{-1}(U_\alpha) = U_\alpha \times Y \in \T'$. Similarly, $\pi_Y^{-1}(V_\alpha) = X \times V_\alpha$. $A = \bigcup_{\alpha \in \lambda} \pi_X^{-1}(U_\alpha) \cap \pi_Y^{-1}(V_\alpha) \in \T$ which is a contradiction. Thus $\T$ is the coursest.  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.34}\label{Claim 7.34.}
+    Let $X$ and $Y$ be topological spaces. For every $y \in Y$, the subspace $X \times \left\{ y \right\}$ of $X \times Y$ is homeomorphic to $X$.
+\end{claim}
+\begin{proof}
+    $f:= \pi_X|_{X \times \left\{ y \right\}}$ is continous by 7.4. $g: X \to X \times {y}$ where $g(x) = (x, y)$. $f$ is open. Thus $f$ is a continous open bijection thus $f$ is a homeomorphism by 7.28.           
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.44}\label{Claim 7.44.}
+    Let $X$, $Y$, $Z$ be topological spaces. A function $g: Z \to X \times Y$ is continuous if and only if $\pi_X \circ g$ and $\pi_Y \circ g$   are both continuous.
+\end{claim}
+\begin{proof}
+    $\implies:$ If $g$ is continous, by 7.9 and 7.32, $\pi_x \circ g$ and $\pi_Y \circ g$ are continous. 
+    
+    $\impliedby:$ If $\pi_X \circ g$ and $\pi_Y \circ g$ are continous. $\forall A \in X \times Y, A = \bigcup_{\alpha \in \lambda}(U_\alpha \times V_\alpha) = \bigcup_{\alpha \in \lambda}(\pi_X^{-1}(U_\alpha) \cap \pi_Y^{-1}(V_\alpha))\implies g^{-1}(A) = \bigcup_{\alpha \in \lambda} g^{-1}(\pi_X^{-1}(U_\alpha) \cap \pi_Y^{-1}(V_\alpha)) = \bigcup_{\alpha \in \lambda}((\pi_X \circ g)^{-1}(U_\alpha) \cap (\pi_Y \cap g)^{-1}(V_\alpha))  \in \T_Z$, by assumption.      
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.32}\label{Claim 7.32.}
+    Let $\prod_{\alpha \in \lambda} X_\alpha$ be a product of topological spaces $\left\{ X_\alpha \right\}_{\alpha \in \lambda}$. The projection maps are continous, surjective, and open  
+\end{claim}
+\begin{proof}
+    Basically same proof as finite case. 
+\end{proof}
+
+\pagebreak
+\section*{Quotient Spaces}
+\begin{claim}{7.47}\label{Claim 7.47.}
+    The quotient topology actually defines a topology.
+\end{claim}
+\begin{proof}
+    $f: X \to Y$ is a surjective map.  
+    $f^{-1}(Y) = X$, $f^{-1}(\empset) = \empset$. 
+    
+    $f^{-1}(\bigcup_{\alpha \in \lambda} U_\alpha) = \bigcup_{\alpha \in \lambda} f^{-1}(U_\alpha) \in \T_X \implies \bigcup_{\alpha \in \lambda} U_\alpha \in \T_Y$. Same for finite intersections 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.48}\label{Claim 7.48.}
+    Let $X$ be a topological space, let $Y$ be a set, and let $f: X \to Y$ be a surjective map. The quotient topology on $Y$ is the finest (largest) topology that makes $f$ continuous.
+\end{claim}
+\begin{proof}
+    Let $\T$ denote the quotient topology on $Y$.
+    
+    For all topologies, $\T'$ on $Y$ such that $f$ is continous, $\forall U \in \T'$ by defintion of continuity $f^{-1}(U) \in \T_X \implies U \in \T$. Thus $\T' \subeq \T$. Thus $\T$ is the finest topology that makes $f$ continous.            
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.49}\label{Claim 7.49.}
+    Let $X$ and $Y$ be topological spaces. A surjective, continuous map $f: X \to Y$ that is an open map is a quotient map.
+\end{claim}
+\begin{proof}
+    $\forall U \in 2^Y \ni f^{-1}(U) \in \T_X \implies f(f^{-1}(U)) \in \T_Y$, by openness of $f$. But since $f$ is surjective, $f(f^{-1}(U)) = U$. Thus $Y$ has the qoutient topology wrt to $X$ and $f$. Thus $f$ is a qoutient map.            
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.50}\label{Claim 7.50.}
+    Let $X$ and $Y$ be topological spaces. A surjective, continuous map $f: X \to Y$ that is an closed map is a quotient map.
+\end{claim}
+\begin{proof}
+    $\forall U \in 2^Y \ni f^{-1}(U) \ni \T_X \implies f(X - f^{-1}(U)) \in \mathcal{C}_Y$, by closedness of $f$. By surjectivity of $f$, $f(X - f^{-1}(U)) = Y - f(f^{-1}(U)) = Y - U \in \mathcal{C}_Y \implies U \in \T_Y$. Thus $Y$ has the qoutient topology wrt to $X$ and $f$. Thus $f$ is a qoutient map.                  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7.51}\label{Problem 7.51.}
+    Show with examples that not all quotient maps are open maps, and not all quotient maps are closed maps
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item Let $[0, 1)$ have the subspace topology of $\R$. $q: [0, 1) \to S^1$ where $x \to x \mod 1$. $[0, \frac{1}{2})$ is open in $[0, 1]$, $q([0, \frac{1}{2})) = [0, \frac{1}{2}) \cup \left\{ 1 \right\}$. But $q^{-1}([0, \frac{1}{2}) \cup \left\{ 1 \right\}) = [0, \frac{1}{2}) \cup \left\{ 1 \right\}$ is not open. 
+        \item $\R^2 \to \R$, projection to $x$ axis. Image of the set $xy  = 1$ is $\R \setminus \left\{ 0 \right\}$ which is not closed in $\R$ bc $\pi^{-1}(\R \setminus \left\{ 0 \right\}) = \R \setminus {0} \times \R$ which is not closed in $\R$.         
+    \end{enumerate}
+\end{solution}
+
+\bigskip
+
+\begin{claim}{7.53}\label{Claim 7.53.}
+    Let $f: X \to Y$ be a quotient map. Then a map $g: Y \to Z$ is continuous if and only if $g \circ f$ is continuous.
+\end{claim}
+\begin{proof}
+    $\implies$: If $g$ is continous. $g \circ f$ is continous by 6.9
+    
+    $\impliedby:$ If $g \circ f$ is continous. By definition of continuity, $\forall U \in \T_Z$, $(g \circ f)^{-1}(U)= f^{-1}(g^{-1}(U)) \in \T_X \implies g^{-1}(U) \in \T_Y$ since $f$ is a quotient map. Thus $g$ is continous.   
+\end{proof}
+
+\pagebreak
+
+\section*{Urysohn's Lemma}
+\begin{claim}{7.56}\label{Claim 7.56.}
+    Let $A$ and $B$ be disjoint closed sets in a normal space $X$. Then for each rational $r \in [0, 1]$, there exists an open set $U_r$ such that $A \subeq U_0, B \subeq (X - U_1)$ and for $r < s$, $\overline{U_r} \subeq U_s$ .
+\end{claim}
+\begin{proof}    
+    Since $P = [0, 1] \cap \Q$ is countable, thus $\exists f$ a bijection from $\N \to P$. Let $f$ be such a bijection such that $f(1) = 1$ and $f(2) = 0$. Define $P_n := \left\{f(1), \dots, f(n) \right\}$. Let $U_1 = X - B$. By theorem 4.9, $\exists U_0 \in \T_X \ni A \subeq U_0 \subeq \overline{U_0} \subeq U_1$. 
+    
+    Base Case: For $P_2$, $\forall p, q \in P_2 \ni p < q \implies p = 0, q = 1$ we have already defined $U_p$ and $U_q$ such that $\overline{U_p} \subeq U_q$. 
+    
+    Inductive Hypothesis: Assume that $P_n$ holds the property such that $\forall p, q \in P_n \ni p < q \implies \overline{U_p} \subeq U_q$. 
+
+    Inductive Step: Let $r = f(n + 1)$, thus $P_{n + 1} = P_n \cup \left\{ r \right\}$. This means for $P_{n + 1}$ to hold the property above, we need $U_r$ such that for all 
+    
+    \begin{enumerate}
+        \item $p \in P_{n} \ni p < r$ such that $\overline{U_{p}} \subeq U_r$
+        \item $\forall q \in P_n \ni q > r$ that $\overline{U_r} \subeq U_q$.
+    \end{enumerate}
+    
+    Since $f$ is a bijection and $f(1) = 1$ and $f(2) = 0$, $r \neq 1, 0$, thus $r$ is not the max or min of $P_n$. Thus there exists values greater than it and values less then it. Since $P_n$ is finite, there is a minimum value greater than it and a maximum value less than it.         
+
+    Let $m = \max(p \in P_n \mid p < r)$ and let $n = \min(q \in P_n \mid q > r)$. By Theorem 4.9, $\exists U_r \in \T_X \ni \overline{U_m} \subeq U_r \subeq \overline{U_r} \subeq U_n$. $\forall p \in P_n \ni p < r\implies p \leq m \implies \overline{U_p} \subeq U_m \subeq U_r$. Similarly, $\forall q \in P_n \ni q > r \implies q \geq n \implies \overline{U_n} \subeq U_n \subeq U_q$. Thus $P_{n + 1}$ respects the property. 
+    
+    
+    Thus by induction the theorem is true. 
+
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.57}\label{Claim 7.57.}
+    (Urysohn's Lemma) A topological space $X$ is normal if and only if for each pair of disjoint closed sets $A$  and $B$ in $X$, there exists a continuous function $f: X \to [0, 1]$ such that $A \in f^{-1}(0)$ and $B^{-1} \in f^{-1}(1)$.   
+\end{claim}
+\begin{proof}
+    $\implies$: If $X$ is normal. $\forall A, B \in \mathcal{C} \ni A \cap B = \empset$.   By 7.56, $\forall r \in [0, 1] \cap \Q$, $\exists U_r \in \T $ such that $\forall s > r$ $\overline{U_r} \subeq U_s$ and $A \subeq U_0$ and $B \subeq X - U_1$. Let $\left\{ U_r \right\}_{r \in [0, 1] \cap \Q}$ be such a collection. Let define a function $f : X \to [0, 1]$ as follows: 
+    
+    \begin{enumerate}
+        \item If $x \in X - U_1$ then $f(x) = 1$
+        \item Otherwise, $f(x) = \inf\left\{ r \in \Q \cap [0, 1] \mid x \in U_r \right\}$     
+    \end{enumerate}
+    
+    Thus since $B \subeq X - U_1 \implies f(B) = \left\{ 1 \right\}$. Similarly since $A \subeq U_0 \implies f(A) = 0$.
+
+    $\forall a \in \Q \cap [0, 1]$, $\forall x \in \overline{U_a}$, then $\forall b \in [0, 1] \cap \Q \ni b > a$, $x \in \overline{U_a} \subeq U_b$, thus $(a, 1] \cap \Q \subeq \left\{ r \in \Q \cap [0, 1] \mid x \in U_r \right\}$. By definition of inf, $f(x) = \inf \left\{ r \in \Q \cap [0, 1] \mid x \in U_r \right\}\leq a$. 
+    
+    $\forall a \in \Q \cap [0, 1]$, if $x \not \in U_a$. By construction $x \not \in U_b$ for all $b \leq a$. Thus $[0, a] \cap \Q \cap \left\{ r \in \Q \cap [0, 1] \mid x \in U_r \right\} = \empset$. By definition of inf, $f(x) \geq a$.       
+    
+    Now lets check for continuity of $f$. The subbasis of $[0, 1]$ looks like \[
+        \left\{ [0, a) \mid 0 < a \leq 1 \right\} \cup \left\{ (a, 1] \mid 0 \leq a < 1 \right\}
+    \].   
+    
+    $\forall a \in (0, 1]$. $\forall x \in f^{-1}([0, a))$, $0 \leq f(x) < a$. By the density of the rationals in the reals, $ \exists r \in \Q \ni 0 \leq f(x) < r < a$. By the contrapositive of the fact that if $x \not \in U_r \implies f(x) \geq r$, since $f(x) < r \implies x \in U_r$. $f(U_r) \subeq f(\overline{U_r}) \subeq [0, r] \subeq [0, a)$. Thus $x \in U_r \subeq f^{-1}([0, a))$.  By Theorem 2.3, $f^{-1}([0, a))$ is open. 
+    
+    $\forall a \in [0, 1)$. $\forall x \in f^{-1}((a, 1]), a < f(x) \leq 1$. By the density of the rationals in the reals, $\exists r \in \Q \ni a < r < f(x) \leq 1$  By the contrapositive of the fact that if $x \in \overline{U_a} \implies f(x) \leq a$, since $f(x) > r \implies x \not \in \overline{U_r} \implies x \in X - \overline{U_r}$. $f(X - \overline{U_r}) \subeq f(X - U_r) \subeq [r, 1] \subeq (a, 1] $. Thus $x \in X - \overline{U_r} \subeq f^{-1}((a, 1])$. 
+    
+    Since the inverse images of the subbasis are open, $f$ is continous by 7.14.  
+    
+    
+
+    $\impliedby:$ If $\forall A, B \in \mathcal{C} \ni A \cap B = \empset$, $\exists f $ a continous function such that $A \in f^{-1}(0)$ and $B \in f^{-1}(1)$. $[0, \frac{1}{2})$ and $(\frac{1}{2}, 1]$ are disjoint open sets. By continuity, $f^{-1}([0, \frac{1}{2}))$ and $f^{-1}((\frac{1}{2}, 1])$ are disjoint open sets. $A \subeq f^{-1}(0) \subeq f^{-1}([0, \frac{1}{2}))$ and $B \subeq f^{-1}(1) \subeq f^{-1}((\frac{1}{2}, 1])$. Thus $X$ is normal.       
+\end{proof}
+
+\bigskip
+\begin{claim}{7.58}\label{Claim 7.58.}
+    Let $X$ be a normal space, and let $A$ be a closed subset of $X$. Let $f: A \to [0, 1]$ be a continuous function, and let $r \in (0, 1)$. Then there exist disjoint open sets $U_r$ and $V_r$ such that $f^{-1}([0, r)) \subeq U_r$  and $ f^{-1}((r, 1]) \subeq V_r$. Or equivalently, there exists an open set $U_r$ such that $f^{-1}([0, r))$  and $\overline{U_r} \cap f^{-1}((r, 1]) = \empset$ .
+\end{claim}
+\begin{proof}
+    $\forall r \in (0, 1)$, define $s_n = \max(r - \frac{1}{n}, \frac{r}{2})$ and $t_n = \min(r - \frac{1}{n}, \frac{r}{2} + \frac{1}{2})$. $s_n$ and $t_n$ are monotoncially increasing and decreasing respectively and both converge to $r$ in $[0, 1]$. Define, $S_n := f^{-1}([0, s_n))$ and $T_n := f^{-1}([t_n, 1))$. 
+    
+    $\forall x \in f^{-1}([0, r)) \implies 0 \leq f(x) < r$. Let $\epsilon = r - f(x)$, by definition of convergence $\exists K \in \N \ni \forall n \geq k , \abs{r - s_n} = r - s_n < \epsilon$ (Monotoncially increasing), thus $f(x) < s_n \leq r$. Thus $f(x) \in [0, s_n) \implies f(x) \in S_n$. Thus $x \in \bigcup_{n \in \N} S_n \implies f^{-1}([0, r)) \in \bigcup_{n \in \N} S_n$. 
+    
+    $\forall x \in f^{-1}((r, 1]) \implies r < f(x) \leq 1$. By definition of convergence, $\exists K \in \N \ni \forall n \geq K, \abs{r - t_n} = t_n - r < f(x) - r$, thus $r \leq t_n < f(x) < 1$. Thus $x \in f^{-1}((t_n, 1])$. Thus $x \in \bigcup_{n \in \N}T_n \implies f^{-1}((r, 1]) \in \bigcup_{n \in \N}T_n$ 
+    
+    $\forall n \in \N$, $S_n \cap f^{-1}((r, 1]) = \empset$ since $[0, s_n) \cap (r, 1] = \empset$. For all limit points $x$ of $S_n$. Assume the contrary $x \in f^{-1}((r, 1]) \implies 0 < r < f(x) \leq 1$. Thus $f^{-1}((f(x), 1]) \cap f^{-1}([0, s_n)) \neq \empset \implies [0, s_n) \cap (f(x), 1] \neq \empset$ even though $0 \leq s_n < r < f(x) \leq 1$ which is a contradiction. Thus by contradiction, $\overline{S_n} \cap f^{-1}((r, 1]) =  \empset$. 
+    
+    By a symmetric arguement, $\overline{T_n} \cap f^{-1}([0, r)) =  \empset$
+    
+    By the normality lemma, $\exists U_r, V_r \in \T$ such that the theorem is true. 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.59}\label{Claim 7.59.}
+    Tietze's Extension Theorem
+\end{claim}
+% \begin{proof}
+%     % $\forall r \in (0, 1)$, let $C(r) = f^{-1}([0, r])$ and let $O(r) = f^{-1}([0, r))$. We want to follow the argument we made for Urysohn's lemma. We need a collection of open sets $\left\{ U_r \right\}_{r \in \Q \cap [0, 1]}$ with the following properties:
+    
+%     % \begin{enumerate}
+%     %     \item $\forall s > r$, $\overline{U_r} \subeq U_s$. 
+%     %     \item For $r \in (0, 1)$, $O(r) = U_r \cap A$
+%     %     \item For $r \in (0, 1)$, $C(r) \supseteq \overline{U_r} \cap A$     
+%     % \end{enumerate}
+
+%     % Let $P = [0, 1] \cap \Q$. $P$ is countable and thus $\exists f : \N \to P$ a countable bijection such that $f(1) = 1$ and $f(2) = 0$. Let $P_n := \left\{ f(0), \dots, f(n) \right\}$.  
+
+%     % Let $U_0 = \empset$ and let $U_{1} = X \setminus f^{-1}(1)$. 
+    
+%     % \textbf{Base Case}: For $n = 2$, $\overline{U_0} = \overline{\empset} = \empset \subeq U_1$. 
+    
+%     % \textbf{Inductive Hypothesis}: Assume that $P_n$ satisfies the three properties above. 
+    
+%     % \textbf{Inductive Step}: $P_{n + 1} = P_n \cup \left\{ f(n + 1) \right\}$. Let $r = f(n  +1)$. It suffices to prove that $U_r$ respects all three properties. $\exists a, b \in P_n \ni a = \max(x \in P_n \mid x < r), b = \min(x \in P_n \mid x > r)$. 
+
+%     % By Claim 7.58, $\exists H \in \T \ni O(r) \subeq H, \overline{H} \cap (A - C(r)) = \empset$ (Tiny set manipulation to make writing easier).
+    
+    
+%     % $\forall x \in \overline{H} \cap A \implies x \in A$ and $x \in \overline{H}$. If $x \in H \implies x \in O(r) \subeq C(r)$. Assume the contrary, $x \in (X - C(r)) \implies x \in (A - C(r))$. But $A - C(r) \cap H = \empset$ by assumption. This is a contradiction, thus $x \in C(r)$. Thus $O(r) \subeq H$ and $C(r) \subeq H$.   
+    
+%     % % Let $G = H \cap (A^c \cup O(r))$. 2 is satisfied.  
+    
+%     % % \begin{align*}
+%     % %     \overline{G} &= \overline{H \cap (A^c \cup O(r))}\\
+%     % %     &= (\overline{H \cap A^c}) \cup (\overline{H \cap O(r)})\\ 
+%     % %     &= \overline{H \cap A^c} \cup \overline{O(r)}
+%     % % \end{align*}
+
+%     % % \begin{align*}
+%     % %     \overline{G} \cap A &= \left(\overline{H \cap A^c}\cap A\right) \cup \overline{O(r)} \cap A \\
+%     % %     &= \left(\overline{H \cap A^c}\cap A\right) \cup \overline{O(r)} \subeq C(r)
+%     % % \end{align*}
+
+%     % % \begin{align*}
+%     % %     \overline{G} \cap (A \setminus C(r)) &= \left(\overline{H \cap A^c}\cap (A \setminus C(r))\right) \cup \overline{O(r)} \cap (A \setminus C(r)) \\
+%     % %     &= \overline{H \cap A^c}\cap (A \setminus C(r))\\
+%     % %     &\subeq \overline{H} \cap \overline{A^c} \cap (A \setminus C(r)) = \empset
+%     % % \end{align*}
+
+%     % % Thus $G$ satisfied 2 and 3.  
+    
+%     % By normality, $\exists H_0 \in \T \ni \overline{U_a} \cup \overline{O(r)} \subeq H_0 \subeq \overline{H_0} \subeq U_b$. Again by normality, $\exists H_1 \in \T \ni \overline{U_a} \subeq H_1 \subeq \overline{H_1} \subeq H_0 \setminus (A \setminus O(r))$. Let $U_r = H_1 \cup (G \cap H_0)$.  
+
+%     % Step 1 is completed. 
+
+    
+    
+% \end{proof}
+\begin{proof}
+    WLOG, target of $f$ is $[-1, 1]$, simple transformation applyied to $[0, 1]$. Let $I_{r, 1} = [-r, -\frac{r}{3}]$, $I_{r, 2} = [-\frac{r}{3}, \frac{r}{3}]$, and let $I_{r, 3} = [\frac{r}{3}, r]$. 
+    
+    \textbf{Base Case}: $f^*(I_{1, 1}), f^*(I_{1, 3}) \subeq \mathcal{C}_A \implies f^*(I_{1, 1}), f^*(I_{1, 3}) \subeq \mathcal{C}_X \ni f^*(I_{1, 1}) \cap f^*(I_{1, 3}) = \empset$. By Urysohn's lemma, $\exists g_1 : X \to [-\frac{1}{3}, \frac{1}{3}] \ni g_1(f^*(I_{1, 1})) = -\frac{1}{3}$ and $g_1(f^*(I_{1, 3})) = \frac{1}{3}$ where $g_1$ is continous. 
+    
+    Thus, $\forall x \in X$ 
+
+    \begin{equation*}
+        \abs{g_1(x)} \leq \frac{1}{3}
+    \end{equation*}
+
+    and $\forall x \in A$ 
+
+    \begin{equation*}
+        \abs{f(x) - g_1(x)} < \frac{2}{3}
+    \end{equation*}
+
+    Thus, $f(x) - g_1(x): X \to [-\frac{2}{3}, \frac{2}{3}]$. 
+    
+    \textbf{Inductive hypothesis}: Assume that, $\abs{f(x) - \sum_{i = 1}^{n} g_n} < (\frac{2}{3})^n$ thus $f_{n}(x) := f(x) - \sum_{i = 1}^{n} g_n : X \to [(-\frac{2}{3})^n, (\frac{2}{3})^n]$
+    
+    \textbf{Inductive Step}: By continuity, $f_{n}^*\left(I_{\left(\frac{2}{3}\right) ^n, 1}\right), f_{n}^*\left(I_{\left(\frac{2}{3}\right) ^n, 3}\right) \in \mathcal{C}_A$, thus, $f_{n}^*\left(I_{\left(\frac{2}{3}\right) ^n, 1}\right), f_{n}^*\left(I_{\left(\frac{2}{3}\right) ^n, 3}\right) \in \mathcal{C}_X \ni f_{n}^*\left(I_{\left(\frac{2}{3}\right) ^n, 1}\right) \cap f_{n}^*\left(I_{\left(\frac{2}{3}\right) ^n, 3}\right) = \empset$. 
+    
+    By Urysohn's lemma, $\exists g_{n + 1}$ a continous function from $X \to [-(\frac{2}{3})^n\frac{1}{3}, (\frac{2}{3})^n\frac{1}{3}]$ such that $g_{n + 1}\left(f_{n}^*\left(I_{\left(\frac{2}{3}\right) ^n, 1}\right)\right) = -(\frac{2}{3})^n\frac{1}{3}$ and $g_{n + 1}\left(f_{n}^*\left(I_{\left(\frac{2}{3}\right) ^n, 3}\right)\right) = (\frac{2}{3})^n\frac{1}{3}$. 
+
+    Thus, 
+
+    \[\abs{g_{n + 1}(x)} \leq \left(\frac{2}{3}\right)^n\frac{1}{3}\]
+
+    and $\forall x \in A$, 
+    
+    
+    \[\abs{f_{n + 1}(x)} = \abs{f(x) - \sum_{i = 1}^{n + 1}g_i(x)} \leq \left(\frac{2}{3}\right)^{n + 1}\]
+
+
+    Define, \[F(x) = \sum_{n = 1}^{\infty} g(x)\]
+
+    $\forall x \in X$, 
+    
+    \[
+    \abs{F(x)} \leq \sum_{n = 1}^{\infty} \abs{g(x)} \leq \frac{1}{3} \sum_{n = 1}^{\infty}\left(\frac{2}{3}\right)^n = \frac{1}{3} \frac{1}{\frac{1}{3}} = 1
+    \] 
+
+    Uniform convergence of $\sum_{i = 1}^{n} g_n(x) \to F(x)$ comes from Weirstrass $M$ test. Thus since $\abs{f(x) - \sum_{i = 1}^{n} g_n(x)} < (\frac{2}{3})^n$ and $\sum_{i = 1}^{n} g_n(x) \to F(x)$ for all $a \in A$. Thus $F(a) = f(a)$. By completeness of $C(X, R)$ with respect to norm $F$ is continous.   
+    
+    $\impliedby: $ Let $A$ and $B$ be a disjoint pair of closed sets of $X$. Let $f: A \cup B \to [0, 1]$ where $f(A) = 0$ and $f(B) = 1$. $f$ is continous by pasting lemma. There exists a continous extension $F$ of $f$ onto the whole space. Thus by Urysohn's lemma, $X$ is normal.             
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.60}\label{Claim 7.60.}
+    A space X is normal if and only if for every closed set $A \subeq X$ and continuous function $f: A \to (0, 1)$, there exists a continuous function $F: X \to (0, 1)$ such that $F(x) = f(x)$   
+\end{claim}
+\begin{proof}
+    $\implies: $ Without loss of generality suppose $f: A \to (-1, 1)$ as $(0, 1) \cong (-1, 1)$ under a simple homeomorphism. Let $g: A \to [-1, 1]$ where $a \to f(a)$. By Tietze's Theorem, $\exists G: X \to [-1, 1]$ where $G$ is continous and $G|_{A} = g$. Let $B = G^*(\pm 1)$, $G(A) = (0, 1) \implies A \cap B = \empset$. Let $h: A \cup B \to [0, 1]$ where $h(A) = 1$ and $h(B) = 0$ which is continous by the pasting lemma. By Tietze's theorem, $\exists H: X \to [-1, 1]$ where $\forall a \in A \cup B$, $h(a) = H(a)$. Thus $F(x) = G(x)H(x)$. If $x \in A$, $\abs{F(x)} = \abs{G(x) H(x)} = \abs{G(x)} < 1$. If $x \not \in A$, $\abs{F(x)} = \abs{G(x)H(x)} < \abs{G(x)}\leq 1$. Thus $F(x) \in (-1, 1)$. Thus $F: X \to (-1, 1)$.
+    
+    $\impliedby:$ Pretty immediate from Tietze's Theorem since $(0, 1)\subeq [0, 1]$.             
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.61}\label{Claim 7.61.}
+    A space X is normal if and only if for every closed set $A \subeq X$ and continuous function $f: A \to [0, 1)$, there exists a continuous function $F: X \to [0, 1)$ such that $F(x) = f(x)$   
+\end{claim}
+\begin{proof}
+    $\implies: $ There is a $G: X \to [0, 1]$ such that for all $a \in A$, $G(a) = f(a)$. So $G(A) = [0, 1)$. Let $B = G^*(1)$. $A \cap B = \empset$. Let $h: A \cup B \to [0, 1]$ where $h(A) = 1$ and $h(B) = 0$. By Teitze's Theorme, $\exists H$ a continous extension of $h$. Let $F: G * H$. $F$ is continous and $X \to [0, 1)$.                 
+    
+    $\impliedby:$ Pretty immediate from Tietze's Theorem since $[0, 1)\subeq [0, 1]$.             
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.62}\label{Claim 7.62.}
+    A space $X$ is normal if and only if for every closed set $A \subeq X$ and continuous function $f: A \to [0, 1] \times [0, 1]$ , there exists a continuous function $F: X \to [0, 1] \times [0, 1]$  such that $F|_A = f$.
+\end{claim}
+\begin{proof}
+    $\implies:$ By Teitze's theorem, $\exists F_1, F_2$ continous functions from $X \to [0, 1]$ where $F_i|_{A} = \pi_i \circ f$. Let $F: X \to [0, 1]^2$ where $x \to (F_1(x), F_2(x))$. $\forall a \in A$, $F(a) = (F_1(a), F_2(a)) = ((\pi_1 \circ f)(a), (\pi_2 \circ f)(a)) = f(a)$. $\pi_1 \circ F = F_1$ and $\pi_2 \circ F = F_2$. By Theorem 7.36, $F$ is continous. 
+    
+    $\impliedby: $ $\forall A \in \mathcal{C}$ and $\forall f: A \to [0, 1]$ where $f$ is continous. Let $g: A \to [0, 1] \times [0, 1]$ where $a \to (f(x), f(x))$. $\exists G$ continous extension such that $G|_A = g$. Thus $\pi_1 \circ g = f$ and $F = \pi_1 \circ G$ are continous and agree on $A$. Thus by teitze's theorem, $X$ is normal.                 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.62}\label{Claim 7.62.}
+    A space $X$ is normal if and only if for every closed set $A \subeq X$ and continuous function $f: A \to \prod_{\alpha \in \lambda}[0, 1]^\alpha$ , there exists a continuous function $F: X \to prod_{\alpha \in \lambda}[0, 1]^\alpha$  such that $F|_A = f$.
+\end{claim}
+\begin{proof}
+    Kinda identical to above
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.63}\label{Claim 7.63.}
+    Let $X$ be a normal space, and let $A$ be a closed subspace of $X$ homeomorphic to [0, 1] with the usual topology. Then there exists a continuous function $r: X \to A$ such that for every $r|_{A} = id_{A}$.
+\end{claim}
+\begin{proof}
+    Since $A \cong [0, 1] \implies \exists f, f^{-1}$ continous bijections from $A \to [0, 1]$ and $[0, 1] \to A$ respectively where $f \circ f^{-1} = id_{[0, 1]}, f^{-1} \circ f = id_A$. By Tietze's Theorem, $\exists F: X \to [0, 1]$ continous where $F|_{A} = f$. Let $r:= f^{-1} \circ F$. Thus $\forall a \in A$, $r(a) = f^{-1}(F(a)) = f^{-1}(f(a)) = id_A(a) = a$.            
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.63}\label{Claim 7.63.}
+    Let $X$ be a normal space, and let $A$ be a closed subspace of $X$ homeomorphic to $S^1$  with the usual topology. Then there exists a continuous function $r: X \to A$ such that for every $r|_{A} = id_{A}$.
+\end{claim}
+\begin{proof}
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.64a}\label{Claim 7.64a.}
+    Suppose $X$ is normal and $A$ is $F_{\sigma}$. Then there is a function $f: X \to [0, 1]$ which only vanishes on $A$     
+\end{claim} 
+\begin{proof}
+    \[
+    A = \bigcap_{n \in \N} U_n
+    \]
+
+    Without loss of generality, $U_{n} \subeq U_{n + 1}$. 
+    
+    By Urysohn's lemma, $\exists f_n$ continous where $f_n(A) = 0$ and $f_n(X - U_n) = 1$. 
+    
+    \[F(x) = \sum_{n \in \N} \frac{1}{2^n} f_n(x)\]
+    
+    $\forall x \in X$, 
+    
+    \[\frac{1}{2^n}f_n(x) \leq \frac{1}{2^n}\]
+
+    Thus, $0 \leq F(x) \leq \sum_{n \in \N} \frac{1}{2} = 1$. 
+    
+    \begin{align*}
+        \abs{\sum_{i = 1}^{k}\frac{1}{2^n}f_i(x) - \sum_{i = 1}^{n}\frac{1}{2^n}f_i(x)} &= \sum_{i = n + 1}^{k}\frac{1}{2^i}f_i(x) \\
+        &\leq \sum_{i = n + 1}^{\infty}\frac{1}{2^i}f_i(x)\\
+        &\leq \sum_{i = n + 1}^{\infty}\frac{1}{2^i} \to 0
+    \end{align*}
+
+    as $n \to \infty$. Thus $\sum_{i = 1}^{n}\frac{1}{2^i}f_i(x) \to F$ uniformly thus $F$ is continous . $A \subeq U_i$ thus $\forall x \in A$, $f_i(x) = 0$. If $x \not \in A \implies x\in X - U_n$ for some $n$ thus $f(x) \geq \frac{1}{2^n}f_n(x) = \frac{1}{2^n} > 0$. Thus $F$ perfectly vanishes on $A$.              
+\end{proof}
+
+
+\begin{claim}{7.64}\label{Claim 7.64.}
+    Suppose $X$ is perfectly normal. Then for each pair of disjoint closed sets $A$  and $B$ in $X$, there exists a continuous function $f: X \to [0, 1]$ such that $A = f^{-1}(0)$ and $B = f^{-1}(1)$.   
+\end{claim} 
+\begin{proof}
+    Let $f_A$ be the function which perfectly vanishes on $A$. Let $f_B$ be the function which perfectly vanishes on $B$.
+
+    Let $f : X \to [0, 1]$ where, 
+    
+    \begin{align*}
+        f(x) = \frac{f_A(x)}{f_A(x) + f_B(x)}
+    \end{align*}
+
+    $f$ is continous by definition. 
+    
+    \[f(x) = 0 \iff f_A(x) = 0 \iff x \in A\]
+    \[f(x) = 1 \iff f_A(x) = f_A(x) + f_B(x) \iff f_B(x) = 0 \iff x \in B\]. 
+
+    Thus $f$ satisfies the requirment.     
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.65}\label{Claim 7.65.}
+    Perfectly normal implies completely normal
+\end{claim}
+\begin{proof}
+    Let $A$ and $B$ be seperated sets, thus $\overline{A} \cap B = \overline{B} \cap A = \empset$. 
+    
+    By claim 7.64a, there are functions, $f, g$ which vanish perfectly on $\overline{A}$ and vanish perfectly on $\overline{B}$ respectively. $h: f - g: X \to [-1, 1]$. $\overline{B} \subeq h^*((0, 1])$ and $\overline{A} \subeq h^*([-1, 0))$. $h^*((0, 1]) \cap h^*([-1, 0)) = \empset$. Thus, $X$ is completely normal.       
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.66}\label{Claim 7.66.}
+    Let $X$ be a normal, $T_1$ space. Then $X$ is homeomorphic to a subspace of $\prod_{\alpha \in \lambda}[0, 1]_{\alpha}$  for some $\lambda$ , where each factor is the unit interval with the standard topology.
+\end{claim}
+\begin{proof}
+\end{proof}
+
+\bigskip
+
+\begin{claim}{7.70}\label{Claim 7.70.}
+    A space $X$ is completely regular and $T_1$ if and only if $X$  can be embedded in $\prod_{\alpha \in \lambda}[0, 1]_\alpha$ $\alpha$  for some $\lambda$ , where each factor is the unit interval with the standard topology.
+
+\end{claim}
+
+\bigskip
+
+\begin{claim}{7.71}\label{Claim 7.71.}
+    Given a locally finite open cover ${U_\alpha}_{\alpha \in \lambda}$ of a normal, T1 space X, there is a collection of corresponding continuous functions $\varphi_a: X \to [0, 1]$ such that (i) each $\varphi_a$  is zero outside $U_\alpha$ , and (ii) the $\varphi_a$  pointwise add to 1.
+\end{claim}
+
+
+
+\end{document}

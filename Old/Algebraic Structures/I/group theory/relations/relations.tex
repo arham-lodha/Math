@@ -1,0 +1,136 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}\newcommand{\angles}[1]{\langle{#1}\rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Relations}
+\author{Arham Lodha}%put your name here
+\date{October 05, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let G be a group and S a subset of G. Show that there exists a unique smallest subgroup of G that contains S.  Describe it explicitly, in terms of "words". Show it is the intersection of all subgroups that contains S, and show it is contained in every subgroups that contains S.
+\end{PROB}
+\begin{proof}
+    Let $G = \angles{S}$ thus there exists subgroups of G containing S. Suppose $S \subset H$ where H is the smallest subgroup of G containing S. Then $\forall a \in \angles{S}$ by definition $a = s_1^{\pm 1}s_2^{\pm 1}\ldots s_k^{\pm 1}$ where $s_i \in S$ and $i$ denotes the position in a. But since H is a group containing S and is closed under multiplication $s_1^{\pm 1}s_2^{\pm 1}\ldots s_k^{\pm 1} \in H$ thus $a \in H$. Thus $\angles{S} \subseteq H$. However since H is the smallest subgroup of G containing S if $\angles{S} \subseteq H$ then $\angles{G} = H$. $\angles{S} = \{\prod_{i = 1}^k s_i^{\pm 1}, e \mid s_i \in S, k \in \N\}$. $\angles{S} = F(S \cup S^{-1} \cup \{e\})$ since $\forall s \in \angles{S}$ $s \in F(S)$ and $\forall s \in F(S)$ $s \in \angles{S}$.
+
+    Suppose $S \subset H$ where H is subgroup of G containing S. Then $\forall a \in \angles{S}$ by definition $a = s_1^{\pm 1}s_2^{\pm 1}\ldots s_k^{\pm 1}$ where $s_i \in S$ and $i$ denotes the position in a. But since H is a group containing S and is closed under multiplication $s_1^{\pm 1}s_2^{\pm 1}\ldots s_k^{\pm 1} \in H$ thus $a \in H$. Thus $\angles{S} \subseteq H$.
+
+    Because $\angles{S} \subseteq H$ for any subgroup H containing S. Then by definition of intersections, $\angles{S} \subseteq \bigcap_{S \subset H \subset G}H$. Furthermore, since $\angles{S}$ is one such H containing S and it is the smallest thus there $\not \exists$ $H$ s.t $\angles{S} \not \subset H$. Then $\bigcap_{S \subset H \subset G} (H) = (\bigcap_{S \subset H \neq \angles{S} \subset G} (H)) \cap \angles{S} \subseteq \angles{S}$. Thus $\angles{S} = \bigcap_{S \subset H \subset G} (H)$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Do the "same" thing for normal subgroups -- ie show there is a unique smallest normal subgroup that contains S, and describe it both explicitly, and as an intersection.
+\end{PROB}
+\begin{proof}
+    Let $N_0$ be the smallest normal subgroup which contains S. Then $N_0 = \{\prod_{i = 1}^k g_is_i^{\pm}g^{-1}, e \mid s_i \in S, g_i \in G, k \in \N \}$. 
+
+
+    Let $N_1$ and $N_2$ be normal subgroups of G. Then let $a \in N_1 \cap N_2$. Since $N_1$ and $N_2$ are normal $gag^{-1} \in N_1$ and $gag^{-1} \in N_2$ $\forall g \in G$. Thus $\forall g \in G$, $gag^{-1} \in N_1 \cap N_2$. Thus $N_1 \cap N_2 \triangleleft G$.
+
+
+    Thus $\bigcap_{S \subset N \triangleleft G} N$ is a normal subgroup. $S \subset \bigcap_{S \subset N \triangleleft G} N$. Since $N_0$ is one such N, $\bigcap_{S \subset N \triangleleft G} N = N_0 \cap \bigcap_{S \subset N \triangleleft G} N \subseteq N_0$. But since $N_0$ is the smallest normal subgroup of G containing S, then $\bigcap_{S \subset N \triangleleft G} N$ cannot be smaller than it, thus $\bigcap_{S \subset N \triangleleft G} N = N_0$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Let S be a set, and R a set of words in S. Let $F(S)$ be free on S, and let $N(R)$ be the smallest normal subgroup that contains all the words R.  Let $q: F(S) \to Q$ be the quotient group.  Note we have a natural $s: S \to Q$ (that might not be injective). Thus each word in S gives us an element of Q. Show that every word in R is trivial in Q, and that $S \to Q$ is universal with this property: Namely, if G is any other group, and we have a map $t: S \to G$ (a map of sets, ie a function) then $t(w)$ is trivial for all w in R iff t factors through $s$ (ie  $t = T \circ s$ for some group homo $T:Q \to G$) and in that case the factoring map $T: Q \to G$ is unique.
+\end{PROB}
+\begin{proof}
+    Let S be a set, and R a set of words in S. Let $F(S)$ be free on S, and let $N(R)$ be the smallest normal subgroup that contains all the words R.  Let $q: F(S) \to Q$ be the quotient group $Q := F(S)/N(S)$.  Note we have a natural $s: S \to Q$. $R \subset N(R)$, then by definition of the quotient map, $q(R) \subset N(R) = eN(r)$. Thus R is trivial in Q.
+
+    Since $F(S)$ is a free group on S. Let $s: G \to F(s)$. Then for any group $G$ and for any map $t: S \to G$ there exists a unique homomorphism $g_t: F(S) \to G$ s.t $t = g \circ s$. Restrict t to the maps such that the kernel of unique homomorphism $g_t$ contains R. Because the $ R = \ker q \subseteq \ker g_t$, by the prehomework theorem about groups $\exists p$ s.t $g_t = p \circ q$. Since q is a homomorphism and $g_t$ is a homomorphism $p$ must be a homomorphism. Furthermore since $g_t$ is unique and $q$ is surjective then $p$ must also be unique. Thus for any map $t$ s.t $\ker g_t = R$ there exists a unique homomorphism from $g'_{t}: Q \to G$ s.t $t = g'_{t} \circ q \circ s $. Thus Q is universal whenever $N(R)$ is trivial under any map to a group. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Show that if $s_i: S \to Q_i$, i = 1,2 each have this universal property (for groups $Q_i$), then the $Q_i$ are canonically isomorphic: show there exists unique homos $f_{ij}: Q_i \to Q_j$ such that $f_{ij} \circ s_i = s_j$, and these are inverse isomorphisms.  So this shows that (up to canonical isomorphism) there is only one group with this property, we write $Q =: \angles{S \mid R}$ "the group generated by S, with the relations R". 
+\end{PROB}
+\begin{proof}
+    Let $Q_i$ $i = 1, 2$ each have the universal property seen above in question 3. Then $R$ is trivial in $Q_1$ and $Q_2$. Then by definition there exists a unique homomorphism from $g_t: Q_i \to G$ (G is any group) s.t $t: S \to G$ factors through $s_i$ and $R \subset \ker g_t$. Since $R$ is trivial in $Q_1$ and $Q_2$ for any map $s_2: S \to Q_2$ the kernel of the homomorphism $f_{1,2}: Q_1 \to Q_2$ contains R and the homomorphism is unique and $f_{1, 2} \circ s_1 = s_2 $ by the definition of the universal property. Similarly for any map $s_1$ the kernel of the homomorphism $f_{2,1}: Q_2 \to Q_1$ contains R and thus the homomorphism is unique and $f_{2, 1} \circ s_2 = s_1$ by definition of the universal property. Since $f_{1, 2}$ and $f_{2, 1}$ are unique homomorphism, then $g_1 = f_{1, 2} \circ f_{2, 1}$ must also be unique homomorphism from $Q_1 \to Q_1$ by definition of function composition. The identity is by definition a homomorphism from $Q_1 \to Q_1$ and $s_1 = id_{Q_1} \circ s_1$ and thus is the unqiue homomorphism under $s_1$. And since $g_1$ is also a unique homomorphism under $s_1$, then $g_1 = id_{Q_1} = f_{1, 2} \circ f_{2, 1}$. Since $f_{1, 2}$ and $f_{2, 1}$ are unique homomorphism, then $g_2 = f_{2, 1} \circ f_{1, 2}$ must also be unique homomorphism from $Q_2 \to Q_2$ by definition of function composition. The identity is by definition a homomorphism from $Q_2 \to Q_2$ and $s_2 = id_{Q_2} \circ s_2$ and thus is the unqiue homomorphism under $s_2$. And since $g_2$ is also a unique homomorphism under $s_2$, then $g_2 = id_{Q_1} = f_{1, 2} \circ f_{2, 1}$. Similarly with symmettric logic, $id_{Q_2} = f_{2, 1} \circ f_{1, 2}$. Thus $f_{1, 2}$ and $f_{2, 1}$ are left and right inverses of each other and thus are bijections and homomorphisms and thus are inverse isomorphisms of each other.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Describe $G = \angles{X_1,,..,X_n \mid X_i X_j X_i^{-1} X_j^{-1}, i,j =1,..,n}$ -- identify this (with proof) with a group we know. 
+\end{PROB}
+\begin{proof}
+    By the relation, $X_i X_j X_i^{-1} X_j^{-1} = e$ for $\forall i, j \in \N$. Thus $X_iX_jX^{-1} = X_j$ and $X_iX_j = X_jX_i$. Thus $G$ is a free abelian group and is $\Z^n$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Find the order of $G = <I,J| I^2=J^2. J^4=1, I J I^{-1} = J^{-1}>$, and identify this with a concrete group (that we may not yet have discussed). 
+\end{PROB}
+\begin{proof}
+    By the relations we know, $I^2=J^2$, $J^4 = e$, and $IJ = J^{-1}I$. Thus for all $a \in Z$, $I^aJ = J^{-a}I^a$, Thus the terms can be moved around by following the relations and negating the exponent of J every time an I swaps its position with it. Thus $\forall g \in G$, $g = I^aJ^b$ and since $I^2 = J^2$ and $J^4 = 1$ $a = 0, 1$ and $b = 0, 1, 2, 3$. Thus there are at least 8 possibilities for g. $Q_8 = \{\pm 1, \pm i, \pm j, \pm k\}$ and the relations on the quaternion group are as follows $i^2 = j^2 = k^2 = -1$ and $j^4 = 1$ so $i^4 = 1$ Furthermore $ijk = -1$ and $ijk^2 = -ij = -k$ so $ij = k$. Thus $ijk = ijij = -1$. Thus $ijij^2 = -j$, $-iji = j$ and $-iji^2 = -ij(-1) = ij = ji$. Thus the quaternion group follows all the relations of G and has order 8 thus G must have order 8. There is a injective homomorphism from the quaternion group to the G. Thus they are isomorphic.
+\end{proof}
+
+
+\end{document}

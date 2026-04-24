@@ -1,0 +1,203 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Linear Algebra Bootcamp 1}
+\author{Arham Lodha}%put your name here
+\date{January 09, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    What is a field? Give loads of examples
+\end{PROB}
+\begin{definition}
+    A field is a set $F$ with 2 binary operations $+$ and $*$ such that 
+    \begin{enumerate}
+        \item $\forall x, y \in F$, $x + y \in F$ and $x * y \in F$.
+        \item $\exists ~ 0, 1 \in F \ni \forall ~ x \in F, ~ x + 0 = x, ~ x * 1 = x$
+        \item $\forall x \in F$, $\exists -x \in F$ such that $x + (-x) = 0 = (-x) + x$.
+        \item $\forall x \in F/\{0\}$, $\exists ~ x^{-1} \in F/\{0\} \ni x * x^{-1} = 1 = x^{-1} * x$
+        \item $\forall x, y, z \in F$, $(x + y) + z = x + (y + z)$ and $(x * y) * z = x * (y * z)$
+        \item $\forall x, y \in F$, $x * y = y * x$ and $x + y = x + y$
+        \item $\forall x, y, z \in F$, $x * (y + z) = (x * y) + (x * z)$
+    \end{enumerate}
+
+    Examples of fields include: $\Q, \R, F_p$ where $p$ is prime.
+\end{definition}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    What is a vector space over a field? Give loads of examples
+\end{PROB}
+\begin{definition}
+    A vector space over a field $F$ is a set $V$ with a binary operation $+$ such that:
+
+    \begin{enumerate}
+        \item \textbf{Closed Under Vector Addition}: $\forall v, w \in V$, $v + w \in V$
+        \item \textbf{Closed Under Scalar Multiplication}, $\forall v \in V$ and $a \in F$, $av \in V$
+        \item \textbf{Associativity of Vector Addition}: $\forall x, y, z \in V, x + (y + z) = (x + y) + z$
+        \item \textbf{Commutative of Vector Addition}: $\forall x, y \in V, x + y = y + x$
+        \item \textbf{Existence of a Identity Element}: $\exists 0 \in V \ni \forall v \in V, ~ v + 0 = v$
+        \item \textbf{Existence of a Inverses}: $\forall v \in V, \exists! ~ -v \in V \ni v + (-v) = 0$
+        \item \textbf{Compatibility of scalar multiplication with field multiplication}: $\forall v \in V, a, b \in F ~ (ab)v$
+        \item \textbf{Identity element of scalar multiplication}: $1$ is the multiplicative Identity in F. $\forall v \in V$, $1v = v$
+        \item \textbf{Distributivity of scalar multiplication with respect to vector addition}: $\forall v, w  \in V, ~ a \in F$, $a(v + w) = av + aw$.
+        \item \textbf{Distributivity of scalar multiplication over scalar addition}: $\forall v \in V, \forall a, b \in F, (a + b)v = av + bv$
+    \end{enumerate}
+
+    Some examples of vector spaces are $\R^n, \Q^n, F_p^n$ where p is a prime, $\C^n$ for $n \in \N$.
+\end{definition}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    What should we mean by a map between vector spaces, notationally $Hom_F(V,W)$?
+\end{PROB}
+\begin{solution}
+    $\forall f \in Hom_F(V, W)$, $\forall~v, w \in V,~\forall~a, b \in F$, $f(av + bw) = af(v) + bf(w)$.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    What do we mean by $F^n$, space of column vectors?
+\end{PROB}
+\begin{proof}
+    A n-tuple of elements of $F$ arranged in a column where vector addition adds each element element-wise.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    What is $Hom_F(F^n, W)$ — that is, what is a linear map from column vectors to another vector space W? Show this is canonically identified with $W^n$ — n-tuples of elements of W.
+\end{PROB}
+\begin{proof}
+    Let $e^i$ be the ith standard basis of $F^n$.
+
+    Define $\alpha: \Hom_F(F^n, W) \to W \times ... \times W$ such that $\phi \to (\phi(e_1), \phi(e_2), ..., \phi(e_n))$. 
+    
+    Define $\beta: W \times ... \times W \rarr \Hom_F(F^n, W)$ s.t for all $(w_1, w_2, ..., w_n) \to [f \to \sum_{i = 1}^{n}(f_i w_i)]$ where $f_i$ is the ith value of $f$.
+
+	For all $\phi \in \Hom_F(F^n, V)$, $(\beta \circ \alpha)(\phi) = \beta((\phi(e_1), \phi(e_2), ..., \phi(e_n))) = [f \to \sum_{i = 0}^{n}f_i\phi(e_i)] = [f \to \sum_{i = 0}^{n}\phi(f_i*e_i)]$ for all $f \in F^n$ because $\phi$ is a linear map. Let $\gamma: F^n \to V$, such that $f \to \sum_{i = 0}^{n}\phi(f_i*e_i)$. Thus $(\beta \circ \alpha)(\phi) = \gamma$.
+    
+    For all $j \in [1, \ldots, n]$, $\gamma(e_j) = \sum_{i = 0}^{n}\phi(e_{j_i}*e_j) = \phi(e_j)$. If for all $e_j$, $\gamma(e_j) = \phi(e_j)$ then by definition of a linear map, $\gamma = \phi$. Thus $\beta$ is $\alpha's$ left inverse.
+
+	For all $v \in W \times ... \times W$, $(\alpha \circ \beta)(v) = \alpha(\beta(v)) = \alpha(\chi_v)$ where $\chi_v(f):= \sum_{i=1}^{n}(f_i * v_i)$ for all $f \in F^n$. Then for all $e_j$, $\chi_v(e_j) = \sum_{i=1}^{n}(e_{j_i} * v_i) = v_i$. Thus $\alpha(\chi_v) = (v_1, v_2, ..., v_n) = v$. Thus $\beta$ is $\alpha's$ right inverse.
+
+	Thus $\alpha$ and $\beta$ are each others inverse maps, thus $\alpha, \beta$ are bijective.
+
+    $\forall \phi_1, \phi_2 \in Hom_F(F^n, W)$, $\forall a, b \in F$. $\alpha(a\phi_1 + b\phi_2) = \left((a \phi_1 + b \phi_2)(e_1), \dots, (a \phi_1 + b \phi_2)(e_n)\right) = (\phi_1(ae_1) + \phi_2(be_2), \dots, \phi_1(ae_n) + \phi_2(be_n)) = a(\phi_1(e_1), \dots, \phi_1(e_n)) + b\left(\phi_2(e_1), \dots, \phi_2(e_n)\right) = a \alpha(\phi_1) + b \alpha(\phi_2)$. $\alpha$ is linear. So $Hom_F(F^n, W) \cong W^n$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6a}\label{Problem 6a.}
+    Now when we have a function between two sets, we can (and should) ask, when is it injective, when is it surjective. Better, we can ask what is its image, and what are its “fibers” (the inverse images of points in the target).
+\end{PROB}
+\begin{solution}
+    A function between two sets is injective when its fibres are empty or single points in the domain. A function is surjective when the image is the entire target set or no fibre is empty. 
+\end{solution}
+
+\begin{PROB}{6b}\label{Problem 6b.}
+    Explain how we get the notions of span, and linear independence, and kernel.
+\end{PROB}
+\begin{solution}
+    A linear map is injective $\iff$ kernel is zero. Suppose a linear map $f: V \to W$ is injective. Assume the contrary, $x \in \ker f \ni x \neq 0$. Then $f(x) = f(nx - (n-1)x) = 0$ and $f(nx) = f((n-1)x)$ for all $n \in \Z$ thus $x = nx$. Thus $f$ is not injective. 
+    
+    Suppose $\ker f = \{0\}$. $\forall v, w \in V \ni f(v) = f(w)$. Then $f(v) - f(w) = f(v - w) = 0$ thus $v - w = 0 \implies v = w$. Thus f is injective.
+
+    Let $X \subseteq V$. Let $X^n \subset Hom_F(F^n, V^n)$ be the set of n-tuples of elements of X. Let $n$ be the largest natural number such that $X^n$ contains a injective function $f$. Thus by above, $\ker(f) = \{0\}$. Thus $f(\sum_{i=1}^{n}a_ie^i) = 0 \iff a_i = 0$. Thus $\sum_{i=1}^{n} a_i f(e^i) = 0 \iff a_i = 0$. If $n = |X|$ then $X$ is linearly independent. $\text{span}(X) = f_*(F^n)$.
+\end{solution}
+
+\bigskip
+
+\begin{claim}{7a}
+    Prove that if we have a surjective map of $F^m$ to W and an injective map (both linear) from $F^n$ to W, then n is at most m.
+\end{claim}
+\begin{proof}
+    Suppose there exists a surjective linear map $S: F^m \to W$ and a injective map $T: F^n \to W$. Let $S': W \to F^m$ such that $S \circ S' = id_W$. $\forall w \in W$, $\exists f \in F^m$ such that $S(f) = w$ by surjectivity let $S'(w) = f$. $S'$ is injective because it has a right inverse. Thus $F^n \subseteq W \subseteq F^m$ through $T$ and $S'$ respectively. Thus $F^n \subseteq F^m$. Thus $n \leq m$.
+\end{proof}
+
+
+\begin{claim}{7b}\label{Claim 7b.}
+    Dimension makes sense
+\end{claim}
+\begin{solution}
+    If there exists a isomorphism between $F^m$ and $W$ then there exists a surjective function and a injective function between the two. For any $n < m$, there is not a surjective linear map $F^n \to W$ because of the previous claim. For any $n > m$, there is not a injective linear map $F^n \to W$ by the previous claim. Thus dimension is well defined.
+\end{solution}
+
+\begin{claim}{7c}\label{Claim 7c.}
+    Show two finite dim vector spaces are iso iff they have the same dimension.
+\end{claim}
+\begin{proof}
+    $\implies$: V and W are finite dimension vector spaces which are iso. Let $n = \dim V$ by previous claim $F^n \cong V$ by assumption and transitivity of isomorphisms $F^n \cong W$. By previous claim $n = \dim W$.
+
+    $\impliedby$: $n := \dim V = \dim W$. By previous claim, $V \cong F^n \cong W$. Thus $V \cong W$.
+\end{proof}
+
+\bigskip
+
+    
+\end{document}

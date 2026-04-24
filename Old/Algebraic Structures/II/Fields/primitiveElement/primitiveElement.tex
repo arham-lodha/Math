@@ -1,0 +1,153 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\ext}[2]{\text{Ext}_{#1}^{#2}}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Primitive Element Theorem}
+\author{Arham Lodha}%put your name here
+\date{April 05, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Show that for a field M between K and L, L=M iff any $g: L \to A$  which is the identity on M is the identity.  
+\end{PROB}
+\begin{proof}
+    $\implies$: Suppose $L = M$. Then $\forall g: L \to A$, where $g|_M = id$. Since $M$ is identically $L$, if $g|_M = id \implies g|_{L} = id \implies g = id$. 
+    
+    $\impliedby$: Suppose $\forall g \in L \to A \ni g|_{M} = id \implies g = id$. Assume the contrary, $L \neq M$. Then $\exists l \in L \setminus M$. Define the ring homomorphism, $h : L \to A \ni h(l) = 0$ and $h|_M = id_M$. Thus $h|_{M} = Id$ but $h \neq id$ which is a contradiction. Thus $L = M $.        
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Now we prove $L = K[z]$ for some z.  Explain why we can assume $L = K[ s, t]$. 
+\end{PROB}
+\begin{proof}
+    Base Case: Suppose $L = K[a]$, we are done. 
+    
+    Inductive Hypothesis: Suppose $\forall a_1, \dots, a_k \in A$ were $a_i$ is seperable that $K[a_1, \dots, a_{k-1}] = K[s]$ for some $s \in A$. 
+    
+    Inductive Step: Suppose $L = K[a_1, \dots, a_k]$ where $a_i$ is seperable over $K$. Let $M = K[a_1, \dots, a_{k-1}]$. By the inductive hypothesis, $M = K[s]$ for some $s \in A$. Thus $L = K[s, a_k]$ and we have reduced to the 2 element extension of $K$. Thus if we prove $L = K[s, a_k] = K[b]$ for $b \in A$, we are done. 
+    
+    
+    Thus it suffices to assume that $L = K[s, t]$ for some $s, t \in A$ seperable .  
+
+    % Suppose we prove, $\forall s, t \in A$ $\exists a \in A$ , $K[s, t] = K[a]$. Then for any extension of $K$, $K[a_1, \dots, a_n] = K[b_1, \dots b_{\frac{n}{2}}]$ by taking every pair. We can keep on reducing till we get to the case of 2 or 3 elements. If we are at the case of extension of 2 elements we are done. If we are at a extension with 3 elements we just need to pick a pair and reduce that and then we are left with 1 pair and we are done.
+    
+    % Thus it suffices to prove that if $L = K[s, t]$, $L = K[z]$ for some $z$.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    We consider $s + k t$ for k in K, and we will show that  $L = K[s + k t]$ for some k (in fact it will work for all but finitely many k in K). We do it by picking k so that there are no $g: K[s + k t] \to L$ which are the identity on K.
+
+    Explain why $E:= {g: L \to A| g(k) = k for all k in K}$ is finite. Take $g \in E$, g not the identity. Show there is at most one $k(g)$ so that  $g(s + k t) = s + k t$.  Now take x in K which is not one of the $k(g)$, for g in E. Why does such an x exist?  Explain why $g(s + x t) = s + xt$ iff $g \in E$ is the identity. Conclude that  $K[s + xt] = L$, for all but finitely many x. 
+\end{PROB}
+\begin{proof}
+    $E = \text{Ext}_{K}^{L}(id)$, and $|E| = |\text{Ext}_{K}^{L}(id)| \leq [L : K]$. Thus $\text{Ext}_{K}^{L}(id)$ is finite. $\forall g \in E \ni g \neq id$. Let $k(g)\in K \ni g(s + kt) = s + kt$. Thus $g(s) + kg(t) = s + kt \implies g(s) - s = k(t - g(t))$. Since $L = K[s, t]$, if $g(s) = s$ and $g(t) = t$, $\forall as + bt +c \in K[s, t]$, $g(as+ bt + c) = as +bt+c$ and thus $g = id$. Thus $g$ is not the identity on both $s$ and $t$. If $g(t) = t$, then there exists no $k \in K$ . Otherwise, $k = \frac{g(s) - s}{t - g(t)}$ which is either in $K$ and is unique or is not in $K$ and thus invalid. Thus there is either 0 or one $k(g)$ for any g where $g$ is not the identity. Since E is finite and for each $g \in E$ where $g \neq id$, there is at most 1 $k(g)$ associated with it, the $\left\{ k(g) | \forall g\in E \right\}$ is finite. 
+    
+    
+    Suppose, $\exists g \in E \ni g(s + xt) = s + xt$. Assume the contrary, $g \neq id$, then $x = k(g)$ and $x \in \left\{ k(g) | \forall g\in E \setminus \left\{ id \right\} \right\}$ since $g \neq Id$ which is a contradiction. Thus $g = id$. 
+    
+    Suppose $g$ is the identity, then $g(s + xt) = s + xt$. 
+    
+    Thus the only function $g: L \to A$ where $g|_{K[s + xt]} = id$ is the identity function. Thus by problem 1, $L = K[s + xt]$.      
+\end{proof}
+
+\bigskip
+
+Let L/K as usual be a finite extension. Recall we say an element a of L is separable over K if its min poly has no multiple roots (in any field containing K). 
+
+
+\begin{PROB}{5}\label{Problem 5.}
+    Say $L= K[a_1,...,a_r]$. Show if all $a_i$ are separable, then every a in L is separable. In which case we say L is separable over K
+\end{PROB}
+\begin{proof}
+    Base Case: Suppose $\forall a \in A$ where a is seperable over $K$, by the field symmetries homework, $|\ext{K}{K[a]}(id)| = [K[a] : K]$. By the same homework, that means $\forall l \in L$, l is seperable. 
+    
+    Inductive Hypothesis: Suppose $\forall a_1, \dots, a_{k -1} \in A$ where $a_i$ is seperable over K for all i, that $K[a_1, \dots, a_{k-1}]$ is seperable over K. 
+    
+    Inductive Step: Suppose $\forall a_1, \dots, a_{k} \in A$ where $a_i$ is seperable over K for all i. By the induction hypothesis, $M = K[a_1, \dots, a_{k - 1}]$ is seperable. By the Field Symmetries homework $|\ext{K}{M}(id)| = [M : K]$. Let $r: \ext{K}{K[a_1, \dots, a_k]}(id) \to \ext{K}{M}(id)$. By the field Symmetries homework, $\forall q \in \ext{K}{M}(id)$, $r^{-1}(q) = \ext{M}{K[a_1, \dots, a_k]}(q)$. Furthermore, $K[a_1, \dots, a_k] = M[a_k]$. Since $a_k$ is seperable over K, it is seperable over $M$ because the minimal polynomial of $a_k$ over $M$ must divide the minimal polynomial of $a_k$ over K. Thus by field symmetries homework, $\ext{M}{K[a_1, \dots, a_k]}(q) = [K[a_1, \dots, a_k] : M]$ for all $q \in \ext{K}{M}(id)$. Thus every fiber is the same size, thus $r$ is surjective. Thus $\ext{K}{K[a_1, \dots, a_k]}(id) = \sum_{q \in \ext{K}{M}(id)}\ext{M}{K[a_1, \dots, a_k]}(q) = \sum_{q \in \ext{K}{M}(id)}[K[a_1 ,\dots, a_k] : M] = [M: K] [K[a_1 ,\dots, a_k] : M] = [K[a_1 ,\dots, a_k] : K]$. By the field symmetries homework, $K[a_1, \dots, a_k]$ is seperable.
+    
+    
+    Thus $L$ is seperable.  
+
+    % Let $r : \ext{K}{L}(id) \to \ext{K}{K[a_i]}(id)$ for any $i$. From the Field Symmetries Homework, we know, $\forall q \in \ext{K}{K[a_i]}(id)$, $r^{-1}(q) = \ext{K[a_i]}{L}(id)$. Since $a_i$ is seperable, $|\ext{K}{K[a_i]}(id)| = [K[a_i] : L]$ by the field symmetries homework. Furthermore since $\forall j$, $a_j$ is seperable over K, that means its seperable over $K[a_i]$. Thus         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Let g be a monic poly in K, with no double roots in any field extension. Let L be a splitting field for K,
+    this means that g has all its roots in L, and L is generated over K by the roots of g (note this means there is no proper subfield of L in which g has all its roots). Let a be any element of L. Show its minimal polynomial has all its roots in L, and no double roots.  Why is this surprising?  
+\end{PROB}
+\begin{proof}
+    Let the roots of $g$ be $a_1, \dots, a_k$. By assumption, $a_1, \dots, a_k$ are distinct. Let $L = K[a_1, \dots, a_k]$. $\forall i \in [1, \dots, k]$, since $a_i$ is a root of $g$ and thus $p_{a_i}$, the minimal polynomial of $a_i$, divides $g$, thus since $g$ has distinct roots, $p_{a_i}$ also has distinct roots, and since all the roots of $g$ are in $K[a_1, \dots, a_k]$, all the roots of $p_{a_i}$ are in $K[a_1, \dots, a_k]$ Thus $a_i$ is seperable. By problem 5, $K[a_1, \dots, a_k]$ is seperable and thus $\forall l \in K[a_1, \dots, a_k]$, the minimal polynomial of $l$ has all its roots in $K[a_1, \dots, a_k]$ and all the roots are distincts.                    
+\end{proof}
+
+\end{document}

@@ -1,0 +1,531 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 6}
+\author{Arham Lodha}%put your name here
+\date{May 22, 2024}%enter the due date here
+\maketitle
+
+\section{Compact Sets}
+
+\begin{claim}{6.1}\label{Claim 6.1.}
+    Let $X$ be a finite topological space. Then $X$ is compact.  
+\end{claim}
+\begin{proof}
+    Since $X$ is finite then $2^X$ is finite, thus $\T$ is finite because by definition it is a subset of the power set of $X$. Any open cover of $X$ is a subset of $\T$ and thus is finite thus $X$ is compact.       
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.2}\label{Claim 6.2.}
+    Let $C$ be a compact subset of $\R$. Then $C$ has a maximum point $m \in C$ such that $\forall c \in C$ $c \leq m$.       
+\end{claim}
+\begin{proof}
+    Assume the contrary that $C$ doesn't have a maximum $m$, thus $\forall x \in C, \exists y_x \in C \ni y_x > x$. Create the open cover of $C$, $U = \left\{ (-\infty, y_x) \right\}_{x \in C}$. Any finite subcollection of U is defined by a finite subset of $C$, $D = \left\{ x_1, \dots, x_n \right\} \subset C$. $\exists d \in D \ni \exists y \in C \setminus D \ni y > d$. Thus $y$ is not in the union of the finite subcollection of $U$, thus the finite subcollection of $U$ doesn't create a subcover of $C$. However this is a contradiction with the fact $C$ compact.  Thus $C$ must have a maximum m such that $\forall c \in C \ni m \geq c$.                          
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.3}\label{Claim 6.3.}
+    If $X$ has a compact space, then any infinite subset of $X$ has a limit point   
+\end{claim}
+\begin{proof}
+    Assume the contrary that exists a infinite subset $A$ of $X$ which has no limit points. Thus $\forall x \in X, \exists U_x \in \T \ni x \in U_x $ but $\left(U_x - \left\{ x \right\}\right) \cap A = \emptyset$. Create the open cover $\mathcal{U} = \left\{ U_x \right\}_{x \in X}$. Any finite subcollection of $\mathcal{U}$ will be given by a finite subset of $X$, $S = \left\{ x_1, \dots, x_n \right\} \subset X$, where the open sets are $U_{x_i}$ for all $i \in \left[1, \dots n\right]$. However since $A$ is infinite and $S$ is finite, $S \cap A$ is finite. Since $\forall x \in X$, $\left(U_x - \left\{ x \right\}\right) \cap A = \emptyset$, $\forall x \in S \cap A$, $U_x \cap A = \left\{ x \right\}$. Thus $\forall x \in A - 
+    S \cap A$, $x \not \in U_y$ for all $y \in S$. Thus the finite subcollection of $\mathcal{U}$ corresponding to S is not a cover. Thus the cover $\mathcal{U}$ has no finite subcover which contradicts $X$'s compactness. Thus by contradiction, all infinite subsets of $X$ have a limit point.                        
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.4}\label{Claim 6.4.}
+    A space $X$ is compact iff every collection of closed sets with the finite intersection property has a nonempty intersection 
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $X$ is compact. Let $\forall B \subseteq \mathcal{Cs}$, such that $B$ has the finite intersection property. $B = \left\{ B_\alpha \right\}_{\alpha \in \lambda}$.  Assume the contrary that $\bigcap_{\alpha \in \lambda} B_\alpha = \emptyset \implies \bigcup_{\alpha \in \lambda} B_{\alpha}^c = X$. Thus $B^c = \left\{ B_{\alpha}^c \right\}_{\alpha \in \lambda}$ is a open cover of $X$. Thus there exists a finite subcover $D^c \subseteq B^c$ since $X$ is compact. Thus $\bigcup_{\alpha \in [1, \dots, n]} D^c_\alpha = X \implies \bigcap_{\alpha \in [1, \dots, n]}D_\alpha = \emptyset$ thus there exists finite subcollection $D \subseteq B$ such that the intersection of the finite subcollection is empty, thus breaking the finite intersection property of $B$. Thus by contradiction, $B$ must have e nonempty intersection.
+    
+    $\impliedby:$ Suppose $X$ is a topological space such that every collection of closed sets with the finite intersection property have a nonempty intersection. Assume the contrary that $X$ is not compact. Thus there exists a open cover of $X$, $\mathcal{U} = \left\{ U_\alpha \right\}_{\alpha \in \lambda}$ which doesn't have a finite subcover of $X$. $\mathcal{U}^c = \left\{ U_\alpha^c \right\}_{\alpha \in \lambda}$ is a collection of closed sets. Since $\bigcup_{\alpha \in \lambda} U_\alpha = X \implies \bigcap_{\alpha \in \lambda} U_\alpha^c = \emptyset$ 
+    
+    Thus for all finite subcollections $\mathcal{U}_0 = \left\{ U_{n} \right\}_{n \in \left[0, \dots, m\right]}$, $\bigcup_{n = 1}^{m} U_n \neq X \implies \bigcap_{n = 1}^{m}U_n^c \neq \emptyset$. 
+    
+    Thus $U^c$ has the finite intersection property, thus its intersection must be nonempty which causes a contradiction. Thus $X$ must be compact by contradiction.  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.5}\label{Claim 6.5.}
+    A space $X$ is compact iff for any open set $U$ in $X$ and any collection of closed sets $\left\{ K_\alpha \right\}_{\alpha \in \lambda}$ such that $\bigcap_{\alpha \in \lambda} K_{\alpha} \subeq U$, there is a finite number of $K_\alpha$'s whose intersection lies in $U$       
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $X$ is compact. Assume the contrary that $\exists U \in \T$ and a collection of closed sets $\mathcal{K} = \left\{ K_\alpha \right\}_{\alpha \in \lambda}\ni \bigcap_{\alpha \in \lambda} K_\alpha \subseteq U$ but a there doesn't exist a finite number of $K_\alpha$'s whose intersection lies in $U$. $\mathcal{K}^c = \left\{ K_\alpha^c \right\}_{\alpha \in \lambda}$ and $U^c \subseteq \bigcup_{\alpha \in \lambda} K^c$. Thus $\mathcal{K}^c \cup U$ is a cover of $X$. Thus by definition of compact, $\exists \mathcal{K}_0^c = \left\{ K_{\alpha_1}^c, \dots,  K_{\alpha_n}^c \right\}$ a finite subcollection of $\mathcal{K}^c$ such that $\mathcal{K}_0^c \cup U$ is a finite cover of $X$. Thus $U^c \subseteq \bigcup_{i = 1}^{n} K_{\alpha_i}^c \implies \bigcap_{i = 1}^{n} K_{\alpha_i} \subseteq U$, thus there exists a finite number of $K_\alpha$'s such that iter intersection lies in $U$. Thus a contradiction occurs and the theorem is true. 
+    
+    $\impliedby:$ Suppose for any open set $U$ in $X$ and any collection of closed sets $\left\{ K_\alpha \right\}_{\alpha \in \lambda}$ such that $\bigcap_{\alpha \in \lambda} K_{\alpha} \subeq U$, there is a finite number of $K_\alpha$'s whose intersection lies in $U$. 
+    $\forall \mathcal{U} \subseteq \T$, $\mathcal{U} = \left\{ U_\alpha \right\}_{\alpha \in \lambda}$ is a cover of $X$. $\forall V \in \mathcal{U}$, $V^c \subseteq \bigcup_{\alpha \in \lambda} U_\alpha$. Thus $\mathcal{U}^c = \left\{ U_\alpha^c \right\}_{\alpha \in \lambda}$ is a collection of closed sets where $\bigcap_{\alpha \in \lambda} U_\alpha^c \subseteq V$. By the given, $\exists \mathcal{U}_0^c = \left\{ U_{\alpha_i}^c \right\}_{i = 1}^n$ a finite subcollection such that $\bigcap_{i = 1}^n U_{\alpha_i}^c \subseteq V$. Thus $\exists U_{0} = \left\{ U_{\alpha_i} \right\}\ni V^c \subseteq \bigcup_{\alpha \in \lambda} U_{\alpha_i} \implies \left(\bigcup_{\alpha \in \lambda} U_{\alpha_i}\right) \cup V = X $. Since $V \in \mathcal{U}$, let $V = U_{\alpha_0}$, thus $\left\{ U_{\alpha_i} \right\}_{i = 0}^{n}$ is a finite subcover of $X$. Since you can construct a finite subcover of $X$ for every cover of $X$, $X$ is compact.                
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.8}\label{Claim 6.6.}
+    Let $A$ be a closed subspace of a compact space. Then $A$ is compact  
+\end{claim}
+\begin{proof}
+    Suppose $A$ is a closed subspace of a compact subspace. $\forall \mathcal{U} \subseteq \T$, $\mathcal{U} = \left\{ U_{\alpha} \right\}_{\alpha \in \lambda}$ is a open cover of A. For all $\alpha \in \lambda$, $\exists C_\alpha \in \T \ni C_\alpha \cap A = U_\alpha$, thus create $\mathcal{C} = \left\{ C_\alpha \right\}_{\alpha \in \lambda}$. $A \subseteq \bigcup_{\alpha \in \lambda} C_\alpha$ thus $\mathcal{C} \cup \left\{  A^c\right\}$ is a open cover of $X$. thus there exists a finite subcover, $\mathcal{C}_0 \cup \left\{ A^c \right\}$ of X where $\mathcal{C}_0 = \left\{ C_{\alpha_i} \right\}_{i = 1}^n$. Thus $A \subseteq \bigcup_{i = 1}^{n} C_{\alpha_i}\implies A \subseteq \bigcup_{i = 1}^n C_{\alpha_i} \cap A \implies A \subseteq \bigcup_{i = 1}^n U_{\alpha_i}$. Thus there exists a finite subcover of $A$, $\mathcal{U}_0 = \left\{ U_{\alpha_i} \right\}_{i = 0}^n$ where $U_{\alpha_i} = C_{\alpha_i} \cap A$. Thus every open cover of A has a finite subcover, thus A is compact.                 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.9}\label{Claim 6.9.}
+    Let $A$ be a compact subspace of a Hausdorff space X. Then $A$ is closed.   
+\end{claim}
+\begin{proof}
+    Suppose $A$ is a compact subspace of a Hausdorff space $X$. It suffices to show $A^c$ is open. $\forall p \in X - A$, $\forall a \in A$, by definition of Hausdorff space, $\exists U_a, V_a \in \T \ni a \in U_a, p \in V_a, U_a \cap V_a = \empset$. The set $\left\{ U_a \right\}_{a \in A}$ is a open cover of $A$. Since $A$ is compact, $\exists \left\{ a_1, \dots, a_n \right\}\subseteq A$ such that $A \subeq \bigcup_{i = 1}^n U_{a_i} = U$, a finite cover. Take $V_p = \bigcap_{i = 1}^n V_{a_i}$, a open set since it is a finite intersection. $p \in V$ and since $V_{a_i} \subeq V_{a_i}^c$ for all $i$ that means $V_p \subseteq U^c \subeq A^c$. Thus $\forall p \in A^c$, $\exists V_p \in \T \ni p \in V_p \subseteq A^c$. So by claim 2.3, $A^c$ is open thus $A$ is closed.                            
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.10}\label{Problem 6.10.}
+    Construct an example of a compact subset of a topological space that is not closed.
+\end{PROB}
+\begin{proof}
+    Take the two headed snake topology. 
+    $A = (0, 1] \cup \left\{ 0' \right\}$ is compact, $A^c = (1, \infty) \cup \left\{ 0'' \right\}$ is not open, thus A is not closed. A is compact.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.11}\label{Problem 6.11.}
+    Must the intersection of two compact sets be compact? Add hypotheses, if necessary. Extend any theorems you discover, if possible.
+\end{PROB}
+\begin{claim}{6.11a}\label{Claim 6.11a.}
+\end{claim}
+
+\bigskip
+
+\begin{claim}{6.12}\label{Claim 6.12.}
+    Every compact, Hausdorff space is normal.
+\end{claim}
+\begin{proof}
+    Let $A, B \in \mathcal{C} \ni A \cap B = \empset$. Since $A$ and $B$ are closed, by claim 6.9 $A$ and $B$ are compact. $\forall (a, b) \in A \times B$, since $X$ is Hausdorff, $\exists U_{a, b}, V_{a, b} \in \T \ni a \in U_{a, b}, b \in V_{a, b}, U_{a, b} \cap V_{a, b} = \empset$. 
+    
+    $\forall a \in A$, we want to create $U_{a}$ and $V_{a}$ where $V_{a}$ is a open cover of $B$ and $U_{a}$ is a open set which is disjoint from $V_a$ containing $a$. Do this by creating the collection $\mathcal{V}_{a} = \left\{ V_{a, b} \right\}_{b \in B}$ and $\mathcal{U}_{a} = \left\{ U_{a, b} \right\}_{b \in B}$. $\mathcal{V}_a$ is a open cover of $B$. Since $B$ is compact there must be a finite subcover of $B$, $\mathcal{V}_{a, 0} = \left\{ V_{a, b_i} \right\}_{i = 1}^n$ this induces a finite subcollection of $\mathcal{U}_a = \left\{ U_{a, b_i} \right\}_{i = 1}^n$. Since $\forall i \in [1, \dots, n]$ $U_{a, b_i} \subeq V_{a, b_i}^c $, $\bigcap_{j = 1}^n U_{a, b_j} \subseteq V_{a, b_i}^c$. Thus $\bigcap_{j = 1}^n U_{a, b_j} \subseteq \bigcap_{i = 1}^n V_{a, b_i}^c = \left(\bigcup_{i = 1}^n V_{a, b_i}\right)^c \implies \bigcup_{i = 1}^n V_{a, b_i} \cap\bigcap_{j = 1}^n U_{a, b_j} = \empset$. $\bigcap_{j = 1}^n U_{a, b_j}$ is a open set, because its a finite intersection. Let $V_{a} = \bigcup_{i = 1}^n V_{a, b_i}$ and $U_a = \bigcap_{j = 1}^n U_{a, b_j}$.
+    
+    Now collect all the $V_a$ and $U_a$ into corresponding collections, $\mathcal{U} = \left\{ U_a \right\}_{a \in A}$ and $\mathcal{V} = \left\{ V_a \right\}_{a \in A}$. Since $\forall a \in A$ $a \in U_a$, $\mathcal{U}$ is a open cover of $A$. Since $A$ is compact, $\exists \mathcal{U}_0 \subseteq \mathcal{U}$ where $\mathcal{U}_0 = \left\{ U_{a_i} \right\}_{i = 1}^m$ and $\mathcal{U}_0$ is a cover of $A$. This induces the subcollection of $\mathcal{V}$, $\mathcal{V}_0 = \left\{ V_{a_i} \right\}_{i = 1}^m$. Since $V_{a_i} \cap U_{a_i} = \empset$ by definition, $\forall i \in [1, \dots, n]$ $\left(\bigcap_{i = 1}^m V_{a_i}\right) \cap U_{a_i} = \empset \implies \left(\bigcap_{i = 1}^m V_{a_i}\right) \cap \left(\bigcup_{i = 1}^m U_{a_i}\right) = \empset$. Let $V = \bigcap_{i = 1}^m V_{a_i}$ and $U = \bigcup_{i = 1}^m U_{a_i}$, both are open sets because V is a finite intersection and $U$ is a union. Since $\forall a \in A$, $B \subset V_{a} \implies B \subseteq V_{a_i}$ for all i, thus $B \subseteq V$. Thus $A \subeq U$, $B \subeq V$, and $U \cap V = \empset$. 
+    
+    Thus $X$ is normal, by definition of normality .  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.13}\label{Claim 6.13.}
+    Let $\B$ be the basis for a space $X$. Then $X$ is compact if and only if every open cover of $X$ by basis open sets in $\B$ has a finite subcover      
+\end{claim}
+\begin{proof}
+    $\implies$: Suppose $X$ is compact. $\forall \mathcal{U} \subseteq \B$ where $\mathcal{U}$ is a cover of $A$. By definition of basis $\mathcal{U}$ is a open cover of $A$, thus there $\exists \mathcal{U}_0 \subeq \mathcal{U}$ a finite subcover of $A$. $\mathcal{U}_0$ consists of basis elements. Thus the theorem is true. 
+    
+    $\impliedby:$ Suppose every open cover of $X$ by basis open sets in $\B$ has a finite subcover. Assume the contrary that $X$ is not compact, thus $\exists \mathcal{U} = \left\{ U_\alpha \right\}_{\alpha \in \lambda} \subseteq \T$ a cover of $X$ which doesn't have a finite subcover. $\forall \alpha \in \lambda$, $\exists \left\{ V_{\alpha, \beta} \right\}_{\beta \in \rho} \subseteq B \ni U_\alpha = \bigcup_{\beta \in \rho} V_{\alpha, \beta}$. Thus $\left\{ V_{\alpha, \beta} \right\}_{\alpha \in \lambda, \beta \in \rho}$ is a basis open set cover of $A$. Since $\mathcal{U}$ doesn't have a finite subcover, $\left\{ V_{\alpha, \beta} \right\}_{\alpha \in \lambda, \beta \in \rho}$ cannot have a finite subcover which contradicts the assumption. Thus by contradiction $X$ must be compact.    
+\end{proof}
+
+\pagebreak
+
+\section{Heine Borel}
+
+\begin{claim}{6.14}\label{Claim 6.14.}
+    For any $a \leq b$ in $\R$, the subspace $[a, b]$ is compact   
+\end{claim}
+\begin{proof}
+    $\forall U \subseteq \B := \left\{ (a, b) \mid a, b \in \R, a < b \right\} $, where $\mathcal{U}$ is a open cover of $[a, b]$. Let $\mathcal{U}_0 = \emptyset$, $a_0 = a$, $b_0 = b$, $I_0 = [a_0, b_0]$. Construct a subcover $\mathcal{U}_0$ of $[a, b]$ using this algorithm.
+    
+    \begin{enumerate}
+        \item i = 0
+        \item while $a_i \leq b_i$: 
+        
+        \begin{enumerate}
+            \item $\exists U, V \in \mathcal{U} \ni a_i \in U, b_i \in V$. $U$ and $V$ are bounded thus $\sup U, \inf U, \sup V, \inf V$ exists. Thus let $U_i$ be the $U$ such that $\sup U = \max\left\{ \sup A \mid A \in \mathcal{U}, a_i \in A \right\}$ . Let $V_i$ be the $V$ such that $\inf V = \min\left\{ \inf A \mid A \in \mathcal{U}, b_i \in A \right\}$
+            \item Let $a_{i + 1} := \sup U_i$ and let $b_{i + 1} := \sup V_i$
+            \item $I_{i + 1} := [a_{i + 1}, b_{i + 1}]$
+            \item $\mathcal{U}_0 = \mathcal{U}_0 \cup \left\{ U_i, V_i \right\}$  
+            \item $i = i + 1$   
+        \end{enumerate}
+    \end{enumerate}
+
+    Now we need to prove 2 things about the algorithm: 
+
+    \begin{enumerate}
+        \item It terminates
+        \item $\mathcal{U}_0$ is finite and a cover 
+    \end{enumerate}
+
+    Assume the contrary that the algorithm doesn't terminate, thus $\forall n \in \N$, $a_n \leq b_n$. Note if $a_n = b_n$ for any $n$, then $b_{n + 1} < a_{n + 1}$ because $\inf V_n < a_n < \sup U_n$. Thus its suffices to assume $\forall n \in \N$, $a_n < b_n$. Thus we have two sequences $\left\{ a_n \right\}_{n \in \N}$ and $\left\{ b_n \right\}_{n \in \N}$ where $a_n$ is monotonically increasing and $b_n$ is monotonically decreasing and $a \leq a_n < b_n \leq b$. Thus $a_n \to c = \sup(\left\{ a_n \right\}_{n \in \N})$ and $b_n \to d = \inf\left\{ b_n \right\}_{n \in \N}$ converge by MCT. Thus the interval $[c, d] \subseteq [a, b]$. Assume the contrary $\exists U \in \mathcal{U} \ni c \in U$, because there $\exists \epsilon \in \R^+ \ni (c - \epsilon, c + \epsilon) \subeq U$ for this $\epsilon$ $\exists K \in \N \ni \forall n \geq K, a_n \in (c - \epsilon, c + \epsilon)\implies a_n \in U$. Since $a_n < a_{n + 1} c < \sup U$ and $a_n \in U$, $a_{n + 1} = \sup U$ which creates a contradiction. Thus $c \not \in U$. Thus $\mathcal{U}$ is not a open cover of $[a, b]$ since $c$ is not in it. Thus a contradiction occurs. Thus by contradiction the algorithm must terminate in finite iterations or $i$ is finite. 
+    
+    Thus $\abs{\mathcal{U}_0} = 2^{i + 1}$ and is finite. Let $f$ be the last $i$. If the algorithm terminates, it means $b_f < a_f$. The subset of $\left\{ V_i \right\}_{i = 0}^f \subseteq \mathcal{U}_0$ creates a open cover of $[b_f, b]$ and the subset $\left\{ U_i \right\}_{i = 0}^f$ is a open cover of $[a, a_f]$. Since $b_f < a_f$, $\left\{ V_i \right\}_{i = 0}^f \cup \left\{ U_i \right\}_{i = 0}^f$ is a open cover of $[a, a_f] \cup [b_f, b] = [a, b]$. 
+    
+    Thus for any open cover $\mathcal{U}$ of $[a, b]$, by construction there exists a finite subcover. Thus $X$ is compact. 
+    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.15}\label{Claim 6.15.}
+    \textbf{(Heine Borel Theorem)} Let $A$ be a subset of $\R$. Then $A$ is compact iff A is closed and bounded   
+\end{claim}
+\begin{proof}
+    $\implies$: By claim 6.2, $A$ has a maximum $M \in A$  and minimum $N \in A$ where $\forall a \in A$, $N \leq a \leq M$. Thus $A$ is bounded. $\R$ is a Hausdorff space, proven in chapter 4. Thus $A$ is closed by claim 6.9. 
+    
+    $\impliedby:$ $A$ is closed and bounded. Since $A$ is bounded, $\exists \sup(A), \inf(A) \in \R$. 
+    
+    Thus $A \subseteq [\sup(A), \inf(A)]$. By claim 6.14, $[\sup(A), \inf(A)]$ is compact. Since $A$ is closed in $\R$ and thus closed in $[\sup(A), \inf(A)]$, by claim 6.8 it is compact.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.16}\label{Problem 6.16.}
+    Consider the rationals $\Q$ with the subspace topology inherited from $\R$. Find a set $A$ that is closed and bounded but not compact.   
+\end{PROB}
+\begin{proof}
+    Let $a_n = \frac{\floor{10^{n + 1}\pi}}{10^n}$. Let $A = \left\{ a_n \mid n \in \N \right\}$. $\cl_\R(A) = A \cup \left\{ \pi \right\}$. $\cl_{\R}(A) \cap \Q = A$, thus $A$ is closed in $\Q$. $3 \leq a_n \leq \pi$ for all $n \in \N$. Thus A is bounded. 
+
+    Let $\delta_n = \frac{1}{2}\left(a_{n + 1} - a_n\right)$.  
+    
+    Take $\mathcal{U} := \left\{ (a_n - \delta_n, a_n + \delta_n) \right\}_{n \in \N}$. $
+    \mathcal{U}$ is a cover for $A$ but there is no finite subcover because each open set of $\mathcal{U}$ contains 1 unique element of $A$.      
+\end{proof}
+
+\pagebreak
+
+\section{Compactness and Products}
+\begin{claim}{6.18}\label{Claim 6.18.}
+    (\textbf{Tube Lemma}): Let $X \times Y$ be a product space where $Y$ is compact. If $U$ is a open set containing $x_0 \times Y$, then there is a open set $W \in \T_x$ in $X$ containing $x_0$ such that $W \times Y \subseteq U$        
+\end{claim}
+\begin{proof}
+    By claim 2.3, $\forall y \in Y$, $\exists V \in \T \ni (x_0, y) \in V \subseteq U$. By definition of product topology and basis, $\exists A_{y} \in \T_Y$ and $\exists C_{y} \in \T_X$ such that $(x_0, y) \in C_y \times A_y \subseteq V$. Create the collections using these $A_y$ and $C_y$, thus $\mathcal{A} = \left\{ A_y \right\}_{y \in Y}$ and $\mathcal{C} = \left\{ C_y \right\}_{y \in Y}$. Since $\forall y \in Y, y \in A_y$, $\mathcal{A}$ is a open cover of $Y$. Since $Y$ is compact, $\exists \mathcal{A_0} = \left\{ A_{y_i} \right\}_{i = 1}^n$ a finite subcover of $Y$. This induces a finite subcollection in $\mathcal{C}$ where $\mathcal{C}_0 = \left\{ C_{y_i} \right\}_{i = 1}^n$. Since $\forall y \in Y$, $x_0 \in C_{y}$, thus $x_0 \in \bigcap_{i = 1}^n C_{y_i} \in \T_X$, since its a finite intersection. Thus $W = \bigcap_{i = 1}^n C_{y_i} \times \bigcup_{i = 1}^n A_{y_i}$. $x_0 \times Y \subseteq W$ and since $\forall y \in Y$, $C_y \times A_y \subseteq U \implies \bigcap_{w \in Y} C_w \times A_y \subseteq U \implies \bigcap_{w \in Y} C_w \times \bigcap_{w \in Y} A_y \subseteq U \implies W \subseteq U$.                        
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.19}\label{Claim 6.19.}
+    Let $X$ and $Y$ be compact spaces. Then $X \times Y$ is compact   
+\end{claim}
+\begin{proof}
+    $\forall \mathcal{U} = \left\{ U_{\alpha} \right\}_{\alpha \in \lambda} \subseteq \B$ be any basis cover of $X \times Y$. Thus $\forall \alpha \in \lambda$, $\exists (V_{\alpha}, W_{\alpha}) \in \T_{X} \times \T_Y \ni U_{\alpha} = V_{\alpha} \times W_{\alpha}$. $\forall x \in X$ define the subcollection $\mathcal{U}_{x} = \left\{ U \in \mathcal{U} \mid U \cap x \times Y \neq \emptyset \right\} = \left\{ U_{\alpha} \right\}_{\alpha \in \lambda_{x}}$. Thus $\mathcal{U}_x$ is a open cover of $x \times Y$. Thus $\left\{ W_{\alpha} \right\}_{\alpha \in \lambda_x}$ is a open cover of Y and thus exists a finite subcover of $Y$ since $Y$ is compact. Thus there exists a finite subcover of $x \times Y$, $\mathcal{U}_{x,0} = \left\{ U_{\alpha_i} \right\}_{i = 1}^n$. By the tube lemma, $\exists S_{x} \in \T_x \ni x\times Y \subeq S_{x}\subeq \bigcup_{u = 1}^n U_{a_i}$. 
+    
+    Now create a collection of $S$'s, $\mathcal{S} = \left\{ S_{x} \right\}_{x \in X}$ is a open cover of X. Thus $\exists \mathcal{S}_0 = \left\{ S_{x_i} \right\}_{i = 1}^m \subseteq \mathcal{S} \ni \mathcal{S}_0$ is a finite subcover of $X$. 
+    
+    Since each $S_x \times Y$ corresponds to a finite subcover of $x \times Y$ $\mathcal{U}_{x, 0}$, $\mathcal{U}_0 := \bigcup_{i = 1}^n U_{x_i, 0}$ is finite as its the finite union of sets of finite elements. 
+    
+    Moreover $\forall (x, y) \in X \times Y$, $\exists S_{x_i} \in \mathcal{S}_0$ such that $x \in S_{x_i} \implies (x, y) \in S_{x_i} \times Y$ thus $(x, y) \in U_{x_i, 0} \subseteq U_{0}$. Thus $\mathcal{U}_0$ is a cover of $X \times Y$. 
+    
+    Thus $\mathcal{U}_0$ is a finite subcover of $X \times Y$. Thus by construction every cover of $X \times Y$ has a finite subcover. Thus $X \times Y$ is compact by definition.   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.20}\label{Problem 6.20.}
+    \textbf{(Heine Borel PT 2)} Let $A \subseteq \R^n$ be compact iff $A$ is closed and bounded.   
+\end{PROB}
+\begin{proof}
+    $\implies:$ $A$ is compact. By claim 6.9, $A$ is closed since $\R^n$ is Hausdorff. 
+    
+    Assume the contrary that $A$ is not bounded. Define $\forall x \in \R^n$, $\delta_x = d(0, x)$. Define $B(\delta_x) := \left\{ y \in \R^n \mid d(0, y) < \delta_x \right\}$. Thus $\forall x \in A$, $\exists y_x \in A \ni \delta_x < \delta_{y_x} \implies y_x \not \in B(\delta_{y_x})$ but $x \in B(\delta_{y_x})$. Thus create the open cover $\mathcal{U} = \left\{ B(\delta_{y_x}) \right\}_{x \in A}$. Any finite subcollection of $\mathcal{U}$ corresponds to $\left\{ x_1, \dots, x_n \right\} \subseteq A$. $\forall n \in \N$, $\forall K = \left\{ x_1, \dots, x_n \right\} \subeq A$. Let $\mathcal{U}_K := \left\{ B(\delta_{y_{x}}) \right\}_{x \in K}$. Then the set $\delta_K = \left\{ \delta_{x_1}, \dots, \delta_{x_n}\right\}$ is finite in $\R$ and thus $\exists m \in [1, \dots, n]$ where $\delta_{x_m} = \max \delta_{K}$. By definition $\exists y_m \in A \ni \delta_{y_m} > \delta_{x_m} \implies y_{m} \not \in B(\delta_{y_m}) \implies y_m \not \in \bigcup_{x \in K} B(\delta_{y_x})$. Thus $\mathcal{U}_K$ is not a cover of $A$. Thus a contradiction exists since $A$ is compact. Thus $A$ must be bounded.               
+    
+    $\impliedby:$ $A$ is closed and bounded. Thus $\exists r \in \R^+$ such that $A \subseteq B(x, r)$. $A \subseteq B(r) \subseteq [-r, r]^n$. $[-r, r]^n$ is closed as its the finite product of closed sets and compact as its the finite product of compact sets. Thus since $A$ is closed in $\R^n$ its closed in $[-r, +r]^n$. Thus by 6.8, $A$ is compact.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.21}\label{Claim 6.21.}
+    \textbf{(Alexander Subbasis Theorem)}. Let $\mathcal{S}$ be a subbasis for a space X. Then $X$ is compact if and only if every subbasic open cover has a finite subcover.  
+\end{claim}
+\begin{proof}
+    $\implies$: Suppose $X$ is compact and suppose $\mathcal{S}$ is the subbasis collection. $\forall \mathcal{U} \subset \mathcal{S}$ where $\mathcal{U}$ is a open cover of $X$. Since $X$ is compact, $\exists \mathcal{U}_0 \subseteq \mathcal{U}$ a finite subcover. 
+    
+    $\impliedby:$ We will try to prove the contrapositive. Suppose $X$ is not compact. Thus $\exists \U \subset \T \ni \U$ doesn't have a finite subcover. Let $\U^*$ be the set of open covers of X with no finite subcover. There exists a ordering on $\U^*$ of inclusion.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.22}\label{Problem 6.22.}
+    Use the Alexander Subbasis Theorem to prove that $2^X$ is compact for any $X$  
+\end{PROB}
+\begin{solution}
+\end{solution}
+
+\bigskip
+
+\begin{claim}{6.23}\label{Claim 6.23.}
+    \textbf{(Tychnoff's Theorem)} Any product of compact spaces is compact.
+\end{claim}
+\begin{proof}
+    $X = \prod_{\alpha \in \lambda} X_\alpha$ where $X_\alpha$ is compact. $X$ has a natural subbasis of inverse projection of open sets of a given factor ie $\forall \alpha \in \lambda$, $\forall U \in \T_{X_{\alpha}}$ $\pi_{X_\alpha}^{-1}(U)$. Assume the contrary $X$ is not compact. $\exists \mathcal{U}$ a subbasis open cover of $X$ with no finite subcover. Partition $C = \bigcup_{\alpha \in \lambda} C_\alpha$ where $C_\alpha$ is the subcollection of all the inverse projections of open sets of a particular factor. Being inverse projections, this means the projection of $C_\alpha$ onto $X_\alpha$ has no finite subcollection, and since each $X_\alpha$ is compact $\exists x_{i} \in X_\alpha$ which is not covered. Thus $(x_i)_\alpha \in X$ is not covered thus a contradiction exists and X must be compact.               
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6.24}\label{Problem 6.24.}
+    Prove $[0, 1]^\omega$ is not compact with box topology 
+\end{PROB}
+\begin{proof}
+    Assume the contrary $X$ is compact.  
+    Let $x_n := (\delta(n, 0), \delta(n, 1), \dots)$. Let $A = \left\{ x_n \right\}_{n \in \N}$. $A$ is infinite and thus must have a limit point. A is closed and has no limit points. Thus by contradiction $X$ is not compact.  
+\end{proof}
+
+\pagebreak 
+
+\begin{claim}{6.25}\label{Claim 6.25.}
+    Every countable compact and Lindelof space is compact
+\end{claim}
+\begin{proof}
+    Open cover -(Lindelof)$>$ countable cover -(Countable Comapact)$>$ Finite subcover 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.26}\label{Claim 6.26.}
+    Let $X$ be a $T_1$ space. Then if $X$ is countably compact if and only if every infinite subset of $X$ has a limit point     
+\end{claim}
+\begin{proof}
+    $\implies$: We will prove by contrapositive, thus suppose $\exists A \subseteq X \ni \abs{A} \geq \aleph_0$ but $A$ has no limit point thus $A$ is closed and any subset of A is closed. 
+    
+    \begin{enumerate}
+        \item If $A$ is countable: Since $A$ is countable, $A = \left\{ a_n \right\}_{n \in \N}$. Let $U_n := X - \left\{ a_n, a_{n + 1}, \dots \right\}$. Thus $a_n \in U_{n + 1}$ for all $n \in \N$ and $\forall x \in X - A, x \in U_{n}$ for all $n \in \N$. But $a_n \not \in U_m$ for all $n, m \in \N \ni m \geq n$ . Thus $\left\{ U_n \right\}_{n \in \N}$ is a countable cover of $X$. Any finite subcollection $\mathcal{U}_0$ corresponds to $\left\{ n_1, \dots, n_m \right\} \subseteq \N$. $\mathcal{U}_0 = \left\{ U_{n_i} \right\}_{i = 1}^m$. Let $n_m = \max\left(\left\{ n_i | i \in [1, \dots, m] \right\}\right)$. $a_{n_m} \not \in U_{n_i}$ for all $i$. Thus $\mathcal{U_0}$ is not a subcover of X. Thus $\mathcal{U}$ has no finite subcover. Thus $X$ is not countbly compact.        
+        \item If $A$ is uncountable: $A$ has a subset $B$ which is countable. By the condition above, $\exists x \in X$, a limit point of B and thus a limit point of $A$.       
+    \end{enumerate}
+    
+    Thus $X$ is not countably compact. Thus by contrapositive, if $X$ is countably then every infinite subset of $X$ has a limit point. 
+    
+    
+    $\impliedby:$ Suppose the 2nd half of the theorem is true. Assume the contrary that that $\exists \mathcal{U} = \left\{ U_i \right\}_{i \in \N}$ a countable open cover with no finite subcover. Choose $x_1 \not \in V_1 := U_{1}$. Thus $\exists n_1 \in \N \ni x \in U_{n_1}$. Now choose \[x_2 \not \in V_2 := \bigcup_{i = 1}^{n_1}U_i\]. Thus $\exists n_2 \in \N \ni x_2 \in U_{n_2}$ and note $n_2 > n_1$ . Continue this process, thus \[x_i \not \in V_{i} := \bigcup_{i = 1}^{n_{i - 1}}U_{i}\] but $\exists n_{i} \in \N, x_i \in U_{n_i}$ and thus $n_i > n_{i - 1}$. Thus $V_{i + 1} = V_{i - 1} \cup U_{n_i}$.   
+
+
+    Thus there is a sequence of $A = \left\{ x_i \mid i \in \N \right\}$'s and a sequences of open sets $\mathcal{V} = \left\{ V_i \right\}_{i \in \N}$. Thus $x_i \not \in V_{j}$ for $i \geq j$. Since $\mathcal{U}$ is a open cover, $\left\{ V_i \right\}_{i \in \N}$ is also a open cover of $X$. Since A is infinite set, $\exists x \in X$, a limit point. Since $\mathcal{V}$ is a open cover, $\exists m_0 \in \N \ni x \in V_{m_0}$. By the definition of limit point, $\exists  m_1 \in \N \ni x \neq x_{m_1}, x_{m_1} \in V_{m_0} \implies m_1 < m_0$. Since $X$ is $T_1$, $\left\{ x_{m_1} \right\}$ is open. Thus $x \in V_{m_0} \cap \left\{ x_{m_1} \right\}^c$. By definition of limit point, $\exists m_2 \in \N \ni x \neq x_{m_2}, x_{m_2} \in V_{m_0} \cap \left\{ x_{m_1} \right\}^c \implies x \in V_{m_0} \cap \left\{ x_{m_1} \right\}^c \cap \left\{ x_{m_2} \right\}^c$. One can continue this process indefinitely. However $\left\{ 1, \dots, m_0 \right\}$ is finite. Thus a contradiction occurs as the process is both infinite and finite, thus $X$ must be countably compact.                     
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.27}\label{Claim 6.27.}
+    If $X$ is a Lindelof space, then every uncountable subset of $X$ has a limit point   
+\end{claim}
+\begin{proof}
+    Suppose $\exists A \subeq X$ a uncountable subsets has no limit point. Thus $\forall x \in X$, $\exists U_x \in \T \ni x \in U_x, \left(U_x - \left\{ x \right\}\right) \cap A = \empset$. Thus $\mathcal{U} = \left\{ U_x \right\}_{x \in \N}$ is a open cover of $X$. Any countable subcollection of $\mathcal{U}$, corresponds to $
+    B = \left\{ x_i \right\}_{i \in \N} \subseteq X$ a countable subset of X. Thus $\mathcal{U}_B := \left\{ U_{x_i} \right\}_{i \in \N}$. Since $B$ is countable, $C = A \cap B$ must be countable and since $A$ is uncountable $A \cap B^c$ must not be empty. Since $\forall i \in \N$ $x_i \in U_{x_i}$ but $(U - \left\{ x_i \right\}) \cap A = \empset$. Thus if $x_i \not \in A \implies U_{x_i} \cap A = \empset$. If $x_i \in A \implies U_{x_i} \cap A = \left\{ x_i \right\}$. Thus $\bigcup_{i \in \N} U_{x_i} \cap A = B$, and $\exists a \in A \ni a \not \in \bigcup_{i \in \N} U_{x_i}$ since $A \cap B^c$ is uncountable. Thus $\mathcal{U}$ has no countable subcover. Thus $A$ is not Lindelof. 
+    
+    Thus by contrapositive if $A$ is Lindelof then $\not \exists A \subeq X$ uncountable with no limit. Thus all uncountable subsets of X have limit points.    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.28a}\label{Claim 6.28a.}
+    A space $X$ is countably compact iff every countable collection of closed sets with the finite intersection property has a nonempty intersection 
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $X$ is countably compact. Let $B = \left\{ B_n \right\}_{n \in \lambda}$ a countable collection of closed sets with the finite intersection property.  Assume the contrary that $\bigcap_{n \in \N} B_n = \emptyset \implies \bigcup_{n \in \N} B_{n}^c = X$. Thus $B^c = \left\{ B_{n}^c \right\}_{n \in \N}$ is a open cover of $X$. Thus there exists a finite subcover $D^c \subseteq B^c$ since $X$ is compact. Thus $\bigcup_{n = 1}^m D^c_n = X \implies \bigcap_{n = 1}^m D_\alpha = \emptyset$ thus there exists finite subcollection $D \subseteq B$ such that the intersection of the finite subcollection is empty, thus breaking the finite intersection property of $B$. Thus by contradiction, $B$ must have e nonempty intersection.
+    
+    $\impliedby:$ Suppose $X$ is a topological space such that every countable collection of closed sets with the finite intersection property have a nonempty intersection. Assume the contrary that $X$ is not compact. Thus there exists a countable open cover of $X$, $\mathcal{U} = \left\{ U_\alpha \right\}_{\alpha \in \N}$ which doesn't have a finite subcover of $X$. $\mathcal{U}^c = \left\{ U_\alpha^c \right\}_{\alpha \in \N}$ is a collection of closed sets. Since $\bigcup_{\alpha \in \N} U_\alpha = X \implies \bigcap_{\alpha \in \N} U_\alpha^c = \emptyset$ 
+    
+    Thus for all finite subcollections $\mathcal{U}_0 = \left\{ U_{n} \right\}_{n \in \left[0, \dots, m\right]}$, $\bigcup_{n = 1}^{m} U_n \neq X \implies \bigcap_{n = 1}^{m}U_n^c \neq \emptyset$. 
+    
+    Thus $U^c$ has the finite intersection property, thus its intersection must be nonempty which causes a contradiction. Thus $X$ must be countably compact by contradiction.  
+\end{proof}
+\bigskip
+\begin{claim}{6.28b}\label{Claim 6.28b.}
+    A space $X$ is Lindelof iff every collection of closed sets with the countable intersection property has a nonempty intersection 
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $X$ is Lindelof. Let $B = \left\{ B_\alpha \right\}_{\alpha \in \lambda}$ a collection of closed sets with the countable intersection property.  Assume the contrary that $\bigcap_{\alpha \in \lambda} B_\alpha = \emptyset \implies \bigcup_{\alpha \in \lambda} B_{\alpha}^c = X$. Thus $B^c = \left\{ B_{\alpha}^c \right\}_{\alpha \in \lambda}$ is a open cover of $X$. Thus there exists a countable subcover $D^c \subseteq B^c$ since $X$ is compact. Thus $\bigcup_{\alpha \in \N} D^c_\alpha = X \implies \bigcap_{\alpha \in \N}D_\alpha = \emptyset$ thus there exists countable subcollection $D \subseteq B$ such that the intersection of the finite subcollection is empty, thus breaking the countable intersection property of $B$. Thus by contradiction, $B$ must have e nonempty intersection.
+    
+    $\impliedby:$ Suppose $X$ is a topological space such that every collection of closed sets with the countable intersection property have a nonempty intersection. Assume the contrary that $X$ is not Lindelof. Thus there exists a open cover of $X$, $\mathcal{U} = \left\{ U_\alpha \right\}_{\alpha \in \lambda}$ which doesn't have a countable subcover of $X$. $\mathcal{U}^c = \left\{ U_\alpha^c \right\}_{\alpha \in \lambda}$ is a collection of closed sets. Since $\bigcup_{\alpha \in \lambda} U_\alpha = X \implies \bigcap_{\alpha \in \lambda} U_\alpha^c = \emptyset$ 
+    
+    Thus for all countable subcollections $\mathcal{U}_0 = \left\{ U_{a_{i}} \right\}_{i \in \N}$, $\bigcup_{n \in \N} U_{a_i} \neq X \implies \bigcap_{n = 1}^{m}U_{a_i}^c \neq \emptyset$. 
+    
+    Thus $U^c$ has the countable intersection property, thus its intersection must be nonempty which causes a contradiction. Thus $X$ must be Lindelof by contradiction.  
+\end{proof}
+\begin{claim}{6.28c}\label{Claim 6.28c.}
+    A space $X$ is countably compact if for any open set $U \subset X$ and any countable collection of closed sets such that $\bigcap_{n \in \N} K_{n} \subeq U$, there is a finite number of $K_n$ whose intersection lies in $U$      
+\end{claim}
+\begin{proof}
+    Simply transform proof for 6.4. Not too hard. 
+\end{proof}
+\begin{claim}{6.28d}\label{Claim 6.28d.}
+    A space $X$ is Lindelof if for any open set $U \subset X$ and any collection of closed sets such that $\bigcap_{n \in \N} K_{n} \subeq U$, there is a countable subcollection of $K_n$ whose intersection lies in $U$      
+\end{claim}
+\begin{proof}
+    Simply transform proof for 6.4. Not too hard. 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.29a}\label{Claim 6.29a.}
+    If $A$ is a closed subspace of a countably compact space $X$, then A is countably compact 
+\end{claim}
+\begin{proof}
+    Let $\mathcal{U} = \left\{ U_{n} \right\}_{n \in \N}$ be any countable open cover of $A$. Since $A$ is closed, $A^c$ is open. Thus $\mathcal{U} \cup \left\{ A^c \right\}$ is a open cover of $X$. Since $X$ is countably compact, $\exists \mathcal{U}_0 = \left\{ U_{n_i} \right\}_{i = 1}^m$ a finite subset of $\mathcal{U}$ such that $\mathcal{U}_0 \cup \left\{ A^c \right\}$ is a finite open cover of X. $\forall a \in A$, $a \in \bigcup_{i = 1}^m U_{n_i}$. Thus $\mathcal{U}_0$ is a finite open cover of $A$. Thus by construction any countable open cover of $A$ has a finite open cover. Thus $A$ is countably compact.                    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.29b}\label{Claim 6.29b.}
+    If $A$ is a closed subspace of a Lindelof space $X$, then A is Lindelof 
+\end{claim}
+\begin{proof}
+    Let $\mathcal{U} = \left\{ U_{\alpha} \right\}_{\alpha \in \lambda}$ be any open cover of $A$. Since $A$ is closed, $A^c$ is open. Thus $\mathcal{U} \cup \left\{ A^c \right\}$ is a open cover of $X$. Since $X$ is Lindelof, $\exists \mathcal{U}_0 = \left\{ U_{\alpha_i} \right\}_{i \in \N}$ a countable subset of $\mathcal{U}$ such that $\mathcal{U}_0 \cup \left\{ A^c \right\}$ is a countable open cover of X. $\forall a \in A$, $a \in \bigcup_{i \in \N} U_{\alpha_i}$. Thus $\mathcal{U}_0$ is a countable open cover of $A$. Thus by construction any open cover of $A$ has a countable open cover. Thus $A$ is Lindelof.                    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.30}\label{Claim 6.30.}
+    Every regular, Lindelof space is normal
+\end{claim}
+\begin{proof}
+    For all disjoint closed sets $A$ and $B$ we want to show $\exists C, D\in \T \ni A \subeq C, B\subeq D, C \cap D = \empset$. 
+    
+    By definition of regular spaces, $\forall a \in A, \exists U_a, V_a \in \T \ni a \in U_a, B \subeq V_a, U_a \cap V_a = \empset$. Similarly, $\forall b \in B, \exists U_b, V_b \in \T \ni b \in V_b, A \subeq U_b, U_b \cap V_b$.  Thus create the collections $U = \left\{ U_a \right\}_{a \in A}$ and $V = \left\{ V_{b} \right\}_{b \in B}$. Since $A$ and $B$ are closed, they are Lindelof (Claim 6.29b). Thus $\exists U_0 = \left\{ U_{a_i} \right\}_{i \in \N} \subeq U$ a countable subcover of $A$. Similarly $\exists V_0 = \left\{ U_{b_i} \right\}_{i \in \N} \subeq V$, a countable subcover of $A$.    
+    
+    Assume the contrary that $\exists i \in \N$ where $\exists x \in B$ a limit point of $U_{a_i}$. Then $V_{a_i} \cap U_{a_i}$ cannot be empty thus a contradiction occurs and by contradiction no limit point of $U_{a_i}$ for all i is in $B$. Thus $\overline{U_{a_i}} \cap B = \empset$. 
+    
+    Assume the contrary that $\exists i \in \N$ where $\exists x \in A$ a limit point of $V_{b_i}$. Then $V_{b_i} \cap U_{b_i}$ cannot be empty thus a contradiction occurs and by contradiction no limit point of $U_i$ for all i is in $B$. Thus $\overline{V_{b_i}} \cap A = \empset$.
+    
+    Thus apply normality lemma, $\exists C, D\in \T \ni A \subeq C, B\subeq D, C \cap D = \empset$.
+    
+    Thus $X$ is normal.  
+\end{proof}
+\bigskip
+
+\begin{claim}{6.31}\label{Claim 6.31.}
+    Let $\mathcal{B}$ be a basis of $X$. If $X$ is Lindelof iff any basis cover of $X$ has a countable subcover    
+\end{claim}
+\begin{proof}
+    Nearly same proof as 6.13, but replace finite with countable
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.32}\label{Claim 6.32.}
+    Every 2nd countable space is Lindelöf.
+\end{claim}
+\begin{proof}
+    2nd countable $\implies$ countable basis $\implies$ any basis cover is countable thus automatically Lindelof
+\end{proof}
+
+\pagebreak
+
+\section*{Paracompactness}
+
+\begin{claim}{6.38}\label{Claim 6.38.}
+    Let $\B = \left\{ B_\alpha \right\}_{\alpha \in \lambda}$ be a locally finite collection of subsets of the space $X$. Then
+    
+    \begin{equation*}
+        \cl\left(\bigcup_{\alpha \in \lambda} B_{\alpha}\right) = \bigcup_{\alpha \in \lambda} \cl\left(B_{\alpha}\right)
+    \end{equation*}
+\end{claim}
+\begin{proof}
+    One direction of this equality is obvious, $\bigcup_{\alpha \in \lambda} \cl\left(B_{\alpha}\right) \subseteq \cl\left(\bigcup_{\alpha \in \lambda} B_{\alpha}\right)$. It suffices to prove the other direction. 
+    
+    $\forall x \in X \setminus \bigcup_{\alpha \in \lambda} \cl(B_\alpha)$. By the locally finiteness, $\exists U \in \T \ni x \in U$ but $U$ only intersects finitely many $B_\alpha$'s, thus label these sets $B_1, \dots, B_m$. Let $U' = U \cap \left(\bigcap_{i = 1}^m X - \cl(B_i)\right)$ be another open set. $p \in U'$ but $U' \cap S_i = \empset \implies U' \cap \bigcup_{\alpha \in \lambda} B_\alpha = \empset$ thus $x$ is not a limit point. Thus, $\bigcup_{\alpha \in \lambda} \cl(B_\alpha)$ is closed. Thus by definition of closure, $\bigcup_{\alpha \in \lambda} B_{\alpha} \subeq  \bigcup_{\alpha \in \lambda} \cl(B_\alpha) \implies \cl\left(\bigcup_{\alpha \in \lambda} B_{\alpha}\right) \subeq \bigcup_{\alpha \in \lambda} \cl(B_\alpha) $. 
+    
+    Thus equality holds. 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.39}\label{Claim 6.39.}
+    Let A be a closed subspace of a paracompact space. Then A is paracompact.
+\end{claim}
+\begin{proof}
+    $A$ is Hausdorff since Hausdorff is inherited. 
+    
+    Let $\mathcal{U}$ be a open cover of $A$. Thus $\mathcal{U'} = \mathcal{U} \cup \left\{ A^c \right\}$ is a open cover of $X$. By paracompactness of X, there $\exists \mathcal{V'}$ a locally finite open refinement of $\mathcal{U'}$. You can partition $\mathcal{V'}$ into the open sets which are subsets of $A^c$ and open sets which are subsets of elements of $\mathcal{U}$ to make the collections $\mathcal{V}$ and $\mathcal{W}$ respectively. Note if there is a element of the collection which is in the intersection of $A^c$ and a element of $\mathcal{U}$ put it in the collection $\mathcal{W}$, or the open cover of A. Thus $\mathcal{V}' = \mathcal{V} \cup \mathcal{W}$. $\mathcal{W}$ is a open refinement of $\mathcal{U}$ and a open cover of A and is also locally finite since $\mathcal{V'}$ is locally finite. 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.40}\label{Claim 6.40.}
+    Every paracompact space is normal
+\end{claim}
+\begin{proof}
+    Let us first prove $X$, a paracompact space is regular. 
+    
+    Let $A \neq \empset, X$ be a closed set of $X$ and $\forall x \in X \setminus A$. By the Hausdorff property, $\forall a \in A$, $\exists U_{a}, V_a \in \T \ni x \in U_a, a \in V_a, U_a \cap V_a = \empset$. $U_a \subseteq X - V_a \implies \overline{U_a} \subeq X - V_a$ and vice versa for $V_a$. Thus $\mathcal{V} = \left\{ V_{a} \right\}_{a \in A}$ is a open cover of $A$. Since $X$ is paracompact and $A$ is closed, by 6.39 $A$ is paracompact. Thus there is a locally finite open refinement of $\mathcal{V}$, $\mathcal{W} = \left\{ W_{\alpha} \right\}_{\alpha \in \lambda}$. Note $\forall \alpha \in \lambda$, $\exists a \in A$ such that $W_\alpha \subeq V_a \implies \overline{W_\alpha} \cap U_{a} = \empset \implies x \not \in \overline{W_\alpha}$. Thus $a \not \in \overline{\bigcup_{\alpha \in \lambda} W_\alpha} = \bigcup_{\alpha \in \lambda} \overline{W_\alpha}$ (Claim 6.38). Thus let $U = X - \overline{\bigcup_{\alpha \in \lambda} W_\alpha}$ and $V = \bigcup_{\alpha \in \lambda} W_\alpha$ and $x \in U, A \in V$ and $U \cap V = \empset$. Thus $X$ is regular. 
+    
+    
+    Now using regularity lets prove normality. Let $A$ and $B$ be disjoint closed sets. $\forall a \in A$, by regularity $\exists U_a, V_a \in \T \ni a \in U_a, B \subeq V_a, U_a \cap V_a = \empset$. As proven above, $B \cap \cl(U_a) = \empset$ and $a \not \in \cl(V_a)$. Since $A$ is closed, $A$ is paracompact. Thus $\mathcal{U} = \left\{ U_a \right\}_{a \in A}$ is a open cover of $A$. By paracompactness, $\exists \mathcal{D} = \left\{ D_{\alpha} \right\}_{\alpha \in \lambda}$ a locally finite open refinement of $\U$. Note $\forall \alpha \in \lambda$, $\exists a \in A $ such that $D_\alpha \subeq U_\alpha \implies a \not \in \cl\left\{ D_\alpha \right\}$. Thus $B  \cap  \cl\left(\bigcup_{\alpha \in \lambda} D_\alpha\right) = \empset$ (claim 3.38). Thus $U = X - \cl\left(\bigcup_{\alpha \in \lambda} D_\alpha\right)$ and $V = \bigcup_{\alpha \in \lambda} D_\alpha$. Thus $X$ is normal.     
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6.41}\label{Claim 6.41.}
+    Every regular, $T_1$, Lindelof space is paracompact 
+\end{claim}
+\begin{proof}
+    Let $\mathcal{U}$ be open cover of $X$, WLOG it is countable since X is Lindelof. $\forall x \in X$, $\exists U_x \in \mathcal{U} \ni x \in U_x$. Thus for $x$ and $X - U_x$, $\exists V_x, W_x \in \T \ni x \in V_x, X - U_x \subeq W_x \ni V_x \cap W_x = \empset \implies V_x \subeq U_x.$. Thus for all $U \in \mathcal{U}$ create $\mathcal{U}_x$ by intersecting all $U$ with $W_x$ if $U \neq U_x$ and preserving $U_x$. $\mathcal{U}_x$ is a refinement where for all $x \in U_x$, $U_x$ only intersects with itself in $\mathcal{U}_x$. Do this for all $X$ to get $\mathcal{U}_f$. Thus each element of $\mathcal{U}_f$ only intersects with itself while each step is a refinement of the previous step. Thus $\mathcal{U}_f$ is a locally fine refinement.       
+\end{proof}
+
+\end{document}

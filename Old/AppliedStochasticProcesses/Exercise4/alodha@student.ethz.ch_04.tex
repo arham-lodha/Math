@@ -1,0 +1,233 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 04}
+\author{Arham Lodha}%put your name here
+\date{March 12, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item False
+        \item False
+        \item True
+        \item True
+        \item True
+    \end{enumerate}
+\end{solution}
+
+\begin{PROB}{1b}\label{Problem 1b.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item True
+        \item False
+        \item True
+        \item False
+        \item True
+    \end{enumerate}
+    
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+\end{PROB}
+\begin{proof}
+    $\forall x \in \Z$ and let $\alpha = \frac{1}{2}$. We want to show that $E_x(V_x) = \infty$. Note $p_{x, x}^{2n} = 2^{-2n}{2n \choose n} \sim \frac{c}{\sqrt{n}}$ as $n \to \infty$ as given.   
+    
+    \begin{align*}
+        E_x(V_x) &= \sum_{n = 1}^{\infty}p_{0, 0}^{(n)} \\
+        &= \sum_{n = 1}^{\infty}p_{0, 0}^{(2n)} \\
+        &= \sum_{n = 1}^{\infty}{2n \choose n}\left(\frac{1}{2}\right)^{2n} \\
+        &\geq \sum_{n = 1}^{\infty} \frac{c}{2\sqrt{n}} = \infty
+    \end{align*}
+
+    Thus $E_x(V_x) = \infty$. Thus $x$ is recurrent.  
+\end{proof}
+\begin{PROB}{2b}\label{Problem 2b.}
+\end{PROB}
+\begin{proof}
+    Let $\left\{ Y_i \right\}_{i \geq 1}$ be a sequence of random variables where $\PR(Y_i = 1) = \alpha$ and $\PR(Y_i = -1) = 1- \alpha$. Thus $X_n = \sum_{m = 1}^{n}Y_m$.
+    
+    By the Strong Law of Large Numbers, $\frac{X_n}{n} \to E[Y_m] = \alpha - 1  + \alpha = 2 \alpha - 1$ almost surely. For $\alpha < \frac{1}{2}$: $\frac{X_n}{n}$ approaches a value less than 0. Thus $X_n \to -\infty$. Similarly for $\alpha > \frac{1}{2}$: $\frac{X_n}{n}$ approaches a value greater than 0. Thus $X_n \to \infty$. Thus in either case: $x$ is a transient state.       
+    
+\end{proof}
+
+\begin{PROB}{2c}\label{Problem 2c.}
+    
+\end{PROB}
+\begin{proof}
+    Let $Y_n = \abs{X_n}$. 
+    
+    \begin{enumerate}
+        \item For $\alpha = \frac{1}{2}$, $X_n$ is recurrent at 0. Thus $Y_n$ is recurrent at 0. Let $Z_n$ be such a reflected walk.    
+        \item For $\alpha < \frac{1}{2}$: Couple $Y_n$ and $Z_n$ in the following way: 
+    
+        \begin{enumerate} 
+            \item If $Y_n = 0$: Move right. Otherwise 
+            \item If $Z_n$ moves left then $Y_n$ moves left. 
+            \item If $Z_n$ moves right then $Y_n$  we pick from the leftover portion of 
+            Y's distribution for the “right step.” Since
+            $\alpha < \frac{1}{2}$, this leftover portion is enough to ensure we can couple them consistently.     
+        \end{enumerate}
+
+        Let $T_k$ be the kth visiting time of $Z$ on 0. We want to show for all $k \geq 1$, $\exists n \in [T_k, T_{k + 1}] \ni Y_n = 0$. Let $l_z, l_y, r_z, r_y$, be the left steps of $Z$ and $Y$  and the right steps of $Z$ and $Y$.
+        
+        Assume the contrary $\forall n \in [T_k, T_{k + 1}]$, $Y_n \neq 0$. 
+        In the interval, $[T_k, T_{k + 1}]$, $l_z = r_z$. Also note because of the coupling, $l_y \geq l_z$. Since $l_z + r_z = T_{k + 1} - T_{k} = l_y + r_y$, at $Y_{T_{k + 1}} \leq Z_{T_{k + 1}} = 0$. However $Y_{T_{k + 1}} \geq 0 \implies Y_{T_{k + 1}} = 0$, which is a contradiction. 
+        
+        Thus $\exists n \in [T_k, T_{k + 1}] \ni Y_n = 0$. Thus $Y$ visits $0$ infinitely often since $Z$ visits $0$ infinitely often. Thus $0$ is recurrent for $Y$.       
+    \end{enumerate}
+    
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{3}\label{Problem 3.}
+    
+\end{PROB}
+\begin{proof}
+\end{proof}
+    Let $Y_n$ be a SRW on a d-regular tree. 
+    $\forall x \in V$. Let $D_n := \abs{Y_n - x}$ or distance from $Y_n$ to x. $D_n$ is a biased reflected random walk where $\alpha = \frac{d - 1}{d}$. Thus $D_n$ isn't transient which means $Y_n$  isn't transient on $x$. 
+\bigskip
+
+\bigskip
+
+\begin{PROB}{4a}\label{Problem 4a.}
+\end{PROB}
+\begin{proof}
+    $\forall (x, y) \in \Z^2 \setminus \left\{ (0, 0) \right\}$, $\PR_{(x, y)}(H_{(0, 0)} = \abs{x} + \abs{y}) = 1$. 
+    
+    Thus, 
+    
+    \begin{align*}
+        \PR_{(0, 0)}(H_{(0,0)} < \infty) &= \sum_{(x, y) \in \Z^2} \PR_{(0, 0)}(X_1 = (x, y)) \PR_{(x, y)}(H_{(0, 0)} < \infty \mid X_1 = (x, y)) \\
+        &= \mu(0,0) + \sum_{(x, y) \in \Z^2 \setminus {(0, 0)}} \mu(x, y) \PR_{(x, y)}(H_{(0, 0)} < \infty) \\
+        &= \mu(0,0) + \sum_{(x, y) \in \Z^2 \setminus {(0, 0)}} \mu(x, y) 
+        &= 1
+    \end{align*}
+    
+    Thus $(0 ,0)$ is recurrent.  
+\end{proof}
+
+\begin{PROB}{4b}\label{Problem 4b.}
+\end{PROB}
+\begin{proof}
+    \begin{align*}
+        E_0(H_0) &= \PR_{(0, 0)}(X_1 = (0, 0)) + \sum_{(x, y) \in \Z^2 \setminus {0, 0}} \PR_{(0, 0)}(X_1 = (x, y))\left(E_{(x, y)}(H_0) + 1\right) \\
+        &= 
+        \mu(0, 0) + \sum_{(x, y) \in \Z^2 / \left\{ (0, 0) \right\}} \mu(x, y)(\abs{x} + \abs{y} + 1) \\
+        &= 1 + \sum_{(x, y) \in \Z^2 / \left\{ (0, 0) \right\}} \mu(x, y)(\abs{x} + \abs{y}) \\
+        &= 1 + E_\mu[\abs{x} + \abs{y}]
+    \end{align*}
+
+    $(0,0)$ is positive recurrent if $E_\mu[\abs{x} + \abs{y}]$ is finite and null recurrent otherwise.   
+\end{proof}
+
+\begin{PROB}{4c}\label{Problem 4c.}
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $Y_n = \abs{\abs{X_n}}_\infty$.
+        
+        \begin{align*}
+            \PR_0(Y_2 = 2 \mid Y_1 = \abs{\abs{(2, 2)}}_{\infty} = 2) &= 1
+        \end{align*}
+
+        and \begin{align*}
+            \PR(Y_2 = 2 \mid Y_1 = 2) &= \frac{1}{2}
+        \end{align*}
+
+        Thus $Y_n$ is not a markov processs since $\PR(Y_2 = 2 \mid Y_1 = 2) \neq \PR_0(Y_2 = 2 \mid Y_1 = \abs{\abs{(2, 2)}}_{\infty} = 2)$  
+
+        \item Let $Y_n = \abs{\abs{X_n}}_{1}$. From any state with $L^1$ norm $k$ for $k \neq 0$ , the next norm is $k - 1$ deterministically. For $k = 0$, 
+        
+        $p_{k, n} = \sum_{\abs{x } + \abs{y} = n} \mu(x, y)$. 
+        
+
+        The transitions depend only on the current norm, satisfying the Markov property
+
+        \item The projection onto the x-coordinate is not Markov. The transition of the x-coordinate depends on the underlying y-coordinate, which is not captured by the projection. Different underlying states with the same x-coordinate can lead to different future x-coordinates, violating the Markov property
+    \end{enumerate}
+    
+\end{proof}
+
+
+\end{document}

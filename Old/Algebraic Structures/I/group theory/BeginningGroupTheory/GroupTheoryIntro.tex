@@ -1,0 +1,280 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im} (#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow} (#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Beginning Group Theory}
+\author{Arham Lodha}%put your name here
+\date{September 11, 2023}%enter the due date here
+\maketitle
+
+\section*{Groups and Subgroups}
+\begin{PROB}{1}\label{Problem 1.}
+    Let $x, y, z$, and $w$ be elements of a group $G$.
+
+    \begin{enumerate}{}
+        \item Solve for y, given that $xyz^{-1}w = 1$.
+        \item Suppose that xyz = 1. Does it follow that yzx = 1? Does it follow that yxz = 1?
+    \end{enumerate}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item Suppose $xyz^{-1}w = 1$.
+        \begin{align*}{}
+            xyz^{-1}w &= 1 \\
+            x^{-1}xyz^{-1}ww^{-1} &= x^{-1}1w^{-1} \\
+            1yz^{-1}1 &= x^{-1}w^{-1}\\
+            yz^{-1}z &= x^{-1}w^{-1}z \\
+            y &= x^{-1}w^{-1}z
+        \end{align*}
+        \item Suppose that $xyz = 1$.
+        \begin{enumerate}{}
+            \item \begin{align*}{}
+                xyz &= 1 \\
+                x^{-1}xyz &= x^{-1}1 \\
+                yz &= x^{-1} \\
+                yzx &= x^{-1}x \\
+                yzx &= 1
+            \end{align*}
+            $xyz = 1 \implies yzx = 1$
+            \item \begin{align*}{}
+                xyz &= 1 \\
+                x^{-1}xyz &= x^{-1}1 \\
+                yzz^{-1} &= x^{-1}z^{-1} \\
+                yx &= x^{-1}z^{-1}x \\
+                yxz &= x^{-1}z^{-1}xz \\
+            \end{align*}
+            In order to get $yxz = 1$, the product $x^{-1}z^{-1}xz$ would need to cancel to 1. Which is only possible if G is commutative or $x = z^{-1}$. Thus $yxz = 1$ doesn't follow from $xyz = 1$.
+        \end{enumerate}
+    \end{enumerate}
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    In which of the following cases is H a subgroup of G ?
+
+    \begin{enumerate}
+        \item $G = GL_n(\C)$ and $H = GL_n(\R)$.
+        \item $G = \R^\times$ and $H=\{1,-1\}$.
+        \item $G = \Z^+$ and H is the set of positive integers.
+        \item $G = \R^\times$ and H is the set of positive reals.
+        \item $G = GL_2(\R)$ and H is the set of matrices $\begin{bmatrix}{}
+            a & 0\\
+            0 & 0
+        \end{bmatrix}$ with $a \neq 0$
+    \end{enumerate}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}{}
+        \item $G = GL_n(\C)$ and $H = GL_n(\R)$. By definition of real and complex numbers $H \subset G$
+        
+        \begin{enumerate}{}
+            \item \textbf{Identity: } $\det(I_n) = 1 \neq 0$, thus $I_n$ is invertible by definition of invertible matrices. Thus $I_n \in GL_n(\R)$. Furthermore by definition of Identity matrix, $\forall A \in GL_n(\R)$, $AI_n = A = I_nA$. Thus $I$ is the Identity in $GL_n(\R)$.
+            \item \textbf{Inverse: } $\forall A \in GL_n(\R)$, since $A$ is invertible, $\exists$ $A^{-1}$. Furthermore $A A^{-1} = I = A^{-1}A$. Thus by the very definition of invertible matrices, $A^{-1} \in GL_n(\R)$.
+            \item \textbf{Closure: } $\forall A, B \in GL_n(\R)$. By the property of inverses there exists $A^{-1}, B^{-1} \in GL_n(\R)$. $AB (B^{-1}A^{-1}) = A(BB^{-1})A^{-1}$ since associativity is inherited. $A(I_n)A^{-1} = AA^{-1} = I_n$. Thus $AB$ is invertible because there exists a $(AB)^{-1} = B^{-1}A^{-1}$. Thus $AB \in GL_n(\R)$
+        \end{enumerate}
+
+        H is a subgroup of G.
+
+        \item $G = \R^\times$ and $H=\{1,-1\}$. $H \subset G$ since $1, -1 \in G$.
+        
+        \begin{enumerate}{}
+            \item \textbf{Identity: } 1 is the Identity of H. 
+            \item \textbf{Inverse: } Inverse of 1 is 1. Inverse of -1 is -1. Thus for all $a \in H$, $a^{-1} \in H$
+            \item \textbf{Closure: } $1 \times 1 = 1 \in H$, $1 \times -1 = -1 \in H$, $-1 \times 1 = - 1 \in H$, $-1 \times -1 = 1 \in H$. Thus H is closed under multiplication
+            
+        \end{enumerate}
+
+        \item $G = \Z^+$ and H is the set of positive integers.
+        For a $0 \not \in H$. 0 is the additive Identity of integers and thus 0 must be in H for H to have a identity. Furthermore, the identity in a group is unique. Thus there cannot exist a identity in H which is not 0. Thus H is not a subgroup.
+
+        \item $G = \R^\times$ and H is the set of positive reals.
+        \begin{enumerate}{}
+            \item \textbf{Identity: } $1 \in H$. $\forall a \in H$, $a * 1 = a$ 
+            \item \textbf{Inverse: } $\forall a \in H$, since H is the set of positive reals then $0 \not \in H$ and thus $a \neq 0$. $\frac{1}{a} > 0$, thus $\frac{1}{a} \in H$ and $a \times \frac{1}{a} = 1 = \frac{1}{a} \times a$. Thus for all $a \in H$, $\exists$ a $\frac{1}{a} \in H$ and a has a inverse.
+            \item \textbf{Closure: } For all $a, b \in H$, by definition of multiplication on real numbers $a \times b > 0$ thus $a \times b \in H$
+        \end{enumerate}
+
+        \item $G = GL_2(\R)$ and H is the set of matrices $\begin{bmatrix}{}
+            a & 0\\
+            0 & 0
+        \end{bmatrix}$ with $a \neq 0$. H is not even a subset.
+    \end{enumerate}
+\end{solution}
+
+\section*{Cyclic Groups}
+\begin{PROB}{1}\label{Problem 1.}
+    Let a and b be elements of a group G. Assume that a has order 7 and that $a^3b = ba^3$. Prove that $ab = ba$.
+\end{PROB}
+\begin{proof}
+    Let a and b be elements of a group G. Suppose that a has order 7 (ie.$a^7 = I$) and that $a^3b = ba^3$. Then if we left and right multiply by $a^3$, thus $a^6ba^3 = a^3ba^6$. Since $a^3b = ba^3$, $a^6ba^3 = a^6a^3b = a^2b$ and $a^3ba^6 = ba^2$, thus $a^2b = ba^2$. Left and right multiply by $a^2$, then $a^4ba^2 = a^2ba^4$. Since $a^2b = ba^2$, then $a^4ba^2 = a^6b$ and $a^2ba^4=ba^6$, thus $a^6b=ba^6$. Left and right multiply by $a^6$, thus $a^5ba^6 = a^6ba^5$ because $a^6 * a^6 = a^{12} = a^5$ because a has order 7. Again since $a^6b=ba^6$, $a^5ba^6 = a^11b=a^4b$ and $a^6ba^5 = ba^4$, thus $a^4b = ba^4$. Left and right multiply by $a^4$, thus $a^1ba^4 = a^4ba^1$, $a^4*a^4 = a^8 = a^1$ because a has order 7. Since $a^4b = ba^4$, then $a^1ba^4 = a^5b$ and $ a^4ba^1 = ba^5$, thus $a^5b = ba^5$. Again left and right multiply by $a^5$, thus $a^3ba^5 = a^5ba^3$ ($a^5*a^5 = a^{10} = a^3$ because a has order 7). Finally because $a^5b = ba^5$, $a^3ba^5 = a^8b = ab$ and $a^5ba^3 = ba^8 = ba$ because a has order 7. Thus $ab = ba$.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2a}
+    The nth roots of unity form a cyclic subgroup of $\C^\times$ of order n.
+\end{claim}
+\begin{proof}
+    Let $H$ be the set of the nth roots of unity. By definition of the nth roots of unity, the kth root of unity is of the form $e^{\frac{i2\pi k}{n}}$. So 
+
+    $$H = \{e^{\frac{i2\pi k}{n}} : k \in [0, \ldots, n-1]\}$$.
+
+    All elements of H are complex numbers so $H \subset G$. 
+
+    \begin{enumerate}{}
+        \item \textbf{Identity: } $1 = e^{0i} \in H$. Thus H has a identity
+        \item \textbf{Inverse: } $\forall a \in H$, by definition $a = e^{\frac{i2\pi k}{n}}$ for some $k \in [0, \ldots, n-1]$. Let $m = n - k$, $\exists b\in H$ s.t $b = e^{\frac{i2\pi m}{n}}$. $ab = e^{\frac{i2\pi(m+k)}{n}} = e^{\frac{i2\pi n}{n}} = e^{i 2\pi} = e^{0i} = 1$. Similarly, $ba = e^{\frac{i2\pi(k+m)}{n}} = e^{\frac{i2\pi n}{n}} = e^{i 2\pi} = e^{0i} = 1$. Thus $ab = 1 = ba$. Thus every element has a inverse.
+        \item \textbf{Closure: } For all $a, b \in H$. By definition $a = e^{\frac{i2\pi k}{n}}$ and $b = e^{\frac{i2\pi m}{n}}$ where $k, m \in \in [0, \ldots, n-1]$. $ab = e^{\frac{i2\pi k}{n}}e^{\frac{i2\pi m}{n}} = e^{\frac{i2\pi(m+k)}{n}}$. If $m+k \in [0, \ldots, n-1]$, then by definition $ab \in H$. Else, if $m + k > 0$, then $e^{\frac{i2\pi(m+k)}{n}} = e^{\frac{i2\pi(n + t)}{n}}$ for some $t < n$. Then $e^{\frac{i2\pi(n + t)}{n}} = e^{\frac{i2\pi n}{n}}e^{\frac{i2\pi t}{n}} = e^{2i \pi}e^{\frac{i2\pi t}{n}} = e^{\frac{i2\pi t}{n}} \in H$. Thus $ab \in H$
+    \end{enumerate}
+
+    Thus H is a subgroup of G. 
+
+    Let $\omega = e^{\frac{i2\pi}{n}}$. $\forall a \in H$, by definition $a = e^{\frac{i2\pi k}{n}}$ for some $k \in [0, \ldots, n-1]$. Then $\omega^k = \prod_{i}^{k}e^{\frac{i2\pi}{n}} = e^{\frac{i2\pi(k*1)}{n}} = e^{\frac{i2\pi k}{n}} = a$. Thus every element of H can be written as a power of $\omega$. Thus $$H = \{\omega^k : k \in [0, \ldots, n-1]\}$$ Thus H is a cyclic subgroup of $\C^\times$
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+    Determine the product of all the nth roots of unity.
+\end{PROB}
+\begin{solution}
+    \begin{align*}{}
+        \prod_{k=0}^{n-1}e^{\frac{i2\pi k}{n}} &= e^{\frac{i2\pi \sum_{k=0}^{n-1}k}{n}} \\
+        &= e^{\frac{i2\pi \frac{n(n-1)}{2}}{n}} \\
+        &= e^{i\pi (n-1)} \\
+        &= (-1)^n
+    \end{align*}
+\end{solution}
+
+\bigskip
+
+\begin{claim}{3}
+    Let a and b be elements of a group G. Prove that ab and ba have the same order.
+\end{claim}
+\begin{proof}
+
+    Suppose $ab$ has order k. Then by definition $(ab)^k = 1$. Left multiply by $a$, then $(ab)^ka = ((ab)\ldots (ab))a$ (ab is multiplied k times with itself). By property of associativity, $((ab)\ldots (ab))a = a((ba)\ldots (ba)) = a(ba)^k$ (Just changed the where the parenthesis was). Since $(ab)^k = 1$, then $(ab)^ka = 1a = a$. Thus $a = a(ba)^k$. Thus by definition of identity, $(ba)^k$ must be the identity. Thus $(ba)^k = 1$ and $ba$ has the same order as $ab$.
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Describe all groups G that contain no proper subgroup.
+\end{PROB}
+\begin{solution}
+    All groups G that contain no proper subgroups are the cyclic groups with prime order. This is because by Lagrange's Theorem the order of the subgroup divides the order of the group. If G is a subgroup with no proper subgroup then the orders of its subgroups are 1 or $n = \abs{G}$ by definition. Thus the order of G can only be divided by n or 1. Thus order of G must be prime.
+\end{solution}
+
+\bigskip
+
+\begin{claim}{5}
+    Prove that every subgroup of a cyclic group is cyclic. Do this by working with exponents, and use the description of the subgroups of $Z^+$.
+\end{claim}
+\begin{proof}
+    Suppose G is a cyclic group. Then by definition of a cyclic group, there exists a $g \in G$ s.t $G = \langle g \rangle = \{g^k : m \in \Z \}$. Let the identity element of G be $e$ and let H be a subgroup of G.
+
+    If $H = \{e\}$, then the subgroup is cyclic because $e^m = e$ for any $m \in \Z.$
+    
+    If $H \neq \{e\}$, assume the contrary, that H is not cyclic. Let $a, b \in H$. Because H is a subgroup of G, a and b are also in G and thus can be represented as $g^m$ for $m \in \Z$. Let $p$ be the smallest positive integer such that $g^p \in H$, let $a = g^p$. Given that H is not cyclic there must be a element $b = g^q$ s.t $b = g^q \neq g^{kp}$ for a $k \in \Z$. Thus q is not a integer multiple of p and can be written as $q = kp + r$ for $k \in \Z$ and $r \in \Z$ where $0 < r < p$. Thus $b = g^q = g^{kp + r}$. Because $a = g^p \in H$, then by the property of closure $a^k = (g^p)^m = g^{mp} \in H$. Furthermore, because each element must have a inverse in a group, $g^{-mp}$ must also be in the group. Furthermore because $b = g^{mp + r}$ and $g^{-mp}$ are in the H, by the property of closure $b \ast g^{-mp} = g^r$ must also be in H. But we asserted because q is not an integer multiple p, r must be a nonzero positive integer less than p. But since we asserted that p is the smallest positive integer s.t $g^p \in H$ but since $g^r$ is also in H and $r < p$, a contradiction forms and H is cyclic.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6a}\label{Problem 6a.}
+    Let G be a cyclic group of order 6. How many of its elements generate G? Answer the same question for cyclic groups of orders 5 and 8.
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}{}
+        \item Let $G = \langle x \rangle$, be the cyclic group of order 6. 2 of its elements generate G, the elements are $x^1, x^5$.
+        \item Let $G = \langle x \rangle$, be the cyclic group of order 5. All of its elements can generate G.
+        \item Let $G = \langle x \rangle$, be the cyclic group of order 8. Only 4 elements can generate G, the elements are $x, x^3, x^5, x^7$.
+    \end{enumerate}
+\end{solution}
+
+\begin{PROB}{6b}\label{Problem 6b.}
+    Describe the number of elements that generate a cyclic group of arbitrary order n.
+\end{PROB}
+\begin{solution}
+
+    Let $k$ be coprime to $n$. Then by Bezouts Theorem, $\exists a, b \in \Z$ s.t $ak + bn = 1$. For all $m \in \Z$
+
+    \begin{align*}{}
+        a^m &= a^{m(1)} \\
+        &= a^{m(ak + bn)}
+        &= a^{mak + mbn}
+        &= a^{mak}a^{mbn}
+        &= a^{mak}e
+        &= a^{mak}
+        &= (a^{k})^ma
+    \end{align*}
+
+    Thus $a^k$ generates the cyclic group.
+
+    Let the cyclic group be generated by $a^k$. Then there exists a $u$ s.t $(a^k)^m = a$. Thus $mk \equiv 1 \mod n$. By Bezouts Theorem, $\exists x, y \in \Z$ s.t $1 = xk + yn$. Thus $\gcd(k, n) = 1$ and $k$ is coprime to n.
+
+
+    The number of elements that generate a cyclic group of arbitrary order n is equal to the number of coprime integers to n or $\phi(n)$ where $\phi$ is Euler's totient function.
+\end{solution}
+
+\end{document}

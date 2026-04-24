@@ -1,0 +1,303 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{{\langle #1 \rangle}}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Representation Theory 1}
+\author{Arham Lodha}%put your name here
+\date{January 28, 2024}%enter the due date here
+\maketitle
+
+\begin{definition}
+    A linear representation of a group G means a vector space V and a homomorphism $G \to GL(V)$ (invertible linear maps from V to itself, a group under composition). 
+    We often say G acts linearly on V.  We usually leave the name of $G \to GL(V)$ out of the notation.
+\end{definition}
+
+\bigskip
+
+\begin{PROB}{1}\label{Problem 1.}
+    Why do we call this a "representation" of G? We say the representation is "faithful" if $G \to GL(V)$ is injective. Why do we call this a "faithful representation"?
+\end{PROB}
+\begin{solution}
+    This is called a representation of G because inside $GL(V)$, more specifically the image of the homomorphism, all of the generators and relations are captured. We say that the representation is faithful if inside $GL(V)$, more specifically the image of the homomorphism, if G is naturally inside $GL(V)$ .  
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+    Lets say G acts on V and W. What should mean by $Hom_G(V,W)$ -- a map of G reps?
+\end{PROB}
+\begin{proof}
+    $\forall f \in Hom_G(V, W)$, $f \in Hom_F(V, W)$ where $\forall g \in G$, $\forall v \in V$, $f(g \cdot v) = g \cdot f(v)$.    
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+    Say we have two n-dim reps of $G, f_i: G \to GL_n(F)$, $i = 1, 2$. When are they isomorphic? Concretely, what does it mean about the matrices $f_1(g), f_2(g)$ over all g?
+\end{PROB}
+\begin{solution}
+    When $f_1 \cong f_2$,  $\exists \alpha \in Hom_G(F^n, F^n)$, be the isomorphism of G-representations. Thus $\forall g \in G$, $\alpha \circ f_1(g) = f_2(g) \circ \alpha \implies \alpha \circ f_1(g) \circ \alpha^{-1} = f_2(g)$. Thus the matrices, $f_1(g)$ and $f_2(g)$ are conjugate.   
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3.}
+    Explain why there is a natural homomorphism $det: GL(V) \to F^*$, and a natural additive homomorphism Trace: $Hom_F(F,F) \to F$.  
+\end{PROB}
+\begin{solution}
+    There is a natural homomorphism $\det: GL(V) \to F^*$ which factors through the isomorphism $\det: GL_n(F) \to F^*$ after the choice of basis. Similarly there is a natural additive homomorphism $tr : Hom_F(F^n, F^n) \to F$ which factors through the $tr: GL_n(F) \to F$ after the choice of basis. Trace and determinant is independent of choice of basis. 
+\end{solution}
+
+\begin{claim}{3a.i}\label{Claim 3a.i.}
+    For $A, B \in GL_n(F)$, $tr(AB) = tr(BA)$
+\end{claim}
+\begin{proof}
+    $tr(AB) = \sum_{i = 1}^{n} \sum_{j = 1}^{n} A_{i, j} B_{j, i}$ and $tr(BA) = \sum_{k = 1}^{n} \sum_{l = 1}^{n} B_{k, l} A_{l, k} = \sum_{l = 1}^{n} \sum_{k = 1}^{n} A_{l, k} B_{k, l} = \sum_{i = 1}^{n} \sum_{j = 1}^{n} A_{i, j} B_{j, i} = Tr(AB)$. Thus $tr(AB) = tr(BA)$
+\end{proof}
+
+\begin{claim}{3a.ii}\label{Claim 3a.ii.}
+    For $A, B \in GL_n(F)$, $tr(BAB^{-1}) = tr(A)$
+\end{claim}
+\begin{proof}
+    By claim 3a.i, $tr(BAB^{-1}) = tr(BB^{-1}A) = tr(IA) = tr(A)$. Thus $tr$ is independent of choice of basis.   
+\end{proof}
+
+\begin{claim}{3b}\label{Claim 3b.}
+    If $f: G \to GL(V)$ is a rep, its "character", means the composition $\chi_f: tr \circ f: G \to F$. Show that if two reps are iso, they have identical characters (the character functions are equal).
+\end{claim}
+\begin{proof}
+    Suppose $a: G \to GL(V)$ and $b: G \to GL(W)$ are representations of G which are isomorphic. Thus $\exists \alpha \in Hom_G(V, W)$ which is a isomorphism. By 2, we know $\forall g \in G$, $\alpha \circ a(g) = b(g) \circ \alpha \implies \alpha \circ a(g) \circ \alpha^{-1} = b(g)$, in other words isomorphic representations are conjugate, equivalently related by change of basis. $\forall g \in G$, $\chi_b(g) = tr(b(g)) = tr(\alpha \circ a(g) \circ \alpha^{-1})= tr(\alpha \circ \alpha^{-1} \circ a(g))$, by 3a.ii. Thus $\chi_b(g) =tr(b(g))= tr(\alpha \circ \alpha^{-1} \circ a(g)) = tr(a(g)) = \chi_a(g)$. Thus $\chi_b = \chi_a$.
+\end{proof}
+
+\begin{claim}{3c}\label{Claim 3c.}
+    The amazing theorem of Frobenius, which we will prove, is that for finite dim complex representations, the converse is true: If two reps have the same characters, they are isomorphic. Why is this amazing (think in terms of preservation of information)?
+\end{claim}
+\begin{proof}
+    When we take the character we lose information, it is amazing how regardless of the fact that we lost information we can tell that two reps are isomorphic.
+\end{proof}
+
+
+\bigskip
+
+\begin{claim}{4}\label{Claim 4.}
+    As a reality check, lets say G acts on V and W, and the characters are the same, and char(F) =0. Explain why V and W at least have the same dimensions.
+\end{claim}
+\begin{proof}
+    Suppose $\alpha: G \to GL(V)$ and $\beta: G \to GL(W)$ are representations of G such that $\chi_\alpha : Tr \circ \alpha$ and $\chi_\beta : Tr \circ \beta$ and $\chi_\alpha = \chi_\beta$. Then $\alpha(e) = I_v \in GL(V)$ and $\beta(e) = I_w \in GL(W)$. The trace of identity is the dimension of the vector space, thus $tr(I_v) = \dim V $ and $tr(I_w) = \dim W$. Thus 
+    
+    \[
+        \dim V = tr(I_v) = \chi_\alpha(e) = \chi_\beta(e) = tr(I_w) = \dim W.
+    \]
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Explain how we can "add" reps, ie if G acts on V and on W it naturally acts on the direct sum $V \times W$  (its the product set, but usually called the direct sum when we write + for the addition). Now $P := V \times W$ comes with two natural G invariant subspaces (iso to) $V, W \subset P$.  Now suppose G acts on (the F-vector space) P and we have two G invariant subspaces V, W. When is the natural addition map $V \oplus W \to P$ (sending $(v,w) \to v + w$, addition in P) is iso of G-reps? Find necessary and sufficient conditions. Given P, when we can find such V and W neither 0, we say P is "reducible". If its not, its irreducible.
+\end{PROB}
+\begin{proof}
+    Let $\alpha: G \to GL(P)$. Let $V, W \leq P$ be G-invariant subspaces.   
+    
+    $\implies$: Suppose $V \cap W = 0$ and $\dim V + \dim W = \dim P$. 
+    
+    $\forall (v, w) \in \ker +$, $v + w = 0 \implies w = -v \implies v \in W$. Since $V \cap W = 0$, then $v = 0$ and $w = 0$. Thus $\ker + = (0,0)$ and $+$ is injective. 
+    
+    Let $v_1, \dots, v_{\dim V}$ be the basis of $V$ and $w_1, \dots, w_{\dim W}$ be the basis of $W$. Since $\ker + = 0$, $v_1, \dots, v_{\dim V}, w_1, \dots, w_{\dim W}$ are linearly independent. There are $\dim P$ vectors in $v_1, \dots, v_{\dim V}, w_1, \dots, w_{\dim W}$ which are linearly independent thus $v_1, \dots, v_{\dim V}, w_1, \dots, w_{\dim W}$ is a basis of P and thus $v_1, \dots, v_{\dim V}, w_1, \dots, w_{\dim W}$ span the space and $+$ is surjective and thus a isomorphism of vectorspaces.      
+    
+    Then $\forall v \in V$ and $\forall w \in W$, $+(g \cdot (v,w)) = +(\alpha(g)v, \alpha(g)w) = \alpha(g)v + \alpha(g)w = \alpha(g)(v + w) = \alpha(g)[+(v, w)]$. Thus $V \oplus W \to P$ is also a isomorphism of representations. 
+    
+    $\impliedby$: Suppose $V \oplus W \cong P$ as a g-rep. Then it is a isomorphism of vectorspaces. Then $\ker + = 0$, then $\forall v \in V$ and $\forall w \in W$, $v + w = 0 \implies v = 0$ and $w = 0$. $\forall v \in V \cap W$, $-v \in V \cap W$, $-v \in V \cap W$, $v - v = 0$. Thus $V \cap W \subset \ker +$. Thus $V \cap W = 0$. Then $\forall p \in P$, $p = v + w$, for some $v \in V$ and $w \in W$. Since $\ker + = 0$, V is linearly independent from W. Thus $\dim V + \dim W = \dim P$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Prove any finite dim rep is a direct sum of irreducibles. Being reducible requires we have two G-invariant subspaces, which are complementary. The first theorem in the subject is that when F = C, we only need one (non-trivial) invariant subspace.
+\end{PROB} 
+\begin{proof}
+    (Base Case): Let $V$, be a representation of $G$. Suppose $\dim V = 1$. Thus $V$  has no proper nontrivial subspaces, thus no proper G-invariant subspaces. Thus $V$ is a direct product of irreducibles, because it is irreducible itself. 
+    
+    (Induction Hypothesis): Let any representation of $G$ $V$ with $\dim V < k$ be a direct sum of irreducibles.
+    
+    (Inductive Step): Let $P$ be a representation of G with $\dim P = k$. If $P$ is irreducible, then we are done becuase $P$ itself is a direct product of irreducible, namely itself. If $P$ is reducible, by definition, there exists complementary G-invariant subspaces $V$ and $W$ such that there exists a g-rep isomorphism $V \oplus W \to P$. Thus $P \cong V \oplus W$. By definition of reducible, $V, W$ are nontrivial so $\dim V \geq 1$ and $\dim W \geq 1$. Thus $\dim V = \dim P - \dim W \leq k - 1$ and similarly $\dim W \leq k - 1$. Restrict the representation of $G$ to $V$ and $W$ and apply the inductive hypothesis. By the inductive hypothesis, $V \cong V_1 \oplus \dots \oplus V_m$ and $W \cong W_1 \oplus \dots \oplus W_n$ where $V_i$ for $i = 1, \dots, m$  and $W_j$ for $j = 1, \dots, n$ are irreducibles. Thus $P \cong V_1 \oplus \dots \oplus V_m \oplus W_1 \oplus \dots \oplus W_n$. Thus P is the direct product of irreducibles.                   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Suppose G acts on V, $\angles{ , } > 0$ (meaning its a positive def hermitian symmetric form) and $\angles{ , }$ is G-invariant, ie each g in G preserves $\angles{ , }$. Show that if W is G-invariant, then it has an invariant complement, and so V is reducible. 
+\end{PROB}
+\begin{proof}
+    Let $W < V$, be a G-invariant subspace. $W^\perp := \left\{ v \in V : \angles{v, w} = 0, ~ \forall w \in W \right\}$. $\forall w \in W$ and $\forall g \in G$, since $W$ is G-invariant, $gw = w'$ for some $w' \in W$, so $w = g^{-1}w'$. Thus $\forall v \in W^\perp$,  $\angles{gv, w} = \angles{gv, g (g^{-1}w)}$. Since $\angles{ , }$ is G-invariant, $\angles{gv, g (g^{-1}w)} = \angles{v, g^{-1}w}$. Since $g^{-1}w \in W$, $\angles{gv, w} = angles{v, g^{-1}w} = 0$. So $gv \in W^\perp$. So $W^\perp$ is G-invariant. $\forall v \in W \cap W^\perp$, $v \in W$ and $v \in W^\perp$. Since $v \in W^\perp$, $\angles{v, v} = 0$. Since $\angles{ , }$ is positive definite, $v = 0$. Thus $W \cap W^\perp = 0$. Let $k = \dim W$ and let $w_1, \dots, w_k$ be a basis of W. $W^\perp = \ker\left(\left[v \to \begin{bmatrix}
+        \angles{v, w_1} \\
+        \vdots \\
+        \angles{v, w_k}
+    \end{bmatrix}\right]\right)$. Since $\angles{w_i, w_i} \neq 0$, so $w_i \to e_i$, so $\dim \left[v \to \begin{bmatrix}
+        \angles{v, w_1} \\
+        \vdots \\
+        \angles{v, w_k}
+    \end{bmatrix}\right]_*(V) = k$ (image of map). So by rank nullity, $\ker W^\perp = \dim V - k$. Thus $\dim W + \dim W^\perp = k + \dim V - k = \dim V$. Thus $W \oplus W^\perp \to V$ is a isomorphism. Thus $W^\perp$ is a G-invariant complement to V and  $V$ is reducible.                   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8a}\label{Problem 8a.}
+    Define an action of $GL(V)$ on the set of pos def Herm symmetric forms  (I think there is only one way to do it).  Now let $\angles{ , } > 0$ be any positive form.   
+\end{PROB}
+\begin{solution}
+    Let $P$ be the set of pos def Herm symmetric forms.
+    $\forall g \in GL(V)$ and $\forall \angles{ , } \in P$, $\forall v, w \in V$, $\angles{v, w}_g := \angles{g^{-1}v , g^{-1}w}$. $g \cdot \angles{,} = \angles{v, w}_g$. $\forall v,w \in V$, $\forall g, h \in GL(V)$, and $\forall \angles{ , } \in P$, $(gh \cdot \angles{,})[v,w] = \angles{h^{-1}g^{-1}v, h^{-1}g^{-1}v} = \angles{,}_h[g^{-1}v, g^{-1}w] = (g \cdot \angles{,}_h)[v,w]= (g \cdot (h \cdot \angles{,}))[v, w]$.      
+\end{solution}
+\begin{claim}{8b}\label{Claim 8b.}
+    Show that the sum of positive def Herm symmetric forms is also pos def.
+\end{claim}
+\begin{proof}
+    Let $\angles{, }$ and $[ , ]$ be positive definite form hermitian symmetric forms. Let $p: V \times V \to F$ be a bilinear form where $\forall (v, w) \in V \times V$, $p(v, w) = \angles{v, w} + [v, w]$. $\forall v \in V \ni v \neq 0$, since $\angles{,}$ and $[,]$ are positive definite, $\angles{v,v} > 0$ and $[v,v] > 0$. So $p(v,v) = \angles{v, v} + [v, v] > 0$ since sum of 2 positive numbers is positive. Thus $p$ is positive definite.                
+\end{proof}
+\begin{PROB}{8c}\label{Problem 8c.}
+    Let G be finite acting on V. Let [ , ] be the average over the orbit $G\cdot\angles{ , }$. Show this is G-invariant and positive.
+\end{PROB}
+\begin{proof}
+    Let G be finite acting on V. Let $\angles{ , }$ be a positive hermitian symmetric bilinear form. $[,] := \frac{1}{|G|} \sum_{g \in G} g \cdot \angles{,}$. By 8b, since the sum of positive definite hermitian forms is positive, and $|G| > 0$, $[,] > 0$. $\forall h \in G$, $h \cdot [ , ]  = \frac{1}{|G|} h \cdot \sum_{g \in G} g \cdot \angles{,} = \frac{1}{|G|} \sum_{g \in G} hg \cdot \angles{,}$. $\forall g \in G$, $h h^{-1} g = g$, and since $h^{-1} \in G$, $h^{-1}g \in G$. Thus left multiplication of every element of G with $g$ simply reorders the group G. Thus, $h\cdot[,] = \frac{1}{|G|} \sum_{g \in G} g \cdot \angles{,} = \cdot[,]$. Thus $[,]$ is G-invariant.               
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+    Show that any finite subgroup of $GL_n(C)$ is conjugate to a subgroup of $U(n)$ (the matrices that preserve the standard hermitian dot product).  Explain why every finite subgroup of $GL_n(R)$ is conjugate to a subgroup of O(n) (orthogonal matrices, matrices that preserve the standard dot product).
+\end{PROB}
+\begin{claim}{9a}\label{Claim 9a.}
+    Let $P$ be the set of nondegenerate Herm symmetric forms. If $G := GL_n(\C)$ acts on $P$ using the action defined in 8, the action is transitive.
+
+    $\forall v, w \in V$, $\angles{v, w}_g := \angles{g^{-1}v , g^{-1}w}$. $g \cdot \angles{,} = \angles{v, w}_g$.
+\end{claim}
+\begin{proof}
+    Define $( , )$ as the standard hermitian dot product. Let $e_1, \dots. e_n$ be the standard basis.  
+    
+    $\forall \angles{ , } \in P$, by bilinear forms 2, $\exists$ a orthonormal basis $b_1, \dots, b_n \ni \angles{b_i, b_j} = \delta(i, j)$. Let $g \in G$, be the linear transformation which transforms the standard basis to the orthonormal basis. Thus $(g \cdot \angles{})[e_i, e_j] = \angles{e_i, e_j}_g = \angles{g^{-1}e_i, g^{-1}e_j} = \angles{b_i, b_j} = \delta(i, j) = (e_i, e_j)$. Thus $g \cdot \angles{} = (,)$. Thus all positive definite bilinear forms are in the same orbit as the standard hermitian dot product and thus are all in the same orbit and the action is transitive.   
+\end{proof}
+\begin{claim}{9b}\label{Claim 9b.}
+    $U(n) = G^{(,)}$ (Stabilizer) 
+\end{claim}
+\begin{proof}
+    $\forall g \in G^{(,)}$, $g \cdot (,) = (,)$. Let $h = g^{-1}$  Thus     
+
+    \[
+        [h^T\bar{h}]_{i,j} = e_i {h}^T \bar{h} \bar{e_j}  = (he_i, he_j) = (e_i, e_j)_g = (e_i, e_j) = \delta(i, j).
+    \]
+    Thus $[h^T\bar{h}]_{i,j} = \delta(i, j) \implies h^T\bar{h} = I \implies h \in U(n)$ and $g \in U(n)$ .
+
+    $\forall g \in U(n)$, let $h = g^{-1}$ and $h \in U(n)$ . Thus $\forall v, w \in V$ 
+
+    \[
+        (g \cdot (,))[v, w] = (v, w)_g = (hv, hw) = v^T h^T \bar{h} \bar{w} = v^T \bar{w} = (v, w).
+    \]
+
+    Thus $g \cdot (,) = (,)$. 
+    
+    Thus $U(n) = G^{(,)}$ 
+\end{proof}
+\begin{claim}{9c}\label{Claim 9c.}
+    Show that any finite subgroup of $H \leq GL_n(\C) = G$ is conjugate to a subgroup of $U(n)$ (the matrices that preserve the standard hermitian dot product).
+\end{claim}
+\begin{proof}
+    Create the bilinear form $[ , ] = \frac{1}{|H|} \sum_{g \in H} g \cdot ( , )$. By 8, $[ , ]$ is $H$ invariant. So $H \leq G^{[ , ]}$. Since the action is transitive, $\exists T \in G = GL_n(\C) \ni T \cdot (, ) =[ , ]$. Thus $G^{[ , ]} = G^{T \cdot (, )} = T G^{(,)} T^{-1} = T U(n) T^{-1}$ (conjugation formula of stabilizers from last semester). Thus $H \leq T U(n) T^{-1}$.       
+\end{proof}
+
+\begin{claim}{9d}\label{Claim 9d.}
+    Explain why every finite subgroup of $GL_n(R)$ is conjugate to a subgroup of O(n) (orthogonal matrices, matrices that preserve the standard dot product).
+\end{claim}
+\begin{proof}
+    Using similar logic as above, we can prove this claim.
+
+    Let $P$ be the set of positive definite symmetric bilinear forms. Let $G := GL_n(\R)$. 
+
+    Define $( , )$ as the standard dot product. Let $e_1, \dots. e_n$ be the standard basis.
+
+    $\forall \angles{ , } \in P$, by bilinear forms 2, $\exists$ a orthonormal basis $b_1, \dots, b_n \ni \angles{b_i, b_j} = \delta(i, j)$. Let $g \in G$, be the linear transformation which transforms the standard basis to the orthonormal basis. Thus $(g \cdot \angles{})[e_i, e_j] = \angles{e_i, e_j}_g = \angles{g^{-1}e_i, g^{-1}e_j} = \angles{b_i, b_j} = \delta(i, j) = (e_i, e_j)$. Thus $g \cdot \angles{} = (,)$. Thus all positive definite symmetric bilinear forms are in the same orbit as the standard dot product and thus are all in the same orbit and the action is transitive.
+
+
+    $\forall g \in G^{(,)}$, $g \cdot (,) = (,)$. Let $h = g^{-1}$  Thus     
+
+    \[
+        [h^Th]_{i,j} = e_i {h}^T h e_j  = (he_i, he_j) = (e_i, e_j)_g = (e_i, e_j) = \delta(i, j).
+    \]
+    Thus $[h^Th]_{i,j} = \delta(i, j) \implies h^Th = I \implies h^{-1} = h^T \implies h \in O(n)$ and $g \in O(n)$ .
+
+    $\forall g \in O(n)$, let $h = g^{-1}$ and $h \in O(n)$ . Thus $\forall v, w \in V$ 
+
+    \[
+        (g \cdot (,))[v, w] = (v, w)_g = (hv, hw) = v^T h^T hw = v^T w = (v, w).
+    \]
+
+    Thus $g \cdot (,) = (,)$. 
+    
+    Thus $O(n) = G^{(,)}$
+
+    $\forall H \leq G$, 
+    
+    Create the bilinear form $[ , ] = \frac{1}{|H|} \sum_{g \in H} g \cdot ( , )$. By 8, $[ , ]$ is $H$ invariant. So $H \leq G^{[ , ]}$. Since the action is transitive, $\exists T \in G = GL_n(\R) \ni T \cdot (, ) =[ , ]$. Thus $G^{[ , ]} = G^{T \cdot (, )} = T G^{(,)} T^{-1} = T O(n) T^{-1}$ (conjugation formula of stabilizers from last semester). Thus $H \leq T O(n) T^{-1}$.
+\end{proof}
+
+
+\end{document}

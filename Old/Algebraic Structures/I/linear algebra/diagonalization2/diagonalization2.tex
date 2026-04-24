@@ -1,0 +1,178 @@
+%HOMEWORK template for M 325K
+
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+	\newenvironment{#1}[1]
+	{%
+		\renewcommand\customgenericname{#2}%
+		\renewcommand\theinnercustomgeneric{##1}%
+		\innercustomgeneric
+	}
+	{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+		{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+		{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Diagonalization 2}
+\author{Arham Lodha}%put your name here
+\date{September 7, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    First, a sufficient condition. Suppose $P_A(\lambda)$ has $n := dim V$ distinct roots, all in F. Show that the sum of the dim of the eigenspaces $V_f$ over all f is at least n, and so conclude by the previous homework that its exactly n, and A is diagonalizable.
+\end{PROB}
+\begin{proof}
+    Suppose $P_A(\lambda)$ has $n := \dim V$ distinct roots, all in F. By definition of the characteristic polynomial, there exists $n$ distinct solutions to $\det(A - \lambda I) = 0$. By definition of invertibility, there exists $\lambda_1, \ldots, \lambda_n \in F$ s.t $(A - \lambda_i I)$ is not invertible. Furthermore, it means $\ker(A - \lambda_i I) \neq \{0\}$. Suppose $v \in \ker(A - \lambda_1 I)$ and $v \in \ker(A - \lambda_2 I)$ s.t $v \neq 0$. Then it means $Av = \lambda_1v = \lambda_2v$, thus $\lambda_1 = \lambda_2$. Thus $V_{\lambda_i} = \ker(A - \lambda_i I)$ only share the 0 vector and have at least one other vector, by definition of eigenvalues. Moreover by the previous homework the vectors in distinct eigenspaces are linearly independent. Thus $\sum_{i=1}^{n}\dim V_{\lambda_i} \geq n$, because there are at least n distinct eigenspaces with a nonzero linearly independent vector. Thus $n \leq \sum_{i=1}^{n}\dim V_{\lambda_i} \leq \sum_{f}^{n}\dim V_f$. By the previous homework if the inequality is true we know that $n = \sum_{f}^{n}\dim V_f$. Thus $A$ is diagonalizable.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Give an example (a really simple one) of a diagonalizable matrix whose characteristic polynomial does not have distinct roots.  Show that to be diagonalizable we at least need that $P_A(T)$ has all its roots in F, ie that $P_A(T)$ is a product of linear polynomials (factors completely), over F.  
+\end{PROB}
+\begin{claim}{2a}
+    There exists diagonalizable matrices whose characteristic polynomial doesn't have distinct roots.
+\end{claim}
+\begin{solution}
+    0 is the example. It is by definition diagonalizable having scalars on the diagonal and zeros every where else. But its characteristic polynomial is $P_0(T) = T^n$ whose only roots are 0.
+\end{solution}
+\begin{claim}{2b}
+    To be diagonalizable we at least need that $P_A(T)$ has all its roots in F, ie that $P_A(T)$ is a product of linear polynomials (factors completely), over F.
+\end{claim}
+\begin{proof}
+    Assume the contrary, $A: V \rarr V$ is a diagonalizable linear transformation whose characteristic polynomial $P_A(T)$ has roots which are not in the field F. By the previous homework, if A is diagonalizable there exists a eigenvector basis. For each eigenvector $v$, by definition, there exists a $\lambda$ eigenvalue such that $Av = \lambda v$. By definition all the roots to $P_A(T)$ are eigenvalues. However since there exists a $c \not \in F$ s.t $P_A(c) = 0$ thus c is a eigenvalue by definition. Thus there exists a $v$ in our eigenvector basis such that $Av = cv$. However since $c \not \in F$ then $Av = cv \not \in V$. This forms a contradiction because the $A_*(V) \in V$ by definition of A. But there exists a $v \in V$ s.t $Av \not \in V$. $A: V \rarr V$ is a diagonalizable linear transformation if its characteristic polynomial $P_A(T)$ only has roots in the field F.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Let the (distinct) eigenvalues of A be  $f_1,..,f_k$. Consider the product $M :=(A - f_1 I)(A - f_2 I) \ldots (A - f_k I) = Q(A)$ where $Q(T) = (T - f_1)\ldots(T - f_k)$.
+    Show that the restriction of M to each eigenspace $V_{f_i}(A)$ is zero. Conclude that if A is diagonalizable, then Q(A) = 0. 
+\end{PROB}
+\begin{proof}
+    For each eigenvalue $f_i$, let $V_{f_i}(A)$ be the corresponding eigenspace. By definition, the eigenspace $V_{f_i}(A)$ is the set of all eigenvectors associated with the eigenvalue $f_i$. 
+    
+    By definition, $V_{f_i}(A) = \ker(A - f_iI)$. $\forall v \in V_{f_i}(A)$ for all $i \in [1, \ldots, k]$.
+
+    \begin{align*}{}
+        Mv &= (A - f_1 I)(A - f_2 I) \ldots (A - f_k I)v \\
+        &= (A - f_1 I)(A - f_2 I) \ldots (Av - f_kIv) \\
+        &= (A - f_1 I)(A - f_2 I) \ldots (f_iv - f_kv) \\
+        &= (A - f_1 I)(A - f_2 I) \ldots (A - f_{k-1}I)(f_i - f_k)v \\
+        &=(f_i - f_k)(A - f_1 I)(A - f_2 I) \ldots (A - f_{k-1}I)v \\
+        &=(f_i - f_k)(f_i - f_{k-1})(A - f_1 I)(A - f_2 I) \ldots (A - f_{k-2}I)v\\
+        &\shortvdotswithin{=}
+        &= (f_i - f_1) \ldots (f_i - f_k)(f_i - f_{k-1})v\\
+    \end{align*}
+
+
+    Since $v \in V_{f_i}(A)$ for $i \in [1, \ldots, k]$. Then there exists a $j \in [1, \ldots, k]$ where $i = j$ such that $f_i = f_j = 0$. Thus one factor of $Mv$ is 0 thus $Mv = 0$
+
+    If A is diagonalizable, then there exists a basis of eigenvectors $B_v = \{v_1, \ldots, v_{\dim V}\}$. Thus every $x \in V$ would be a linear combination of eigenvectors and since by properties of linear maps M upholds linearity, $Mx = \sum_{i=1}^{\dim V}a_iMv_i$. However since $v_i$ an element of some eigenspace, then $Mx =\sum_{i=1}^{\dim V}a_i0 = 0$. Thus if A is diagonalizable, then for any $x \in V$, $Mv = 0$. Thus $Q(A) = 0$.
+\end{proof}
+
+\bigskip
+\begin{PROB}{4}\label{Problem 4.}
+    Conversely, suppose $f_1,\ldots,f_k$ are distinct elements of F. For $Q(T)$ the poly with these roots, as in 3. Suppose $Q(A)=0$. Use a lemma from an earlier homework (on the dim of the  kernel of a product of matrices) to conclude that the sum of the dim of the Ker of the $A - f_i I$ is at least n. Show that we can drop any of the $f_i$ that are not eigenvalues and everything still works. So we can assume all the $f_i$ are eigenvalues. Show $\sum dim V_{f_i} =n$.  Conclude that A is diagonalizable, and that these are the only eigenvalues. Does $Q(T)$ have to be the characteristic polynomial?
+\end{PROB}
+\begin{proof}
+    Suppose $f_1,\ldots,f_k$ are distinct elements of A. Let $Q(T)$ be a polynomial with these roots. Suppose $Q(A) = 0$. Since $Q(A) = 0$, $\ker(Q(A)) = V$ because for all $v \in V$, $Q(A)v = 0v = 0$. By Linear Algebra Bootcamp 4, we know that the dimensions kernel of the product of two matrices is less than the sum of dimensions of the kernel of each matrix. Thus $\dim(\ker Q(A)) = \dim(V) = n \leq  \sum_{i=1}^{k}(\dim \ker(A - f_iI))$. By definition, $V_{f_i}(A) = \ker(A - f_iI)$. Thus $n \leq  \sum_{i=1}^{k}(\dim V_{f_i}(A))$. If $f_i$ for some $i \in [1, \ldots k]$ is not a eigenvalue, by definition of eigenvalues then $A - f_iI$ is invertible thus the kernel is the trivial kernel and the dimension of the kernel is 0. Thus $\dim V_{f_i}(A) = 0$ if $f_i$ is not a eigenvalue and thus we can drop any $\dim V_{f_i}(A)$ from our sum if $f_i$ is not a eigenvalue. Thus we can assume all $f_i$ are eigenvalues wlog.
+
+    Since eigenvectors corresponding to distinct eigenvalues are linearly independent, the vectors in these distinct eigenspaces are all linearly independent from each other. Thus form a set vectors $B = \bigcup_{f_i \in [f_1, \ldots, f_k]} B_{f_i}$ where $B_{f_i}$ is the basis of $V_{f_i}(A)$. By definition of basis, the vectors in $B_{f_i}$ are linearly independent and since vectors in distinct eigenspaces are linearly independent from each other then $B$ is a set of $\sum_{i=1}^{k}(\dim V_{f_i}(A))$ linearly independent vectors, because the dimension gives you the number of basis vectors in a space. Thus $\dim span B = \sum_{i=1}^{k}(\dim V_{f_i}(A))$. By Linear Algebra Bootcamp 1 problem 7, we have shown that a dimension of a subspace must be less than or equal to its parent space. Thus $\dim \mathrm{span} B = \sum_{i=1}^{k}(\dim V_{f_i}(A)) \leq n $. If $n \leq \sum_{i=1}^{k}(\dim V_{f_i}(A)) \leq n$, then $\sum_{i=1}^{k}(\dim V_{f_i}(A)) = n$. Thus by Diagonalization 1 problem 7, $f_1, \ldots, f_k$ are the only eigenvalues and A is diagonalizable.
+\end{proof}
+\begin{solution}
+    No $Q(T)$ doesn't have to be the characteristic, it can be any polynomial s.t $Q(A) = 0$ and its roots are eigenvalues of A.
+\end{solution}
+
+\begin{claim}{4c}
+    A is diagonalizable iff there is a polynomial Q(T) in F(T), with distinct roots which splits completely over F (ie is a product of linear terms) such that Q(A) = 0
+\end{claim}
+\begin{proof}
+    ($\implies$) Suppose A is diagonalizable. Then by Diagonalization 1 problem 4, since A is diagonalizable, there exists a eigenvector basis $E = {w_1, \ldots, w_n}$ for V. By definition, since there exists eigenvectors, each eigenvector must also have a corresponding eigenvalue. Note the eigenvalue need not be distinct. Let $L = \{\lambda_1, \ldots, \lambda_a\}$ be the unique eigenvalues of A where all $l \in L$ $l \in F$. Note because the eigenvalues do not need to be distinct then there may be eigenvectors in our basis which share eigenvalues in L. Then define, $Q(x) = \prod_{i=1}^{a}(x - \lambda_i)$ if x is a matrix then $Q(X)=\prod_{i=1}^{a}(X - \lambda_iI)$. By definition of Q, its roots are the unique eigenvectors of A thus Q has distinct roots which are in F. By definition of a basis, the eigenvector basis spans $V$ thus $\forall v \in V$, $v = \sum_{i=1}^{n}c_iw_i$ where for every $w_i$ there exists a $\lambda_{w_i} \in L$ s.t $w_i \in V_\lambda(A)$ and $c_i \in F$. Thus for all $v \in V$,
+
+    \begin{align*}{}
+        Q(A)v &= \prod_{j=1}^{a}(A - \lambda_jI)(\sum_{i=1}^{n}c_iw_i) \\
+        &= \sum_{i=1}^{n}\prod_{j=1}^{a}(A - \lambda_jI)(c_iw_i) \\
+        &= \sum_{i=1}^{n}c_i\prod_{j=1}^{a}(\lambda_{w_i} - \lambda_j) \\
+        &= 0
+    \end{align*}
+
+    Since for every $w_i$ there exists a $\lambda_{w_i} \in L$ s.t $w_i \in V_\lambda(A)$ and $c_i \in F$, for all $v \in V$, $Q(A)v = 0$. Thus $Q(A) = 0$.
+
+    ($\impliedby$): Suppose there was a polynomial $Q(T)$ s.t with distinct roots which splits completely over F (ie is a product of linear terms) such that Q(A) = 0. Let the roots of $Q$ be $x_1, \ldots, x_a$. Since $Q(T)$ has distinct roots which split completely over F, it can be rewritten as $Q(T) = \prod_{i=1}^{a}(T - x_i)$. Furthermore since $Q(A) = 0$, then $\forall v \in V$ $Q(A)v =(\prod_{i=1}^{a}(A - x_iI))v= 0$. Then at least 1 factor $(A - x_iI)v = Av - x_iIv = Av - x_iv = 0$. Consider each factor $(A - x_iI)$ seperately. If only 1 factor is 0, then v is eigenvector. Find all linearly independent vectors $v$ for $x_i$ s.t $(A - x_iI)v = 0$. These v would be the basis vectors of $V_{x_i}(A)$. Combine all the basis for all $V_{x_i}(A)$ for all $i \in [1, \ldots, a]$. Then we a eigenvector basis thus by Diagonalization 1 problem 4 A is diagonalizable.
+\end{proof}
+\bigskip
+\begin{PROB}{5}\label{Problem 5.}
+    Let $F = \C$, the complex numbers. Suppose A is a square matrix of finite order, ie $A^k =I$ for some k. Show that A is diagonalizable, and moreover, that its eigenvalues are all roots of unity. 
+\end{PROB}
+\begin{proof}
+    Let $F = \C$, the complex numbers. Suppose A is a square matrix of finite order, ie $A^k =I$ for some k. Let $Q(T) \in F(T)$, $Q(T):=T^k - 1$. By the Fundamental Theorem of Algebra, any complex polynomial has all solutions in the $\C$. Then $Q(A) = A^k - I = I - I = 0$.
+
+    Let $\lambda$ be a eigenvalue of A. Then by definition there exists a $v \in V$, s.t $Av = \lambda v$. $A^{k - 1}(Av) = A^{k - 1}(\lambda v) = \lambda^k v$. $A^{k - 1}(Av) = A^k v = Iv = v$. Thus $v = \lambda^k v$. Thus $\lambda^k = 1$. Thus $\lambda$ are the roots of unity and there are k distinct lambda thus there are k distinct eigenvalues. Furthermore each eigenvalue, is a root to $Q(T)$ because $Q(T) \in \C(T)$.
+
+    Thus by previous Theorem in problem 4, since Q has k distinct roots, A must be diagonalizable.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Suppose $Q(A)=0$ for some polynomial $Q(T)$ in $F(T)$. Show that $Q(f) = 0$ for every eigenvalue of A. In short, the eigenvalues satisfy any polynomial that A satisfies
+\end{PROB}
+\begin{proof}
+    % If $Q(A)= 0$ then we know A is diagonalizable by claim 4c. Thus be a previous homework, we know if A is diagonalizable then there exist a eigenvector basis E. By the previous homework, we know that $\sum_{f \in F}\dim V_f(A) = \dim A = \dim \mathrm{span}(E)$ since A is diagonalizable. Thus all the corresponding eigenvalues to our vectors in E are all the eigenvalues of A.
+
+
+    Suppose $\lambda$ is any eigenvalue of A. Then $\exists v \in V$ s.t $v \neq 0$, s.t $Av = \lambda v$. Then for all $P(T) \in F(T)$ where b is the degree of P, $P(A)v = (\sum_{i=0}^{b}c_i A^i)v = \sum_{i=0}^{b}c_i A^iv = \sum_{i=0}^{b} c_i \lambda^i v = P(\lambda)v$. Thus $P(A)v = P(\lambda)v$ for all $P(T) \in F(T)$. Let $Q(T) \in F(T)$ s.t $Q(A) = 0$. As previously shown $Q(A)v = Q(\lambda)v$. Thus $Q(\lambda)v = 0$ and $v \neq 0$. Thus $Q(\lambda) = 0$. Thus all eigenvalues of A are roots of Q.
+\end{proof}
+
+\end{document}

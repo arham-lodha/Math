@@ -1,0 +1,267 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Linear Algebra Bootcamp 2}
+\author{Arham Lodha}%put your name here
+\date{January 10, 2024}%enter the due date here
+\maketitle
+
+\begin{claim}{9a}\label{Claim 9a.}
+    Show $\Hom_F(F^m, F^n) \cong M_{n \times m}$.
+\end{claim}
+\begin{proof}
+    Let $\alpha: \Hom_F(F^m, F^n) \rarr M_{n \times m} \ni \phi \to \begin{bmatrix}
+        \vert & \vert & \vert \\
+        \phi(e^1) & \cdots & \phi(e^m) \\
+        \vert & \vert & \vert
+    \end{bmatrix}$
+    
+    Define $\beta: M_{n \times m} \rarr \Hom_F(F^m, F^n)$, where for all $A \in M_{n \times m}$ where $A = \begin{bmatrix}
+        a_1 & \cdots & a_n
+    \end{bmatrix}$, $\beta(A) = [f \to \sum_{i = 1}^{n} a_i \cdot f_i]$.
+
+    $\forall A \in M_{n \times m}$, $(\alpha \circ \beta)(A) = \alpha(\beta(A)) = \alpha([f \to \sum_{i = 1}^{n} a_i \cdot f_i]) = \begin{bmatrix}
+        a_1 & \cdots & a_n
+    \end{bmatrix} = A$. Thus $\alpha \circ \beta = id_{M_{n \times m}}$.
+    
+    $\forall \phi \in Hom_F(F^m, F^n)$, $(\beta \circ \alpha)(\phi) = \beta\left(\begin{bmatrix}
+        \vert & \vert & \vert \\
+        \phi(e^1) & \cdots & \phi(e^m) \\
+        \vert & \vert & \vert
+    \end{bmatrix}\right) = \left[f \to \sum_{i=1}^{n}f_i \cdot \phi(e^i) \right] = \left[f \to \phi(\sum_{i=1}^{n} f_ie_i)\right] = [f \to \phi(f)] = \phi$. Thus $\beta \circ \alpha = id_{Hom_F(F^m, F^n)}$. 
+
+    Thus $\alpha$ and $\beta$ are bijections and $\Hom_F(F^m, F^n) \cong M_{n \times m}$. 
+\end{proof}
+
+\begin{claim}{9b}\label{Claim 9b.}
+    Explain why $Hom_F(F^m, F^m)$ is a an F-algebra (a “ring” with a natural copy of F inside of it).
+\end{claim}
+\begin{proof}
+    By 9a, $Hom_F(F^m, F^m) \cong M_{m \times m}$. $F \subset M_{m \times m}$ through the injective map $f \to fI$. $M_{m \times m}$ forms a group under matrix addition. Then $GL_m(F) \subset M_{m \times m}$ forms a group under matrix multiplication. All elements of $M_{m \times m} \setminus Gl_m(F)$ do not have a multiplicative inverse. Thus $M_{m \times m}$ is a ring with a natural copy of F inside it.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{10}\label{Claim 10.}
+    Let $A: V \to W$ be a linear map. Show that we can find a basis for V and a basis for W so that the resulting matrix has one block $I_k$ for some k, and everywhere else zero.
+\end{claim}
+\begin{proof}
+    Let $m := \dim V$ and $n := \dim W$. By problem 7, $F^m \cong V$ and $F^n \cong W$. Let $\{v_1, \dots, v_m\}$ be some basis of V and $\left\{w_1, \dots, w_n\right\}$ be some basis of W. Let $f: V \to F^m$ be the iso such that $v_i \to e^i$. Let $g: F^n \to W$ be the iso such that $e^i \to w_i$.
+    
+    Let $B := F^n \to F^m$ the resultant matrix such that $A = g \circ B \circ f$. Elementary column and row operations and permutations can be represented as invertible matrices. So let $R^{-1}$ be the matrix corresponding to all the row operations of Gaussian Elimination and let $C^{-1}$ be the matrix corresponding to all the column operations of gaussian Elimination. By construction there exists a matrix $D$ which is the identity matrix flanked by 0s. Thus $D = R^{-1}BC^{-1} \implies B = RDC$. Thus $A = g \circ R \circ D \circ C \circ f$. R and D are invertible matrices and hence isomorphisms. Thus $g \circ R$ is selecting a basis of W and $C \circ f$ is selecting a basis of V.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{11}\label{Claim 11.}
+    Prove that the row space and column spaces of $n \times m$ matrices are the same. 
+\end{claim}
+\begin{proof}
+    By the previous problem, $\forall A \in M_{n \times m}$ we can find a $R$ and $C$ such that $RAC = D$ where $D = \begin{bmatrix}
+        I_k & 0\\0 & 0
+    \end{bmatrix}$. Since $R$ and $C$ are invertible matrices, they don't change the number of independent rows or columns. Every row or column which has a 1 is linearly independent as they all have 1s in different positions of the tuple. Moreover by definition of $I_k$ every row which has a 1, that column also has a 1 and vice versa. Thus the number of linearly independent rows and columns are equal which is k by definition of identity matrix. Thus there exists a isomorphisms from $F^k$ to the column space and row space of A. Thus they are the same.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{12a}\label{Problem 12a.}
+    When $V = F^n$, then $A$ is an $n \times n$ matrix. how does it change when we change basis? 
+\end{PROB}
+\begin{solution}
+    When we change a basis, we apply a automorphism of the vector space. So if we change the basis of the domain, we first apply the automorphism then A. If we change the basis in the range space, we first apply A then apply the automorphism. However in practice applying a linear automorphism means multiplying a invertible matrix. So if we change the basis in the domain and the range, it would be $\beta \circ A \circ \alpha$ where $\alpha$ is the automorphism which turns the new basis in the domain to the old basis in the domain  and $\beta$ is the automorphism which turns the old basis in the range to the new basis in the range.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{12b}\label{Problem 12b.}
+    Now we ask given $A: V \to V$ how simple can we make the matrix — or given an nxn matrix, what is the nicest matrix in its conjugacy class. 
+\end{PROB}
+\begin{solution}
+    The nicest and simplest matrix in its conjugacy class is the Jordan form of the matrix. 
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{13}\label{Problem 13.}
+    Explain why it is not reasonable to hope that a matrix is conjugate to $kI$ (identity multiplied by the scalar $k$ ).
+\end{PROB}
+\begin{claim}{13}\label{Claim 13.}
+    A matrix is conjugate to a scalar matrix $\iff$ it itself is a scalar matrix.
+\end{claim}
+\begin{proof}
+$\implies$: Let $A \in M_{n \times n} \ni \exists ~ v \in GL_n(F) \ni vAv^{-1} = kI \implies A = v^{-1}kIv = kIv^{-1}v = kI$
+
+$\impliedby$: Let $A = kI$. Then $\forall v \in Gl_n(F)$, $vAv^{-1} = vkIv^{-1} = kI$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{14}\label{Problem 14.}
+    Show that the matrix for A, in some basis, is diagonal, $\iff$ the basis consist of Eigenvectors.
+\end{PROB}
+\begin{proof}
+    ($\implies$): Suppose A is diagonalizable. Then there exists a $v: F^m \rarr V$ such that $D = v^{-1}Av$ where D is a diagonal matrix with scalars on the diagonal and 0s every where else. Thus $A=vDv^{-1}$ Let $w \in V$ be a vector such that $v^{-1}w = e^i_m$ is the ith standard basis of $F^m$. Thus $Aw = vDv^{-1}w = vke^m_i = kve^m_i = kw$. Since there are $m$ standard basis vectors in $F^m$ and $v^{-1}$ and $v$ are isomorphisms there are m possibilities for eigenvectors. We can find m linearly independent vectors that are eigenvectors thus they form a basis.
+
+    ($\impliedby$): Suppose A has a eigenvector basis.
+    Construct a isomorphism $v: V \rarr F^m$ which take the ith eigenvector basis to the ith standard basis. Thus $v^{-1}e^m_i$ is the ith eigenvector basis. Matrix D is going to be a matrix such that $D_{i,i}$ is the eigenvalues for the ith eigenvector and $D_i,j = 0$ for all $i \neq j$. Thus $A = vDv^{-1}$ since $v$ and $v^{-1}$ are isomorphisms and D scales the eigenvector by its respective eigenvalues. Thus A is diagonalizable.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{15a}\label{Problem 15a.}
+    Now for each f, define $V_f(A)$ to be those vectors v such that $Av = fv$.  Show this is the same as the kernel of $A-fI$, in particular it is a sub space.  
+\end{PROB}
+\begin{proof}
+    $\forall v \in V \ni Av = fv \implies Av - fv = 0 = (A - fI)v$ so by definition $v \in \ker (A - fI)$. Thus $V_f \subseteq \ker(A - fI)$ $\forall v \in \ker(A - fI)$, $(A - fI)v = 0 = Av - fIv = 0 = Av - fv = 0 \implies Av = fv$. Thus $\ker(A - fI) \subseteq V_f \implies V_f = \ker(A - fI)$. $V_f$ is a subspace because the kernel of a linear map is subspace. 
+\end{proof}
+
+\begin{PROB}{15b}\label{Problem 15b.}
+    Prove this is zero for all but finitely many f. Indeed show its non-zero iff $\det(A-fI)=0$, and now produce a polynomial $P_A(X)$ so that f is an eigenvalue iff f is a root of this poly
+\end{PROB}
+\begin{proof}
+    $\implies$: $\forall f \in F \ni V_f(A) \neq 0$, by definition $\exists v \in V \setminus \{0\} \ni v \in V_f(A)$. Thus by definition, $Av = fv \implies (A - fI)v = 0 \implies \det(A - fI) = 0$.
+
+    $\impliedby$: $\forall f \in F \ni \det(A - fI) = 0 \implies \exists v \in V \setminus \left\{0\right\} \ni (A - fI)v = 0 \implies Av = fv \implies v \in V_f(A) \implies V_f\left(A\right) \neq 0$. 
+
+
+
+    $P_A(x) := \det(A - xI)$ is the polynomial for which $x$ is a eigenvalue iff it is the solution to the polynomial. $P_A$ has a degree of at $\dim V$ because there are $\dim V$ x's on the diagonal. By the fundamental theorem of algebra, a polynomial cannot have more solutions than the order of the polynomial. Thus
+    the number of solutions or eigenvalues is at most $\dim V$.
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{16}\label{Problem 16.}
+    Now consider $\oplus_{f \in F} V_f(A) \to V$.  —- the natural addition map. Explain why A is diagonalizable iff this map is an iso.  show that, for any A, this map is always injective. Conclude A is diagonalizable iff  $\sum_{f in F} dim V_f(A)$ is at least the dimension of V. 
+\end{PROB}
+\begin{claim}{16a}\label{Claim 16a.}
+    The map is always injective.
+\end{claim}
+\begin{proof}
+    Base case (k = 2): $\forall v_1 \in V_{f_1}$ and $\forall v_2 \in V_{f_2}$ where $f_1 \neq f_2$. 
+    Let: 
+    
+    \begin{equation}{}
+        v_1 + v_2 = 0
+    \end{equation}
+
+    Apply A to both sides:
+
+    $$Av_1 + Av_2 = 0$$
+
+    By definition of eigenspaces,
+
+    \begin{equation}{}
+        f_1v_1 + f_2v_2 = 0
+    \end{equation}
+
+    Multiply $f_1$ to $(I)$:
+
+    \begin{equation}{}
+        f_1v_1 + f_1v_2 = 0
+    \end{equation}
+
+    Subtract (III) for (II):
+
+    \begin{equation}{}
+        (f_2 - f_1)v_2 = 0
+    \end{equation}.
+
+    Since $f_2 \neq f_1$, thus $f_2 - f_1 \neq 0$. Thus $v_2 = 0$. Then $v_1 + v_2 = v_1 + 0 = v_1 = 0$. Thus $v_2 = v_1 = 0$.
+
+    Assume that $\sum_{i=1}^{k}v_i = 0$ with $v_i$ in $V_{f_i}$ with the $f_i$ distinct implies $v_i = 0$ for all i.
+
+    Inductive Step: $\sum_{i=1}^{k + 1}v_i$ with $v_i$ in $V_{f_i}$ with the $f_i$ distinct.
+
+    $$\sum_{i=1}^{k + 1}v_i = \sum_{i=1}^{k}v_i + v_{k+1}$$
+
+    By our assumption:
+
+    $$\sum_{i=1}^{k}v_i + v_{k+1} = 0 + v_{k+1} = v_{k+1} = 0$$
+
+    So, in the inductive step, we've shown that if $\sum_{i=1}^{k + 1}v_i = 0 \implies v_i = 0$ for all i. Thus the kernel of $\oplus_{ f \in F}$ is only the zero vector. Thus $\oplus_{ f \in F} V_f$ must be a injective map.
+\end{proof}
+\begin{claim}{16b}\label{Claim 16b.}
+    Prove that A is diagonalizable iff the sum of the dim of $V_f$ over all f is at least $\dim V$  and that if this holds then this sum is exactly dim V. 
+\end{claim}
+\begin{proof}
+    $(\implies)$: Suppose A is diagonalizable. By problem 14, it has a eigenvector basis. Thus take its eigenvector basis $E$. Since $E$ is a basis of $V$. Subsets of $E$ should be basis elements of its subspaces. Define $B_f = V_f \cap E$. The subset of E which is in $V_f$. Furthermore each element in $E$ belongs to one eigenspace by definition. Thus for each $e \in E$, $\exists f \in F$ s.t $e \in V_f$. Furthermore by the previous problem, the elements of distinct eigenspaces are not linearly dependent. Thus for each $e \in E$, $\exists$ a unique $f \in F$ s.t $e \in V_f$. Since $E$ is a basis of $V$, $B_f$ must be a basis of $V_f$. Thus $\mathrm{span}(B) = \dim V_f$. If $B_f = \emptyset$, then $V_f = \{0\}$ and thus $\dim V_f = 0$. Thus $\sum_{f \in F} \dim V_f = \sum_{f \in F}B_f = \sum_{f \in F} V_f \cap E$. Since for each $e \in E$, $\exists$ a unique $f \in F$ s.t $e \in V_f$, $\sum_{f \in F} V_f \cap E = \dim \mathrm{span}(E) = \dim V$.
+
+    $(\impliedby)$: Suppose the sum of the dim of $V_f$ over all f is at least $\dim V$. Denote $B_{f}$ as the basis set of $V_f$ for all $f \in F$. By the previous proof, elements in different eigenspaces are linearly independent. For most $f \in F$, $V_{f} = {0}$ thus $B_f = \{0\}$. Moreover by problem 5, since there at most $\dim V$ eigenvalues, there must also be at most $\dim V$ nonzero eigenspaces. Let $B = \bigcup_{f \in F}B_f/\{0\}$. $B$ will contain linearly independent vectors and will contain eigenvectors by definition. $\dim \mathrm{span}(B) = \sum_{f\in F}\dim V_f \geq \dim V$ because we are taking the union of linearly independent basis sets from each $V_f$. By Linear Algebra Bootcamp 1 problem 7, we have shown that a dimension of a subspace must be less than or equal to its parent space and since $B \subseteq V$, then $\dim \mathrm{span} B = \sum_{f\in F}\dim V_f \leq n $. Thus $n \leq \dim \mathrm{span} B = \sum_{f\in F}\dim V_f \leq n$, or $\dim \mathrm{span} B = \sum_{f\in F}\dim V_f = n$. Thus $B$ contains n linearly independent vectors and spans V and contains only eigenvectors. Thus $B$ is a eigenvector basis of V. By problem 4, $A$ is diagonalizable.
+\end{proof}
+
+\begin{claim}{16c}\label{Claim 16c.}
+    A is diagonalizable iff this map is an iso
+\end{claim}
+\begin{proof}
+    $\implies$: A is diagonalizable. By claim 16b, the $\sum_{f \in F}^{} \dim V_f = \dim V$. Thus the map is surjective. By claim 16a, the map is injective. Thus the map is an iso
+    
+    $\impliedby$: If the map is an iso, the map is surjective, and the $\sum_{f \in F}^{} \dim V_f = \dim V$. Thus by claim 16b, A is diagonalizable.
+\end{proof}
+
+
+
+\end{document}

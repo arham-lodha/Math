@@ -1,0 +1,191 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Gauss's Law}
+\author{Arham Lodha}%put your name here
+\date{April 01, 2024}%enter the due date here
+\maketitle
+
+
+Let R be the integers and Q the rational numbers  -- we will use these letters because everything we do here will work just as well for R any UFD and Q is field of fractions (look these up). In particular, some
+things will seem silly, like a discussion of $R^*$ := the units := the invertible elements in R (under multiplication),
+which of course for the integers is 1,-1. But in general a UFD can have lots of units. 
+
+Def: We say non-zero f in R[X] is "primitive" if the GCD of the coefficients is 1.
+
+\begin{PROB}{1}\label{Problem 1.}
+    Show that the product of primitives is primitive. Hint: work modulo p for each prime p.
+\end{PROB}
+\begin{proof}
+    Suppose $f, g \in R[X]$ are primitives. Assume the contrary, $f(x)g(x)$ is not a primitive. Thus the $\gcd$ of all of its coefficients is not 1 thus $\exists p$, prime, which divides all of its coefficients. Since, $f$ and $g$ are primitive, p cannot divide every coefficient of $f$ and $g$. Let $f_s x^s$ be the first term of $f$ which is not divisible by $p$. Let $g_tx^t$ be the first term of $g$ not divisible by $p$. Thus $f_s \mod p \neq 0$ and $g_s \mod p \neq 0$. Thus the $r + s$-th term of $f(x)g(x)$ is
+    
+    \begin{equation*}
+        (\dots + f_{s - 2}g_{t + 2} + f_{s - 1}s_{t + 1} + f_{s}g_{t} + f_{s + 1}g_{t - 1} + f_{s + 2}t_{s - 2} + \dots)x^{r + s}
+    \end{equation*}
+
+    Since $f_s$ and $g_t$ are the first terms which are not divisible by $p$, $p | f_{i}$ and $p | g_t$, for $i < s$ and $j < t$ but $p \nmid f_{s}g_t$. Thus $\forall i \in \left\{ -\min{s, t}, \dots, \min{s, t} \right\} / {0}$, $p | f_{s + i}g_{t - i}$. Thus $p$ divides each term in the sum except $f_{s}g_t$. Thus $p$ doesn't divide the coefficient of the $r + s$ term of $fg$. Thus a contradiction occurs, and $fg$ must be primitive.         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+    For each non-zero g in Q[X], we can find c(g) in Q, p(g) in R[X], each  unique up to multiplication by a unit, so that c(g) g  = p(g)  is in R[X] and primitive.
+\end{PROB}
+\begin{proof}
+    $\forall g \in Q[X] \ni g \neq 0$, $g = \sum_{m = 0}^{n} \frac{a_m}{b_m} x^m \ni \gcd(a_m, b_m) = 1$ and $b_m \neq 0$ for all $m$. Let $c_g = lcm(b_1, \dots, b_n) / \gcd(a_1, \dots, a_n)$. Thus, $p_g = c_g g = \sum_{m = 0}^{n} \frac{lcm(b_1, \dots, b_n)}{\gcd(a_1, \dots, a_n)} \frac{a_m}{b_m} x_m$. 
+    
+    
+    \begin{align*}
+        &\gcd\left(\frac{lcm(b_1, \dots, b_n)}{\gcd(a_1, \dots, a_n)} \frac{a_1}{b_1}, \dots, \frac{lcm(b_1, \dots, b_n)}{\gcd(a_1, \dots, a_n)} \frac{a_n}{b_n}\right) \\
+        &= \gcd\left(\frac{lcm(b_1, \dots, b_n)}{b_1}, \dots, \frac{lcm(b_1, \dots, b_n)}{b_n}\right) \gcd\left(\frac{a_1}{\gcd(a_1, \dots, a_n)}, \dots, \frac{a_n}{\gcd(a_1, \dots, a_n)}\right)
+    \end{align*}
+
+    $\gcd\left(\frac{a_1}{\gcd(a_1, \dots, a_n)}, \dots, \frac{a_n}{\gcd(a_1, \dots, a_n)}\right) = \frac{\gcd(a_1, \dots, a_n)}{\gcd(a_1, \dots, a_n)} = 1$. 
+    
+    Let $p \in \Z \ni p \neq 1$ and $p \neq 0$ where $p \mid \frac{lcm(b_1, \dots, b_n)}{b_i}$ $\forall i$. Thus, $b_i | \frac{lcm(b_1, \dots, b_n)}{p} \implies \frac{lcm(b_1, \dots, b_n)}{p} = lcm(b_1, \dots, b_n) \implies p = 1$.
+    
+    Thus, $\gcd\left(\frac{lcm(b_1, \dots, b_n)}{b_1}, \dots, \frac{lcm(b_1, \dots, b_n)}{b_n}\right) = 1$. 
+    
+    Thus, $\gcd\left(\frac{lcm(b_1, \dots, b_n)}{\gcd(a_1, \dots, a_n)} \frac{a_1}{b_1}, \dots, \frac{lcm(b_1, \dots, b_n)}{\gcd(a_1, \dots, a_n)} \frac{a_n}{b_n}\right) = 1 \implies p_g$ is primitive.
+
+
+    Suppose $\forall c_g, c'_g \in Q$ and $\forall p_g, p_g' \in R[X]$, such that $c_g g = p_g$ and $c_g' g = p_g'$ where $p_g$ and $p_g'$ are primitive. Thus, $g = \frac{1}{c_g} p_g = \frac{1}{c_g'} p_g' \implies \frac{1}{c_g} p_g = \frac{1}{c_g'} p_g'$. WLOG $\frac{1}{c_g}, \frac{1}{c_g'} \in R$, because we can multiply both sides by the gcd of the denominator by both sides. If $c_g \neq 1$, then $\exists n \in \Z \ni n \mid \frac{1}{c_g} \implies n \mid \frac{1}{c_g'}p_g' $. Since $p_g'$ is primitive, $n \nmid p_g' \implies n \mid \frac{1}{c_g'}$. We divide by $n$ from both sides, and induction reduces to the case that $\frac{1}{c_g} = 1$ the same reasoning implies that $\frac{1}{c_g'} = 1$ since $\frac{1}{c_g'} \nmid p_g$ if $\frac{1}{c_g'} \neq 1$. Thus $p_g = p'_g$.
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+    Show that $c(gh) = c(g)c(h), p(gh) = p(g)p(h)$.
+\end{PROB}
+\begin{proof}
+    $c(gh) gh = p(gh)$ and $c(g) c(h) gh = p(g)p(h)$. Since $p(gh)$ and $p(g)p(h)$ are primitive, by uniqueness proven above, $p(gh) = p(g)p(h)$. Similarly up to uniqueness and multiplication by a unit, $c(gh) = c(g) c(h)$.       
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Now prove "Gauss's Lemma": Let $g, h \in R[X]$  with g primitive. Show that $g$  divides $h$  in R[X] iff it divides h in Q[X]. 
+\end{PROB}
+\begin{proof}
+    $\implies:$ Suppose $g | h$ in $R[X]$. Then since $R[X] \subset Q[X], g | h$ in $Q[X]$. 
+    
+    $\impliedby:$ Suppose $g | h$ in $Q[X]$. Thus there exists a $q \in Q[X] \ni gq = h$. By the previous problem, $\exists c_q \in \Q$ and $p(q) \in R[X]$, where $p(q)$ is primitive, such that $c_q q = p(q) \implies q = \frac{1}{c_q} p(q)$. Let $c_q = \frac{a}{b}$ where $a \in R$ and $b \in R / \left\{ 0 \right\}$ and $\gcd(a, b) = 1$ . Thus $g (\frac{b}{a} p(q)) = h \implies bgp(q) = ha$. Since $\gcd(b, a) = 1, b \nmid a  \implies b \mid h$. Let $h' = h / b$. Thus $g p(q) = h' a$. Since $g$ and $p(q)$ are primitive, $g p(q)$ is primitive thus $ah'$ is primitive. But since $h' \in R[X]$, if $a \neq 1$ then the gcd of all coefficients of $ah'$ is a which is a contradiction. Thus $a = 1$. Thus $g p(q) = h' \implies g | h'$ in $R[X]$ and $g | h'b$ in $R[x]$  $\implies g | h$ in $R[X]$.                              
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Prove the Eisenstein irreducibility criterion:  Suppose f in R[X] is monic, and p in R is prime, suppose $f = X^d \mod p$, and $p^2$ does not divide $f(0)$ (the constant term). Show f is irreducible. 
+\end{PROB}
+\begin{proof}
+    $\forall g \in R[X]$, define $\overline{g}(x) := g(x) \mod p$.   
+
+    By Gauss's lemma, it suffices to show that $f$ is irreducible in $R[X]$.
+
+    Assume the contrary $f$ is reducible in $R[X]$. Thus $\exists g, h \in R[X] \ni f = gh$. Thus $x^d = \overline{f}(x) = \overline{g}(x) \overline{h}(x)$. This means $\overline{g}(x) = x^n$ and $\overline{h}(x) = x^{d - n}$. Thus $\overline{g}(0) = 0$ and $\overline{h}(0) = 0$. Thus $p | g(0)$ and $p | h(0)$, thus $p^2 | g(0)h(0) \implies p^2 | f(0)$, which is a contradiction. Thus by contradiction, $f$ must be irreducible.                 
+\end{proof}
+
+\bigskip
+
+Define $\forall g \in Q[X]$ define $d_g := \frac{1}{c_g}$ where $c_g g = p(g)$ and $p(g)$ is primitive.    
+
+
+
+\begin{claim}{5a}\label{Claim 5a.}
+    $g \in R[X]$ is irreducible in $R[X]$  iff $g$ is primitive and irreducible in $Q[X]$     
+\end{claim}
+\begin{proof}
+
+    $\implies:$ Suppose $f \in R[X]$ is irreducible in $R[X]$. Assume the contrary, $f$ is not primitive, thus there exists, $r \in R$ where $r \neq 1$  and $h \in R[X]$ where $f = rh$. Since $r \neq 1$, it is not unit and thus f is not irreducible which is a contradiction. Thus $f$ must be primitive. Assume the contrary, $f$ is not irreducible over $Q[X]$ thus $\exists g, h \in Q[X]$ such that $f(x) = g(x)h(x)$ where $g$ and $h$ are not in $Q$. Thus, $f(x) = d_g d_h p(h) p(g)= d_{gh} p(h)(x) p(g)(x)$. By $f$'s irreduciblity in $R[X]$ $d_{gh} p(g) = \pm 1$ and $p(h) = f$ or vice versa. Arguement is the same in either case. If $d_{gh} p(g) = 1 \implies g(x) = d_g$ and $h(x) = d_h f$. Thus $f$ is irreducible in $Q[X]$.
+    
+    $\impliedby:$ Suppose $f$ is primitive and irreducible in $Q[X]$. Then since $R[X] \subset Q[X]$, $\forall g, h \in R[X] \ni f = gh \implies g(x) = 1$ and $h(x) = f(x)$ and vice versa since $f$ is irreducible and primitive. Thus $f$ is irreducible in $R[X]$           
+\end{proof}
+\begin{PROB}{5}\label{Problem 5.}
+    Prove R[X] is a UFD (look up the definition), with irreducible elements the primitive polynomials irreducible over Q[X]. 
+\end{PROB}
+\begin{solution}
+    $\forall f \in R[X]$. 
+    
+    If $f$ irreducible in $Q[X]$. By problem 2, $\exists d_f \in R$ and $p(f) \in R[X]$ such that $f=  d_F p(f)$. Since $f$ is irreducible in $Q[X]$, $p(f)$ is irreducible in $Q[X]$ and since it is primitive, it is also irreducible in $R[X]$. Since R is a ufd, $d_f$ has a unique factorisation. Thus $f$ unique factorization is the unique factorization of $d_f$ multiplied by $p(f)$. The factorization is unique because $p(f)$ and $d_f$ are unique.    
+    
+    If $f$ is not irreducible in $Q[X]$. Thus there $\exists g, h \in Q[X] \ni f = gh$. Check if $g$ and $h$ are irreducible, if $g$ or $h$ is irreducible, use the case above for the irreducible one. If $g$ or $h$ is reducible, continue this case until you have gotten a irreducible polynomial and move to the case above. Reconstruct $f$'s unique factorisation, by multipling the unique factorizations of $g$ and $h$.              
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Let r in C (complex numbers) be "integral", meaning r is the root of an integer monic polynomial. Show the minimal polynomial for r over Q is integer monic. Call it P(x).  Show $R[r] = R[X]/(P(X))$. Now take p a prime integer. Show $R[r]/pR[r] = F_p[X]/(q(X))$ where q in $F_p[X]$ is P modulo p.  Use this to show that there is a prime ideal P in R[r] whose intersection with R is (p)  (hint, recall p is maximal, so you only need one inclusion).
+\end{PROB}
+\begin{proof}
+    Since $R$ are the integers now, I will just use $\Z$.  
+
+    Suppose $r \in \C$ is integral. Let $f \in \Z[X]$ be the integer monic polynomial $r$ is a solution to. $\exists P \in \Z[X]$ a minimal polynomial for $r$ over $Q$ , because if r is not a solution to any integer polynomial with degree less than $f$, $P = f$. WLOG, $p$ is primitive because if $P$ is not primitive, use the process in 2 to get a primitive polynomial $p(P) \in \Z[X]$ and since $P$ is irreducible in $Q[X]$, $p(P)$ is also irreducible in $Q$. Furthermore, since $p(P)$ is primitive and irreducible over $Q[X]$, it is irreducible over $\Z[X]$ and thus a integer polynomial.Since $p$ is a integer polynomial which divides a integer monic polynomial $f$, it must also be monic because $\forall a, b \in \Z$, $abx^n = x^n$ iff $a = b = 1$. Thus $p$ is monic. Thus the minimal polynomial for r over Q is integer monic
+    
+    Since $p$ is the minimal polynomial for $r$ over $\Q$ and is primitive, it is irreducible over $\Z[X]$ and since $r$ is a solution. $\Z[r] = \Z[X]/(P(X))$. $\Z[r]/p\Z[r] = (\Z[X] / (P(X))) / p ((\Z[X] / (P(X)))) = (\Z[X] / (p, P(X))) = (\Z[x] / p) / P(X) = F_p[X] / \overline{P}(X)$, $\overline{P}(X) = P(x) \mod p$, which is a finite field since $P$ was irreducible and thus a ID meaning $(\overline{P}(X))$ is a prime ideal. $p\Z \subset p \Z[r]$ and since $p$ is prime and thus maximal there is no ideal $I$, other than $\Z$ and $p$ , such that  $p \subset I = p\Z[r] \cap \Z[r]$. But $p \subseteq p\Z[r] \cap \Z[r]$. So $p\Z[r] \cap \Z[r] = (p)$.  
+\end{proof}
+
+
+
+\end{document}

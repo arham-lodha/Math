@@ -1,0 +1,217 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Group 2}
+\author{Arham Lodha}%put your name here
+\date{November 07, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{2.10a}\label{Problem 2.10a.}
+    Let A be an element of $SO_3$ that represents a rotation with angle $\pi$. Describe the centralizer of A geometrically.
+\end{PROB}
+\begin{proof}
+    $A = \rho_{0, \pi} \in SO_3$. By the previous homework we know $\forall \alpha \in Rig(\R^3)$, $\alpha \rho_{0, \pi} \alpha^{-1} = \rho_{D(\alpha)(0), \pm\pi} = \rho_{D(\alpha)(0), \pi}$. $\forall \alpha \in Z(A)$, $\rho_{D(\alpha)(0), \pm\pi} = \rho_{D(\alpha)(0), \pi} = \rho_{0, \pi}$ so everything whose derivative fixes $0$. Thus everything in $O(n)$ is the centeralizer of the rotation by angle $\pi$
+\end{proof}
+
+\begin{PROB}{2.10b}\label{Problem 2.10b.}
+    Determine the centralizer of the reflection r about the $e_1$-axis in the group M of isometries of the plane.
+\end{PROB}
+\begin{proof}
+    By previous homework, we know $\alpha r_L \alpha = r_{\alpha(L)}$. $\forall \alpha \in Z(r_{e_1})$, $\alpha r_{e_1} \alpha = r_{\alpha(e_1)} = r_{e_1}$. Thus $\alpha$ is anything which preserves the $e_i$ axisw which are any translation parallel to $e_i$, rotations around all points on the $e_i$ axis by $\pi$, glide reflections across $e_i$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.13}\label{Problem 2.13.}
+    Let N be a normal subgroup of a group G. Suppose that $|N| = 5$ and that $|G|$ is an odd integer. Prove that N is contained in the center of G.
+\end{PROB}
+\begin{proof}
+    Since $N$ is closed under conjugation it is a union of conjugacy classes. $Z(G) \cap N$ is a subgroup of N. By Lagrange's Theorem, $\abs{Z(G) \cap N} \mid \abs{N} \implies  \abs{Z(G) \cap N} | 5$ since 5 is prime, $\abs{Z(G) \cap N} = 1, 5$. $\abs{Z(G) \cap N} = 5 \implies N \subset Z(G)$. If $\abs{Z(G) \cap N} = 1$, then we have 4 elements of $N$ which are not in the center. Since the conjugacy classes must be odd to divide $|G|$, only way to get 4 is $1 + 3$, but then $\abs{Z(G) \cap N} = 2 \implies 2 | 5$ which is a contradiction, thus $\abs{Z(G) \cap N} \neq 1$. Thus $\abs{Z(G) \cap N} = 5 \implies N \subseteq Z(G)$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.14a}\label{Problem 2.14a.}
+    The class equation of a group G is 1 + 4 + 5 + 5 + 5. Does G have a subgroup of order 5? If so, is it a normal subgroup?
+\end{PROB}
+\begin{proof}
+    Let $g \in G$ be the element in the conjugacy class of $4$ elements. Since $\abs{G} = 2 = \abs{Z(g)}\abs{C_g} = 4\abs{Z(g)} \implies \abs{Z(g)} = 5$. $Z(g)$ is a subgroup. $Z(g) = \mu_5$ and since it has prime order every element generates the subgroup and every nontrivial element has order 5. $\forall t$ in the conjugacy class with order 5, its centralizer must have order 4. Since all elements in $Z(g)$ have order greater than 4, they can't be $t$. Thus all nontrivial elements must be in the conjugacy class of 4. Thus the subgroup is a union of the trivial center and the conjugacy class with 4 elements. Thus it is a normal subgroup.
+\end{proof}
+
+
+\begin{PROB}{2.14a}\label{Problem 2.14a.}
+    The class equation of a group G is 1 + 4 + 5 + 5 + 5. Does G have a subgroup of order 4? If so, is it a normal subgroup?
+\end{PROB}
+\begin{proof}
+    For $t$ in the conjugacy class with 5 elements. $\abs{Z(t)} = 4$. You can't form $Z(t)$ with unions of 2 or more conjugacy classes, one of which has to be the center. $Z(t) - Z(G) = 3$ all conjugacy classes which don't correspond to the center are greater than 3 so you can't take the union of any more.
+\end{proof}
+
+\bigskip
+
+For problem 16: Parts a - d are meant to address Keel's hint
+
+\begin{PROB}{2.16a}\label{Problem 2.16a.}
+    Explain that G acts on both G and G' "by conjugation" in such a way that $G \to G'$ is a map of G-sets (commutes with the G-action). 
+
+    Show that for any x, $|G f(x)|$ divides $|G x|$, by constructing a natural surjective map $G x \twoheadrightarrow G f(x)$ and showing that any two fibres are in bijection. 
+\end{PROB}
+\begin{proof}
+    Let $f: G \to G'$. G acts on G by conjugation. G acts on G' by conjugation after applying f, where $g(x) \to f(g)xf(g)^{-1}$.
+
+    $\forall h \in G, g(f(h)) = f(g) f(h) f(g)^{-1} = f(ghg^{-1}) = f(g(h))$. Thus $f$ is a homomorphism of g sets.
+
+    $\forall a, b \in G \cdot {f(x)}$, $\exists g \in G \ni a = g \cdot b$. $g \cdot f^*(a) = \{g \cdot h : f(h) = a\}$, Since f is a homomorphism of gsets, $f_*(g * f^*(a)) = g \cdot f_*(f^*(a)) = g \cdot a = b$. Thus $g \cdot f^*(a) \in f^*(b)$. Similarly $\exists g^{-1}$ s.t $a = g^{-1} \cdot g \cdot b$ or in otherwords, $b = g^{-1} \cdot a$. Thus there exists a inverse function $g^{-1}: f^*(b) \to f^*(a)$. 
+
+    $\forall h \in f_*(a)$, $g^{-1} \cdot g \cdot h = h$. Similarly $\forall h \in f_*(b)$, $g \cdot g^{-1} \cdot h = h$. 
+    Thus there exists a bijection between the fibres. 
+    
+    Thus $|G * x| = |f^*(a)||G \cdot f(x)|$. Thus $|G \cdot f(x)| | |G \cdot x|$
+\end{proof}
+
+\begin{claim}{2.16b}
+    Show that $G^x$ is a subgroup of $G^{f(x)}$
+\end{claim}
+\begin{proof}
+    $\forall g \in G^x$, $g \cdot f(x) = f(gx) = f(x)$. Thus $g \in G^{f(x)}$. Thus $G^x \leq G^{f(x)}$
+\end{proof}
+
+\begin{claim}{2.16c}
+    $|G \cdot x| = |X|, f: X \twoheadrightarrow Y \implies |G \cdot y| = Y$
+\end{claim}
+\begin{proof}
+    $\forall y_1, y_2 \in Y$, $\exists x_1, x_2 \in X \ni f(x_1) = y_1, f(x_2) = y_2$. $|G \cdot x| = |X| \implies \exists g \in G \ni g \cdot x_1 = x_2 \implies f(g \cdot x_1) = f(x_2) \implies g \cdot f(x_1) = f(x_2) = g \cdot y_1 = y_2$. Thus there is only 1 orbit and G acts transitively. 
+\end{proof}
+
+\begin{claim}{2.16d}
+    $X_x := f^{-1}(f(x)) \cong G^{f(x)}/G^x$
+\end{claim}
+\begin{proof}
+    $G/G^x \cong G \cdot x = X$ and $G/G^{f(x)} \cong G \cdot y = Y$. We know there is a $f: X \twoheadrightarrow Y$. Let $\alpha: G/G^x \cong G \cdot x$ and $\beta: G/G^{f(x)} \cong G \cdot y$. There is a natural surjection between $G/G^x \cong G $ and $G/G^{f(x)}$ which is $\beta \circ f \circ \alpha$. SInce $G^x \subseteq G^{f(x)}$ by the midterm problem 2 we know $X_x \cong G^{f(x)}/G^x$.
+\end{proof}
+
+\begin{PROB}{2.16e}\label{Problem 2.16e.}
+    Let $\phi : G -> G'$ be a surjective group homomorphism, let C denote the conjugacy class of an element x of G, and let C denote the conjugacy class in $G'$ of its image $\phi_*(x)$. Prove that $\phi$ maps C surjectively to C', and that $|C'|$ divides $|C|$.
+\end{PROB}
+\begin{proof}
+    G acts on $C$ and $C'$ by conjugation. For $x \in C$, $\forall a \in C', \exists g \in G \ni a = g \phi(x) g^{-1} \implies a = \phi(gxg^{-1})$. Thus $\phi$ is a surjective homomorphism of Gsets. Conjugation acts transitively on conjucacy classes. 
+    
+    By claim 2.16a, $\abs{C'} | |C|$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.17}\label{Problem 2.17.}
+    Use the class equation to show that a group of order pq, with p and q prime, contains an element of order p
+\end{PROB}
+\begin{proof}
+    If $p = q \implies |G| = p^2$ thus any element in $G$ has order 1, p, $p^2$. If it has order p, we found it. If $x$ has order $p^2$ then $x^2$ has order p.
+
+    If there is a conjucacy class of size $q$ implies the centralizer of the element in the conjugacy class has order p implies it is a cyclic group of order p and every element in subgroup has order p. 
+
+    If there is no conjugacy class of size $q$ implies all conjucacy classes with elements not in the center have size $p$. The class equation is a sum of $1$ and $p$. If $Z(G) = 1 \implies 1 + kp = pq \implies 1 = pq - kp \implies gcd(pq, p) = 1$ which is a contradiction. Thus $Z(G) = p$ and thus all generators have order p.
+
+    If G is abelian. $\forall x \in G/\{1\}$. If $x$ has order p, so we are done. If $x$ has order pq then $x^q$ has order p. If no $x$ has order p or pq, it must have order q. Then every $x$ has order q. $\forall g \in G$, $\langle g \rangle = \mu_q$. Define $H_g = \langle g \rangle$,  $\prod_{g \in G} H_g$. The $\prod_{g \in G} H_g \to G$ is surjective. But $|\prod_{g \in G} H_g| = p^n$ and $|G| = pq$ and $pq \nmid p^n$. Thus a contradiction forms and not all elements can have order q.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+    Note that for the action of G on itself by conjugation, the orbit $G \cdot g = [g]$, the conjugacy class of g, and the stabilizer $G^g = Z(g)$, the (subgroup of) elements in G that commute with g. 
+    
+    Now suppose $|G| = p^n$ for $n \geq 1$ and p prime. Explain why g IS NOT in the center iff $|G g| = |[g]|$ is divisible by p. Now think about G partitioned into conjugacy classes. 
+
+\end{PROB}
+\begin{proof}
+    If $g$ not in the center, $|G \cdot g| \neq 1$. But since $|G \cdot g| \mid p^n$, $|G \cot g| = p^k$ for $k = 2 \ldots n - 1$. Thus $p \mid |G \cdot g|$. 
+
+    If $p \mid |G \cdot g|$ then $|G \cdot g| \neq 1 \implies g \not \in Z(G)$
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+    number of singletons (conjugacy classes with just a single element) is congruent to 0 mod p. Conclude that the center is non-trivial.
+\end{PROB}
+\begin{proof}
+    Number of singletons = $Z(G)$. $\abs{Z(G)} = 1, p^n$. If $\abs{Z(G)} = 1$. Then $1 + (p^{a_1} + \ldots + p^{a^n}) = p^k \implies p^k - (p^{a_1} + \ldots + p^{a^n}) = 1 \implies gcd(p^k, p^{a_1} + \ldots + p^{a^n}) = 1$ which is not true and thus a contradiction occurs. Thus $\abs{Z(G)} = p^k$
+\end{proof}
+
+\begin{PROB}{3a}\label{Problem 3a.}
+    Let G be a group, and suppose that $G/Z(G)$ is cyclic. Prove G is Abelian (hint, lift a generator of the quotient).
+\end{PROB}
+\begin{proof}
+    Let G be a group, and suppose that $G/Z(G)$ is cyclic. Then the generator of $G/Z(G)$, $xZ(G)$. $(xZ(G))^m = x^mZ(G)$. $\forall a, b \in G$, $a \in x^kZ(g)$ and $b \in x^mZ(G)$, $a = x^kz_1$ and $b = x^mz_2$. $ab = x^kz_1x^mz_2 = x^{m+k}z_1z_2 = x^mz_1x^kz_1 = ba$. Thus G is Abelian.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3b}\label{Problem 3b.}
+    Prove that if $|G| = p^2$, then G is Abelian.
+\end{PROB}
+\begin{proof}
+    The center is nontrivial. $|G/Z(G)|$ is a group with prime order and thus is cyclic and thus G is Abelian.
+\end{proof}
+
+
+
+\end{document}

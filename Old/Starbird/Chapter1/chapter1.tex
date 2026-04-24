@@ -1,0 +1,238 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 1}
+\author{Arham Lodha}%put your name here
+\date{May 08, 2024}%enter the due date here
+\maketitle
+
+\section*{1.6. Cardinality}
+% \begin{claim}{1.6}\label{Claim 1.6.}
+%     Let $2 \N$ denote the even positive integers. Then $\abs{2 \N} = \abs{\N}$  
+% \end{claim}
+% \begin{proof}
+%     Let $f: \N \to 2 \N$ where $n \to 2n$. $\forall m \in 2 \N, m / 2 \in \N, f(m / 2) = m$. $\forall p, q \in \N, 2p = f(p) = f(q) = 2q \implies p = q $. Thus $f$ is injective and surjective. Thus $\abs{2\N} = \abs{\N}.$        
+% \end{proof}
+% \bigskip
+% \begin{PROB}{1.7}\label{Problem 1.7.}
+%     The set $\Z$ has the same cardinality as $\N$, that is, $|\Z| = |N|$.
+% \end{PROB}
+% \begin{proof}
+%     Let $f: \N \to \Z$, be defined as the following, $\forall x \in \N$:
+    
+%     \begin{equation*}
+%         f(x) = \begin{cases*}
+%             \frac{x}{2} & \text{if x is even} \\ 
+%             -\frac{x - 1}{2} & \text{otherwise}
+%         \end{cases*}
+%     \end{equation*}
+
+%     $\forall n, m \in \N$, $f(n) = f(m)$. If $f(n) \leq 0 \implies f(m) \leq 0$, thus $-\frac{n - 1}{2} = -\frac{m - 1}{2} \implies n = m$. Otherwise if $f(n), f(m) > 0 \implies \frac{n}{2} = \frac{m}{2} \implies n =m$. Thus $f$ is injective. 
+    
+%     $\forall z \in \Z$, if $z \leq 0$. Let $n = -2z + 1$ and $n \in \N$ and $f(n) = z$. If $z > 0$, let $n = 2z$ and thus $f(n) = z$. Thus $f$ is surjective. 
+    
+%     Thus f is a bijection and $\abs{\N} = \abs{\Z}$.  
+% \end{proof}
+
+% \bigskip
+
+\begin{PROB}{1}\label{Problem 1.}
+    Show $\Q$ is countably infinite 
+\end{PROB}
+\begin{proof}
+    It suffices to show there is a injective map from $\Q \to \N \times \N$ since $\N \times \N$ is countable and $\Q$ is infinite. Define $f: \Q \to \N \times \N $ where $\forall \frac{p}{q} \in \Q \ni p, q \in \Z \ni q \neq 0$ where wlog $gcd(p, q) = 1$. 
+    
+    \begin{equation*}
+        f\left(\frac{p}{q}\right) := \begin{cases*}
+            (2p, 2q) & \text{if $p, q \geq 0$} \\
+            (2p, -2q + 1) & \text{if $p\geq 0$ and $q < 0$ } \\
+            (-2p + 1, 2q) & \text{if $q \geq 0$ and $p < 0$ } \\
+            (-2p + 1, -2q + 1) & \text{if $p, q < 0$ } \\
+        \end{cases*}
+    \end{equation*}
+
+    $\forall \frac{p}{q}, \frac{r}{s} \in \Q \ni f(\frac{p}{q}) = f(\frac{r}{s})$. 
+    
+    \begin{enumerate}
+        \item If $p, q \geq 0 \implies r, s \geq 0$, thus $2p = 2r \implies p = r$, and $2q = 2s \implies q = s$. 
+        \item Cases 2, 3, and 4 are the same.    
+    \end{enumerate}
+    
+    f is injective. Thus $\Q$ is countably infinite. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Show that the maps f and g of Examples 1 and 2 are bijections.
+\end{PROB}
+\begin{claim}{2a}\label{Claim 2a.}
+    $f$ is a bijection. 
+
+    \begin{equation*}
+        f(n) := \begin{cases*}
+            2n & \text{if $n > 0$} \\
+            -2n + 1 & \text{if $n \leq 0$}
+        \end{cases*}
+    \end{equation*} 
+\end{claim}
+\begin{proof}
+    $\forall n, m \in \Z \ni f(n) = f(m)$, if $n > 0 \implies 2n = f(m)$. Assume the contrary that $m \leq 0$, then $2n = -2m + 1 \implies m = n - \frac{1}{2} \implies m \not \in \Z$ which is a contradiction. Thus $m > 0$. Thus $2n = 2m \implies m = n$. If $n \leq 0 \implies -2n + 1 = f(m)$. Assume the contrary that $m > 0 \implies 2n - 1 =2m \implies m = n - \frac{1}{2} \implies m \not \in \Z$ which is a contradiction. Thus $2n - 1 = 2m - 1 \implies n = m$. Thus $f$ is a injective function. 
+    
+    $\forall y \in \Z_+$. 
+    
+    \begin{enumerate}
+        \item If $y$ is even: Let $x = \frac{y}{2}$. $f(x) = y$.
+        \item If $y$ is odd: Let $x = -\frac{y - 1}{2}$, $f(x) = -2x + 1 = y$.     
+    \end{enumerate}
+
+    Thus $f$ is surjective. 
+\end{proof}
+% \begin{claim}{2b}\label{Claim 2b.}
+%     $g$ is a bijection.
+    
+%     \begin{equation*}
+%         g(x, y) = \frac{1}{2}(x - 1)x + y
+%     \end{equation*}
+% \end{claim}
+% \begin{proof}
+%     $\frac{1}{2}(x - 1)(x) = \sum_{k = 1}^{x - 1} k = T_{x - 1}$. 
+
+%     $\forall (x, y), (a, b) \in \Z_+ \times \Z_+$. $\frac{1}{2}(x - 1)x + y = g(x, y) = g(a, b) = \frac{1}{2}(a - 1)a + b \implies T_{x - 1} + 2y = T_{a - 1} + 2b$
+% \end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Let X be the two-element set $\left\{ 0, 1 \right\}$. Show there is a bijective correspondence between the set $2^{\Z_+}$ and the cartesian product $X^\omega$.
+\end{PROB}
+\begin{proof}
+    Let $f : 2^{\Z_+} \to X^\omega$ where $A \in 2^{\Z_+}$ gets sent to a element of $X^\omega$  where the $i$th component is 1 iff $i \in A$ otherwise the ith component is 0.
+    
+    $\forall A, B \in 2^{\Z_+}, f(A) = f(B)$. $\forall i \in A$, then the ith component of $f(A)$ is 1. Thus the ith component of $f(B)$ is 1. Thus $i \in B$. Thus $A \subseteq B$. $\forall j \in B$, then $j$th component of $f(B)$ is 1. Thus the jth component of $f(A)$ is 1. THus $j \in A$. Thus $B \subseteq A$. $A = B$. Thus $f$ is injective. 
+    
+    $\forall (a_1, \dots, a_i, \dots) \in X^{\omega}$. Let $A = \left\{ x \in \Z_+ \mid a_x = 1 \right\}$. $f(A) = (a_1, \dots, a_i, \dots)$. Thus $f$ is surjective. 
+    
+    Thus $f$ is a bijection. 
+\end{proof}
+
+\section*{Infinite Sets and the Axiom of Choice}
+\begin{PROB}{9.1}\label{Problem 9.1.}
+    Define an injective map $f : \Z_+ \to X^\omega$, where X is the two-element set ${0,1}$ without using the choice axiom.
+\end{PROB}
+\begin{proof}
+    Let $f := \Z_+ \to X^\omega$ where $m \to (\delta(1 - m), ..., \delta(i - m), \dots)$. 
+    
+    Suppose $\forall m, n \in \Z_+ \ni f(m) = f(n)$ that means $f(m)$ and $f(n)$ agree on the $m$ and $n$th entry. That means there are 1s on the m and nth entry. For $f(m)$, there is a 1 only on the mth entry similarly for $f(n)$ will only have a 1 on the nth entry. Thus there is a 1 on the mth entry and nth entry which means $m = n$.        
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9.2}\label{Problem 9.2.}
+    Find if possible a choice function for each of the following collections, without using the choice axiom:
+    \begin{enumerate}
+        \item The collection $A$ of nonempty subsets of $\Z_+$
+        \item The collection $B$ of nonempty subsets of $\Z$
+        \item The collection $C$ of nonempty subsets of the rational $\Q$
+        \item The collection $D$ of nonempty subsets of $X^\omega$ where $X = \left\{ 0, 1 \right\}$
+    \end{enumerate}
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $c : A \to \bigcup_{B \in A} B \ni B \to \min(B)$.
+        \item Let $f$ be the bijection from $\Z \to \Z_+$ seen in problem 1.6.1. Let $c : B \to \bigcup_{A \in B} A \ni A \to \min(f(A))$      
+    \end{enumerate}
+
+    For the rest do the same. First map to $\Z_+$ and then take the min which works since $\Z_+$ is well ordered.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9.3}\label{Problem 9.3.}
+    Suppose that A is a set and $\left\{ f_n \right\}_{n \in \Z_+}$ is a given indexed family of injective functions
+
+    \[
+        f_n := [1, \dots, n] \to A
+    \]
+    
+    Show $A$ is infinite. Can you define a injective function from $f \to \Z_+ \to A$ without using the choice axiom.   
+\end{PROB}
+\begin{proof}
+    Assume the contrary A is finite. Let $m := \abs{A}$. There is a bijective map $f_{m}$ from $ [1, \dots, m]\to A$. Thus since $f_{m + 1}$ is injective. There is a injective map from $[1, \dots, m+1] \to [1, \dots, m]$, which is a contradiction. Thus $A$ is infinite.
+    
+    Define $f$ recursively. Let $a_0 = f_1(1)$ and let 
+    \[\rho(h : [1, \dots, m] \to A) = f_{m}(\min{k \in \Z_+ | k \leq n + 1, f_{m}(k) \not \in h([1, \dots, m - 1])})\] 
+
+    Since $\rho$ is well defined $f_{n}$ is injective. Thus $f$ is defined in the recursive function and thus injective.    
+\end{proof}
+
+\bigskip
+
+\section*{Well Order Sets}
+
+
+\end{document}

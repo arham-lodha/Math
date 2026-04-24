@@ -1,0 +1,266 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 9}
+\author{Arham Lodha}%put your name here
+\date{March 26, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+\end{PROB}
+\begin{proof}
+    Let $(x_n)$ be a sequence of positive terms which converge to $x > 0$. Convergent sequences are bounded, so $\exists M \in \R \ni x_n \leq M$. $0 < x_n < M \implies x_n = \abs{x_n} \leq M$. $\forall \epsilon > 0$. By the definition of limit, $\exists K \in \N \ni \forall n \geq K, \abs{x_n - x} < \frac{\epsilon}{\abs{x} + \abs{M}}$.     
+    
+    \begin{align*}
+        \abs{x_n^2 - x^2} &= \abs{x_n^2 - x x_n + x x_n - x^2} \\
+        &= \abs{(x_n - x)(x + x_n)} \\
+        &= \abs{x_n - x}\abs{x + x_n} \\
+        &\leq \abs{x_n - x}(\abs{x} + \abs{x_n}) \text{ (triangle inequality)} \\
+        &\leq \abs{x_n - x}(\abs{x} + \abs{M}) \text{ (since $\abs{x_n} \leq M$)} \\
+        &< \frac{\epsilon}{\abs{x} + \abs{M}}(\abs{x} + \abs{M}) \\
+        &= \epsilon.
+    \end{align*}
+    
+    Thus $\lim x_n^2 = x^2$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+\end{PROB}
+\begin{proof}
+    $\forall n \in \N$, $x_n = \frac{1}{\frac{1}{n} + 4} = \frac{n}{1 + 4n}$.
+    
+    $\forall \epsilon > 0$. By Archemedian Property, $\exists K \in \N \ni K > \frac{1}{16\epsilon} \implies \epsilon > \frac{1}{16K}$. $\forall n \geq K$   
+    
+    
+    \begin{align*}
+        \abs{\frac{n}{4n + 1} - \frac{1}{4}} &= \abs{\frac{4n - (4n + 1)}{16n + 4}} \\
+        &= \abs{\frac{-1}{16n + 4}} \\
+        &= \frac{1}{16n + 4} \\
+        &< \frac{1}{16n} \text{ (since $16n + 4 > 16n$ )}\\
+        &\leq \frac{1}{16K} \text{ (since $n \geq K \implies 16n \geq K$ )}\\
+        &< \epsilon
+    \end{align*}
+
+    Thus, $\lim x_n = \frac{1}{4}$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3a.}
+\end{PROB}
+\begin{proof}
+    Suppose $x_n = \frac{(-1)^n}{n^3}$. 
+    
+    $\forall \epsilon > 0$. By Archemedian property, $\exists K \in \N \ni K \geq \frac{1}{\epsilon^{\frac{1}{3}}} \implies \epsilon > \frac{1}{K^3}$. $\forall n \geq K$. 
+    
+    \begin{align*}
+        \abs{\frac{(-1)^n}{n^3}} &= \frac{1}{n^3} \\ 
+        &\leq \frac{1}{K^3} \text{ (since $n \geq K \implies n^3 \geq K^3$)} \\
+        &< \epsilon \text{ (since $\epsilon > \frac{1}{K^3}$)}
+    \end{align*}
+
+    Thus, $\lim x_n = 0$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3b}\label{Problem 3b.}
+\end{PROB}
+\begin{proof}
+    Suppose $x_n = (-1)^n(1 + \frac{1}{n})$. 
+
+    Take the subsequences, $y_n = x_{2n} = (-1)^{2n}(1 + \frac{1}{2n}) = 1 + \frac{1}{2n}$ and $z_n = x_{2n - 1} = (-1)^{2n - 1}(1 + \frac{1}{2n - 1}) = -1 -\frac{1}{2n - 1}$.
+
+    Limit of constants are equal to the constant, thus $\lim_{n \to \infty} 1 = 1$ and $\lim_{n \to \infty} (-1) = -1$.
+    
+    
+    $\forall \epsilon > 0$. By Archemedian property, $\exists K \in \N \ni K \geq \frac{1}{2\epsilon} + 0.5 \implies \epsilon > \frac{1}{2K - 1}$. $\forall n \geq K$.
+
+    \begin{align*}
+        \abs{\frac{1}{2n - 1}} &= \frac{1}{2n - 1} \\
+        &\leq \frac{1}{2K - 1} \text{ ( since $n \geq K \implies 2n - 1 \geq 2K - 1$)} \\
+        &< \epsilon 
+    \end{align*}
+
+    Thus $\lim \frac{1}{2n - 1} = 0$. 
+    
+    By operation of limits theorem, $\lim_{n \to \infty} y_n = \lim_{n \to \infty}(1 + \frac{1}{2n}) = \lim_{n \to \infty}(1) + \frac{1}{2}\lim_{n \to \infty}\frac{1}{n} = 1$ and $\lim_{n \to \infty} z_n = \lim_{n \to \infty}(-1 - \frac{1}{2n - 1}) = \lim_{n \to \infty}(-1)- \lim_{n \to \infty}(\frac{1}{2n - 1}) = -1 - 0 = -1$.
+    
+    Thus $\lim y_n = 1$ and $\lim z_n = -1$. Thus subsequence of $x_n$ have different limits, thus because of the divergence criteria given by subsequences, $x_n$ is divergent.      
+\end{proof}
+
+\begin{PROB}{3c}\label{Problem 3c.}
+\end{PROB}
+\begin{proof}
+    Suppose $x_n = (-1)^n n^3$. 
+
+    $\forall r \in \R$. 
+    
+    \begin{enumerate}
+        \item If $r \leq 0$. $x_1 = 1 > r \implies r$ is not a upper bound for $(x_n)$.
+        \item If $r > 0$, 
+        \begin{enumerate}
+            \item If $\ceil{r}$ is even, let $K := \ceil{r} + 2$, thus $K$ even and $K > \ceil{r} \geq r$. Note $K > 1$. Thus $x_K = (-1)^K K^3 = K^3 > K > r$.
+            \item If $\ceil{r}$ is odd, let $K = \ceil{r} + 1$, thus $K$ even and $K > \ceil{r} \geq r$. Note $K > 1$. Thus $x_n = (-1)^K K^3 = K^3 > K>r$.      
+        \end{enumerate}
+
+        Thus $r$ is not a upper bound for $(x_n)$.   
+    \end{enumerate}
+
+    Thus $(x_n)$ is unbounded. By contrapositive of the convergence $\implies$ bounded theorem, $(x_n)$ is divergent.
+\end{proof}
+
+\begin{PROB}{3d}\label{Problem 3d.}
+\end{PROB}
+\begin{proof}
+    Suppose $x_n = \frac{3n^3 - n + 4}{6n^3 + n + 5}$. $\forall \epsilon > 0$, By the Archemedian property, $\exists K \in \N \ni K > \frac{\sqrt{3}}{2\sqrt{\epsilon}} \implies \epsilon > \frac{3}{14K^2}$     
+
+    
+    \begin{align*}
+        \abs{\frac{3n^3 - n + 4}{6n^3 + n + 5} - \frac{1}{2}} &= \abs{\frac{6n^3 - 2n + 8 - (6n^3 + n + 5)}{12n^3 + 2n + 10}} \\
+        &= \abs{\frac{-3n + 3}{2(6n^3 + n + 5)}} \\
+        &= \abs{\frac{-3}{2} * \frac{n - 1}{6n^3 + n + 5}}\\
+        &= \frac{3}{2}\left(\frac{n - 1}{6n^3 + n + 5}\right) \\
+        &< \frac{3}{2}\left(\frac{n}{6n^3 + n + 5}\right) \\
+        &< \frac{3}{2}\left(\frac{n}{6n^3 + n}\right) \\
+        &< \frac{3}{2}\left(\frac{1}{6n^2 + n^2}\right) \\
+        &< \frac{3}{2}\left(\frac{1}{7n^2}\right) \\
+        &\leq \frac{3}{14K^2} \\
+        &< \epsilon
+    \end{align*}
+
+    Thus $\lim x_n = \frac{1}{2}$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4a}\label{Problem 4a.}
+\end{PROB}
+\begin{proof}
+    (Base Case): For $n = 0$, $x_0 = 5 > -3$
+
+    (Inductive Hypothesis): Suppose the statement holds for $n $ ie suppose $x_{n} > -3$
+
+    (Inductive step): $x_{n} > -3 \implies x_{n} / 3 > -1 \implies x_{n}/3 - 2 = x_{n + 1} > -1 - 2 = -3$. 
+    
+    Thus by induction, $x_n > -3$. 
+\end{proof}
+\begin{PROB}{4b}\label{Problem 4b.}
+\end{PROB}
+\begin{proof}
+    (Base Case): For $n = 0$, $x_0 = 5$ and $x_1 = \frac{5}{3} - 2 = -\frac{1}{3} < x_0$. Thus $x_0 < x_1$
+    
+    (Inductive Hypothesis): Suppose $x_{n} < x_{n + 1}$
+    
+    (Inductive Step): $x_{n} < x_{n + 1} \implies x_{n} / 3 < x_{n + 1} / 3 \implies x_{n} / 3 - 2 = x_{n + 1} < x_{n + 1} /3 - 2 = x_{n + 2}$.
+    
+    Thus by induction, $(x_n)$ is monotonically decreasing.  
+\end{proof}
+\begin{PROB}{4c}\label{Problem 4c.}
+     
+\end{PROB}
+\begin{proof}
+    By monotonic convergence theorem, since $(x_n)$ has a lower bound and is decreasing, $(x_n)$ is convergent.  
+\end{proof}
+\begin{PROB}{4d}\label{Problem 4d.}
+\end{PROB}
+\begin{proof}
+    Let $L := \lim x_n$. 
+    
+    $\lim x_{n + 1} = L$ since limit of a subsequence is equal to the limit of the sequence. 
+    
+    By the operation of limits, $\lim x_{n + 1} = \frac{1}{3}\lim x_n + \lim (-2)$. Limit of a constant term, is the constant, thus $\lim x_{n + 1}= \frac{1}{3}L - 2$. 
+    
+    By Uniqueness of Limits, $\frac{1}{3}L - 2 = L \implies -2 = \frac{2}{3}L \implies L = -3$.  
+\end{proof}
+
+\bigskip
+\begin{PROB}{5a}\label{Problem 5a.}
+\end{PROB}
+\begin{proof}
+    $\forall \alpha \in \R$. By the definition of proper divergence, $\exists K \in \N \ni \forall n \geq K, x_n > \alpha \implies -x_n < -\alpha$, since multiplication by a negative real number flips the ordering sign. Thus $-x_n < -\alpha$. 
+    
+    By the definition of proper divergence, $(-x_n)$ diverges to $- \infty$.  
+\end{proof}
+\begin{PROB}{5b}\label{Problem 5b.}  
+\end{PROB}
+\begin{proof}
+    Let $\alpha = 1$. For this $\alpha$, $\exists K \ni \forall n \geq K, x_n > \alpha$. $\forall m, n \in \N \ni m > n \geq K$. 
+    
+    \begin{align*}
+        \abs{\sum_{k = 1}^{m}x_k - \sum_{k = 1}^{n}x_k} &= \abs{\sum_{k = n + 1}^{m}x_k} \\
+        &= \sum_{k = n + 1}^{m}x_k \text{ (since $x_k > \alpha > 0$ $\forall k \in \N \ni n < k \leq m$)} \\
+        &> (m - n) \text{(since $x_k > 1$)} \\
+        &> 1
+    \end{align*}
+
+    Thus by definition of cauchy, $(\sum x_n)$ is not cauchy. Since convergence $\iff$ cauchy, $(\sum x_n)$ is not diverges.  
+\end{proof}
+
+\end{document}

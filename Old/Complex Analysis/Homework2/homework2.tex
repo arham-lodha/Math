@@ -1,0 +1,275 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 2}
+\author{Arham Lodha}%put your name here
+\date{February 13, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Prove \[\int_{0}^{\infty}sin(x^2)dx = \int_{0}^{\infty}cos(x^2)dx= \frac{\sqrt{2}}{4}\]
+\end{PROB}
+\begin{proof}
+    Use a quarter circle contour.
+
+    \begin{align*}
+        \lim_{R \to \infty} \int_{\gamma} e^{-z^2} dz &= \lim_{R \to \infty} \left[\int_{0}^{R} e^{-x^2} dx + \int_{0}^{\frac{\pi}{4}} Rie^{i \theta} e^{-R^2e^{i 2\theta}} d \theta - \int_{0}^{R} e^{i \frac{\pi}{4}} e^{-r^2e^{i \frac{2\pi}{4}}} dr\right].
+    \end{align*}
+
+    By Cauchy's theorem, because $e^{-z^2}$ is holomorphic on the open set inside the contour, $\lim_{R \to \infty} \int_{\gamma} e^{-z^2} dz = 0$. So
+    
+    \begin{align*}
+        \lim_{R \to \infty} \int_{0}^{R} e^{i \frac{\pi}{4}} e^{-r^2e^{i \frac{2\pi}{4}}} dr = \lim_{R \to \infty} \left[\int_{0}^{R} e^{-x^2} dx + \int_{0}^{\frac{\pi}{4}} Rie^{i \theta} e^{-R^2e^{i 2\theta}} d \theta\right]
+    \end{align*}
+
+    $\lim_{R \to \infty} \int_{0}^{R} e^{-x^2} dx  = \frac{1}{2} \lim_{R \to \infty} \int_{-R}^{R} e^{-x^2} dx = \frac{\sqrt{\pi}}{2}$.
+
+    By the integral inequality, 
+    
+    \begin{align*}
+        \abs{\int_{0}^{\frac{\pi}{4}} Rie^{i \theta} e^{-R^2e^{i 2\theta}} d \theta} &\leq \int_{0}^{\frac{\pi}{4}} \abs{Rie^{i \theta} e^{-R^2e^{i 2\theta}}} d \theta \\ 
+        &= \int_{0}^{\frac{\pi}{4}} \abs{Rie^{i \theta} e^{-R^2( \cos(2\theta) + i \sin(2 \theta))} }d \theta \\
+        &= \int_{0}^{\frac{\pi}{4}} \abs{i} \abs{e^{i \theta}} \abs{R} \abs{e^{-R^2( \cos(2\theta) + i \sin(2 \theta))} }d \theta \\
+        &= \int_{0}^{\frac{\pi}{4}}  \abs{R} \abs{e^{-R^2\cos(2\theta)}} \abs{e^{-R^2 i \sin(2 \theta))} }d \theta
+    \end{align*}
+
+    $\abs{\abs{e^{-R^2 i \sin(2 \theta))} }} = 1$ so, $\int_{0}^{\frac{\pi}{4}}  \abs{R} \abs{e^{-R^2\cos(2\theta)}} \abs{e^{-R^2 i \sin(2 \theta))} }d \theta = \int_{0}^{\frac{\pi}{4}}  \abs{Re^{-R^2\cos(2\theta)}} d \theta$. As $R \to \infty$, the exponential term dominates and $\abs{Re^{-R^2\cos(2\theta)}} \to 0$.
+    
+    Thus, $\lim_{R \to \infty} \int_{0}^{\frac{\pi}{4}} Rie^{i \theta} e^{-R^2e^{i 2\theta}} d \theta = 0$.
+    
+    Thus, \begin{align*}
+        \frac{\sqrt{\pi}}{2} &= \lim_{R \to \infty} \int_{0}^{R} e^{i \frac{\pi}{4}} e^{-r^2e^{i \frac{2\pi}{4}}} dr \\
+        &= e^{i \frac{\pi}{4}} \lim_{R \to \infty} \int_{0}^{R}  e^{-ir^2} dr \\
+        \frac{\sqrt{\pi}}{2} e^{-i \frac{\pi}{4}} &= \lim_{R \to \infty} \int_{0}^{R}  e^{-ir^2} dr \\
+        &= \lim_{R \to \infty}\left[\int_{0}^{R} \cos(r^2) dr - i\int_{0}^{R} \sin(r^2) dr\right] \\
+        &= \int_{0}^{\infty} \cos(r^2) dr - i\int_{0}^{\infty} \sin(r^2) dr.
+    \end{align*}
+
+    Thus 
+    \[
+        \int_{0}^{\infty} \cos(r^2) dr = \Re\left(\frac{\sqrt{\pi}}{2} e^{-i \frac{\pi}{4}}\right) = \Re\left(\frac{\sqrt{\pi}}{2}\left(\frac{1}{\sqrt{2}} - i \frac{1}{\sqrt{2}}\right)\right) = \frac{\sqrt{2 \pi}}{4}
+    \]
+
+    and 
+
+    \[
+        \int_{0}^{\infty} \sin(r^2) dr = \Im\left(\frac{\sqrt{\pi}}{2} e^{-i \frac{\pi}{4}}\right) = \Im\left(\frac{\sqrt{\pi}}{2}\left(\frac{1}{\sqrt{2}} - i \frac{1}{\sqrt{2}}\right)\right) = \frac{\sqrt{2 \pi}}{4}
+    \]
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    
+\end{PROB}
+\begin{proof}
+    Use a indented semicircle contour and integrate the function $f(x) = \frac{e^{ix}}{x}$
+
+    By Cauchy's Theorem, 
+    \[
+        \int_{\gamma} \frac{e^{iz}}{z} dz = \int_{0}^\pi Rie^{i \theta} \frac{e^{iRe^{i \theta}}}{Re^{i \theta}} d \theta + \int_{-R}^{-\epsilon} \frac{e^{ix}}{x} dx + \int_{\epsilon}^{R} \frac{e^{ix}}{x} dx + \int_{\pi}^{0} \frac{\epsilon i e^{i \theta}}{\epsilon e^{i \theta}} e^{i \epsilon e^{i \theta}} d \theta = 0 
+    \]
+
+    \[
+        \int_{0}^\pi Rie^{i \theta} \frac{e^{iRe^{i \theta}}}{Re^{i \theta}} d \theta = \int_{0}^\pi i e^{iRe^{i \theta}} d \theta
+    \].
+
+    By the Integral inequality, 
+
+    \begin{align*}
+        \abs{\int_{0}^\pi i e^{iRe^{i \theta}} d \theta} &\leq \int_{0}^\pi \abs{i e^{iRe^{i \theta}}} d \theta \\
+        &= \int_{0}^\pi \abs{e^{iRe^{i \theta}}} d \theta \\
+        &= \int_{0}^\pi \abs{e^{-R \sin(\theta)}} \abs{e^{iR \cos(\theta)}} d \theta
+    \end{align*}
+
+    $\abs{e^{iR \cos(\theta)}} = 1$.
+    
+    Thus \[
+        \abs{\int_{0}^\pi i e^{iRe^{i \theta}} d \theta} \leq \int_{0}^\pi \abs{e^{-R \sin(\theta)}} d \theta = 0
+    \]
+
+    because as $R \to \infty$, the exponential term decays to 0. Thus $\int_{0}^\pi \abs{e^{-R \sin(\theta)}} d \theta = 0$ and $\abs{\int_{0}^\pi i e^{iRe^{i \theta}} d \theta} = 0$. 
+    
+    \[
+        \int_{\pi}^{0} \frac{\epsilon i e^{i \theta}}{\epsilon e^{i \theta}} e^{i \epsilon e^{i \theta}} d \theta = \int_{\pi}^{0} i e^{i \epsilon e^{i \theta}} d \theta 
+    \]
+
+    As $\epsilon \to 0$, $e^{i \epsilon e^{i \theta}} = \cos(\epsilon e^{i \theta}) + i \sin(\epsilon e^{i \theta}) \to 1$.
+    
+    Thus \[
+        \int_{\pi}^{0} \frac{\epsilon i e^{i \theta}}{\epsilon e^{i \theta}} e^{i \epsilon e^{i \theta}} d \theta = \int_{\pi}^{0} i e^{i \epsilon e^{i \theta}} d \theta = - i \pi
+    \]
+
+    Let $u = -x$, $du = -dx$, thus $\int_{-R}^{-\epsilon} \frac{e^{ix}}{x} dx = -\int_{\epsilon}^{R} \frac{e^{-iu}}{u} du$.
+    
+    Slight abuse of notation, but set $u$ to $x$.   
+    
+    Thus \[
+        \int_{-R}^{-\epsilon} \frac{e^{ix}}{x} dx + \int_{\epsilon}^{R} \frac{e^{ix}}{x} dx = \int_{\epsilon}^{R} \frac{e^{ix}}{x} dx -\int_{\epsilon}^{R} \frac{e^{-ix}}{x} dx = \int_{\epsilon}^{R} \frac{e^{ix} - e^{-ix}}{x} dx = 2 i \int_{\epsilon}^{R} \frac{\sin(x)}{x} dx
+    \]
+
+    Thus $2 i \int_{\epsilon}^{R} \frac{\sin(x)}{x} dx - i \pi = 0$, thus as $R \to \infty$ and $\epsilon \to 0$,
+    
+    \[\int_{\epsilon}^{R} \frac{\sin(x)}{x} dx  = \int_{0}^{\infty} \frac{\sin(x)}{x} dx= \frac{\pi}{2}\]
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+\end{PROB}
+\begin{proof}
+    Suppose $f$ is holomorphic on the open set $\omega$ containing the unit disk except at a pole $z_0$ on the unit circle and $\forall x \in \mathbb{D}$, $f(x) = \sum_{n = 0}^{\infty} a_n x^n$. By assumption, $f$ converges on the unit disk meaning $\lim_{n \to \infty}|a_n|  = 1$. $f$ is meromorphic on the domain $\omega$ with a pole at $z_0$, thus let $m$ be multiplicity of the pole at $z_0$ and $g(z)$ is holomorphic on $\omega$, so    
+    
+    \[
+        f(z) = \sum_{n = -m}^{0} \frac{b_m}{(z - z_0)^m} + g(z) 
+    \]
+
+    By Lemma 5.10 in Chapter 2 of Stein, $\frac{1}{(z- z_0)} = \sum_{n = 1}^{\infty} \frac{z^n}{z_0^n}$. Let $c_n = \frac{1}{z_0^n}$.  
+    
+    \[
+        \frac{d^m}{dz^m}\left[\frac{1}{(z- z_0)}\right] = \frac{(-1)^m m!}{(z - z_0)^m} = \sum_{n=m}^{\infty} c_n \frac{n!}{(n - m)!} z^{n - m}  
+    \].
+
+    \[
+        \lim_{n \to \infty} \frac{c_n}{c_{n + 1}} = \lim_{n \to \infty} \frac{\frac{1}{z_0^n}}{\frac{1}{z_0^{n+1}}} = z_0
+    \]
+
+    \[
+        \lim_{n \to \infty} \frac{c_n \frac{n!}{(n - m)!}}{c_{n + 1} \frac{(n+1)!}{(n + 1 - m)!}} = \lim_{n \to \infty} \frac{\frac{n + 1 - m}{z_0^n}}{\frac{n + 1}{z_0^{n+1}}} = z_0
+    \]
+
+    $\sum_{n = -m}^{0} \frac{b_m}{(z - z_0)^m} = b_1\sum_{n = 1}^{\infty} c_n z^n + \dots + b_m\sum_{n=m}^{\infty} c_n \frac{n!}{(n - m)!} z^{n - m} = \sum_{n = 1}^{\infty} d_n z^n$. 
+
+    Thus $d_n$ is a linear combination of $c_n$. Thus $\lim_{n \to \infty} d_n / d_{n + 1} = z_0$. 
+    
+    
+    Since $g(z)$ is holomorphic on $\omega$, $g(z) = \sum_{n = 0}^{\infty}k_n z^n$. However since g is holomorphic, $lim_{n \to \infty} k_n = 0$ since $g$ converges.   
+    
+    On the $\mathbb{D}$ , 
+    
+    \[
+        f(z) = \sum_{n = 0}^{\infty} a_n z^n = \sum_{n = 0}^{\infty}(c_n + k_n) z^n 
+    \].
+
+    Thus $a_n = c_n + k_n$ and  $\lim_{n \to \infty} a_n = \lim_{n \to \infty} c_n$. 
+    
+    Thus 
+    
+    \[
+        \lim_{n \to \infty} \frac{a_n}{a_{n + 1}} = \lim_{n \to \infty} \frac{c_n}{c_{n + 1}} = z_0
+    \]
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    
+\end{PROB}
+\begin{proof}
+    Let $F: \C \to \C$ where, $\forall z \in \C$,  
+    
+    \begin{equation*}
+        F(z) = \begin{cases*}
+            f(z) & \text{if $|z| < 1$} \\
+            1 / \overline{f(\frac{1}{\bar{z}})} & \text{if $|z| \geq 1$}
+        \end{cases*}.
+    \end{equation*} 
+
+    For $z \in \C \ni |z| \geq 1$, $\abs{\frac{1}{\bar{z}}} \leq 1$. Since we know, $f(z)$ is non vanishing on $\bar{D}$, we know $f(\overline{\frac{1}{z}}) \neq 0$. Thus $F$ is bounded below by 0 $\forall z \in \overline{\mathbb{D}}$ and $\overline{f(\overline{\frac{1}{z}})} \neq 0$. Thus, $\frac{1}{\overline{f(\overline{\frac{1}{z}})}}$ is holomorphic. Thus since $F$ is holomorphic $\forall z \in \C \ni |z|< 1$, by assumption, and $F$ is holomorphic $\forall z \in \C \ni |z| \geq 1$. Thus $F$ is holomorphic in $\C$.
+    
+    Furthermore, $\forall z \in \C \ni |z| = 1$, $\overline{(\frac{1}{f(\overline{\frac{1}{z}})})} = \overline{\left(\frac{1}{f(z)}\right)}$, since $\frac{1}{z} = \bar{z}$. By assumption, $|f(z)| =1 $. Thus, $\frac{1}{f(z)} = \overline{f(z)}$, thus $\overline{(\frac{1}{f(\overline{\frac{1}{z}})})} = f(z)$. Thus, $F$ is well defined $\forall z \in \C \ni |z| = 1 \implies \forall z \in \C$, $F$ is well defined.  
+    
+    By Theorem 2.1 in Stein Chapter 1, since $f$ is continous on $\overline{\mathbb{D}}$, $\exists M, N \in \R \ni \forall z \in \overline{\mathbb{D}}, N \leq f(z) \leq M$. Since $f$ is nonvanishing on the domain, $0 < N$. Thus, $\forall z \in \C \setminus \overline{\mathbb{D}}$, $\abs{\overline{\frac{1}{z}}} \leq 1$, thus by the above, $N \leq f(\overline{\frac{1}{z}}) \leq M$. Thus $\abs{F(z)} = \abs{\frac{1}{f(\overline{\frac{1}{z}})}} \leq N$. Furthermore since $\frac{1}{\overline{z}} \in \bar{\mathbb{D}}$, and $f$ is non vanishing on the domain, $0 < \overline{\frac{1}{f(\overline{\frac{1}{z}})}} = F(z)$. Thus $F(z)$ is bounded below by 0 $\forall z \in \C \setminus \mathbb{D}$. Thus $F(z)$ is bounded below by 0, $\forall z \in \C$.         
+    
+    Thus $\forall z \in \Z, F(z) \leq M$, thus $F(z)$ is bounded above by $M$ and below by 0. Thus by Loiville's Theorem, $F$ must be a constant function so $f$ must be a constant function as well.            
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5a}\label{Problem 5a.}
+\end{PROB}
+\begin{proof}
+    $\forall x, r \in \R \exists p, q \in \Z \ni  \frac{2 \pi p}{2^q} \in N_{r}(x)$, by choosing a large enough $q$ and a appropriate $p$, $\abs{x - \frac{2 \pi p}{2^q}} \leq \epsilon$ $\forall \epsilon > 0$. 
+    
+    $\forall z \in \mathbb{D}, z = e^{i \theta}$ for $\theta \in \R$. By the above $\exists \frac{2 \pi p}{2^q} \in N_{\epsilon}(\theta) \implies \exists re^{i \frac{2 \pi p}{2^q}} \in N_{s}(z)$. Let $z' = re^{i \frac{2 \pi p}{2^q}}$. $f(z') = \sum_{n = 0}^{\infty} r^{2^n} e^{i 2^{n - q} (2 \pi p)} = \sum_{n = 0}^{q - 1} r^{2^n} e^{i 2^{n - q} (2 \pi p)} + \sum_{n = q}^{\infty} r^{2^n} e^{i 2^{n - q} (2 \pi p)}$. $\forall n \in \N \ni n \geq q$, $e^{i 2^{n - q} (2 \pi p)} = 1$.  Thus $f(z') = \sum_{n = 0}^{q - 1} r^{2^n} e^{i 2^{n - q} (2 \pi p)} + \sum_{n = q}^{\infty} r^{2^n}$. $\lim_{r \to 1} \left[\sum_{n = q}^{\infty} r^{2^n}\right] = \infty = DNE$. Thus as $r \to 1$, $f(z') \to \infty$. Let $g$ be a analytic function such that $g = f$ on $\mathbb{D} \cap N_{\epsilon}(\theta)$. As $r \to 1$, $g(z') \to \infty$. Thus by contradiction, $g$ cannot be analytic since the power series of $g$ is not locally convergent on $z$. Thus z is not a regular point. Since $\forall z \in \delta \mathbb{D}$, $z$ is not regular, thus $f$ cannot be analytically continued.         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5b}\label{Problem 5b.}
+\end{PROB}
+\begin{proof}
+    Let $z \in \delta D$. Let $\epsilon > 0$ be a real. There exists a large enough $N \ni \sum_{i = N+ 1}^{\infty} 2^{-i\alpha} \leq \frac{\epsilon}{2}$. Let $t \in D$, $|f(z) - f(t)| = |\sum_{i = 0}^{\infty} 2^{{-n \alpha}}z^{2^n} - t^{2^n}| \leq \sum_{i = 0}^{N} |z^{2^n} - t^{2^n}| + \frac{\epsilon}{2}$. Since $z^{2^n}$ is continous $\forall n \in \N$, $\exists \delta \ni |z - t| \leq \delta$, such that $\sum_{i = 0}^{N} |z^{2^n} - t^{2^n}| < \frac{\epsilon}{2}$. Thus for every $t \ni |z - t| \leq \delta, |f(z) - f(t)| < \epsilon$. Thus $f$ is continous on $\delta D$, unit circle. 
+    
+    Assume the contrary $f$ can be be analytically continued, thus $\exists w \in \delta D$ and a neighborhood U and a analytic function $g$  such that $f = g$ on $D \cap U$. 
+    
+    Let $g_n(z) := z^n g^{(n)}(z)$. Suppose $g_n$ is analytic. $g_{n + 1}$ is made by differentiating $g_n$ and then multiplying $z$ thus $g_{n + 1}$ is analytic. Thus by induction, $\forall n \in \N$, $g_n$ is analytic. Since $g(z) = \sum_{i = 0}^{\infty} 2^{{-n \alpha}}z^{2^n}$ on $D \cap U$ , thus $g_m(z) = \sum_{n =0}^{\infty} 2^{n(m - \alpha)} z^{2n}$ on $D \cap U$. Choose $N \in \N \ni N > \alpha$. $g_N(z) = \sum_{n =0}^{\infty} 2^{n(N - \alpha)} z^{2n}$ for $z \in D \cap U$ is analytic.
+    
+    However $g_N$ is nowhere continous on $\delta D$. $\forall z \in \delta D$, use the trick from 5a, $\exists p, q \in \Z \ni e^{\frac{2 \pi p}{2^q}} \in V_{s}(z)$. $g_N(re^{\frac{2 \pi p}{2^q}}) = \sum_{n = 0}^{b - 1}2^{n(N - \alpha)} r^{2^n} e^{2 \pi i 2^{b - n} p} + \sum_{n = b}^{\infty}2^{n(N - \alpha)} r^{2^n} e^{2 \pi i 2^{b - n} p}$ diverges as $r \to 1$. Thus $g_N(z)$ diverges. Thus $g_N$ cannot be analytic and thus $g$ cannot be analytic. Thus $f$ cannot be analytically continued.       
+\end{proof}
+
+\end{document}

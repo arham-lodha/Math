@@ -1,0 +1,340 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\x}{\times}
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 2}
+\author{Arham Lodha}%put your name here
+\date{September 05, 2024}%enter the due date here
+\maketitle
+
+\begin{claim}{1}\label{Claim 1.}
+    The Hawaiian Earring (HE) is a subspace of obtained as the union of circles of radius 1/n centered at (1/n, 0), where n ranges over the positive integers. Note that all of the circles touch at the origin p. Show that the pair (HE, p) does not have the homotopy extension property. (Since CW pairs have the property, this is yet another proof that HE is not a CW complex.)  You may freely used the following fact that we haven't proved yet (but are about to): On the circle, the identity map is not homotopic to a constant map.
+\end{claim}
+\begin{proof}
+    Assume the contrary that $(HE, p)$ has the homotopy extension property. Let $X = HE$ and $A = \left\{ p \right\}$. By Problem 0.26 from Hatcher, there is a deformation retraction $F: X \times I \times I \to X \x \left\{ x_0 \right\} \cup A \x I$. Let $a = (p, t_0)$ where $t_0 \neq 0$. Let $U$ be a open neighborhood of $a$ where $U \cap X \x \left\{ 0 \right\} = \empset$. $a$ gets fixed throughout the deformation retraction, ie $F(a \times I) = a$, thus $a \times I \subeq F^{-1}(U)$. By the Tube Lemma!, $\exists W \subeq X \times I$ open set such that $a \times I \subeq W \times I \subeq F^{-1}(U)$. Without loss of generality, $W$ is a basic open set. Thus $\exists V \subeq X$ a basic set and $(a, b) \in I \times I$ such that $W = V \times (a, b)$. Since $U$ doesn't intersect $X \times \left\{ 0 \right\}$, W must deformation retract to a disjoint union of line segments ($p \times I$)   
+    
+    Note, since $HE$ is a subspace of $\R^2$, V contains a infinite copies of $S^1$ (boundries of open balls) which must deformation retract to $p$ because the cylinders they form must deformation retract to disjoint union of line segments. This a contradiction since the identity map of $S^1$ is not homotopic to the constant map. Thus $(HE, p)$ cannot have the homotopy extension property.     
+\end{proof}
+
+\section{Hatcher Problems}
+\begin{PROB}{22}\label{Problem 22.}
+    Show that a CW complex is contractible if it is the union of two contractible subcomplexes whose intersection is also contractible.
+\end{PROB}
+\begin{proof}
+    Let $X$ be a CW complex, and let $A$ and $B$ be subcomplexes such that $X = A \cup B$. Suppose $A$ and $B$ are contractible and $A \cap B$ is also contractible. Since $A$ and $B$ are unions of $n$-cells of $X$, then $A \cap B$ is also a union of $n$-cells and since $A$ and $B$ are closed $A \cap B$ is closed as well thus $A \cap B$ is a subcomplex of $X$ and of $A$. Thus $(X, A \cap B), (A, A \cap B), (B, A \cap B)$ are CW-pairs. By Proposition 0.17, $X \simeq X / (A \cap B) \cong A / (A \cap B) \vee B / (A \cap B)$. $(A, A \cap B)$ is a CW pair, implies $A / (A \cap B)$ is contractible (A is contractible) and is a subcomplex of $X / (A \cap B)$. $(B, A \cap B)$ is a CW pair, implies $B / (A \cap B)$ is contractible (B is contractible) and is a subcomplex of $X / (A \cap B)$. Thus since $(X / (A \cap B), A / (A \cap B))$ is a CW pair and since $A / (A \cap B)$ contractible, by Proposition 17, $X / (A \cap B) \simeq (X / (A \cap B)) / (A / A \cap B) \cong B / (A \cap B)$. So since $B$ is contractible, $B / (A \cap B)$ is contractible, so $(X / (A \cap B)) / (A / A \cap B)$ is contractible thus $X / (A \cap B)$ is contractible. Thus $X$ is contractible.         
+\end{proof}
+
+\bigskip
+
+\begin{claim}{24a}\label{Claim 24a.}
+    Let $X$ and $Y$ be CW complexes with 0 cells $x_0$ and $y_0$. Show \[\frac{X \ast Y}{X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y} \cong \frac{S(X \wedge Y)}{S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})}\]
+\end{claim}
+\begin{proof}
+    $X \ast Y$ is $X \times Y \times I$ with the following equivalences:
+    
+    $\forall x, x_1, x_2 \in X$ and $\forall y, y_1, y_2 \in Y$ 
+    \begin{align}
+        (x, y_1, 0) &\sim (x, y_2, 0) \\
+        (x_1, y, 1) &\sim (x_2, y, 1)
+    \end{align}
+
+    Quotienting by $X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y$ induces these additional equivalences: 
+     
+    \begin{align}
+        (x, y_0, t) \sim (x_0, y_0, 0) \\
+        (x_0, y, t) \sim (x_0, y_0, 0)
+    \end{align}
+
+    Putting 3 and 4 together we see, $\forall x \in X$, $\forall y \in Y$, $\forall t_1, t_2 \in I$, $(x, y_0, t_1) \sim (x_0, y, t_2)$. 
+
+    We can use some of the equivalences to get one more,
+
+    \begin{align*}
+        (x, y, 0) &\sim (x, y_0, 0) &\text{(Equivalence 1)} \\
+        &\sim (x_0, y_0, 0) &\text{(Equivalence 3)}
+    \end{align*}
+
+    $(x, y, 0) \sim (x_0, y_0, 0)$ is a much stronger equivalence than 1 so we can replace 1 with it. 
+    
+    \begin{align*}
+        (x, y, 1) &\sim (x_0, y, 1) &\text{(Equivalence 2)} \\
+        &\sim (x_0, y_0, 1) & ((x, y_0, t_1) \sim (x_0, y, t_2))
+    \end{align*}
+
+    $(x, y, 1) \sim (x_0, y_0, 1)$ is a much stronger equivalence than 2, so we will replace 2 
+
+    $X \wedge Y$ is $X \times Y$ with the following equivalences, 
+    
+    $\forall (x, y) \in X \times Y$ 
+    \begin{align}
+        (x, y_0) \sim (x_0, y_0) \sim (x_0, y)
+    \end{align}. 
+
+    Then $S(X \wedge Y)$ is $X \times Y \times I$ which inherits the equivalences from $X \wedge Y$ and introduces some of its own: 
+    
+    \begin{align}
+        (x, y_0, t) \sim (x_0, y, t) \\
+        (x, y, 0) \sim (x_0, y_0, 0) \\
+        (x, y, 1) \sim (x_0, y_0, 1)
+    \end{align}. 
+
+    Quotienting $S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})$ introduces the last relation which expands 6 where $(x_0, y_0, t_1) \sim (x_0, y_0, t_2)$ for all $t_1, t_2 \in I$. So since 
+    
+    \begin{align*}
+        (x, y_0, t_1) &\sim (x_0, y_0, t_1) &\text{(By equivalence 6)} \\
+        &\sim (x_0, y_0, 0) &\text{(By the equivalence above)} \\
+        &\sim (x_0, y_0, t_2) &\text{(By the equivalence above)} \\
+        &\sim (x_0, y, t_2) &\text{(By equivalence 6)} \\
+    \end{align*}
+
+    $(x, y_0, t_1) \sim (x_0, y, t_2)$ is a stronger equivalence that 6 so we will replace 6 with it.  
+
+    Collating all the equivalences for $\frac{X \ast Y}{X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y}$ we see that $\frac{X \ast Y}{X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y}$ is $X \times Y \times I$ with the following equivalences
+    
+    \begin{align*}
+        (x, y, 0) \sim (x_0, y_0, 1) \\
+        (x, y, 1) \sim (x_0, y_0, 1) \\
+        (x, y_0, t_1) \sim (x_0, y, t_2)
+    \end{align*}
+
+    Thus $\frac{X \ast Y}{X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y} \cong \frac{X \times Y \times I}{((x, y, 0) \sim (x_0, y_0, 1), (x, y, 1) \sim (x_0, y_0, 1), (x, y_0, t_1) \sim (x_0, y, t_2))}$. 
+
+    Collating all the equivalences for $\frac{S(X \wedge Y)}{S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})}$ we see that $\frac{S(X \wedge Y)}{S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})}$ is $X \times Y \times I$ with the following equivalences
+    
+    \begin{align*}
+        (x, y, 0) \sim (x_0, y_0, 1) \\
+        (x, y, 1) \sim (x_0, y_0, 1) \\
+        (x, y_0, t_1) \sim (x_0, y, t_2)
+    \end{align*}
+
+    Thus $\frac{S(X \wedge Y)}{S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})} \cong \frac{X \times Y \times I}{((x, y, 0) \sim (x_0, y_0, 1), (x, y, 1) \sim (x_0, y_0, 1), (x, y_0, t_1) \sim (x_0, y, t_2))}$. 
+
+    Thus, \[
+        \frac{X \ast Y}{X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y} \cong \frac{X \times Y \times I}{((x, y, 0) \sim (x_0, y_0, 1), (x, y, 1) \sim (x_0, y_0, 1), (x, y_0, t_1) \sim (x_0, y, t_2))} \cong \frac{S(X \wedge Y)}{S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})}
+    \] 
+
+    which implies that \[
+        \frac{X \ast Y}{X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y} \cong \frac{S(X \wedge Y)}{S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})}
+    \]
+    
+\end{proof}
+
+\begin{claim}{24b}\label{Claim 24b.}
+    Deduce from 24a that $X \ast Y \simeq S(X \wedge Y)$ 
+\end{claim}
+\begin{proof}
+    According to page 10 of Hatcher, $X \ast Y$ is a CW complex and since $x_0$ and $y_0$ are 0 cells of X and Y, $X \ast \left\{ y_0 \right\}$ is a subcomplex of $X \ast Y$ (closed and CW complex) and so is $\left\{ x_0 \right\} \ast Y$. Thus $X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y$ is a subcomplex of $X \ast Y$. Thus $(X \ast Y, X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y)$ is a CW pair. 
+    
+    According to page 10 of Hatcher, since X and Y are cell complexes and $x_0$ and $y_0$ are 0 cells of $X$ and Y, $X \wedge Y$ is a CW complex. By page 9, $S(X \wedge Y)$ is a CW complex. For the same reasons, $\left\{ x_0 \right\} \wedge \left\{ y_0 \right\}$ and $S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})$ are CW complexes and in fact are subcomplexes of $S(X \wedge Y)$. Thus $(S(X \wedge Y), S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\}))$ is a CW Pair. 
+    
+    By proposition 0.16, $(X \ast Y, X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y)$ and $(S(X \wedge Y), S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\}))$ have the Homotopy extension Property. By 0.17, they are homotopic to their quotient space by the subcomplex in other words, 
+
+    \[X \ast Y \simeq \frac{X \ast Y}{X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y}\]
+
+    and 
+
+    \[
+        S(X \wedge Y) \simeq \frac{S(X \wedge Y)}{S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})}
+    \]
+
+    By combining the result from 24a, we see:
+
+    \[X \ast Y \simeq \frac{X \ast Y}{X \ast \left\{ y_0 \right\} \cup \left\{ x_0 \right\} \ast Y} \cong \frac{S(X \wedge Y)}{S(\left\{ x_0 \right\} \wedge \left\{ y_0 \right\})} \simeq S(X \wedge Y)\]
+
+    which means $X \ast Y \simeq S(X \wedge Y)$.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{26a}\label{Claim 26a.}
+    Use Corollary 0.20 to show that if $(X, A)$ has the homotopy extension property then $X \times I$ deformation retracts to $X \times \left\{ 0 \right\} \cup A \times I$   
+\end{claim}
+\begin{proof}
+    $h: \left\{ 0 \right\} \times I \cup I \times \left\{ 0 \right\} \to \left\{ 0 \right\} \times I$ where 
+    
+    \begin{equation*}
+        h(x, y) := \begin{cases*}
+            \left(0, \frac{1}{2}(y + 1)\right) & \text{if $x = 0$ } \\
+            \left(0, \frac{1}{2}(1 - x)\right) & \text{if $y = 0$ }
+        \end{cases*}
+    \end{equation*}
+
+    Note $h(0, 0) = (0, \frac{1}{2})$ in either case so $h$ is well defined. $h$ is continous. Futhermore, $\exists \tilde{h} :  \left\{ 0 \right\} \times I \to \left\{ 0 \right\} \times I \cup I \times \left\{ 0 \right\}$ where,
+    
+    \begin{equation*}
+        \tilde{h}(x, y) := \begin{cases*}
+            (1 - 2y, 0) & \text{if $0 \leq y \leq \frac{1}{2}$ } \\
+            (0, 2y - 1) & \text{if $\frac{1}{2} \leq y \leq 1$}
+        \end{cases*}
+    \end{equation*}
+
+    Note $\tilde{h}(0, \frac{1}{2}) = (0, 0)$ in either case. $\tilde{h}$ is continous. Finally $\tilde{h} h = 1_{\left\{ 0 \right\} \times I \cup I \times \left\{ 0 \right\}}$ and $h \tilde{h} = 1_{\left\{ 0 \right\} \times I}$. Thus $\left\{ 0 \right\} \times I \cup I \times \left\{ 0 \right\} \cong \left\{ 0 \right\} \times I$. 
+    
+    Thus, 
+
+    \begin{align*}
+        X \times I \times \left\{ 0 \right\} \cup (X \times \left\{ 0 \right\} \cup A \times I) \times I &= X \times (I \times \left\{ 0 \right\} \cup \left\{ 0 \right\} \times I) \cup A \times I \times I \\
+        &\cong X \times \left\{ 0 \right\} \times I \cup A \times I \times I\\ 
+        &= (X \times \left\{ 0 \right\} \cup A \times I) \times I 
+    \end{align*}
+
+    Thus if there is a retraction from $X \times I \times I$ to $(X \times \left\{ 0 \right\} \cup A \times I) \times I$ there is a retraction from $X \times I \times I$ to $X \times I \times \left\{ 0 \right\} \cup (X \times \left\{ 0 \right\} \cup A \times I) \times I$. 
+    
+    Since $(X, A)$ have the homotopy extension property, $\exists r: X \times I \to X \times \left\{ 0 \right\} \cup A \times I$ a retraction. Let $\forall x \in X$ and $\forall t \in I$, let $x_t = (x, t)$. Let $R: X \times I \times I \to (X \times \left\{ 0 \right\} \cup A \times I) \times I$ where $(x_s, t) \to (r(x_s), t)$. R is continous. Furtheremore, $\forall x \in X$ and $\forall t \in I$, $R(x, 0, t) = (r(x, 0), t) = (x, 0, t)$. Similarly, $\forall a \in A$ and $\forall t,s \in I$, $R(a, s, t) = (r(a, s), t) = (a, s, t)$. Thus $R|_{ (X \times \left\{ 0 \right\} \cup A \times I) \times I} = 1_{ (X \times \left\{ 0 \right\} \cup A \times I) \times I}$. $\forall (x, s, t) \in X \times I \times I \setminus (X \times \left\{ 0 \right\} \cup A \times I) \times I$, $R(x, s, t) = (r(x, s), t)$, where $r(x, s) \in X \times \left\{ 0 \right\} \cup A \times I$. Thus $R(x,s,t) \in (X \times \left\{ 0 \right\} \cup A \times I) \times I$. Thus $R$ is a retract of $X \times I \times I$ to $(X \times \left\{ 0 \right\} \cup A \times I) \times I$. Thus a retract of $X \times I \times I$ to $X \times I \times \left\{ 0 \right\} \cup (X \times \left\{ 0 \right\} \cup A \times I) \times I$ exists, meaning $(X \times I, X \times \left\{ 0 \right\} \cup A \times I)$ has the homotopy extension property. 
+    
+    We now want to show that inclusion $i: X \times \left\{ 0 \right\} \cup A \times I \xhookrightarrow{} X \times I$ is a homotopy equivalence. Let $B = X \times \left\{ 0 \right\} \cup A \times I$.  We will do this by showing $r i \simeq 1_{B}$ and $i r \simeq 1_{X \times I}$. 
+    
+    \begin{enumerate}
+        \item $\mathbf{r i \simeq 1_{B}}$: $\forall b \in B$, $(r \circ i)(b) = r(b) = 1|_B(b) = b \implies r \circ i = 1_B \implies r i \simeq 1_{B}$. 
+        \item $\mathbf{i r \simeq 1_{X \times I}}$: Let $\alpha: \pi_X \times \left\{ 0 \right\}$ or $(x, t) \to (x, 0)$. We want to show that $ir \simeq \alpha$ and $1_{X \times I} \simeq \alpha$. Let $F: X \times I \times I \to X \times I$ where $(x, t, s) \to (x, t - st)$. F is continous. $\forall (x, t) \in X \times I$, $F(x, t, 0) = (x, t) \implies F(\cdot, \cdot, 0) = 1_{X \times I}$. Similarly $F(x, t, 1) = (x, 0) \implies F(\cdot, \cdot, 1) = \alpha$. Thus $1_{X \times I} \simeq \alpha$. Let $G: X \times I \times I \to X \times I$ where $G = i \circ r \circ F$, thus $G$ is continous. $\forall (x, t) \in X \times I$, $G(x, t, 0) = (i \circ r)(F(x, t, 0)) = (i \circ r)(x, t) \implies G(\cdot, \cdot, 0) = i \circ r$. Similarly, $G(x, t, 1) = (i \circ r)(F(x, t, 1)) = (i \circ r)(x, 0) = i(x, 0) = (x, 0) \implies G(\cdot, \cdot, 1) = \alpha$. Thus $ir \simeq \alpha$. By transitivity of homotopy, $ir \simeq 1_{X}$.                     
+    \end{enumerate}
+    
+    Thus by Corollary 0.20, there exists a deformation retraction from $X \times I$ to $X \times \left\{ 0 \right\} \cup A \times I$.    
+\end{proof}
+
+\begin{claim}{26b}\label{Claim 26b.}
+    Deduce from this that Proposition 0.18 holds more generally for any pair (X,A) satisfying the homotopy extension property.
+\end{claim}
+\begin{proof}
+    The proof is identical to Proposition 0.18. However instead of using Proposition 0.16 we use Claim 26a of the Homework.     
+\end{proof}
+
+\bigskip
+
+\begin{claim}{27}\label{Claim 27.}
+    Given a pair $(X, A)$ and a homotopy equivalence $f: A \to B$, show that the natural map $X \to B \sqcup_{f} X$ is a homotopy equivalence if $(X, A)$ satisfies the homotopy extension property.    
+\end{claim}
+\begin{proof}
+    By Corollary 0.21, since $f$ is a homotopy equivalence, $M_f$ deformation retracts to A. Thus $X \cup M_f$ deformation retracts to $X$ (just extend the deformation retraction of $M_f$ to A to $X \cup M_f$ by keeping it the identity on $X$ throughout the retraction, its valid because of pasting lemma). Thus $X \simeq X \cup M_f$. By 0.26, there is a deformation retraction of $X \times I$ onto $X \times \left\{ 0 \right\} \cup A \times I$. Thus there is a deformation retraction of $(X \times I) \sqcup_f B$ to $X \cup M_f = (X \times \left\{ 0 \right\} \cup A \times I) \sqcup_f B$ (the attachment is $(a, 1) \sim f(a)$ for $a \in A$), where you use the deformation retraction of $X \times I$ to $X \times \left\{ 0 \right\} \cup A \times I$ and take B along for the ride (identity on $B$). $X \times I \sqcup_f B \simeq X \sqcup_f B$ by flattening I, (projection down to $X \times \left\{ 0 \right\}$). 
+    
+    Thus we have this sequence of homtopy equivalences, $X \simeq X \cup M_f \simeq (X \times I) \sqcup_f B \simeq X \sqcup_f B$ which gives use $X \simeq X \sqcup_f B$. Now lets track $x$ through the sequence of homotopy equivalences. 
+    
+    
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCJYIl0sWzEsMCwiWCBcXGN1cCBNX2YiXSxbMiwwLCIoWCBcXHRpbWVzIEkpIFxcc3FjdXBfZiBCIl0sWzMsMCwiWCBcXHNxY3VwX2YgQiJdLFswLDEsIngiXSxbMSwxLCJ4Il0sWzIsMSwieCJdLFszLDEsIlt4XSJdLFswLDEsIlxcc2ltZXEiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMiwzLCJcXHNpbWVxIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsMiwiXFxzaW1lcSIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs0LDVdLFs1LDZdLFs2LDddXQ==
+\[\begin{tikzcd}
+	X & {X \cup M_f} & {(X \times I) \sqcup_f B} & {X \sqcup_f B} \\
+	x & (x,0) & (x,0) & {[x]}
+	\arrow["\simeq"{description}, draw=none, from=1-1, to=1-2]
+	\arrow["\simeq"{description}, draw=none, from=1-2, to=1-3]
+	\arrow["\simeq"{description}, draw=none, from=1-3, to=1-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+\end{tikzcd}\]
+
+    $\forall x \in X$:
+    
+    \begin{enumerate}
+        \item The homotopy equivalence that gives $X \simeq X \cup M_f$ is a deformation retraction onto $X$ and a inclusion. Thus $x \to (x, 0)$ since $x \in X$  
+        \item The homotopy equivalence that gives $X \cup M_f \simeq (X \times I) \sqcup_f B$ is a deformation retraction and a inclusion. Thus $(x, 0) \to (x, 0)$ since $x \in X$ 
+        \item Finally the homotopy equivalence that gives $(X \times I) \sqcup_f B \simeq X \sqcup_f B$ projects a element down and takes it to its equivalence class, thus $(x, 0) \to [x]$      
+    \end{enumerate}
+    
+
+    Thus the homotopy equivalence that gives you $X \simeq X \sqcup_f B$ is $x \to [x]$ or the natural map from $X \to X \sqcup_f B$.    
+\end{proof}
+
+\begin{claim}{29}\label{Claim 29.}
+    In case the CW complex X is obtained from a subcomplex A attaching a single cell $e^n$, describe exactly what the extension of a homotopy $f_t: X \to Y$  to X given b the proof of Proposition 0.16 looks like. That is, for a point $x \in e^n$, describe the path $f_t(x)$ for the extended ft.
+\end{claim}
+\begin{proof}
+    Let $g: X \to Y$ be a function. Let $f_t: A \to Y$ be a homotopy such that $f_0 = g|_{A}$. 
+    
+    Let $\Phi: D^n \to X$ be the characteristic map for the cell $e^n$. 
+    
+    What we are doing conceptually is putting a point $P$ above the cylinder at "height" $t = 2$.   drawing all possible lines from the point through $X \times I$. For all $x \in X \times I$, let $L_x$ be the line from the point $P$ to $x$. For the deformation retraction, we take $x$ to the intersection of $L_x$ with $X \x \left\{ 0 \right\} \cup A \times I$. We will split our function into two parts the cone of all points that will get deformation retracted to the bottom of the "cup" and everything outside the cup that is taken to the sides of the cup. $\forall (x, t) \in X \times I$ if $\abs{\frac{2x}{2 - t}} \leq 1$ the point is on the interior of the cone and gets mapped to the bottom and then $g$ is applied to it. If $\abs{\frac{2x}{2 - t}} \geq 1$ the point is mapped to the side and we use $f_t$. Finally if $\abs{\frac{2x}{2 - t}} = 1$, the point gets mapped to the bottom boundary, $A \times \left\{ 0 \right\}$ and uses $f_0 = g|_{A}$.                  
+
+
+    Here is the formal argument: 
+
+    Let $F: X \times I \to Y$ be a homotopy where $F(x, 0) = g(x)$ and where $F_t|_{A} = f_t$ where $F_t(x) := F(x, t)$. Define $F$ as follows: 
+    
+    \begin{equation*}
+        F(x, t) := \begin{cases*}
+            (g \circ \Phi)\left(\frac{2x}{2 - t}\right) & \text{if $\abs{ \frac{2x}{2 - t}} \leq 1$} \\
+            (f_{\frac{t - 2}{\abs{x}} + 2} \circ \Phi)(\frac{x}{\abs{x}}) & \text{if $\abs{ \frac{2x}{2 - t}} \geq 1$}
+        \end{cases*}
+    \end{equation*}
+
+    We will check if points on the cone get mapped properly in either case and that F is well defined and continous. Note that $\forall x, t \in X \times I \ni  \abs{ \frac{2x}{2 - t}} = \frac{2}{2 - t} \abs{x} = 1 \implies -\frac{2}{t - 2}\abs{x} = 1 \implies -2 = \frac{t - 2}{\abs{x}} \implies \frac{t - 2}{\abs{x}} + 2 = 0$, and $\varphi(\frac{2x}{2 -t}) \in A \implies g(\varphi(\frac{2x}{2 - t})) = g(\varphi(x / \abs{x})) = f_0(\varphi(x / \abs{x})) = (f_{\frac{t - 2}{\abs{x}} + 2} \circ \varphi)(\frac{x}{\abs{x}})$. Thus $(g \circ \varphi)\left(\frac{2x}{2 - t}\right)$ and $(f_{\frac{t - 2}{\abs{x}} + 2} \circ \varphi)(\frac{x}{\abs{x}})$ agree at $\abs{ \frac{2x}{2 - t}} = 1$ or the intersection of $\abs{ \frac{2x}{2 - t}} \geq 1$ and $\abs{ \frac{2x}{2 - t}} \leq 1$. Thus $F$ is well defined and continous (Pasting Lemma). 
+    
+    $\forall x \in X$, $\abs{\frac{2x}{2}} = \abs{x} \leq 1 \implies F(x, 0) = (g \circ \Phi)(\frac{2x}{2}) = g(\Phi(x)) = g(x)$. Thus $F(\cdot, 0) = g$. 
+    
+    $\forall x \in A \implies \abs{x} = 1$ since points in $A$ are identified with boundary of $e^n$, $\forall t \in t$, $\abs{\frac{2x}{2 - t}} = \frac{2}{2 - t} \geq 1$. Thus $F(x, t) = (f_t \circ \Phi)(x) = f_t(x)$. Thus $F(x, t) = f_t$ if $x \in A$. 
+    
+    $F$ is the homotopy extension of $f_t$.   
+\end{proof}
+
+
+
+\end{document}

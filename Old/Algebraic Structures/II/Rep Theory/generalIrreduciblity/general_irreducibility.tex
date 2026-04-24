@@ -1,0 +1,156 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{General Irreducibility}
+\author{Arham Lodha}%put your name here
+\date{February 04, 2024}%enter the due date here
+\maketitle
+
+$P = 1/|G| \sum_{g \in G} g \in Hom_F(W,W)$ 
+\begin{PROB}{1}\label{Problem 1.}
+    $gP = Pg$ for all $g \in G$, and that $P^2 = P$.
+\end{PROB}
+\begin{proof}
+    $\forall h \in G$, $Ph = (\frac{1}{|G|} \sum_{g \in G} g) h = \frac{1}{|G|} \sum_{g \in G} gh$. Multiplying by $h$ simply reindexes the elements of G, because $\forall g \in G$, $g = gh^{-1}h = g'h$ where $g' \in G$. Thus $Ph = \frac{1}{|G|} \sum_{g \in G} gh = \frac{1}{|G|} \sum_{g' \in G} g' = P$. Similarly, $hP = \frac{1}{|G|} \sum_{g \in G} hg$. Multiplying by $h$ again simply reindexes the elements of $G$, because $\forall g \in G \exists g' = h^{-1}g \in G \ni g = hg'$. Thus $hP = \frac{1}{|G|} \sum_{g \in G} hg = \frac{1}{|G|} \sum_{g' \in G} g' = P$. Thus $hP = P = Ph$. 
+    
+    
+    $P^2 = (\frac{1}{|G|} \sum_{g \in G} g)P = \frac{1}{|G|}\sum_{g \in G} gP$. Since $gP = P$, $P^2 = \frac{1}{|G|} \sum_{g \in G} P = |G|/|G| P = P$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Now for any P in $Hom_F(W,W)$ with $P^2 = P$, show that the canonical addition map $Ker P \oplus Im P \to W$ is an isomorphism, and that P is diagonalizable with eigenvalues 0,1, with $W_1(P) = P_*(W), W_0(P) = \ker P$.  Explain why such a P is called a "projection operator". What is it projection on?
+\end{PROB}
+\begin{claim}{2a}\label{Claim 2a.}
+    $+ : \ker P \oplus P_*(W) \to W$ is a isomorphism.
+\end{claim}
+\begin{proof}
+    $\forall v \in \ker P \cap P_*(W)$, since $v \in P_*(V),~ \exists w \in W \ni Pw = v$. Thus $v = P(w) = P^2(w) = P(v) = 0$, thus $v = 0$. Thus $\ker P \cap P_*(W) = 0$. Thus $+$ is a injective linear map. 
+    
+    By rank-nullity, $\dim \ker P + \dim P_*(W) = \dim W$, thus $+$ is a surjective linear map and thus is a isomorphism.  
+\end{proof}
+\begin{claim}{2b}\label{Claim 2b.}
+    P is diagonalizable and $W_1(P) = P_*(W)$ and $W_0(P)= \ker P$;  
+\end{claim}
+\begin{proof}
+    Since $P^2 = P$, $P$ satisifies the polynomial $f(x) = x^2 - x$ which has distinct roots of $0$ and $1$. 
+    
+    $\forall v \in P_*(W)$, $\exists w \in W \ni Pw = v \implies P^2 w = Pv = Pw = v \implies Pv = v$, thus $P_*(W) \subset W_1(P)$. $\forall v \in W_1(P)$, $Pv = v \in P_*(W)$. Thus $W_1(P) \subset P_*(W)$. Thus $P_*(W) = W_1(P)$.
+    
+    $\forall v \in \ker P, Pv = 0 \implies v\in W_0(P)$. $\forall v \in W_0(P), Pv = 0v = 0 \implies v\in \ker P$. Thus $\ker P \subseteq W_0(P)$ and $W_0(P) \subseteq \ker P$. Thus $\ker P = W_0(P)$. 
+    
+    
+    Thus by claim 2a, $W_0(P) \oplus W_1(P) \cong V$. By linear algebra bootcamp, P is diagonalizable. 
+\end{proof}
+\begin{PROB}{2c}\label{Problem 2c.}
+    Explain why such a P is called a "projection operator". What is it projection on?
+\end{PROB}
+\begin{solution}
+    P is called a projection operator because $P|_{P_*(W)} = Id_{P_*(W)}$ and it takes everything to the image.    
+\end{solution}
+
+\bigskip
+
+\begin{claim}{3}\label{Claim 3.}
+    Now for P above, show that $Im(P) = W^G := \left\{ w \in W \mid gw = w, \forall g \in G \right\}$. 
+\end{claim}
+\begin{proof}
+    $\forall v \in P_*(W), \exists w \in W \ni Pw = v$, $\forall g \in G $, by problem 1 $gP = P$. $gv = gPw = Pw = v$. Thus $v \in W^G$. Thus $P_*(W) \subset W^G$. 
+    
+    Thus $\forall v \in W^G$, $Pv = (\frac{1}{|G|} \sum_{g \in G} g)v = (\frac{1}{|G|} \sum_{g \in G} gv) = (\frac{1}{|G|} \sum_{g \in G} v) = \frac{1}{|G|}|G| v = v \in P_*(W)$. Thus $W^G \subseteq P_*(W)$. Thus $W^G = P_*(W)$    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Now suppose V is a G-invariant subspace of W. Explain why $Hom_F(W,V)$ is a G-rep.  Explain where there is an f in $Hom_F(W,V$) with $f|_V$ = $id_V$. Now for the action of G on $Hom_F(W,V)$, form  P above. Explain why $P(f): W \to V$ commutes with G and restricts to the identity on V. Now explain why V has a G-invariant complement. This last step might confuse you (it does me), to be sure you know what is going on, explain with concrete matrices how we build this linear map from W to V which restricts to the identity on V,  and commutes with the g-action
+\end{PROB}
+\begin{proof}
+    $Hom_F(W, V)$ is a g-rep where g acts on it by a wierd conjugation, where $\forall f \in Hom_F(W, V)$, $g \cdot f = g|_{V} f g^{-1}$. 
+    
+    Let $v_1, \dots, v_m$ be a basis of $V$. Extend this basis to basis of W, $v_1, \dots, v_m, w_1, \dots, w_n$. There exists a $f \in Hom_F(W, V)$ where $f(v_i) = v_i$ and $f(w_i) = 0$. $\forall v \in V, v = a_1v_1 + \dots + a_mv_m$, $f(v) = f(a_1v_1 + \dots + a_mv_m) = a_1f(v_1) + \dots + a_mf(v_m) = v$. Thus $f|_{V} = id_{V}$.
+    
+    $\forall h \in G$, $h \circ P(f) = h|_{V}\frac{1}{|G|}\sum_{g \in G}(g \circ f)h^{-1} = \frac{1}{|G|}\sum_{g \in G}(h|_{V}(g \circ f)h^{-1}) = \frac{1}{|G|}\sum_{g \in G}(hg \circ f) =  \frac{1}{|G|}\sum_{g' \in G}(g' \circ f)= P(f)$, because multiplying h simply reorders the elements of G. $P(h \circ f) = \frac{1}{|G|}\sum_{g \in G}g(h \circ f) = \frac{1}{|G|}\sum_{g \in G}(gh \circ f) = \frac{1}{|G|}\sum_{g' \in G}(g' \circ f) = P(f)$ since multiply by h simply reorders G. 
+    
+    $\forall v \in V$, $P(f)v = \frac{1}{|G|}\sum_{g \in G}((g \circ f)(v)) = \frac{1}{|G|}\sum_{g \in G}(g|_{V}fg^{-1}v)$. Since $V$ G invariant, $g^{-1}v \in V$. $fg^{-1}v = g^{-1}v$ since $f|_{V} = id_V$. $gfg^{-1}v = gg^{-1}v = v$. Thus $P(f)v = \frac{1}{|G|}\sum_{g \in G}(v) = |G|/|G| v = v$. Thus $v \in W_{1}(P(f))$ and $v \in P(f)_*(W)$. $\forall v \in P(f)_*(W)$, $\exists w \in W \ni P(f)w = v$, $Pw = \frac{1}{|G|}\sum_{g \in G}((g \circ f)(w)) = \frac{1}{|G|}\sum_{g \in G}(g|_{V} f g^{-1}w). $. $fg^{-1}w \in V$, and since V is G-invariant, $g|_{V} f g^{-1}w \in V \implies Pw = v \in V$. Thus $P(f)_*(W) \subseteq V$ and $V \subseteq P(f)_*(W)$ and $V = P(f)_*(W)$.
+
+    $\forall v \in \ker P(f)$, $P(f)(gv) = gP(f)v = 0$, by problem 1. Thus $\ker P(f)$ is G-invariant.
+    
+    Since $P(f)_*(V) \oplus \ker P(f) \cong V$, there exists a complementary G-invariant subspace, $\ker P(f)$, to V.
+
+    The matrix that represents $f$ is $\begin{bmatrix}
+        I_v & 0
+    \end{bmatrix}$. $V$ is G-invariant, this $g^{-1}v \in V$. $fg^{-1} v = g^{-1} v$. $g|_{V} g^{-1} v = v$. Thus $g \circ f$ is a projection onto V. Thus $g \circ f = \begin{bmatrix}
+        I_v & 0
+    \end{bmatrix}$. Thus $P = \frac{1}{|G|} \sum_{g \in G} g \circ f = \frac{1}{|G|} |G|\begin{bmatrix}
+        I_v & 0
+    \end{bmatrix} = \begin{bmatrix}
+        I_v & 0
+    \end{bmatrix}$          
+\end{proof}
+
+\end{document}

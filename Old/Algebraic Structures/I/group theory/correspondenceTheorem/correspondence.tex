@@ -1,0 +1,134 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[0]{\text{Pow}}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Correspondence Theorem for Sets}
+\author{Arham Lodha}%put your name here
+\date{September 25, 2023}%enter the due date here
+\maketitle
+
+Let $p: G \twoheadrightarrow Q$ be a surjective map of sets. 
+
+\begin{PROB}{1}\label{Problem 1.}
+    Write down natural maps  $p_*: \Pow(G) \to \Pow(Q)$ and $p^*: \Pow(Q) \to \Pow(G)$ and explain why $p_*$ is surjective, $p^*$ is injective, and $p_*$ is left inverse to $p^*$.
+\end{PROB}
+\begin{solution}
+    $p_*: \Pow(G) \to \Pow(Q)$ is defined as the following: $\forall X \in \Pow(G)$, $p_*(X) = \{p(a) \mid a \in X\}$. Since $p$ is surjective, for each element of $q \in Q$, $\exists g \in G$ s.t $q(g) = q$. Thus $\forall Y \in \Pow(Q)$, $\forall y \in Y$ $\exists x \in G$ s.t $q(x) = y$. For each $y \in Y$ make a set by taking 1 $x \in G$ s.t $p(x) = y$. By definition of $p_*(X) = Y$. Thus there exists a $X \in \Pow(G)$ s.t $p_*(X) = Y$. Thus $p_*$ is surjective.
+
+    $p^*: \Pow(Q) \to \Pow(G)$ is defined as the following: $\forall Y \in \Pow(Q)$, $p^*(Y) = \{x \mid x\in X, p(x) \in Y\}$. Suppose $A, B \in \Pow(G)$ and $p^*(A) = p^*(B)$ thus means $\forall x \in p^*(A) = p^(B)$, $p(x) \in A \cap B$. Furthermore since p is surjective by the definition of $p^*$, $\not \exists$ a $a \in A$ s.t $\not \exists$ $x \in p^*(A)$ $p(x) \neq a$. This is the same for $B$. Furthermore by definition of a function, $x \in G$ maps 1 and only 1 element in G. Since there are no other values in A or B except the values in $A \cap B$ then $A = B$. Thus $p^*$ is injective.
+    
+    
+    $\forall B \in \Pow(G)$, $p_*(p^*(B)) = p_*(\{x \mid x\in X, p(x) \in B\})$ which is equal to all elements $\{p(x) \mid x \in p^*(B)\}$. However since $p$ is surjective function each element in $Q$ has at least 1 element assigned to it and each element in $G$ is assigned to 1 element. Thus $\forall x\in p^*(B)$, it means $p(x) \in B$ by definition of the preimage. Thus $p_*(p^*(B)) \subseteq B$. $\forall b \in B$, there exists a $x$ s.t $p(x) = b$ by definition of surjective function since p is surjective and by definition of a preimage $x \in p^*(B)$ and $p(x) = b \in p_*(p^*(B))$ by definition of image. Thus $B \subseteq p_*(p^*(B))$, thus $p_*(p^*(B)) = B$. Thus $p_*$ is left inverse to $p^*$.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+    Explain why using 1 its reasonable to view $\Pow(Q)$ as a subset of $\Pow(G)$. Then its natural to ask, which subset?  
+\end{PROB}
+\begin{solution}
+    Since there is a natural injective map from $\Pow(Q) \to \Pow(G)$ just use the injective map as a intermediary. $\Pow(Q)$ are the subsets $S = \{p^*(Y) \mid Y \in \Pow(Q)\} \subset \Pow(G)$. $p^*$ is injective and $p^*$ is surjective in S because the image of $p^*$ is S. Thus $\Pow(Q)$ is in bijection with $S$
+\end{solution}
+
+\begin{claim}{2b}
+    Z is "closed under the equivalence relation" where $a \sim b \iff p(a) = p(b)$, and that this holds iff $Z = p^*(p_*(Z))$.
+\end{claim}
+\begin{proof}
+    $(\implies)$: Z is "closed under the equivalence relation" where $a \sim b \iff p(a) = p(b)$. Thus $\forall a \in Z$ $\forall b \in G$ s.t $p(a) = p(b)$ then $b \in Z$. In otherwords, $\forall a \in Z$, $p^*(p_*(\{a\})) \in Z$. Thus $Z = p^*(p_*(Z))$
+
+    $(\impliedby)$: Suppose $Z = p^*(p_*(Z))$. Then $\forall a \in Z$, $p^*(p_*(\{a\})) \in Z$. Thus if $\forall a \in Z$, $\forall b \in G$ s.t $p(a) = p(b)$ then $b \in Z$. Thus by definition of the equivalence relation $\forall a \in Z$, if $a \sim b \implies b \in Z$. Thus Z is closed under the equivalence relation.  
+\end{proof}
+
+\begin{claim}{2c}
+    Show Z in $\Pow(G)$ lies in $\Pow(Q)$ iff Z is "closed under the equivalence relation" where $a \sim b \iff p(a) = p(b)$.
+\end{claim}
+\begin{proof}
+    ($\implies$) Suppose $Z \in \Pow(G)$ and $Z \in \Pow(Q)$. Then $Z = p_*(Y)$ of some $Y \in \Pow(Q)$, by the natural injective map of the preimage which implies that $Z \in \Pow(G) \cap \Pow(Q)$. Thus $Z = \{x \mid p(x) \in Y\}$. $p_*(p^*(Z)) = p_*(p^*(p_*(Y))) = p_*(Y) = Z$ because $p^*$ is the left inverse of $p_*$ by Problem 1 thus $Z = p_*(p^*(Z))$. By the previous proof, then Z is "closed under the equivalence relation" where $a \sim b \iff p(a) = p(b)$.
+
+    ($\impliedby$): Suppose $Z \in \Pow(G)$ is "closed under the equivalence relation" where $a \sim b \iff p(a) = p(b)$. Let $Y := p_*(Z)$, $Y \in \Pow(Q)$. Then by Claim 2b, $Z = p^*(p_*(Z)) = p^*(Y)$. Thus by the natural injective map since $Z = p^*(Y)$ thus $Z$ is in bijection with Y, since $Y \in \Pow(Q)$ and then $Z \in \Pow(Q)$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Let W be another set, explain why $\Hom(Q,W)$ is naturally a subset of $\Hom(G,W)$. Which subset? 
+\end{PROB}
+\begin{solution}
+    $Q \cong G/\sim$ under the previously defined equivalence relation because Q is a surjective function. Thus $\Hom(Q, W) \cong \Hom(G/\sim, Z)$ and is the subset of functions in $\Hom(G,W)$ which factors through $p$. Let $\phi: \Hom(G/\sim, Z) \to \Hom(G,W)$ which takes $F \to F \circ p$. Suppose $\forall F, G \in \Hom(Q, W)$, that $\phi(F) = \phi(G)$ thus $F \circ p = G \circ p$. Thus $\forall x \in G$, $F(p(x)) = F([x])$ and $G(p(x)) = G([x])$ thus $F([x]) = G([x])$ for all $x \in G$ and thus all $[x] \in G/\sim$ thus $F = G$. Thus $\phi$ is injective. Furthermore by definition of $\phi$, the subset of $\Hom(G,W)$ which $\Hom(G/\sim, Z) \cong \Hom(Q,W)$ is the subset of functions which factor through p.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Now suppose G and Q are groups, and p is a (surjective) homomorphism. Explain why $p_*$ and $p^*$ restrict to maps between subgroups and deduce the correspondence theorem for groups from the above.
+\end{PROB}
+\begin{proof}
+    Because p is a homomorphism, it preserves group structure by definition and takes identies to identies and inverses to inverses. Let $F \leq G$ be any subgroup. Then by definition of group $e \in F$ and by definition of a homomorphism $p(e) = e \in p_*(F)$. Furthermore, for all $g \in F$ $g^{-1} \in F$ by definition of a group and $p(g) \in p(F)$ by definition of image. By definition of a homomorphism $p(g)^{-1} = p(g^{-1}) \in p_*(F)$. Finally $\forall a, b \in p_*(F)$ by definition of image there exists $x, y \in F$ s.t $p(x) = a$ and $p(y) = b$. $ab = p(x)p(y) = p(xy)$ by definition of a homomorphism and $xy \in F$ thus $p(xy) = ab \in p_*(F)$. Thus $p_*(F)$ is a subgroup. Thus $p_*$ takes subgroups to subgroups.
+
+    Let $R \leq Q$ be a subgroup of Q. Then $e_Q \in R$ by definition of a subgroup and by definition of a homomorphism $p(e_G) = e_Q$ then $e_G \in p^*(R)$ by definition of a preimage. $\forall r \in R$, $r^{-1} \in R$ by definition of a subgroup. Since $p$ is surjective, there exists a $x \in G$ s.t $p(x) = r$ by definition of a preimage $x \in p^*(R)$. $p(x^{-1}) = p(x)^{-1} = r^{-1} \in R$ thus $x^{-1} \in p^*(R)$. Thus every element in $p^*(R)$ has inverses. $\forall a, b \in p^*(R)$, by definition of a preimage $p(a), p(b) \in R$. $p(ab) = p(a)p(b) \in R$ because R is subgroup and by definition of preimage since $p(ab) = p(a)p(b) \in R$, then $ab \in p^*(R)$ thus $p^*(R)$ is closed. Thus $p^*(R)$ is closed. 
+
+    By problem 2, we know that elements of the $\Pow(Q)$ are in bijection with elements of $\Pow(G)$ which are closed under the equivalence relation such that $a \sim b \implies p(a)=p(b)$. Moreover in the contexts of groups since $p$ is a surjective homomorphism and $p_*$ and $p^*$ can be restricted maps between subgroups, then the subgroups of Q are in bijection with the subgroups of G such that are closed under the equivalence relation. By 2b, for a subgroup $Z \leq G$ which is in bijection with the subgroup of Q, $Z = p_*(p^*(Z))$. Thus since $e_G \in p^*(Z)$, then by definition $p_*(p^*(Z))$ should contain all elements $a \in G$ s.t $p(a) = e$, thus $\ker p \subset p_*(p^*(Z))$. Thus the subgroups of Q are in bijection with the subgroups of G which contain the kernel $p$.
+\end{proof}
+
+\end{document}

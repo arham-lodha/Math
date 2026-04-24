@@ -1,0 +1,256 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\Ec}[0]{\mathcal{E}}
+\newcommand{\Poi}[0]{\text{Poisson}}
+
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 11}
+\author{Arham Lodha}%put your name here
+\date{May 14, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item $T \# \mu = 2 Leb_{\R}$. True
+        \item False 
+        \item $T \# \mu = 4 Leb_{[0, 1]}$ True
+        \item  $T \# \mu = \frac{1}{4}Leb_{\R^2}$ True
+        \item True 
+    \end{enumerate}
+\end{solution}
+
+\begin{PROB}{1b}\label{Problem 1b.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item true
+        \item true
+        \item true
+        \item false
+        \item true
+    \end{enumerate}
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    A measure $\nu$ on $(E, \Ec)$ is diffuse if 
+    
+    \[\forall x\in E, \nu(\left\{ x \right\}) = 0\]
+
+    and we call it simple if $\nu(\left\{ x \right\}) \leq 1$. 
+
+    Assume $\mu$ is diffuse, and let $(E_i)_{i \in \N}$ be a partition of $E$ s.t $E_i$ is measurable and satisfies $\mu(E_i) < \infty$. Let $M$ be a Poisson Point Process on $(E, \Ec)$ with intensity $\mu$. 
+\end{PROB}
+\begin{claim}{2a}\label{Claim 2a.}
+    Show that the restricted measures $\mu_1, \mu_2, \dots$ are diffuse and $M_{E_1}, M_{E_2}, \dots$ are Independent Poisson Processes.  
+\end{claim}
+\begin{proof}
+    $\forall i \in \N$, $\forall x \in E_i$, $\mu_i(\left\{ x \right\}) = \mu(\left\{ x \right\}) = 0$. Thus $\mu_i$ is diffuse. Since $E_i \cap E_j = \empset$ if $i \neq j$ since $(E_i)_{i \in \N}$ is a partition, thus $M_{E_i}$ are Independent Poisson Point Processes because of Theorem 7.16 (Restriction Theorem).        
+\end{proof}
+\begin{claim}{2b}\label{Claim 2b.}
+    Show that for all $i \in \N$, $M_{E_i}$ is simple almost surely   
+\end{claim}
+\begin{proof}
+    By Theorem 3.10, $M_{E_i} = \sum_{i = 1}^{Z_i} \delta_{X_i}$ where $Z_i = \Poi(\mu(E_i))$ and $X_i \sim \mu(\cdot) / \mu(E_i)$. 
+
+    \begin{align*}
+        \PR(M_i \text{ is not simple}) &= \sum_{n \geq 2} \PR(Z_i = n) \PR(M_i \text{ is not simple} | Z_i = n) \\
+        &= \sum_{n \geq 2} \PR(Z_i = n) \PR(\exists a \neq b \ni X_a = X_b | Z_i = n)
+    \end{align*}
+
+    For all $a, b \in \N \ni a \neq b$, 
+    
+    \begin{align*}
+        \PR(X_a = X_b \mid Z_i = n) &= \frac{1}{\mu(E_i)^2}(\mu \otimes \mu)\left\{ (x, x) \mid x \in E_i \right\} \\ 
+        &= \int_{E_i} \mu(\left\{ x \right\}) \mu(dx) \\
+        &= 0 & (\text{Since } \mu \text{ is diffuse.})
+    \end{align*}
+
+    Thus 
+
+    \begin{align*}
+        \PR(\exists a \neq b \ni X_a = X_b | Z_i = n) &= 0
+    \end{align*}
+
+    Thus $\PR(M_i \text{ is not simple}) = 0$. Thus $M_i$ is simple almost surely.   
+\end{proof}
+\begin{claim}{2c}\label{Claim 2c.}
+    Deduce that $M$ is almost surely simple.  
+\end{claim}
+\begin{proof}
+    By superpositions, 
+    
+    
+    \[M = \sum_{i \in \N} M_{E_i}\]   
+    
+    Since $E_i \cap E_j = \empset$ if $i \neq j$, overlaps only occur in the same $E_i$. However for each $E_i$, $M_{E_i}$ is simple almost surely, so no two points in $M$ can coincide. Thus $M$ is simple. The events \[\left\{ \text{M isn't simple} \right\} \subeq \bigcup_{i \in \N} \left\{ M_{E_i} \text{ isn't simple} \right\} \] 
+    
+    Thus $\PR(\text{M isn't simple}) \leq \PR(\bigcup_{i \in \N} \left\{ M_{E_i} \text{ isn't simple} \right\}) = \sum_{i \in \N} \PR(\text{$M_{E_i}$ isn't simple}) = 0$.
+    
+    Thus $M$ is simple almost surely.  
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3a.}
+    Let M be a Poisson Point Process on $\R \times [0, \infty)$ with intensity measure $\mu = Leb$. Is this process almost surely simple?  
+\end{PROB}
+\begin{proof}
+    $\forall x \in \R \times [0, \infty)$ 
+    \[\mu(\left\{ x \right\}) = 0\]
+
+    Thus by 2, $M$ is almost surely simple.  
+\end{proof}
+
+\begin{PROB}{3b}\label{Problem 3b.}
+    Let $M$ be a Poisson Point Process on $\R$ with intensity measure $\mu$ given by $\mu(B) = \abs{B \cap \Z}$ for $B \in \mathcal{B}(\R)$. Is the process almost surely simple?    
+\end{PROB}
+\begin{proof}
+    $\forall x \in \Z$, 
+    \[M(\left\{ x \right\}) \sim \Poi(\mu(\left\{ x \right\})) = \Poi(1)\]
+    
+    Thus $\PR(M(\left\{ x \right\}) \leq 1) = 2e^{-1}$. 
+    
+    $M$ is simple if (not an iff) $\forall x \in \Z$, $M(\left\{ x \right\}) \leq 1$. Because of independence of disjoint sets (Property of i of Poisson point process). 
+    
+    \begin{align*}
+        \PR(\text{M is simple}) &\leq \prod_{x \in \Z}\PR(M(\left\{ x \right\}) \leq 1) \\
+        &= \prod_{x \in \Z} \frac{2}{e} \\
+        &= 0
+    \end{align*}
+
+    The last equality comes from the fact that $\epsilon > 2 \implies \frac{2}{\epsilon} < 1$. Thus $M$ is not almost surely simple.   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Let M be a $p p p(\mu = \lambda Leb_{\R^d})$, for $\lambda> 0$, on $\R^d$. Let $B_r := \left\{ x \in \R^d : \abs{x} \leq r \right\}$  
+\end{PROB}
+\begin{claim}{4a}\label{Claim 4a.}
+    Consider the map $T: \R^d \to [0, \infty)$ where $x \to \abs{x}$. Determine the intensity measure of $T \# M$   
+\end{claim}
+\begin{proof}
+    $\forall 0 \leq a \leq b$, $(T \# \mu)([a, b]) = \mu(B_b \setminus B_a) = \lambda Leb_{\R^d}(B_b) - \lambda Leb_{\R^d}(B_a) = \lambda v_d (b^d - a^d)$ where $v_d := Leb_{\R^d}(B_1)$ or the volume of unit d-ball. $T \# \mu$ is a $\sigma$ finite measure. Thus the intensity of $T \# M$ is $T \# \mu$.         
+\end{proof}
+
+\begin{claim}{4b}\label{Claim 4b.}
+    Prove that a.s 
+    
+    \[\lim_{r \to \infty} \frac{M(B_{r})}{\abs{B_{r}}} = \lambda \]
+
+    where $\abs{B_r}$ is volume of $B_r$. 
+\end{claim}
+\begin{proof}
+    Let $(r_k)_{k \geq 0}$ where $\abs{B_{r_k}} = k$. For $k \geq 1$: 
+    
+    \[X_{k} := M(B_{r_k} \setminus B_{r_{k - 1}}) \sim \Poi(\mu(B_{r_k} \setminus B_{r_{k - 1}})) = \Poi(\lambda)\]
+
+    \[S_n := \sum_{i = 1}^{n} X_k = \sum_{i = 1}^n M(B_{r_i} \setminus B_{r_{i - 1}}) = M(B_{r_n}) \sim \Poi(\lambda n)\]
+
+    By the Strong Law of Large Numbers:
+
+    \[\Pr\left(\lim_{n \to \infty} \frac{S_n}{n} = \lambda \right) = 1\] 
+
+    Substitute $S_n := B_{r_n}$ and $n = \abs{B_{r_n}}$.   
+
+    \[\lim_{n \to \infty} \frac{M(B_{r_n})}{\abs{B_{r_n}}} = 1\]
+
+    a.s. $\forall q > 0$, $\exists n \in \N \ni r_{n} \leq q \leq r_{n + 1}$. By Monotoneness of $M$ and $\abs{ \cdot }$, $M(B_{r_n}) \leq M(B_{q}) \leq M(B_{r_{n + 1}})$ and $n = \abs{B_{r_n}} \leq \abs{B_{q}} \leq \abs{B_{r_{n + 1}}} = n + 1$. Thus
+    
+    
+    \[\frac{M(B_{r_n})}{\abs{B_{r_{n + 1}}}} \leq \frac{M(B_q)}{\abs{B_q}} \leq \frac{M(B_{r_{n + 1}})}{\abs{B_{r_n}}} \]
+
+    Note $\frac{M(B_{r_n})}{\abs{B_{r_{n + 1}}}} = \frac{M(B_{r_n})}{n + 1} = \frac{n}{n + 1} \frac{S_n}{n}$ and $\frac{M(B_{r_{n + 1}})}{\abs{B_{r_n}}} = \frac{M(B_{r_{n + 1}})}{n} = \frac{S_{n+1}}{n + 1} \frac{n + 1}{n}$. 
+    
+    Thus 
+
+    \[\frac{n}{n + 1} \frac{S_n}{n} \leq \frac{M(B_q)}{\abs{B_q}} \leq  \frac{n + 1}{n} \frac{S_{n+1}}{n + 1}\]
+
+    Almost surely, 
+    \[\lim_{n \to \infty} \frac{n}{n + 1} \frac{S_n}{n} = \lambda = \lim_{n \to \infty} \frac{n + 1}{n} \frac{S_{n+1}}{n + 1}\] 
+
+    By the squeeze Theorem, a.s 
+    
+    \[\lim_{r \to \infty} \frac{M(B_{r})}{\abs{B_{r}}} = \lambda \]
+\end{proof}
+
+
+
+\end{document}

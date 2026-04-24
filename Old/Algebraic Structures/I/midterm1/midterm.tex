@@ -1,0 +1,140 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Midterm}
+\author{Arham Lodha}%put your name here
+\date{October 14, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let G be a group. Exhibit (with proof) G as the group given by some set of generators and relations.
+\end{PROB}
+\begin{proof}
+    Let G be a group. Let $S = G$. Thus $\forall g \in G$, $s_1 = g \in S$, $k = 1$ and $g = s_1^{+1} = g$. Thus there exists a subset $S \subseteq G$, such that $\forall g \in G$, $g = s_1^{\pm1}\ldots s_k^{\pm 1}$ for $k \in \Z$ and $s_i \in S$ for $i \in 1 \ldots, k$. Let $X \subseteq G$ be the smallest such subset satifying the condition above. Thus $\forall g \in G$, $g = s_1^{\pm1}\ldots s_k^{\pm 1}$ for $k \in \Z$ and $s_i \in X$ for $i \in 1 \ldots, k$. $X = \{x_1, \ldots, x_n\}$. Let $s: X \to F(X)$ be a function which takes $x_i \to x_i$ for all $i \in 1 \ldots n$. Let $t: X \to G$ be a function which takes $x_i \to x_i$. By the universal property of free groups, there exists a unique homomorphism $f: F(X) \to G$ such that $t = f \circ s$. Thus $f(x_i) = x_i$ for all $i \in 1 \ldots n$. Let $K = \ker f$. By the definition of the subset X, $\forall g \in G$, $g = s_1^{\pm1}\ldots s_k^{\pm 1} = f(s_1^{\pm1})\ldots f(s_k^{\pm 1})$ for $k \in \Z$ and $s_i \in X$ for $i \in 1 \ldots, k$. $X = \{x_1, \ldots, x_n\}$. Since f is a homomorphism, $g = f(s_1^{\pm1})\ldots f(s_k^{\pm 1}) = f(s_1^{\pm 1}\ldots s_k^{\pm 1})$. Let $s = s_1^{\pm 1}\ldots s_k^{\pm 1}$ and $s \in F(X)$. Thus for all $g \in G$, there exists a $s \in F(X)$ s.t $f(s) = g$. Thus f is surjective. By the First Isomorphism Theorem, $F(X)/K \cong f_*(F(X))$. Since f is surjective, $f_*(F(X)) = G$ and thus $F(X)/K \cong G$. By the definition of generators, X is a set of generators. Furtheremore, by the definition of relations, $K$ is the set of relations on G. Since $F(X)/K \cong G$, G is given by a set of generators X and a set of relations $K$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let X and Y be subgroups of G, with X contained in Y. Show that the natural map $G \to G/Y$ factors through the natural map $G \to G/X$, and that every fibre of the induced $G/X \to G/Y$ is bijective to $Y/X$.  Conclude that if $Y/X$ and $G/Y$ are both finite, then $G/X$ is finite and $|G/X| = |G/Y||Y/X|$ (do not assume any of X,Y or G is finite). 
+\end{PROB}
+\begin{proof}
+    Let G be a group. Let X and Y be subgroups of G s.t $X \subseteq Y \subseteq G$.
+    Let $p: G \to G/X$ be the natural quotient map. Let $q: G \to G/Y$ be the natural quotient map. $\forall a, b \in G$ s.t $p(a) = p(b)$, by the definition of p, $aX = bX$. Thus $b \in aX$ and by the definition of a left coset there exists a $x \in X$ s.t $b = ax$. Since $X \subseteq Y$, $x \in Y$, thus $ax \in aY$ and $b \in aY$. Thus $aY = bY$ and $q(a) = q(b)$. Thus $\forall a, b \in G$, $p(a) = p(b) \implies q(a) = q(b)$. Thus by the prehomework theorem there exists a $f: G/X \to G/Y$ s.t $q = f \circ p$. Moreover since $p$, $q$ are surjective and $q = f \circ p$, $f$ must be a surjective by properties of composition of function and must be unique by the prehomework.
+
+    $\forall g \in G$, let $\phi: Y/X \to f^*(\{gY\})$ which is defined as the following $\forall yX \in Y/X$, $\phi(yX) = gyX$. 
+
+    $\forall yX, aX \in Y/X$ s.t $yX = aX$ where $y, a \in G$. Thus $a \in yX$ and there exists a $x \in X$ s.t $a = yx$. $\phi(yX) = gyX$ and $\phi(aX) = gaX$. Since $a = yx$, $gaX = gyxX$, since X is a group, $x^{-1} \in X$ thus $gyxx^{-1} = gy \in gyxX = gaX$. Thus $gy \in gaX$, and $\phi(yX) = gyX = gaX = \phi(aX)$. Thus forall $yX, aX \in Y/X$ s.t $yX = aX$ then $\phi(yX) = \phi(aX)$. Thus $\phi$ is well defined.
+
+    \begin{enumerate}{}
+        \item \textbf{Injective}: $\forall yX, zX \in Y/X$ s.t $\phi(yX) = \phi(zX)$. By the definition of $\phi$, $gyX = gzX$, thus $gz \in gyX$ and, by the definition of a coset, $\exists x \in X$ s.t $gz = gyx$ thus $g^{-1}gz = g^{-1}gyx$ or $z = yx$. Since $x \in X$, by the definition of a left coset, $z \in yX$ and $yX = zX$. Thus $\phi$ is injective.
+        
+        \item \textbf{Surjective}: $\forall aX \in f^*(\{gY\})$, by the definition of a preimage, $f(aX) = gY$. Thus $f(p(a)) = q(a) = aY = gY$. Thus $a \in gY$. Thus there exists a $y \in Y$ s.t $a = gy$. Thus $aX = gyX$ and $yX \in Y/X$ and $\phi(yX) = gyX = aX$. Thus $\forall aX \in f^*(\{gY\})$, $\exists yX \in Y/X$ s.t $\phi(yX) = aX$. Thus $\phi$ is surjective.
+    \end{enumerate}
+
+    Since $\phi$ is surjective and injective, it is bijective. Thus there exists a bijection from $Y/X$ to $f^*(\{gY\})$ for all $g \in G$, thus there exists a bijection from $Y/X$ to every fibre of $f$.
+
+
+    Suppose $Y/X$ and $G/Y$ are both finite. Since there is a bijection from every fibre of $f$ to $Y/X$, each fibre of $f$ must be of the same order thus $\forall g \in G$, $|f^*(\{gY\})| = |Y/X|$. $|G/Y|$ is the number of fibres of $f$. $\forall g, h \in G$, s.t $aX \in f^*(\{gY\}) \cap f^*(\{hY\})$, thus by definition of preimage, $f(aX) = gY$ and $f(aX) = hY$. Thus $gY = hY$. Thus each fibre is pairwise disjoint or equal. Since $f$ is a function, every element is in 1 fibre. Since every element is in 1 fibre, each fibre is pairwise disjoint and contains $|Y/X|$ elements, and there are $\abs{G/Y}$ fibres, then $\abs{G/X} = \abs{Y/X}\abs{G/Y}$. Since $Y/X$ and $G/Y$ are both finite and the product of two finite values must be finite as well, $\abs{G/X}$ is finite.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3a.}
+    Let N,H be subgroups of G, with H of finite index. Assume N is normal. Construct a natural bijection between $N/N \cap H$ and $NH/H$. 
+\end{PROB}
+\begin{proof}
+    Let N,H be subgroups of G, with H of finite index. Assume N is normal. Let $f: N/N\cap H \to NH/H$ defined as follows, $\forall n(N \cap H) \in N/N\cap H$, $f(n(N \cap H)) := nH$. 
+    
+    For all $a(N \cap H), b(N \cap H) \in N/(N \cap H)$ s.t $a(N \cap H) = b(N \cap H)$ where $a, b \in N$. $b \in a(N \cap H)$ and $\exists h \in N \cap H$ s.t $b = ah$. $f(a(N \cap H)) = aH$ and $f(b(N \cap H)) = bH$. Since $H$ is a subgroup, $e \in H$, and $b = be \in bH$ by definition of a left coset. Since $h \in N \cap H$, $h \in H$, thus $b = ah \in aH$ by definition of left coset. Since $b \in bH \cap aH$, $bH = aH$, since left cosets are pairwise disjoint or equal. Thus $f(a(N \cap H)) = f(b(N \cap H))$, meaning is well defined.
+
+    \begin{enumerate}{}
+        \item \textbf{Injective}: For all $a(N \cap H), b(N \cap H) \in N$ s.t $f(a(N \cap H)) = f(b(N \cap H))$ where $a, b \in N$. By the definition of $f$, $aH = bH$. Thus $b \in aH$ and by definition of a left coset, $\exists h \in H$ s.t $b = ah$. Since $N$ is a subgroup of G, $a^{-1} \in N$. Thus $a^{-1}b = h$. Since $N$ is a subgroup of G, it is closed so $h \in N$, thus $h \in N \cap H$. Thus $b = ah \in a(N \cap H)$ and $a(N \cap H) = b(N \cap H)$. Thus f is injective.
+        \item \textbf{Surjective}: $\forall aH \in NH/H$, since $a \in NH$ a will be of the form $a = nh$ for $n \in N$ and $h \in H$. Thus $aH = nhH$. Since $H$ is a subgroup of G, by definition of a subgroup $h^{-1} \in H$. Thus $nhh^{-1} \in nhH = aH$ thus $n \in aH$. Thus $aH = nH$. By the definition of f, $f(n(N \cap H)) = nH = aH$. Thus $\forall aH \in NH/H$, there exists a $n(N \cap H) \in N/N\cap H$ s.t $f(n(N \cap H)) = aH$. Thus f is surjective. 
+    \end{enumerate}
+
+    Since f is surjective and injective it is bijective. Thus there exists a bijection between $N/N \cap H$ and $NH/H$.
+\end{proof}
+\begin{PROB}{3b}\label{Problem 3b.}
+    Construct a natural map from $G/H$ to $G/NH$ such that every fibre is bijective to $N/N \cap H$.  Now assume H has finite index in G. Show that $N \cap H$ has finite index in N, $|N/N \cap H| |G/NH| = |G/H|$. In particular the index of $N \cap H$ in N divides the index of H in G. 
+\end{PROB}
+\begin{proof}
+    Let $q: G \to G/NH$ be the natural quotient map. Let $p: G \to G/H$ be the natural quotient map.
+
+    Since $H \subseteq NH \subseteq G$, by problem 2 there exists a $g: G/H \to G/NH$ s.t $q = g \circ p$. Since $q$ and $p$ are surjective, g must be surjective as well. Moreover by problem 2, each fibre of $g$ is in bijection with $NH/H$. By problem 3a, there exists a natural bijection between $N/N \cap H$ and $NH/H$. Since there exists a bijection between each fibre of g and $NH/H$ and a bijection between $NH/H$ and $N/N \cap H$, there exists a bijection between each fibre of g and $N/N \cap H$.
+
+    Assume that H has finite index in G. Since each fibre of g is a subset of $G/H$ and since $G/H$ is finite each fibre of g must also be finite. Furtheremore since each fibre of G is in bijection with $N/N \cap H$, $|N/N \cap H|$ must also be finite. $\abs{G/NH}$ is the number of fibres of g. Furtheremore more since each fibre of g are disjoint pairwise or equal and their union is $G/H$. Thus $\abs{G/H} = \abs{G/NH}\abs{N/N \cap H}$ since $\abs{G/NH}$ is the number of fibres and $\abs{N/N \cap H}$ is the size of each fibre. Since $\abs{G/NH}$ is a positive integer, $\abs{N/N \cap H}$ divides $\abs{G/H}$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Give an example of subgroups H and N of a finite group G such that the index of $H \cap N$ in N DOES NOT divide the index of  H in G (so 3b does not hold without the assumption that N is normal). 
+\end{PROB}
+\begin{proof}
+    Suppose $G = D_3 = \langle{x, y \mid x^3 = y^2 = e, xy = yx^{-1}} \rangle = \{e, x, x^2, y, xy, x^2y\}$ and $H = \{e, xy\}$ and $N = \{e, y\}$. $xyy(xy)^{-1} = xy^{-1}x^{-1} = xyx^{-1} = x^2y \not \in N$. Thus N is not normal. $N \cap H = \{e\}$. $N/N \cap H = \{e(N \cap H), y(N \cap H)\}$ thus $\abs{N/N \cap H} = 2$. $G/H = \{eH, xH, x^2H\}$ thus $\abs{G/H} = 3$. $\abs{N/N\cap H}$ does not divide $\abs{G/H}$. Thus 3b doesn't hold without the assumption that N is normal.
+\end{proof}
+
+\end{document}

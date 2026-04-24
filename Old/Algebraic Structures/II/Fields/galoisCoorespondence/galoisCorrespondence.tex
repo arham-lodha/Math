@@ -1,0 +1,292 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\ext}[2]{\text{Ext}_{#1}^{#2}}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Galois Correspondence}
+\author{Arham Lodha}%put your name here
+\date{April 11, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Recall our Ext homework, where we showed (notation from the homework, I hope) that $\ext{K}{L}(g)$ has size at most $|L/K|$ with equality iff for each  element a of L, $g(p_a)$ splits completely, with distinct roots ($p_a$ the minimal poly).  Look back at the argument and see this equivalent to an apparently weaker condition: $L = K[a_1,..,a_s]$ such that $g(p_{a_i})$ splits as above -- so if this holds for a set of generators, iff it holds for all a  in L.
+\end{PROB}
+\begin{proof}
+    Suppose $L = K[a_1, \dots, a_s]$ where $g(p_{a_i})$ splits completely and has distnct roots in $A$. Define, $L_{n} = K[a_1, \dots, a_n] = L_{n - 1}[a_n]$. 
+    
+    Base Case: $L_1 = K[a_1]$. Since $g(p_{a_1})$ splits as above, $|\ext{K}{L_1}(g)| = [L_1 : K] \implies \forall a \in L_1, g(p_a)$ splits, by field Symmetries homework\dots
+    
+    Inductive Hypothesis: Assume that $\forall n < k$, that the theorem holds for $L_{n}$  
+
+    Inductive Step: Let $n = k$. $L_{k} = L_{k - 1}[a_n]$. $\forall \tilde{g} \in \ext{K}{L_{k - 1}}(g)$. By the Field Symmetries Homework, since $g(p_{a_n})$ splits completely, $\tilde{g}(\tilde(p_{a_n}))$ splits completely, since $\tilde{p}_{a_n} | p_{a_n}$, thus $|\ext{L_{k - 1}}{L_k}(\tilde{g})| = [L_{k - 1} : L_k]$. Thus the map, $\ext{K}{L_k}(g) \to \ext{K}{L_{k - 1}}(g)$ is surjective and $|\ext{K}{L_k}(g)| \leq [L_{k - 1} : L_k][L_{k - 1} : K] = [L_k : K]$. However since, $|\ext{L_{k - 1}}{L_k}(\tilde{g})| = [L_{k - 1} : L_k]$ and by the inductive Hypothesis and field Symmetries homework, $[L_{k - 1} : L_K] = \ext{K}{L_{k-1}}(g)$. Thus the inequality is actually a equality and $|\ext{K}{L_k}(g)| = [L_k : K]$. Thus by field Symmetries homework, $\forall l \in L_n$, $g(p_l)$ splits. 
+    
+    
+    Thus theorem holds for $L$.   
+    
+
+
+    $\impliedby$: If it holds for all a it holds for generators.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Say $L = K[a]$, show Gal is equal to the set of roots of $p_a \in L$. In particular, it has order at most 
+
+$deg(L/K)$ with equality iff the min poly has distinct roots. 
+\end{PROB}
+\begin{proof}
+    The canonical map between $Gal(L / K)$ and the roots of $p(X)$ is the following $h \to h(a)$.
+
+    Suppose $\forall h, k \in Gal(L / K)$, $h(a) = k(a) \implies \forall x + ya, h(x + ya) = x + yh(a) = x + yk(a) = k(x+ya) \implies h = k$.
+    
+    $\forall r$ in the roots of $g(p)[X]$, since $K[r] \cong K[x] / (p_r) \cong K[x] / (p_a) \cong K[a]$, thus there is a automorphism in $Gal$ which sends $a \to r$.   
+    
+    Thus the map is bijection.  
+
+    Thus $|Gal(L / K)|$ is at equal the number of unique roots of $p$ in $L$ which is at most the number of unique roots of $p$ which is at most $\deg p = [L : K]$. Thus $|Gal(L / K)| \leq [L : K]$.
+
+    Suppose $|Gal(L / K)| = [L : K]$. Then the number of unique roots of $p$ in $L$  is $[L : K]$. $\deg(p) = [L : K]$. Thus the number of unique roots of $p$ in $L$  is equal to the number of possible roots of $p$ (or the degree). Thus every root is unique and $p$ has no double root. Thus since the number of roots of $p$ in $L$ is equal to the number of roots of $p$, all roots are in $L$. Thus $p$ has all roots in $L$ and no double roots. 
+    
+    Suppose $p$ has all roots in $L$ and no double roots. The number of unique roots of $p$ in $L$ is equal to $\deg p = [L: K]$. Since $|Gal(L / K)|$ equals the number of number of unique roots of $p$ in $F$, $|Gal(L / K)| = [L : K]$.       
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    We say $L/K$ is Galois if G has order $deg(L/K)$. 
+show $L/K$ is Galois iff  it is separable and a splitting field  (meaning its generated by
+the roots of a polynomial over K).  
+\end{PROB}
+\begin{proof}
+    $\implies: $ Suppose $L / K$ is galois. Then $Gal(L / K) = [L : K]$, thus $\forall a \in L$, the minimal polynomial, $p_a$, splits and is separable in $L$. Thus $L$ is separable and splitting. 
+    
+    $\impliedby$: Supose $L$ is separable and splitting over $K$. By field Symmetries, $|Gal(L / K)| = [L : K]$. Thus $L / K$ is galois.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Suppose H is a subgroup of G, and $L^H = K$. Show that $\forall a in L$, its minimal poly
+
+has roots exactly the orbit $Ha$. Show $L/K$ is primitive, and $H = G$. 
+\end{PROB}
+\begin{proof}
+    Suppose $H \leq G$.  
+    $\forall a \in L$, let $g(x) := \prod_{\alpha \in H \cdot a}(x - \alpha)$. $g$ has distinct roots because its roots are by definition elements of the set $Ha$ and thus distinct. Furthermore since all elements of $H$ are automorphisms, $H \cdot a \subseteq L$, and thus g splits completely over $L$. $\forall h \in H$, $h(g(x))$ just reorders the product, thus $h(g(x)) = g(x)$. Thus $g(x)$ is $H$ invariant. Thus the coefficients of $g$ are $H$ invariant and thus live $L^H$. Suppose, $g(x) = h(x)k(x)$ where $h(x), k(x) \in K[X]$. Since $a$ is a root of $g(x)$, $a$ must be a root of $h(x)$ or $g(x)$. WLOG, suppose $a$ is a root of $h(x)$. By homomorphism properties, $\forall \sigma \in H$, $h(\sigma(a)) = \sigma(h(a)) = 0$, thus $\sigma(a)$ is a root of $h(x)$. Thus all roots of $g(x)$ are roots of $h(x)$. Thus $k(x)$ must be unit and $h(x) = g(x)$. Thus $g(x)$ is a irreducible over $L^H$. Thus $g$ is the min polynomial of $a$. Thus $L / L^H$ is separable and splitting. By primitive element theorems, $\exists \alpha \in \overline{K} \ni L = K[\alpha]$. Since $L / L^H$ is separable and is a splitting field, $|Gal(L / K)| = [L : K] = \deg p_\alpha \leq |H|$. However $H \leq Gal(L / K) \implies |H| \leq |Gal(L / K)| \implies |Gal(L / K)| = |H| \implies H = Gal(L / K)$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Show $L/L^H$ is always Galois (with no assumptions on L/K).
+\end{PROB}
+\begin{proof}
+    Suppose $H \leq G$.  
+    $\forall a \in L$, let $g(x) := \prod_{\alpha \in H \cdot a}(x - \alpha)$. $g$ has distinct roots because its roots are by definition elements of the set $Ha$ and thus distinct. Furthermore since all elements of $H$ are automorphisms, $H \cdot a \subseteq L$, and thus g splits completely over $L$. $\forall h \in H$, $h(g(x))$ just reorders the product, thus $h(g(x)) = g(x)$. Thus $g(x)$ is $H$ invariant. Thus the coefficients of $g$ are $H$ invariant and thus live $L^H$. Suppose, $g(x) = h(x)k(x)$ where $h(x), k(x) \in L^H[X]$. Since $a$ is a root of $g(x)$, $a$ must be a root of $h(x)$ or $g(x)$. WLOG, suppose $a$ is a root of $h(x)$. By homomorphism properties, $\forall \sigma \in H$, $h(\sigma(a)) = \sigma(h(a)) = 0$, thus $\sigma(a)$ is a root of $h(x)$. Thus all roots of $g(x)$ are roots of $h(x)$. Thus $k(x)$ must be unit and $h(x) = g(x)$. Thus $g(x)$ is a irreducible over $L^H$. Thus $g$ is the min polynomial of $a$. Thus $L / L^H$ is separable and splitting. Thus $L / L^H$ is galois. By primitive element theorems, $\exists \alpha \in \overline{L^H} \ni L = L^H[\alpha]$. $\forall u, v \in H \ni u \alpha  = v \alpha \implies uv^{-1} \alpha = \alpha$. $\forall c, d \in L^H$, $uv^{-1}(c + d \alpha) = c + d \alpha \implies uv^{-1} = e$. Thus $u = v$. Thus $\deg p_a = |H \cdot a | = |H|$. Thus, $[L : K] = |H|$. 
+    
+    $\forall h \in H$, $h$ by definition fixes elements of $L^H$ and is a automorphism of $L$. Thus $h \in G$. Thus $H \leq Gal(L / L^H)$. But since $|H| = |G| \implies H = Gal(L / L^H)$. 
+    
+    Thus the map from subgroups to subfields is injective.     
+\end{proof}
+\begin{PROB}{5b}\label{Problem 5b.}
+    Now the other direction, we assume L/K is Galois. explain why $L= K[a]$ for some a. Take intermediate field F. explain why $L = F[a]$. 
+\end{PROB}
+\begin{proof}
+    Since $L / K$ is galois its seperable. Thus by primitive elements theorems, $\exists \alpha \in \overline{K} \ni L = K[\alpha]$. 
+    
+    Let $K \subseteq F \subseteq L$. $L = K[\alpha] \subseteq F[\alpha]$. $\forall f \in F[\alpha]$, $f = \sum_{n = 0} f_n \alpha^n$ where $f_i \in F$. Since $F \subseteq K[\alpha] \implies f_i = \sum_{m = 0} k_{m, i} \alpha^m$ for $k_{k, i } \in K$ . Thus $f = \sum_{n = 0} \sum_{m = 0} k_{m, i} \alpha^{m + n}$. Thus $f \in K[\alpha]$. Thus $F[\alpha] \subseteq K[\alpha]$. Thus $F[\alpha] = K[\alpha]$.
+    
+    $g_1, \dots, g_k \in F$ and $K \subseteq F$, thus $K[g_1, \dots, g_k] = K[g] \subseteq F$. Thus $g$ must divide the minimum polynomial of $\alpha$ over $K[g]$, but $g \in K[g][X]$, so $g$ is the minimum polynomial of $\alpha$ over $K[g]$. Thus $[L : F] = [L : K[g]]$. 
+    
+    \[\begin{tikzcd}
+        & L \\
+        \\
+        F \\
+        && {K[g]}
+        \arrow["1", hook', from=4-3, to=3-1]
+        \arrow["{[L:F]}"{description}, hook', from=4-3, to=1-2]
+        \arrow["{[L:F]}", hook', from=3-1, to=1-2]
+    \end{tikzcd}\]
+
+    Thus $[F: K[g]] = 1$. Thus $F = K[g]$.  
+\end{proof}
+\begin{PROB}{5c}\label{Problem 5c.}
+    Explain why $G^F$ the subgroup of G that preserves g (ie takes the poly g to itself, equivalently,fixes all the coefficients). Explain why this is the same as those which permute the roots of g. Explain why an element of G is completely determined by where it sends "a". Explain why $G^F$ acts transitively on the roots of g. Explain why$ |G^F| = degree(g)$.  Now explain why $L/ L^{G^F}$ has degree  $deg(g)$. Conclude $L^{G^F} = L$. 
+\end{PROB}
+\begin{proof}
+    $G^F = Gal(L / F)$, thus since $F = K[g]$ and $G^F$ fixes $F$ that means it fixes everything in F which means it fixes the coefficients of $G$ which means it fixes $g$.       
+    
+    Thus $\forall x \in L$, $\sigma(g(x)) = g(\sigma(x))$  . $\forall \sigma \in G^F$, let $r$ be a root of $g$, $0= \sigma(g(r)) = g(\sigma(r))\implies \sigma(r)$ is a root of g. Thus $\sigma$ permutes the roots. $\forall \sigma \in Gal(L / K)$ which permutes the roots of $g$. Let the roots of $g$ be $g_1, \dots, g_n$. Thus $g(x) = a(x - g_1)\dots(x - g_n)$. Thus $\sigma(g(x)) = a(x - \sigma(g_1))\dots(x - \sigma(g_n))$ since $\sigma$ permutes the roots, $\sigma(g(x)) = a(x - \sigma(g_1))\dots(x - \sigma(g_n)) = a(x - g_1)\dots(x - g_n) = g(x)$. Thus it preserves g and $\sigma \in G^F$. 
+    
+    $\forall \sigma \in G$, since $L = K[\alpha]$. $\forall x \in L, x = c + d \alpha$ for $c, d \in K$. $\sigma(x) = c + d \sigma(a)$, since $\sigma$ fixes K, and the only choice is where to send $\alpha$. Thus $\sigma$ is determined by where to send $\alpha$. 
+
+    Since $L / L^{G^F}$ is galois. For any roots $a$ and $b$. The homomorphism which sends $a$ to $b$ and fixes $K[g]$, is a valid automorphism of $G$ and thus is also in $G^F$. Thus $G^F$ acts transitively.         
+
+    Since $G^F$ acts transitively on the roots of $g$ and faithfully on the roots of $g$ and is determined where its sends $a$, thus $|G^F|  = \deg g$, or the number of roots of $g$.       
+
+    $g$ is irreducible, because its roots are the orbit of $G^F$. Thus $g$ is the minimal polynomial over $L^{G^F}$. Thus $[L : L^{G^F}] = \deg g$. Thus $[F: L^{G^F}] = 1$. Thus $L^{G^F} = F$.                
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Note G acts naturally on subsets of L, and this induces an action on the intermediate fields. These are in bijection with subgroups, Show the corresponding action is by subgroups.     
+\end{PROB}
+\begin{proof}
+    $G$ acts on the subsets of $L$ and the subgroups of G. 
+    
+    $\forall S \in P(L)$, $\forall g \in G$, $g \cdot S := \left\{ g(s) | s \in S \right\}$
+    
+    $\forall H \leq G$, $\forall g \in G$, $g \cdot H = gHg^{-1}$. 
+
+
+    \textbf{WTS}: $\forall g \in G$, $L^{g \cdot H} = L^{gHg^{-1}} = g \cdot L^H$.
+    
+    $\forall g \in G$,
+    
+    $\forall l \in g \cdot L^H$, $l = g(m)$ for some $m \in L^H$, $\forall h \in H$, $g h g^{-1} l = (ghg^{-1})(g(m)) = gh(m) = g(m) = l$. Thus $l \in L^{gHg^{-1}}$. Thus $g \cdot L^H \subseteq L^{gHg^{-1}}$.    
+    
+    $\forall k \in L^{gHg^{-1}}$. $\forall h \in H$, Thus $k = ghg^{-1} k \implies g^{-1} k = hg^{-1}k$. That means, $g^{-1}k \in L^H$. Thus $g g^{-1} k = k \in g \cdot L^H$.
+    
+    Thus $g \cdot L^H \subseteq L^{gHg^{-1}} \implies g \cdot L^H =  L^{gHg^{-1}}$
+\end{proof}
+\begin{PROB}{6b}\label{Problem 6b.}
+    Conclude that $L^H$  is preserved by G iff $H \trianglelefteq G$. What is the quotient $G/H$?
+\end{PROB}
+\begin{proof}
+    $\implies: $ Suppose $L^H$ is preserved by G, then $\forall g \in G$, $L^H = g \cdot L^H = L^{gHg^{-1}}$. By injectivity of Galois Correspondence, $H = gHg^{-1}$. Thus $H \trianglelefteq G$. 
+    
+    $\impliedby: $ Suppose, $H \trianglelefteq G$. Thus $\forall g \in G$, $g \cdot L^H = L^{gHg^{-1}} = L^H$. 
+    
+    Let $\varphi: G \to Gal(L^H / K)$. By field symmetries homework, $\ker \varphi = Gal(L / L^H) = H$. $G / H \cong Gal(L^H / K)$. 
+\end{proof}
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Take F an arbitrary subfield. Let $H := G^F$. Take any $g: F \to L$ which is the identity on K. Explain how H acts on $\ext{F}{L}(g)$. Explain why this action is "simply transitive" -- meaning transitive, with no fixed points. $\ext{F}{L}(g)$ is not usually a group but its a "torsor" for a group -- that just means there is a group that acts on it simply transitively -- so picking an element of it puts it in bijection with the group. 
+\end{PROB}
+\begin{proof}
+    Define the action of $H$ as follows: $\forall h \in H$, $\forall p \in \ext{F}{L}(g)$, $h \cdot p = h \circ p$.
+    
+    $\forall p \in \ext{F}{L}(g)$, $p$ is a field map and thus injective and thus surjective and thus a automorphism of $F$.     
+
+    $\forall p, q \in \ext{F}{L}(g)$, $h: L \to L$, where $l \to q(p^{-1}(l))$. Since $q, p \in Aut(F) \implies q \circ p^{-1} \in Aut(F)$. Furthermore since $q, p^{-1}$ fix elements of $K$, $q \circ p^{-1} \in Gal(L / K)$. $\forall f \in F$, $h(f) = q(p^{-1}(f)) = g(g^{-1}(f)) = f$. thus $h \in H$. Furthermore, $h \circ p = q$. Thus $H$ acts transitively. 
+
+    Since $L$ galois wrt to $K$ and thus $L = K[\alpha] = F[\alpha]$ , every map in $G$ is uniquely determined by where it sends $\alpha$. Thus $\forall h \in H$ and $\forall p \in \ext{F}{L}(g)$ where $(h \circ p) = p$. Thus, $h(p(p^{-1}(\alpha))) = p(p^{-1}(\alpha)) = \alpha$ thus $h(\alpha) = \alpha$ thus since everything $G$ is uniquely determined by where its sends $\alpha$, $h = id$. Thus there are no fixed points.              
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+    Suppose we have a Galois extension as above, and two subgroups $H_1$ and $H_2$ of G. What is $L^{H_1 \cap H_2}$? 
+\end{PROB}
+\begin{proof}
+    $H := Gal(L / L^{H_1} L^{H_2})$. 
+
+    $\forall \alpha \in L^{H_1}L^{H_2}$, $\alpha = \sum_{i = 1}^{n} a_{h_1, i}b_{h_2, i}$ where $a_{h_1, i} \in L^{h_1}$ and $b_{h_2, i} \in L^{h_2}$, $\forall h \in H_1 \cap H_2$, since $h(\alpha) = h(\sum_{i = 1}^{n} a_{h_1, i}b_{h_2, i}) = \sum_{i = 1}^{n} h(a_{h_1, i})h(b_{h_2, i}) = \sum_{i = 1}^{n} a_{h_1, i}b_{h_2, i} = \alpha$. Thus $h \in H$. $H_1 \cap H_2 \subseteq H$ 
+
+    Since $L^{H_1} \subset L^{H_1}L^{H_2}, L^{H_2} \subset L^{H_1}L^{H_2}$, $\forall h \in H$, $h$ fixes $L^{H_1}$ and $L^{H_2}$. Since $H_1 = Gal(L / L^{H_1})$ and $H_2 = Gal(L / L^{H_2})$, and $h$ is a automorphism of L which fixes $L^{H_1}$ and $L^{H_2}$ thus, $h \in H_1$ and $h \in H_2$. Thus $h \in H_1 \cap H_2$. Thus $ H \subseteq H_1 \cap H_2$.  
+
+    By Galois Correspondence $H \cong H_1 \cap H_2 \iff L^{H_1} L^{H_1} = L^{H_1 \cap H_2}$.
+\end{proof}
+\begin{PROB}{8b}\label{Problem 8b.}
+    How about $L^{\angles{H_1,H_2}}$ (meaning the subgroup generated by both $H_1$ and $H_2$)? 
+\end{PROB}
+\begin{proof}
+    $H = Gal(L / L^{H_1} \cap L^{H_2})$
+    
+    $\forall h \in \angles{H_1, H_2}$. $\forall \alpha \in L^{H_1} \cap L^{H_2}$, by definition $\alpha$ is an element fixed by both $H_1$ and $H_2$. Since $h = h_{1, 1}h_{2, 1} \dots h_{1, n}h_{2, n}$, $h(\alpha) = h_{1, 1}h_{2, 1} \dots h_{1, n}h_{2, n}(\alpha) = \alpha$. Thus $h \in H$ and $\alpha \in L^{\angles{H_1, H_2}}$. $L^{H_1} \cap L^{H_2}) \subseteq L^{\angles{H_1, H_2}}$.    
+    
+    $\forall \alpha \in L^{\angles{H_1, H_2}}$, since $H_1, H_2 \leq \angles{H_1, H_2}$. $\alpha$ fixed by $H_1$ and $H_2$ thus $\alpha \in L^{H_1} \cap L^{H_2}$. Thus $L^{\angles{H_1, H_2}} \subseteq L^{H_1} \cap L^{H_2}$.
+    
+    Thus, $L^{\angles{H_1, H_2}} = L^{H_1} \cap L^{H_2}$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+    Lets say we have a Field extension B over K (B stands for big), and inside we have two fields $L_1$ and $L_2$, whose intersection is K, both Galois over K. Let $L_1 L_2$ be the smallest subfield of B that contains both. Show $L_1L_2$ is Galois over K, and that its Galois group is naturally the product of the $Gal(L_i/K)$  (or if this is wrong, explain why).  
+\end{PROB}
+\begin{proof}
+    Since $L_1$ and $L_2$ are galois, they are seperable and thus primitive by primitive element theorem.  
+    $L_1 = K[a]$ and $L_2 = K[b]$. Thus $L_1 L_2 = K[a, b]$. Since $L_1$ is galois, the minimum polynomial of $a$ is seperable and has roots in $L_1$ and thus in $L_1L_2$. Simililarly since $L_2$ is galois, the minimum polynomial of $b$ is seperable and has roots in $L_2$ and thus in $L_1L_2$. By Problem 1, thus since, $a, b$ are separable and splitting, $K[a, b]$ is separable and splits. Thus $L_1 L_2 = K[a, b]$ is galois.
+    
+    $\varphi : Gal(L_1L_2 / K) \to Gal(L_1 / K) \times Gal(L_2 / K)$ where $\psi \to (\psi|_{L_1}, \psi|_{L_2})$. $\forall a \in \ker \varphi$, $\varphi(a) = (id, id) \implies a|_{L_1} = id$ and $a|_{L_2} = id$ thus $a = id$ and $\varphi$ is injective. Since $L_1 \cap L_2 = K$, $a$ and $b$ are independent. Thus, $\forall g \in Gal(L_1L_2 / K)$, $g$ is completely determined by which roots to send a and b to. Thus $|Gal(L_1L_2 / K)|= [L_1 : K][L_2 : K]$. $Gal(L_1 / K) \times Gal(L_2 / K) = |Gal(L_1 / K)||Gal(L_2 / K)| =  [L_1 : K][L_2 : K] = |Gal(L_1L_2 / K)|$. Thus, $Gal(L_1L_2 / K) \cong Gal(L_1 / K) \times Gal(L_2 / K)$       
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{10}\label{Problem 10.}
+    10) Say $L/K$ is finite Galois, and we have subfields M and N with $M \cap N = K$, and $MN = L$ ($MN$ means the smallest subfield containing both M and N). Finally, suppose M over K is also Galois.  Express $Gal(L/K)$ as a semi-direct product. Show $Gal(L/N)$ is naturally iso to $Gal(M/K)$ (or if this is wrong, explain why)
+\end{PROB}
+\begin{proof}
+    Let $H = Gal(L / M)$ and $J = Gal(L / N)$. $M \cap N  = L^H \cap L^J = L^{\angles{H, N}} = K$. $L^H L^J = L^{H \cap J} = L \implies Gal(L / L) = H \cap J = { id }$. $Gal(L / K) = \angles{H, J}$. Since $M / K$ is galois, there is a homomorphism $Gal(L / K) \to Gal(M / K)$, (restriction map), and the kernel is $H$, by problem 6. Thus $H$ is normal. Thus, $Gal(L / K) = H \rtimes J$. $J$ is the kernel of $H \rtimes J \to (H \rtimes J) / H$, Thus $J \cong Gal(L / K) / Gal(L / M) \cong Gal(M / K)$, by the restriction above.                    
+\end{proof}
+
+\end{document}

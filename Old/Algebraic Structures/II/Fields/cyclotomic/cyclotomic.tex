@@ -1,0 +1,165 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Cyclotomic Polynomial}
+\author{Arham Lodha}%put your name here
+\date{April 04, 2024}%enter the due date here
+\maketitle
+
+The nth cyclotomic polynomial, $P_n(X)$ is the polynomial in  $C[X]$ (complex numbers) which is 
+the product of all $(x - r)$, over r a primitive nth root of unity - ie. an element of $\mu_n$  (the nth roots of 1, thought of inside the complex numbers) whose order in this finite group is n. 
+
+\begin{PROB}{1}\label{Problem 1.}
+    Explain why $P_n(X)$ divides $X^n -1$ in C[X]. Explain why $X^n -1$ has no multiple roots.
+\end{PROB}
+\begin{proof}
+    All the roots of $P_n(X)$ are by definition primitive nth roots of unity thus they are nth roots of unity. All $n-$th roots of unity are roots of $x^n - 1$ thus all the roots of $P_n$ are roots of $x^n - 1$, thus $P_n$ must divide $x^n - 1$.
+    
+    Assume the contrary, $f(x) = x^n - 1$ has a repeated root. Thus by definition of a repeated root, $f(r) = 0$ and $f'(r) = 0$. Thus $r^n - 1 = 0$ and $nr^{n - 1} = 0$, since $char \C = 0$, since $n \neq 0$, the derivative isn't trivially zero. $nr^{n - 1} = 0 \implies r = 0$, but 0 is not a root of $x^n - 1$, $0^n - 1 = -1$, which is a contradiction. Thus by contradiction $x^n - 1$ has no repeated roots.        
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Suppose p is prime. Explain why $P_p(X) = (X^p - 1)/(X - 1) = 1 + X + X^2 + .. + X^{p-1}$.
+\end{PROB}
+\begin{proof}
+    Suppose $p$ is prime. All the natural numbers $n$  which are relatively prime to $p$ are all natural numbers less than $p$. Let $\omega = e^{2 \pi i / n}$. Thus $\forall j \in \N \ni j < p$, $o(\omega^j) = n$. Thus $(x - \omega^j)$ is a factor to $P_p(X)$. Thus $P_p(x) = \prod_{j = 1}^{p  - 1}(x - \omega^j)$. Since $P_p(x) \mid x^p - 1$ and since it has $p - 1$ of the linear factors of $x^p - 1$ and the only other linear factor is $x - 1$, since $x^p - 1 = \prod_{n = 0}^{p - 1}(x- \omega^n)$. $P_p(X) = \frac{x^p - 1}{x - 1}$. After doing the long division we see, $P_p(x) = 1 + x+x^2 +\dots + x^{p - 1}$.               
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Prove $P_n(X)$ is a monic integer polynomial. Hint: Induct on n. If n=1 its obvious. Otherwise Let $H(X)$ be the product of all the $P_k$ for $k \mid n$ and $k < n$.  H is monic integer by induction. Explain why H divides $X^n -1$ in $\C[X]$,  in $\Q[X]$, finally, in $\Z[X]$.  Explain why $X^n-1 = P_n H$, and conclude that $P_n$ is integer monic.
+\end{PROB}
+\begin{proof}
+    Let $\omega_n := e^{2 \pi i / n}$.
+
+    \textbf{Base Case}: $P_1(X) = x - 1$.
+
+    \textbf{Induction Hypothesis}: Suppose $\forall k \in \N \ni k < n$, $P_k$ is a integer monic polynomial.
+    
+    \textbf{Inductive Step}:  
+    Let $H(x) = \prod_{j < n, j | n} P_j(x)$. By induction, $\forall j \in \N \ni j | n \implies j < n$, thus $P_j$ is integer monic. Thus $H(x)$ is also integer monic.  
+    
+    To show that $H(x) | x^n - 1$, it suffices to show that $\forall j \in \N \ni j < n$ and $j | n, P_j(X) | x^n - 1$. Since $j | n$, $\omega_j = e^{2 \pi i / j} = e^{2 \pi i n/nj} = e^{2 \pi i (n / j) / n} = \omega_n^{n / j}$. Moreover since $j | n$, $n / j \in \Z$ and $n / j | n$. Thus $x - \omega_j$ is a factor of $x^n - 1$ and thus $\forall a \in \N \ni a < j$, $\omega_j^a$ is also a root to $x^n - 1$. Thus $P_j(X) | x^n - 1$ in $\C[X]$ and thus $H(x) | x^n - 1$. 
+    
+    Since $H(x)$ and $x^n - 1$ are integer polynomials, $\frac{x^n - 1}{H(x)} \in Q[X]$ and $H(x) | x^n - 1$ in $Q[X]$. Since $H(x)$ is integer monic, it is primitive as $gcd$ is automatically 1 because of the leading term. By Gauss's Lemma, $H(x) | x^n - 1$ in $Z[x]$. 
+    
+    Finally, $\forall j \in \N \ni  j < n$, $\omega^j$ is a root of $x^n - 1$. Furthermore either $j$ and $n$ are relatively prime or they are not. If $(j , n) = 1$, by definition, $\omega^j$ is a root of $P_n$. Assume the contrary, $\omega^j$ is a root of $P_a$ for some $a < n \ni a | n$. All roots of $P_a$ are $\omega_a^b$ where $\gcd(b, a) = 1$. However since $\omega_a^b = e^{2 \pi i b / a} = e^{2 \pi i b \frac{n}{a} / n}$. Thus $j = b \frac{n}{a}$, but since $n /a | n \implies gcd(j, n) = \frac{n}{a}$, which is a contradiction. 
+    
+    If $(j, n) \neq 1$, let $k = (j, n)$. Since $k | n \implies k' = \frac{n}{k} | n$. $\omega_n^j = e^{2 \pi i j / n} = e^{2 \pi i \frac{j}{k} / k'} = \omega_{k'}^{\frac{j}{k}}$. Thus $\omega_n^j$ is a root of $P_{k'}$ which is a factor of $H$. 
+    
+    Thus all the linear factors of $x^n -1$ are either in $P_n$ or $H$. Thus $x^n - 1 = P_n(x) H(x)$. Thus $P_n(x)$ is integer monic. 
+    
+    
+    Thus by induction, $\forall n \in \N$, $P_n(x)$ is integer monic.   
+    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4a}\label{Claim 4a.}
+    Raising to the power mod p is a ring homomorphism.  
+\end{claim}
+\begin{proof}
+    $\forall g, h \in F_p[X]$, 
+    
+    \begin{align*}
+        (g(x) + h(x))^p \mod p &= \sum_{n = 0}^{p} {p \choose n} g(x)^{n} h(x)^{p - n} \mod p \\
+        &= g(x)^p + \sum_{n = 1}^{p - 1} \frac{p!}{n! (n - p)!} g(x)^n h(x)^{p - n} + h(x)^p \mod p \\
+        &= (g(x)^p \mod p) + (h(x)^p \mod p)
+    \end{align*}
+
+
+    and, 
+
+    \begin{align*}
+        (g(x)h(x))^p \mod p &= g(x)^p h(x)^p \mod p
+    \end{align*}
+
+    Thus raising to the power mod p is a ring homomorphism.   
+\end{proof}
+
+\begin{PROB}{4}\label{Problem 4.}
+    Prove $P_n$ is irreducible in Z[X], or equivalently (by Gauss's lemma) in Q[X]
+\end{PROB}
+\begin{proof}
+    Suppose $f$ is integer monic polynomial which divides $P_n$  and $\exists h \in Z[x]$, such that $P_n(x) = f(x)h(x)$. Let $r$ be a root of $f(x)$. $f(x) | P_n$ and $r$ is a root of $f(x)$ it is also a root of $P_n(x)$ and thus a primitive root of unity and can generate all other roots of $x^n - 1$ through exponentiation and hence can generate all roots of $P_n(x)$ through exponentiation. Let $p$ be a prime which doesn't divide $n$. 
+    
+    
+    By the previous homework, since $r$ is a root of $f(x)$ and $f(x)$ is integer monic its maximal polynomial is integer monic. Let the maximal polynomial of $r$ be $g(x)$. Thus $Z[r] \cong Z[x] / (p(x))$. Let $\overline{p}(x) = p(x) \mod p$. By the previous homework, there exists a prime ideal, $P = (\overline{p}(x))$ where $P \cap \Z = (p)$. Let $F = Z[r] / P$, by the previous homework, $F \cong \F_p[x] / (\overline{p}(x))$. By the previous homework, $\overline{p}(x)$ is maximal and thus $F$ is a finite field. 
+    
+    Since $p \nmid n$, $nx^{n - 1}$ is a nonzero polynomial. Assume the contrary, $nx^{n - 1}$ and $x^n - 1$ are not relatively prime, thus they share a common factor. Thus they must also share a root. Let $r$ be the common root to both polynomials. $r \equiv 0 \mod p$ and $r \equiv 1 \mod p$, which is a contradiction. Thus by contradiction $(nx^{n - 1}, x^n - 1) = 1$. Thus $x^n - 1$ has no double roots in $\F_p$ and thus $P_n \mod p$ has no double roots either, thus each root is either in $h(x) \mod p$ or $f(x) \mod p$ and thus $gcd(h(x) \mod p, f(x) \mod p) = 1$, because otherwise they would share a factor and thus a common root which would lead to a contradiction. 
+    
+    Since $r$ is a root of $P_n(x)$, $r = \omega_n^{j}$ where $(j, n) =1$. $r^p = \omega_n^{jp}$, since $p \nmid n$, and $p$ is prime, $(p, n) = 1$, thus $(jp, n) = 1$. Thus $r^p = \omega_n^{jp}$ is another root of $P_n(x)$. By claim 4a, $h(x)^p \mod p = h(x^p) \mod p$. Thus $h(r)^p \mod p = h(r^p) \mod p$. Since $h$ and $f$ are relatively and thus share no common roots, $r$ is not a root of $h$ and thus $h(r)$ is nonzero thus $h(r)^p$ is nonzero and thus $h(r^p)$ is nonzero. Thus $r^p$ is not a root of $h$. Since $h$ is nonzero over $F$, it is nonzero over $\C$ because we went down a ring homomorphism from $\C[x] \to F$. Thus $r^p$ must be a root of $f$. 
+    
+    Since $r$ is a generic root of $f$ and $p$ is any prime which doesn't divide $n$, we have shown that for any $r$, a root of $f$, and any $p$, a prime which doesn't divide $n$, $r^p$ is a root of $f$. Since $r$ is a root of $P_n$, every root of $x^n - 1$ is $r^a$ for some $a \in [0, \dots, n - 1]$. For $r^a$ to be a root of $P_n$, $(a, n) = 1$. Since $\Z$ is a ufd, $a = p_1^{k_1}\dots p_m^{k_m}$ where $p_1, \dots, p_m \nmid n$. 
+    
+    By the above, $r^{p_1}$ is a root of $f$ $\implies $, $(r^{p_1})^{p_1}$ is a root of $f$ and so on and so forth and which then implies $r^{p_1^k}$ is a root of $f$. This then implies, $(r^{p_1^k})^{p_2}$ is a root of $f$ which then eventually implies, $r^{p_1^{k_1} p_2^{k_2}}$ is a root of f, etc. Thus $r^a$ is a root of $f$. Thus every root of $P_n$ is a root of $f$ but not $h$ ($f$ and $h$ are relatively prime and thus share no common roots). Thus $f(x) = P_n(x)$ and $h(x)$ is a unit. and thus $P_n(x)$ is irreducible.                      
+\end{proof}
+\end{document}

@@ -1,0 +1,358 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Induced Representation}
+\author{Arham Lodha}%put your name here
+\date{March 05, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+
+\end{PROB}
+\begin{proof}
+    $\forall f \in Hom(G , U)$, $\forall g_1, g_2 \in G$, $(g_1g_2f)(x) = f(xg_1g_2) = (g_2f)(xg_1)  = g_1(g_2f)(x)$. Thus the action is a valid group action.
+    
+    
+    $J$ is the subset of functions of $Hom(G, U)$ which satisfy $F(hx) = hF(x)$. 
+    
+    $\forall g \in G$, $\forall F \in J$, $\forall x \in G $ and $\forall h \in H$, $(gF)(hx) = F(hxg) = hF(xg)$. Thus $gF \in J$. Thus $gJ \leq J$, thus $J$ is preserved by $G$ action. 
+    
+    $\forall Hx \in H \setminus G$, $\forall hx \in Hx$, $\forall F \in J$, $F(hx) = hF(x)$. Thus $F(x)$ determines the coset. Let $J_x \leq J$ be the set of functions which map $g \in G \ni g \not \in Hx$ to 0. $F(x)$ is equal to some $J(x)$ for some $J_x(x) \in J$. There is a map from $J_x \to U$, where $f \to f(x)$. The map is a homomorphism, because $f_1f_2(x) = f_1(x)f_2(x)$. The map is surjective because $\forall u \in U \exists f \in J_x, f(x) = u$. Moreover everything in the kernel must map x to 0 and thus everything in the coset to 0 and thus must be the trivial map. Thus the map is a isomorphism, thus $J_x \cong U$. There are $|H \setminus G|$ cosets each with a corresponding $J_x$ and $\forall k \in J_{x_1} \cap J_{x_2}$, where $x_1, x_2 \in H \setminus G \ni x_1 \neq x_2$, $k$ must map $x_1$ to 0 and $x_2$ to 0, and thus must be the zero map. Thus, $\dim J = |H \setminus G| \dim J_x = |H \setminus G| \dim U = |G / H| \dim U$                  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    
+\end{PROB}
+\begin{proof}
+    $\forall h \in H$, $\forall x \in G$, $\forall F \in J_x$, . $H \triangleleft G \implies \exists h' = xhx^{-1} \in H \implies h'x = xh$, $hF(x) = F(xh) = F(h'x) = h'F(x) \neq 0$ since $h'$ is invertible and $F(x) \neq 0$. Thus $J_x$ is $H$ invariant. 
+    
+    
+    $\forall X \in H \ G$, $\forall F \in J_x$, $\forall g, y \in G$. $gF(y) = F(yg)$. Only nonzero if $y \in Xg^{-1}$. Thus $gJ_X = J_{Xg^{-1}}$. Thus they are permuted the same way cosets are permuted.
+    
+    Let $b_{X, i} \in J_X$ be the ith basis of $J_X$.  $\forall y \in G,  \forall a_{X, i} \in \C \ni \sum_{X \in H \setminus G} \sum_{i = 1}^{\dim U} a_{X, i} b_{X, i}(y) = 0 \implies \sum_{i = 1}^{\dim U} a_{yH, i} b_{yH, i}(y)  = 0 \iff a_{yH, i} = 0$, thus all $a = 0$, thus $J_{x_i}$ is linearly independent form $J_{x_j}$ for $i \neq j$. Thus $J = \oplus J_x$        
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+\end{PROB}
+\begin{proof}
+    By 1, $J_X \cong U$ as a vectorspace. Moreover the isomorphism where $F \to F(e)$, $\forall h \in H$, $(hF)(e) = F(h) = hF(e)$, thus the isomorphism is a isomorphism of $G$ reps.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    
+\end{PROB}
+\begin{proof}
+    $\forall g, h \in H$, $tr(\rho(C_g(h))) = tr(\rho(ghg^{-1})) = tr(\rho(g)\rho(h)\rho(g)^{-1}) = tr(\rho(h))$, since $tr$ is conjugacy invariant. By frobenius's theorem, the reps are iso.  For $g$ outside of $H$, conjugation by $g$ may move around the conjugacy classes, if so the traces would change, if not the traces would not change. 
+    
+    $\forall x \in G$ $\forall h \in H$,  $R_h(Hx) = Hxh = xHh = xH = Hx$, since $H \triangleleft G$. 
+    
+    
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJKX3tIeH0iXSxbMiwwLCJKX3tIeH0iXSxbMCwyLCJVIl0sWzIsMiwiVSJdLFswLDEsImgiXSxbMCwyXSxbMiwzLCJ4aHheey0xfSJdLFsxLDNdXQ==
+\[\begin{tikzcd}
+	{J_{Hx}} && {J_{Hx}} \\
+	\\
+	U && U
+	\arrow["h", from=1-1, to=1-3]
+	\arrow[from=1-1, to=3-1]
+	\arrow["{xhx^{-1}}", from=3-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+\end{tikzcd}\]
+
+$\forall x \in G$, $\forall h \in H$, the map $h: J_{Hx} \to J_{Hx}$, sends, $F \to hF$. The map from $J_{Hx} \to U$ sends $F \to F(x)$. So take a function $F$ in the top left $J_{Hx}$, $F \to hF$, then we map down to $U$, so $hF \to (hF)(x) = F(xh) = F(xhx^{-1}x)$, since $H \triangleleft G$, $xhx^{-1} \in H$, and thus $F(xhx^{-1}x) = xhx^{-1}F(x)$. Thus $J_{Hx} \cong x(U)$ $\rho \to \rho \circ C_x$.                    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+\end{PROB}
+\begin{proof}
+    Suppose $g \in G$, $\forall Hx \in H \setminus G$, $g \cdot J_{Hx} = J_{Hxg^{-1}}$, thus $Hx = Hxg^{-1} \implies \exists h \in H \ni hx = xg^{-1} \implies g^{-1} = x^{-1}hx \in H$ since $H \triangleleft G$ and $g \in H$. 
+    
+    $\forall h \in H$, by 4, $h$ preserves $J_x$. 
+    
+    Thus on the diagonal of $g \not \in H$, it would be 0s since $J_X$ is not preserved $\forall X \in G / H$. Thus $tr(g) = 0$. 
+    
+    By 4, $\forall Hx \in H \setminus G$ $J_{Hx} \cong x(U)$ where $\rho \to \rho \to C_x$, so $tr_{J_x}(h) = tr_U(xhx^{-1})$. Thus the trace of $h$ is the sum over the blocks of the matrices which send $J_x$ to $J_x$. Thus $tr_{J}(h) = \sum_{Hg \in H \setminus G} tr_{J_{Hg}}(h) = \sum_{g \in G} \frac{1}{|H|} tr_{U}(ghg^{-1})$, this is equal since $\forall x \in Hg$, $tr(xhx^{-1}) = tr(ghg^{-1})$. 
+    
+    Thus $tr_J(h) = \frac{1}{|H|} \sum_{g \in G} tr_U(ghg^{-1})$
+    
+    Let $V|_H := res_H(V)$, be the restriction of the Representation of $G$, V, on $H$. 
+    
+    Let $J := ind^G_H(U)$.
+
+    \begin{align*}
+        \angles{Tr_{J}, Tr_V}_G &= \frac{1}{|G|} \sum_{g \in G} tr_{J}(g) \overline{tr_V(g)} \\
+        &= \frac{1}{|G|} \sum_{h \in H} tr_{J}(h) \overline{tr_V(h)} \\
+        &= \frac{1}{|G|} \sum_{h \in H} \frac{1}{|H|} \sum_{g \in G} tr_U(ghg^{-1}) \overline{tr_{V}(h)} \\
+        &= \frac{1}{|G|} \frac{1}{|H|} \sum_{h \in H} \sum_{g \in G} tr_U(ghg^{-1}) \overline{tr_{V}(ghg^{-1})} \\
+        &= \frac{1}{|G|} \frac{1}{|H|} \sum_{h \in H} \sum_{g \in G} tr_U(h) \overline{tr_{V}(h)} \text{ (since elements of H are simply reordered by conjugation)} \\
+        &= \frac{1}{|G|} \frac{1}{|H|} \sum_{h \in H} |G| tr_U(h) \overline{tr_{V}(h)} \\
+        &= \frac{1}{|H|} \sum_{h \in H} tr_U(h) \overline{tr_{V}(h)} \\
+        &= \angles{Tr_{U}, tr_{V|_H}}_H
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6a}\label{Problem 6a.}
+    
+\end{PROB}
+\begin{proof}
+    Define $T := ind S : G \to GL_{2n}$ 
+    $\forall x, y \in G$, 
+
+    \begin{enumerate}
+        \item If $x, y \in H$, then $T(x)T(y) = \begin{bmatrix}
+            S_x & 0 \\ 0 & S_{a^{-1}xa}
+        \end{bmatrix}\begin{bmatrix}
+            S_y & 0 \\ 0 & S_{a^{-1}ya}
+        \end{bmatrix} = \begin{bmatrix}
+            S_{xy} & 0 \\ 0 & S_{a^{-1}xa^{-1}a^{-1}ya}
+        \end{bmatrix}$, because $S$ is a homomorphism. $T(x)T(y) = \begin{bmatrix}
+            S_{xy} & 0 \\ 0 & S_{a^{-1}xya}
+        \end{bmatrix} = T(xy)$.
+        
+        \item If $x \not \in H$ and $y \in H$ , then $T(x)T(y) = \begin{bmatrix}
+            0 & S_{xa} \\ S_{a^{-1}x} & 0
+        \end{bmatrix} \begin{bmatrix}
+            S_y & 0 \\ 0 & S_{a^{-1}ya^{-1}}
+        \end{bmatrix} = \begin{bmatrix}
+            0 & S_{x y a} \\ S_{a^{-1}xy} & 0
+        \end{bmatrix} = T(xy)$
+        
+        
+        \item if $y \not \in H$ and $x \in H$ , then $T(x)T(y) = \begin{bmatrix}
+            S_x & 0 \\ 0 & S_{a^{-1}xa}
+        \end{bmatrix}\begin{bmatrix}
+            0 & S_{ya} \\ S_{a^{-1}y} & 0
+        \end{bmatrix} = \begin{bmatrix}
+            0 & S_{xya} \\ S_{a^{-1}xya} & 0
+        \end{bmatrix} = T(xy)$
+        
+        \item If $x, y \not \in H$, then $T(x)T(y) = \begin{bmatrix}
+            0 & S_{xa} \\ S_{a^{-1}x} & 0
+        \end{bmatrix} \begin{bmatrix}
+            0 & S_{ya} \\ S_{a^{-1}y} & 0
+        \end{bmatrix} =  \begin{bmatrix}
+            0 & S_{xya} \\ S_{a^{-1}xya} & 0
+        \end{bmatrix} = T(xy)$ 
+    \end{enumerate}
+
+    Thus $T$ is a homomorphism and thus is a representation G. By 5, 
+    
+    \begin{equation*}
+        tr(g) = \begin{cases*}
+            0 & \text{ if $g \in aH$} \\
+            \frac{1}{|H|} \sum_{x \in G} tr_S(xgx^{-1}) & \text{ if $g \in H$}
+        \end{cases*} = \begin{cases}
+            0 & \text{ if $g \in aH$} \\
+            tr_S(h) + tr_S(a^{-1} g a) & \text{ if $g \in H$}
+        \end{cases}
+    \end{equation*}
+\end{proof}
+\begin{PROB}{6b}\label{Problem 6b.}
+\end{PROB}
+\begin{proof}
+    The traces of $T|_H$ and the traces of $S \oplus S'$ are equal as $\forall h \in H$, $tr_{T|_H}(h) = tr_{T}(h) = tr_S(h) + tr_S(a^{-1} h a) = tr_S(h) + tr_{S'}(h) = tr_{S \oplus S'}(h)$. By Frobenius's Theorem, $T|_H \cong S \oplus S'$.  
+\end{proof}
+\begin{PROB}{6c}\label{Problem 6c.}
+\end{PROB}
+\begin{proof}
+    Proved in 5 for general induced representations and general representations.
+    
+    \begin{align*}
+        \angles{\chi_T, \chi_R} &= \frac{1}{|G|} \sum_{g \in G} tr_T(g) \overline{tr_R(g)} \\
+        &= \frac{1}{|G|} \sum_{h \in H} (tr_S(h)\overline{tr_R(h)} + tr_S(a^{-1} h a)\overline{tr_R(h)}) \\ 
+        &= \frac{1}{|G|} \sum_{h \in H} (tr_S(h)\overline{tr_R(h)} + tr_S(a^{-1} h a)\overline{tr_R(a^{-1}ha)}) \\
+        &= \frac{1}{|G|} \left[\sum_{h \in H} (tr_S(h)\overline{tr_R(h)})  + \sum_{h \in H} \left(tr_S(a^{-1} h a)\overline{tr_R(a^{-1}ha)}\right)\right] \\
+        &= \frac{1}{|G|} \left[\sum_{h \in H} (tr_S(h)\overline{tr_R(h)})  + \sum_{h \in H} (tr_S(h)\overline{tr_R(h)})\right] \\
+        &= \frac{2}{|G|} \sum_{h \in H} (tr_S(h)\overline{tr_R(h)}) \\
+        &= \frac{[G : H]}{|G|} \sum_{h \in H} (tr_S(h)\overline{tr_R(h)}) \\
+        &= \frac{1}{|H|} \sum_{h \in H} (tr_S(h)\overline{tr_R(h)}) \\
+        &= \angles{\chi_S, \chi_{R|_H}}
+    \end{align*}
+\end{proof}
+\begin{PROB}{6d}\label{Problem 6d.}
+\end{PROB}
+\begin{proof}
+    Suppose $S$ is an irrep of H.
+    
+    Suppose $S \not \cong S'$, then $\angles{\chi_T, \chi_{T}} = \angles{\chi_{S}, \chi_{T|_{H}}} = \angles{\chi_S, \chi_S + \chi_{S'}}$, by part b. $\angles{\chi_T, \chi_{T}} = \angles{\chi_S, \chi_S} + \angles{\chi_S, \chi_{S'}} = 1 + 0 =  1$, by orthogonality relations. Thus by orthogonality, $T$ is an irrep. 
+    
+    Suppose $S \cong S'$. Then by frobenius reciprocity, $\angles{\chi_T, \chi_T} = \angles{\chi_S, \chi_{T|_H}} = 2$. Thus $T$ must be reducible, and must be the direct sum of irreducibles of G. Furtheremore for any irreducible $V \leq T$, $1 \leq \angles{\chi_T, \chi_V} = \angles{\chi_S, \chi_{V|_H}}$ which means $S \leq V \implies \dim V \geq \dim S$. Suppose T breaks down into n irreducibles $V_1, \dots, V_n$ , the dimension of each irreducible is at least $\dim S$, thus $n \dim S \leq \sum_{i = 1} \dim V_i = \dim T = 2 \dim S \implies n = 2$ and the dimension of each irreducible is $\dim S \implies \angles{\chi_T, \chi_{V_i}} = \angles{\chi_S, \chi_{V_i|_H}} = 1 \implies T$ must break down into the direct sum of 2 nonisomorphic irreducibles.             
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+\end{PROB}
+\begin{proof}
+    $\mu_n \triangleleft D_n$ and $[D_n : \mu_n] = 2$. Since $\mu_n$ is abelian all reps are 1 dimensional, moreover all 1 reps are homomorphisms from $\mu_n \to \mu_n$. The group of 1 dimensional reps, $\left\{ S_0, \dots, S_{n - 1} \right\}$  is $\mu_n$, by artin 4. $\forall k \neq 0$ and $k \neq \frac{n}{2}$ if n is even, $S_k \not \cong S_{k}' = S_k \circ C_y = S_{n - k} =: S_{k^{-1}}$ since $S_k(x) = x^k$ and $S_k'(x) = x^{n - k} = x^{-k}$. 
+    
+    $T_k := Ind_{\mu_n}^{D_n}(S_k)$. By problem 6a, $\forall g \in \mu_n$ $T_k(g) = \begin{bmatrix}
+        S_k(g) & 0 \\ 0 & S_{k^{-1}}(g)
+    \end{bmatrix} = \begin{bmatrix}
+        g^k & 0 \\ 0 & \overline{g^{k}}
+    \end{bmatrix}$ and $\forall h \in C_ny$ $yC_n = C_ny$ since $\mu_n = C_n \triangleright D_n$, $h = x^ay$ for some $a \in \left\{ 0, \dots, n \right\}$  $T_k(h) = T_k(x^ay) = \begin{bmatrix}
+        0 & S_{k}(hy) \\ S_k(yh) & 0
+    \end{bmatrix} = \begin{bmatrix}
+        0 & S_{k}(x^a) \\ S_k(yx^ay) & 0
+    \end{bmatrix} = \begin{bmatrix}
+        0 & x^{ak} \\ x^{-ak} & 0
+    \end{bmatrix}$.
+    
+    For $k \neq 0$ and $k \neq \frac{n}{2}$ if n is even, $T_k$ is irreducible by problem 6d. However $T_k \cong T_{k^{-1}}$, since $\chi_{T_k}(x) = x^k + x^{-k} = x^{-k} + x^k = \chi_{T_{k^{-1}}}(x)$ and $\chi_{T_k}(y) = 0 = \chi_{T_k^{-1}}(y)$. Thus set of nonisomorphic $T_k$ when $k \neq 0$, is $\left\{ T_k | k \in [1, \dots, \floor{\frac{n - 1}{2}}] \right\}$.
+    
+    For $k = 0$, $T_k$ is not irreducible but is the sum of 2 nonisomorphic irreducibles by 6b. $\chi_{T_k}(x) = 2$ and $\chi_{T_k}(y) = 0$. $y$ is order 2 so if T is the sum 1 dimensional reps, $y \to \pm 1$ and $x \to 1$. Let $t$, trivial rep, send $x \to 1$ and $y \to 1$ and let $s$ the rep send $x \to 1$ and $y \to -1$. Thus $T_k = s + t$. S and T are irreducible. 
+    
+    For $n$ even and $k = \frac{n}{2}$, $T_k$ is not irreducible but is the sum of 2 nonisomorphic irreducibles by 6b. $\chi_{T_{\frac{n}{2}}}(x) = -2$ and $\chi_{T_k}(y) = 0$. $x$ has even order thus has to go to -1, since that is the only root of unity such that the sum would -2, and $y$ has order 2 so must go to $\pm 1$, thus let u be the rep which sends to $x \to -1$ and $y \to 1$, and $v$ be the rep which sends $x \to -1$ and $y \to -1$. 
+    
+    Thus the irreducibles are $\left\{ T_k | k \in [1, \dots, \floor{\frac{n - 1}{2}}] \right\} \cup \left\{ s, t \right\}$ if $n$ is odd and if $n$ is even, $\left\{ T_k | k \in [1, \dots, \floor{\frac{n - 1}{2}}] \right\} \cup \left\{ s, t, u, v \right\}$  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+\end{PROB}
+\begin{proof}
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCJVIl0sWzEsMCwiSl9IIl0sWzMsMCwiVyJdLFsxLDIsIkoiXSxbMCwyLCJcXGJpZ29wbHVzX3tYIFxcaW4gSCBcXHNldG1pbnVzIEd9IEpfeCJdLFswLDEsIiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDEsIlxcY29uZyIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsxLDIsIlxcYWxwaGEiXSxbNCwzLCI9IiwzLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzEsMywiIiwzLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJib3R0b20ifX19XSxbMywyLCJcXGJldGEiLDJdXQ==
+\[\begin{tikzcd}
+	U & {J_H} && W \\
+	\\
+	{\bigoplus_{X \in H \setminus G} J_x} & J
+	\arrow[draw=none, from=1-1, to=1-2]
+	\arrow["\cong"{description}, draw=none, from=1-1, to=1-2]
+	\arrow["\alpha", from=1-2, to=1-4]
+	\arrow["{=}"{marking, allow upside down}, draw=none, from=3-1, to=3-2]
+	\arrow[hook', from=1-2, to=3-2]
+	\arrow["\beta"', from=3-2, to=1-4]
+\end{tikzcd}\]
+
+
+    $\forall X = Hx \in G / H$, $\forall g \in G$, $\forall F \in J_X \ni F \neq 0$, $\forall y \in G$, $gF = F \circ R_g $, thus $(gF)(y) = F(yg)$, $F(yg) \neq 0 \iff yg \in Hx \implies y = Hxg^{-1}$. Thus $xF \in J_{Hxg^{-1}}$.
+    
+    Thus $\forall Hx \in G / H$, $\forall F \in J_{Hx}$, $\tilde{F} := xF \in J_H$, thus $F = x^{-1}\tilde{F}$. For everything to commute, $\beta$ is forced to send $F \to x^{-1} \alpha(\tilde{F}) = x^{-1} \alpha(xF)$. The map is unique, because there is only 1 possibility on where to send $F$ for everything to commute. 
+    
+    $\forall Hx \in G / H$, $\forall y \in Hx$, $y =hy$ and $Hx = Hy$ suppose $F \in J_{Hy}$, thus $F \to y^{-1}\alpha(yF) = (hx)^{-1} \alpha(hxF) = x^{-1}h^{-1}h^{-1} \alpha(xF) = x^{-1} \alpha(xF)$, since $\alpha$ is a map of h reps. Thus $\beta$ is well defined and exists. 
+
+    $\beta$ is exists and is the unique, map of G reps.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+\end{PROB}
+\begin{proof}
+    Let $b_{X, i} \in J_X$ be the ith basis of $J_X$.  $\forall y \in G,  \forall a_{X, i} \in \C \ni \sum_{X \in H \setminus G} \sum_{i = 1}^{\dim U} a_{X, i} b_{X, i}(y) = 0 \implies \sum_{i = 1}^{\dim U} a_{yH, i} b_{yH, i}(y)  = 0 \iff a_{yH, i} = 0$, thus all $a = 0$, thus $J_{x_i}$ is linearly independent form $J_{x_j}$ for $i \neq j$. 
+    
+    $\sum_{X \in H / G} \dim J_x = |G / H| \dim U = \dim J$ by 1. Thus $\bigoplus_{X \in H \setminus G}J_x \cong J$. Moreover $\forall F \in J$, for all $Hx \in G$, $\forall hx \in Hx$, $F(hx) = hF(x)=hF_{Hx}(x)$ for some $F_{Hx} \in J_{X}$, $F$ can be broken down into a sum of functions $F_{X} \in J_X$ which act on each coset $X$ independently and are zero everywhere else. Thus $\oplus J_x$ span $J$. 
+    
+    
+    $\forall X \in H / G$, $J_X$ only contributes to the trace of $g$ if $gJ_X = J_X$. $\forall F \in J_X \ni F$, $\forall y \in G$, $(gF)(y) = F(yg)$. $F(yg) \neq 0 \implies yg \in X \implies yg \in X \implies y \in Xg^{-1}$, thus $gF \in J_{Xg^{-1}}$. Thus $gJ_X = J_{Xg^{-1}}$. Thus $J_X$ only contributes to the trace if $gJ_X = J_X \implies X = Xg^{-1}$. 
+
+
+    We let $x_1,..,x_k, k = |H \setminus G|$ be representatives of the cosets -- so the cosets are the $Hx_i$.   We have a vector space iso $J_{Hx_i} \to U$ by $F \to F(x_i)$.
+
+    Suppose $g J_{Hx} = J_{Hx} \implies Hxg^{-1} = Hx \implies Hxg^{-1}x^{-1} = H \implies xg^{-1}x^{-1} \in H$. Suppose $xg^{-1}x^{-1} \in H$, then  $Hxg^{-1}x^{-1} = H \implies Hxg^{-1} = Hx \implies gJ_{Hx} = J_{Hx}$. 
+
+    Suppose $gJ_{Hx} = J_{Hx} \implies J_{Hx} = g^{-1}J_{Hx}$ 
+    
+    $\forall F \in J_{Hx}$, $g^{-1}F \in J_{Hx}$. Thus $(g^{-1}F)(x) = F(xg^{-1}) = F(xg^{-1}x^{-1}x)$, since $xgx^{-1} \in H$, $(g^{-1}F)(x) = F(xg^{-1}x^{-1}x) = xg^{-1}x^{-1} F(x)$. Thus $\rho \to \rho \circ C_x$, where $\rho$ is a H rep. Thus $Tr_{J_{Hx}}(g) = Tr_{U}(xg^{-1}x^{-1})$. 
+    
+    
+    Suppose $x' = hx$, $tr_{U}(x' g^{-1} (x')^{-1}) = tr_{U}(hx g^{-1} x^{-1} h^{-1}) = tr_{U}(h(x g^{-1} x^{-1}) h^{-1}) = tr_{U}(x g^{-1} x^{-1})$. 
+    
+    Let $X = Hx$ and $gJ_X = J_X$, $tr_{J_X}(g) = tr_{U}(xg^{-1}x^{-1}) = \frac{1}{|H|} \sum_{x \in 
+    } tr_{U}(xg^{-1}x^{-1})$, since the choice of representative element of the coset doesn't matter (trace is equal regardless), and $|X| = |H|$. 
+    
+    \begin{equation*}
+        tr_{J_X}(g) = \begin{cases*}
+            0 & \text{ if } $xg^{-1}x^{-1} \not \in H$ \\
+            \frac{1}{|H|} \sum_{x \in 
+    } tr_{U}(xg^{-1}x^{-1}) & \text{ if } $xg^{-1}x^{-1} \in H$
+        \end{cases*} 
+    \end{equation*}.
+    
+    Extend $tr_U$ such that $tr_U(G \setminus U) = \left\{ 0 \right\}$. 
+
+    Thus $tr_{J_X}(g) = \frac{1}{|H|} \sum_{x \in 
+    } tr_{U}(xg^{-1}x^{-1})$ because $xg^{-1}x^{-1} \not \in H$, $tr_{U}(xg^{-1}x^{-1}) = 0$ regardless, thus 1st condition is implicitly taken care of. 
+    
+    
+    Thus $\forall g \in G$, $tr_J(g) = \sum_{X \in G / H} tr_{J_X}(g) = \sum_{X \in G / H}\frac{1}{|H|} \sum_{x \in X} tr_{U}(xg^{-1}x^{-1}) = \frac{1}{|H|} \sum_{x \in G} tr_{U}(xg^{-1}x^{-1})$
+    
+\end{proof}
+
+
+
+\end{document}

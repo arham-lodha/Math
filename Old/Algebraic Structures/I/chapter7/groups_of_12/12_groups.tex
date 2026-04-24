@@ -1,0 +1,189 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Groups of order 12}
+\author{Arham Lodha}%put your name here
+\date{November 30, 2023}%enter the due date here
+\maketitle
+
+Let G be a group of order $12 = 2^2 * 3$. 
+Let F be a subgroup of order 4 (a sylow 2) and T a sylow 3. 
+
+\begin{PROB}{1}\label{Problem 1.}
+    Use the sylow theorems, and the "rose petal" picture to argue that either F or T is normal.
+\end{PROB}
+\begin{proof}
+    By the 3rd Sylow Theorem, the number of sylow 2 subgroups $n_2 | 3$ and $n_2 \mod 2 = 1$ so $n_2 = 1$ or $n_2 = 3$. If $n_2 = 1$, so F is normal. If $n_2 = 3$, then by the 3rd Sylow Theorem, the number of sylow 3 subgroups $n_3 | 4$ and $n_3 \mod 3 = 1$, $n_3 = 1, 4$. If $n_3 = 1$, T is normal. If $n_3 = 4$, then we have 4 sylow 3 subgroups which are cyclic (3 is prime) and thus only share 1 element the identity. So the number of order 3 elements in G is $4(2) = 8$. Every thing in a sylow 2 subgroup is not order 3. The number of non order 3 elements in G is 4. So there is only 1 sylow 2 subgroup and thus it is normal.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Show that H and K are subgroups of a group G, both normal, and $H \cap K = \{e\}$, then A and B commute (there is a one line proof). Conclude our order 12 G is Abelian if both F and T are normal
+\end{PROB}
+\begin{proof}
+    $hkh^{-1} \in K$ and $kh^{-1}k^{-1} \in H$ $hkh^{-1}k^{-1} \in H \cap K$ by closure. Thus $hkh^{-1}k^{-1} = e$ thus $hk = kh$. 
+    
+    Thus since $F \cap T$ is trivial if they both are normal they would commute. Then the order of $FT$ is 12 thus because $F \times T \to G$ is a homomorphism. Thus $F \times T \cong G$. Because F has order 4 its elements have orders 1, 2, or 4. If there is a element with order 4, it is cyclic and thus is abelian. If there is a element with order 2, the group is $\mu_2 \times \mu_2$ which is abelian. If it has element with order 1, the element is the identity and thus must have another element with order 2 or 4. So all subgroups with order 4 are abelian. T is a abelian because it is a $\mu_3$. Thus G is abelian. 
+\end{proof}
+
+\begin{PROB}{2.5}\label{Problem 2.5.}
+    We first assume G is not Abelian, we will do the Abelian cases afterwards. 
+    
+    Say T is normal.  Explain why $G = T \times| F$, where the ugly $\times|$ means semi-direct product
+
+(with the subgroup on the left being normal).  All that remains is to consider the possible $C: F \to Aut(T)$. Explain why $Aut(T) = {1,-1}$, where -1 is the automorphism $t --> t^{-1}$. 
+
+\end{PROB}
+\begin{proof}
+    $Aut(\mu_3) = (F_3)^*$ but $(F_3)^* = \{1, -1\}$. So $Aut(\mu_3) = \mu_2$
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Suppose F is cyclic of order 4. Say F = $\langle f \rangle$. Explain why  $G = \langle f,t| f^4 = t^3 =1, ftf^{-1} = t^{-1} \rangle$. 
+\end{PROB}
+\begin{proof}
+    $F \times T \to G$ is injective because $F \cap T = e$. The map is surjective since $|FT| = |F||T|/|F \cap T| = 12/1 = 12$. So $FT = G$.
+
+    Because $T \rtimes_{t \to t^{-1}} F = \langle t | t^3=e \rangle \rtimes_{t \to t^{-1}} \langle f | f^3=e \rangle = \langle t, f | t^3=t^4 = e, ftf^{-1} = t^{-1} \rangle$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Now say $F = \mu_2 x \mu_2$. Consider the possible $C: F \to Aut(T)$. Explain why this is non-trivial (under our assumption that G is not Abelian). Now show you can choose a "basis" for F, a,b so that $C(a) = -1, C(b) =1$. Then $G = <a,b,t| a^2 = b^2 = 1, ab = ba, a t a = t^{-1}, b t b = t>$. Note F is iso to $F_2^2$, "basis"  means a basis of this vector space.
+\end{PROB}
+\begin{proof}
+    If $C$ was trivial then $F$ and $T$ would commute thus making G be abelian. Let $a = \begin{bmatrix}
+        -1 \\ 0
+    \end{bmatrix}$ and $b = \begin{bmatrix}
+        0 \\ 1
+    \end{bmatrix}$. $C(a) =-1$ and $C(b) = 1$, $C(a^2b) =1$. Then $G = \langle a, b, t : a^2 = b^2 = t^3 = 1, ab = ba, ata = t^{-1}, btb = t \rangle$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Now suppose F is normal. There are 2 possibilities for F. Say first F is cyclic. Explain why $Aut(F) = \{1,-1\}$, same meaning as before. Show that G is Abelian (so we ignore this case for now).  Now say F is $\mu_2 x \mu_2$. Explain why $Aut(F) = GL_2(F_2) = S_4$.  
+    
+    Explain why $C: T \to Aut(F)$ must take a generator to a 3-cycle. Explain why by changing the generator we can make this either 3-cycle (so either matrix of order 3). Now show $G = <t,a,b| t^3 = a^2 = b^2 =1, ab=ba, t a t^{-1} = b, tbt^{-1} = ab>$
+\end{PROB}
+\begin{proof}
+    If F is cyclic then it is $\mu_4$. $Aut(\mu_4) = (F_4)^* = \{1, 3\} = \{1, -1\}$. $F \cap T = \{e\}$. There is no map except the trivial map because elements in $\mu_3$ have order 3 and elements in $\mu_2$ have order 2.
+    
+    
+    Say $F \cong \mu_2 \times \mu_2 = \Z/2\Z \times \Z/\Z = F_2^2$. Then F are 2 dimensional, vectors in $F_2$. The automorphism of $F_2$ vectorspace are the invertible matrices. So $Aut(F) \cong Gl_2(F_2) \cong S_3$.
+
+    $X = \begin{bmatrix}
+        0 & 1 \\ 1 & 1
+    \end{bmatrix}$
+
+    $Y = \begin{bmatrix}
+        1 & 1 \\ 1 & 0
+    \end{bmatrix}$
+    
+    $C_1(y) = \begin{bmatrix}
+        0 & 1 \\ 1 & 1
+    \end{bmatrix}y\begin{bmatrix}
+    0 & 1 \\ 1 & 1
+\end{bmatrix}^{-1}$ or $C_2(y) = \begin{bmatrix}
+        1 & 1 \\ 1 & 0
+    \end{bmatrix}y\begin{bmatrix}
+        1 & 1 \\ 1 & 0
+    \end{bmatrix}^{-1}$. 
+
+    $a = e_1$, $b = e_2$, $c = e_1 + e_2$. 
+
+    $C_1(a) = b$, $C_1(b) = ab$
+
+    $F \times_{C_1} T = \langle a, b, X : a^2 = b^2 = e, ab = ba, XaX^{-1} = b, XbX^{-1} = ab \rangle$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    So we have shown that a non-Abelian group of order 3 is one of three groups. Prove no two of these groups are isomorphic. We already know two Non-Abelian groups of order 12, $A_4$ and $D_6$. Which is which? 
+\end{PROB}
+\begin{proof}
+    None of the groups are isomorphic because they all have different sylow 4 subgroups and groups with the different sylow 4 subgroups must not be isomorphic.
+
+    $A_4 \cong \langle a, b, X : a^2 = b^2 = X^3 = e, ab = ba, XaX^{-1} = b, XbX^{-1} = ab \rangle$ where a and b are disjoint two cycles like $(1 2)(3 4)$ and $(1 4)(2 3)$ and X is the 3 cycle.
+    
+    $D_6 \cong \langle a, b, t : a^2 = b^2 = t^3 = 1, ab = ba, ata^{-1} = t^{-1}, btb^{-1} = t \rangle$ where b is rotation with order 2, a is a reflection, and t is a rotation with order 3.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Now we consider Abelian groups of order 12. Next term we (happy few) will show that any finite Abelian group is iso to a product of cyclic groups. But here we can do the classification by hand. Show $G = F x T$ (ordinary product). and that there are two possibilities.
+\end{PROB}
+\begin{proof}
+    If G is abelian, then $FT = TF$ so $F \times T \to G$ is a homomorphism. Furthermore $|FT| = 12$ and $F \cap T = \{e\}$ so the homomorphism is bijection. $F$ is either $\mu_2 \times \mu_2$ or $F$ is $\mu_4$. So $G = \mu_2 \times \mu_2 \times \mu_3$ or $G = \mu_4 \times \mu_3 \cong \mu_{12}$
+\end{proof}
+
+\end{document}

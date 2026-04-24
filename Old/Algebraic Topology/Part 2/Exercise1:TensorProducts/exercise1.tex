@@ -1,0 +1,110 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\id}{\mathrm{id}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 1}
+\author{Arham Lodha}%put your name here
+\date{February 25, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+    Let $M$ be a $R$-module. Show that for every exact sequence of $R$ modules $U \xrightarrow[]{f} V \xrightarrow[]{g} W \xrightarrow{} 0$ the sequence 
+    
+    \[\begin{tikzcd}
+	{M \otimes U} & {M \otimes V} & {M \otimes W} & 0
+	\arrow["{id \otimes f}", from=1-1, to=1-2]
+	\arrow["{id \otimes g}", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+
+    is exact.
+\end{PROB}
+\begin{proof}
+    Surjectivity of $\id \otimes g$: $\forall y \in M \otimes W$, $y = \sum_{i = 1}^{n} m_i \otimes w_i$ for $m_i \in M$ and $w_i \in W$. By surjectivity of $g$, $\forall w_i, \exists v_i \in V \ni g(v_i)= w_i$. Thus 
+    
+    \[(\id \otimes g)\left(\sum_{i = 1}^{n} m_i \otimes v_i \right) = \sum_{i = 1}^n m_i \otimes g(v_i) = \sum_{i = 1}^n m_i \otimes w_i = y\]
+
+
+    Thus $\id \otimes g$ is surjective. 
+    
+    
+    Exactness at $M \otimes V$: Let $h: \frac{M \otimes V}{\IM{\id \otimes f}} \to M \otimes W$ where $m \otimes v + \IM{\id \otimes f} \to m \otimes g(v)$. Well defined: $h(m_1 \otimes v + m_2 \otimes f(u) + \IM{\id \otimes f}) = m_1 \otimes g(v) + m_2 \otimes g(f(u)) = m_1 \otimes g(v)$ since $g(f(u)) = 0$ by exactness.    
+    
+    $\forall w \in W$, by surjectivity of $g$ $\exists v \in V \ni g(v) = w$.     
+    Let $k: M \otimes W \to \frac{M \otimes V}{\IM{\id \otimes f}}$ where $\forall y \in M \otimes W$, $y = \sum_{i = 1}^{n} m_i \otimes w_i$ $y \to \sum_{i = 1}^n m_i \otimes v_i + \IM{\id \otimes f}$ where $g(v_i) = w_i$. 
+    
+    
+    $\forall m \in M$ and $\forall v \in V$, $k(h(m \otimes v + \IM{\id \otimes f})) = k(m \otimes g(v)) = m \otimes v + \IM{\id \otimes f}$. By linearity of $h$ and $k$, $k \circ h = \id_{M \otimes V / \IM{\id \otimes f}}$. Thus $h$ is injective. $h$ inherits surjectivity from $g$.    Thus $g$ factors through $h$. Thus $\ker g = \IM{\id \otimes f}$. Thus sequence is exact at $M \otimes V$.         
+\end{proof}
+
+\end{document}

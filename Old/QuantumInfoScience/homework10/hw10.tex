@@ -1,0 +1,310 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper, margin=2cm]{geometry}
+\usepackage{titlesec}
+\usepackage{mdframed}
+\usepackage[dvipsnames]{xcolor} % for color names, must be loaded before tikz
+\usepackage{ifthen}
+\usepackage{comment}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage[braket, qm]{qcircuit}
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+
+\providecommand{\due}{Due Wednesday, November 20 at 11:59 PM}
+\lhead{CS358H, M375T, ES377} \rhead{}
+\lfoot{\due} \cfoot{} \rfoot{Page \thepage}
+\renewcommand{\footrulewidth}{0.4pt}
+\pagestyle{fancy}
+
+% Eliminates the spacing in the title that remains from the empty author section.
+\preauthor{}
+\postauthor{}
+
+\titleformat{\section}[runin]{\large\bfseries}{\thesection .}{3pt}{}
+\titleformat{\subsection}[runin]{\bfseries}{\thesubsection)}{3pt}{}
+\renewcommand\thesubsection{\alph{subsection}}
+
+% Defines the solution environment. Toggle solutions between true and false to either show or hide solutions. Also, the solution environment takes an optional argument of arbitrary text to be inserted in the solution header.
+\newboolean{solutions}
+\setboolean{solutions}{true}
+\ifthenelse{\boolean{solutions}}
+{\newenvironment{solution}{\begin{mdframed}[skipbelow=0pt, linecolor=White, backgroundcolor=Green!10]\textbf{Solution:}}{\end{mdframed}}}
+{\excludecomment{solution}}
+
+\hypersetup{colorlinks, urlcolor={blue!80!black}}
+
+\allowdisplaybreaks
+
+\newcommand{\EPR}{\ket{\text{EPR}}}
+\DeclareMathOperator{\CNOT}{CNOT}
+
+\begin{document}
+
+\title{Introduction to Quantum Information Science\\Homework 10}
+\date{\due}
+
+\maketitle
+
+\textbf{Note:} You should explain your reasoning, i.e. show your work, for all problems. You do not need to show us every step of each calculation, but every answer should include an explanation \emph{written with words} of what you did.
+
+\section*{Shor's practice problem}
+In past years, we've asked students to walk through Shor's algorithm to factor $N=21$. This year, we'll do it in recitation instead. It's not required, but we suggest you try it out yourself.
+
+
+
+
+
+
+\section{Shor's Algorithm---Anything That Can Go Wrong Will Go Wrong}
+
+\subsection{[2 Points]} What can go wrong in Shor's algorithm if $Q$ is not taken to be
+sufficiently large?  Demonstrate with an example, using a specific $N, Q$, and calculations.
+
+\begin{solution}
+    Let $k$ be the result outputted by QFT. Suppose $s$ is the period we want to find and $c \in N$. We have the following equality: 
+    
+    \[k = c\frac{Q}{s} \pm \epsilon \implies \frac{k}{Q} = \frac{c}{s} \pm \epsilon \implies \abs{\frac{k}{Q} - \frac{c}{s}} \leq \epsilon\]
+
+    If $Q \not \sim N^2$ then then $\frac{c}{s}$ the unknown rational that $\frac{k}{Q}$ is a approximation of is no longer unique, this is because $s$ is no longer much smaller than $Q$. 
+    
+    Let $N = 21$ and $Q = 32$. Let $f(r) = 2^r \mod N$. $f$ has a period of $s = 6$. So you will have peaks at integers close to $\frac{Qc}{s} = \frac{32 c}{6}$. $k = 10 \approx \frac{32 * 2}{6}$ is a value of high likelyhood. 
+    
+    Doing Repeated fractions: 
+
+    \[.3125 = \frac{10}{32} = \frac{1}{\frac{32}{10}} = \frac{1}{3 + \frac{1}{5}} \approx \frac{1}{3}\]
+
+    Thus repeated fractions is saying $s = 3$ but $s = 2$. Thus we have come to the wrong period due to nonuniquness of the rational.  
+\end{solution}
+
+
+
+\subsection{[3 Points]} What can go wrong if the function $f$ satisfies that if $s$ divides $p-q$ then $f(p)=f(q)$, but it's not an ``if and only if"
+(i.e., we could have $f(p)=f(q)$ even when $s$ doesn't divide $p-q$)? Note that this does not actually happen for the function in Shor's algorithm, but it could happen when attempting period finding on an arbitrary function. Illustrate with an example, describing a specific function.
+
+\begin{solution}
+    QFT could give you a smaller period than what you actually have for $f$, this is because you would have peaks at multiples of $\frac{Q}{p - q}$ and multiples of $\frac{Q}{s}$ and thus you could get the wrong output from QFT and thus be left with possibly inconclusive data or the incorrect period altogether.   
+    
+
+    $N = 33 = 11 * 3$. Let $f$ be the function of which repeats the following sequence $2, 3, 2, 5, 1$. The period of $f$ is 5 which not divides $p - q$ which can be 2. So running QFT may tell you that the period of $f$ is 2 rather than 5, you could get peaks at multiples of $\frac{Q}{2}$ and multiples of $\frac{Q}{5}$ and thus you could get the wrong output from QFT and thus be left with possibly inconclusive data or the incorrect period altogether.            
+\end{solution}
+
+
+\subsection{[3 Points]} What can go wrong in Shor's algorithm if the integer $N$ to be factored is even (that is, one of the prime factors, $p$ and $q$, is equal to 2)?  Illustrate with an example.
+
+\begin{solution}
+    Suppose $N = 2 \times 5 = 10$ and suppose we have a even period s for $f$. Then $x^{\frac{s}{2}} \pm 1$ would either 
+    
+    \begin{enumerate}
+        \item One of them is a multiple of $10$
+        \item One of them is a multiple of 2 and the other is a multiple of 5 
+    \end{enumerate}
+
+    Note $2$ implies one of them has to be a multiple of 10 because they both have to either be even or odd. And since one of them is a multiple of 2 they both have to be even. Thus the one thats a multiple of 5, must also be a multiple of 10. If one of them is a multiple of 10, we would have $\gcd(10, c * 10) = 10$ so we would never have progress. Thus if $N$ is even there may be a function whose period may cause the factoring algorithm to break.    
+    
+\end{solution}
+
+
+\section{Continued fractions} In the continued fraction step of Shor's algorithm, we need the following key fact: if a given real number $x$ is sufficiently close to a rational number $a/b$ with a ``conspicuously small denominator'', then that rational number is unique.  
+
+\subsection{[5 Points]}
+Prove that, indeed, there can be at most one rational $a/b$, with $a$ and $b$ coprime positive integers, that's at most $\epsilon$ away from $x$ and that satisfies $b < 1 / \sqrt{2 \epsilon}$.  
+
+\begin{solution}
+    Assume the contrary $\exists a_1, b_1, a_2, b_2 \in \N \ni \gcd(a_1, b_1) = \gcd(a_2, b_2) = 1$, $b_1, b_2 < \frac{1}{\sqrt{2 \epsilon}}$, $\frac{a_1}{b_1} \neq \frac{a_2}{b_2}$, and 
+    
+    \[\abs{x - \frac{a_i}{b_i}} < \epsilon\].
+
+    Since $\frac{a_1}{b_1} \neq \frac{a_2}{b_2} \implies a_1 b_2 + a_2 b_1 \neq 0$. 
+    
+    Then, 
+
+    \begin{align*}
+        \abs{\frac{a_1}{b_1} - \frac{a_2}{b_2}} &= \abs{\frac{a_1 b_2 - a_2 b_1}{b_1 b_2}} \\
+        &\geq \frac{1}{b_1 b_2} \text{(Since $\abs{a_1b_2 - a_2b_1}$ is positive nonzero )}
+    \end{align*}
+
+
+    Furthermore, 
+
+    \begin{align*}
+        \abs{\frac{a_1}{b_1} - \frac{a_2}{b_2}} &= \abs{\frac{a_1}{b_1} - x + x - \frac{a_2}{b_2}} \\
+        &\leq \abs{\frac{a_1}{b_1} - x} + \abs{\frac{a_2}{b_2} - x} \text{(Triangle Inequality)} \\
+        &< 2\epsilon
+    \end{align*}
+
+    Thus $\frac{1}{b_1 b_2} \leq \abs{\frac{a_1}{b_1} - \frac{a_2}{b_2}} \leq 2\epsilon \implies \frac{1}{b_1 b_2} \leq 2 \epsilon$. However since $b_1, b_2 < \frac{1}{\sqrt{2 \epsilon}} \implies \frac{1}{b_1 b_2} > 2\epsilon$. Thus $2 \epsilon > \frac{1}{b_1 b_2} \leq 2 \epsilon$ which is a contradiction. Thus there can not be more than 1 such pair of $a$ and $b$, ie more than 1 rational $r = \frac{a}{b}$.      
+\end{solution}
+
+
+\subsection{[1 Points]}
+Explain how this relates to the choice, in Shor's algorithm, to choose $Q$ to be quadratically larger than the integer $N$ that we're trying to factor. 
+
+\noindent \emph{Hint:} Recall that the achievable precision $\epsilon$ goes inversely with the dimension $Q$ of the Fourier transform.
+\begin{solution}
+    Since the achievable precision $\epsilon$ of $QFT$ grows inversely proportional to $Q$, $Q = c\frac{1}{\epsilon}$ for some constant $c$. Since in Shor's Algorithm we want to find the period $s$ and $b \leq s < N < N^2 \leq Q$, so $b \leq s < N \leq \sqrt{Q} \implies b < \frac{1}{\sqrt{c \epsilon}}$. So the quadratically greater than $N$ condition in $Q$, ensures $b < \frac{1}{\sqrt{c \epsilon}}$ which up to a constant (which is why we want $Q > 100N^2$) would give us $b < \frac{1}{\sqrt{2 \epsilon}}$ and thus the certainty of not finding multiple seemingly valid rationals by the previous proof.      
+\end{solution}
+
+
+\section{Shor's, Generalized}
+Suppose we use Shor's algorithm to factor $N=105$ into $3\cdot 5 \cdot 7$.  (Yes, $N$ is now a product of 3 primes!)  Suppose also that we make the choices $x=2$ and $Q=60000$.
+
+\subsection{[1 Point]} What is the order of the multiplicative group $\mathbb{Z}_N^\times$?
+
+\begin{solution}
+    By chinese remainder theorem, $\Z^N \cong \Z_3 \times \Z_5 \times \Z_7$ as rings. 
+    $\Z^\times_N \cong \Z^\times_3 \times \Z^\times_5 \times \Z^\times_7$ comes naturally because units map to units. $\abs{\Z^\times_N} = \abs{\Z^\times_3 \times \Z^\times_5 \times \Z^\times_7} = 2 * 4 * 6 = 48$     
+\end{solution}
+
+\subsection{[1 Points]} What is the period of the function $f(r)=x^r (\bmod N)$?
+
+\begin{solution}
+    The period of $f$ must divide the order of $\Z^\times_N$. Divisors of the order are $2, 4, 6, 8, 12, 24$. $12$ is the minimum element such that $x^{12} \mod N = 1$. Thus the period of $f$ is $12$  
+\end{solution}
+
+\subsection{[2 Points]} Suppose we factor $x^s-1$ into $x^{s/2}-1$ and $x^{s/2}+1$, and then take the gcd of both factors with $N$ itself.  Which prime factors of $N$, if any, would be ``peeled off'' this way?
+
+\begin{proof}
+    $2^{12} - 1 \mod N = ((2^{6} - 1) \mod N)((2^{6} + 1) \mod N)$. $2^{6} - 1 \mod N = 63$ and $2^{6} + 1 \mod N = 65$. $\gcd(63, 105) = 21$ and $\gcd(65, 105) = 5$. $\gcd(65, 105) = 5$ would tell use 5 is a prime factor of $105$. We can peel off $5$. 
+    
+    Note: $21$ has small well known prime factors $3$ and $7$, so although you may have to re run Shor's algorithm in practice you can just use the fact that that 21's prime decomposition is well known.    
+\end{proof}
+
+\subsection{[2 Points]} After we apply the QFT to the $\ket{r}$ register and then measure that register, what are the possible results that we could observe?
+\begin{proof}
+    Since $s \mid Q$, the possible results we would observe are multiples of $\frac{Q}{s} = 5000$, ie $5000c$.    
+\end{proof}
+
+
+
+
+\section{Breaking Diffie-Hellman}
+In the following problem we'll be stepping through the adaptation of Shor's period finding algorithm to breaking Diffie-Hellman public-key encryption. The Diffie-Hellman encryption scheme is based on the conjectured hardness of the Discrete Logarithm Problem. 
+
+The Discrete Logarithm Problem (i.e. the problem you need to solve to break the encryption) is as follows: Given $p$ be a prime number, $\alpha$ be an element of the multiplicative group $\mathbb{Z}_p^\times$, and $g$ be a generator of $\mathbb{Z}_p^\times$ --- that is, an element such that all other members of $\mathbb{Z}_p^\times$ can be found by taking powers of $g \mod p$, find an integer $a$ such that $g^a= \alpha \mod p$.
+
+\subsection{[4 Points]} The first step we need to accomplish is a reduction of the Discrete Logarithm Problem to Period Finding. To do so, given some instance of Discrete Logarithm, we'll introduce a new function $f:\mathbb{Z}_R \times \mathbb{Z}_R \rightarrow \mathbb{Z}_p^\times$ where $f(x_1,x_2)= \alpha^{x_1} g^{x_2}\mod p$ and where $R=|\mathbb{Z}_p^\times|$. 
+
+
+\noindent Show that this function is periodic in $x_1$ and $x_2$. In other words, show there exists a pair of integers $(l,m)$ such that $f(x_1,x_2)= f(x_1+l,x_2+m)$. 
+
+
+\noindent How would knowledge of this period allow us to solve the Discrete Logarithm Problem? 
+
+\noindent Is this function efficiently computable? If so, how would one efficiently compute it?
+
+\begin{solution}
+    Note all multiplication is being done mod p unless otherwise stated.
+
+    $\forall x_1, x_2 \in \Z_R$, $f(x_1, x_2) = \alpha^{x_1}g^{x_2}$. 
+    
+    
+    \begin{align*}
+        f(x_1 + l, x_2 + m) &= \alpha^{x_1} \alpha^l g^{x_2}g^{m}. 
+    \end{align*}
+
+    \begin{align*}
+        f(x_1, x_2) = f(x_1 + l, x_2 + m) &\iff \alpha^{x_1} g^{x_2} = \alpha^{x_1} \alpha^l g^{x_2}g^{m} \\
+        & \iff g^0 = \alpha^l g^m \\
+        & \iff g^{-m} = \alpha^{l} \\
+        & \iff g^{-m} = g^{al} \\
+        & \iff m \equiv -al \mod R 
+    \end{align*}
+
+    So the existence of $(l, m)$ depends on if $-m \equiv -a l \mod R$ has solutions. A nontrivial solution is $l = 1$ and $m = -a$ so $-m \equiv -a l \mod R$ has solutions. Furthermore $f(x_1 + 1, x_2 + a) =f(x_1, x_2)$. 
+
+    Thus $f$ is periodic. 
+    
+    Suppose $(t_1, t_2)$ is the period of $f$. 
+    
+    \begin{align*}
+        g^{a (x_1 + t_1) + x_2 + t_2} &= g^{ax_1 + x_2} \\
+        &\implies at_1 + t_2 = kR & \text{for some integer k} \\
+        &\implies a = \frac{k(p - 1) - t_2}{t_1}
+    \end{align*} 
+
+    Note $t_1 | t_2$ since $t_2$ is a product of $t_1$ and $a$.     
+
+    Thus if you find the period of $f$ you can find $a$. 
+    
+    Modular exponentiation is efficiently computable, by doing repeated squaring the modulo operator. 
+\end{solution}
+
+\subsection{[1 Point]} Next we'll step through the adaptation of Shor's Period Finding algorithm to find the period of the function $f$ defined above. Assume our state is initialized in the superposition:
+\[
+\ket{\psi} = \frac{1}{R}\sum_{x_1,x_2 =0}^{R-1}  \ket{x_1}\ket{x_2}\ket{0}
+\]
+We then apply an XOR query to $f$ writing the result into the final register. What is the state of the system following the query?
+
+\begin{solution}
+    The state is $\ket{\psi} =  \frac{1}{R}\sum_{x_1,x_2 =0}^{R-1}  \ket{x_1}\ket{x_2}\ket{f(x_1, x_2)}$ 
+
+\end{solution}
+
+\subsection{[2 Points]} Suppose we now measure the output register and observe the value $g^c$ for some (unknown) integer $c$. What state do the input registers collapse to? Rearrange your answer so that it is in terms of $x_1$ but not $x_2$.
+
+
+\begin{solution}
+    $\alpha^{x_1} g^{x_2} \equiv g^c \mod p \implies \alpha^{x_1} \equiv g^{c - x_2} \mod p \implies x_1 \log_g(\alpha) \equiv c - x_2 \mod (p - 1) \implies x_2 = c - x_1 \log_g(\alpha) \mod (p - 1)$
+    
+    The state collapses to $\frac{1}{R}\sum_{x_1 = 0}\ket{x_1} \ket{c - x_1 log_g(\alpha)}$ 
+\end{solution}
+
+\subsection{[2 Points]} We now apply the inverse Quantum Fourier Transform, $F_R^\dagger\ket{x}=\frac{1}{\sqrt{R}} \sum_{y=0}^{R-1} \omega^{-xy}\ket{y}$, to both of the input registers. What is the resulting state?
+
+\begin{solution}
+    $F_R^\dagger \ket{x_1} = \frac{1}{\sqrt{R}} \sum_{y=0}^{R-1} \omega^{-x_1 y}\ket{y}$ 
+
+    and 
+    
+    $F_R^\dagger \ket{c - x_1 \log_g(\alpha)} = \frac{1}{\sqrt{R}} \sum_{y=0}^{R-1} \omega^{-(c - x_1 \log_g(\alpha)) y}\ket{y}$ 
+
+    Thus $F_R \frac{1}{R}\sum_{x_1 = 0}\ket{x_1} \ket{c - x_1 log_g(\alpha)} = \frac{1}{R^2} \sum_{x, y, z = 0}^{R - 1} \omega^{x y (c + x\log_g(\alpha)) z}\ket{y}\ket{z}$ 
+\end{solution}
+
+
+\subsection{[2 Points]} Finally, we measure the input registers. Which pairs $\ket{y_1'}\ket{y_2'}$ could be measured with nonzero probability? Given one such pair, how do we solve the original instance of Discrete Logarithm?
+
+\begin{solution}
+    The observables $\ket{y_1'}\ket{y_2'}$ are the ones that $y_1'l + y_2'm = R$. Given one such measurement, we will have, $\frac{l}{m} = \frac{y_2'}{y_1} \mod R$. Since $m = -al \mod R$ we can recover $a \equiv \log_g(\alpha) \mod R$  
+\end{solution}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

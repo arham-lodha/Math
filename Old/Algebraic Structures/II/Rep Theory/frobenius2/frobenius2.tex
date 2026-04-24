@@ -1,0 +1,210 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\F}{\mathbb{F}}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Frobenius 2}
+\author{Arham Lodha}%put your name here
+\date{February 13, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Show that P is diagonalizable, with eigenvalues 0 and 1. Show that $tr(P) = dim(P(V)) 1 in F$. Show that if F has characteristic zero, then P = 0 iff tr(P) = 0.  Explain why such operators are called "projection operators"
+\end{PROB}
+\begin{claim}{1a}\label{Claim 1a.}
+    $+ : \ker P \oplus P_*(W) \to W$ is a isomorphism.
+\end{claim}
+\begin{proof}
+    $\forall v \in \ker P \cap P_*(W)$, since $v \in P_*(V),~ \exists w \in W \ni Pw = v$. Thus $v = P(w) = P^2(w) = P(v) = 0$, thus $v = 0$. Thus $\ker P \cap P_*(W) = 0$. Thus $+$ is a injective linear map. 
+    
+    By rank-nullity, $\dim \ker P + \dim P_*(W) = \dim W$, thus $+$ is a surjective linear map and thus is a isomorphism.  
+\end{proof}
+\begin{claim}{1b}\label{Claim 1b.}
+    P is diagonalizable and $W_1(P) = P_*(W)$ and $W_0(P)= \ker P$;  
+\end{claim}
+\begin{proof}
+    Since $P^2 = P$, $P$ satisifies the polynomial $f(x) = x^2 - x$ which has distinct roots of $0$ and $1$. 
+    
+    $\forall v \in P_*(W)$, $\exists w \in W \ni Pw = v \implies P^2 w = Pv = Pw = v \implies Pv = v$, thus $P_*(W) \subset W_1(P)$. $\forall v \in W_1(P)$, $Pv = v \in P_*(W)$. Thus $W_1(P) \subset P_*(W)$. Thus $P_*(W) = W_1(P)$.
+    
+    $\forall v \in \ker P, Pv = 0 \implies v\in W_0(P)$. $\forall v \in W_0(P), Pv = 0v = 0 \implies v\in \ker P$. Thus $\ker P \subseteq W_0(P)$ and $W_0(P) \subseteq \ker P$. Thus $\ker P = W_0(P)$. 
+    
+    
+    Thus by claim 2a, $W_0(P) \oplus W_1(P) \cong V$. By linear algebra bootcamp, P is diagonalizable. 
+\end{proof}
+\begin{PROB}{1c}\label{Problem 1c.}
+    Explain why such a P is called a "projection operator". What is it projection on?
+\end{PROB}
+\begin{solution}
+    P is called a projection operator because $P|_{P_*(W)} = Id_{P_*(W)}$ and it takes everything to the image.    
+\end{solution}
+
+\begin{claim}{1d}\label{Claim 1d.}
+    Show $Tr(P) = dim(P(V)) * 1 \in \F$ 
+\end{claim}
+\begin{proof}
+    The trace is the sum of the eignvalues times the multiplicity of the eigenvalue of the matrix. Since P is diagonalizable with eigenvalues 0 and 1, where the number of $0$ eigenvectors is $\dim \ker V$ and the number of $1$ eigenvectors is $\dim P(W)$. Thus $tr(P) = 1(\dim P(W)) = \dim P(W)$    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let V be a finite dim rep of finite G. F = field and $|G|1$ is non-zero in F.  Write $g: V --> V$ for the corresponding linear transfomation (so as usual, we are leaving the name of the rep, the homo $G \to GL(V)$, out of the notation). let P be  $1/|G| \sum_{g \in G} g$, an element of $Hom_C(V,V)$.  show that $gP = Pg = P$ for all g in G, that $P^2 = P$, and  $P(V) = V^G :={v \in V| gv = v \forall g \in G}$.  Conclude in particular that $1/|G| \sum_{g \in G} tr(g) = dim V^G$.  In particular it is an integer.
+\end{PROB}
+\begin{proof}
+    $\forall h \in G$, $Ph = (\frac{1}{|G|} \sum_{g \in G} g) h = \frac{1}{|G|} \sum_{g \in G} gh$. Multiplying by $h$ simply reindexes the elements of G, because $\forall g \in G$, $g = gh^{-1}h = g'h$ where $g' \in G$. Thus $Ph = \frac{1}{|G|} \sum_{g \in G} gh = \frac{1}{|G|} \sum_{g' \in G} g' = P$. Similarly, $hP = \frac{1}{|G|} \sum_{g \in G} hg$. Multiplying by $h$ again simply reindexes the elements of $G$, because $\forall g \in G \exists g' = h^{-1}g \in G \ni g = hg'$. Thus $hP = \frac{1}{|G|} \sum_{g \in G} hg = \frac{1}{|G|} \sum_{g' \in G} g' = P$. Thus $hP = P = Ph$. 
+    
+    
+    $P^2 = (\frac{1}{|G|} \sum_{g \in G} g)P = \frac{1}{|G|}\sum_{g \in G} gP$. Since $gP = P$, $P^2 = \frac{1}{|G|} \sum_{g \in G} P = |G|/|G| P = P$
+
+
+    $\forall v \in P_*(V), \exists w \in V \ni Pw = v$, $\forall g \in G $, by problem 1 $gP = P$. $gv = gPw = Pw = v$. Thus $v \in V^G$. Thus $P_*(V) \subset V^G$. 
+    
+    Thus $\forall v \in V^G$, $Pv = (\frac{1}{|G|} \sum_{g \in G} g)v = (\frac{1}{|G|} \sum_{g \in G} gv) = (\frac{1}{|G|} \sum_{g \in G} v) = \frac{1}{|G|}|G| v = v \in P_*(V)$. Thus $V^G \subseteq P_*(V)$. Thus $V^G = P_*(V)$
+
+    By problem 1, $tr(P) = \dim P_*(V) = \dim V^G$ since $P_*(V) = V^G$. $tr(P) = tr(\frac{1}{|G|} \sum_{g \in G} g) = 1/|G| \sum_{g \in G} tr(g)$ since the trace is linear with regards to addition. Thus $1/|G| \sum_{g \in G} tr(g) = \dim V^G$   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Let V,W be two finite dim reps of G. We know from the previous homework that G now acts on $H := Hom_F(V,W)$.  Show $H^G$ are the set of linear maps from V to W that commute with G. Show (when F is a subfield of C) that $<tr_V,tr_W> = tr(P)1 \in F$ where P is $1/|G| \sum_{g \in G} [g: H --> H]$ (where < ,> is the inner product from the previous homework). Conclude, when F is a subfield of C, that this inner product is an integer, the dimension of$ Hom_G(V,W)$.
+\end{PROB}
+\begin{solution}
+    Let $f_v : G \to GL(V)$, $f_w: G \to GL(W)$ be representation. 
+    By definition, $H^G = \left\{ h \in H : gh = h \forall g \in G \right\}$. In otherwords, $\forall g \in G, f_W(g)^{-1} \circ h \circ f_V(g) = h$, thus $h \circ f_V(g) = h \circ f_W(g)$, thus h commutes with G. 
+    
+    Define a representation, $\gamma: G \to H \ni g \to L_{f_v(g)} \circ R_{f_w(g)}$. Thus $\angles{tr_v, tr_w} = \frac{1}{|G|} \sum_{g \in G} tr_v(g) \bar{tr_w(g)}$. By the previous homework, $tr_v(g) \bar{tr_w(g)} = tr_{L_{f_v(g)} \circ R_{f_w(g)}} = tr_{H}(g)$. Thus $\angles{tr_v, tr_w} = \frac{1}{|G|} \sum_{g \in G} tr_{H}(g) = tr(P)$. 
+    
+    When F is a subfield of $\C$, by the previous problem $tr(P) = \dim H^G$ which is integer. Thus $\angles{tr_V, tr_W} =  \dim H^G$   
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Notation as in 3), take f in $Hom_G(V,W)$ show that ker(f) and im(f) are G-invariant. Prove Schur's lemma: that if V and W are irreducible reps, then $Hom_G(V,W) =0$ unless V and W are iso. Show further that $Hom_G(V,V)$ is a division ring (ring where every non-zero element is invertible), containing a natural copy of F, which is equality in case F is algebraically closed (every polynomial over F has a root, as holds e.g. for C). Finally, prove the orthogonality of irreducible traces, ie. that the functions $tr_W$ over irreducible resps W of G are an orthogonal set of vectors in $Hom_{sets}(G/G,C)$, for the F valued inner product $\angles{X,Y} := 1/|G| \sum_g X(g) Y(g^{-1})$. Show this inner product is non-degenerate on $Hom_{sets}(G/G,C)$. Conclude in particular that there are at most $|G/G|$ iso classes of irreducible reps. When F is a subfield of C, show that traces of irreps have positive self inner product, equal to 1 if F = C.
+\end{PROB}
+\begin{proof}
+    $\forall f \in Hom_G(V, W)$, $\forall v \in \ker(f)$, $\forall g \in G$, $f(gv) = gf(v) = 0$ since $f$ commutes with $g$. Thus $gv \in \ker f$. Thus $\ker f$ is G-invariant. 
+    
+    $\forall f \in Hom_G(V, W)$, $\forall v \in V$,   $gf(v) = f(gv) \in f_*(V)$. Thus $f_*(V)$ is G-invariant. 
+    
+    $\forall f \in Hom_G(V, W)$, if $f_*(V) = 0$, then $Hom_G(V, W) = 0$ and $\ker f = V$, thus $V \not \cong W$. Thus WLOG $f_*(V) \neq 0$. By the above, $f_*(V)$ is G-invariant. Since W is irreducible, by mashke's theorem and previously proven it doesn't have any G-invariant subspaces except itself and 0 subspace. Since $f_*(V)$ is G-invariant and $f_*(V) \neq 0$, $f_*(V) =W$. Similarly, $\ker f$ is a G invariant subspace in $V$. Again by mashke's theorem, since $V$ is irreducible it has no G-invariant subspaces other than itself and the trivial zero subspace however since $f_*(V) \neq 0 \implies \dim \ker f < \dim V$ thus $\ker f = 0$. Thus $f$ is a bijection and isomorphism of G-reps. Thus this means $\dim Hom_G(V, W) \neq 0 \iff V \cong W$ as G-reps.     
+    
+    $\forall f \in Hom_G(V, V)$, everything in $f$ is either 0 or a isomorphism or the above. Thus $f$ is either 0 or invertible thus $Hom_G(V, V)$ is a division ring.     
+
+    $\forall f \in Hom_G(V, V)$, choose a eigenvalue $\lambda$ of $f$. $S = f - \lambda I$ be a linear map from $V \to V$. The $\ker S \neq 0$ because it contains a eigenvector of $f$. Thus $S$ is not a isomorphism. By the above, $S = 0 \implies f -\lambda I = 0\implies f = \lambda I$. Thus $F \subset Hom_G(V, V)$ naturally and if $\lambda$ is nonzero, $f$ is invertible. Thus $Hom_G(V, V)$ is a division ring. If $F$ is algebraically closed, all eigenvalues of matrices can be found and thus $F = Hom_G(V, V)$.               
+\end{proof}
+\begin{claim}{4b}\label{Claim 4b.}
+    Prove the orthogonality of irreducible traces, ie. that the functions $tr_W$ over irreducible resps W of G are an orthogonal set of vectors in $Hom_{sets}(G/G,C)$, for the F valued inner product $\angles{X,Y} := 1/|G| \sum_g X(g) Y(g^{-1})$.
+\end{claim}
+\begin{proof}
+    Let $V, W$ be irreducible representations of G. If $V \cong W$, then $Hom_G(V, W)$ consists of scalar matrices as shown above thus $\dim Hom_G(V, W) = 1$. If $V \neq \cong W$, then $Hom_G(V, W) = 0$ as proven above thus $\dim Hom_G(V, W) = 0$. From 3, we know $\angles{Tr_V, Tr_W} = \dim H^G = Hom_G(V, W)$ which equals 1 or 0 depending on if $V \cong W$ as shown above. Thus $Tr_V$ is orthogonal to $Tr_W$ if $V \not \cong W$ and $\angles{Tr_V, Tr_W} = 1$ if and only if they are isomorphic.        
+\end{proof}
+\begin{claim}{4c}\label{Claim 4c.}
+    Show this inner product is non-degenerate on $Hom_{sets}(G/G,C)$.
+\end{claim}
+\begin{proof}
+    It suffices to prove that if $\forall \alpha \in Hom_{sets}(G / G, \C) \ni \alpha \neq 0, \exists \beta \in \angles{\alpha, \beta} \neq 0$.
+
+    $\forall \alpha \in Hom_{sets}(G / G, \C) \ni \alpha \neq 0$. Thus $\angles{\alpha, \alpha} = \frac{1}{|G|} \sum_{g \in G} \alpha(g) \overline{\alpha(g)} = \frac{1}{|G|} \sum_{g \in G} \abs{\alpha(g)}$. Since $\alpha \neq 0$, thus $exists$ $g \in G \ni \alpha(g) \neq 0 \implies |\alpha(g)| != 0$. Furthermore, since modulus is positive for all nonzero values and zero for zero, $\frac{1}{|G|} \sum_{g \in G} \abs{\alpha(g)} > 0$. Thus $\angles{\alpha(g), \alpha(g)} \neq 0$. Thus $\angles{}$ is nondegenerate.         
+\end{proof}
+
+\begin{PROB}{4d}\label{Problem 4d.}
+    Conclude in particular that there are at most $|G/G|$ iso classes of irreducible reps. When F is a subfield of C, show that traces of irreps have positive self inner product, equal to 1 if F = C.
+\end{PROB}
+\begin{proof}
+    The set of traces of irreducibles are linearly independent on the account of being orthogonal and since $\dim Hom_{sets}(G / G, F) = |G / G|$. The dimension of the span of the traces cannot be greater than $G / G$, thus the number of traces of irreducibles is at most G / G.
+    
+    Suppose $F \leq \C$. Let V b a irreducible representation of G. The $\angles{tr_V, tr_V} = \sum_{g \in G} tr_V(g) \bar{tr_V(g)} = \dim Hom_{G}(V, V) = 1$, by the above since $Hom_{G}(V, V)$  consists of scalar matrices .
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Prove, for F a subfield of C, that two finite dim F  reps of finite G are iso iff they have the same trace -- hint write a rep V as a direct sum of irreducibles, and take the inner product of $tr_V$ with $tr_{V_i}$ for each irreducible $V_i$.
+\end{PROB}
+\begin{proof}
+    Suppose $V, W$ are finite representations of G. Let $\left\{ X_i \right\}$ be the set of all irreducible representations of G. Let there be $n$ irreducibles representations of $G$. By representations 1, $V \cong \bigoplus_{i = 1}^{n} X_i^{m_i}$ and $W \cong \bigoplus_{i = 1}^{n} X_i^{k_i}$.
+
+    $(\implies)$ Suppose $V \cong W$,  Where $m_i$ are the multiplicities of the irreducibles, or the number of times they would have been in the direct sum, in the vectorspace, Since $V \cong W \implies \bigoplus_{i = 1}^{n} X_i^{m_i} \cong \bigoplus_{i = 1}^{n} X_i^{k_i} \implies m_i = k_i$. Since $X_i$ are G-invariant, $\forall g$, g is block diagonal on V and W. Thus $tr_V= \sum_{i = 1}^n m_i tr_{X_i} = \sum_{i = 1}^n k_i tr_{X_i} = tr_W$. Thus the traces are equal. 
+    
+    $(\impliedby)$, Suppose $tr_V = tr_W$, where $V$ and $W$ are finite dimensional vectorspaces. By the above, $tr_V = \sum_{i = 1}^{n} m_i tr_{X_i}$ and $tr_W = \sum_{i = 1}^n k_i tr_{X_i}$. $\angles{tr_V, tr_{X_i}}= m_i$ since $\angles{tr_{X_i}, tr_{X_j}} = \delta(i, j)$, by shur's lemma. Thus $m_i = \angles{tr_V, tr_{X_i}} = \angles{tr_W, tr_{X_i}} = k_i$. Thus $V \cong \bigoplus_{i = 1}^{n}X_i^{m_i} =  \bigoplus_{i = 1}^{n}X_i^{k_i} \cong W$. Thus $V \cong W$.         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Let $f: G \to F$ be a class function (constant on conjugacy classes). And assume $char(F)$ does not divide $|G|$. For a finite dim G-rep V let  $P := 1/|G| \sum_{g \in G} f(g)$ g in $Hom_F(V,V)$. Show that $gP = Pg$. Now suppose $F = \C$, and f is orthogonal to $tr_V$ for each irreducible rep V. Show f =0. Hint: Show that P = 0 (for any V). For this show its enough to prove the case when V is irreducible. Using Schur's lemma, show then its enough to prove $tr_P = 0$, and get this from the orthogonality. So  for all V (irreducible or not) $P:V \to V =0$, use this to prove f is zero.  Conclude, when F = C, that the traces or irreps are a basis of class function. Conclude we have |G/G| irreducible reps. We'll show later this is true for any algebraically closed F (so long as char(F) does not divide |G|). 
+\end{PROB}
+\begin{proof}
+    Let $V = F^G$ be a g-reps. In this representation, $G \subset S_{|G|}$ and are the permutation matrices and thus their columns are the standard basis in $F^{|G|}$. $\forall M, N \in G \ni M \neq N$, there is some $i \in \N_{|G|}$ $Me_i \neq Ne_i$, thus none of the permutation matrices all fix an individual standard basis. Thus suppose $\sum_{i = 1}^{|G|} \alpha M_i = 0 \implies (\sum_{i = 1}^{|G|} \alpha M_i)e_j = 0$ for all $j$.  $\implies\sum_{i = 1}^{|G|} \alpha M_i e_j$ however since none of the standard basis are preserved by all the matrices $e_j$ will be sent to different basis $e$ for at least 1 matrix thus $0 \leq \alpha_k e = \sum_{i = 1}^{|G|} \alpha M_i e_j = 0$. Thus $\alpha$ must be 0. Thus the set of permutations are linearly independent thus G is linearly independent.
+    
+    Let $f \in G \to F$ be a class function. Let $P = \frac{1}{|G|} \sum_{g \in G} \overline{f(g)} g \in Hom_{V, V}$, thus $g$ in this context could be the element of G or corresponding representation of G in $GL(V)$. $hPh^{-1} = h\frac{1}{|G|} \sum_{g \in G} \overline{f(g)} gh^{-1} = \frac{1}{|G|} \sum_{g \in G} \overline{f(g)} hgh^{-1} = \frac{1}{|G|} \sum_{g \in G} \overline{f(hgh^{-1})} hgh^{-1}$, because f is invariant under conjugation. Furthermore, conjugation by fixed elements rotates the elements in their orbits and thus reindexes the elements of G. Thus, $hPh^{-1} = \frac{1}{|G|} \sum_{g \in G} \overline{f(hgh^{-1})} hgh^{-1} = \frac{1}{|G|} \sum_{g' \in G} \overline{f(g')} g' = P$. Since $V = \bigoplus X_i^{m_i}$ where $X_i$ is G-invariant, $\forall g \in G$, $g$ is block diagonal. Thus $P$ is block diagonal. Moreover since P commutes with G, on $X_i$, it is a scalar matrix by Schur's Lemma as $P|_{X_i} \in Hom_{G}(X_i, X_i)$. Thus we can consider each irreducible block seperately. $tr_{X_i}(P|_{X_i}) = \frac{1}{|G|} \sum_{g \in G} \bar{f(g)} tr_{X_i}{g} = \angles{Tr_{X_i}, f} = 0 $, by assumption. The only scalar matrix with trace 0 is the 0 matrix. Thus $\forall X_i$, $P|_{X_i} = 0 \implies P = 0$ since $P$ is block diagonal. Thus $P = \frac{1}{|G|} \sum_{g \in G} \overline{f(g)} g = 0$, since $\forall g \in G$ are linearly independent, $\bar{f(g)} = 0 \implies f(g) = 0 \implies f = 0$. Thus when $F = \C$, the traces of irreducibles form a basis of class functions. Since every isomorphic representation has a equal trace, and non isomorphic representations have nonequal traces and there are $|G / G|$ traces for irreducibles, since the traces form a basis of $Hom_{sets}(G / G, \C)$, there are also $| G / G |$ irreducible G-reps.           
+\end{proof}
+
+
+\end{document}

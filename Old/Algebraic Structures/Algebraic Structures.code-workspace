@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"zenMode.fullScreen": false,
+		"editor.wordWrap": "on",
+		"workspaceKeybindings.myAwesomeTask.enabled": true,
+	}
+}

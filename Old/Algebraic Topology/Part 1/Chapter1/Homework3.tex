@@ -1,0 +1,399 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\x}{\times}
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 3}
+\author{Arham Lodha}%put your name here
+\date{September 11, 2024}%enter the due date here
+\maketitle
+
+\begin{LEM}{A}
+    $\mathbf{f \simeq g \implies \overline{f} \simeq \overline{g}}$
+\end{LEM}
+\begin{proof}
+    $\forall g, f: [0, 1] \to X$ where $g \simeq f$. Thus $\exists F: I \x I \to Y \ni f_t(x) = F(x, t)$ and $f_0(x) := f(x)$ and $f_1(x) := g(x)$. Let $G: X \x I \to Y \ni G(x, t) = F(1 - x, t)$ and $g_t(x) := G(x, t)$. $\forall x \in I$, $g_0(x) = F(1 - x, 0) = f_0(1 - x) = f(1 - x) = \overline{f}(x)$, similarly, $g_1(x) = F(1 - x, 1) = f_1(1 -x) = g(1 - x) = \overline{g}(x)$. Thus there is a homotopy between $\overline{f}$ and $\overline{g}$. Thus $\overline{f} \simeq \overline{g}$.
+\end{proof}
+
+\begin{PROB}{1}\label{Problem 1.}
+    Show the composition of paths satisfies the following cancellation property: If $f_0 \cdot g_0 \simeq f_0 \cdot g_0$ and $g_0 \simeq g_1$ then $f_0 \simeq f_1$    
+\end{PROB}
+\begin{solution}
+    Suppose $f_0 \cdot g_0 \simeq f_0 \cdot g_0$ and $g_0 \simeq g_1$. 
+    Since $g_0 \simeq g_1$, that means $\overline{g_0} \simeq \overline{g_1}$ by Lemma A. 
+    \[
+    f_0 \simeq f_0 \cdot c \simeq f_0 \cdot (g_0 \cdot \overline{g_0}) \simeq (f_0 \cdot g_0) \cdot \overline{g_0} \simeq (f_1 \cdot g_1) \cdot g_0 \simeq f_1 \cdot g_1 \cdot \overline{g_0} \simeq f_1 \cdot (g_1 \cdot \overline{g_1}) \simeq f_1 \cdot c \simeq f_1
+    \]
+
+    Thus $f_0 \simeq f_1$ 
+\end{solution}
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Show that the change of base point homomorphism $\beta_h$ depends only on the homotopy class of $h$  
+\end{PROB}
+\begin{solution}
+    Let $\beta_{h_1}, \beta_{h_2} : \pi_1(X, x_0) \to \pi_1(X, x_1)$ be change of base point homomorphisms given by paths $h_1$ and $h_2$. Suppose $h_1 \simeq h_2$, then $\overline{h_1} \simeq \overline{h_2}$. Then $\forall f \in \pi_1(X, x_1)$, $h_1 \cdot f \cdot \overline{h_1} \simeq h_2 \cdot f \cdot \overline{h_2}$. Thus $\beta_{h_1}(f) = h_1 \cdot f \cdot \overline{h_1} \simeq h_2 \cdot f \cdot \overline{h_2} = \beta_{h_2}(f)$. Thus if two paths are homotopic then the homomorphisms they induce are the same and differ only based on choice of base point. Thus the change of base point homomorphism $\beta_h$ depends only on the homotopy class of $h$.            
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    For a path-connected space X, show that $\pi_1(X)$ is abelian iﬀ all basepoint-change homomorphisms $\beta_h$ depend only on the endpoints of the path h.
+\end{PROB}
+\begin{proof}
+    $\implies:$ Suppose $\pi_1(X)$ is abelian. Suppose $\beta_{h_1}, \beta_{h_2}: \pi_1(X, x_0) \to \pi_1(X, x_1)$ are basepoint change homomorphisms with the same base points, $x_0, x_1$ where $h_1$ and $h_2$ are paths from $x_0$ to $x_1$. Note the following thing, that $(h_2 \cdot \overline{h_1})(0) = h_2(0) = x_0$, $x_1 = \overline{h_1}(0) = (h_2 \cdot \overline{h_1})(\frac{1}{2}) = h_2(1) = x_1$, and $(h_2 \cdot \overline{h_1})(1) = \overline{h_1}(1) = x_0$. Thus $h_2 \cdot \overline{h_1}$ is a loop about $x_0$. Thus, $\forall f \in \pi_1(X, x_1)$  
+    
+    
+    \begin{align*}
+        \beta_{h_1}(f) &= h_1 \cdot f \cdot \overline{h_1}\\
+        &= h_1 \cdot f \cdot c \cdot \overline{h_1} \\
+        &= h_1 \cdot f \cdot (\overline{h_2} \cdot h_2) \cdot \overline{h}_1 \\ 
+        &= (h_1 \cdot f \cdot \overline{h_2}) \cdot (h_2 \cdot \overline{h_1}) \\
+        &= (h_2 \cdot \overline{h_1}) \cdot (h_1 \cdot f \cdot \overline{h_2}) \text{  (Since $\pi_1(X)$ is abelian thus $\pi_1(X, x_0)$ is abelian)} \\
+        &= h_2 \cdot (\overline{h_1} \cdot h_1) \cdot f \cdot \overline{h_2} \\ 
+        &= h_2 \cdot f \cdot \overline{h_2} = \beta_{h_2}(f)
+    \end{align*}
+
+    $\impliedby$: Suppose all basepoint-change homomorphisms $\beta_h$ depend only on the endpoints of the path h. $\forall x_0 \in X, \forall f, g \in \pi_1(X, x_0)$. Since $g$ and $c$ are paths which share the same endpoints namely $x_0$ on either end. $ g \cdot f \cdot \overline{g} = \beta_{g}(f) =\beta_{c}(f) = c \cdot f \cdot \overline{c} = f$. Thus $g \cdot f \cdot \overline{g} = f \implies g \cdot g = f \cdot g$. Thus $\pi_1(X, x_0)$ is abelian. Since X is path connected, $\forall x_1$ there is a homotopy class of paths, $h$, connecting $x_1$ and $x_0$ , thus $\exists \beta_{h}$ a change of basis homomorphism, which is a isomorphism by Proposition 1.5. Thus since $\pi_1(X, x_0)$ is abelian, $\pi_1(X, x_1)$ is abelian. Thus $\pi_1(X, x_0) \cong \pi_1(X)$ is abelian. 
+\end{proof}
+
+\bigskip
+
+\begin{LEM}{B}
+    If $X$ is a star shaped neighborhood with $x_0$ being its corresponding starshaped point, and $\exists f: I \to X$ a path contained in $X$. Let $L^0$ be the line from $f(0)$ to $x_0$ and $L^1$ be the line from $f(1)$ to $x_0$. $f \simeq L^0 \cdot \overline{L^1}$.  
+\end{LEM}
+\begin{proof}
+    Let $L: I^2 \to X$ where $(s, t) \to (1 - t)f(s) + t x_0$ and let $L_t := I \to X$ where $s \to L(s, t)$ and let $L^s := I \to X$ where $t \to L(s, t)$. Let $\alpha: I^2 \to X$ where $(s, t) \to L_{st}(0)$ where $\alpha_t : I \to X$ is $s \to \alpha(s, t)$. Let $\beta: I^2 \to X$ where $(s, t) \to L_{st}(1)$ where $\beta_t : I \to X$ is $s \to \beta(s, t)$. Let $F: I^2 \to X$ be the following map $F(s, t) = (\alpha_t \cdot L_t \cdot \overline{\beta_t})(s)$ or equivalently: 
+    
+    \begin{equation*}
+        F(s, t) := \begin{cases*}
+            (1 - 2st) f(0) + 2tsx_0 & \text{if $s \in [0, \frac{1}{2}]$ } \\
+            (1 - t)f(4s - 2) + t x_0 & \text{if $s \in [\frac{1}{2}, \frac{3}{4}]$ } \\
+            (1 - (4 - 4s)t)f(1) + (4 - 4s)tx_0 & \text{if $s \in [\frac{3}{4}, 1]$ }
+        \end{cases*}
+    \end{equation*}
+
+    Thus $\forall s \in I$, 
+    
+    \begin{equation*}
+        F(s, 0) := \begin{cases*}
+            f(0) & \text{if $s \in [0, \frac{1}{2}]$ } \\
+            f(4s - 2) & \text{if $s \in [\frac{1}{2}, \frac{3}{4}]$ } \\
+            f(1) & \text{if $s \in [\frac{3}{4}, 1]$ }
+        \end{cases*}
+    \end{equation*}
+
+    which means $F(s, 0) = (c_{f(0)} \cdot f \cdot c_{f(1)})(s)$. Similarly, 
+    
+    \begin{equation*}
+        F(s, 1) := \begin{cases*}
+            (1 - 2s) f(0) + 2sx_0 & \text{if $s \in [0, \frac{1}{2}]$ } \\
+            x_0 & \text{if $s \in [\frac{1}{2}, \frac{3}{4}]$ } \\
+            (4s - 3)f(1) + (4 - 4s)x_0 & \text{if $s \in [\frac{3}{4}, 1]$ }
+        \end{cases*}
+    \end{equation*} 
+
+    thus $F(s, 1) = (L^0 \cdot c_{x_0} \cdot \overline{L^1})(s)$. 
+
+    Finally, $F(0, s) = (1 - 2s(0)) f(0) + 2s(0)x_0 = f(0)$ and $F(1, s) = (1 - (4 - 4)s) f(1) + (0)s x_0 = f(1)$. Thus $F$ is a homotopy which preserves end points.     
+    
+    Thus $c_{f(0)} \cdot f \cdot c_{f(1)} \simeq L^0 \cdot c_{x_0} \cdot \overline{L^1}$. But $c_{f(0)} \cdot f \cdot c_{f(1)} \simeq f$ and $L^0 \cdot c_{x_0} \cdot \overline{L^1} \simeq L^0 \cdot \overline{L^1}$. Thus $f \simeq L^0 \cdot \overline{L^1}$    
+\end{proof}
+\begin{PROB}{4a}\label{Problem 4a.}
+    A subspace $X \subeq \R^n$  is said to be star-shaped if there is a point $x_0 \in X$  such that,
+for each $x \in X$ , the line segment from $x_0$ to $x$  lies in X. Show that if a subspace
+$X \subeq \R^n$ is locally star-shaped, in the sense that every point of X has a star-shaped
+neighborhood in X, then every path in X is homotopic in X to a piecewise linear
+path, that is, a path consisting of a finite number of straight line segments traversed
+at constant speed. 
+\end{PROB}
+\begin{solution}
+    Let $f: [0, 1] \to X$ be a path in $X$. $\forall x \in X$, let $U_x$ be the star starshaped neighborhood around $x$ , it exists since $X$ is locally starshaped. $\left\{ U_x \right\}_{x \in X}$ is a open cover of $X$, thus $\left\{ f^{-1}(U_x) \right\}_{x \in X}$ is a open cover of $I$. By the compactness and connectedness of $I$, $\exists$ a finite subcover $f^{-1}(U_{x_0}), \dots, f^{-1}(U_{x_n})$ of $I$ such that $0 \in f^{-1}(U_{x_0})$ and $1 \in f^{-1}(U_{x_n})$ and $f^{-1}(U_{x_i}) \cap f^{-1}(U_{x_{i + 1}}) \neq \empset$ for $i < n$. Note $\left\{ x_i \mid 0 \leq i \leq n \right\}$ is the set of star shaped points. Let $t_0, \dots, t_{n + 1} \in I$ such that for $n \in [1, \dots, n]$, $t_0 = 0$, $t_i \in f^{-1}(U_{x_i}) \cap f^{-1}(U_{x_{i - 1}})$, $[t_{i - 1}, t_i] \subeq f^{-1}(U_{x_{i - 1}}), t_{n + 1} = 1, [t_n, t_{n + 1}] \in f^{-1}(U_{x_n})$. 
+    
+    Let $\forall i \in [0, \dots, n]$,  $f_i : I \to X$ where $s \to f|_{[t_{i}, t_{i + 1}]}\left((t_{i + 1} - t_i)s + t_i \right) = f((t_{i + 1} - t_i)s + t_i)$. Note $f \simeq f_0 \cdot \hdots \cdot f_n$. Furthermore since $f_i \in U_{i}$, by Lemma B $f_i \simeq L_{f(t_{i}) \to x_i} \cdot \overline{L_{f(t_{i + 1}) \to x_i}}$, where $L_{p \to q}$, is the straight line function from point $p$ to $q$. Since $U_{x_i}$ is the starshaped neighborhood around $x_i$, $L_{f(t_{i}) \to x_i}(I)$ and $L_{f(t_{i + 1}) \to x_i}(I)$ are completely contained within $U_{x_i}$. 
+    
+    \begin{align*}
+        f \simeq f_0 \cdot \hdots \cdot f_n &\simeq L_{f(t_{0}) \to x_0} \cdot \overline{L_{f(t_{1}) \to x_0}} \cdot \hdots \cdot L_{f(t_{n}) \to x_n} \cdot \overline{L_{f(t_{n + 1}) \to x_n}} \\
+        &\simeq  L_{f(0) \to x_0} \cdot \overline{L_{f(t_{1}) \to x_0}} \cdot \hdots \cdot L_{f(t_n) \to x_n} \cdot \overline{L_{f(1) \to x_n}}
+    \end{align*} 
+\end{solution}
+\begin{PROB}{4b}\label{Problem 4b.}
+    Show this applies in particular when X is open or when X is a union of finitely many closed convex sets
+\end{PROB}
+\begin{proof}
+    Let $B_\epsilon(x)$ be the epsilon ball around $x$ for all $x \in X$ and $\forall \epsilon > 0$.
+
+    If $X$ is open, since $X \in \R^n$, $\forall x \in X$, $\exists \epsilon > 0 \ni x \in B_{\epsilon}(x) \subeq X$. $B_\epsilon(x)$ is convex, thus between any two points in $B_\epsilon(x)$ the line connecting them would be in $B_{\epsilon}(x)$. Thus $\forall y \in B_{\epsilon}(x)$, the line between $y$ and $x$ is in $B_\epsilon(x)$. Thus $B_\epsilon(x)$ is star shaped. Thus $X$ is starshaped. 
+    
+    If $X = \bigcup_{i = 1}^n A_i$ where $A_i$ is a closed convex set. $\forall x \in X$, $x \in A_i$ for some $i \in [1, \dots, n]$. WLOG, let $A_{1}, \dots, A_{m}$ be the subcollection of $A_i$ that contain $x$. Thus $x \not \in \bigcup_{i = m + 1}^ n A_i$. By closedness, $\exists d > 0 \ni \inf\left\{ d(x, y) \mid y \in \bigcup_{i = m + 1}^ n A_i \right\} > d > 0$. Thus $B(x, \frac{d}{2}) \cap X \subeq \bigcup_{i = 1}^m A_i$. 
+    
+    $\forall y \in B(x, \frac{d}{2}) \cap X$. $B(x, \frac{d}{2})$ is convex so the line from $x$ to $y$ is in $B(x, \frac{d}{2})$. Furthermore $y \in \bigcup_{i = 1}^m C_i \implies \exists j \ni m \geq j \geq 1$ such that $y \in A_j$. Since $A_j$ is convex and $x \in A_j$, by definition of convexity the line from $x$ to $y$ is in $A_j$. Thus the line from $x$ to $y$ is in $B(x, \frac{d}{2}) \cap X$. Thus $B(x, \frac{d}{2}) \cap X$ is a star shaped neighborhood.        
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{5}\label{Problem 5.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item $(a) \implies (b)$: $\forall f: S^1 \to X$ continous maps. By assumption, $f \simeq c$, thus $\exists F: S^1 \times I \to X$ a homotopy where $F(x, t) = f_t(x)$ and $f_0(x) = f$ and $f_1(x) = c(x) = x_0$ . For $D^2$ use polar coordinates ( $\theta \in [0, 2 \pi] / (2 \pi \sim 1)$ and $r \in [0, 1]$ ). Let $g: D^2 \to X$ where $g(r, \theta) = F(\frac{\theta}{2 \pi}, 1 - r)$, g is continous. $g(1, \theta) = F(\frac{\theta}{2 \pi}, 0) = f(\frac{\theta}{2 \pi}) \implies g|_{S^1} = f$.
+        \item $(b) \implies (c)$: Suppose $(b)$ is true. There is a qoutient map, $\pi: I \to S^1$ which glues the endpoints together taking them to $y_0 \in S^1$. $\forall x_0 \in X$ and $\forall f \in \pi_{1}(X, x_0)$, $f$ factors through $\pi$ where $f = g \circ \pi$ for some $g: S^1 \to X$ where $g(y_0) = x_0$. By $(b)$, $\exists \tilde{g}: D^2 \to X$ which extends $g$. There is a deformation retraction of $D^2$ onto $y_0$, $F: D^2 \times I \to D^2$. Let $i: S^1 \xhookrightarrow{} D^2$ be the natural inclusion. Let $G: I^2 \to X$ where $G(s, t) = g(F(i(\pi(s)), t))$. Thus $\forall s \in I$, $G(s, 0) = g(F(i(\pi(s)) , 0)) = g(i(\pi(s))) = f(s)$ and $G(s, 1) = g(F(i(\pi(s)), 1)) = g(y_0) = x_0$. Furthermore, $\forall t \in I$ $G(0, t)= g(F(i(\pi(0)), t)) = g(y_0) = x_0$ and $G(1, t) = g(F(i(\pi(1)), t)) = x_0$. Thus $f \simeq c_{x_0}$. Thus $\pi_1(X, x_0) = 0$ for all $x_0 \in X$.
+        \item $(c) \implies (a)$: Suppose $(c)$ is true. There is a qoutient map, $\pi: I \to S^1$ which glues the endpoints together taking them to $y_0 \in S^1$. $\forall g: S^1 \to X$, $g \circ \pi \in \pi_1(X, g(y_0))$. Since $\pi_1(X, g(y_0)) = 0 \implies g \circ \pi \simeq c_{g(y_0)}$. Thus there is a homotopy $H: I^2 \to X$ which takes $g \circ \pi \simeq c_{g(y_0)}$. which fixes the endpoints. $H$ factors through $F: S^1 \times I \to X$ where $H = F \circ (\pi \x I)$ where $F$ is a homotopy between $g$ and the constant map.             
+    \end{enumerate}
+     
+    Suppose $X$ is simply connected. Then $\pi_1(X, x_0) = 0$ for all $x_0 \in X$. Thus by $(c) \implies (a)$, all maps $S^1 \to X$ are homotopic to the constant map. 
+
+    Suppose all maps $S^1 \to X$ are homotopic to the constant map. Then by $a \implies b$ and $b \implies c$, $\forall x_0 \in X$, $\pi_1(X, x_0) = 0$. $\forall x \in X$, let $c_x: S^1 \to X$ be the constant map. $\forall x, y \in X$ $c_x \simeq c_y$, thus exists $H: S^1 \times I \to X$. Take $f: I \to X$ where $f(t) = H(s_0, t)$. $f(0) = x$ and $f(1) = y$. Thus there is a path from $x$ to $y$. Thus $X$ is path connected. Thus $X$ is simply connected. z                    
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    We can regard $\pi_1(X,x_0)$ as the set of basepoint-preserving homotopy classes of maps $(S^1,s_0) \to (X,x_0)$. Let $[S^1,X]$ be the set of homotopy classes of maps $S^1 \to X$,
+    with no conditions on basepoints. Thus there is a natural map $\varphi : \pi_1(X,x_0) \to [S^1,X]$ obtained by ignoring basepoints. Show that $\varphi$ is onto if X is path-connected, and that $\varphi([f])=\varphi([g])$ iﬀ [f] and [g] are conjugate in $\pi_1(X,x_0)$. Hence $\varphi$  induces a one-to-one correspondence between $[S^1,X]$ and the set of conjugacy classes in $\pi_1(X, x_0)$, when X is path-connected.
+\end{PROB}
+\begin{solution} 
+    Suppose $X$ is path-connected. $\forall g \in [S^1, X]$, let $x_1 = g(s_0)$ and let $h: [0, 1] \to X$ be the path that takes $x_0$ to $x_1$. Let $f: I \to X$ be the loop with the base point $x_1$  which factors through $g$ such that $f = g \circ \pi$. Let $h: [0, 1] \to X$ be the path from $x_0$ to $x_1$. Let $h_t : [0, 1] \to X$ where $s \to h((1 - s)t + s)$. Let $F: I^2 \to X$ where $(s, t) \to (h_t \cdot f \cdot \overline{h_t})(s)$. Thus 
+    
+    \begin{equation*}
+        F(s, t) := (h_t \cdot f \cdot \overline{h_t})(s) = \begin{cases*}
+            h((1 - 2s) t + 2s) & \text{if $s \in [0, \frac{1}{2}]$ } \\
+            f(4s - 2) & \text{if $s \in [\frac{1}{2},\frac{3}{4}]$ } \\
+            h((4s - 3) t + (1 - (4s - 3))) & \text{if $s \in [\frac{3}{4}, 1]$ }
+        \end{cases*}
+    \end{equation*}
+
+    $F(0, t) = h(t)$, $F(\frac{1}{2}, t) = x_1$, $F(\frac{3}{4}, t) = x_1$, and $F(1, t) = h(t)$. Thus $F(\cdot, t)$ is a loop at $h(t)$. 
+    
+    \begin{equation*}
+        F(s, 0) = \begin{cases*}
+            h(2s) & \text{if $s \in [0, \frac{1}{2}]$ } \\
+            f(4s - 2) & \text{if $s \in [\frac{1}{2},\frac{3}{4}]$ } \\
+            h(4 - 4s) & \text{if $s \in [\frac{3}{4}, 1]$ }
+        \end{cases*}
+    \end{equation*}
+
+    Thus $F(s, 0) = (h \cdot f \cdot \overline{h})$ and $h \cdot f \cdot \overline{h} \in \pi_{1}(X, x_0)$  and 
+    
+    \begin{equation*}
+        F(s, 1) = \begin{cases*}
+            h(1) & \text{if $s \in [0, \frac{1}{2}]$ } \\
+            f(4s - 2) & \text{if $s \in [\frac{1}{2},\frac{3}{4}]$ } \\
+            h(1) & \text{if $s \in [\frac{3}{4}, 1]$ }
+        \end{cases*}
+    \end{equation*}
+
+    Thus $F(s, 1) = (c_{x_1} \cdot f \cdot c_{x_1})(s)$. Thus, 
+
+    \[f \simeq c_{x_1} \cdot f \cdot c_{x_1} \simeq h \cdot f \cdot \overline{h}\]
+
+    Thus $\varphi(h \cdot f \cdot \overline{h}) = g$. Thus $\varphi$ is surjective.
+
+    Suppose $\varphi([f]) = \varphi([g])$, then there is a homotopy $F: I^2 \to X$ that gives $f \simeq g$ that doesn't preserve the basepoints, let $F_t(s) = F(s, t)$ where $F_0 = f$ and $F_1 = g$. Let $h: I \to X$ be $h(t) = F(0, t)$ be the map that shows how the base point gets transformed over the homotopy $F$. Since $f$ and $g$ have the same base point, $x_0$, $h$ is a loop about $x_0$ thus $h \in \pi_1(X, x_0)$. Furthermore, note that since $\forall t$, $F(\cdot, t)$ must be a loop, so $h(t) = F(1, t)$. Let $h_t : I \to X$ where $h_t(s) = h(st)$. Let $G: I^2 \to X$ where $G(s, t) = (h_t \cdot F_t \cdot \overline{h_t})$. Note, $G(s, 0) = (c_{x_0} \cdot f \cdot \overline{c_{x_0}})(s)$ because $h_0(s) = h(0s) = h(0) = x_0$. Furthermore, $G(s, 1) = (h \cdot g \cdot \overline{h})(s)$ because $h_1(s) = h(1s) = h(s)$. Finally $G(0, t) = (h_t \cdot F_t \cdot \overline{h_t})(0) = h_t(0) = x_0$ and $G(1, t) = (h_t \cdot F_t \cdot \overline{h_t})(1) = h_t(1) = x_0$. Also note $F(0, t) = h(t) = G(\frac{1}{2}, t) = F(0, t)$ and $F(1, t) = G(\frac{3}{4}, t) = \overline{h_t}(0) = h_t(1) = h(t) = F(0, t) = F(1, t)$. Thus $G$ is a valid homotopy that preserves base points of $\overline{c_0} \cdot f \cdot \overline{c_0} \simeq h \cdot g \cdot h$. Since $f \simeq \overline{c_0} \cdot f \cdot \overline{c_0}$, $f \simeq h \cdot g \cdot h$.                  
+    
+    Let $G : I^2 \to X$ where $G(s, t)$  
+
+    Suppose $f: S^1 \to X$, let $[f]_*$ be the equivalence class of $f$ in $[S^1, X]$ so homotopic without regard for basepoint in the homotopy. Let $f_i : S^1 \to X$, suppose $f_2$ starts at angle $\rho$ in sequence $f_1 \cdot \hdots \cdot f_n$. Then $G : S^1 \times I \to X$ where $G(\theta, s) = (f_1 \cdot \hdots \cdot f_n)(\theta + s \rho)$. $G(\theta, 0) = (f_1 \cdot \hdots \cdot f_n)(\theta)$ and $G(\theta, 1) = (f_1 \cdot \hdots \cdot f_n)(\theta + \rho) = ((f_2 \cdot \hdots \cdot f_n) \cdots f_1)(\theta) \simeq (f_2 \cdot \dots \cdot f_n \cdot f_1)(\theta)$. Thus $[f_1 \cdot \hdots \cdot f_n]_* = [f_2 \cdots \hdots \cdot f_n \cdot f_n]_*$. This arguement can be extended to all cyclic permutations of $f_1 \cdot \hdots \cdot f_n$.                   
+    
+    Suppose $[f]$ and $[g]$ be conjugate. Thus $f \simeq h \cdot g \cdot \overline{h}$ for some $[h] \in \pi_1(X, 1)$. Thus $[f]_* = \varphi([f]) = \varphi([h \cdot g \cdot \overline{h}]) = [h \cdot g \cdot \overline{h}]_*$, by the arguement above. $\varphi([f]) = [h \cdot g \cdot \overline{h}]_* = [g \cdot h \cdot \overline{h}]_* = [g]_* = \varphi([g])$. Thus $\varphi([f]) = \varphi([g])$.     
+\end{solution}
+
+\begin{PROB}{7}\label{Problem 7.}
+    
+\end{PROB}
+\begin{solution}
+    $F : S^1 \times I \times I \to S^1 \times I$ where 
+    
+    \[F(\theta, s, t) := (\theta - 2 \pi s (1 - t), s)\]
+
+    Thus $\forall (\theta, s) \in S^1 \x I, F(\theta, s, 0) = (\theta - 2\pi s, s) = f(\theta, s)$ and $F(\theta, s, 1) = (\theta - 2 \pi (0) ,s) = (\theta, s) = 1_{S^1 \times I}(\theta, s)$. Thus $F$ is the homotopy that gives you $f \simeq 1_{S^1 \times I}$.   Furthermore, $\forall (\theta, t) \in S^1 \times I$, $F(\theta, 1, t) = (\theta - 2\pi(1 - t), 1)$ and $F(\theta, 0, t) = (\theta - 2 \pi (0) (1 - t), 0) = (\theta, s) = 1_{S^1 \times I}(\theta, s)$. Thus $F$ keeps the $S^1 \times \left\{ 0 \right\}$ stationary throughout the homotopy and varies $S^1 \times \left\{ 1 \right\}$ throughout the homotopy.        
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+    Does the Borsuk–Ulam theorem hold for the torus? In other words, for every map
+$f: S_1 \x S_1 \to R^2$ must there exist $(x,y) \in S^1 \times S^1$ such that $f(x,y)=f(-x,-y)$?
+\end{PROB}
+\begin{proof}
+    Let $i : S^1 \times S^1 \xhookrightarrow{} \R^3$, be the natural inclusion of the torus into $\R^3$ where the center of the torus is the origin. Let $\pi: \R^3 \to \R^2$ be the the projection of $\R^3$ onto $\R^2$. Let $f : S^1 \times S^1 \to \R^2$ where $f = \pi \circ i$. Then $\forall p \in S^1 \times S^1$, $f(-p) = -f(p)$ and since $f(p) \neq (0, 0)$ then $f(-p) = -f(p) \neq f(p)$ for all $p \in S^1 \times S^1$. Thus Borsuk - Ulam doesn't hold for the Torus.   
+\end{proof}
+
+\bigskip
+
+\begin{LEM}{C}
+    For $s \in \R$ and $v \in S^3$, let $P_{v, s}$ is a affine plane that pass through $sv$ with a normal vector $v$. Let $A$ be a compact subset of $\R^3$. For $v \in S^2$, $\exists P_v$ a plane in $\R^3$ that divides $A$ into two pieces of equal measure.      
+\end{LEM}
+\begin{proof}
+    For any affine plane $P_{v, x_0}$, let $P_{v, x}^+ = \bigcup_{t \geq 0} P + vt$ so everything "above" $P$.
+
+    For any affine plane $P_{v, x_0}$, let $P_{v, x}^- = \bigcup_{t \geq 0} P - vt$ so everything "below" $P$. Note $P_{v, x}^- \cup P_{v, x}^+ = \R^3$.  
+
+    $\forall v \in S^2$, let $L_v$ be the line determined by $v$. A is bounded. $P_v^+$ is a closed subspace of $\R^3$. Since $A$ is bounded, there is a $t_0, t_1 \in \R$ such that $vol(P_{v, t_0v}^+ \cap A) = 0$ and $vol(P^+_{v, t_1 v} \cap A) = vol(A)$. We can continously shift the plane along the line and the volume should change continously. By the intermediate value theorem, $\exists s \in \R \ni t_1 \leq s \leq t_0 \ni vol(P_{v, sv}^+ \cap A) = \frac{1}{2} vol(A)$ which would mean $vol(P_{v, sv}^- \cap A) = \frac{1}{2} vol(A)$. Thus $P_{v, sv}$ splits $A$ in 2 pieces of equal meaure.      
+\end{proof}
+\begin{PROB}{9}\label{Problem 9.}
+    Let $A_1, A_2, A_3$ be compact sets in $\R^3$ . Use the Borsuk-Ulam theorem to show that there is one plane $P \subeq R^3$  that simultaneously divides each $A_i$  into two pieces of equal measure.
+\end{PROB}
+\begin{solution}
+    $\forall v \in S^2$, by Lemma $B$, $\exists P_{v, s_{i, v}}$ that splits $A_i$ into peices of equal measures. $s_{i, v} - s_{j, v}$ is the distance between the planes $P_{v, s_{i, v}}$ and $P_{v, s_{j, v}}$. Additionally note that $s_{i, -v} = - s_{i, v}$.  
+    
+    
+    Let $f: S^2 \to \R^2$ take $v \to (s_{2, v} - s_{1, v}, s_{3, v} - s_{1, v})$. This is a continous map because a small deviation in a unit vector $v$  in $S^2$ will produce small deviations in the planes with normal vectors $v$ that divide $A_i$ and hence small deviations in the distances between affine planes that divide $A_{i}$, and hence small deviations in $f$. Thus $f$ is continous. By the Borsuk Ulam Theorem, theorem $\exists v \in S^3$ such that \[(s_{2, v} - s_{1, v}, s_{3, v} - s_{1, v}) = f(v) = f(-v) = (s_{1, v} - s_{2, v},  s_{1, v } - s_{3, v})\]
+
+    Thus $s_{2, v} - s_{1, v} = s_{1, v} - s_{2, v}\implies s_{1, v} - s_{2, v} = 0$ and $s_{1, v } - s_{3, v} =s_{3, v} - s_{1, v} \implies s_{3, v} - s_{1, v} = 0$. Thus the distances between the planes are 0. Thus $P_{v, s_{v, 1}}, P_{v, s_{v, 2}}, P_{v, s_{v, 3}}$ are the same plane $P$. Thus $P$ divides each $A_i$ into peices of equal measure.      
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{10}\label{Problem 10.}
+    
+\end{PROB}
+\begin{solution}
+    $\forall f \in \pi_1(X \x \left\{ y_0 \right\}, (x_0, y_0))$ and $\forall g \in \pi_1(\left\{ x_0 \right\} \x Y, (x_0, y_0))$. Let $p_X : X \times Y \to X$ and $p_Y : X \times Y \to Y$ be the standard projection maps. Let $F: I^2 \to X \times Y$ where 
+    
+    \begin{equation*}
+        F(s, t) := 
+        \begin{cases*}
+            g(2s) & \text{if $s \in [0, \frac{1}{2}t]$ } \\
+            (p_X(f(2s - t), p_Y(g(t))) & \text{if $s \in [\frac{1}{2}t, \frac{1}{2}t + \frac{1}{2}]$ } \\ 
+            g(2s - 1) & \text{if $s \in [\frac{1}{2}t + \frac{1}{2}, 1]$ }
+        \end{cases*}
+    \end{equation*}
+
+    Let's check that $F$ is well defined. When $s = \frac{1}{2}t$, 
+    
+    \[g(t) = (x_0, p_Y(g(t))) = \left(p_X\left(f\left(2 \left(\frac{1}{2}t\right) - t\right)\right), p_Y(g(t))\right) = \left(p_X\left(f(0)\right), p_Y(g(t))\right) = (x_0, p_Y(g(t))).\]
+
+    When $s = \frac{1}{2}t + \frac{1}{2}$, 
+    
+    \begin{align*}
+        (p_X(f(2(0.5 t + 0.5) - t), p_Y(g(t)))) &= (p_X(f(1), p_Y(g(t)))) \\
+        &= (x_0, p_Y(g(t)))) \\
+        &= g(t) \\
+        &= g(2 (0.5 t + 0.5) - 1)
+    \end{align*}
+
+    Let's make sure $F$ preserves endpoints, 
+    
+    \[F(0, t) = g(0) = (x_0, y_0)\]
+    
+    and \[F(1, t) = g(1) = (x_0, y_0)\]. 
+    
+    $\forall s \in I$,
+    
+    \begin{align*}
+        F(s, 0) &= 
+        \begin{cases*}
+            g(2s) & \text{if $s \in [0, 0]$ } \\
+            (p_X(f(2s - 0), p_Y(g(0))) & \text{if $s \in [0, \frac{1}{2}]$ } \\ 
+            g(2s - 1) & \text{if $s \in [\frac{1}{2}, 1]$ }
+        \end{cases*} \\
+        &= \begin{cases*}
+            (x_0, y_0) & \text{if $s \in [0, 0]$ } \\
+        (p_X(f(2s), y_0)) & \text{if $s \in [0, \frac{1}{2}]$ } \\ 
+        g(2s - 1) & \text{if $s \in [\frac{1}{2}, 1]$ }
+        \end{cases*} \\
+        &= \begin{cases}
+        f(2s) & \text{if $s \in [0, \frac{1}{2}]$ } \\ 
+        g(2s - 1) & \text{if $s \in [\frac{1}{2}, 1]$ }
+        \end{cases}
+    \end{align*}
+
+    and
+
+    \begin{align*}
+        F(s, 1) &= 
+        \begin{cases*}
+            g(2s) & \text{if $s \in [0, \frac{1}{2}]$ } \\
+            (p_X(f(2s - 1), p_Y(g(1)))) & \text{if $s \in [\frac{1}{2}, 1]$ } \\ 
+            g(2s - 1) & \text{if $s \in [1, 1]$ }
+        \end{cases*} \\
+        &= \begin{cases*}
+            g(2s) & \text{if $s \in [0, \frac{1}{2}]$ } \\
+        (p_X(f(2s - 1), y_0)) & \text{if $s \in [\frac{1}{2}, 1]$ } \\ 
+        (x_0, y_0) & \text{if $s \in [1, 1]$ }
+        \end{cases*} \\
+        &= \begin{cases}
+            g(2s) & \text{if $s \in [0, \frac{1}{2}]$ } \\
+        f(2s - 1) & \text{if $s \in [\frac{1}{2}, 1]$ } \\ 
+        \end{cases}
+    \end{align*}
+
+    Thus F is the homotopy that gives $f \cdot g = g \cdot f$. Thus $[f] [g] = [fg] = [gf] = [g] [f]$.   
+
+\end{solution}
+
+
+\end{document}

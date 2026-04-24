@@ -1,0 +1,165 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Frobenius 2.5}
+\author{Arham Lodha}%put your name here
+\date{February 18, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    
+\end{PROB}
+\begin{proof}
+    Let $X = \left\{ x_i | i \in \N_n \right\}$. $\alpha := Hom_{sets}(X, F) \to F^{|X|}$ where $f \to \begin{bmatrix}
+        f(x_i) \\ \vdots \\ f(x_n)
+    \end{bmatrix}$. Let $\beta := F^{|X|} \to Hom_{sets}(X, F)$ where $(f_1, \dots, f_n) \to [x_i \to x_i]$. $\forall (x_1, \dots, x_n) \in F^{|Q|}$, $(\alpha \circ \beta)(x_1, \dots, x_n) = \alpha([x_i \to f_i]) = (f_1, \dots, f_n)$. $\forall f \in Hom_{sets}(X, F)$, $(\beta \circ \alpha)(f) = \beta((f(X_1), \dots, f(X_n))) = [x_i \to f(x_i)] = f$. Thus $\alpha$ is a bijection. $\forall f, g \in Hom_{sets}(X, F)$, $\forall a, b \in F$, $\alpha(af + bg) = ((af + bg)(x_1), \dots, (af + bg)(x_n)) = a(f(x_1), \dots, f(x_n)) + b(g(x_1), \dots, g(x_n)).$ Thus it is vector of $|x|$ elements thus $\dim Hom_{sets}(X,F) = |X|$. Thus $Hom_{sets}(X, F)$ is a vectorspace. 
+    
+    $\forall x \in X \exists \delta_{x} \in C^{x} \ni \delta_x(x) = 1$ and $\forall y \in X \ni x \neq y$, $\delta_x(y) = 0$. Let $a_x \in \C$, suppose $f = \sum_{x \in X} a_x \delta_x = 0$. Then $f(y) = a_y = 0  \implies a_x = 0 \forall x\in X \implies \left\{ \delta \right\}_{x \in X}$ is linearly independent. There are $\left\{ \delta \right\}_{x \in X} = |X| \implies \dim span \left\{ \delta \right\}_{x \in X} = |X| = \dim \C^{X} \implies \left\{ \delta \right\}_{x \in X}$ is a basis.
+    
+    $\forall f \in \C^{X}$, $\forall y \in X$, $(\sum_{x \in X} f(x) \delta_x)(y) = \sum_{x \in X} f(x) \delta_x(y) = f(y)\delta_y(y) = f(y) \implies \sum_{x \in X} f(x) \delta_x = f$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+        
+\end{PROB}
+\begin{proof}
+    G has the following action on $X^C$, $g(f) = fg^{-1}$. $\forall g, h \in G, (gh)(f) = f(gh)^{-1} = fh^{-1}g^{-1} = (h \cdot f)g^{-1} = g \cdot (h \cdot f)$. $\forall x \in X$, $(g \cdot \delta_x)(gx) = \delta_x g^{-1} g x = \delta_x(x) = 1$ and $\forall y \in X \ni y \neq gx, (g \cdot \delta_x)(y) = \delta_x(g^{-1} y) = 0 \implies (g \cdot \delta_x) = \delta_{gx}$.
+    
+    The representations which map to the permutation matrices in $GL(\C^X)$ for some set $X$ are permutation representations.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    
+\end{PROB}
+\begin{proof}
+    Let G act on X, thus the representation is a permutation representation. Thus $\forall g \in G$, $g \to $ a permutation matrix. The trace of a matrix is the sum of its diagonal entries. Permutation matrices have 1 and only 1, nonzero which is 1 per row / column. Let $A$ be a permutation matrix, if $A_{i, i}$ is either 1 or 0. If $A_{i, i} = 0$ then it means $A$ doesn't fix $e_i$ and takes $e_i \to A_i$ . If $A_{i, i} = 1$, then $e_i$ is fixed. Thus $tr(A)$ calculates how many basis vectors are fixed by the permutation matrix. Thus $tr_{X}$ calculates how many basis elements are fixed by a particular element of G.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    
+\end{PROB}
+\begin{proof}
+    By the above, $\forall g, h \in G$, $(g \cdot \delta_h) = \delta_{gh}$. $\forall h \in G$, $gh = h \implies g =  ghh^{-1}= h h^{-1} = e$. Thus $\forall g \in G \ni g \neq e$, $g$ fixes no elements of $G$ with the action of left multiplication. Thus $tr_(\C^{G})(g) = 0$. However $e$ fixes everything, so $tr_(\C^{G})(e) = |G|$. Let $V$ be a representation. Thus $\angles{tr_V, tr_{\C^{G}}} = \frac{1}{|G|} \sum_{g \in G} tr_{V}(g) \overline{tr_{\C^{G}}(g)} =\frac{1}{|G|} \sum_{g \in G} tr_{V}(g) \overline{\delta_{e}(g)} = \frac{1}{|G|} tr_{V}(1) |G| = \dim V$. Let $n$ be the number of irreducible representations of $G$. 
+    
+    By previous homework, $C^{G} = \bigoplus_{i = 1} V_i^{m_i}$. By previous homework, $m_i = \angles{tr_{V_i}, tr_{C^{G}}} = \dim V_i$, by the above. Thus $C^{G} = \bigoplus_{i = 1} V_i^{\dim V_i}$. Thus $|G| = \dim C^{G} = \sum_{i = 1}^{n} \dim V_i \dim V_i = \sum_{i = 1}^{n} \left(\dim V_i\right)^2$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5a}\label{Problem 5a.}
+    
+\end{PROB}
+\begin{proof}
+    $\forall u \in [G, G]$ $\forall g \in G$, $gug^{-1} = u u^{-1} g^{-1} u g = u(u^{-1} g^{-1} u g ) = u [u , g]$ and $[u, g] \in [G, G] \implies u[u, g] \in [G , G] \implies [G, G] \triangleleft G$.    
+\end{proof}
+
+\begin{PROB}{5b}\label{Problem 5b.}
+    
+\end{PROB}
+\begin{proof}
+    Let $N \trianglelefteq G \ni G / N$ is abelian. $\forall x, y \in G, xNyN = xyN = yxN = yNxN$ because $gN = Ng$ since $N \trianglelefteq G$ from last year. Thus $xyN = yxN \iff x^{-1}y^{-1}xyN = x^{-1}y^{-1}yxN = N \implies x^{-1}y^{-1}xy = [x, y] \in N$. All the iff are reversible, thus $y^{-1}x^{-1}yx \in [G, G] \implies y^{-1}x^{-1}yx[G, G'] = [G, G'] \implies yx[G, G'] = xy[G, G'] \implies y[G, G']x[G, G'] = x[G, G']y[G, G'] \implies [G, G']$ is abelian.   
+    
+    
+    However the statement also implies $[G, G'] \leq N$, for all normal subgroup $N$ where $G / N$ is abelian. Thus $G \to G / N$ factors through $G \to G / [G , G']$ since $[G, G'] \leq N$. By the universal property, $\exists ! h: G / [G, G'] \to G / N$ homomorphism such that $G / N$ is $[G \to G / [G, G']] \circ h$.        
+    
+    Let $\left\{ N_i \right\}$ be all the normal subgroups of $G$ such that $G / N_i$ is abelian. Since $[G , G'] \leq N_i$ for all $N_i$. Then $[G, G'] \leq \bigcap N_i$. Since $[G, G'] = N_i$ for some i, and if there was a $N \leq [G, G']$ then $[G, G'] \leq N \implies [G, G'] = N$. Thus $\bigcap N_i \leq [G, G'] \implies \bigcap N_i = [G, G']$           
+    Thus $[G, G']$ is the smallest normal subgroup for which $G / N$ is abelian. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Show that the one dimensional reps of G are exactly the same as the one dimensional reps of $G/[G,G]$, and that the number of them is $|G/[G,G]|$.
+\end{PROB}
+\begin{proof}
+    Let $\alpha: G \to GL(V)$ where V is a 1 dimensional representation of $G$. $GL(V)$ is abelian because it is just $F^*$. Thus $\alpha$ factors through the map $G \to G / [G, G']$ by the above. Thus $\alpha$ factors through the representation, $\beta: G / [G, G'] \to GL(V)$. By a previous homework, all irreducible representations of abelian groups are 1 dimensional. Let $k$ be the number of irreducible reps of $G / [G , G']$.  Thus $F^{G / [G, G']} = V_1 \oplus \dots \oplus V_k$ and since $\dim V_i = 1$, by teh above $|G / [G, G']| = \dim F^{G / [G, G']} = \sum_{i = 1}^{k} 1  =k \implies k = |G / G[G, G']|$           
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+\end{PROB}
+\begin{proof}
+    For a $\C[G]$ module $V$, it is a module relative to $\C[G]$ and a vectorspace relative to $\C$. $G$ acts linearly on both settings. If $V$ is viewed relative to $\C[G]$ it is a module if it is viewed relative to $\C$ it is a representation. 
+    
+    More formally, let $V$ be a $\C[G]$ module and let $\forall g, h \in G$ and $\forall v, w \in V$ and $\forall c \in \C$. Formally define $\phi(g): V \to V$ where $v \to g \cdot v$ 
+    
+    $\phi(g)(v  +cw) = g\cdot(v + cw) = g\cdot v + g\cdot cw  = g \cdot v + c g \cdot w$, $\phi(g)$ is linear. Because $\phi(1)$ is the identity map and $\phi(g)(\phi(g^{-1}) v) = g \cdot g^{-1} \cdot v=  v$ thus $\phi(g)$ is invertible. Thus $\phi : G \to GL(V)$ and thus is a representation. Similarly given a representation, $\phi$, we can do the opposite, take a $f: G \to \C$ and then do $f \cdot v = \sum_{g \in G} f(g) \phi(g) v  = \sum_{g \in G} f(g) g v $, thus we have created a $\C[G]$ module. 
+    
+    $\forall z \in \C(G) , \exists f \in Hom_{sets}(G, \C) \ni z = \sum_{g \in G} f(g) * g$. Let $V$ be a G-invariant subspace of any G-rep. $z * V = (\sum_{g \in G} f(g) * g) * V = \sum_{g \in G} f(g) * gV \subseteq \sum_{g \in G} f(g) * V$, by $G$-invarance. Furthermore, by the closure under addition and multiplication properties of subspaces, $z * V \subseteq \sum_{g \in G} f(g) * V \subseteq V$. Thus $z$ preserves the G-invariant subspaces of any G-rep.
+    
+    Suppose $f(g)$ is a class function, then $\sum_{g \in G} f(g) * g = \sum_{g' \in G} f(hg'h^{-1}) * hg'h^{-1}$ $\forall h \in G$ , by properties of class functions and reindexing of G, due to conjugation creating orbits. Thus $\sum_{g \in G} f(g) * g = h\sum_{g' \in G} f(g') * g' h^{-1} \implies zh  = (\sum_{g \in G} f(g) * g)h = h\sum_{g' \in G} f(g') * g' = hz$. Thus $z$ commutes with every element of $G$. $\forall y \in \C[G], y = \sum_{g \in G} c(g) g $ for some $c \in Hom_{sets}(G, \C)$. $yz = (\sum_{g \in G} c(g) g)(\sum_{g \in G} f(g) * g) = \sum_{g \in G}(c(g) g (\sum_{h \in G} f(h) * h)) =\sum_{g \in G}(c(g) (\sum_{h \in G} f(h) * h) g) = \sum_{g \in G}((\sum_{h \in G} f(h) * h) c(g)  g)$, by the above and the fact that $c(g) \in \C$ for all $g \in G$  and thus commutes Thus $yz = (\sum_{h \in G} f(h) * h)\sum_{g \in G} c(g)  g = zy$. Thus $z \in Z(\C[G]).$. 
+    
+    Suppose, $z \in Z(\C[G])$. Then $\forall h \in G$, $h(\sum_{g \in G} f(g) * g) = (\sum_{g \in G} f(g) * g)h \implies h(\sum_{g \in G} f(g) * g)h^{-1}= \sum_{g \in G} f(g) * g \implies \sum_{g \in G} f(g) * hgh^{-1} = \sum_{g \in G} f(g) * g$. $\forall g \in G$, let $g' = h^{-1}gh$, thus $g = hg'h^{-1}$. Thus $\sum_{g \in G} f(g) * g = \sum_{g' \in G} f(hg'h^{-1}) * hg'h^{-1} = \sum_{g \in G} f(g) * hgh^{-1}$. Thus $\sum_{g \in G} [f(g) - f(hgh^{-1})] * hgh^{-1} = 0$. Since all the elements of $G$ are basis elements of $\C[G]$ they are linearly independent so $\sum_{g \in G} [f(g) - f(hgh^{-1})] * hgh^{-1} = 0 \iff f(g) - f(hgh^{-1}) = 0 \implies f(g) = f(hgh^{-1})$. Thus $f \in Hom_{sets}(G / G, \C)$ and is a class function.              
+\end{proof}
+
+\end{document}

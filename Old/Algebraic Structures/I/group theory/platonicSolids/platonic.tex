@@ -1,0 +1,186 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Platonic Solids}
+\author{Arham Lodha}%put your name here
+\date{October 24, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let X be a regular tetrahedron, in $R^3$, G the rigid transformations of $R^3$ that preserve X. If we choose coordinates so that 0 is the center of mass of X, explain why G is a subgroup of $O(3)$. Let S be subgroups of orientation preserving symmetries of X (ie the rotations, $G \cap SO(3)$). Let G act on $Verts(X)$. This gives a homomorphism $G \to S_4$. Explain why it is injective. Explain why the image is a transitive subgroup (ie G has only one orbit of vertices), and why $G^v$ is canonically $D_3$. Conclude G is isomorphic to $S_4$.
+\end{PROB}
+\begin{claim}{1a}
+    G is a subgroup of $O(3)$
+\end{claim}
+\begin{proof}
+    By definition of G, all transformations fix the tetrahedron X and thus they fix its center of mass, the origin. Thus $G \subset O(3)$ which are all rigid transformations which fix the origin. Let $x, y \in G$. $I$ fixes everything and thus fixes X. $y^{-1}$ must also preserve X. Thus $x \circ y^{-1}$ preserves X since $y^{-1}_*(X) = X$ and then $x_*(X) = X$. Then $(x \circ y^{-1})_*(X) = X$. Thus $x \circ y^{-1} \in G$. Thus G is a subgroup of $O(n)$
+\end{proof}
+
+\begin{claim}{1b}
+    The homomorphism $f: G \to S_4$ is injective.
+\end{claim}
+\begin{proof}
+    G acts on the $Vert(X)$ by mapping vertices to vertices s.t no two vertices get mapped to the same thing. Thus $\forall g \in Vert(X)$ g is a permutation of vertices. Let the homomorphism $f$ take the $g$ to its corresponding permutation of vertices. Let $k \in \ker f$. $\forall v \in Vert(V)$, $f(k) = e$. Thus K fixes every vertex and the origin (by definition). Thus it fixes the vertex from 0 to v. The set of vectors spans $\R^3$ so since the four vectors are fixed, all of $\R^3$ is fixed and the only possibility which does this is $k = I$. Thus the only element of $\ker f$ is $I$ thus $f$ is injective.
+\end{proof}
+
+\begin{claim}{1c}
+    $f_*(G)$ is a transitive subgroup
+\end{claim}
+\begin{proof}
+    Take any face of $X$. Let the center of the face be $C$. Let $\vec{C}$ be the vector from $O$ to $C$. Let the line spanned by this vector be the axis of rotation. $\rho_{\vec{C}, k\pi/3}$ preserves X and fixes the orgin so $\rho_{\vec{C}, k\pi/3} \in G$. This rotation by $k\pi/3$ for $k = 0, 1, 2$ takes any vertex on the face to any other vertex on the face. Do this for any other face and compose the rotation thus you can transform any vertex to any other vertex of X. Thu $f_*(G)$ is a transitive subgroup.
+\end{proof}
+
+\begin{claim}{1d}
+    $\forall v \in Verts(X)$, $G^v \cong D_3$
+\end{claim}
+\begin{proof}
+    By definition, $G^v = \{g \in G : gv = g\}$. 
+
+    \begin{enumerate}{}
+        \item Rotation: Let $\vec{v}$ be the vector which goes through v and O. Let $L = span(\vec{v})$. Thus it is any rotation in S which has a axis of rotation (fixes) L. Thus it preserves the face of X which is normal to L. Thus it is any rotation which preserves a face of X thus any element of $C_3$. Thus $C_3 \subset G^v$.
+        \item Reflection: If $\vec{v}$ is fixed, then its normal face in X should be preserved. Take any line $L$ in the face which passes through a vertex $w$ in the plane and the center of the face $C$. Then take the plane spanned by the line and the $\vec{v}$. Do a Reflection across the plane. All points on the plane should be fixed and $v$ is fixed. Do this for all points. So we get all reflections which preserve a triangle. Thus $D_3/C_3$.
+    \end{enumerate}
+
+    Thus we have all elements of $D_3$. Thus $G^v \cong D_3$.
+\end{proof}
+
+\begin{claim}{1e}
+    $G \cong S_4$
+\end{claim}
+\begin{proof}
+    By Orbit Stablizer Theorem, $|G| = |G^v| |Gv| = 6 * 4 = 24$. If $G \subseteq D_4$ and $|G| = 24$. Thus $G \cong S_4$.
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let A be an index 2 subgroup of a group G. Explain why if g, h are NOT in A, then gh is. Show A is normal. Now let A be an index 2 subgroup of $S_n$. Explain why it cannot contain a 2 cycle. Explain why it contains any product of an even number of 2 cycles. Explain why $A = A_n$. Conclude in 1 that S = $A_4$.
+\end{PROB}
+\begin{claim}{2a}
+    $|G/A| = 2 \implies A \triangleleft G$
+\end{claim}
+\begin{proof}
+    $\forall g \in A$, $gA = A = Ag$. $\forall g \not \in A$. Since left cosets are disjont (or equal) and their union is $G$. Then $gA = G \setminus A$. Similarly since right cosets are disjont or equal and their union is G, $Ag = G \setminus A$. Thus $gA = G \setminus A = Ag$. Thus forall $g \in G$, $gA = Ag$. Thus A is normal.
+\end{proof}
+\begin{claim}{2b}
+    Let A be an index 2 subgroup of a group G. Explain why if g, h are NOT in A, then gh is.
+\end{claim}
+\begin{proof}
+    If A is a index 2 subgroup of a group G. Thus $G/A = \{A, G \setminus A\}$. Suppose $g, h \not \in A$. Then $g, h \in G \setminus A$ thus $h^{-1} \in G \setminus A$. Thus $g, h \in h^{-1}A$. Thus there exists a $a \in A$ s.t $g = h^{-1}a$ thus $gh = h^{-1}ah \in A$ since $A \triangleright G$ by the previous theorem. Thus $\forall g, h \not \in A$ $gh \in A$. 
+\end{proof}
+\begin{claim}{2c}
+    $\forall A \leq G \ni |S_n/A| = 2 \implies A$ contains no two cycle
+\end{claim}
+\begin{proof}
+    By claim 2a, $A \triangleleft G$.
+    Assume the contrary, A contains a two cycle $(i,j)$. $\forall \sigma \in S_n$, $\sigma(i, j)\sigma^{-1} = (\sigma(i), \sigma(j))$, thus all two cycles are conjugations of each other. Since A is normal $(\sigma(i), \sigma(j)) \in A$. However if we get all two cycles we get generate $S_n$. Thus $A \cong S_n$. However since $|S_n/A| = 2$ this forms a contradiction. Thus $A$ contains no two cycle.
+\end{proof}
+\begin{claim}{2d}
+    $A = A_n$
+\end{claim}
+\begin{proof}
+    Since A contains no two cycles but by claim 2b it contains the product of two things which it doesn't contain. A must contain all products of a pair of 2 cycle. Since all product of a pair of two cycles are in A. By closure A must also contain products of the products of pairs. Thus A must contain all permutations which are the product of $2n$ 2 cycles $n \in \N$. Thus A must contain all even permutations. Thus $A = A_n$ by definition of $A_n$. 
+\end{proof}
+\begin{claim}{2e}
+    $S \cong A_3$. S is from problem 1
+\end{claim}
+\begin{proof}
+    Since $G \cong S_4$ and $|S_4/S| = 2$. Thus $S \cong A_3$ by the claim 2d.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Do the same as 1 for X = regular cube. Work first with S (which I think is usually called O, the octahedral group). Show $|S| = 24$. $|G| = 48$. Show G acts on the 4 pairs of opposite vertices. This gives a map $S \to S_4$, which we want to show is an isomorphism. Explain why its enough to show its injective. Let g in the kernel. Explain why every vertex is an eigenvector. Using our results on eigenvectors of rotations conclude g is trivial.  Conclude $S = S_4$. Explain why $-I$ is in G. Conclude that $G = S_4 \times \mu_2$.  
+\end{PROB}
+\begin{claim}{3a}
+    $|S| = 24$
+\end{claim}
+\begin{proof}
+    Let $Diag(X)$ be the diagonals of the cube X. $G \subset O(3)$ because rigid transfom which fixes origin. $G \subseteq O(3) \subseteq Rig(\R^3)$ all elements preserve distances. Let $v \in Verts(X)$, $\vec{v}$ is the vector from $\textbf{O}$ to $v$. The distance thus the distance $||v + v||$ must be preserved. Thus it preserves diagon vertices. Thus the $Diag(X)$ is permuted by $G$. Thus the homomorphism $f: S \to S_4$ takes a transform to the corresponding permutation of diagonals. $\forall K \in \ker f$, $f(K) = ()$ thus the transformation preserves all the diagonals. Thus the vertex v can be mapped to $\pm v$. 
+    
+    
+    Assume the contrary, $\forall v \in Verts(X)$, $Kv = -v$. That means $\forall v, \vec{v} \in V_{-1}(K)$. This means there is no axis of rotation which gets fixed. This forms a contradiction since $K \not \in S$ since K must have a $V_1(K)$ which isn't trivial. Thus not all vertices get swapped. 
+
+    Thus there exists $1$ a 1 eigenvector.
+
+    If there exists a $v \in V_{-1}(K)$. Then the coplanar points to it are not the diagonal. Thus K doesn't preserve the diagonal and thus a contradiction forms. Thus K doesn't fix the diagonals. Thus K must be I.
+
+    Thus $K = e$. Thus f is injective. Let $F(X)$ be the faces of a cube X. $\forall F \in F(X)$. Take the center of $f$, $C$. Let $\vec{c}$ be the vector from $O$ to $C$. If the normal vector to the center of the face is preserved then the face is preserved. So the rotations in $S$ which fix $\vec{c}$ preserve the face F. The rotations are $\rho_{\vec{c}, k\pi/4}$ and thus $C_4$. Thus $|S^F| = 4$. For all faces $\rho_{\vec{c}, k\pi/4}$, maps an adjacent faces of F to a another adjacent face of F. Thus all the adjacent faces for F are able to be transformed into one another. Thus for all $F$ if we compose these rotations, we would able to transform any face to any other face/ Thus $|S \cdot F| = 6$. By the orbit Stablizer theorem, $|S| = |S\cdot F||S^F| = 24$. Thus since $S \subseteq S_4$ and $|S| = 24 = 4! = |S_4|$ then $S \cong S_4$. Thus $|G| = |S|[G:S] = 24 * 2 = 48$ Let $g: G \to S_4$ be a homomorphism. $\ker g = \{I, -I\}$ because -I fixes no vertex and sends $v \to -v$ thus fixing the diagonal but swapping the vertices with its opposite. Thus $G \cong S_4 \times \mu_2$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Now take X the 12-sided dice (dodecahedron). Show $|S| = 60$.  Find a natural equivalence relation on the 30 edges, compatible with G, with each equivalence class having 6 members.  Construct from this a homomorphism $G \to S_5$. Its a but rough to show $S \to S_5$ is injective, but explain why this would imply $S = S_5$, and $G = S_5 \times \mu_2$.  We will later come back to this and show the map $S \to S_5$ is injective (it will follow once we know the orders of the conjugacy classes in S). 
+\end{PROB}
+\begin{proof}
+    Let $F(X)$ be the faces of the dodecahedron. $\forall F \in F(X)$. Let $\vec{c}$ be the vector to the center of $F$. The rotations which fix the center and the origin must fix the face its normal to in otherwords F. Thus it is all rotations of a pentagon, which is the shape of the F such that the axis of rotation is $\vec{c}$. Thus $|S^F| = 5$. Then $\forall k \in 0, \ldots, 4, \rho_{\vec{c}, \pi/5}$, transform each of the adjacent face $F_1$ to the adjacent face $F_2$ such that $F, F_1, F_2$ share a vertex. By composing the action we can reach all adjacent faces of F. Then by choosing a different face to fix we can get a different set of faces which intersect with our first set. Thus $\forall F_1, F_2 \in F(X)$, $\exists g \in S$ s.t $gF_1 = F_2$ thus only 1 orbit. Thus $|S \cdots F| = 12$. Thus by orbit Stablizer theorem, $|S| = |S^F||S \cdot F| = 60$. 
+
+
+    Define a equivalence relation on edges of X. Two edges are equivalent if: they are opposites (i.e let $M$ be the vector from midpoint of a edge to the origin and if the other edges midpoint is $-M$), if the vectors from the origin to the midpoints of each edge is orthogonal. Thus in an equivalence class $[e]$ it will have the pairs $e, -e$. Since any vector in $\R^3$ has 2 other orthogonal vectors two it, there will be $2$ vectors orthogonal to the vector $\vec{M}$ such that they intersect the edges of X at the midpoints. Thus there will be 2 more pairs of edges. If distinct equivalence classes were not disjoint it meant that their was a nonvector which was orthogonal to more than 2 vectors which is impossible. Thus the equivalence class partition the $E(X)$. Thus the transformations in S are just permutations of the order of the equivalence classes. Thus $S \to S_5$ is injective and thus $S \cong S_5$. Since $[G : S] = 2$ and $-I$ which swaps the opposite edges in $G$ then $G \cong S_5 \times \mu_2$
+\end{proof}
+\end{document}

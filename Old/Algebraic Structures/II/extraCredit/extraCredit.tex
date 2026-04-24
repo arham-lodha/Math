@@ -1,0 +1,201 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Extra Credit Assignment}
+\author{Arham Lodha}%put your name here
+\date{May 01, 2024}%enter the due date here
+\maketitle
+
+\begin{claim}{1}\label{Claim 1.}
+    Let $\Omega$ be a open set that contains the closure of the disk $D_R$ and suppose $f$ is holomorphic on $\Omega$, $f(0) \neq 0$, and $f$ vanishes nowhere on $C_R$. If $z_1, \dots, z_N$ are the zeros of $f$ inside the disks (counted with multiplicities, ie roots can be repeated), then, 
+    
+    \begin{equation}
+        \log\abs{f(0)} = \sum_{k = 1}^{N} \log\left(\frac{\abs{z_k}}{R}\right) + \frac{1}{2 \pi} \int_{0}^{2\pi} \log\abs{f(Re^{i \theta})} d \theta
+    \end{equation}
+\end{claim}
+\begin{proof}
+    There are 4 steps to solve this theorem. 
+
+    \noindent\textbf{Step 1}: Note that $\forall f_1, f_2$ which satify the hypothesis, $f_1 f_2$ satisfy the hypothesis. Moreover if $f_1$ and $f_2$ satisfy the conclusion of the theorem, $f_1 f_2$ also satisfies the conclusion because $\abs{f_1(x)}, \abs{f_2(x)} \in \R$ and $\log(x y) = \log(x) + \log(y)$ for all $x, y \in \R^+$ and the fact that the zeros of $f_1f_2$ are the union of the zeros of $f_1$ and $f_2$. So we can reduce to a set of base functions. 
+    
+    \noindent\textbf{Step 2}: The function: 
+    
+    \begin{equation*}
+        g(z) = \frac{f(z)}{\prod_{i = 1}^{N}(z - z_i)}
+    \end{equation*}
+
+    is initially defined on $\Omega - \left\{ z_1, \dots, z_n \right\}$, and is bounded near each $z_i$. Thus $z_i$ is a removable singularity of $g(z)$. One can define $g(z)$ at $z_i$ to be the limit of $g(z)$ at $z_i$. Thus you can write, 
+
+    \begin{align*}
+        f(z) = \prod_{i = 1}^{N}(z - z_i) g(z)
+    \end{align*}
+
+    where $g(z)$ is holomorphic on $\Omega$ and nowhere vanishing in the closure of $D_R$. Thus it suffices to prove Jensen's formula for functions like $g(z)$, ie holomorphic on $\Omega$ and nowhere vanishing on closure of $D_R$, and functions of the form $(z - z_j)$. 
+    
+    \noindent\textbf{Step 3:} Since $g$ is nonvansishing on $D_r$ which simply connected and open, by Theorem 6.2 in Chapter 3 of Stein, $\exists h = \log(g)$ or equivalently $g(x) = e^{h(x)}$. 
+    
+    Let $h(z) = u(z) + iv(z)$ 
+
+    \begin{align*}
+        \abs{g(z)} &= \abs{e^{h(z)}} \\
+        &= \abs{e^{u(z) + i v(z)}} \\
+        &= \abs{e^{u(z)}e^{iv(z)}} \\
+        &= e^{u(z)}
+    \end{align*}
+
+    Thus $\log\abs{g(z)} = u(z)$. By the mean value property (Corollary 7.3 in Chapter 2)
+    
+    \begin{align*}
+        \log\abs{g(0)} = u(0) &= \frac{1}{2 \pi} \int_{0}^{2 \pi} u(Re^{i \theta}) d \theta \\
+        &= \frac{1}{2 \pi} \int_{0}^{2 \pi} \log\abs{g(Re^{i \theta})} d \theta
+    \end{align*}
+
+    Since $g(z)$ is nonvanishing on $D_R$ it has no zeros in $D_R$ so the first summation is 0 and $g$ satisfies the theorem. 
+    
+    \textbf{Step 4}: Now that we proved that for $g(z)$ nonvanishing on $D_r$, we now reduce to the case of $z - a$ for $a \in D_r$.
+    
+
+    Since $\abs{a} / R \in \R \implies \log\left(\frac{\abs{a}}{R}\right) = \log\abs{a} - \log{R}$. Similarly $\log\abs{Re^{i \theta} - a} = \log\abs{R(e^{i \theta} - \frac{a}{R})} = \log R + \log\abs{e^{i \theta} - \frac{a}{R}}$. Let $b = \frac{a}{R}$. Note $\abs{b} = \frac{\abs{a}}{R} < 1$.  Thus $\log\abs{Re^{i \theta} - a} = \log{R} - \log\abs{e^{i \theta} - b}$
+    
+    Thus, 
+
+    \begin{align*}
+        \log\left(\frac{\abs{a}}{R}\right) + \frac{1}{2 \pi} \int_{0}^{2 \pi} \log\abs{Re^{i \theta} - a} d \theta &= \log\abs{a} - \log{R} + \frac{1}{2 \pi}\int_{0}^{2 \pi} \left[\log{R} - \log\abs{e^{i \theta} - b}\right] d \theta \\
+        &= \log\abs{a} + \frac{1}{2 \pi}\int_{0}^{2 \pi} \log\abs{e^{i \theta} - b} d \theta \\
+        &= \log\abs{a} + \frac{1}{2 \pi}\int_{0}^{2 \pi} \log\abs{e^{i \theta} (1 - e^{-i \theta} b)} d \theta \\ 
+        &= \log\abs{a} + \frac{1}{2 \pi}\int_{0}^{2 \pi} \log\abs{1 - e^{i \theta} b} d \theta \\
+    \end{align*}
+
+    In Homework 3 where we solved Exercise 11b from Chapter 3 in Stein, we proved that when $\abs{b} < 1$, $\int_{0}^{2 \pi} \log\abs{1 - e^{i \theta} b} d \theta = 0$ 
+
+    Thus, 
+
+    \begin{align*}
+        \log\left(\frac{\abs{a}}{R}\right) + \frac{1}{2 \pi} \int_{0}^{2 \pi} \log\abs{Re^{i \theta} - a} d \theta &= \log\abs{a} = \log(\abs{0 - a})
+    \end{align*}
+
+    Thus theorem applies for $w - a$. By step 2, since the theorem applies for $g$ and $w -a$ it applies for all functions which are the product which end up being all valid $f$.    
+\end{proof}
+
+\bigskip
+
+$\Theta(z \mid \tau) = \sum_{n \in \Z} e^{\pi i n^2 \tau} e^{2\pi i n z}$ and $\Pi(z \mid \tau) = \prod_{n = 1}^{\infty}(1 - q^{2n})(1 + q^{2n - 1}e^{2 \pi i z})(1 + q^{2 n - 1}e^{-2 \pi i z})$ where $q = e^{2 \pi i \tau}$ 
+
+\begin{claim}{2}\label{Claim 2.}
+    For all $z \in \C$ and $\tau \in \mathbb{H}$ we have the identity $\Theta(z \mid \tau) = \Pi(z \mid \tau)$   
+\end{claim}
+\begin{proof}
+    Fix $\tau \in \mathbb{H}$ and let $\Theta(z) = \Theta(z \mid \tau)$ and let $\Pi(z) = \Pi(z \mid \tau)$.
+
+    Look at the funciton $F(z) = \Theta(z) / \Pi(z)$. By proposition 1.1 and 1.2 in Chapter 10, $\Theta(z)$ and $\Pi(z)$ are entire with roots at $\frac{1}{2} + \frac{\tau}{2} + n + m \tau$ for $n, m \in \Z$ and all roots are simple zeros. Thus $F(z)$ is entire. By Proposition 1.1 and 1.2 in Chapter 10, $\Theta(z)$ and $\Pi(z)$ have periods of $1$ and $\tau$. Thus $F$ is constant, by Louiville's Theorem. Let $c = F(z)$. Note $c$ is dependent on $\tau$. 
+    
+    We want to show that $c = 1$.
+    
+    Lets put $z = \frac{1}{2}$ into $\Theta(z) = c \Pi(z)$. 
+
+    \begin{align*}
+        \sum_{n \in \Z} e^{\pi i n^2 \tau} e^{\pi i n} &= c\prod_{n = 1}^{\infty}(1 - q^{2n})(1 + q^{2n - 1}e^{\pi i})(1 + q^{2 n - 1}e^{-\pi i})\\
+        =\sum_{n \in \Z} (-1)^n q^{n^2} &=  c\prod_{n = 1}^{\infty}(1 - q^{2n})(1 - q^{2n - 1})(1 - q^{2 n - 1}) \\
+        &=c\prod_{n = 1}^{\infty}(1 - q^n)(1 - q^{2 n - 1}) \text{ (Multiply neighboring values)}
+    \end{align*}
+
+    thus, 
+
+    \begin{equation*}
+        c = \frac{\sum_{n \in \Z} (-1)^n q^{n^2}}{\prod_{n = 1}^{\infty}(1 - q^n)(1 - q^{2 n - 1})}
+    \end{equation*} 
+
+    Evaluate at $z = \frac{1}{4}$,  
+
+    \begin{equation*}
+        \Theta\left(\frac{1}{4}\right) = \sum_{n \in \Z} e^{\pi i n^2 \tau} e^{\pi i \frac{n}{2}} =\sum_{n \in \Z} q^{n^2} i^n 
+    \end{equation*}
+
+    Since $\frac{1}{i} = -i$, all odd terms are canceled,
+
+    \begin{equation*}
+        \Theta\left(\frac{1}{4}\right) =\sum_{n \in \Z} q^{4n^2} (-1)^n 
+    \end{equation*}
+    
+    \begin{align*}
+        \Pi(\frac{1}{4}) &= \prod_{n = 1}^{\infty}(1 - q^{2n})(1 + iq^{2n - 1})(1 - iq^{2 n - 1})\\
+        &=  c\prod_{n = 1}^{\infty}(1 - q^{2n})(1 + q^{4 n - 2}) \\
+        &=c\prod_{m = 1}^{\infty}(1 - q^{4m})(1 - q^{8 n - 4})
+    \end{align*}
+
+    There are 2 cases here $2m = 4n - 4$ and $2m = 4n - 2$. 
+    
+    thus
+    \begin{align*}
+        c = \frac{\sum_{n \in \Z} (-1)^n q^{n^2}}{\prod_{n = 1}^{\infty}(1 - q^n)(1 - q^{2 n - 1})} = \frac{\sum_{n \in \Z} q^{4n^2} (-1)^n }{\prod_{m = 1}^{\infty}(1 - q^{4m})(1 - q^{8 n - 4})}
+    \end{align*}
+
+    The second half of the equality we could have also gotton by taking $4\tau$. Thus $c_\tau = c_{4 \tau} = c(4^k t)$ for all $k \in \N$. Since $q^{4^k} = e^{i \pi 4^k \tau} \to 0$ as $k \to \infty$,  by 2 we know $c(\tau) = 1$. Thus $\Theta(z) = \Pi(z)$. Thus $\Theta(z \mid \tau) = \Pi(z \mid \tau)$.      
+
+\end{proof}
+
+\end{document}

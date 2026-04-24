@@ -1,0 +1,280 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Galois 1}
+\author{Arham Lodha}%put your name here
+\date{April 13, 2024}%enter the due date here
+\maketitle
+
+\section*{5. Fixed Field}
+
+\begin{claim}{0}\label{Claim 0.}
+    $\forall p(t) \in C(t)$, where $p(t) \not \in \C$, $\C(p(t)) = \C(t)$    
+\end{claim}
+\begin{proof}
+    $\C(p(t)) \subseteq \C(t)$ because $p(t) \in \C(t)$. 
+    
+    
+\end{proof}
+
+\begin{PROB}{5.1a}\label{Problem 5.1a.}
+    $\sigma(t) = t^{-1}$ 
+\end{PROB}
+\begin{proof}
+    $H = \angles{\sigma} = \mu_2$. $p_t(x) = \prod_{\alpha \in H \cdot t}(x - \alpha) = (x - t)(x - t^{-1}) = x^2 - x(t + t^{-1}) + 1$ is the minimal polynomial of $t$ over $\C(t)^H$. By the previous homework, $\C(t)^H = \C(p_t) = \C(t + t^{-1})$     
+\end{proof}
+\begin{PROB}{5.1b}\label{Problem 5.1b.}
+    $\sigma(t) = it$
+\end{PROB}
+\begin{proof}
+    The orbit of $t$ under $\sigma$ is $t, it, -t, -it, t, \dots$. Thus, $\angles{\sigma}$ has order 4. Thus $H = \angles{\sigma} = \mu_4$. $p_t(x) = (x - t)(x + t)(x - it)(x + it) = (x^2 - t^2)(x^2 + t^2) = x^4 - t^4$ over $\C(t)^H$. By the previous homework, $\C(t)^H = \C(p_t) = \C(t^4)$   
+\end{proof}
+\begin{PROB}{5.1c}\label{Problem 5.1c.}
+    $\sigma(t) = -t$ and $\tau(t) = t^{-1}$.   
+\end{PROB}
+\begin{proof}
+    Orbit of $t$ under $\sigma$ is $t, -t, t, \dots$. The orbit of $t$ under $t^{-1}$ is $t, t^{-1}, t, \dots$. Thus, $o(\sigma) = 2$ and $o(\tau) = 2$. Further more, $(\sigma \circ \tau)(t) = \sigma(t^{-1}) = -t^{-1} = \tau(-t) = (\tau \circ \sigma)(t)$. Thus $\sigma \tau = \tau \sigma$. Thus $H = \angles{\sigma, \tau} = \mu_2 \times \mu_2$
+    
+    \[\begin{tikzcd}
+        & {\C(t)} \\
+        {\C(y) = \C(t+t^{-1}) = \C(t)^{\angles{\tau}}} && {\C(t)^{\angles{\sigma}}} \\
+        & {\C^H}
+        \arrow[from=1-2, to=2-1]
+        \arrow[from=1-2, to=2-3]
+        \arrow[from=2-1, to=3-2]
+        \arrow[from=2-3, to=3-2]
+    \end{tikzcd}\]
+
+    Since $\angles{\sigma, \tau}$ is abelian,  $\angles{\tau} \triangleleft \angles{\sigma, \tau}$, $\angles{\sigma}$ preserves $\C(y)$ thus $\angles{\sigma} \subset Gal(\C(y) / \C)$. $\C^H = \C(y)^{\angles{\sigma}}$. 
+    
+    $p_{y}(x) = (x - y)(x + y) = x^2 - y^2$, min poly of $y$ over $\C^H$ . Thus $\C^H = \C(y^2) = \C((t + t^{-1})^2)$   
+\end{proof}
+
+\begin{PROB}{5.1d}\label{Problem 5.1d.}
+    $\sigma(t) = \omega t$, $\gamma(t) = t^{-1}$ where $\omega = e^{2 \pi i / 3}$   
+\end{PROB}
+\begin{proof}
+    Orbit of $t$ under $\sigma$ is $t, \omega t, \omega^2 t, t, \dots$. Thus, $o(\sigma) = 3$ and $o(\gamma) = 2$. $(\gamma \circ \sigma \circ \gamma^{-1})(t) = \gamma(\sigma(t^{-1})) = \gamma(\sigma(t)^{-1}) = \gamma(\overline{\omega} t^{-1}) = \overline{\omega} t = \sigma^{-1}(t)$. Thus $\gamma \circ \sigma \circ \gamma = \sigma^{-1}$. Thus $H = \angles{\sigma, \gamma} = D_3$. 
+
+    Note: $\mu_3 = \angles{\sigma}$ and $\mu_2 = \angles{\gamma}$.   
+
+    $p_t(x) = (x - t)(x - \omega t)(x - \omega t^{2})= x^3 + t^3$, min poly of $t$ over $\C(t)^{\mu_3}$. Thus, $\C(t)^{\mu_3} = \C(t^3)$. Let $y = t^3$.   
+    
+    \[\begin{tikzcd}
+        & {\C(t)} \\
+        {\C(y) = \C(t^3) = \C(t)^{\mu_3}} && {\C(t)^{\mu_2}} \\
+        & {\C^H}
+        \arrow[from=1-2, to=2-1]
+        \arrow[from=1-2, to=2-3]
+        \arrow[from=2-1, to=3-2]
+        \arrow[from=2-3, to=3-2]
+    \end{tikzcd}\]
+    
+    Since, $\mu_3 \triangleleft \angles{\sigma, \gamma}$, $\mu_2 \leq Gal(\C(t)^{\mu_3} / \C)$. Thus, $\C^H = \C(y)^{\mu_2}$. 
+    
+    Orbit of $y$ over $\mu_2$, is $y$ and $y^{-1}$. Min poly of $y$ over $\C^H$ is $p_y(x) = (x - y)(x - y^{-1}) = x^2 - x(y + y^{-1}) + 1$. Thus $\C(t)^H = \C(y + y^{-1}) = \C(t^3 + t^{-3})$    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.2}\label{Problem 5.2.}
+    Show that the automorphisms, $\sigma(t) = \frac{t + i}{t - i}$ and $\rho(t) = \frac{it - i}{t + 1}$ of $\C(t)$ generate the group isomorphic to $A_4$ and determine the fixed field of this group       
+\end{PROB}
+\begin{proof}
+    By the given hint, $Gal(\C(t)/ \C) \cong PGL_2(\C)$ and $PGL_2(\C)$ acts simply transitivly on any ordered triple. Thus there is a unique element of $Gal(\C(t) / \C)$ which sends $a \to 1$, $b \to 0$, $c \to \infty$ and vice versa, (ie the unique ordered triple $(a, b, c)$ where $1 \to a$ $0 \to b$ and $\infty \to c$ determines a element of $PGL_2(\C)$). 
+    
+    Thus check the action of $\sigma$ and $\tau$ on $0$ $1$ and $\infty$. 
+    
+    Orbit of $0$ over $\sigma$.
+    
+    \[\begin{tikzcd}
+        0 & {-1} & {-i} & 0
+        \arrow["\sigma", from=1-1, to=1-2]
+        \arrow["\sigma", from=1-2, to=1-3]
+        \arrow["\sigma", from=1-3, to=1-4]
+    \end{tikzcd}\]
+
+    Orbit of $1$ over $\sigma$. 
+    
+    \[\begin{tikzcd}
+        1 & i & \infty & 1
+        \arrow["\sigma", from=1-1, to=1-2]
+        \arrow["\sigma", from=1-2, to=1-3]
+        \arrow["\sigma", from=1-3, to=1-4]
+    \end{tikzcd}\]
+
+    Orbit of $0$ over $\rho$.
+    \[\begin{tikzcd}
+        0 & {-i} & 1 & 0
+        \arrow["\rho", from=1-1, to=1-2]
+        \arrow["\rho", from=1-2, to=1-3]
+        \arrow["\rho", from=1-3, to=1-4]
+    \end{tikzcd}\]
+
+    Orbit of $-1$ over $\rho$.   
+    
+    \[\begin{tikzcd}
+        {-1} & \infty & i & {-1}
+        \arrow["\rho", from=1-2, to=1-3]
+        \arrow["\rho", from=1-3, to=1-4]
+        \arrow["\rho", from=1-1, to=1-2]
+    \end{tikzcd}\]
+
+    We have 6 elements which we are permuting, $0, 1, - 1, i, -i, \infty$. We want to prove that the group of $\angles{\sigma}$ and $\angles{rho}$ is $A_4$ so we want to equate these elements to something of the tetrahedron. We have 6 elements of a tetrahedron which we permute with $A_4$, its edges. So place the elements on the edges of a tetrahedron as below. $\sigma$ and $\rho$ are placed on the vertices which they would be rotations through if they were rotations of this tetrahedron.         
+
+    \[\begin{tikzcd}
+        && \bullet \\
+        \\
+        && \sigma \\
+        \bullet &&&& \rho
+        \arrow["{-1}"{description}, no head, from=4-1, to=1-3]
+        \arrow["\infty"{description}, no head, from=1-3, to=3-3]
+        \arrow["{-i}"{description}, no head, from=1-3, to=4-5]
+        \arrow["1"{description}, no head, from=3-3, to=4-5]
+        \arrow["i"{description}, no head, from=4-1, to=3-3]
+        \arrow["0"{description}, no head, from=4-1, to=4-5]
+    \end{tikzcd}\]
+
+    Thus $\angles{\sigma, \rho} \subseteq A_4$ and $9 \leq \abs{\angles{\sigma, \rho}} \leq 12$ (two 3 cycles which are not in the subgroups generated by each other's elements). Thus $\abs{\angles{\sigma, \rho}} = 12$ since $\abs{\angles{\sigma, \rho}} | 12$.
+    
+    
+    $\sigma(\rho(t)) = \sigma(\frac{it - i}{t + 1}) = \sigma(it - i) / \sigma(t + 1) = (i\sigma(t) - i) / (\sigma(t) + 1) = \frac{\frac{it - 1}{t - i} - i}{\frac{t + i}{t - i} + 1} = -t^{-1}$. $\rho(\sigma(t)) = \rho(\frac{t + i}{t - i}) = \rho(t + i) / \rho(t - i) = (\rho(t) +i)/(\rho(t) - i) = \frac{\frac{it - i}{t + 1} + i}{\frac{it - i}{t  + 1} - i} = -t$. $o(\sigma \circ \rho) = 2$ and $o(\rho \circ \sigma) = 2$. $((\sigma \rho)\circ (\rho \sigma))(t) = (\sigma \rho)(-t) = t^{-1}$ and $((\rho \sigma) \circ (\sigma \rho))(t) = (\rho \sigma)(-t^{-1}) = -((\rho \sigma)(t))^{-1} = t^{-1}$. Thus $(\rho \sigma) \circ (\sigma \rho) = (\sigma \rho)\circ (\rho \sigma)$. Thus $\angles{\sigma, \rho} = K_4$ and $\sigma \rho^2 \sigma = t^{-1}$. 
+    
+    $\C(t)^{K_4}$ is preserved by all of $A_4$ since $K_4 \trianglelefteq A_4$. Thus $C(t)^{A_4} = (\C(t)^{K_4})^{\mu_3}$ where $\mu_3 = \angles{\sigma} = \angles{\rho}$. 
+    
+    
+    Orbit of $t$ over $K_4$ is $t, -t, -t^{-1}, t^{-1}$. Thus min poly of $t$ over $\C(t)^{K_4}$ is $p_t(x) = (x - t)(x + t)(x + t^{-1})(x - t^{-1}) = (x^2 - t^2)(x^2 - t^{-2}) = x^4 - x^2(t^2 - t^{-2}) + 1$. Thus $\C(t)^{K_4} = \C(t^2 + t^{-2})$.Let $y = t^2 + t^{-2}$.  
+    
+    \begin{align*}
+        \sigma(y) = \sigma(t^2 + t^{-2}) &= \sigma(t)^2 + \sigma(t)^{-2} \\
+        &= \frac{2 (1 - 6 t^2 + t^4)}{(1 + t^2)^2} \\
+        &= 2(1 - \frac{8t^2}{t^4 + 2t^2 + 1}) \\
+        &= 2(1 - \frac{8}{t^2 + t^{-2} + 2}) \\
+        &= 2(1 - \frac{-8}{y + 2}) \\
+        &= \frac{2(y + 2) - 16}{y + 2} \\
+        &= \frac{2y - 12}{y + 2}
+    \end{align*} 
+
+    You can convert $\sigma$'s action on $y$ as a matrix, where the top row is the numerator and taking subsequent applications of tha $\sigma$ is the same thing as matrix multiplication. Moreover rememeber we are in $P(\C)$ so if to matrices are scalar multiples of each other they are equal. 
+    
+    Thus $\sigma(y) = \begin{bmatrix}
+        2 & -12 \\ 1 & 2
+    \end{bmatrix}$ and checking it has order 3, we see $\sigma(t)^3 = \begin{bmatrix}
+        -64 & 0 \\ 0 & -64
+    \end{bmatrix} \equiv I$.
+    
+    $\sigma^2(y) = \begin{bmatrix}
+        -8 & -48 \\ 4 & -8
+    \end{bmatrix} \equiv \begin{bmatrix}
+        -2 & -12 \\ 1 & -2
+    \end{bmatrix} = -2(\frac{y + 6}{y - 2})$ 
+    
+    Thus the orbit of $y$ under $\sigma$ is $y, \frac{2y - 12}{y + 2}, \frac{-2y - 12}{y - 2}$.
+    
+    Thus $p_y(x) = (x - y)(x - \frac{2y - 12}{y + 2})(x - \frac{-2y - 12}{y - 2})$
+    
+    \begin{align*}
+        p_y(x) &= x^3 - \left(\frac{(-12 - 2y)y(-12 + 2y)}{(-2 + y)(2 + y)}\right) \\
+        &+ x \left(\frac{(-12 - 2y)y}{-2 + y} + \frac{(-12 - 2y)(-12 + 2y)}{(-2 + y)(2 + y)} + \frac{y(-12 + 2y)}{2 + y}\right) \\
+        &+ x^2 \left(-y - \frac{-12 + 2y}{2 + y} + \frac{12 + 2y}{-2 + y}\right)
+    \end{align*}
+
+    Let $C_{p_y}$ be the coeffecients of $p_y$. Thus $\C(t)^{A_4} = \C(C_{p_y})$.   
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5.3}\label{Problem 5.3.}
+    Let $F = \C(t)$ be field of rational functions in t. Prove every element in $F$ that is not in $\C$ is transcendental in $\C$.     
+\end{PROB}
+\begin{proof}
+    Let $f(t) \in F \setminus \C$. $f(t) = \frac{p(t)}{q(t)}$ for $p(t), q(t) \in \C[t]$ where $gcd(p(t), q(t)) = 1$. Let $n = \max\left\{ \deg(p), \deg(q) \right\}$.
+    
+    Let $g(X) \in \C(f(t))[X]$ be defined as follows, 
+    
+    \begin{equation*}
+        g(X) = f(X)q(X) - p(X)
+    \end{equation*}
+    
+    $t$ is a solution to this polynomial. If all the coefficients of $g(x)$ are zero, take a nonzero coefficient $a$ of $q$ and the coefficients $b$ of $p$ of the same power. Then since all the coefficients are 0, then $f(X)a + b = 0 \implies f(X) = \frac{b}{a} \in \C$ which contradicts our initial statement. Thus at least coefficients of $g(x)$ are nonzero. Thus $t$ is algebraic over $\C(f(t)) \implies \C(t)$ is f.d over $\C(f(t)).$
+
+    Assume the contrary, that $f(t)$ is algebriac, thus $\C(f(t))$ is f.d over $\C$. By a previous homework (I think Fields 1), that means $\C(t)$ is fd over $\C$ which means that $t$ is algebraic over $\C$ which is a contradiction. Thus $f(t)$ must be transcendental.         
+\end{proof}
+
+\bigskip
+
+\section*{Keel}
+\begin{PROB}{6}\label{Problem 6.}
+    Let L be a primitive extension of K, L = K(t)  (not necessarily algebraic, we can allow L = rational functions).  Let G be a finite subgroup of Gal(L/K), let $G \cdot t$ be the orbit, and P(X) the poly in L[X] with roots the elements of Gt. Let  $K \subset W \subset L$ be the subfield generated by the coefficients of P. Show L over W is a primitive algebraic extension, generated by t, with minimal poly P.  Show that W is the fixed field of G, and that L over W is galois with group G.
+\end{PROB}
+\begin{proof}
+    We have previously proven all of these statements. 
+    By the Finite Fields and Galois Correspondence homework, $P$ is irreducible and seperable and splits over $L$ and thus the minimal polynomial of $t$ over $W = K(P)$. Furthermore by the same homework, $L$ is galois over $K(P)$. Furthermore by the Galois Correspondence homework, $L = W[t]$. Again by Finite Fields and Galois Correspondence, $Gal(L / W) = G$ and $W = L^G$.          
+\end{proof}
+
+\end{document}

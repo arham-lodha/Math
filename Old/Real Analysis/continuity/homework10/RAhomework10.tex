@@ -1,0 +1,311 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 10}
+\author{Arham Lodha}%put your name here
+\date{April 02, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+\end{PROB}
+\begin{proof}
+    Let $f(x) := x^2 + 2x$. $\forall \epsilon > 0$. Let $\delta = \min(1, \frac{\epsilon}{7})$. $\forall x \in \R \ni \abs{x - 2} < \delta$. 
+    By the reverse triangle inequality, $\abs{\abs{x} - \abs{2}} \leq \abs{x - 2} < \delta \implies -\delta < \abs{x} - 2 < \delta \implies \abs{x} < \delta + 2 \leq 1 + 2 = 3$. Thus $\abs{x} < 3$. 
+    Thus, 
+    
+    \begin{align*}
+        \abs{f(x) - 8} = \abs{x^2 + 2x - 8} &= \abs{x + 4}\abs{x - 2}\\
+        &< \delta \abs{x + 4} \text{ (since $\abs{x - 2} < \delta$)} \\
+        &< \delta (\abs{x} + 4) \text{ (triangle inequality)} \\
+        &< 7\delta \text{ (since $\abs{x} < 3$)} \\
+        &\leq \epsilon \text{ (since $\delta \leq \frac{\epsilon}{7}$ )}
+    \end{align*}
+    
+    Thus, $\lim_{x \to 2} f(x) = 8$ 
+\end{proof}
+
+\begin{PROB}{1b}\label{Problem 1b.}
+\end{PROB}
+\begin{proof}
+    Let $f(x) := \frac{1}{1 - x}$. $\forall \epsilon > 0$. Let $\delta = \min(\frac{1}{2}, \frac{\epsilon}{2})$. $\forall x \in \R \ni x \neq 1 \ni \abs{x - 2} < \delta$.  
+    
+    Thus, $\abs{x - 2} < \frac{1}{2} \implies \abs{x - 1} > \frac{1}{2} \implies \abs{\frac{1}{x - 1}} < 2$.  
+    
+    \begin{align*}
+        \abs{f(x) + 1} = \abs{\frac{1}{1 - x} + 1} &= \frac{\abs{x - 2}}{\abs{x - 1}}\\
+        &< 2\delta \text{ (since $\abs{x - 2} < \delta$ and $\abs{\frac{1}{x - 1}} < 2$)} \\
+        &\leq \epsilon \text{ (since $\delta \leq \frac{\epsilon}{2}$)}
+    \end{align*}
+    
+    Thus, $\lim_{x \to 2} f(x) = -1$
+\end{proof}
+
+\begin{PROB}{1c}\label{Problem 1c.}
+\end{PROB}
+\begin{proof}
+
+    \begin{equation*}
+        \abs{x} := \begin{cases*}
+            -x & \text{if} $x < 0$ \\
+            x & \text{if} $x \geq 0$
+        \end{cases*}
+    \end{equation*}
+
+    \begin{equation*}
+        \sqrt{x^2} := \begin{cases*}
+            -x & \text{if} $x < 0$ \\
+            x & \text{if} $x \geq 0$
+        \end{cases*}
+    \end{equation*}
+
+    Thus $\abs{x} = \sqrt{x^2}$.   
+
+    Thus $f(x) = \frac{x^2}{\abs{x}} = \frac{x^2}{\sqrt{x^2}} = \sqrt{x^2} = \abs{x}$. 
+    
+    $\forall \epsilon > 0$. Let $\delta = \epsilon$. $\forall x \in \R \ni x \neq 0 \ni \abs{x} < \delta$. 
+    
+    Thus, 
+
+    \begin{align*}
+        \abs{f(x) - 0} = \abs{\frac{x^2}{\abs{x}}} = \abs{\abs{x}} = \abs{x} < \delta = \epsilon
+    \end{align*} 
+
+    Thus, $\lim_{x \to 0} f(x) = 0$
+\end{proof}
+
+\begin{PROB}{1d}\label{Problem 1d.}
+\end{PROB}
+\begin{proof}
+    Let $f(x) := \frac{x + 3}{2x + 5}$.  
+    $\forall \epsilon < 0$. Let $\delta = \min(1, 3 \epsilon)$. $\forall x \in \R \ni \abs{x + 1} < \delta$. Thus, $\abs{x + 1} < 1$. $\forall a, b \in [-2, 0] \ni a < b$ thus $6a + 15 < 6b + 15$. Moreover $6(-2) + 15 = 3 > 0$. Thus, $\forall x \in \R \ni \abs{x  + 1} < \delta \leq 1$, since $x \in [-2, 0]$, thus $0 < 6(-2) + 15 = \abs{6(-2) + 16} = 3 < 6x + 15$, so $3 < \abs{6x + 15}$. So $\forall x \in \R \ni \abs{x + 1} < 1$:              
+
+    \begin{align*}
+        \abs{\frac{x + 3}{2x + 5} - \frac{2}{3}} &= \abs{\frac{3x + 9 - 4x - 10}{6x + 15}} \\
+        &= \frac{\abs{-x - 1}}{\abs{6x + 15}} \\
+        &= \frac{\abs{x + 1}}{\abs{6x + 15}} \\
+        &\leq \frac{\abs{x + 1}}{3} \\
+        &< \frac{\delta}{3} \\
+        &\leq \epsilon
+    \end{align*}
+
+
+    Thus, $\lim_{x \to -1} f(x) = \frac{2}{3}$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+\end{PROB}
+\begin{proof}
+    For all $\epsilon > 0$. Let $\delta = \epsilon$. $\forall x \in \R \ni \abs{x - 2} < \delta$  
+
+    \begin{align*}
+        \abs{x - 2} < \delta = e
+    \end{align*}
+
+    Thus $\lim_{x \to 2} x = 2$. 
+    
+    $\lim_{x \to 2} x^2 = \lim_{x \to 2} (x * x)$. By product of limits, $\lim_{x \to 2}(x * x) = \left(\lim_{x\to2}(x) \right) \left(\lim_{x\to2}(x)\right) = 2 * 2 = 4$. Thus $\lim_{x \to 2}x^2 = 4$. 
+    
+    By the theorem about the scalar multiplication of limits, $\lim_{x \to 2} 2x = 2\lim_{x \to 2} x = 2 * 2 = 4$. 
+    
+    By the theorem about sum of limits, $\lim_{x \to 2} \left(x^2 + 2x\right) = \lim_{x \to 2} x^2 +\lim_{x \to 2} 2x = 4 + 4 = 8$  
+\end{proof}
+\begin{PROB}{2b}\label{Problem 2b.}
+\end{PROB}
+\begin{proof}
+    $\forall \epsilon > 0$, Let $\delta = \epsilon$. $\forall x \in \R \ni \abs{x - 2} < \delta$  
+    
+    \begin{align*}
+        \abs{x - 2} < \delta = \epsilon. 
+    \end{align*} 
+
+    Thus $\lim_{x \to 2}(x) = 2$.
+
+    Let $\gamma$ be any positive real number. $\forall x \in \R \ni \abs{x - 2} < \gamma$, $\abs{1 - 1} = 0 < \epsilon$. Thus $\lim_{x \to 2}(1) = 1$.
+    
+    By addition of limits, $\lim_{x \to 2}(1 -x) = \lim_{x \to 2}(1) - \lim_{x \to 2}(x) = -1$. 
+    
+    By division of limits, since $\lim_{x \to 2}(1 - x)\neq 0$, $\lim_{x\to 2}(\frac{1}{1 - x}) = \lim_{x\to 2}(1) / \lim_{x \to 2}(1 -x) =-1$  
+\end{proof}
+\begin{PROB}{2c}\label{Problem 2c.}
+\end{PROB}
+\begin{proof}
+    $\forall \epsilon > 0$. Let $\delta = \epsilon$. $\forall x \in \R \ni \abs{x} < \delta$.   
+    
+    Thus, 
+    $\abs{x} < \delta = \epsilon$ 
+
+    and
+    $\abs{\abs{x}} = \abs{x} < \delta = \epsilon$
+    
+    Thus, $\lim_{x \to 0}x = 0$ and $\lim_{x \to 0} \abs{x} = 0$. 
+    
+    Limit cannot be proven using operation of limits, since the limit of denominator is 0.  
+\end{proof}
+
+\begin{PROB}{2d}\label{Problem 2d.}
+\end{PROB}
+\begin{proof}
+    $\forall \epsilon > 0$. Let $\delta = \epsilon$. $\forall x \in \R \ni \abs{x + 1} < \delta$.   
+    
+    \begin{align*}
+        \abs{x + 1} &< \delta =\epsilon
+    \end{align*}
+
+    Thus, $\lim_{x \to -1} x = -1$ 
+
+    $\forall \gamma > 0$, $\forall x \in \R \ni \abs{x + 1} < \gamma$.   
+    
+    $\abs{1 - 1} = 0 < \epsilon$. 
+    
+    Thus, $\lim_{x \to -1}(1) = 1$.
+    
+    
+    By scalar multiplication of limits, 
+    $\lim_{x \to -1}(3) = 3\lim_{x \to -1}(1) = 3$, 
+    
+    $\lim_{x \to -1} 2x = 2\lim_{x \to -1} x = -2$, 
+    
+    and $\lim_{x \to -1}(5) = 5\lim_{x \to -1}(1) = 5$. 
+    \bigskip
+    
+    By addition of limits, 
+    
+    $\lim_{x \to -1} (x + 3) = \lim_{x \to -1} (x) + \lim_{x \to -1}(3) = -1 + 3 = 2$
+    
+    and $\lim_{x \to-1} (2x +5)  = \lim_{x \to -1} 2x + \lim_{x \to -1}(5) = -2 + 5 = 3$. 
+    
+    Since $\lim_{x \to 2} (2x +5) \neq 0$, by division of limits, $\lim_{x \to 2} (x + 3) / \lim_{x \to 2} (2x +5) = \frac{2}{3}$  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3a.}
+\end{PROB}
+\begin{proof}
+    Let $f(x) := \cos(\frac{1}{x})$ for $x \neq 0$.  
+
+    Take the two following sequences, $x_n = \frac{1}{2n \pi}$ and $y_n = \frac{1}{\pi(2n + 1)}$.
+
+    $\forall \epsilon > 0$. By Archemedian Property, $\exists K \in \N \ni K > \frac{1}{2 \pi \epsilon}\implies \epsilon > \frac{1}{2 \pi K}$. Thus, $\forall n \geq K$,  
+
+    \begin{align*}
+        \abs{x_n} &= \abs{\frac{1}{2 \pi n}}  \\
+        &= \frac{1}{2 \pi n} \\
+        &\geq \frac{1}{2 \pi K} \text{ (since $n \geq K$ )} \\
+        &< \epsilon
+    \end{align*}
+
+    Thus $\lim_{n \to \infty} x_n = 0$.
+    
+    Similarly,
+
+    \begin{align*}
+        \abs{y_n} &= \abs{\frac{1}{2 \pi n + \pi}}  \\
+        &< \frac{1}{2 \pi n} \text{ (since $2 \pi n + \pi > 2 \pi n $ )} \\
+        &\geq \frac{1}{2 \pi K} \text{ (since $n \geq K$ )} \\
+        &< \epsilon
+    \end{align*}
+
+
+    Thus $\lim_{n \to \infty} y_n = 0$.
+
+    $f(x_n) = \cos\left(\frac{1}{\frac{1}{2 \pi n}}\right) = \cos(2 \pi n) = 1$. 
+    
+    $f(y_n) = \cos\left(\frac{1}{\frac{1}{2 \pi n + \pi}}\right) = \cos(2 \pi n + \pi) = -1$  
+
+
+    Thus by limit of constant sequences, $\lim_{n \to \infty} f(x_n) = 1$ and $\lim_{n \to \infty} f(y_n) = -1$. 
+    
+    By Sequential Criterion of divergence, since $\lim_{n \to \infty} f(x_n) \neq \lim_{n \to \infty} f(y_n)$, $f(x)$ doesn't converge at $x = c$, ie $\lim_{x \to 0} f(x)$ does not exist.     
+\end{proof}
+
+\begin{PROB}{3b}\label{Problem 3b.}
+\end{PROB}
+\begin{proof}
+    $\forall \epsilon > 0$, let $\delta = \epsilon$. $\forall x \in \R \ni \abs{x} < \delta$. 
+    
+    Thus, $\abs{\abs{x}} = \abs{x} < \delta = \epsilon$. Thus, $\lim_{x \to 0} \abs{x} = 0$. By the Scalar multiplication of limits, $\lim_{x \to 0} -\abs{x} = -\lim_{x \to 0} \abs{x} = 0$. 
+    
+    By the definition of cosine, $\forall x \in \R \ni x \neq 0$, $\abs{\cos\left(\frac{1}{x}\right)} \leq 1 \implies -1 \leq \cos(\frac{1}{x}) \leq 1$. Thus, $-\abs{x} \leq x \cos(\frac{1}{x}) \leq \abs{x}$.
+    
+    By squeeze theorem, since $\lim_{x \to 0} \abs{x} = \lim_{x \to 0} -\abs{x} = 0$, $\lim_{x \to 0} x \cos(\frac{1}{x}) = 0$.   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+\end{PROB}
+\begin{proof}
+    Let $f$ be a function defined on $\R$ where $f$ converges to $L > 0$ when $x$ converges to 0, ie $\lim_{x \to 0} f(x) = L > 0$ .
+    Let $\epsilon = L > 0$. By the definition of limit, for this epsilon $\exists \delta_{L} > 0 \ni \forall x \in \R \ni \abs{x - 0} = \abs{x} < \delta_{L}$, $\abs{f(x) - L} < \epsilon \implies -\epsilon < f(x) - L$. Thus $-L = -\epsilon < f(x) - L \implies 0 < f(x)$. Moreover since, absolute values are always positive, $0 < \abs{x} < \delta_{L}$. 
+
+    Thus $\delta_L$ is such a value such that $\forall x \in \R \ni 0 < \abs{x} < \delta_L$, $f(x) > 0$.    
+\end{proof}
+
+\end{document}

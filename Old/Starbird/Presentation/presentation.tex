@@ -1,0 +1,366 @@
+%HOMEWORK template for M 325K
+\documentclass{beamer}
+\usetheme{Antibes}
+
+
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+\usepackage{mathabx}
+\usepackage{amsmath}
+
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+
+
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\h}[1]{\hat{#1}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\aabs}[1]{\left\lvert\left\lvert #1\right\rvert\right\rvert}
+
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+
+
+
+%Information to be included in the title page:
+\title{Urysohn's Lemma}
+\author{Arham Rajendra Lodha}
+\institute{University of Texas at Austin}
+\date{Summer 2024}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section*{Motivation}
+\begin{frame}
+    \frametitle{History}
+
+    In 1925, Pavel Urysohn published a paper which proved Urysohn's Metrization Theorem which states that every second countable $T_3$ space is metrizable. \textbf{Urysohn's Lemma} was included in the paper as a lemma he used to prove Urysohn's Metrization Theorem.  
+
+    \bigskip
+
+    But \textbf{Urysohn's Lemma} is a important theorem in its own right. "1st deep theorem in elementary topology" according to Munkres.
+
+\end{frame}
+
+\section*{Prelude: Definitions and Basic Theorems}
+\begin{frame}
+    \frametitle{Countability}
+
+    \begin{definition}
+        A set X is \textbf{countable} if there exists a injection from $X \hookrightarrow \N$.
+    \end{definition}
+
+    \begin{Theorem}
+        $\Q$ is countable. 
+    \end{Theorem}
+    
+    % TODO add cantor's diagonalization here
+    
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Completeness Axiom}
+
+    \begin{definition}
+        Suppose $X$ is a subset of $\R$. If $\exists m \in \R \ni m \leq x, \forall x \in X$. Then $X$ has a greatest lower bound in $\R$ . If $\exists n \in \R \ni n \geq x, \forall x \in X$. Then $X$ has a least upper bound in $\R$. 
+    \end{definition}
+    
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Open sets} 
+
+    \begin{theorem}
+        $U$ is a open set $\iff$ $\forall p \in U$, there exists a open set $V_p$ such that $p \in V_p \subeq U$.      
+    \end{theorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Basis and Subbasis}
+
+    \begin{definition}
+        Let $\mathcal{B}$ be a collection of subsets of $X$ such that $\B \subeq \T$. $\mathcal{B}$ is a \textbf{basis} set of $x$ $\iff$ $\forall U \in \T$, U is a arbitary union of elements of $\B$.             
+    \end{definition}
+    
+    \begin{definition}
+        Let $\mathcal{S}$ is a collection of subsets of $X$. $\mathcal{S}$ is a subbasis $\iff$ the set of all finite intersections is a basis set of $X$.        
+    \end{definition} 
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Normal Spaces}
+
+    \begin{definition}
+        A space $(X, \T)$ is normal $\iff$ for all disjoint closed sets A and B, $\exists U, V \in \T \ni A \in U, B \in V$ and $U \cap V = \empset$.      
+    \end{definition}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Normal Spaces}
+
+    \begin{Theorem}[Normal Containment Theorem]
+        A space $(X, \T)$ is normal $\iff$ for all open sets $U$ and for all closed sets $A$ such that $A \subeq U$, there exists a open set $V$ such that $A \subeq V \subeq \overline{V} \subeq U$.
+    \end{Theorem}
+
+    \begin{proof}
+        $\implies:$ Suppose a space $(X, \T)$ is normal. For any open set $U$ and closed set contained in $A$, $B = U^c$ is closed set which is disjoint from $A$. By normality $\exists V, W$ open sets such that $A \subeq V$, $B \subeq W$, and $V \cap W = \empset$. $U^c = B \subeq W \implies W^c \subeq B^c = U$. $V \cap W = \empset \implies V \subeq W^c$. Let $W' = \text{Int}(W^c)$. By definition of interior and closure, $A \subeq V \subeq W' \subeq \overline{W'} \subeq W^c \subeq U$  
+    \end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Normal Spaces}
+
+    \begin{Theorem}[Normal Containment Theorem]
+        A space $(X, \T)$ is normal $\iff$ for all open sets $U$ and for all closed sets $A$ such that $A \subeq U$, there exists a open set $V$ such that $A \subeq V \subeq \overline{V} \subeq U$.
+    \end{Theorem}
+
+    \begin{proof}
+        $\impliedby:$ Suppose $X$ is a topological space where for all open sets $U$ and for all closed sets $A$ such that $A \subeq U$, there exists a open set $V$ such that $A \subeq V \subeq \overline{V} \subeq U$. For all disjoint closed sets $A$ and $B$, $A \subeq B^c$ and $B \subeq A^c$. $\exists U$ is a open set such that $A \subeq U \subeq \overline{U} \subeq B^c$. $X - \overline{U}$ is open and disjoint from U and $B \subeq X - \overline{U}$. Thus $A \subeq U$ and $B \subeq X - \overline{U}$ and $U \cap (X - \overline{U}) = \empset$, thus $X$ is normal.                 
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Continous Functions}
+
+    \begin{definition}
+        Let $X$ and $Y$ be topological spaces. $f: X \to Y$ is continous $\iff$ for a open set $U$ in $Y$, $f^{-1}(U)$ is a open set in $X$        
+    \end{definition}
+
+    \begin{Theorem}[Subbasis Criterion for Continuity]
+        Let $X$ and $Y$ be topological spaces. Let $\mathcal{S}$ be a subbasis for $Y$. $f: X \to Y$ is continous $\iff$ $\forall A \in \mathcal{S}$, $f^{-1}(A)$ is open in $X$.        
+    \end{Theorem}
+
+\end{frame}
+
+\section{The Statement}
+\begin{frame}
+    \frametitle{Urysohn's Lemma Statement}
+
+    \begin{Theorem}[Urysohn's Lemma Statement]
+        Let $X$ be a topological space. $X$ is a normal space $\iff$ for all disjoint closed sets $A$ and $B$, $\exists f: X \to [0, 1]$ a continous function such that $f(A) = 0$ and $f(B) = 1$.         
+    \end{Theorem}
+
+\end{frame}
+
+\section*{The proof}
+\subsection*{Backward direction}
+\begin{frame}
+    \frametitle{Proving the backward direction}
+
+    \begin{proof}
+        $\impliedby:$ Suppose $X$ is a topological space where for all disjoint closed sets $A$ and $B$, $\exists f: X \to [0, 1]$ a continous function such that $f(A) = 0$ and $f(B) = 1$. $[0, \frac{1}{2})$ and $(\frac{1}{2}, 1]$ are disjoint open sets in $[0, 1]$. By definition of continuity, $U = f^{-1}([0, \frac{1}{2}))$ and $V = f^{-1}((\frac{1}{2}, 1])$ are open. They are also disjoint, since $[0, \frac{1}{2})$ and $(\frac{1}{2}, 1]$ are disjoint. Since $f(A) = 0$ and $f(B) = 0$, $A \subeq f^{-1}([0, \frac{1}{2})) = U$ and $B \subeq f^{-1}((\frac{1}{2}, 1]) = V$. Thus there exists open sets $U$ and $V$, such that  $A \subeq U$ and $B \subeq V$ and $U \cap V = \empset$. Thus $X$ is normal.            
+    \end{proof}
+
+\end{frame}
+
+\subsection{The idea behind the proof}
+\begin{frame}
+    \frametitle{The Idea Behind The proof}
+
+    The forward direction is the more interesting (and more complicated) one. For this direction we have to \textit{construct} a continuous function from scratch. To do this we want to create a contour of our space $X$ with open sets and then make the contour finer and finer. Then we will use this contour to construct our function $f$. 
+
+\end{frame}
+
+
+\subsection*{Creating the Contour}
+\begin{frame}
+    \frametitle{The Lemma to Urysohn's Lemma}
+
+    \begin{theorem}[Contour Creation Lemma]
+        Let $X$ be a normal space. For any disjoint closed sets $A$ and $B$. Then for each rational $r \in [0, 1]$ there exists a $U_r$ such that $A \subeq U_r$ and $B \subeq (X - U_r)$ and for $r < s$, $\overline{U_r} \subeq U_s$          
+    \end{theorem}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Lemma to Urysohn's Lemma}
+
+    \begin{proof}
+        \renewcommand{\qedsymbol}{}
+        Fix any pair of disjoint closed subsets of $X$, $A$ and $B$. Let $P = \Q \cap [0, 1]$. Since $P$ is countable and infinite, we will enumerate it as $P = \left\{ p_n \mid n \in \N \right\}$ and for convenience $p_0 = 1$ and $p_1 = 0$. $\forall n \in \N$, $P_n = \left\{ p_0, \dots, p_n \right\}$. We will use $P$ to inductively construct a collection of open sets $\left\{ U_p \mid p \in P \right\}$ which satisfies the theorem, or in other words a collection which satisfies the following property:
+        
+        \begin{equation*}
+            p < q \implies \overline{U_p} \subeq U_q \text{ and } A \subeq U_p, B \subeq X - U_p \text{ }(*)
+        \end{equation*}
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Lemma to Urysohn's Lemma}
+
+    \begin{proof}
+        \textbf{Base Case:} By definition of normal spaces, $\exists U_1, V$ open sets such that $A \subeq U_1$ and $B \subeq V$ and $U_1 \cap V = \empset$. Thus $B \subeq X - U_1$. By the \textbf{Normal Containment Theorem}, $\exists U_0$ a open set such that $A \subeq U_0 \subeq \overline{U_0} \subeq U_1$. $B \subeq X - U_1 \subeq X - U_0$. Thus $\left\{ U_0, U_1 \right\}$ satisfies property $(*)$.  
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Lemma to Urysohn's Lemma}
+
+    \begin{proof}
+        \renewcommand{\qedsymbol}{}
+
+        \textbf{Inductive Hypothesis:} Assume that $\left\{ U_p \mid p \in P_n \right\}$ satisfies property $(*)$. 
+        \bigskip
+
+        \textbf{Inductive Step:} $P_{n + 1} = P_{n} \cup \left\{ p_{n + 1} \right\}$ thus $\left\{ U_p \mid p \in P_{n + 1} \right\} = \left\{ U_p \mid p \in P_n \right\} \cup \left\{ U_{p_{n + 1}} \right\}$. Let $r = p_{n + 1}$  Thus it suffices to prove that $\exists U_{r}$, $\forall s \in P_n \ni s < r$, $\overline{U_s} \subeq U_r$ and $\forall t \in P_n \ni t > r$, $\overline{U_r} \subeq U_t$. Note since $p_0 = 1$ and $p_1 = 0$, $0 < r < 1$. Thus $S = \left\{ s \in P_n \mid s < r \right\}$ is not empty and has a max since $P_n$ is finite. Similarly $T = \left\{ t \in P_n \mid t > r \right\}$ is not empty and has a min since $P_n$ is finite. Let $m = \max \left\{ s \in P_n \mid s < r \right\}$ and $n = \min \left\{ t \in P_n \mid t > r \right\}$.   
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Lemma to Urysohn's Lemma}
+
+    \begin{proof}
+        
+        Since $m < r$ and $r < n$, $m < n$. By the inductive hypothesis, $\overline{U_m} \subeq U_n$. By the \textbf{Normal Containment Theorem}, $\exists U_r$ a open set such that $\overline{U_m} \subeq U_r \subeq \overline{U_r} \subeq U_n$. $\forall s \in S$, $s = m$ or $s \neq m$. If $s = m$, $\overline{U_s} = \overline{U_m} \subeq U_r$. If $s \neq m$, $s < m \implies \overline{U_s} \subeq U_m \subeq U_r$, by the inductive hypothesis. $\forall t \in T$, $t = n$ or $t \neq n$. If $t = n$, $\overline{U_r} \subeq U_t = U_n$. If $t \neq n \implies t > n$, $\overline{U_r} \subeq U_n \subeq \overline{U_n} \subeq U_t$, by the inductive hypothesis. Thus $A \subeq U_0 \subeq U_r$ and $U_r \subeq U_1$, thus $B \subeq X - U_r$. Thus condition $(*)$ is satisfied for $\left\{ U_p \mid p \in P_{n + 1} \right\}$
+        
+    \bigskip
+    Thus by induction $\left\{ U_p \mid p \in P \right\}$ satsifies the condition $(*)$ and the theorem is true.   
+    \end{proof}
+
+\end{frame}
+
+\subsection{Proving the forward direction of Urysohn's Lemma}
+\begin{frame}
+    \frametitle{Exploiting the Contour}
+    Let's now use the Contour Creation Lemma to construct a continous function and finish proving Urysohn's Lemma.  
+    \begin{proof}
+        \renewcommand{\qedsymbol}{}
+
+        $\implies: $ Suppose $X$ is a normal space. Fix any two disjoint closed sets $A$ and $B$. By the \textbf{Contour Creation Lemma}, $\exists \mathcal{U} = \left\{ U_r \right\}_{r \in p}$ a collection of open sets which satisfy property $(*)$. For all $x \in X$, let $Q(x) = \left\{ r \in P \mid x \in U_r \right\}$. Note if $x \not \in U_1$, then $Q(x) = \empset$. Note if $x \in U_1$, 0 is a lower bound for $Q(x)$ since $Q(x) \subeq [0, 1] \cap \Q$. Thus by Completeness of $\R$, $\inf Q(x)$ exists. Thus construct a function $f: X \to [0, 1]$, such that $\forall  x \in X$: 
+
+        \begin{equation*}
+            f(x) := \begin{cases}
+                \inf Q(x) & \text{ if } x \in U_1 \\
+                1 & \text{ if } x \not \in U_1 
+            \end{cases}
+        \end{equation*}
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exploiting the Contour}
+
+    \begin{lemma}[Lemma A]
+        If $x \in \overline U_r$, then $f(x) \leq r$.  
+    \end{lemma}
+    \begin{proof}
+        Suppose $x \in \overline{U_r}$, then $\forall s > r$, $x \in \overline{U_r} \subeq U_s$, thus $s \in Q(x)$. Thus $(r, 1] \subeq Q(x)$. Then by definition of infimum, $f(x) = \inf Q(x) \leq r$.       
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exploiting the Contour}
+
+    \begin{lemma}[Lemma B]
+        If $x \not \in U_r$, then $f(x) \geq r$.  
+    \end{lemma}
+    \begin{proof}
+        If $x \not \in U_r$, then $x \not \in U_s$ for all $s < r$ since $\overline{U_s} \subeq U_r$. Thus $r$ is a lower bound for $Q(x)$. Thus $r \leq \inf (Q) = f(x)$ by definition of infimum.             
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Getting Continuity}
+
+    \begin{proof}
+        \renewcommand{\qedsymbol}{}
+
+        To prove continuity of $f$, we will use a suitable subbasis for $[0, 1]$ under the subspace topology of the normal topology on $\R$ and show that the preimage of subbasis elements are open.
+        
+        \begin{equation*}
+            \left\{ [0, r) \mid r \in (0, 1] \right\} \cup \left\{ (r, 1] \mid r \in [0, r) \right\} 
+        \end{equation*}
+
+        is a subbasis of $[0,1]$ 
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proving Continuty}
+
+    \begin{proof}
+        \renewcommand{\qedsymbol}{}
+
+        $\forall r \in (0, 1]$, to show $f^{-1}([0, r))$ is open we want to show that $\exists U_x$ a open set for all $x \in f^{-1}([0, r))$ such that $x \in U_x \subeq f^{-1}([0, r))$. Thus $\forall x \in f^{-1}([0, r)) \implies f(x) \in [0, r)$. By density of rational in reals, $\exists a \in \Q \ni 0 \leq f(x) < a < r$. By the contrapositive of Lemma $B$, since $f(x) < a \implies x \in U_a$. Furthermore, by Lemma A $f(U_a) \subeq f(\overline{U_a}) \subeq [0, a] \subeq [0, r) \implies U_a \subeq f^{-1}([0, r))$. Thus $f^{-1}([0, r))$ is open.             
+    \end{proof}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proving Continuty}
+
+    \begin{proof}
+
+        $\forall r \in [r, 1)$, this is symmetric to the argument above. $\forall x \in f^{-1}((r, 1]) \implies f(x) \in [r, 1)$. By density of rational in reals, $\exists a \in \Q \ni r < a < f(x) \leq 1$. By contrapositive of Lemma $A$, $f(x) > a \implies x \not \in \overline{U_a} \implies x \in X - \overline{U_a}$. Furthermore, $f(X - \overline{U_a}) \subeq f(X - U_a) \subeq [a, 1] \subeq (r, 1] \implies x \in X - \overline{U_a} \subeq f^{-1}((r, 1])$. Thus $f^{-1}((r, 1])$ is open.
+        
+        Thus $f$ is continous. Since $A \in U_0$, $\forall a \in A$, $f(a) \leq 0$ but since $0$ is a lower bound for $Q(a)$, $0 \leq f(a) \leq 0 \implies f(a) = 0$. $\forall b \in B$, $b \not\in U_1 \implies f(b) = 1$. Thus $f(A) = 0$ and $f(B) = 1$.              
+    \end{proof}
+
+\end{frame}
+
+
+
+
+
+
+\end{document}

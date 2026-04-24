@@ -1,0 +1,235 @@
+%HOMEWORK template for M 325K
+
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+	\newenvironment{#1}[1]
+	{%
+		\renewcommand\customgenericname{#2}%
+		\renewcommand\theinnercustomgeneric{##1}%
+		\innercustomgeneric
+	}
+	{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+		{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+		{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Diagonalization 1}
+\author{Arham Lodha}%put your name here
+\date{September 3, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let $A: V \to W$ be  a linear map between finite dim vector spaces. Show we can choose bases, or equivalently isomorphism  $\alpha: F^m \to V$, $\beta: F^n \rarr W$ so that the resulting $m \times n$ matrix $B_{v,w} =\beta^{-1} A \alpha : F^m \to F^n$  has all zero entries except possibly along the diagonal , where the entries are 1,1,..0,0..0  (some string of 1s the rest zeros).
+\end{PROB}
+\begin{proof}
+    Let $\dim V = m$ and $\dim W = n$.
+
+    $\ker A$ is a subspace of $V$. Let $\dim \ker A = a$. Let $B_{\ker A} = \{k_1, \ldots, k_a\}$ be the set of basis vectors of $\ker A$. By Linear Algebra Bootcamp 2 problem 1, since $\ker A$ is a subspace of $V$, $B_{\ker A}$ can be extended to create a basis $B_V$ for V. Thus $B_{\ker A} \subseteq B_V = \{v_1, \ldots, v_{m-a}, k_1, \ldots, k_a \}$. 
+
+    Define $e^x_i$ as the ith standard of $F^x$.
+
+    Let $\alpha: F^m \to V$ be a linear map. For $e^m_i$ for all $i \in [1, \ldots, m-a]$, $\alpha(e^m_i) = v_i$. For $e^m_i$ for all $i \in [m - a + 1, \ldots, m]$, $g(e^m_i) = k_{i - m + a}$. By definition of a basis, for all $i \in [1, \ldots, m]$, $e^m_i$ spans $F^m$. Thus for all $x \in F^m$, x is a linear combination of $e^m_i$. Thus $x = \sum_{i=1}^{m}c_ie^m_i$, and $g(x) = \sum_{i=1}^{m-a}c_iv_i + \sum_{i=1}^{a}c_{m-a + i}k_i$.
+
+    Since $B_V = \{v_1, \ldots, v_{m-a}, k_1, \ldots, k_a\}$. Since the image of a vector space is a subspace, then the basis of $A_*(V)$ is $B_{A_*(V)}\{Av_1, \ldots, Av_{m-a}\}$. Since $B_V$ is linearly independent by definition, $B_{A_*(V)}$ must be linearly independent as well. Moreover it must span the image because all the other bases in $B_V$ are kernel bases which map to 0 under A. By Linear Algebra Bootcamp 2 problem 1, since $A_*(V)$ is a subspace of W, extend the basis $B_{A_*(V)}$ to the basis of W, $B_W$ where $w_i = Av_i$ for all $i \in [1, \ldots, m-a]$ and for all $j \in [m-a+1, \ldots, n-(m-a)]$ $w_j$ are other linearly independent vectors such that $B_W$ is a valid basis. Let $\beta: F^n \rarr W$ be a linear map. Define $\beta$ where for all standard basis $e^n_i$, $\beta(e^n_i) = w_i$. Thus $\beta^{-1}(w_i) = e^n_i$ for all $w_i \in B_W$.
+
+    For all standard basis $e^m_i$ s.t $i \in [1, \ldots, m - a]$, $\beta^{-1}(A \alpha(e^m_i)) = \beta^{-1}(Av_i) = \beta^{-1}(w_i) = e^n_i$. For all standard basis  $e^m_i$ s.t $i \in [m - a + a, \ldots, m]$ $\beta^{-1}(A \alpha(e^m_i)) = \beta^{-1}(A k_i) = \beta^{-1}(0) = 0$. Thus for all $i < m - a$, $\beta^{-1}(A \alpha e^m_i) = e^n_i$ and for all $i > m-a$, $\beta^{-1}(A \alpha e^m_i) = 0$. Thus the induced matrix would be an identity matrix of size m-a flanked by 0 below and to the right of it. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Now when we have $A: V \to V$ it is more natural to ask for a single bases, $v: F^m \rarr V$, and then we get the matrix $B_v:= v^{-1} A v : F^m \to F^m$, and a basic question is how simple we can make this matrix. 
+    
+    Show that if B is one possibility, then the set of all possibilities are exactly the conjugates of B, the matrices $gBg^{-1}$ with g invertible. 
+\end{PROB}
+\begin{proof}
+    Suppose $B$ is one possibility of $B_v = v^{-1}Av$ where $v: F^m \rarr V$ is a isomorphism. Let $g: F^m \rarr F^m$ be a invertible linear transformation that maps the standard basis to another basis in $F^m$, aka isomorphism. Let $w: F^m \rarr V$ be a linear map, such that $w = v \circ g^{-1}$. 
+
+    Since w is a composition of invertible linear maps it is also a invertible linear map, thus $w^{-1} = (v \circ g^{-1})^{-1} = g^{-1^{-1}} \circ v^{-1} = g \circ v^{-1}$. Then $w^{-1}Aw = g v^{-1} A vg^{-1} = g^{-1}Bg = B_w$. Thus a conjugate of B is also a possibility.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    You might hope that A can be made scalar with the right choice. Show this is not realistic -- show that this holds iff A itself is scalar, ie a multiple of the identity.
+\end{PROB}
+
+\begin{proof}
+    ($\implies$): Suppose A can be made scalar, such that there exists a $v$ such that $B_v = v^{-1}Av = kI$ where $k \in F$. Left compose $v$ and Right compose $v^{-1}$ to $v^{-1}Av = kI$, $vv^{-1}Avv^{-1} = vkIv^{-1}$, thus $A = vkIv^{-1} = kvIv^{-1} = k(vv^{-1}) = kI$ by properties of identity. Thus $A = kI$.
+
+    ($\impliedby$): Suppose $A = kI$, then $B_v = v^{-1}kIv$. By properties of identity, $Iv = v$. Thus $B_v = kv^{-1}v$. $v^{-1}v = I$ by definition. Thus $B_v = kI$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Show A is diagonalizable iff there exists a basis of Eigenvectors. Recall: for f in F, the  an eigenvector is a non-zero v with $Av = fv$. In any case we let  $V_f := Ker(A - fI) = \{v| Av = fv\}$, the associated Eigenspace. An Eigenvector is then a non-zero vector in the Eigenspace. We say f is an "Eigenvalue" if it there is an associated Eigenvector, ie if $V_f$ is non-zero, or equivalently, if $A - fI$ is NOT invertible.
+\end{PROB}
+\begin{proof}
+    ($\implies$): Suppose A is diagonalizable. Then there exists a $v: F^m \rarr V$ such that $D = v^{-1}Av$ where D is a diagonal matrix with scalars on the diagonal and 0s every where else. Thus $A=vDv^{-1}$ Let $w \in V$ be a vector such that $v^{-1}w = e^m_i$ is the ith standard basis of $F^m$. Then $Dv^{-1}w = ke^m_i$ where $k \in F$. Thus $Aw = vDv^{-1}w = vke^m_i = kve^m_i = kw$. Since there are $m$ standard basis vectors in $F^m$ and $v^{-1}$ and $v$ are isomorphisms there are m possibilities for eigenvectors. Since linear maps keep linear independence. We can find m linearly independent vectors that are eigenvectors thus they form a basis.
+
+    ($\impliedby$): Suppose A has a eigenvector basis.
+    Construct a isomorphism $v: V \rarr F^m$ which take the ith eigenvector basis to the ith standard basis. Thus $v^{-1}e^m_i$ is the ith eigenvector basis. Matrix D is going to be a matrix such that $D_{i,i}$ is the eigenvalues for the ith eigenvector and $D_i,j = 0$ for all $i \neq j$. Thus $A = vDv^{-1}$ since $v$ and $v^{-1}$ are isomorphisms and D scales the eigenvector by its respective eigenvalues. Thus A is diagonalizable.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let $P_A(\lambda) := \det(A - \lambda I)$  -- note this is a monic polynomial of degree dim V. Show that the eigenvalues are exactly the roots of $P_A(T)$ (in the field f). In particular, there are at most dim V of them.
+\end{PROB}
+\begin{proof}
+    By definition of eigenvalues values, $\lambda \in F$ is a value for matrix A s.t there exists a $v \in V$ $v \neq 0$, $Av = \lambda v$. Then $Av - \lambda v =0$. By definition of identity matrix, $v = Iv$. Thus $Av - \lambda Iv = (A - \lambda I)v = 0$. For a $v \neq 0$, this is only true when $A - \lambda I$ is not invertible or the $\dim \ker(A - \lambda I)\neq 0$. Find invertible matrices R and C, to make $R(A - \lambda I)C$ is a diagonal matrix with 1s on the diagonal. Since the $\dim \ker(A - \lambda I)\neq 0$ and since R and C are invertible (isomorphisms) and do not change the kernel, $R(A - \lambda I)C$ must have only element on the diagonal equal to 0. The product of the diagonal is equal to the absolute value of the determinant, by definition of determinant and the fact the row and column operations could have included row and columns swaps thus multiplying $\det(A - \lambda I)$ by $(-1)^n$ where n is the number of swaps. Since there exists a 0 on the diagonal, $\det(A - \lambda I) = 0$. Thus the roots of $P_A(\lambda) := \det(A - \lambda I)$ give the possibilities for $\lambda$ and thus all the eigenvalues.
+
+    By definition $P_A(\lambda) := \det(A - \lambda I)$ is a monic polynomial of degree dim V. By the Fundemental Theorem of Algebra, a polynomial cannot have more solutions than the order of the polynomial. Thus the number of solutions or eigenvalues is at most $\dim V$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+    Consider $\oplus_{ f \in F} V_f$ -- this is the direct sum of all the eigenspaces. this looks infinite (if F is), but in fact we know all but at most $\dim V$ of the $V_f$ are zero. so its really just a convenient notation, we could as well take a finite direct sum.  Let $\oplus_{f \in F}: V_f \rarr V$ be the natural map (add up the vectors in a tuple). Here is the nice fact: Prove that this map is always injective.  Hint: suppose we have $v_1 + ... + v_k = 0$. with $v_i$ in $V_{f_i}$ with the $f_i$ distinct.  We want to show all the $v_i$ are zero. Hit this with A to get another equation and use them to get rid of one term. now proceed by induction.
+\end{PROB}
+\begin{proof}
+    Base case (k = 2): $\forall v_1 \in V_{f_1}$ and $\forall v_2 \in V_{f_2}$ where $f_1 \neq f_2$. 
+    Let: 
+    
+    \begin{equation}{}
+        v_1 + v_2 = 0
+    \end{equation}
+
+    Apply A to both sides:
+
+    $$Av_1 + Av_2 = 0$$
+
+    By definition of eigenspaces,
+
+    \begin{equation}{}
+        f_1v_1 + f_2v_2 = 0
+    \end{equation}
+
+    Multiply $f_1$ to $(I)$:
+
+    \begin{equation}{}
+        f_1v_1 + f_1v_2 = 0
+    \end{equation}
+
+    Subtract (III) for (II):
+
+    \begin{equation}{}
+        (f_2 - f_1)v_2 = 0
+    \end{equation}.
+
+    Since $f_2 \neq f_1$, thus $f_2 - f_1 \neq 0$. Thus $v_2 = 0$. Then $v_1 + v_2 = v_1 + 0 = v_1 = 0$. Thus $v_2 = v_1 = 0$.
+
+    Assume that $\sum_{i=1}^{k}v_i = 0$ with $v_i$ in $V_{f_i}$ with the $f_i$ distinct implies $v_i = 0$ for all i.
+
+    Inductive Step: $\sum_{i=1}^{k + 1}v_i$ with $v_i$ in $V_{f_i}$ with the $f_i$ distinct.
+
+    $$\sum_{i=1}^{k + 1}v_i = \sum_{i=1}^{k}v_i + v_{k+1}$$
+
+    By our assumption:
+
+    $$\sum_{i=1}^{k}v_i + v_{k+1} = 0 + v_{k+1} = v_{k+1} = 0$$
+
+    So, in the inductive step, we've shown that if $\sum_{i=1}^{k + 1}v_i = 0 \implies v_i = 0$ for all i. Thus the kernel of $\oplus_{ f \in F}$ is only the zero vector. Thus $\oplus_{ f \in F} V_f$ must be a injective map.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Prove that A is diagonalizable iff the sum of the dim of $V_f$ over all f is at least $\dim V$  and that if this holds then this sum is exactly dim V. 
+\end{PROB}
+\begin{proof}
+    $(\implies)$: Suppose A is diagonalizable. By problem 4, it has a eigenvector basis. Thus take its eigenvector basis $E$. Since $E$ is a basis of $V$. Subsets of $V$ should be basis elements of its subspaces. Define $B_f = V_f \cap E$. The subset of E which is in $V_f$. Furthermore each element in $E$ belongs to one eigenspace by definition. Thus for each $e \in E$, $\exists f \in F$ s.t $e \in V_f$. Furthermore by the previous problem, the elements of distinct eigenspaces are not linearly dependent. Thus for each $e \in E$, $\exists$ a unique $f \in F$ s.t $e \in V_f$. Since $E$ is a basis of $V$, $B_f$ must be a basis of $V_f$. Thus $\mathrm{span}(B) = \dim V_f$. If $B_f = \emptyset$, then $V_f = \{0\}$ and thus $\dim V_f = 0$. Thus $\sum_{f \in F} \dim V_f = \sum_{f \in F}B_f = \sum_{f \in F} V_f \cap E$. Since for each $e \in E$, $\exists$ a unique $f \in F$ s.t $e \in V_f$, $\sum_{f \in F} V_f \cap E = \dim \mathrm{span}(E) = \dim V$.
+
+    $(\impliedby)$: Suppose the sum of the dim of $V_f$ over all f is at least $\dim V$. Denote $B_{f}$ as the basis set of $V_f$ for all $f \in F$. By the previous proof, elements in different eigenspaces are linearly independent. For most $f \in F$, $V_{f} = {0}$ thus $B_f = \{0\}$. Moreover by problem 5, since there at most $\dim V$ eigenvalues, there must also be at most $\dim V$ nonzero eigenspaces. Let $B = \bigcup_{f \in F}B_f/\{0\}$. $B$ will contain linearly independent vectors and will contain eigenvectors by definition. $\dim \mathrm{span}(B) = \sum_{f\in F}\dim V_f \geq \dim V$ because we are taking the union of linearly independent basis sets from each $V_f$. By Linear Algebra Bootcamp 1 problem 7, we have shown that a dimension of a subspace must be less than or equal to its parent space and since $B \subseteq V$, then $\dim \mathrm{span} B = \sum_{f\in F}\dim V_f \leq n $. Thus $n \leq \dim \mathrm{span} B = \sum_{f\in F}\dim V_f \leq n$, or $\dim \mathrm{span} B = \sum_{f\in F}\dim V_f = n$. Thus $B$ contains n linearly independent vectors and spans V and contains only eigenvectors. Thus $B$ is a eigenvector basis of V. By problem 4, $A$ is diagonalizable.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+    Is every matrix diagonalizable? Let A be "nilpotent", ie assume $A^k = 0$ for some k. Show that $P_A(T) = T^n$, $n = \dim V$.  In particular, 0 is the only eigenvalue. Show that 0 is the only diagonalizable nilpotent matrix. Now give an example of the simplest non-zero nilpotent matrix -- it should be 2 x 2 with exactly one non-zero entry, a 1 in the upper right (or lower left) corner. 
+\end{PROB}
+\begin{claim}{8a}
+    0 is the only eigenvalue
+\end{claim}
+\begin{proof}
+    Let A be "nilpotent", ie assume $A^k = 0$.
+
+    Let $\lambda \in F$ be a eigenvalue of A and $v \in V_f$ where v is a eigenvector. Then $Av = \lambda v$. $A^{k - 1}(Av) = A^{k - 1}\lambda v$. Thus $A^kv = \lambda A^{k-1}v = \lambda^kv$. $A^k = 0$ by definition. Thus $A^kv = 0 = \lambda^kv$. By definition of a eigenvector, $v \neq 0$. Thus $\lambda = 0$. Since $\lambda$ could have been any eigenvalues of A, and since $\lambda = 0$. 0 is the only eigenvector of A. Moreover since $v$ is a eigenvector with eigenvalue 0, $v \in V_0 = \ker A$. Thus $\dim \ker A \neq 0$.
+\end{proof}
+\begin{claim}{8b}
+    Let A be "nilpotent", ie assume $A^k = 0$ for some k. Show that $P_A(T) = T^n$, $n = \dim V$.
+\end{claim}
+\begin{proof}
+    Base Case ($k = 1$): Since $A$ by definition is $A: V \rarr V$. Then $AV \subset A^0V = V$.
+    
+    Inductive Hypothesis: $A^kV \subset A^{k-1}V$
+    
+    Inductive Step: By definition, $A^{k + 1}V = A(A^kV)$. By definition of image, $A(A^kV) \subset V$. Furthermore, since $\dim A^kV = \dim A^{k + 1}V + \dim \ker A$ and since $\dim \ker A \neq 0$. Then $\dim A^{k+1}V < \dim A^k V$. Furthermore $A^{k + 1}V$ maps some values in $A^kV$ to 0 and others to other values also in $A^kV$. Thus $A^{k + 1}V \subset A^kV$.
+
+    Thus $ 0 = A^kV \subset A^{k-1}V \subset \ldots \subset A^{1}V \subset A^0V = V$. Construct a basis of V called $B$ by starting from $A^kV$ and adding linearly independent vectors. By the time we get to V we should have a basis. Use this basis to create isomorphisms $r$ and $r^{-1}$ s.t $r(e^m_i) = b \in B$. When we do $r^{-1}Ar$ we see that this matrix is strictly upper triangular. Moreover changes of basis doesn't change the linear transformation and the absolute value of the determinant should be the same. Thus $\det(TI - r^{-1}Ar) = \det(TI - A)$. $TI - r^{-1}Ar$ will have Ts along the diagonal of a upper triangular matrix. Thus by definition of determinant, $\det(TI - A) = T^n$.
+\end{proof}
+
+\begin{claim}{8c}
+    Show that 0 is the only diagonalizable nilpotent matrix.
+\end{claim}
+\begin{proof}
+    Let $N$ be a diagonalizable, nilpotent matrix.
+
+    $N = P^{-1}DP$ since N is diagonalizable. Furthermore there exists a k s.t $N^k = 0$.
+
+    $N^k = (P^{-1}DP)^k = (P^{-1}DP)(P^{-1}DP)\ldots(P^{-1}DP) = P^{-1}D(PP^{-1})D(PP^{-1})D\ldots(PP^{-1})DP = P^{-1}DID\ldots IDP = P^{-1}D^kP$.
+
+    But since $N^k = 0$, then $N^k = P^{-1}D^kP = 0$. $PP^{-1}D^kPP^{-1} = D^k = P0P^{-1} = 0$ Thus $D^k = 0$. Since $D^k$ is a matrix with scalar values on the diagonal, this is only possible when $D = 0$. Thus $N = P^{-1}0P = 0$. Thus $0$ is the only diagonalizable, nilpotent matrix.
+\end{proof}
+\end{document}

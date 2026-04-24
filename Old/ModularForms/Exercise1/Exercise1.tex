@@ -1,0 +1,488 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\D}{\mathbb{D}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\id}{\mathrm{id}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 1}
+\author{Arham Lodha}%put your name here
+\date{February 26, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+\end{PROB}
+\begin{proof}
+    $\forall z \in H, \Im(z) > 0 \implies \Im(z + i) > 0 \implies z + i \neq 0 \implies f$ is well defined for all $z \in H$. 
+    
+    $\forall z \in D, \abs{z} < 1 \implies z \neq 1 \implies 1 - z \neq 0 \implies g$ is well defined for $z \in D$.
+
+    $\forall z \in H$, 
+    
+    \begin{align*}
+        g(f(z)) &= g\left(\frac{z - i}{z + i}\right) \\
+        &= i \left(\frac{\frac{z - i}{z + i} + 1}{1 + \frac{i - z}{z + i}}\right) \\
+        &= i \left(\frac{z - i + z + i}{z + i + i - z}\right) \\
+        &= \frac{2zi}{2i} = z
+    \end{align*}
+
+    $\forall w \in D$, 
+    
+    \begin{align*}
+        f(g(w)) &= f\left(i\frac{w + 1}{1 - w}\right) \\
+        &= \frac{i(\frac{w + 1}{1 - w} - 1)}{i\left(\frac{w + 1}{1 - w} + 1\right)} \\
+        &= \frac{w + 1 - 1 + w}{w + 1 + 1 - w} \\
+        &= \frac{2w}{2} = w
+    \end{align*}
+
+    Thus $g \circ f = \id_{H}$ and $f \circ g = \id_{D}$. Thus $g$ and $f$ are reciprocal conformal equivalences  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+\end{PROB}
+\begin{proof}
+    $\forall a \in K$, 
+    
+    \[\begin{bmatrix}
+        a \\ & a^{-1}
+    \end{bmatrix} = \begin{bmatrix}
+        1 & 1 \\ & 1
+    \end{bmatrix} \begin{bmatrix}
+        1 \\ a - 1 & 1
+    \end{bmatrix} \begin{bmatrix}
+        1 & -a^{-1} \\ & 1
+    \end{bmatrix} \begin{bmatrix}
+        1 & \\ a - a^{2} & 1
+    \end{bmatrix} \]
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+    
+\end{PROB}
+\begin{proof}
+    $\forall A = \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix} \in SL_2(\R)$, 
+    
+    \begin{align*}
+        \begin{bmatrix}
+            1 \\ -\frac{c}{a} & 1
+        \end{bmatrix} A \begin{bmatrix}
+            a^{-1} \\ & a
+        \end{bmatrix} \begin{bmatrix}
+            1 & -ab \\ & 1
+        \end{bmatrix} &= \begin{bmatrix}
+            1 \\ -\frac{c}{a} & 1
+        \end{bmatrix} \begin{bmatrix}
+            1 & ba \\ \frac{c}{a} & da
+        \end{bmatrix} \begin{bmatrix}
+            1 & -ab \\ & 1
+        \end{bmatrix}\\ 
+        &= \begin{bmatrix}
+            1 & ba \\ 0 & da - bc
+        \end{bmatrix} \begin{bmatrix}
+            1 & -ab \\ & 1
+        \end{bmatrix} = \begin{bmatrix}
+            1 & ba\\ & 1
+        \end{bmatrix}\begin{bmatrix}
+            1 & -ab \\ & 1
+        \end{bmatrix} \\
+        &= I
+    \end{align*} 
+
+    Thus, 
+
+    \begin{equation*}
+        A = \begin{bmatrix}
+            1 \\ \frac{c}{a} & 1
+        \end{bmatrix} \begin{bmatrix}
+            1 & ab \\ & 1
+        \end{bmatrix} \begin{bmatrix}
+            a \\ & a^{-1}
+        \end{bmatrix}
+    \end{equation*} 
+\end{proof}
+
+\begin{PROB}{2c}\label{Problem 2c.}
+\end{PROB}
+\begin{proof}
+
+    Let $A(n) = \begin{bmatrix}
+        1 & n \\ & 1
+    \end{bmatrix}$ and $B(n) = \begin{bmatrix}
+        1 \\ n & 1
+    \end{bmatrix}$ 
+
+    For $i = 1$: \[\begin{bmatrix}
+        1 & 1 \\ & 1
+    \end{bmatrix}^1 = \begin{bmatrix}
+        1 & 1 \\ & 1
+    \end{bmatrix}\] and  \[\begin{bmatrix}
+        1  \\ 1& 1
+    \end{bmatrix}^1 = \begin{bmatrix}
+        1\\ 1 & 1
+    \end{bmatrix}\]
+    
+    Suppose for $n \in \N$: $A(1)^n = A(n)$ and $B(1)^n = B(n)$. 
+    
+    $A(1)^{n + 1} = A(1)A(n) = \begin{bmatrix}
+        1 & 1 \\ & 1
+    \end{bmatrix} \begin{bmatrix}
+        1 & n \\ & 1
+    \end{bmatrix} = \begin{bmatrix}
+        1 & n + 1 \\ & 1
+    \end{bmatrix} = A(n + 1)$
+    
+    \[B(1)^{n + 1} = B(1) B(n) = \begin{bmatrix}
+        1 \\ 1 & 1
+    \end{bmatrix} \begin{bmatrix}
+        1 \\ n & 1
+    \end{bmatrix} = \begin{bmatrix}
+        1 \\ n + 1 & 1
+    \end{bmatrix} = B(n + 1)\]
+
+    Thus $A(1)$ and $B(1)$ generate $SL_2(\F_p)$ by part a and $b$.      
+\end{proof}
+
+\begin{PROB}{2d}\label{Problem 2d.}
+    
+\end{PROB}
+\begin{proof}
+    $\forall z \in \Z$, let $\overline{z}$ denote the equivalence class mod p. Note the function $n \to \overline{n}$ is a ring homomorphism thus $n + m \to \overline{n + m} = \overline{n} + \overline{m}$ and $nm \to \overline{nm} = \overline{n} * \overline{m}$. $\forall A = \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix} \in SL_2(\Z)$, let $\overline{A} \in SL_2(\F_p)$ be $\begin{bmatrix}
+        \overline{a} & \overline{b} \\ \overline{c} & \overline{d}
+    \end{bmatrix}$, note $\overline{a}\overline{d} - \overline{b}\overline{c} = \overline{ad-bc} = \overline{1}$ . 
+    
+    Let $q: SL_2(\Z) \to SL_2(\F_p)$ where $A \to \overline{A}$. 
+    
+    \begin{align*}
+        q\left(\begin{bmatrix}
+            a & b \\ c & d
+        \end{bmatrix} \begin{bmatrix}
+            w & x \\ y & z
+        \end{bmatrix}\right) &= q\left(\begin{bmatrix}
+            aw + by & ax + bz \\ cw + dy & cx + dz
+        \end{bmatrix}\right) \\
+        &= \begin{bmatrix}
+            \overline{aw + by} & \overline{ax + bz} \\ \overline{cw + dy} & \overline{cx + dz}
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            \overline{a}\overline{w} + \overline{b}\overline{y} & \overline{a}\overline{x} + \overline{b}\overline{z} \\ \overline{c}\overline{w} + \overline{d}\overline{y} & \overline{c}\overline{x} + \overline{d}\overline{z}
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            \overline{a} & \overline{b} \\ \overline{c} & \overline{d}
+        \end{bmatrix}\begin{bmatrix}
+            \overline{w} & \overline{x} \\ \overline{y} & \overline{z}
+        \end{bmatrix}
+    \end{align*}
+
+    Thus $q$ is a homomorphism of groups. Moreover note $q\left(\begin{bmatrix}
+        1 & 1 \\ & 1
+    \end{bmatrix}\right) = \begin{bmatrix}
+        \overline{1} & \overline{1} \\ & \overline{1}
+    \end{bmatrix}$ and $q\left(\begin{bmatrix}
+        1 \\ 1 & 1
+    \end{bmatrix}\right) = \begin{bmatrix}
+        \overline{1} \\ \overline{1} & \overline{1}
+    \end{bmatrix}$ and as previously proven, $\begin{bmatrix}
+        \overline{1} & \overline{1} \\ & \overline{1}
+    \end{bmatrix}$ and $ \begin{bmatrix}
+        \overline{1} \\ \overline{1} & \overline{1}
+    \end{bmatrix}$ generate $SL_2(\F_p)$. Thus $q$ is surjective.       
+\end{proof}
+
+\begin{PROB}{2e}\label{Problem 2e.}
+\end{PROB}
+\begin{proof}
+    $\forall q \geq 1$:  
+    The natural projection is $\pi: SL_2(\Z) \to SL_2(\Z / q \Z)$ is a group homomorphism with $\Gamma(q)$ being the kernel. Thus since $\Z / q /Z$ is finite $SL_2(\Z / q\Z)$ is finite and since  $SL_2(\Z) / \Gamma(q) \cong SL_2(\Z / q \Z)\implies \abs{SL_2(\Z) / \Gamma(q)} = \abs{SL_2(\Z / q \Z)} < \infty$. Note $\Gamma(q) < \Gamma_1(q) < \Gamma_0(q) < SL_2(\Z) \implies \infty > \abs{SL_2(\Z) / \Gamma(q)} > \abs{SL_2(\Z) / \Gamma_1(q)} > \abs{SL_2(\Z) / \Gamma_0(q)}$ 
+    
+    
+    For $p$ prime: $SL_2(\F_p) = \ker \det$. $\abs{GL_2(\F_p)} = (p^2 - 1)(p^2 - p) = p(p^2 - 1)(p - 1)$. Thus $\abs{SL_2(\F_p)} = \abs{GL_2(\F_p)} / \abs{\F^\times_p} = p(p^2 - 1)$. Thus $\abs{SL_2(\Z) : \Gamma(p)} = p(p^2 - 1)$. 
+    
+    Let $\pi : \Gamma_0(p) \to G$ where $G$ is upper triangular matrices in $SL_2(\F_p)$. Note $G$ is a group and $\ker \pi = \Gamma(p)$. Thus $\abs{G} = [\Gamma_0(p) : \Gamma(p)]$. $\forall A = \begin{bmatrix}
+        a & b \\ 0 & c
+    \end{bmatrix} \in M_{2 \times 2}(\F_p), A \in G \iff a \cdot c = 1$. So there are $p - 1$ choices for $a$ and $p$ choices for $b$. Thus $[\Gamma_0(p) : \Gamma(p)] = \abs{G} = p(p - 1)$. Thus $[SL_2(\Z) : \Gamma_0(p)] = [SL_2(\Z) : \Gamma(p)] / [\Gamma_0(p) : \Gamma(p)] = p + 1$. 
+    
+    Let $\pi: \Gamma_1(p) \to H$ where $H$ is the subgroup of matrices of form $\begin{bmatrix}
+        1 & n \\ & 1
+    \end{bmatrix}$ in $SL_2(\F_p)$. $[\Gamma_1(p) : \Gamma(p)] = \abs{H} = p$. Thus $[SL_2(p) : \Gamma_1(p)] = [SL_2(p) : \Gamma(p)] / [\Gamma_1(p) : \Gamma(p)] = p^2 - 1$.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3a.}
+\end{PROB}
+\begin{proof}
+    $\forall f \in C(X)$, $\forall g, h \in G$ and $\forall x \in X$.
+    
+    \begin{align*}
+        ((f \cdot g) \cdot h)(x) &= (f \cdot g)(h \cdot x) \\
+        &= f(gh \cdot x) \\
+        &= (f \cdot gh)(x)
+    \end{align*}
+\end{proof}
+
+\begin{PROB}{3b}\label{Problem 3b.}
+\end{PROB}
+\begin{proof}
+    Let $\alpha: G \times X \to \C^\times$.
+    $\implies:$ Suppose $\forall f \in C(X), \forall g \in G, \forall x \in X$, 
+    
+    \[(f \cdot g)(x) = \alpha(g, x)f(g \cdot x)\]
+
+    defines an action of $G$ on $C(X)$.
+    
+    $\forall g, h \in G$ 
+
+    \[\alpha(gh, x)f(gh \cdot x) = (f \cdot gh)(x) = ((f\cdot g) \cdot h)(x) = \alpha(h, x)(f \cdot g)(h \cdot x) = \alpha(h, x)\alpha(g, h \cdot x)f(gh \cdot x)\]
+
+    Let $f: X  \to C$ where $x \to 1$. 
+    
+    Thus
+
+    \[\alpha(gh, x) = \alpha(h, x) \alpha(g, h \cdot x)\]. 
+
+    $\impliedby:$ Suppose $\forall g, h \in G$
+    
+    \[\alpha(gh, x) = \alpha(h, x) \alpha(g, h \cdot x)\]
+
+    Then $\forall f \in C(X), \forall x \in X, \forall g,h \in G$
+    
+    \begin{align*}
+        ((f \cdot g) \cdot h)(x) &= \alpha(h, x)(f \cdot g)(hx) \\
+        &= \alpha(h,x)\alpha(g,hx)f(ghx)\\
+        &= \alpha(gh, x)f(ghx) \\
+        &= (f \cdot gh)(x)
+    \end{align*}
+
+    Thus $(f \cdot g)(x) = \alpha(g, x) f(gx)$ is a valid action of $G$ on $C(x)$.     
+\end{proof}
+
+\begin{PROB}{3c}\label{Problem 3c.}
+\end{PROB}
+\begin{proof}
+    Let $\gamma: X \to \C^\times$ be any function. Let $\alpha: G \times X \to \C^\times$ where $\forall (g, x) \in G \times X$
+    
+    \[\alpha(g,x) = \frac{\gamma(g \cdot x)}{\gamma(x)}\]
+
+    $\forall g, h \in G$ and $\forall x \in X$
+    
+    \begin{align*}
+        \alpha(h, x) \alpha(g, hx) &= \frac{\gamma(h \cdot x)}{\gamma(x)} \frac{\gamma(gh \cdot x)}{\gamma(h \cdot x)} \\
+        &= \frac{\gamma(gh \cdot x)}{\gamma(x)} \\
+        &= \alpha(gh, x)
+    \end{align*}
+
+    Thus $\alpha$ has the property seen in 3b.  
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{4a}\label{Problem 4a.}
+\end{PROB}
+\begin{proof}
+    Let $x_0 \in X$ be fixed. Let $\lambda: V_H \to C(G)$ be a linear map defined $\lambda(f) = [g \to f(g \cdot x_0)\alpha(g,x_0)]$. 
+    
+    $\forall k \in \ker \lambda$, $\lambda(k) = \left[g \to 0\right]$. $\forall g \in G$, $k(g \cdot x_0)\alpha(g, x_0) = 0$. Since $\alpha \in Hom(G \times X, \C^\times) \implies \alpha(g, x_0) \in \C^\times \implies \alpha(g,x_0) \neq 0$. Thus $k(g \cdot x_0)= 0$ for all $g \in G$. Thus $(k \cdot g)(x_0) = 0$. Since $k \in V_H$, $(k \cdot g)(x_0) = k(x_0) = 0$. Since $G$ acts transitively on X, $\forall y \in X$, $\exists g \in G \ni g\cdot x_0 = y \implies k(y)= k(g \cdot x_0) = (k \cdot g)(x_0) = k(x_0) = 0$. Thus $k = 0$. Thus $\ker \lambda = 0 \implies \lambda$ is injective.                      
+\end{proof}
+
+\begin{PROB}{4b}\label{Problem 4b.}
+\end{PROB}
+\begin{proof}
+    $\forall f \in V_H$, let $\tilde{f} = \lambda(f)$. $\forall (g, h) \in G \times H$
+    
+    \begin{align*}
+        \tilde{f}(hg) &= f(hg \cdot x_0)\alpha(hg, x_0) \\
+        &= f(hg \cdot x_0) \alpha(g, x_0) \alpha(h, gx_0)\\
+        &= (f \cdot h)(g \cdot x_0) \alpha(g, x_0) \\
+        &= f(g \cdot x_0)\alpha(g, x_0) \\
+        &= \tilde{f}(g)
+    \end{align*}
+\end{proof}
+
+\begin{PROB}{4c}\label{Problem 4c.}
+\end{PROB}
+\begin{proof}
+    Let $K = G^{x_0}$. Let $\chi: K \to \C^{\times}$ where $k \to \alpha(k, x_0)$. $\forall g, h \in K $, 
+    
+    \begin{align*}
+        \chi(gh) &= \alpha(gh, x_0) \\
+        &= \alpha(h, x_0)\alpha(g, h \cdot x_0) \\
+        &= \alpha(h, x_0) \alpha(g, x_0) \\
+        &= \chi(h) \chi(g)
+    \end{align*}
+
+    Thus $\chi$ is a group homomorphism. 
+\end{proof}
+
+\begin{PROB}{4d}\label{Problem 4d.}
+\end{PROB}
+\begin{proof}
+    $\forall f \in V_H$, $\forall k \in K$ and $g \in G$
+    
+    \begin{align*}
+        \tilde{f}(gk) &= f(gk \cdot x_0)\alpha(gk, x_0) \\
+        &= f(g \cdot x_0) \alpha(k, x_0) \alpha(g, k x_0) \\
+        &= f(g \cdot x_0) \alpha(g, x_0) \alpha(k, x_0) \\
+        &= \tilde{f}(g) \chi(k)
+    \end{align*}
+\end{proof}
+
+\begin{PROB}{4e}\label{Problem 4e.}
+\end{PROB}
+\begin{proof}
+    Suppose $\tilde{f}: G \to \C$ is a function such that $\forall h \in H, \forall k \in K, \forall g \in G$ $\tilde{f}(hg) = \tilde{f}(g)$ and $\tilde{f}(gk) = \chi(k) \tilde{f}(g)$. 
+    
+    Since $G$ acts transitively on $X$, then $\forall x \in X$ $\exists g_x \in G \ni g_x \cdot x_0 = x$. Define $f(x) = \frac{\tilde{f}(g_x)}{\alpha(g_x, x_0)}$. 
+    
+    Well definedness: Suppose $\exists x \in X \ni \exists g, g' \in G \ni x = g \cdot x_0 = g' \cdot x_0 \implies g = g' k$ for some $k \in K$. Thus 
+    
+    \begin{align*}
+        f(x) &= \frac{\tilde{f}(g)}{\alpha(g, x_0)} \\
+        &= \frac{\tilde{f}(g'k)}{\alpha(g'k, x_0)} \\
+        &= \frac{\tilde{f}(g')\chi(k)}{\alpha(g', k \cdot x_0) \chi(k)} \\
+        &= \frac{\tilde{f}(g')}{\alpha(g', x_0)}
+    \end{align*}
+
+    so $f$ is well defined. 
+    
+    $\forall x \in X$ and $\forall h \in H$
+    
+    \begin{align*}
+        (f \ast h)(x) &= \alpha(h, x) f(h \cdot x) \\
+        &= \alpha(h, x) \frac{\tilde{f}(h g)}{\alpha(hg, x_0)} \\
+        &= \alpha(h, x) \frac{\tilde{f}(h g)}{\alpha(g, x_0)\alpha(h, gx_0)} \\
+        &=\frac{\tilde{f}(g)}{\alpha(g, x_0)} \\ 
+        &= f(x)
+    \end{align*}
+
+    Finally $\forall g \in G$, 
+    
+    \[\lambda(f)(g) = f(gx_0)\alpha(g, x_0) = \tilde{f}(g)\] 
+
+    Thus image of $\lambda$ is the set of functions $\tilde{f}: G \to \C$ such that (2) and $(3)$ are valid.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5a}\label{Problem 5a.}
+\end{PROB}
+\begin{proof}
+    $\forall k \in \Z$. $\forall A_1, A_2 \in SL_2(\R)$ where $A_1 = \begin{bmatrix}
+        a_1 & b_1 \\ c_1 & d_1
+    \end{bmatrix}$ and $A_2 = \begin{bmatrix}
+        a_2 & b_2 \\ c_2 & d_2
+    \end{bmatrix}$. 
+    
+    Note $A_1 A_2 = \begin{bmatrix}
+    a_1 a_2 +b_1 c_2 & a_1d_1 + b_1 d_2 \\
+    c_1 a_2 + d_1 c_2 & c_1 b_2 + d_1 d_2
+    \end{bmatrix}$. 
+
+    Thus 
+    
+    \begin{align*}
+        \alpha(A_1 A_2, z) &= ((c_1 a_2 + d_1 c_2)z + c_1 b_2 + d_1 d_2)^k \\
+        &= (c_1(a_2 z + b_2) + d_1(c_2z + d_2))^k \\
+        &= (c_2z + d_2)^k(\frac{c_1(a_2 z + b_2) + d_1(c_2z + d_2)}{c_2 z + d_2})^k \\
+        &= (c_2z + d_2)^k \left(c_1\frac{a_2 z + b_2}{c_2 z + d_2} + d_1\right) \\
+        &= \alpha(A_2, z) \alpha(A_1, A_2 \cdot z)
+    \end{align*}
+
+
+    For a modular for $f$ of weight $k$ it follows the following rule $f(\frac{az + b}{cz +d}) (cz + d)^k f(z)$ for $\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix} \in \Gamma \in SL_2(\Z)$. Thus $\alpha$ is the multiplication factor.     
+\end{proof}
+\begin{PROB}{5b}\label{Problem 5b.}
+\end{PROB}
+\begin{proof}
+    Assume the contrary that for $k \neq 0$,  $\exists \lambda \in Hom(H, \C^x) \ni \alpha(g,x) = \frac{\lambda(g x)}{\lambda(x)}$. Then $\alpha(-I, z) = (-1)^k$ and $\alpha(-I, z) = \frac{\lambda(z)}{\lambda(z)} = 1$. Thus $(-1)^k = 1$. Thus we have 2 cases:
+    
+    
+    \begin{enumerate}
+        \item k is odd: Immediate contradiction
+        \item k is even: $\forall r_\theta = \begin{bmatrix}
+            \cos(\theta) & \sin(\theta) \\ -\sin(\theta) & \cos(\theta)
+        \end{bmatrix} \in SO(2)$. $\alpha(r_\theta, i) =  (-\sin(\theta) i + \cos(\theta))^k = e^{-ki \theta}$. Also $\alpha(r_\theta, i) = \lambda(r_\theta , i) / \alpha(i) = \alpha(i) / \alpha(i) = 1$. Thus $\forall \theta$, $e^{-ki \theta} = 1$. This is a contradiction becuase if $\theta =\frac{\pi}{k} \implies e^{-k i \frac{\pi}{k}} = e^{-i \pi} = -1 \neq 1 $.       
+    \end{enumerate}
+
+    Thus by contradiction, $\alpha$ is not of the form shown in 3c.  
+    
+\end{proof}
+
+
+\end{document}

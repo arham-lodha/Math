@@ -1,0 +1,192 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 8}
+\author{Arham Lodha}%put your name here
+\date{March 18, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1a}\label{Problem 1a.}
+\end{PROB}
+\begin{proof}
+    $\forall \alpha \in \R$:
+    
+    \begin{enumerate}
+        \item Case 1: $\alpha \leq 0$. Let $K = 1$, $\forall n \geq K$, $\sqrt{n} > 0 \geq \alpha$.
+        \item Case 2: $\alpha > 0$. By the Archemedian property, $\exists K \geq \alpha^2$. Thus $\sqrt{K} > \sqrt{\alpha^2 + 1} > \sqrt{\alpha^2} \geq \alpha$. Since $\forall n \geq K$, $\sqrt{n} \geq \sqrt{K}$ and since $\sqrt{K} > \alpha$, thus $\sqrt{n} > \alpha$.               
+    \end{enumerate}
+    
+    Thus $\sqrt{n}$ is properly divergent and $\lim_{n \to \infty} \sqrt{n} = + \infty$  
+\end{proof}
+
+\begin{PROB}{1b}\label{Problem 1b.}
+\end{PROB}
+\begin{proof}
+
+    $\forall n \in \N \ni n > 1$, $n^2 > n \implies n^2 - n > 0$.     
+
+    $\forall \alpha \in \R$:
+    \begin{enumerate}
+        \item Case 1: $\forall \alpha \leq 0$. Let $K = 2$, $\forall n \geq K$, $n \geq K > 1$ so $n^2 - n > 0 \geq \alpha \implies n^2 - n \geq \alpha$. 
+        \item Case 2: $\alpha > 0$. By the Archemedian property, $\exists K > \frac{1 + \sqrt{1 + 4\alpha}}{2}$. $K^2 - K > \left(\frac{1 + \sqrt{1 + 4\alpha}}{2}\right)^2 - \left(\frac{1 + \sqrt{1 + 4\alpha}}{2}\right) = \frac{1}{4}(1 + 2\sqrt{1 + 4\alpha} + 1 + 4\alpha) - \left(\frac{1 + \sqrt{1 + 4\alpha}}{2}\right) = \alpha$. Thus $K^2 - K > \alpha$. $\forall n \geq K$, $n^2 \geq nK \geq K^2 \implies n^2 - n \geq K^2 - K$. Since $K^2 - K > \alpha$ and $n^2 - n \geq K^2 - K$, $n^2 - n > \alpha$.                 
+    \end{enumerate}
+\end{proof}
+
+\begin{PROB}{1c}\label{Problem 1c.}
+\end{PROB} 
+\begin{proof}
+     
+    
+    $\forall c \in \R$. 
+    
+    
+    If $c \leq 0$, then let $n = 2$. Thus $(-1)^n n = 2 > 0 \leq c \implies (-1)^n n > c$. Thus $c$ is not a upper bound for $(-1)^n n$.              
+    
+    Otherwise if $c > 0$, $\forall K \geq \ceil{c} + 1$, thus $K > c$. If $K \mod 2 = 1$, then $L = K + 1$ is even. Thus $(-1)^L L = L > K > c$. If $K \mod 2 = 0$, thus $(-1)^K K = L > c$. Thus $c$ is not a upper bound for $(-1)^n n$.               
+    
+    Thus $\left((-1)^n n\right)$ is unbounded and thus divergent.
+
+    Let $\alpha = 0$. $\forall K \in \N$, let $L = K + 1$ :
+    
+    \begin{enumerate}
+        \item Case 1 ($K \mod 2 = 0$): $(-1)^K K = K > \alpha = 0$ and $(-1)^L L = -L < 0 = \alpha$. 
+        \item Case 2 ($K \mod 2 = 1$): $(-1)^L L = L > \alpha = 0$ and $(-1)^K K = -K < 0 = \alpha$  
+    \end{enumerate}
+
+    Thus $(-1)^n n$ is not properly divergent.  
+    
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{2}\label{Problem 2.}
+\end{PROB}
+\begin{proof}
+    $\implies$: Suppose $(x_n)$ is a sequence where $\forall n \in \N \ni x_n > 0$ and $\lim_{n \to \infty} x_n = 0$. Since $x_n > 0$, then $\frac{1}{x_n} > 0$. $\forall \alpha \in \R \ni \alpha \leq 0$, $K = 1$ and $\forall n \geq K$ $\alpha \leq 0 < \frac{1}{x_n}$. 
+    
+    $\forall \alpha \in \R \ni \alpha > 0$. Let $\epsilon = \frac{1}{\alpha}$. By definition of limit, $\exists K \in \R \ni \forall n \geq K , \exists |x_n| < \epsilon$. Since $x_n > 0$, $x_n < \epsilon \implies \frac{1}{\epsilon} < \frac{1}{x_n}$. Thus $\alpha < \frac{1}{x_n}$. 
+    
+    Thus $(\frac{1}{x_n})$ is properly divergent and $\lim_{n \to \infty}(x_n) = \infty$
+    
+    $\impliedby$: Suppose $(x_n)$ is a sequence where $\forall n \in \N \ni x_n > 0$ and $\lim_{n \to \infty} \frac{1}{x_n} = \infty$.
+    
+    $\forall \epsilon > 0$. Let $\alpha = \frac{1}{\epsilon}$. By definition of proper divergence, $\exists K \in \N \ni \forall n \geq K$, $\frac{1}{x_n} > \alpha$. Since $x_n > 0$, $|x_n| = x_n$. So $\frac{1}{|x_n|} > \alpha$. Thus $\epsilon = \frac{1}{\alpha} > |x_n|$. Thus $|x_n| < \epsilon$. 
+    
+    Thus by definition of convergence, $\lim_{n \to \infty} x_n = 0$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+\end{PROB}
+\begin{proof}
+    Let $S_n = \sum_{k = 0}^n \frac{1}{n(n + 1)}$.
+    
+    \begin{align*}
+        S_n = \sum_{k = 1}^n \frac{1}{n(n + 1)} &= \sum_{k = 1}^n \left(\frac{1}{n} - \frac{1}{n + 1}\right) \\ 
+        &= \sum_{k = 1}^n \frac{1}{n} - \sum_{k = 1}^n \frac{1}{n + 1} \\
+        &= \sum_{k = 1}^n \frac{1}{n} - \sum_{k = 2}^{n+ 1} \frac{1}{n} \\
+        &= 1 + \frac{1}{n + 1}
+    \end{align*}.
+
+    Since $1$ is a constant sequence, it converges to 1.
+    
+    $\forall \epsilon > 0$. By the Archemedian Property, $\exists K \in \N \ni K > \frac{1}{\epsilon} \implies \epsilon > \frac{1}{K}$. 
+    
+    Thus $\forall n \geq K$, 
+    
+    \begin{align*}
+        \abs{\frac{1}{n + 1}} &= \frac{1}{n + 1} \\
+        &< \frac{1}{n} \text{ (since $n < n + 1$)} \\
+        &\leq \frac{1}{K} \text{ (since $n \geq K$)}\\
+        &< \epsilon.
+    \end{align*}
+
+    Thus $\lim_{n \to \infty} \frac{1}{n + 1} = 0$ 
+    
+
+    Thus by operation of limits, $\lim_{n \to \infty} S_n = 1$. 
+    
+    $\sum_{k = 0}^\infty \frac{1}{n(n + 1)}$ converges to 1. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+\end{PROB}
+\begin{proof}
+
+    $\implies: $ Suppose $(x_n)$ is convergent. Let $L = \lim x_n$. Since $1$ is constant so convergent to 1, and $\lim \left(\frac{x_n}{y_n}\right) = r > 0$, by division of limits, $\lim \frac{y_n}{x_n} = \lim \left(\frac{1}{\frac{x_n}{y_n}}\right) = \frac{1}{\lim \frac{x_n}{y_n}} = \frac{1}{r}$. $y_n = x_n \frac{y_n}{x_n}$. By multiplication of limits, since $x_n$ is convergent and $\frac{y_n}{x_n}$ is convergent, $y_n$ is convergent and $\lim y_n = \lim x_n \frac{y_n}{x_n} = \left(\lim x_n\right)\left(\lim \frac{y_n}{x_n}\right) = L * \frac{1}{r} = \frac{L}{r}$.       
+    
+
+
+    $(\impliedby)$: Suppose $y_n$ is convergent. Thus $\lim_{n \to \infty} y_n = L$ for $L \in \R$. $x_n = y_n * \frac{x_n}{y_n}$, by multiplication of limits, since $y_n$ is convergent and $\frac{x_n}{y_n}$ is convergent, $x_n$ is convergent and $\lim x_n = \lim \left(y_n \frac{x_n}{y_n}\right) = \left(\lim y_n\right)\left(\lim \frac{x_n}{y_n}\right) = Lr$.         
+\end{proof}
+
+
+\end{document}

@@ -1,0 +1,192 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 4}
+\author{Arham Lodha}%put your name here
+\date{February 08, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Consider $f : A \to B$ a function from the set A to the set B, E subset of B, and F and G subsets of A.
+    \begin{enumerate}
+        \item Give the mathematical definition of the direct image of F under f.
+        \item Give the mathematical definition of the inverse image of E under f.
+        \item Show that $$f(E \cup G) = f(E) \cup f(G)$$
+    \end{enumerate}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item $f(F) = \left\{ f(x) : \forall x \in F \right\}$ 
+        \item $f^{-1}(E) = \left\{x \in A : f(x) \in E \right\}$ 
+    \end{enumerate}
+\end{solution}
+\begin{claim}{1c}\label{Claim 1c.}
+    Show that $$f(E \cup G) = f(E) \cup f(G)$$
+\end{claim}
+\begin{proof}
+    $\forall b \in f(E \cup G)$, by definition of image, $\exists a \in E \cup G \ni f(a) = b$. Thus by definition of union, $a \in E$ or $a \in G$. If $a \in E$, then $b = f(a) \in f(E)$, by definition of image. If $a \in G$, then $b = f(a) \in f(G)$, by definition of image. Thus $b \in f(E)$ or $b \in f(G)$. Thus by definition of union, $b \in f(E) \cap f(G)$. Thus $f(E \cup G) \subseteq f(E) \cap f(G)$ 
+    
+    $\forall b \in f(E) \cap f(G)$, by definition of union, $b \in f(E)$ or $b \in f(G)$. If $b \in f(E)$, by definition of image, $\exists a \in E \ni f(a) = b$. If $b \in f(G)$, by definition $\exists a \in G \ni f(a) = b$. Thus $a \in E$ or $a \in G$. Thus $a \in E \cap G$, thus by definition of image, $b \in f(E \cap G)$. Thus $f(E) \cap f(G) \subseteq f(E \cap G)$. Thus $f(E) \cap f(G) = f(E \cap G)$.               
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+    Give the definition for a set S to be denumerable
+\end{PROB}
+\begin{proof}
+    S is denumerable if $\exists f: \N \to S$ where $f$ is a bijection.   
+\end{proof}
+\begin{claim}{2b}\label{Claim 2b.}
+    Using only the definition, show that $\Z$ is denumerable.
+\end{claim}
+\begin{proof}
+    $f: \N \to S$ where $\forall n \in \N$, 
+    
+    $$
+    f(n) = \begin{cases}
+        -\floor{\frac{n}{2}} & \text{if n is odd} \\
+        \frac{n}{2} & \text{if n is even}
+    \end{cases}
+    $$ 
+
+
+    $\forall y \in \Z$, if $y \leq 0$, $\exists n \in \N \ni n = -2y + 1$. $n$ is odd thus $f(n) = -\floor{\frac{n}{2}} = -\floor{\frac{-2y + 1}{2}} = -\floor{-y + \frac{1}{2}} = y$. If $y > 0$, then $\exists n \in \N \ni n = 2y$, thus $f(n)  \frac{2y}{2} = y$. Thus $f$ is surjective. 
+    
+    $\forall a, b \in \N$, suppose $f(a) = f(b)$. If a is odd and b is even, then $f(a) < 0$ and $f(b) > 0$, thus by contradiction both a and b must be both odd or both even. If $a, b$ are odd, then $-\floor{\frac{a}{2}} = -\floor{\frac{b}{2}}$. Thus $\floor{\frac{a}{2}} = \floor{\frac{b}{2}} \implies \frac{a}{2} = \frac{b}{2} \implies a = b$. If $a, b$ are even, then $\frac{a}{2} = f(a) = f(b) = \frac{b}{2}$, thus $a = b$. Thus $f$ is injective.
+    
+    Thus $f$ is a bijection and $\Z$ is denumerable. 
+\end{proof}
+
+\begin{claim}{2c}\label{Claim 2c.}
+    Show that $\Q$  is countable 
+\end{claim}
+\begin{proof}
+    Let $f: \Q \to \Z \times \N$ where $\forall \frac{p}{q} \in \Q$, $f(\frac{p}{q}) = (p, q)$. $\forall \frac{p}{q}, \frac{r}{s} \in \Q$, let $f(\frac{p}{q}) = f\left(\frac{r}{s}\right) \implies (p, q) = (r, s) \implies p = r, q =s$. Thus $\frac{p}{q} = \frac{r}{s}$. Thus is injective. 
+    You can create a sequence with the elements of $\Z \times \N$ where you are spiraling around the origin, so you start with $(0, 0), (1, 0), (1, 1), (0, 1), (-1, 0), (-1, 0), (-1, -1), (0, -1), (1, -1), (2, -1), (2, 0)\dots$. Since we are going a finite number of elements before we change directions, we don't ever run out of $\N$. Moreover since we are spiraling while making sure to land on lattice points all values in $\Z \times \N$ will be covered. Thus $\exists$ a bijection $\Z \to \N \times \N$ and thus exists inverse bijection $g : \N \times \Z \to \N$.
+
+    $\forall r, s \in \Q \ni (g \circ f)(r) = (g \circ f)(s)$, since $g$ is a bijection it is also injective so $f(r) = f(s)$, since $f$ is injective, $r = s$. Thus $(g \circ f)$ is injective map from $\Q \to \N$. Thus $\Q$ is countable.        
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    $\forall n \in \N$:
+    
+    \[
+        \sum_{i = 1}^{n} \frac{1}{i(i + 1)} = \frac{1}{1(2)} + \frac{1}{2(3)} + \dots + \frac{1}{n(n + 1)} = \frac{n}{n + 1}
+    \] 
+\end{PROB}
+\begin{proof}
+    (Base Case): Let $n = 1$, $\sum_{i = 1}^{1} \frac{1}{i(i + 1)} = \frac{1}{1(2)} = \frac{1}{2}$. $n + 1 = 2$. So $\sum_{i = 1}^{1} \frac{1}{i(i + 1)} = \frac{n}{n+1}$.
+
+    Inductive Hypothesis: Assume $\sum_{i = 1}^{n} \frac{1}{i(i + 1)} = \frac{n}{n + 1}$ is true.
+
+    Inductive Step: $\sum_{i = 1}^{n + 1} \frac{1}{i(i + 1)} = \sum_{i = 1}^{n} \frac{1}{i(i + 1)} + \frac{1}{(n + 1)(n + 2)}$. By Inductive Hypothesis, 
+    
+    \begin{align*}
+        \sum_{i = 1}^{n} \frac{1}{i(i + 1)} + \frac{1}{(n + 1)(n + 2)} &= \frac{n}{n + 1}+ \frac{1}{(n + 1)(n + 2)} \\
+        &= \frac{n(n + 2) + 1}{(n + 1)(n+2)} \\
+        &= \frac{n^2 + 2n + 1}{(n + 1)(n + 2)} \\
+        &= \frac{(n + 1)^2}{(n + 1)(n + 2)} \\
+        &= \frac{n + 1}{n + 2}.
+    \end{align*}
+
+    Thus, $\sum_{i = 1}^{n + 1} \frac{1}{i(i + 1)} = \frac{n + 1}{n + 2}$. Let $k = n +1$. Thus, $\sum_{i = 1}^{k} \frac{1}{i(i + 1)} = \frac{k}{k + 1}$.    
+
+    Thus by induction, $\forall n \in \N$,
+    $\sum_{i = 1}^{n} \frac{1}{i(i + 1)} = \frac{n}{n + 1}$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Using only the nine fundamental algebraic properties of $\R$ , show that:
+
+    \begin{enumerate}
+        \item For all $a \in \R$, $-(-a) = a$
+        \item For all $a, b \in R$, $(-a)(-b) = ab$ .  
+    \end{enumerate}
+     
+\end{PROB}
+\begin{claim}{4a}\label{Claim 4a.}
+    For all $a \in \R$, $-(-a) = a$
+\end{claim}
+\begin{proof}
+    $\forall a \in \R$, by the existence of a additive inverse for all reals, $\exists -a \in \R$, $a + (-a) = 0$. By the commutative property of addition, $(-a) + a =0$. Again by the existence of additive inverses $\exists -(-a) \in \R \ni -(-a) + (-a) = 0$. Thus $0 + a = -(-a) + (-a) + a = -(-a)$. By properties of the additive identity, $a = 0 + a = -(-a)$. Thus $a = -(-a)$.         
+\end{proof}
+\begin{claim}{4b}\label{Claim 4b.}
+    For all $a, b \in R$, $(-a)(-b) = ab$ .
+\end{claim}
+\begin{proof}
+$\forall r \in \R$, by the properties of the multiplicative identity, $r * 1 = r$. By the properties of additive identity, $1 + 0 = 1$. Thus $r(1 + 0) = r$. By the distributivity of multiplication over addition, $r*1 + r*0 = r$. By the properties of the additive identity, $r + r*0 = r$. By the existence of a additive inverse, $\exists -r \in \R \ni -r + r = 0$. Thus $0 + r*0 = -r + r + r*0 = -r + r = 0$. By the properties of the additive identity, $0 + r*0 = r*0 =0$. Thus $r*0 = 0$.      
+
+$\forall a, b \in \R$. By the distributivity of multiplication over additon, $b(-1 + 1) = -1(b) + b$. $1 - 1= 0$. Thus $b(0) = -1(b) + b$. By the above, $b(0) = 0$. Thus $-1(b) + b = 0$. By the existence of the additive identity, $-1(b) + b -b = -b \implies -1(b) = -b$. 
+
+Thus $(-a)(-b) = (a)(-1)(b)$. By the commutativity of multiplication, $(-a)(-1)(b) = (-1)(-a)b$. By the above, $(-1)(-a)(b) = -(-a)(b)$. By 4a, $-(-a) = a$. Thus $-(-a)(b) = ab$. Thus $(-a)(-b) = ab$.           
+\end{proof}
+
+\end{document}

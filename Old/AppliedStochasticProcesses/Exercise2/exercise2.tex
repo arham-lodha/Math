@@ -1,0 +1,265 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 2}
+\author{Arham Lodha}%put your name here
+\date{February 26, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{2.1a}\label{Problem 2.1a.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item $\PR_x(X_1 = y, X_0 = x) = P(X_1 = y, X_0 = x \mid X_0 = x) = P(X_1 = y \mid X_0 = x) = p_{x, y}$
+        \item $\PR_x(X_1 = y) = P(X_1 = y \mid X_0 = x) = p_{x, y}$
+        \item $\PR_x(X_1 = x, X_2 = y) = P(X_1 = x, X_2 =y \mid X_0 = x) = p_{x, x} p_{x, y} \neq p_{x, y}$
+        \item $\PR_{x}(X_1 = x, X_0 = y) = P(X_1 = x, X_0 = y \mid X_0 = x) = 0$
+        \item $\PR_{\delta^x}(X_1 = y) = \delta^x(x) p_{x, y} = p_{x, y}$ 
+    \end{enumerate}
+    
+    
+\end{solution}
+\begin{PROB}{2.1b}\label{Problem 2.1b.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item $\PR_x(X_{n + 2} = z , X_{n + 1}= y \mid X_n = x) = p_{x, y} p_{y, z} \neq \PR_x(X_{n + 2} = z, X_{n + 1} = y, X_{n} = x)$ 
+        \item $\PR_x(X_{2n + 2} = z, X_{2n + 1} = y, X_{2n} = x \mid X_{n} = x) = \PR_x(X_{n + 2} = z, X_{n + 1} = y, X_{n} = x)$ by Homogeniety. 
+        \item $p^{(n)}_{x, x}p_{x, y}p_{y, z} = \PR_x(X_n = x, X_{n + 1} = y, X_{n + 2}= z)$
+        \item $p_{x, y} p_{y, z} \neq p^{(n)}_{x, x}p_{x, y}p_{y, z} = \PR_x(X_n = x, X_{n + 1} = y, X_{n + 2}= z)$ 
+        \item $\sum_{u_1, \dots, u_{n - 1} \in S} p_{x, u_1}\dots p_{u_{n - 1}, x} p_{x, y} p_{y,z} = p^{(n)}_{x, x}p_{x, y}p_{y, z} = \PR_x(X_n = x, X_{n + 1} = y, X_{n + 2}= z)$  
+    \end{enumerate}
+    
+\end{solution}
+\begin{PROB}{2.1c}\label{Problem 2.1c.}
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item $\PR_1(X_2 = 3) = \frac{1}{4} \neq 0$
+        \item $\PR_1(X_3 = 3)$: 3 is 2 away from 1. So the number of $+1$ or $r$ has to be 2 greater than the number of $-1$ or $l$. So $2l + 2 = r + l = 3 \implies l = \frac{1}{2}$. But $l$ has to be a natural number. Thus this is not possible so $\PR_1(X_3 = 3) = 0$
+        \item $\PR_1(X_4 = 3) > \PR_1(X_4 = 3, X_3 = 2, X_2 = 1, X_1 = 0) \neq 0$          
+        \item $\PR_1(X_5 X_6 < 0)$: This means $X_5 > 0$ and $X_6 < 0$ or $X_6 > 0$ and $X_5 < 0$. Thus $\abs{X_5 - X_6} \geq 2$ and thus given the transition probability is 0. Thus $\PR_1(X_5 X_6 < 0) = 0$.
+        \item $\PR_1(X_{2n + 1} = 0)$ for $n \in \N$: $\PR_1(X_{2n + 1} = 0) > \PR_1(X_1 = 0, X_{2} = 1, X_{3} = 0, ..., X_{2n} = 1, X_{2n + 1} = 0) = (\frac{1}{2})^{2n + 1} > 0$       
+    \end{enumerate}
+    
+\end{proof}
+\begin{PROB}{2.2}\label{Problem 2.2.}
+\end{PROB}
+\begin{proof}
+    The transition matrix is $P$.  
+    \[P = \begin{bmatrix}
+    0 & 1 & 0 \\ 0 & \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & 0 & \frac{1}{2}
+\end{bmatrix}\] 
+
+The characteristic polynomial is $\chi_{P}(\lambda) = -(\lambda^3 - \lambda^2 + \frac{1}{4}\lambda - \frac{1}{4})$. $1$ is always an eigenvalue of stochastic matrices. thus $\chi_P(\lambda) = -(\lambda - 1)(\lambda^2 + \frac{1}{4}) = -(\lambda - 1)(\lambda - \frac{1}{2}i)(\lambda + \frac{1}{2}i)$.
+
+For some $\alpha, \beta, \gamma \in \C$, $p_{a, a}^{(n)} = \alpha + \beta (\frac{i}{2})^n + \gamma(\frac{-i}{2})^n$. 
+
+\begin{align*}
+    p_{a, a}^{(0)} &= \alpha + \beta + \gamma = 1 \\
+    p_{a, a}^{(1)} &= \alpha + \frac{i}{2}(\beta - \gamma) = 0 \\
+    p_{a, a}^{(2)} &= \alpha - \frac{1}{4}(\beta + \gamma) = 0 \\
+\end{align*}
+
+After some algebraic manipulations you see $\alpha = \frac{1}{5}$, $\beta = \frac{2}{5} + \frac{1}{5}i$, and $\gamma = (\frac{2}{5} - \frac{1}{5}i)$. Now we simplify.    
+
+\begin{align*}
+    p_{a a}^{(n)} &=\frac{1}{5}+\left(\frac{2}{5}+\frac{1}{5}i\right)\left(\frac{i}{2}\right)^{n}+\left(\frac{2}{5}-\frac{1}{5}i\right)\left(\frac{-i}{2}\right)^{n} \\
+    &= \frac{1}{5} + \frac{1}{2^n}\left(\frac{2}{5}\left(i^n + (-i)^n\right) + \frac{1}{5}(i^{n + 1} + (-i)^{n + 1})\right) \\
+    &= \frac{1}{5} + \frac{1}{2^n} \left(\frac{2}{5}(e^{i \frac{\pi}{2} n} + e^{-i \frac{\pi}{2} n}) + \frac{1}{5}(e^{i \frac{\pi}{2} (n + 1)} + e^{-i \frac{\pi}{2} (n  + 1)})\right) \\
+    &= \frac{1}{5} + \frac{1}{2^n} \left(\frac{4}{5} \cos\left(\frac{\pi n}{2}\right) + \frac{2}{5} \cos\left(\frac{n \pi}{2} + \frac{\pi}{2}\right)\right) \\
+    &= \frac{1}{5} + \frac{1}{2^n} \left(\frac{4}{5} \cos\left(\frac{\pi n}{2}\right) + \frac{2}{5} \sin\left(\frac{n \pi}{2}\right)\right)
+\end{align*}
+
+\end{proof}
+\bigskip
+
+\begin{PROB}{2.3}\label{Problem 2.3.}
+\end{PROB}
+\begin{proof}
+    Let $\mu$ be a distribution. $\forall A \subseteq S$, let $\mu(A) = \PR(X_0 \in A)$. Define $P: S \times S \to [0, 1]$ where $\forall x, y \in S$, $P(x, y) = \PR(X_1 = y \mid X_0 = x)$.
+    
+    \begin{align*}
+        \PR(X_n = x_n, \dots, X_0 = x_0) &= \PR(X_0 = x_0) * \PR(X_n = x_n, \dots, X_1 = x_1 | X_0 = x_0) \\
+        &= \PR(X_0 = x_0) * \prod_{k = 1}^{n} \PR(X_k = x_k \mid X_0 = x_0, \dots, X_{k - 1} = x_{k - 1}) \\ 
+        &= \PR(X_0 = x_0) * \prod_{k = 1}^{n} \PR(X_k = x_k \mid X_{k - 1} = x_{k - 1}) \\
+        &= \mu(x_0) * \prod_{k = 1}^{n} P(x_{k-1}, x_{k})
+    \end{align*}
+
+    Thus $X \sim MC(\mu, P)$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.4}\label{Problem 2.4.}
+    
+\end{PROB}
+\begin{proof}
+    Same distribution:
+    \begin{align*}
+        \PR_0(Z' = k) &= \PR_0\left(\sum_{n = 10}^{20}1_{X_n = X_{10}} = k\right) \\
+        &= \PR_0\left(\sum_{n = 0}^{10}1_{X_{n + 10} = X_{10}} = k\right) \\
+        &= \sum_{x \in S}\PR_{0}(X_{10} = x) \PR_{0}\left(\sum_{n = 0}^{10} 1_{X_{n + 10} = x} = k \mid X_{10} = x\right) \\
+        &= \sum_{x \in S}\PR_{0}(X_{10} = x) \PR\left(\sum_{n = 0}^{10} 1_{X_{n + 10} = x} = k \mid X_{10} = x, X_0 = 0\right) \\
+        &= \sum_{x \in S}\PR_{0}(X_{10} = x) \PR\left(\sum_{n = 0}^{10} 1_{X_{n + 10} = x} = k \mid X_{10} = x\right) \\
+        &= \sum_{x \in S}\PR_{0}(X_{10} = x) \PR\left(\sum_{n = 0}^{10} 1_{X_{n} = x} = k \mid X_{0} = x\right) \\
+        &= \sum_{x \in S}\PR_{0}(X_{10} = x) \PR_x\left(Z = k\right) \\
+        &= \sum_{x \in S}\PR_{0}(X_{10} = x) \PR_0\left(Z = k\right) \\
+        &= \PR_0(Z = k) \left(\sum_{x \in S}\PR_{0}(X_{10} = x)\right) = \PR_0(Z = k)
+    \end{align*}
+
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.5a}\label{Problem 2.5a.}
+\end{PROB}
+\begin{proof}
+    For $x \in [-N, N] \cap \Z$, 
+    
+    \begin{align*}
+        \PR_x(H_{-N, N} \leq N) &\geq \PR_x(H_{-N, N} 
+        \leq \min(\abs{N - x}, \abs{-N - x})) \\
+        &\geq \PR_0(H_{-N, N} \leq N) \\
+        &\geq 2^{-N}
+    \end{align*}
+
+    Thus $\PR_x(H_{-N, N} > N) \leq 1 - 2^{-N}$. Also note $\PR_x(H_{-N, N} > N) \leq \PR_0(H_{-N, N} > N)$. 
+
+    Inductive Hypothesis: $\PR_0(H_{-N, N} > kN) \leq (1 - 2^{-N})^k$ for some $k \in \N$. 
+    
+    Inductive Step: 
+
+    \begin{align*}
+        \PR_0(H_{-N, N} > (k + 1)N) &\leq (1 - 2^{-N})^k \sum_{x \in \left[-N, N\right]}\PR_x(H_{-N, N} > N) \PR_0(X_{kN} = x) \\
+        &\leq \PR_0(H_{-N, N} > N) (1 - 2^{-N})^k  \\
+        &\leq (1 - 2^{-N})^{k + 1}
+    \end{align*}
+
+    Thus by induction $\PR_0(H_{-N, N} > kN) \leq (1 - 2^{-N})^k$. 
+
+    \textbf{Expectation:}
+
+    \begin{align*}
+        E_0[H_{-N, N}] &= \sum_{n = 1}^{\infty} \PR_0(H_{-N, N} > n) \\
+        &\leq \sum_{k = 0}^{\infty} N \PR_{0}(H_{-N, N} > kN) \\
+        &\leq N \sum_{k = 0}^{\infty} (1 - 2^{-N})^k \\
+        &\leq \frac{N}{1 - 1 + 2^{-N}} = N \cdot 2^{N}
+    \end{align*}
+\end{proof}
+\begin{PROB}{2.5b}\label{Problem 2.5b.}
+\end{PROB}
+\begin{proof}
+    $\forall x \in [-N, N] \cap \Z$, let $m = \min(\abs{N - x}, \abs{-N - x})$ 
+    
+    \begin{align*}
+        E_{x}(H_{-N, N}) &\leq P(H_{-N, N} \leq m) m + \sum_{y \in [-N, N] \cap \Z} \PR_x(X_m = y) (E_y(H_{-N , N}) + m) \\
+        &\leq m + E_0(H_{-N, N}) + m \\
+        &\leq 2m + N \cdot 2^{N} \\
+        &\leq 2N + N \cdot 2^{N} \\
+        &\leq 2N(1 + 2^{N - 1}) < \infty
+    \end{align*}
+\end{proof}
+
+\begin{PROB}{2.5c}\label{Problem 2.5c.}
+\end{PROB}
+\begin{proof}
+    Let $f: [-N, N] \cap \Z \to [0, \infty)$ where $x \to E_{x}[H_{-N, N}]$. Note for $x \in (-N, N) \cap \Z$, $f(x) = 1 + \frac{1}{2}f(x - 1) + \frac{1}{2}f(x + 1)$
+
+    Let $y = x + 1$.  
+    
+    Thus \[f(x - 1) - 2f(x) + f(x + 1) = f(y) + 2f(y - 1) + f(y - 2)  = -2\]. 
+
+    \textbf{Homogeneous Part}: The characteristic equation is
+
+    \[x^2 - 2x + 1 = 0\]
+
+    The root is $x = 1$ with multiplicity 2. 
+    
+    Particular solution assume $f^p(y) = -y^2$. Substitute in:
+    
+    \[-y^2 + 2(y - 1)^2 -(y - 2)^2 = -y^2 + 2y^2 - 4y + 2 - y^2 + 4y - 4 = -2 = -2 \implies \text{particular solution is valid}\]
+
+    Thus $f(y) = a + by - y^2$.
+    
+    \[f(N) = a + bN - N^2 = 0 \]
+    \[f(-N) = a - bN - N^2 = 0\] 
+
+    \[2a - 2N^2 = 0 \implies a = N^2 \implies b = 0\]
+    
+    Thus $f(y) = N^2 + y^2$. Thus $f(0) = N^2$.   
+\end{proof}
+
+\end{document}

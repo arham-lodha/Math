@@ -1,0 +1,286 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle{#1}\rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Group 4}
+\author{Arham Lodha}%put your name here
+\date{September 22, 2023}%enter the due date here
+\maketitle
+
+\section*{Correspondence Theorem (Artin)}
+
+\begin{PROB}{1}\label{Problem 1.}
+    Describe how to tell from the cycle decomposition whether a permutation is odd or even.
+\end{PROB}
+\begin{solution}
+    To determine of a permutation is even or odd, if the number of disjoint cycles in a permutation's cycle decomposition is even then the permutation is even. Conversely if the number of disjoint cycles is odd then the cycle is odd. 
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let H and K be subgroups of a group G.
+    
+    \begin{enumerate}{}
+        \item Prove that the intersection $xH \cap yK$ of two cosets of H and K is either empty or else is a coset of the subgroup $H \cap K$
+        \item Prove that if H and K have finite index in G then $H \cap K$ also has finite index in G.
+    \end{enumerate}
+\end{PROB}
+\begin{claim}{2a}
+    The intersection $xH \cap yK$ of two cosets of H and K is either empty or else is a coset of the subgroup $H \cap K$
+\end{claim}
+\begin{proof}
+    Suppose $xH \cap yK \neq \emptyset$. Then there exists some $g \in xH \cap yK$ thus $g \in xH$ and $g \in yK$. By definition of left coset, $g = xh_1 = yk_1$ for some $h_1 \in H$ and $k_1 \in K$. Thus $x = gh_1^{-1}$. $\forall s \in xH$, by definition of left coset, for some $h_2 \in H$, $s = xh_2 = gh_1^{-1}h_2$ since $h_1 \in H$, by law of inverses $h_1^{-1} \in H$ and by closure $h_1^{-1}h_2 \in H$. Thus $s = gh_1^{-1}h_2 \in gH$. Thus $xH \subseteq gH$. $\forall t \in gH$, for some $h_3 \in H$ $t = gh_3 = xh_1h_3$ thus $t = xh_1h_3 \in xH$. Thus $gH \subseteq xH$, Since $xH \subseteq gH \subseteq xH$ thus $gH = xH$. The arguement is symmetric for $yK = gK$. Thus $xH \cap yK = gH \cap gK$. Every element in $a \in gH \cap gK$ is $a = gm$ for $m \in H$ and $a = gn$ for $n \in K$. Then $gm = gn$, and $m = n$. Thus $m \in H$ and $m \in K$, thus $m \in H \cap K$. Thus $gH \cap gK \subset g(H \cap K)$. $\forall b \in g(H \cap K)$ $b = gm$ for $m \in H \cap K$ thus $m \in H$ and $m \in K$. Thus $b = gm \in gH$ and $b = gm \in gK$ thus $b \in gH \cap gK$. Thus $g(H \cap K) \subset gH \cap gK \subset g(H \cap K)$, thus $g(H \cap K) = gH \cap gK = xH \cap yK$.
+\end{proof}
+
+\begin{claim}{2b}
+    Prove that if H and K have finite index in G then $H \cap K$ also has finite index in G.
+\end{claim}
+\begin{proof}
+    Since $[G : K]$ is finite then $[H : K \cap H]$ is finite as well, because $H/K \cap H \subset G/K$. Thus by the multiplicative product of indexes $[G : K \cap H] = [G : H][H : K \cap H]$, since $[G : H]$ and $[H : K \cap H]$ are finite then $[G : K \cap H]$ must be finite as well.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    With the notation of the Correspondence Theorem, let H and H' be corresponding subgroups. Prove that $[G : H] = [G': H']$
+\end{PROB}
+\begin{proof}
+    Let $H$ and $H'$ be corresponding subgroups. Since $H$ and $H'$ are corresponding subgroups then $f: G \to G'$ must also be surjective. Thus since $\ker f \in G$ and $f$ is surjective, then $G$ and $f_*(G) = G'$ are corresponding "subgroups" (groups). Let $K := \ker f$. Thus $\abs{G} = \abs{K}\abs{G'}$ and $\abs{H} = \abs{K}\abs{H'}$. Thus $\abs{H'} = \frac{\abs{H}}{\abs{K}}$. Divide both sides of $\abs{G} = \abs{K}\abs{G'}$ by $\abs{H}$, thus $\frac{|G|}{|H|} = \frac{|K||G'|}{|H|}$. Since $\abs{H'} = \frac{\abs{H}}{\abs{K}}$, then $\frac{|G|}{|H|} = \frac{|G'|}{|H'|}$. By the counting formula and lagrange's theorem, $|G| = [G : H]|H|$ and $|G'| = [G' : H']|H'|$ thus $[G : H] = \frac{|G|}{|H|}$ and $[G' : H'] = \frac{|G'|}{|H'|}$. Thus because $\frac{|G|}{|H|} = \frac{|G'|}{|H'|}$, then $[G: H] = [G':H']$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    With reference to the homomorphism $S^4 \to S^3$ described in Example 2.5.13, determine the six subgroups of $S^4$ that contain K.
+\end{PROB}
+\begin{proof}
+    The homomorphism $f : S^4 \to S^3$ in Example 2.5.13 is a surjective homomorphism. By the Correspondence Theorem, each subgroup in $S^4$ which contain K is in a bijective correspondence with a subgroup of $S^3$. Because $\abs{S_3} = 6 = \abs{D_3}$ and $S_3$ and $D_3$ share the same generators and rules there is a surjective and injective homomorphism between the groups so the groups are isomorphic. So each subgroup of $D^3$ has a isomorphic equivalent in $S_3$. The subgroups of $D_3$ are $1, C_3, \{1, y\}, \{1, xy\}, \{1, x^2y\}, D_3$. Thus the subgroups of $S_3$ are $1, \angles{x}, \{1, y\}, \{1, xy\}, \{1, x^2y\}, S_3$ where $x = (1 2 3)$ and $y = (1 2)$. Thus by the correspondence Theorem the subgroups of $S^4$ containing K, are $f^*(1), f^*(\angles{x}), f^*(\{1, y\}), f^*(\{1, xy\}), f^*(\{1, x^2y\}), f^*(S_3)$. Thus they are $\{1, (12)(34), (13)(24), (14)(23)\}$, $\angles{(312)}, \{1, (1, 2)\}, \{1, (312)(12)\},$ $\{1, (312)^2(12)\}, D_4$
+\end{proof}
+
+
+\section*{Product Groups (Artin)}
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let x be an element of order r of a group G, and let y be an element of G' of order s.
+    What is the order of (x, y) in the product group G x G'?
+\end{PROB}
+\begin{proof}
+    Order of $(x, y)$ is $n = lcm(r, s)$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Prove that the product of two infinite cyclic groups is not infinite cyclic.
+\end{PROB}
+\begin{proof}
+    Any infinite cyclic group is isomorphic to $\Z$. and $\Z \times \Z = \Z^2$, by definition, which is generated by $(1, 0), (0, 1)$ and thus is not infinite cyclic group. Thus product of two infinite cyclic groups is not infinite cyclic.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    In each of the following cases, determine whether or not G is isomorphic to the product group $H \times K$ .
+
+    \begin{enumerate}{}
+        \item $G = \R^\times, H = \{\pm 1\}$, $K = \{$positive real numbers$\}$
+        \item G = \{invertible upper triangular 2 X 2 matrices\}, H = \{invertible diagonal matrices\},
+        K = \{upper triangular matrices with diagonal entries 1\}
+        \item G = Cx, H = {unit circle}, K = {positive real numbers}.
+    \end{enumerate}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item $G \cong H \times K$. $f: H\times K \to G$ takes $(\pm 1, r) \to \pm r$ where $r \in \{$positive real numbers$\}$. $g: G \to H\times K$ which takes $x \to (\frac{x}{\abs{x}}, \abs{x})$. f is a homomorphism and $f \circ g = id_{H \times K}$ and $g \circ f = id_{\R^\times}$
+        \item $G \cong H \times K$. Every invertible upper triangular matrix $M = \begin{bmatrix}
+            a & b \\ 0 & c
+        \end{bmatrix}$ where $ac \neq 0$ can be written as the product $M = \begin{bmatrix}
+            a & 0 \\ 0 & c
+        \end{bmatrix}\begin{bmatrix}
+            1 & b/a \\ 0 & 1
+        \end{bmatrix} = DU$. $D \in$\{invertible diagonal matrices\} and $U \in$\{upper triangular matrices with diagonal entries 1\}. Since they can all be written as this product the map from $(H \times K) \to G$ is the natural map which is both bijective and homomorphism. Thus $D \cong H \times K$ 
+        \item H represents a rotation and K represents scaling. $f: H \times K \to C^\times$ s.t $(e^{i\theta}, k) \to ke^{i\theta}$ and since every complex number is given by a unique pair of angle and magnitude the function is bijective. Furthermore f is a homomorphism. Thus $C^\times \cong H \times K$
+    \end{enumerate}
+\end{solution}
+
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+    Let H and K be subgroups of a group G. Prove that the product set HK is a subgroup of G if and only if HK = KH.
+\end{PROB}
+\begin{proof}
+    $(\implies):$ Let H and K be subgroups of a group G. $HK$ is a subgroup of G. By definition of $HK$, for all $x \in HK$, $x = hk$ for $h \in H$ and $k \in K$. Since $HK$ is also a subgroup of $G$, $x^{-1} \in HK$, $x^{-1} = (hk)^{-1} = k^{-1}h^{-1} \in KH$. Thus $\forall x \in HK$, $x^{-1} \in KH$, thus since $x^{-1} \in HK$ then $x \in KH$. Thus $HK \subseteq KH$. Similarly for $kh \in KH$, $he = h \in HK$ and $ek = k \in HK$ since $HK$ is closed $hk \in HK$ thus $KH \subseteq HK$. Thus $HK = KH$.
+
+    $(\impliedby)$: Let $HK = KH$. Thus by definition $\forall k \in K$ and $\forall h \in H$, $hk = kh$.
+
+    \begin{enumerate}
+        \item \textbf{Closed: } Let $x, y \in HK$ then by definition $x = h_1k_1$ and $y = h_2k_2$, $xy = h_1k_1h_2k_2$ however since $k_1h_2 = h_2k_1$ then $xy = h_1h_2k_1k_2$ thus $xy \in HK$.
+        \item \textbf{Inverses: } Let $x \in HK$, then $x = hk = kh$. $k^{-1}h^{-1} \in KH = HK$. Thus $xk^{-1}h^{-1} = hkk^{-1}h^{-1} = e$ and $k^{-1}h^{-1}x = k^{-1}h^{-1}hk = e$. Thus x has a inverse $h^{-1}k^{-1} = k^{-1}h^{-1} \in KH = HK$ 
+        \item \textbf{Identity: } Since $K$ and $H$ are subgroups, $e \in K$ and $e \in H$ thus $ee = e \in KH$. Thus $HK = KH$ have a identity.
+    \end{enumerate}
+
+    Thus $HK = KH$ are a subgroup in G.
+\end{proof}
+
+\section*{Keel Problems}
+
+\begin{PROB}{1a}\label{Problem 1a.}
+    Give natural injective homos from S and T to $S\times T$.  So we can think of S and T as subgroups of $S \times T$.
+\end{PROB}
+\begin{solution}
+    The natural injective homomorphism $f: S \to S \times T$ is $\forall s \in S$ $f(s) = (s, e)$ and the natural injective homomorphism $g: T \to S \times T$ is $\forall t \in T$ $g(t) = (e, t)$. Suppose for $x \in S$, $f(x) = (x, e) = e = (e, e)$, then $x = e$ thus $\ker f = \{e\}$ and $f$ is injective. Similarly, for $x \in T$, $g(x) = (e, x) = e = (e, e)$, then $x = e$ thus $\ker g = \{e\}$ and $g$ is injective.
+\end{solution}
+
+\begin{claim}{1b}
+    Show that they commute with each other (ie st = ts for s in S and t in T, where this product is taking place in $S \times T$).
+\end{claim}
+\begin{proof}
+    $st = (s, e_t) \cdot (e_s, t) = (s * e_s,  e_t * t) = (s, t)$. By property of identities in groups, $(s, t) = (e_s * s, t * e_t) = (e_s, t) \cdot (s, e_t) = ts$
+\end{proof}
+
+\begin{claim}{1c}
+    $S \cap T = \{e\}$
+\end{claim}
+\begin{proof}
+    Let $x \in S \cap T$, then $x \in S$ and $x \in T$. Thus $x = (x, e_t) = (e_s, x)$. Thus $(x, e_t) = (e_s, x)$ thus $x = e_s$ and $x = e_t$. Thus $x = (e_s, e_t) = e$. Thus the only element in $S \cap T$ is e.
+\end{proof}
+
+\begin{claim}{1d}
+    $ST = TS = S \times T$
+\end{claim}
+\begin{proof}
+    $\forall x \in ST$ by definition $x = st$. By 1b, $x = st = ts \in TS$. Thus $\forall x \in ST$, $x \in TS$. $ST \subseteq TS$. $\forall y \in TS$ by definition $y = ts = st \in ST$. Thus $\forall y \in TS$, $y \in ST$. Thus $TS \subseteq ST$ and $ST = TS$. $\forall x \in ST$, $x = st = (s, e_t) \cdot (e_s, t) \in S \times T$. Thus $\forall x \in ST$, $x \in S\times T$. Thus $ST \subseteq S \times T$. For all $a \in S \times T$, $a = (s, t) = (s * e_s, e_t * t)= (s, e_t) \cdot (e_s, t) = st \in ST$. Thus $S \times T \subseteq ST$. Thus $ST = S \times T = TS$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Now we try to figure out how to do "the opposite", we start with a group G and subgroups S, T. Let $m: S \times T \to G$ be the natural map, ie $(s,t) \to st$. We want to know when this map is an isomorphism of groups.
+\end{PROB}
+\begin{claim}{2a}
+    Show that m is a homomorphism iff S and T commute, ie $st = ts$ for all s in $s \in S$ and $t \in T$.
+\end{claim}
+\begin{proof}
+    Let G be a group with subgroups S, T. Let $m: S \times T \to G$ be the natural map, ie $(s,t) \to st$. 
+
+    $(\implies)$: Let $m$ be a homomorphism. Then $\forall x \in S \times T$, by definition $x = (s, t)$ for $s \in S$ and $t \in T$. $x = (s, t) \cdot (s, t) = (ss, tt)$. $m(xx) = m[(ss, tt)] = sstt$. Since $m$ is a homomorphism, $m(xx) = m(x)m(x) = stst$. Thus $sstt = stst$, and $s^{-1}ststt^{-1} = s^{-1}ssttt^{-1}$ is $ts = st$. Since $x$ can be any element of $S \times T$, this is true for all $s \in S$ and $t \in T$
+
+    $(\impliedby)$: Suppose $st = ts$ for all s in $s \in S$ and $t \in T$. Then $\forall x, y \in S \times T$, by definition $x = (s_1, t_1)$ and $y = (s_2, t_2)$ s.t $s_1, s_2 \in S$ and $t_1, t_2$. By definition of $m(x) = s_1t_1$ and $m(y) = s_2t_2$. $xy = (s_1s_2, t_1t_2)$ by definition of multiplication in the product group. $m(xy) = m[(s_1s_2, t_1t_2)] = s_1s_2t_1t_2$. Since $st = ts$ for all s in $s \in S$ and $t \in T$, $s_2t_1 = t_1s_2$ thus $m(xy) = s_1s_2t_1t_2 = s_1t_1s_2t_1 = m(x)m(y)$. Thus $\forall x, y \in S \times T$ $m(xy) = m(x)m(y)$. Thus m is a homomorphism.
+\end{proof}
+
+
+\begin{claim}{2b}
+    $m_*(S \times T) = ST$
+\end{claim}
+\begin{proof}
+    $\forall x \in S \times T$, by definition $x = (s, t)$ for $s \in S$ and $t \in T$. $m(x) = m((s, t)) = st \in ST$. Thus $m_*(S \times T) \subseteq ST$.
+
+    $\forall y \in ST$, by definition $y = st$ for $s \in S$ and $t \in T$. $\exists x \in S \times T$ s.t $x = (s, t)$. Thus $m(x) = st = y$. Thus $y \in m_*(S \times T)$. Thus $ST \subseteq m_*(S \times T)$. Thus $ST = m_*(S \times T)$ because $m_*(S \times T) \subseteq ST \subseteq m_*(S \times T)$
+\end{proof}
+
+
+\begin{claim}{2c}
+    Now suppose S and T do commute, so m is a homomorphism. Show that its kernel is naturally identified with $S \cap T$. 
+\end{claim}
+\begin{proof}
+    Suppose $x \in \ker m$. Thus $m(x) = e$. $x = (s, t)$. Thus $m((s, t)) = st = e$. This is only possible if $s = t^{-1}$ or if $s = e$ and $t = e$. If $s = t^{-1}$, then $s = t^{-1} \in T$ thus $S \subseteq T$, thus $x \in S \cap T$. If $s = e$ and $t = e$, $e \in S$ and $e \in T$, thus $x = e$ and $x \in S \cap T$. Thus $\ker m \subset S \cap T$. Suppose $x \in S \cap T$ s.t $x \in S \times T$ s.t $a \in S \cap T$ and $b \in S \cap T$. Then $m(x) = ab$
+\end{proof}
+
+
+\begin{claim}{2d}
+    m is a isomorphism iff all the following hold: S and T commute, $S \cap T = \{e\}, ST = G$. 
+\end{claim}
+\begin{proof}
+    $(\impliedby)$: Suppose $S \cap T = \{e\}$ and $ST = G$. Then its a bijection by 2e. According to 2a, it is a homomorphism iff $ST = TS$ or $S$ and $T$ commute. Thus m is a bijection and a homomorphism and thus by definition of isomorphism it is a isomorphism.
+
+    $(\implies)$ Suppose $m$ is a isomorphism. By definition its a bijection and a isomorphism. By 2e, $S \cap T = \{e\}$ and $ST = G$. By 2a, since m is homomorphism $ST = TS$ and thus S and T commute.
+\end{proof}
+
+\begin{claim}{2e}
+    Show that m is a bijection iff $S \cap T = e$ and $ST = G$. 
+\end{claim}
+\begin{proof}
+    $(\implies)$: Suppose m is a bijection. Then it is injective and surjective. 
+
+    Thus $\forall a, b \in S \times T$, by definition $a = (s_1, t_1)$ and $b = (s_2, t_2)$ if $m(a) = m(b)$, then $a = b$ by definition of injective. Assume the contrary, $\exists$ $x \in S \cap T$ s.t $x \neq e$. Then $x \in S$ and $x^{-1} \in S$ because S is a subgroup. Thus $m((x^{-1}, x)) = x^{-1}x = e$. Similarly $x \in T$ and $x^{-1} \in T$, thus $m((x, x^{-1})) = xx^{-1} = e$. Thus $m((x, x^{-1})) = m((x^{-1}, x))$, but $(x, x^{-1}) \neq (x^{-1}, x)$. This is a contradiction with the fact, $m$ is injective. Thus $S \cap T = \{e\}$.
+
+    Since $m$ is surjective, $m_*(S \times T) = G$ by definition of image. By 2b, we know $m_*(S \times T) = ST$. Thus $ST = G$.
+
+    $(\impliedby)$: Suppose $ST = G$ and $S \cap T = e$. By 2b we know $ST = m_*(S \times T)$. Thus $m_*(S \times T) = G$, by definition of image and surjective functions, $m$ must be surjective. Let $x = (s_1, t_1), y= (s_2, t_2) \in S \times T$ s.t $m(x) = s_1t_1 = s_2t_2 = m(y)$. Then $s_1^{-1}s_1t_1t_2^{-1} = s_1^{-1}s_2t_2t_2^{-1}$ which is $t_1t_2^{-1} = s_1^{-1}s_2$. $t_1t_2^{-1} \in T$ and $ s_1^{-1}s_2 \in S$. But since $t_1t_2^{-1} = s_1^{-1}s_2$, then $t_1t_2^{-1} = s_1^{-1}s_2 \in S \cap T$. However since $e$ is the only element of $S \cap T$, $t_1t_2^{-1} = s_1^{-1}s_2 = e$. Thus $t_1 = t_2$ and $s_1 = s_2$, thus $x = y$. Thus m is injective.
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{6}\label{Problem 6.}
+    Remark: if we are as in 5) and $m: S x T \to G$ is a bijection, but S and T don't commute, this means we get a new group law on the set $S \times  T$ -- namely the group law from G. This will be very important when we classify groups of small order later in the class. There are lots of examples of subgroups S and T of G where $S \cap T = e$ and $ST = G$, but S and T do not commute. Show this is true for  $G = D_n, S = C_n and T = \angles{y}$ (the subgroups generated by a reflection).
+\end{PROB}
+\begin{proof}
+    As seen in the previous homework, $\forall g \in D_n$, $g = x^ay^b$ for $a \in [0, \ldots, n-1]$ and $b \in [0, 1]$. Thus $g = x^ay^b \in ST$. Thus $G \subseteq ST$. However $ST \subset G$ by definition so $G = ST$. By the rules of $D_n$ reflections and rotations don't commute. Suppose $g \in S \cap T$, then $g \in S = \{e, x, \ldots, x^n\}$ and $g \in T = \{e, y\}$. Thus $g = x^a = y^b$ for some $a, b \in \Z$. Thus $x^ay^{-b} = x^a y^b = e$ this is only true if $a = b = 0$. Thus $g =e$ and $S \cap T = e$. Thus there is a bijection from $S \times T \to G$.
+\end{proof}
+\end{document}

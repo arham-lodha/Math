@@ -1,0 +1,14 @@
+{
+    "folders": [
+        {
+            "path": ".",
+        },
+    ],
+    "settings": {
+        "zenMode.fullScreen": false,
+        "editor.wordWrap": "on",
+        "acceptSelectedSuggestion": true,
+        "editor.fontSize": 18,
+        "cSpell.words": ["graphon", "graphons", "infimum", "multipodal"],
+    },
+}

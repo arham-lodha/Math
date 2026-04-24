@@ -1,0 +1,833 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Complex Analysis Final}
+\author{Arham Lodha}%put your name here
+\date{April 28, 2024}%enter the due date here
+\maketitle
+
+\section{Problems}
+
+\begin{PROB}{1}\label{Problem 1.}
+    
+\end{PROB}
+\begin{claim}{1}\label{Claim 1.}
+    If $f \in Aut(\mathbb{D}), \exists \theta \in \R$ and $\alpha \in \mathbb{D}$ such that $f(z) = e^{i \theta} \frac{\alpha - z}{1 - \overline{\alpha}z}$   
+\end{claim}
+\begin{proof}
+    We will use as given the result proved in Homework 1 problem 3 (Exercise 7 Chapter 1 of Stein) we prove that $\varphi_a : \mathbb{D} \to \mathbb{D}$ where $z \to \frac{a - z}{1 - \bar{a} z}$ is a automorphism of $\mathbb{D}$. I have included the proof below in the Appendix. 
+    
+    Let $f \in Aut(\mathbb{D})$, since $f$ is a bijection $\exists! a \in \mathbb{D} \ni f(a) = 0$. Define $g_a := f \circ \varphi_a$. Note that because $f, \varphi_a \in Aut(\mathbb{D}) \implies g \in Aut(\mathbb{D})$, by closure of the automorphism group. Moreover, since $\varphi(0) = a \implies g(0) = f(g(\varphi_a)) = f(a) = 0$. By Schwarz's Lemma, $\forall z\in \mathbb{D}$ 
+    
+    \begin{equation}
+        \abs{g(z)} \leq \abs{z}
+    \end{equation}
+
+    Now take $g^{-1} = \varphi_a^{-1} \circ f^{-1} = \varphi_a \circ f^{-1}$ since $\varphi_a$ is its own inverse, proven in homework 1 problem 3. Thus $g^{-1}(0) = \varphi_a(f(0)) = \varphi_a(a) = 0$. Now apply Schwarz's Lemma to $g^{-1}$, we see $\forall x \in \mathbb{D}$ 
+    
+    \begin{equation}
+        \abs{g^{-1}(x)} \leq \abs{x}
+    \end{equation}
+
+    Now since $g$ is a automorphism of the unit disk, $\forall z \in \mathbb{D}, g(z) \in \mathbb{D}$, thus take $x = g(z)$ and plug it into 2.
+    
+    We see that, 
+
+    \begin{equation}
+        \abs{z} = \abs{g^{-1}(g(z))} \leq \abs{g(z)}
+    \end{equation} 
+
+    Now combine (1) and (3), we see $\forall z \in \mathbb{D}, \abs{z} \leq \abs{g(z)} \leq \abs{z} \implies \abs{g(z)} = \abs{z}$. By Schwarz's Lemma, $g(z)$ must be a rotation and thus $\exists \theta \in \R \ni g(z) := e^{i \theta} z$. Thus $g = g \circ id_{\C}$. But since $g \circ id_{\C} = g = f \circ \varphi_a \implies f = g \circ id_\C \circ \varphi_a^{-1} = g \circ \varphi_a$ since $\varphi_a$ is its own inverse. Thus $f(z) = (g \circ \varphi_a)(z) = e^{i \theta} \frac{a -z}{1 - \overline{a} z}$.              
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{2}\label{Problem 2.}
+    Suppose $f$ is a entire function and that in every power series $f(z) = \sum_{n = 0}^{\infty}c_n (z - a)^n$ at least one coefficient is zero. Prove that $f$ is a polynomial.   
+\end{PROB}
+\begin{proof}
+    Let $f: \C \to \C$ be a entire function where in every power series $f(z) = \sum_{n = 0}^{\infty} c_n (z - a)^n$. By Theorem 4.4 in Chapter 2 of Stein, $\forall a \in \C$, $f(z)$ has a power series expansion centered at $a$, $f(z) = \sum_{n = 0}^{\infty} c_n (z - a)^n$ where $c_n = \frac{f^{(n)}(z_0)}{n!}$. Thus, $\forall a \in \C, \exists n \in \N \ni f^{(n)}(a) = 0$. Thus $\forall n \in \N$, define $C_n := \left\{ z \in \C \mid f^{(n)}(z) = 0 \right\}$. Thus $\C = \bigcup_{n \in \N} C_n$. $\C$ is uncountable but $\N$ is countable, thus $\exists k \in \N \ni C_k$ is uncountable.
+    
+    Tile $\C$ using $\Z \times \Z$, with unit squares. Since $\Z \times \Z$ is countable the number of unit squares is also countable. Assume the contrary $\forall (m, n) \in \Z \times \Z$ that $C_k \cap [m, m + 1] \times [n, n + 1]$ is countable, then $C_k$ must be countable which is a contradiction. Thus $\exists m, n \in \Z \ni D_k,1 := C_k \cap [m, m + 1] \times [n, n + 1]$ is uncountable. Repeat this tiling process on $[m, m + 1] \times [n, n + 1]$, by breaking it into 4 subsquares, at least 1 of the subsquares must have a uncountable intersection with $D_{k, i}$ to create a $D_{k, i + 1}$. 
+    
+    Thus $D_{k, 1} \subset D_{k, 2} \subset ...$ forms a sequence of nonempty sets, whose bounds keep on getting smaller. Moroever $\exists a \in \bigcap_{i = 1}^{\infty}D_{k, i}$, with at least 1 (actually uncountably many) points in the any neigbhorhood given by the max distance given by two points in $D_{k, i}$. Thus $\exists a$, a limit point of $D_{k, 1}$ and thus one of $C_k$. Thus $\forall \delta \in \R^+ \ni N_{\delta}(a) \cap C_k \neq \emptyset$. Thus $f^{(k)}(x)$ has a nonisolated zero at $x = a$, by chapter 3 of stein, $f^{(k)}(x) = 0$ on $N_\delta(a)$. Since $f$ is entire, $f^{(k)}$ is entire and since $f^{(k)}(x) = 0$ and thus bounded on $N_{\delta}(a)$, a open set, by Liouville's Theorem $f^{(k)}(x) = 0$ on $\C$. Thus $\forall m > k, f^{(m)}(x) = 0 \implies c_m = 0$. Thus the power series has finite degree and $f(x) = \sum_{n = 0}^{k}c_k(x - a)$ and $f(x)$ is a polynomial.             
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Compute the value of 
+    
+    \begin{equation*}
+        \int_{-\infty}^{\infty} \frac{x^2}{1 + x^4}
+    \end{equation*}
+
+    using a contour integral, and then explain why this integral is equivalent to the integral
+
+    \begin{equation*}
+        \int_{-\infty}^{\infty} \frac{1}{1 + x^4}
+    \end{equation*}
+\end{PROB}
+\begin{proof}
+    Let $\gamma_R$, be the semicircle contour with radius $R$.
+    
+    $1 + x^4$ has 4 roots, $\frac{-1  - i}{\sqrt{2}}$, $\frac{1  + i}{\sqrt{2}}$, $\frac{1 - i}{\sqrt{2}}$, $\frac{-1 + i}{\sqrt{2}}$. Each of which is order 1. $\alpha = \frac{1  + i}{\sqrt{2}}$ and $\beta = \frac{-1 + i}{\sqrt{2}}$. $\alpha$ and $\beta$ are the only roots bounded by the semicircle contour. 
+    
+    By Residue Theorem, 
+
+    \begin{align*}
+        \lim_{R \to \infty} \int_{\gamma_R} \frac{z^2}{1 + z^4} dz &= 2 \pi i \left[Res_{z = \alpha}\left[\frac{z^2}{1 + z^4}\right] + Res_{z = \beta}\left[\frac{z^2}{1 + z^4}\right]\right]
+    \end{align*}
+
+    and, 
+
+    \begin{align*}
+        \lim_{R \to \infty} \int_{\gamma_R} \frac{1}{1 + z^4} dz &= 2 \pi i \left[Res_{z = \alpha}\left[\frac{1}{1 + z^4}\right] + Res_{z = \beta}\left[\frac{1}{1 + z^4}\right]\right]
+    \end{align*}
+
+    Solving for the left sides of the equations above we see, 
+
+    \begin{align*}
+        \lim_{R \to \infty} \int_{\gamma_R} \frac{z^2}{1 + z^4} dz &= \lim_{R \to \infty} \left[\int_{-R}^{R}  \frac{z^2}{1 + z^4} dz + \int_{0}^{\pi} iRe^{i \theta} \frac{R^2e^{i 2\theta}}{1 + R^{4}e^{4 i \theta}} d \theta \right] 
+    \end{align*}
+
+    and
+
+    \begin{align*}
+        \lim_{R \to \infty} \int_{\gamma_R} \frac{1}{1 + z^4} dz &= \lim_{R \to \infty} \left[\int_{-R}^{R}  \frac{1}{1 + z^4} dz + \int_{0}^{\pi} iRe^{i \theta} \frac{1}{1 + R^{4}e^{4 i \theta}} d \theta \right] 
+    \end{align*}
+
+    Lets try to bound the top part of the contour (semicircle) for both integrals, 
+
+    \begin{align*}
+        \abs{\lim_{R \to \infty} \int_{0}^{\pi} iRe^{i \theta} \frac{R^2e^{i 2\theta}}{1 + R^{4}e^{4 i \theta}} d \theta} &\leq  \lim_{R \to \infty} \int_{0}^{\pi} \abs{ iRe^{i \theta} \frac{R^2e^{i 2\theta}}{1 + R^{4}e^{4 i \theta}}} d \theta & \text{(Integral Inequality)} \\
+        &= \lim_{R \to \infty} \int_{0}^{\pi} \abs{\frac{R^3}{1 + R^{4}e^{4 i \theta}}} d \theta \\
+        &= \lim_{R \to \infty} \int_{0}^{\pi} \frac{R^3}{\abs{1 - \left(-R^{4}e^{4 i \theta}\right)}} d \theta \\
+        &\leq \lim_{R \to \infty} \int_{0}^{\pi} \frac{R^3}{\abs{1 - \abs{R^4}}} d \theta & \text {(Reverse Triangle Inequality)} \\
+        &= \lim_{R \to \infty} \int_{0}^{\pi} \frac{R^3}{R^4 - 1} d \theta \\
+        &= 0 & \text{(Because $\lim_{R \to \infty} \frac{R^3}{R^4 - 1} = 0$ )}\\
+        \implies \lim_{R \to \infty} \int_{0}^{\pi} iRe^{i \theta} \frac{R^2e^{i 2\theta}}{1 + R^{4}e^{4 i \theta}} d \theta &= 0
+    \end{align*}
+
+    Similarly, 
+
+    \begin{align*}
+        \abs{\lim_{R \to \infty} \int_{0}^{\pi}  \frac{iRe^{i \theta}}{1 + R^{4}e^{4 i \theta}} d \theta} &\leq  \lim_{R \to \infty} \int_{0}^{\pi} \abs{ \frac{iRe^{i \theta}}{1 + R^{4}e^{4 i \theta}}} d \theta & \text{(Integral Inequality)} \\
+        &= \lim_{R \to \infty} \int_{0}^{\pi} \abs{\frac{R}{1 + R^{4}e^{4 i \theta}}} d \theta \\
+        &= \lim_{R \to \infty} \int_{0}^{\pi} \frac{R}{\abs{1 - \left(-R^{4}e^{4 i \theta}\right)}} d \theta \\
+        &\leq \lim_{R \to \infty} \int_{0}^{\pi} \frac{R}{\abs{1 - \abs{R^4}}} d \theta & \text {(Reverse Triangle Inequality)} \\
+        &= \lim_{R \to \infty} \int_{0}^{\pi} \frac{R}{R^4 - 1} d \theta \\
+        &= 0 & \text{(Because $\lim_{R \to \infty} \frac{R}{R^4 - 1} = 0$ )} \\
+        \implies \lim_{R \to \infty} \int_{0}^{\pi}  \frac{iRe^{i \theta}}{1 + R^{4}e^{4 i \theta}} d \theta &= 0
+    \end{align*}
+
+    Thus, 
+
+    \begin{equation*}
+        \lim_{R \to \infty} \int_{\gamma_R} \frac{z^2}{1 + z^4} dz = \lim_{R \to \infty} \int_{-R}^{R}  \frac{z^2}{1 + z^4} dz = 2 \pi i \left[Res_{z = \alpha}\left[\frac{z^2}{1 + z^4}\right] + Res_{z = \beta}\left[\frac{z^2}{1 + z^4}\right]\right]
+    \end{equation*} 
+
+    and, 
+
+    \begin{equation*}
+        \lim_{R \to \infty} \int_{\gamma_R} \frac{1}{1 + z^4} dz = \lim_{R \to \infty} \int_{-R}^{R}  \frac{1}{1 + z^4} dz = 2 \pi i \left[Res_{z = \alpha}\left[\frac{1}{1 + z^4}\right] + Res_{z = \beta}\left[\frac{1}{1 + z^4}\right]\right]
+    \end{equation*}
+
+
+    Let us evaluate the residues, 
+
+    \begin{align*}
+        Res_{z = \alpha}\left[\frac{z^2}{1 + z^4}\right] &= \frac{1}{(1 - 1)!} \lim_{z \to \alpha} \left(\frac{d}{dz}\right)^{1 - 1}  \frac{z^2 (z - \alpha)}{z^4 + 1} & \text{(Since $z = \alpha$ has order 1 )} \\
+        &= \lim_{z \to \alpha} \frac{z^2 (z - \alpha)}{(z - \alpha)(z - \beta)(z + \alpha)(z + \beta)} \\
+        &= \frac{\alpha^2}{2\alpha(\alpha - \beta)(\alpha + \beta)} \\
+        &= \frac{\alpha}{2(\alpha - \beta)(\alpha + \beta)} \\
+        &= \frac{1 + i}{2\sqrt{2}\left(\frac{1 + i}{\sqrt{2}} - \frac{-1 + i}{\sqrt{2}}\right)\left(\frac{1 + i}{\sqrt{2}} + \frac{-1 + i}{\sqrt{2}}\right)} \\
+        &= \frac{1 + i}{2\sqrt{2}\left(\frac{1 + i}{\sqrt{2}} - \frac{-1 + i}{\sqrt{2}}\right)\left(\frac{1 + i}{\sqrt{2}} + \frac{-1 + i}{\sqrt{2}}\right)}  \\
+        &= \frac{1 + i}{2\sqrt{2}\left(\sqrt{2}\right)\left(i\sqrt{2}\right)} \\
+        &= \frac{1 - i}{4\sqrt{2}}
+    \end{align*}
+
+    \begin{align*}
+        Res_{z = \beta}\left[\frac{z^2}{1 + z^4}\right] &= \frac{1}{(1 - 1)!} \lim_{z \to \beta} \left(\frac{d}{dz}\right)^{1 - 1}  \frac{z^2 (z - \beta)}{z^4 + 1} & \text{(Since $z = \beta$ has order 1 )} \\
+        &= \lim_{z \to \beta} \frac{z^2 (z - \beta)}{(z - \alpha)(z - \beta)(z + \alpha)(z + \beta)} \\
+        &= \frac{\beta^2}{2 \beta (\beta - \alpha)(\beta + \alpha)} \\
+        &= \frac{\beta}{2 (\beta - \alpha)(\beta + \alpha)} \\
+        &= \frac{i - 1}{2\sqrt{2}\left(\frac{-1 + i}{\sqrt{2}} - \frac{1 + i}{\sqrt{2}}\right)\left(\frac{1 + i}{\sqrt{2}} + \frac{-1 + i}{\sqrt{2}}\right)} \\
+        &= \frac{i - 1}{2\sqrt{2}\left(-\sqrt{2}\right)\left(i\sqrt{2}\right)} \\
+        &= \frac{1 - i}{4i\sqrt{2}} \\
+        &= \frac{-1 - i}{4\sqrt{2}}
+    \end{align*}
+
+    \begin{align*}
+        Res_{z = \alpha}\left[\frac{1}{1 + z^4}\right] &= \frac{1}{(1 - 1)!} \lim_{z \to \alpha} \left(\frac{d}{dz}\right)^{1 - 1}  \frac{z - \alpha}{z^4 + 1} & \text{(Since $z = \alpha$ has order 1 )} \\
+        &= \lim_{z \to \alpha} \frac{z - \alpha}{(z - \alpha)(z - \beta)(z + \alpha)(z + \beta)} \\
+        &= \frac{1}{2\alpha(\alpha - \beta)(\alpha + \beta)} \\
+        &= \frac{\sqrt{2}}{2 (1 + i) \left(\frac{1 + i}{\sqrt{2}} - \frac{-1 + i}{\sqrt{2}}\right)\left(\frac{1 + i}{\sqrt{2}} + \frac{-1 + i}{\sqrt{2}}\right)} \left(\frac{1 - i}{1 - i}\right) \\
+        &= \frac{1 - i}{2\sqrt{2}\left(\sqrt{2}\right)\left(i\sqrt{2}\right)} \\
+        &= \frac{1 - i}{4i\sqrt{2}} \\
+        &= \frac{-1 - i}{4 \sqrt{2}} = Res_{z = \beta}\left[\frac{z^2}{1 + z^4}\right]
+    \end{align*}
+
+    \begin{align*}
+        Res_{z = \beta}\left[\frac{1}{1 + z^4}\right] &= \frac{1}{(1 - 1)!} \lim_{z \to \beta} \left(\frac{d}{dz}\right)^{1 - 1}  \frac{z - \beta}{z^4 + 1} & \text{(Since $z = \beta$ has order 1 )} \\
+        &= \lim_{z \to \alpha} \frac{(z - \beta)}{(z - \alpha)(z - \beta)(z + \alpha)(z + \beta)} \\
+        &= \frac{1}{2 \beta (\beta - \alpha)(\beta + \alpha)} \\
+        &= \frac{\frac{1}{\beta}}{2(\beta - \alpha)(\beta + \alpha)} \\
+        &= \frac{\sqrt{2}}{2(i - 1)\left(\frac{-1 + i}{\sqrt{2}} - \frac{1 + i}{\sqrt{2}}\right)\left(\frac{1 + i}{\sqrt{2}} + \frac{-1 + i}{\sqrt{2}}\right)} \left(\frac{-1 - i}{-1 - i}\right) \\
+        &= \frac{-i - 1}{2\sqrt{2}\left(-\sqrt{2}\right)\left(i\sqrt{2}\right)} \\
+        &= \frac{1 + i}{4i\sqrt{2}} \\
+        &= \frac{1 - i}{4\sqrt{2}} = Res_{z = \alpha}\left[\frac{z^2}{1 + z^4}\right]
+    \end{align*}
+
+    Thus, $Res_{z = \alpha}\left[\frac{z^2}{1 + z^4}\right] = Res_{z = \beta}\left[\frac{1}{1 + z^4}\right] = \frac{1 - i}{4\sqrt{2}}$ and $Res_{z = \beta}\left[\frac{z^2}{1 + z^4}\right] = Res_{z = \alpha}\left[\frac{1}{1 + z^4}\right] = \frac{-1 - i}{4 \sqrt{2}}$. 
+    
+    Thus, 
+
+    \begin{align*}
+        \lim_{R \to \infty} \int_{-R}^{R}  \frac{1}{1 + z^4} dz &= 2 \pi i \left[Res_{z = \alpha}\left[\frac{1}{1 + z^4}\right] + Res_{z = \beta}\left[\frac{1}{1 + z^4}\right]\right]\\
+        &= 2 \pi i \left[Res_{z = \beta}\left[\frac{z^2}{1 + z^4}\right] + Res_{z = \alpha}\left[\frac{z^2}{1 + z^4}\right]\right] \\
+        &= \lim_{R \to \infty} \int_{-R}^{R}  \frac{z^2}{1 + z^4} dz
+    \end{align*}
+
+    Thus, because of the residues,  
+
+    \begin{equation*}
+        \int_{-\infty}^{\infty} \frac{1}{1 + x^4} = \lim_{R \to \infty} \int_{-R}^{R}  \frac{1}{1 + z^4} dz = \lim_{R \to \infty} \int_{-R}^{R}  \frac{z^2}{1 + z^4} dz = \int_{-\infty}^{\infty} \frac{x^2}{1 + x^4}
+    \end{equation*}
+
+    Thus, 
+
+    \begin{align*}
+        \int_{-\infty}^{\infty} \frac{1}{1 + x^4} = \int_{-\infty}^{\infty} \frac{x^2}{1 + x^4} &= 2 \pi i \left[Res_{z = \alpha}\left[\frac{z^2}{1 + z^4}\right] + Res_{z = \beta}\left[\frac{z^2}{1 + z^4}\right]\right] \\
+        &= 2 \pi i \left[\frac{1 - i}{4\sqrt{2}} + \frac{-1 - i}{4\sqrt{2}}\right] \\
+        &= 2 \pi i \left(\frac{-2i}{4 \sqrt{2}}\right) \\
+        &= \frac{4 \pi}{4 \sqrt{2}} \\ 
+        &= \frac{\pi}{\sqrt{2}}
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Suppose $f$ and $g$ are entire functions and $\abs{f(z)} \leq \abs{g(z)}$ for all $z \in \C$. What conclusion can you draw?    
+\end{PROB}
+\begin{claim}{4}\label{Claim 4.}
+    If $f$ and $g$ are entire functions where $\forall z \in \C$ $\abs{f(z)} \leq \abs{g(z)}$ then $g(z) = af(z)$ for fixed $a \in \C$.       
+\end{claim}
+\begin{proof}
+    There are 2 cases, $g$ is identically 0 and $g$ is not identically 0. 
+    
+    \begin{enumerate}
+        \item If $g$ is identically 0. Then $\forall z \in \C, g(z) = 0 \implies \abs{f(z)} \leq 0 \implies f(z) = 0$ and $a$ can be any element of $\C$.
+        \item If $g$ is not identically 0. Define $Z(g)$ to be the set of zeros of g. $\forall z \in Z(g)$, $g(z) = 0 \implies \abs{f(z)} \leq 0 \implies f(z) = 0$, thus $z$ is a zero of $f$ as well. Let $h(z) = f(z) / g(z)$. $h(z)$ is holomorphic on $\C \setminus Z(g)$. 
+        
+        
+        By the given, $\forall z \in \C \setminus Z(g)$ 
+        \begin{equation*}
+            \abs{h(z)} = \abs{\frac{f(z)}{g(z)}} \leq 1.
+        \end{equation*}
+
+        $\forall z \in \C$, define $N_\delta(z) := \left\{ c \in \C \ni \abs{c -z} < \delta \right\}$, or a open disk of radius of $\delta$ around $z$. 
+
+        $\forall z \in Z(g)$, since $g$ is entire and thus holomorphic at $z$ and not identically 0, $\exists \delta \in \R^+ \ni \forall c \in N_\delta(z) \setminus \left\{ z \right\}, g(z) \neq 0$, thus $z$ is a isolated zero of $g$ and thus a isolated singularity of $h$. Moreover $h$ is bounded on $N_\delta(z)$ since $\forall x \in \C$, $\abs{h(x)} \leq 1$. By Riemann's Theorem on Removable Singularities (Theorem 3.1 in Chapter 3 of Stein), $z$ is a removable singularity. By the definition of removeable singularities, $h$ can be defined to be holomorphic on $z$ by taking the limit value of $h$ at $z$, by analytic continuation.
+        
+        Thus $h$ (more specifically the analytic continuation of $h$) is holomorphic on all of $\C$ and thus entire. Thus $h$ is entire and bounded, by Loiville's Theorem, $h$ is a constant function thus $\forall z \in \C$, $h(z) = a$ for a fixed $a \in \C$. Thus $\forall z \in \C, f(z) = a g(z)$ 
+    \end{enumerate}
+    
+    Thus $\exists a \in \C$, where $\forall z \in \C$, $f(z) = a g(z)$ thus $f = ag$.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Calculate the value of $\int_{-\infty}^{\infty} \left(\frac{\sin(x)}{x}\right)^2 e^{itx} dx$ for $t \in \R$.   
+\end{PROB}
+\begin{proof}
+    Let, 
+    \begin{align*}
+        I(t) = \int_{-\infty}^{\infty} \left(\frac{\sin(x)}{x}\right)^2 e^{itx} dx.
+    \end{align*}
+
+    and let, $J(t) = \int_{-\infty}^{\infty} \frac{e^{itx} - 1}{x^2}dx$. 
+
+    Use the exponential definition for sine, $\sin(x) = \frac{e^{ix} - e^{-ix}}{2i}$.
+
+    \begin{align*}
+        I(t) &= \int_{-\infty}^{\infty} \left(\frac{e^{ix} - e^{-ix}}{2ix}\right)^2 e^{itx} dx\\
+        &= -\int_{-\infty}^{\infty} \frac{e^{2ix} - 2 + e^{-2ix}}{4x^2} e^{itx} dx \\
+        &= \int_{-\infty}^{\infty} \frac{-e^{2ix + itx} + 2e^{itx} - e^{-2ix + itx}}{4x^2}  dx \\
+        &= \frac{1}{4}\int_{-\infty}^{\infty} \frac{2e^{itx} -e^{ix(t + 2)} - e^{ix(t - 2)}}{x^2}  dx 
+        \\&= \frac{1}{4}\int_{-\infty}^{\infty} \frac{2e^{itx} - 2 -e^{ix(t + 2)} + 1 - e^{ix(t - 2)} + 1}{x^2}  dx \\ 
+        &= \frac{1}{4} \left[2J(t) - J(t + 2) - J(t - 2)\right]
+    \end{align*}
+
+
+    Let $\gamma_{R, \epsilon}$ be the indented semicircle contour. $\forall t > 0$, 
+    
+    \begin{align*}
+        \int_{\gamma_{R, \epsilon}} \frac{e^{itx} - 1}{x^2} dx &= \int_{\epsilon}^{R} \frac{e^{itx} - 1}{x^2} dx +\int_{-\epsilon}^{-R} \frac{e^{itx} - 1}{x^2} dx + \int_{0}^{\pi} \frac{e^{iRte^{i \theta}} - 1}{R^2e^{2i\theta}}\left(Rie^{i \theta}\right) d \theta - \int_{0}^{\pi} \frac{e^{i \epsilon te^{i \theta}} - 1}{\epsilon^2e^{2i\theta}}\left(\epsilon ie^{i \theta}\right) d \theta
+    \end{align*}
+
+    Let us bound the large semicircle.  
+
+    \begin{align*}
+        \abs{\int_{0}^{\pi} \frac{e^{iRte^{i \theta}} - 1}{R^2e^{2i\theta}}\left(Rie^{i \theta}\right) d \theta}
+        &= \abs{i\int_{0}^{\pi} \frac{e^{iRte^{i \theta}} - 1}{Re^{i\theta}} d \theta} \\
+        &= \abs{\int_{0}^{\pi} \frac{e^{iRte^{i \theta}} - 1}{Re^{i\theta}} d \theta} \\
+        &\leq \int_{0}^{\pi} \abs{\frac{e^{iRte^{i \theta}} - 1}{Re^{i\theta}}} d \theta \\
+        &= \int_{0}^{\pi} \abs{\frac{e^{iRte^{i \theta}} - 1}{R}} d \theta \\
+        &= \int_{0}^{\pi} \abs{\frac{e^{iRt \left(\cos(\theta) + i \sin(\theta)\right)} - 1}{R}} d \theta \\
+        &= \int_{0}^{\pi} \frac{\abs{e^{iRt\cos(\theta)} e^{-Rt \sin(\theta)}} + 1}{R} d \theta & \text{(Triangle Inequality)}\\
+        &=  \int_{0}^{\pi} \frac{\abs{e^{-Rt \sin(\theta)}} + 1}{R} d \theta \\
+        &=  \int_{0}^{\pi} \frac{e^{-Rt \sin(\theta)} + 1}{R} d \theta
+    \end{align*}
+    Taking the limit of the integrand as $R \to \infty$, we see: 
+    \begin{align*}
+        \lim_{R \to \infty} \frac{e^{-Rt \sin(\theta)} + 1}{R} &= 0 \\
+        \implies \int_{0}^{\pi} \frac{e^{-Rt \sin(\theta)} + 1}{R} d \theta &= 0 \\
+        \implies \abs{\int_{0}^{\pi} \frac{e^{iRte^{i \theta}} - 1}{R^2e^{2i\theta}}\left(Rie^{i \theta}\right) d \theta} & \leq 0 \\
+        \implies \int_{0}^{\pi} \frac{e^{iRte^{i \theta}} - 1}{R^2e^{2i\theta}}\left(Rie^{i \theta}\right) d \theta &= 0
+    \end{align*} 
+
+    Now lets calculate the value of inner semicircle with radius $\epsilon$.
+
+    \begin{align*}
+        \int_{0}^{\pi} \frac{e^{i \epsilon te^{i \theta}} - 1}{\epsilon^2e^{2i\theta}}\left(\epsilon ie^{i \theta}\right) d \theta &= i\int_{0}^{\pi} \frac{e^{i \epsilon te^{i \theta}} - 1}{\epsilon e^{i\theta}} d \theta \\
+        &= i\int_{0}^{\pi} \frac{\sum_{k = 0}^{\infty}\frac{(i \epsilon te^{i \theta})^k}{k!} - 1}{\epsilon e^{i\theta}} d \theta \\
+        &= i\int_{0}^{\pi} \frac{1 + \sum_{k = 1}^{\infty}\frac{(i \epsilon te^{i \theta})^k}{k!} - 1}{\epsilon e^{i\theta}} d \theta \\
+        &= i\int_{0}^{\pi} \frac{\sum_{k = 1}^{\infty}\frac{(i \epsilon te^{i \theta})^k}{k!}}{\epsilon e^{i\theta}} d \theta \\
+        &= i\int_{0}^{\pi} \frac{\sum_{k = 1}^{\infty}\frac{1}{k!}(it)^k (\epsilon e^{i \theta})^k}{\epsilon e^{i\theta}} d \theta \\
+        &= i\int_{0}^{\pi} \sum_{k = 1}^{\infty}\frac{1}{k!}(it)^k (\epsilon e^{i \theta})^{k - 1} d \theta \\ 
+        &= i\int_{0}^{\pi} \left[it + \sum_{k = 2}^{\infty}\frac{1}{k!}(it)^k (\epsilon e^{i \theta})^{k - 1} \right] d \theta
+    \end{align*}
+
+    $\forall k \geq 2$, $\lim_{\epsilon \to 0^+}\frac{1}{k!}(it)^k (\epsilon e^{i \theta})^{k - 1} = 0 $. 
+
+    \begin{align*}
+        \lim_{\epsilon \to 0^+} \int_{0}^{\pi} \frac{e^{i \epsilon te^{i \theta}} - 1}{\epsilon^2e^{2i\theta}}\left(\epsilon ie^{i \theta}\right) d \theta &= \lim_{\epsilon \to 0^+} i\int_{0}^{\pi} \left[it + \sum_{k = 2}^{\infty}\frac{1}{k!}(it)^k (\epsilon e^{i \theta})^{k - 1} \right] d \theta \\
+        &= \lim_{\epsilon \to 0^+} \int_{0}^{\pi} -t d \theta \\
+        &= -t \pi
+    \end{align*}
+
+    $\frac{e^{it x} - 1}{x^2}$ is holomorphic on the open set bounded by $\gamma_{\epsilon, R}$. By Cauchy's Theorem,
+
+    \begin{align*}
+        \int_{\gamma_{R, \epsilon}} \frac{e^{itx} - 1}{x^2} dx = 0
+    \end{align*}
+
+    Thus, 
+
+    \begin{align*}
+        \int_{\epsilon}^{R} \frac{e^{itx} - 1}{x^2} dx +\int_{-\epsilon}^{-R} \frac{e^{itx} - 1}{x^2} dx &= \int_{0}^{\pi} \frac{e^{i \epsilon te^{i \theta}} - 1}{\epsilon^2e^{2i\theta}}\left(\epsilon ie^{i \theta}\right) d \theta -  \int_{0}^{\pi} \frac{e^{iRte^{i \theta}} - 1}{R^2e^{2i\theta}}\left(Rie^{i \theta}\right) d \theta
+    \end{align*}
+
+    Thus, 
+
+    \begin{align*}
+        \lim_{R \to \infty} \lim_{\epsilon \to 0^+}\left(\int_{\epsilon}^{R} \frac{e^{itx} - 1}{x^2} dx +\int_{-\epsilon}^{-R} \frac{e^{itx} - 1}{x^2} dx\right) &= \lim_{R \to \infty} \lim_{\epsilon \to 0^+}\left(\int_{0}^{\pi} \frac{e^{i \epsilon te^{i \theta}} - 1}{\epsilon^2e^{2i\theta}}\left(\epsilon ie^{i \theta}\right) d \theta -  \int_{0}^{\pi} \frac{e^{iRte^{i \theta}} - 1}{R^2e^{2i\theta}}\left(Rie^{i \theta}\right) d \theta\right) \\
+    \end{align*}
+
+    Thus for $t > 0$, 
+
+    \begin{align*}
+        J(t) = \int_{-\infty}^{\infty}  \frac{e^{itx} - 1}{x^2} dx = -t \pi
+    \end{align*}
+
+    $\forall t \in \R^+$, 
+    
+    \begin{align*}
+        J(-t) &= \int_{-\infty}^{\infty}  \frac{e^{-itx} - 1}{x^2} dx \\
+        &= \int_{-\infty}^{\infty}  \frac{(\cos(tx) - 1) - i\sin(tx)}{x^2} dx \\
+        &= \overline{J(t)} = -t \pi
+    \end{align*}
+
+    Thus, $\forall t \in \R$, 
+    
+    \begin{equation*}
+        J(t) = \begin{cases*}
+            -(-t) \pi & \text{if} $t < 0$ \\
+            -t \pi & \text{if} $t \geq 0$ \\
+        \end{cases*}
+    \end{equation*} 
+
+    Thus, $J(t) = -\abs{t} \pi$. 
+
+    Thus, 
+    
+    \begin{align*}
+        I(t) &= \frac{1}{4}\left[-4\pi\abs{t} + \abs{t + 2}\pi + \abs{t - 2} \pi\right] \\
+        &= \frac{\pi}{4}\left[\abs{t + 2} + \abs{t - 2} -4\abs{t}\right] \\
+        &= \frac{\pi}{2} \max(0, 2 - \abs{t})
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+\end{PROB}
+\begin{proof}
+    To get the given $\frac{1}{t} \sum_{n = -\infty}^{\infty} \frac{1}{\cosh(\pi n / t)} = \sum_{n = -\infty}^{\infty} \frac{1}{\cosh(\pi n t)}$ there are 2 major facts we use about the fourier transform:
+    
+    \begin{enumerate}
+        \item The fourier transform of $f(x) = \frac{1}{\cosh(\pi x / t)}$ is $\hat{f}(x) = \frac{t}{\cosh(\pi n / t)}$
+        \item The poisson summation formula (this is the key), where if $f \in \mathscr{F}$ then $\sum_{n \in \Z} f(n) = \sum_{n \in \Z} \hat{f}(n)$  
+    \end{enumerate}
+    
+    
+    The first fact emerges from taking the the integral of $J = \int_{-\infty}^{\infty} e^{-2 \pi i z \xi} \frac{1}{\cosh(\pi z / t)}dz = t\int_{-\infty}^{\infty} e^{-2 \pi i x \xi} \frac{1}{\cosh(\pi x)}dx$. By making the substitution, $x = \frac{z}{t}$. Let $I = \int_{-\infty}^{\infty} e^{-2 \pi i x \xi} \frac{1}{\cosh(\pi x)}dx$.
+    
+    The value of this integral can be found using a application of the Residue Theorem by taking the countour integral. Since the calculation of the contour integral is not what the problem is asking and since the full calculation is available in Example 3 in Stein Complex Analysis chapter 3 section 2, I will give a abridged version of the proof of the calculation of the integral.
+
+    Integrate along the curve $\gamma = \left\{ [-R, R] \cup [R, R + 2i] \cup [R + 2i, -R + 2i] \cup [-R + 2i, -R] \right\}$, a rectangle contour. You observe that the zeros of $\cosh(x) = \frac{e^x + e^{-x}}{2}$ occur when $e^x = -e^{-x}$ or $\alpha = \frac{i}{2}$ and $\beta = \frac{3i}{2}$. We observe that the vertical lines of the contour vanish as $R \to \infty$ because where $z = y + iR$ and $0 \leq y \leq 2$, $\abs{e^{-2 \pi i z \xi}} = \abs{e^{-2 \pi i (R + iy) \xi}} = \abs{e^{-2 \pi i R \xi}e^{2 \pi y \xi}} = \abs{e^{2 \pi y \xi}} \leq e^{2 \pi y \abs{\xi}}$. Moreover we observe that $\abs{\cosh(\pi z)} = \frac{1}{2}\abs{e^{\pi z} + e^{\pi z} } \geq \frac{1}{2} \abs{\abs{e^\pi z} - \abs{e^{-\pi z}}}$ (Reverse triangle Inequality). Moreover, $\frac{1}{2}\abs{\abs{e^\pi z} - \abs{e^{-\pi z}}} \geq \frac{1}{2}(e^{\pi z} - e^{-\pi z}) \to \infty$ as $R \to \infty$. Thus $f(z) \to 0$ as $R \to \infty$ on the vertical components.      
+    
+    
+    We see that $cosh(\pi x)$ is $2 i$ periodic, because $\cosh(i \pi x) = \cos(\pi x)$. Let $I_R = \int_{-R}^{R} e^{-2 \pi i x \xi} f(x)dt$. Let $z = x + 2i$. 
+    
+    \begin{align*}
+        \int_{\gamma_t} e^{-2 \pi i z \xi} f(z) dz &= -\int_{-R}^{R} e^{-2 \pi i (x + 2i) \xi} f(x + 2i) dx \\
+        &= -e^{4 \pi \xi} \int_{-R}^{R} e^{-2 \pi i x \xi} f(x)dt = -e^{4 \pi \xi} I
+    \end{align*}
+
+    Thus the contour integral, 
+
+    \begin{align*}
+        \int_{\gamma} e^{-2 \pi i x \xi} f(x) dx &= I -e^{4 \pi \xi} I
+    \end{align*}
+
+    Now lets calculate residues to get the left side of the equality using Residue Theorem. 
+
+    \begin{align*}
+        (z - \alpha) e^{-2 \pi i z \xi} f(z) &= e^{-2 \pi i z \xi} \frac{2(z - \alpha)}{e^{\pi z} + e^{2 \pi z}} \\
+        &= e^{-2 \pi i z \xi} e^{\pi z}\frac{2(z - \alpha)}{e^{2\pi z} + 1} \\
+        &= e^{-2 \pi i z \xi} e^{\pi z}\frac{2(z - \alpha)}{e^{2\pi z} - e^{\pi i}} \\
+        &= e^{-2 \pi i z \xi} e^{\pi z}\frac{2(z - \alpha)}{e^{2\pi z} - e^{2\pi \alpha}} \\
+    \end{align*}
+
+    The fraction looks like the reciprocal of the ratio function of $e^{2 \pi z}$. Thus $\lim_{z \to \alpha} (z - a) e^{-2 \pi i z \xi} f(z) =  2e^{-2 \pi i \alpha \xi} e^{\pi \alpha} \frac{1}{2 \pi e^{2 \pi \alpha}} = e^{\pi \xi} / \pi i$. Similarly with $\beta$, we se its residue is $-e^{3\pi \xi} / \pi i$.  
+    
+    Thus, 
+
+    \begin{align*}
+        I -e^{4 \pi \xi} I &= 2\pi i \left(\frac{e^{ \pi \xi}}{\pi i} - \frac{e^{3\pi \xi}}{\pi i}\right) \\
+        &= -2 e^2\pi \xi\left(e^{\pi \xi} - e^{-\pi \xi}\right) \\
+        I(1 - e^{4 \pi \xi}) &= -2 e^2\pi \xi\left(e^{\pi \xi} - e^{-\pi \xi}\right) \\
+        I(-e^{2\pi \xi}(e^{2 \pi \xi} - e^{-2 \pi \xi})) &= -2 e^2\pi \xi\left(e^{\pi \xi} - e^{-\pi \xi}\right) \\ 
+        I &= \frac{2(e^{\pi \xi} - e^{- \pi \xi})}{e^{2 \pi \xi} - e^{-2 \pi \xi}} \\
+        &= \frac{2(e^{\pi \xi} - e^{- \pi \xi})}{(e^{\pi \xi} - e^{- \pi \xi})(e^{\pi \xi} + e^{- \pi \xi})} \\
+        &= \frac{1}{\cosh(\pi \xi)}
+    \end{align*}
+
+    Thus the fourier trasform of, $f(z) = \frac{1}{\cosh(\pi z / t)}$ is $\hat{f}(\xi) = \frac{t}{\cosh(\pi \xi)}$ 
+
+    Now comes the fun part with the Poisson Summation Formula. We use the fact that $f(z) \in \mathscr{F}$, thus $\exists a \in \R^+ \ni f(z) \in \mathscr{F}_a$. Moreover use the fact $\forall g(z) \in \mathscr{F}_a$ that for some $0 \leq b < a$, the $\abs{\hat{g(\xi)}} \leq B e^{-2 \pi b \abs{\xi}}$ by the properties of the class $\mathscr{F}_a$. Thus as $\abs{\xi}$ increases $\hat{f}$ decreases exponentially. Now to prove the Poisson Summation Formula, we observe that $\frac{1}{e^{2 \pi i \zeta} - 1}$ has simple poles with residue $1 / 2\pi i$ at the integers. Apply the rectangle contour 
+    
+    $\gamma := [-N + \frac{1}{2} + ib, N + \frac{1}{2} - ib] \cup [N + \frac{1}{2} - ib , N + \frac{1}{2} + ib] \cup [N  +\frac{1}{2} + ib, -N - \frac{1}{2} + ib] \cup [-N -\frac{1}{2} + ib, -N - \frac{1}{2} - ib]$ 
+
+    Using residue theorem, we see that 
+
+    \begin{align*}
+        \int_{\gamma_N} \frac{f(z)}{e^{2 \pi i z} - 1} dz &= \sum_{\abs{n} \leq N} f(n)
+    \end{align*}
+    
+    The integral of the vertical components converges to 0 and the right hand side turns to $\sum_{n \in \Z} f(n)$,  because $f(z)$ has a moderate decrease because it is in $\mathscr{F}_a$. 
+
+    Thus, 
+
+    \begin{align*}
+        \sum_{n \in \Z} f(n) = \int_{L_1} \frac{f(z)}{e^{2 \pi i z} - 1} dz - \int_{L_2} \frac{f(z)}{e^{2 \pi i z} - 1} dz
+    \end{align*}
+
+    Where $L_1$ and $L_2$ are the real line shifted up and down $b$.    
+    
+    Using the power series for $\frac{1}{w - 1}$ we see, 
+    
+    \begin{equation*}
+        \frac{1}{w - 1} = \begin{cases*}
+            w^{-1} \sum_{n = 0}^{\infty} w^{-n} & \text{if} $|w| > 1$ \\
+            - \sum_{n = 0}^{\infty} w^{n} & \text{if} $|w| < 1$
+        \end{cases*}
+    \end{equation*}
+
+    Thus on $L_1$, $|e^{2 \pi i z}| > 1$,  $\int_{L_1} \frac{f(z)}{e^{2 \pi i z} - 1} dz = \int_{L_1} f(z) e^{-2 \pi i z} \sum_{n = 0}^{\infty} e^{-2 \pi i z n} dz$ and on $L_2$, $|e^{2 \pi i z}| < 1$, thus $\int_{L_2} \frac{f(z)}{e^{2 \pi i z} - 1} dz = -\int_{L_2} f(z) \sum_{n = 0}^{\infty} e^{2 \pi i z n} dz$. 
+
+    Thus, 
+
+    \begin{align*}
+        \sum_{n \in \Z} f(n) &= \int_{L_1} \frac{f(z)}{e^{2 \pi i z} - 1} dz - \int_{L_2} \frac{f(z)}{e^{2 \pi i z} - 1} dz \\ 
+        &= \int_{L_1} f(z) e^{-2 \pi i z} \sum_{n = 0}^{\infty} e^{-2 \pi i z n} dz + \int_{L_2} f(z) \sum_{n = 0}^{\infty} e^{2 \pi i z n} dz \\
+        &=\sum_{n = 0}^{\infty}  \int_{L_1} f(z) e^{-2 \pi i z}  e^{-2 \pi i z n} dz + \sum_{n = 0}^{\infty} \int_{L_2} f(z)  e^{2 \pi i z n} dz \\
+        &=\sum_{n = 0}^{\infty}  \int_{L_1} f(z) e^{-2 \pi i z(n + 1)}dz + \sum_{n = 0}^{\infty} \int_{L_2} f(z)  e^{-2 \pi i z(-n)} dz \\
+        &=\sum_{n = 0}^{\infty}  \int_{-\infty}^\infty f(x) e^{-2 \pi i x(n + 1)}dx + \sum_{n = 0}^{\infty} \int_{-\infty}^\infty f(x)  e^{-2 \pi i x(-n)} dx \\
+        &= \sum_{n = 0}^{\infty} \hat{f}(n + 1) + \sum_{n = 0}^{\infty} \hat{f}(-n) \\
+        &= \sum_{n \in \Z} \hat{f}(n)
+    \end{align*}
+    
+    Thus 
+
+    \begin{align*}
+        \sum_{n = -\infty}^{\infty} \frac{1}{\cosh(\pi n / t)} &= \sum_{n = -\infty}^{\infty} \frac{t}{\cosh(\pi n t)} \\
+        = \sum_{n = -\infty}^{\infty} \frac{1}{\cosh(\pi n / t)} &= \frac{1}{t}\sum_{n = -\infty}^{\infty} \frac{1}{\cosh(\pi n t)} \\
+        \implies \frac{1}{t} \sum_{n = -\infty}^{\infty} \frac{1}{\cosh(\pi n / t)} &= \sum_{n = -\infty}^{\infty} \frac{1}{\cosh(\pi n t)}
+    \end{align*}
+
+    All in all it used the fact that the sum of a function evaluated at all integers is equal to its fourier transform evaluated at all integers. This may be closely related to the fact that the fourier transform is its own inverse. Furthermore it relates the growth of a function in comparison to that of its fourier transform in some way. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    
+\end{PROB}
+\begin{claim}{7a}\label{Claim 7a.}
+    For $Im(\tau) > 0$ 
+    \begin{equation*}
+        F(\tau) = \sum_{m} \sum_{n, (m, n) \neq (0, 0)} \frac{1}{(n + m \tau)^2}
+    \end{equation*} 
+
+    is convergent 
+\end{claim}
+\begin{proof}
+    Define $\sigma(r) := \sum_{d | r} d$.  
+
+    \begin{align*}
+        F(\tau) &= \sum_{m} \sum_{n, (m, n) \neq (0, 0)} \frac{1}{(n + m \tau)^2} \\
+        &= \sum_{n \neq 0} \frac{1}{n^2} + \sum_{m \neq 0} \sum_{n \in \Z} \frac{1}{(n + m \tau)^2} \\
+        &= 2\sum_{n = 0}^{\infty} \frac{1}{n^2}+ \sum_{m \neq 0} \sum_{n \in \Z} \frac{1}{(n + m \tau)^2} \\
+        &= 2\zeta(2) + \sum_{m \neq 0} \sum_{n \in \Z} \frac{1}{(n + m \tau)^2} \\
+        &= 2\zeta(2) + \sum_{m < 0} \sum_{n \in \Z} \frac{1}{(n + m \tau)^2} + \sum_{m > 0} \sum_{n \in \Z} \frac{1}{(n + m \tau)^2} \\
+        &= 2\zeta(2) + \sum_{m > 0} \sum_{n \in \Z} \frac{1}{(n - m \tau)^2} + \sum_{m > 0} \sum_{n \in \Z} \frac{1}{(n + m \tau)^2} \\
+    \end{align*}
+
+    Note that $\frac{1}{(n + m \tau^2)} = \frac{1}{(-n - m \tau^2)}$ so simply reorder the order of first sum. 
+    
+    \begin{align*}
+        F(\tau) &= 2\zeta(2) + \sum_{m > 0} \sum_{n \in \Z} \frac{1}{(n + m \tau)^2} + \sum_{m > 0} \sum_{n \in \Z} \frac{1}{(n + m \tau)^2} \\
+        &= 2\zeta(2) + 2\sum_{m > 0} \sum_{n \in \Z} \frac{1}{(n + m \tau)^2} \\
+        &= 2\zeta(2) + 2\sum_{m > 0} \frac{(-2 \pi i)^2}{(2 - 1)!} \sum_{j = 1}^{\infty} j^{2 - 1} e^{2 \pi i \tau m j} & \text{(Chapter 9: Lemma 2.4)}\\
+        &= 2\zeta(2) + 2\sum_{m > 0} -4 \pi^2 \sum_{j = 1}^{\infty} j e^{2 \pi i \tau m j}\\
+        &= 2\zeta(2) - 8 \pi^2\sum_{m > 0} \sum_{j = 1}^{\infty} j e^{2 \pi i \tau m j}\\
+        &=  2\zeta(2) - 8 \pi^2\sum_{m = 1}^{\infty} \sum_{j = 1}^{\infty} j e^{2 \pi i \tau m j}
+    \end{align*}
+
+    Note in this sum $mj \in \N$, and $\forall n \in \N, \exists (m, j) \in \N \times \N \ni mj = n$. Thus $mj | n \implies j$ is a factor of $n$. Moreover for all possible $j ~ \exists! m \in \N \ni mj = n$. Thus counting the number of $(m, j)$ is just counting the number of $j$. The number of $j$ is just the number of divisors. So $e^{2 \pi i \tau n}$ occurs in the double sum, every time $j | n$. Moreover it will always be multiplied to $j$. So we can reindex our double sum w.r.t $j, n$
+    
+    \begin{align*}
+        F(\tau) &= 2\zeta(2) - 8 \pi^2\sum_{n = 1}^{\infty} \sum_{j | n} j e^{2 \pi i \tau n} \\
+        &= 2\zeta(2) - 8 \pi^2\sum_{n = 1}^{\infty} e^{2 \pi i \tau n}  \sum_{j | r} n  \\
+        &= 2\zeta(2) - 8 \pi^2\sum_{n = 1}^{\infty} \sigma(n) e^{2 \pi i \tau n}  \\
+    \end{align*}
+
+    Thus, 
+    
+    \begin{equation*}
+        F(\tau) = 2\zeta(2) - 8 \pi^2\sum_{n = 1}^{\infty} \sigma(n) e^{2 \pi i \tau n}
+    \end{equation*}
+
+    Now on to convergence of $F(\tau)$, $\sigma(n) \leq \sum_{i = 1}^{n} n = n^2$ since $\forall d \in \N \ni d|n \implies d \leq n$. If $\tau = x + iy$. Then $\abs{e^{2 \pi i n(x + iy)}} = \abs{e^{2 \pi i n x} e^{-2 \pi n y}} = \abs{e^{-2 \pi n y}}$. 
+    
+    $\forall y_0 \in \R \ni y_0 > 0$, if $y \geq y_0$, $e^{-2 \pi n y} \leq e^{-2 \pi n y_0}$. So the comparison of $\sum_{n = 1}^{\infty} \sigma(n) e^{2 \pi i \tau n}$ for $\Im(\tau) > 0$, to $\sum_{n = 1}^{\infty} n^2 e^{-2 \pi n y_0}$ which is convergent. Thus since $\sum_{n = 1}^{\infty} \sigma(n) e^{2 \pi i \tau n} \leq \sum_{n = 1}^{\infty} n^2 e^{-2 \pi n y_0}$, $\sum_{n = 1}^{\infty} n^2 e^{-2 \pi n y_0}$ is convergent and thus $F(\tau)$ is convergent for $\Im(\tau) \geq y_0 > 0 \implies \Im(\tau) > 0$.
+
+
+    For $\Im(\tau) = y = 0$, we run into issues, since $ \abs{e^{-2 \pi n y}} = 1$. Thus $\sum_{n = 1}^{\infty} \sigma(n) e^{2 \pi i \tau n} \leq \sum_{n = 1}^{\infty} n^2$, which is not convergent. 
+    
+    Finally for, $\Im(\tau) = y < 0$, we run into issues since $\forall y < 0$, $\lim_{n \to \infty}e^{-2 \pi i y}  = \infty$. $\sum_{n = 1}^{\infty} n^2 e^{-2 \pi i y_0}$ doesn't converge thus, $F(\tau)$ doesn't converge.
+\end{proof}
+
+\begin{PROB}{7b}\label{Problem 7b.}
+    For $Im(\tau) > 0$ 
+    \begin{equation*}
+        F(\tau) \neq \sum_{n} \sum_{m, (m, n) \neq (0, 0)} \frac{1}{(n + m \tau)^2}
+    \end{equation*}
+\end{PROB}
+\begin{proof}
+    By the previous claim, 
+    \begin{align*}
+        \tau^{-2} F\left(-\frac{1}{\tau}\right) &= \tau^{-2}\left(2\zeta(2) - 8 \pi^2\sum_{n = 1}^{\infty} \sigma(n) e^{-2 \pi i \frac{1}{\tau} n}\right) \neq 2\zeta(2) - 8 \pi^2\sum_{n = 1}^{\infty} \sigma(n) e^{2 \pi i \tau n} = F(\tau)
+    \end{align*}
+
+    \begin{align*}
+        \tau^{-2} F\left(-\frac{1}{\tau}\right) &= \sum_{m} \sum_{n, (m, n) \neq (0, 0)} \frac{1}{(\tau(n + m (\frac{1}{\tau})))^2} \\
+        &=\sum_{m} \sum_{n, (m, n) \neq (0, 0)} \frac{1}{(\tau n + m)^2} \\
+        &=\sum_{n} \sum_{m, (m, n) \neq (0, 0)} \frac{1}{(\tau m + n)^2} & \text{(Simply swapping symbol names)} \\
+        &= \tau^{-2} F(1 / \tau) \neq F(\tau)
+    \end{align*}
+\end{proof}
+
+\begin{claim}{7c}\label{Claim 7c.}
+    Failure of Fubini's Theorem
+\end{claim}
+\begin{proof}
+    Fubini Theorem's doesn't apply since 
+    
+    \begin{equation*}
+        F(\tau) = \sum_{m} \sum_{n, (m, n) \neq (0, 0)} \frac{1}{(n + m \tau)^2} \neq \sum_{n} \sum_{m, (m, n) \neq (0, 0)} \frac{1}{(n + m \tau)^2} = \tau^{-2} F(1 / \tau)
+    \end{equation*}
+
+    Which means the interchange of summations causes a change in the value of the sum. Thus 
+    
+    \begin{equation*}
+        \sum_{(m, n) \in \Z \times \Z \setminus \left\{ (0, 0) \right\}} \frac{1}{(n + m \tau)^2}
+    \end{equation*}
+
+    does not converge absolutely in the upperhalf plane by Fubini's Theorem.   
+\end{proof}
+
+\pagebreak
+
+\section{Appendix}
+\begin{PROB}{A1.a}\label{Problem A1.a.}
+    (Problem 7 from Stein Chapter 1 and Homework 1): The family of mappings introduced here plays an important role in complex analysis. These mappings, sometimes called Blaschke factors, will reappear in various applications in later chapters.
+
+    Let z, w be two complex numbers such that $\bar{z}w \neq 1$. Prove that
+
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} < 1 \quad \text{if $|z| < 1$ and $|w| < 1$}\] 
+
+    and also that 
+
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} < 1 \quad \text{if $|z| = 1$ or $|w| = 1$}\]
+\end{PROB}
+\begin{claim}{A1.a.i}\label{Claim 3ai.}
+    It suffices to assume $z$ is real and to prove $(r - w)(r - \bar{w}) \leq (1 - rw)(1 - r\bar{w})$ with equality for appropriate $r$ and $|w|$. 
+\end{claim}
+\begin{proof}
+    Suppose 
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} \leq 1\]
+    is true. This is true $\iff$ the following is true.
+    
+    \begin{align*}
+        |w - z| \leq |1 - \bar{w}z| &\iff |w-z|^2 \leq |1 - \bar{w}z| \\
+        &\iff (w-z)\overline{(w - z)} \leq (1 - \bar{w}z)\overline{(1 - \bar{w}z)} \\ 
+        &\iff (w-z)(\bar{w} - \bar{z}) \leq (1 - \bar{w}z)(1 - \overline{\bar{w}z}) \\
+        &\iff w\bar{w} - w\bar{z} - z\bar{w} + z\bar{z} \leq (1 - \bar{w} z)(1 - w\bar{z}) \\
+        &\iff w\bar{w} - w\bar{z} - z\bar{w} + z\bar{z} \leq 1 - w \bar {z} - \bar{w} z + w\bar{w}z\bar{z} \\
+        &\iff w\bar{w} + \bar{z} z \leq 1 + w\bar{w}z\bar{z}
+    \end{align*}
+
+    In the final inequality, we are looking at $z \bar{z} \in \R$. So instead of using $z$ as a parameter we can use $r = |z| = \sqrt{\bar{z}z}$ as a parameter. 
+
+    So 
+
+    \begin{align*}
+        w\bar{w} + \bar{z} z \leq 1 + w\bar{w}z\bar{z} &\iff w\bar{w} + r^2 \leq 1 + r^2w\bar{w} \\
+        &\iff w\bar{w} + r^2 - rw - r\bar{w} \leq 1 + r^2w\bar{w}- rw - r\bar{w} \\
+        &\iff (r - w)(r - \bar{w}) \leq (1 - rw)(1 - r\bar{w})
+    \end{align*}
+
+    Since we only care about $r = |z|$, wlog we can assume z is real and since all these statements are related by if and only if statements it suffices to prove $(r - w)(r - \bar{w}) \leq (1 - rw)(1 - r\bar{w})$ for the appropriate r and w.
+\end{proof}
+
+\begin{claim}{A1.a.ii}\label{Claim 3aii.}
+    Let z, w be two complex numbers such that $\bar{z}w \neq 1$. Prove that
+
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} < 1 \quad \text{if $|z| < 1$ and $|w| < 1$}\]
+\end{claim}
+\begin{proof}
+    Suppose $z, w \in \C \ni |z| < 1$ and $|w| < 1$. 
+
+    By claim A1.a.i, it suffices to assume $z$ is real and to prove $(r - w)(r - \bar{w}) < (1 - rw)(1 - r\bar{w})$ where $r = |z| = z$ (z is real).
+
+    \begin{align*}
+        (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) &=
+        r^2 - r(\bar{w} + w) + w\bar{w} - (1 - r(w + \bar{w}) + r^2w\bar{w}) \\
+        &= r^2 - r^2w\bar{w} + w\bar{w} - 1 \\
+        &= (r^2 - 1)(1 - w\bar{w})
+    \end{align*} 
+
+    Since $r = |z| < 1 \implies r^2 < 1 \implies r^2 - 1 < 0$ and since $|w| < 1 \implies w\bar{w} < 1 \implies 1 - w\bar{w} > 0$. A positive number multiplied by a negative number is a negative number. Thus $(r^2 - 1)(1 - w\bar{w}) < 0$. Since $(r^2 - 1)(1 - w\bar{w}) = (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) \implies (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) < 0 \implies (r - w)(r - \bar{w}) < (1 - rw)(1 - r\bar{w})$. By claim A1.a.i, this implies $\abs{\frac{w - z}{1 - \bar{w}z}} < 1$. 
+\end{proof}
+\begin{claim}{A1.a.iii}\label{Claim 3aiii.}
+    Let z, w be two complex numbers such that $\bar{z}w \neq 1$. Prove that
+
+    \[\abs{\frac{w - z}{1 - \bar{w}z}} = 1 \quad \text{if $|z| = 1$ or $|w| = 1$}\]
+\end{claim}
+\begin{proof}
+    Suppose $z, w \in \C \ni |z| = 1$ or $|w| = 1$. 
+
+    By claim A1.a.i, it suffices to assume $z$ is real and to prove $(r - w)(r - \bar{w}) = (1 - rw)(1 - r\bar{w})$ where $r = |z| = z$ (z is real).
+
+    \begin{align*}
+        (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) &=
+        r^2 - r(\bar{w} + w) + w\bar{w} - (1 - r(w + \bar{w}) + r^2w\bar{w}) \\
+        &= r^2 - r^2w\bar{w} + w\bar{w} - 1 \\
+        &= (r^2 - 1)(1 - w\bar{w})
+    \end{align*} 
+
+    If $r = |z| = 1 \implies r^2 = 1 \implies r^2 - 1 = 0$. So $(r^2 - 1)(1 - w\bar{w}) = 0$. 
+    
+    If $|w| = 1 \implies w\bar{w} = 1 \implies 1 - w\bar{w} = 1$. So $(r^2 - 1)(1 - w\bar{w}) = 0$. 
+    
+    Thus in either case $(r^2 - 1)(1 - w\bar{w}) = 0$, so $(r^2 - 1)(1 - w\bar{w}) = 0$. Since $(r^2 - 1)(1 - w\bar{w}) = (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) \implies (r - w)(r - \bar{w}) - (1 - rw)(1 - r\bar{w}) = 0 \implies (r - w)(r - \bar{w}) = (1 - rw)(1 - r\bar{w})$. By claim A1.a.i, this implies $\abs{\frac{w - z}{1 - \bar{w}z}} = 1$.    
+\end{proof}
+
+\begin{PROB}{A1.b}\label{Problem A1.b.}
+    Prove that for a fixed w in the unit disk $\mathbb{D}$, the mapping
+
+    \[F: z \to \frac{w - z}{1 - \bar{w}z}\]
+
+    satisfies the following conditions:
+
+    \begin{enumerate}
+        \item $F$ maps the unit disk to itself, and is holomorphic
+        \item $F$ interchanges 0 and w, namely $F(0) = w$ and $F(w) = 0$
+        \item $|F(z)| = 1$ if $|z| = 1$.
+        \item $F: \mathbb{D} \to \mathbb{D}$ is bijective. 
+    \end{enumerate}
+\end{PROB}
+\begin{claim}{A1.b.i}\label{Claim 3bi.}
+    $F$ maps the unit disk to itself, and is holomorphic
+\end{claim}
+\begin{proof}
+    Let $w \in \mathbb{D}$ be fixed. Let $F: \C \to \C \ni z \to \frac{w - z}{1 - \bar{w}z}$.
+
+    Let $g: \C \to \C \ni z \to w - z$ and $h: \C \to \C \ni z \to 1 - \bar{w}z$. Let $w = a + bi$. Suppose $\exists z \in \C \ni h(z) = 0 $. Let $z = c + di$. Thus $(a - bi)(c + di) = 1 \implies (ac + bd) + i(ad - bc) = 1 \implies ac + bd = 1$ and $-bc + ad = 0$. Solve for $c$ and $d$.
+    
+    $\begin{bmatrix}
+        a & b \\ -b & a
+    \end{bmatrix}\begin{bmatrix}
+        c \\ d
+    \end{bmatrix} = \begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$. This system is not solvable if and only if $a^2 + b^2 = 0$ but if $a^2 + b^2 = 0 \implies a + bi = 0 \implies w = 0 \implies \bar{w} = 0$ and $0z = 0$ $\forall z \in C$ so $h(z) = 1$ which contradicts our assumption so $w \neq 0$. So $\begin{bmatrix}
+        c \\ d
+    \end{bmatrix} = \frac{1}{a^2 + b^2}\begin{bmatrix}
+        a & -b \\ b & a
+    \end{bmatrix}\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix} = \frac{1}{a^2 + b^2} \begin{bmatrix}
+        a \\ b
+    \end{bmatrix} \implies z = \frac{1}{a^2 + b^2}(a + bi) = \frac{1}{|w|^2}w \implies |z| = \frac{1}{|w|}$. Since $w \in \mathbb{D} \implies |w| < 1 \implies |z| > 1 \implies z \not \in \mathbb{D}$. So $h(z) = 0 \iff w \neq 0$ and $z \not \in \mathbb{D}$. So $\forall z \in \mathbb{D}$, $h(z) \neq 0$.
+    
+    $\forall z \in \mathbb{D}$, by definition of unit disk, $|z| < 1$. Since $|w| < 1$ and $h(z) \neq 0 \implies \bar{w}z \neq 1$ as well, by Claim A1.a.i, $\abs{\frac{w - z}{1 - \bar{w}z}} < 1 \implies F(z) = \frac{w - z}{1 - \bar{w}z} \in \mathbb{D}$. Thus $F$ maps the unit disk to itself.
+    
+    $h$ and $g$ are holomorphic over all $\C$. $F(z) = \frac{g(z)}{h(z)}$. By Proposition 2.22 in Chapter 1, since $g$ and $h$ are holomorphic over $\mathbb{D}$, F is holomorphic at a point $z_0 \iff h(z_0) \neq 0$. Since $\forall z \in \mathbb{D}, h(z) \neq 0 \implies F$ is holomorphic at every point in $\mathbb{D}$ thus holomorphic over $\mathbb{D}$.            
+\end{proof}
+
+\begin{claim}{A1.b.ii}\label{Claim 3bii.}
+    $F$ interchanges 0 and w, namely $F(0) = w$ and $F(w) = 0$
+\end{claim}
+\begin{proof}
+    Let $w \in \mathbb{D}$ be fixed. Let $F: \C \to \C \ni z \to \frac{w - z}{1 - \bar{w}z}$.
+
+    \[F(0) = \frac{w - 0}{1 - \bar{w}(0)} = \frac{w}{1} = w\]
+    \[F(0) = \frac{w - w}{1 - \bar{w}w} = \frac{0}{1 - \bar{w}w}\]
+
+    Since $w \in \mathbb{D}$, $|w| < 1 \implies w\bar{w} < 1 \implies 1 - \bar{w}{w} > 0$. So $F(w) = 0$.   
+\end{proof}
+
+\begin{claim}{A1.b.iii}\label{Claim 3biii.}
+    $|F(z)| = 1$ if $|z| = 1$.
+\end{claim}
+\begin{proof}
+    Let $w \in \mathbb{D}$ be fixed. Let $F: \C \to \C \ni z \to \frac{w - z}{1 - \bar{w}z}$. 
+
+    Let $h: \C \to \C \ni z \to \bar{w}z$. Let $w = a + bi$. Suppose $\exists z \in \C \ni h(z) = 0 $. Let $z = c + di$. Thus $(a - bi)(c + di) = 1 \implies (ac + bd) + i(ad - bc) = 1 \implies ac + bd = 1$ and $-bc + ad = 0$. Solve for $c$ and $d$.
+    
+    $\begin{bmatrix}
+        a & b \\ -b & a
+    \end{bmatrix}\begin{bmatrix}
+        c \\ d
+    \end{bmatrix} = \begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix}$. This system is not solvable if and only if $a^2 + b^2 = 0$ but if $a^2 + b^2 = 0 \implies a + bi = 0 \implies w = 0 \implies \bar{w} = 0$ and $0z = 0$ $\forall z \in C$ so $h(z) = 1$ which contradicts our assumption so $w \neq 0$. So $\begin{bmatrix}
+        c \\ d
+    \end{bmatrix} = \frac{1}{a^2 + b^2}\begin{bmatrix}
+        a & -b \\ b & a
+    \end{bmatrix}\begin{bmatrix}
+        1 \\ 0
+    \end{bmatrix} = \frac{1}{a^2 + b^2} \begin{bmatrix}
+        a \\ b
+    \end{bmatrix} \implies z = \frac{1}{a^2 + b^2}(a + bi) = \frac{1}{|w|^2}w \implies |z| = \frac{1}{|w|}$. Since $w \in \mathbb{D} \implies |w| < 1 \implies |z| > 1$. 
+    
+    So $\forall z \in \C \ni |z| = 1 \implies h(z) \neq 0 \implies 1 - \bar{w}z \neq 0 \implies \bar{w}z \neq 1$. Since $|z| = 1$ and $\bar{w}z \neq 1$, by claim A1.a.iii, $|F(z)| = \abs{\frac{w - z}{1 - \bar{w}z}} = 1$
+\end{proof}
+
+\begin{claim}{A1.b.iv}\label{Claim 3biv.}
+    $F: \mathbb{D} \to \mathbb{D}$ is bijective.
+\end{claim}
+\begin{proof}
+    Let $w \in \mathbb{D}$ be fixed. Let $F: \mathbb{D} \to \mathbb{D} \ni z \to \frac{w - z}{1 - \bar{w}z}$.
+
+    $\forall z \in \mathbb{D}$,
+    
+    \begin{align*}
+        (F \circ F)(z) &= \frac{w - F(z)}{1 - \bar{w}F(z)} \\
+        &= \frac{w - \frac{w - z}{1 - \bar{w}z}}{1 - \bar{w}\frac{w - z}{1 - \bar{w}z}} \\
+        &= \frac{w - \frac{w - z}{1 - \bar{w}z}}{1 - \bar{w}\frac{w - z}{1 - \bar{w}z}} \frac{1 - \bar{w}z}{1 - \bar{w}z} \\
+        &= \frac{w(1 - \bar{w}z) - (w - z)}{(1 - \bar{w}z) - \bar{w}(w - z)} \\
+        &= \frac{w - w\bar{w}z - w + z}{1 - \bar{w}z - \bar{w}w + \bar{w}z} \\
+        &= \frac{z - w\bar{w}z}{1 - \bar{w}w} \\
+        &= z\frac{1 - w\bar{w}}{1 - w\bar{w}}
+    \end{align*}
+
+    Because $w \in \mathbb{D}$, $|w| < 1 \implies w\bar{w} < 1 \implies 1 - w\bar{w} \neq 0$, so $(F \circ F)(z) = z$. So $F$ is its own inverse function. Since $F$ has both a left and right inverse (itself), $F$ is a bijection.      
+\end{proof}
+
+
+\end{document}

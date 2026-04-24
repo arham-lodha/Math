@@ -1,0 +1,273 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Fields 1}
+\author{Arham Lodha}%put your name here
+\date{March 25, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+\end{PROB}
+\begin{proof}
+    Let $R$ be a ring.
+    
+    $(\implies)$: Suppose $(0) \subset R$ is a maximal ideal. Then $\forall r \in R \ni r \neq 0, (r) = (1) = R$. By definition of ideal, $\exists a \in \R \ni ar = 1$, $r$ invertible. Thus $R$ is a field.
+    
+    $(\impliedby)$: Suppose $R$ is a field. Let $I$ be a ideal. If $\exists r \in I \ni r$ invertible, then $r^{-1}r = 1 \in I$, thus $I = (1) = R$. Otherwise, $I = (0)$ because 0 is the only noninvertible element. Thus $(0)$ is maximal.            
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+\end{PROB}
+\begin{proof}
+    $\forall p, q \in F[X] \ni p \neq 0$ and $q \neq 0$. $p(X) = \sum_{k = 1}^{\deg p} a_k X^k$ and $q(X) = \sum_{k = 1}^{\deg q} b_k X^k$. The highest degree term of $p(X)q(X)$ is $a_kb_k X^k$, $a_kb_k \neq 0 $, since $a_k \neq 0$ and $b_k \neq 0$ and fields are integral domains. Thus $p(X)q(X) \neq 0$ and $F[X]$ is a integral domain.
+    
+    Let $I \subset F[X]$ be a ideal. Let $f \in I$ be an nonzero element with minimal degree. $\forall p \in F[X]$, since $F[X]$ is a euclidean domain, $\exists q, r \in F[X] \ni p = fq + r$ where $\deg r < \deg f$. Thus $r = p - fq \implies r \in I$. Thus $r = 0$, otherwise contradiction since $\deg r < \deg f$ and $f$ is the nonzero element with minimal degree in I. Thus $f | p$ and $I = (f)$. 
+    
+    Suppose $f_1, f_2 \in I, \ni I = (f_1) = (f_2) \implies \exists p, q \in F[X] \ni f_1 = pf_2, f_2 = qf_1$. Thus $f_1 = pqf_1 \implies f_1(1 - pq) = 0 \implies 1 - pq = 0 \implies pq = 1 \implies p, q \in F$. Thus $f_1$ and $f_2$ are scalar multiples of each other. Thus each ideal $I$ exists a unique monic polynomial $f$ such that $I = (f)$. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+\end{PROB}
+\begin{proof}
+
+    Let $\pi: R \to R / I$.  
+    Let $S$ be the set of ideals of $R$ which contain $I$. Let $S'$ be the set of ideals of $R / I$. There exists a bijection, $S \to S'$ such that $J \to \pi_*(J)$ and a inverse map $\overline{J} \to \pi^*(J)$.
+    
+    $\forall J \in S, \pi^*(\pi_*(J)) = \pi^*(\left\{ j + I | j \in J \right\}) = \left\{ j | j \in J \right\} = J$. $\forall \overline{J} \in S'$, $\pi_*(\pi^*(\overline{J})) = \pi_*(\left\{ a | a \in j + I, j + I \in J \right\}) = \left\{ j + I, j + I \in \overline{J} \right\} = \overline{J}$. Thus $\pi_*$ form a bijection. 
+    
+    Suppose $J_1 \subseteq J_2$ ideals of J containing I, then $\pi_*(J_1) = \left\{ j_1 + I | j_1 \in J_1 \right\} \subseteq \left\{ j_2 + I | j_2 \in J_2\right\} = \pi_*(J_2)$,in $R / I$. This respects the inclusion relation, thus $\pi_*$ is order preserving.
+    
+    
+    Let $\overline{R} := R / I$. 
+
+    Suppose $J \subseteq R$ is prime and $I \subseteq J$. Then by definition, $R / J$ is a integral domain. Let $\overline{J} = \pi_*(J)$. 
+    
+    
+    \[\begin{tikzcd}
+        R && {R/I} \\
+        \\
+        {R/J} && {\overline{R}/\overline{J}} \\
+        & \bullet
+        \arrow[two heads, from=1-1, to=1-3]
+        \arrow[two heads, from=1-1, to=3-1]
+        \arrow[two heads, from=1-3, to=3-3]
+        \arrow["\cong"', hook, two heads, from=3-1, to=3-3]
+    \end{tikzcd}\]
+
+    The kernel of the map of $R \to \overline{R} / \overline{J}$ is $J$. Thus $\overline{R} / \overline{J} \cong R / J$. Thus, since $R / J$ is a integral domain, $\overline{R} / \overline{J}$, thus $\overline{J}$ is prime.       
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+\end{PROB}
+\begin{proof}
+    $\implies$: Suppose $P \subset R$  is a prime ideal. Then $R / P$ is a integral domain, thus $\forall a + P, b + P \in R / P \ni (a + P)(b + P) = 0 \iff a + P = 0 $ or $b + P = 0$. If $a + P = 0 \implies a \in P$. If $b + P = 0 \implies b \in P$.
+    
+    $\impliedby$: Suppose P is an ideal with the following property $\forall a, b \in R \ni ab \in P \implies a \in P$ or $b \in P$, then for $(a + P), (b + P) \in R / P$, $(a + P)(b + P) = P = 0 \implies a + P = P = 0$ or $b + P = P = 0$. Thus $R / P$ is a integral domain. Thus P is a prime ideal.    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5a}\label{Problem 5a.}
+    Show that in a PID a proper ideal is prime iff it is 0, or maximal.   
+\end{PROB}
+\begin{proof}
+    Let $R$ be a PID.
+    ($\implies$) Let $I = (r)$ be a prime ideal of $R$. It suffices to show that if $r \neq 0 \implies I$ is maximal. Let $m \in R \ni (r) \subset (m) \implies \exists n \in R \ni r = mn \implies mn \in (r)$. By definition of prime ideal, $m \in I$ or $n \in I$. If $m \in I \implies (m) \subseteq (r) \implies (m) = I$. If $n \in I \implies \exists p \in R \ni n = pr \implies r = mpr \implies r(1 - mp) = 0$. Since $R$ is a PID, $1 - mp = 0 \implies mp = 1$ thus $m$ unit and $(m) = R$.
+    
+    
+    $\impliedby$: Suppose $I = (r)$ where $r \neq 1$ and $r = 0$ or $I$ maximal. If $r = 0$, then $\forall a, b \in R \ni ab \in I \implies ab = 0$, since $R$ is PID, $a =0$ or $b = 0$. Thus $(0)$ is prime. Suppose $I$ maximal and $r \neq 0$, then $R / I$ is a field and thus a PID, thus I is prime.               
+\end{proof}
+\begin{PROB}{5b}\label{Problem 5b.}
+    Show that for any non-zero prime ideal, the quotient is a field
+\end{PROB}
+\begin{proof}
+    For every non zero prime ideal $I = (r)$, $(r)$ is maximal, thus the only maximal ideal of $R / (r)$ is $(0)$, thus by 1 $R / (r)$ is a field.     
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+\end{PROB}
+\begin{proof}
+    I = $(f(x))$.  
+    Let $\phi: F^{\deg f} \to F[X] / (f(x))$ where $(f_0, \dots, f_{\deg f - 1}) \to \sum_{i = 0}^{\deg f - 1}f_{i} x^i + I$. $\forall (f_0, \dots, f_{\deg f - 1}), (g_0, \dots, g_{\deg f - 1}) \in F^{\deg f}$ and $a, b \in F$, $\phi(a  (f_0, \dots, f_{\deg f - 1}) + b((g_0, \dots, g_{\deg f - 1}))) = (\sum_{i = 0}^{\deg f - 1}(af_{i} + bg_{i}) x^i) + I = a\phi((f_0, \dots, f_{\deg f - 1})) + b \phi((g_0, \dots, g_{\deg f - 1})))$. Thus $\phi$ is a linear map. 
+    
+    $\dim F[X] / (f(x)) = \deg f = F^{\deg f}$, because $F[X] / (f(x))$ is the set of all polynomials up to degree $\deg f$. 
+    
+    $\forall k \in \ker \phi$, $k = (0, \dots, 0)$, because $\phi(k) = 0 \implies k_i = 0$.
+    
+    Thus $\phi$ is a isomorphism. Thus $F^{\deg f} \cong F[X] / (f(x))$ 
+\end{proof}
+\begin{PROB}{6a}\label{Problem 6a.}
+      
+\end{PROB}
+\begin{proof}
+    Since $f(x)$ is a nonconstant $\implies (x)$ is nonzero.
+
+    $(a \implies b)$: $S$ is a integral domain $\iff$ $(f)$ is prime $\iff$ $S$ is a field, by 5. 
+    
+    $(b \implies c)$: If $S$ is a field, then it is a PID, $\implies$ $(f)$ is prime. Since $(f)$ is prime $\iff$ $(f)$ is maximal. $\forall a, b \in F[X] \ni f = ab \implies f \in (a) \implies (f) \subseteq (a)$. If inclusion was proper, $(a) = F[X] \implies a \in F$ and thus unit. If inclusion is not proper and $(f) = (a)$, by $1$, $a$ is a simple scalar multiple of $f$, and thus $b$ is the scalar. By symmetry, $b$ is a scalar or a scalar multiple of $f$ ($a$ is the scalar). Thus $f$ is irreducible. 
+
+    $(c \implies a)$: If $f$ is irreducible, then $\forall a, b \in F[X] \ni f=ab \implies a$ or $b$ are scalars. $f$ is only divisible by a scalar or itself. Thus $(f)$ is prime, thus $S$ is a integral domain.          
+    
+    Thus $a \implies b \implies c \implies a$, and $a \iff b$ and $b \iff c$ and $c \iff a$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+\end{PROB}
+\begin{proof}
+    $S = F_2[X] / (x^3 + x + 1) \cong F_2 \oplus F_2x \oplus F_2 x^2$, thus $|S| = 8$. Similarly $R = F_2[X] / (x^3 + x^2 + 1) \cong \cong F_2 \oplus F_2x \oplus F_2 x^2$, thus $|R| = 8$. Since $x^3 + x + 1$ irreducible, $S$ is a field. Similarly since $x^3 + x^2 + 1$ is irreducible, $R$ is a field.
+    
+    
+    \[\begin{tikzcd}
+        &&& {F_2[x]} \\
+        \\
+        {F_2[x]/(x^3+x^2+1)} &&& {F_2[x]/(x^3 + x + 1)}
+        \arrow["{\alpha: [x \to x+1]}"', from=1-4, to=3-1]
+        \arrow[hook, two heads, from=3-1, to=3-4]
+        \arrow["{\beta}" ,from=1-4, to=3-4]
+    \end{tikzcd}\]
+
+    $\alpha$ sends $F_2 \to F_2$ and $x \to x + 1$. But $(x+1)^3 + (x + 1)^2 + 1 = x^3 + x + 1$. Thus $\alpha$ and $\beta$ have the same kernel. Thus there exists a homomorphism from $R \to S$. Since there exists a map it is injective. Since $|S| = |R|$, the map is surjective and thus a isomorphism.         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+\end{PROB}
+\begin{proof}
+    $(a \implies b):$ $F[s]$ being a finite dimensional $F$ vectorspace. $\forall t \in F[s] \ni t \neq 0$. Let $\phi: F[s] \to F[s]$ where $r \to tr$. $\forall k \in \ker \phi$, $\phi(k) = tk = 0$, since $F[s]$ is a PID, $k = 0$. Thus $\phi$ is injective. $\dim F[s] = \dim F[s]$ so $\phi$ is also surjective. This there is a bijection. Thus $\exists r \in F[s] \ni \phi(r) = 1 \implies tr = 1 \implies r = t^{-1}$. Thus $F[s]$ is a field. 
+    
+    $(b \implies c):$ Suppose $F[s]$ is a field. Take the ring homomorphism, $\phi: F[X] \to F[s]$ where $f \to f(s)$. $\phi$ is surjective, because every element of $F[s]$ is $s$ evaluated on a polynomial with coeffiecients of $F$. Assume the contrary, $\ker \phi$ is trivial, then $\phi$ is a isomorphism and $F[x]\cong F[s]$ thus $F[X]$ is a field which is a contradiction. Thus $\ker \phi$ is nontrivial. Since $F[X]$ is a PID, $\exists f \in F[X] \ni \ker \phi = (f)$. Thus $\phi(f) = f(s) = 0$. 
+    
+    $(c \implies a):$ Suppose $\exists f \in F[x] \ni f(s) = 0$. Let $n:= \deg f$. Thus there is a relation that $\sum_{k = 0}^{n}a_k s^k = 0 \implies s^n = \sum_{k = 0}^{n - 1} -\frac{a_k}{a_n} s^k$. Let $B = \left\{ 1, s, \dots, s^{n - 1} \right\}$  
+    
+    Thus $\forall t \in F[s], t = \sum_{k = 0}^{m} c_k s^k$, if $m < n$, t is a linear combination of $B$. 
+    
+
+    If $m = n$, $t = \sum_{k = 0}^{m} c_k s^k = \sum_{k = 0}^{n - 1} c_k s^k + c_n \sum_{k = 0}^{n - 1} -\frac{a_k}{a_n} s^k \implies t$ is a linear combination of $B$.    
+
+    If $n < m$, then $t = \sum_{k = 0}^{n - 1} c_k s^k + \sum_{k = n}^m c_k s^k = \sum_{k = 0}^{n - 1} c_k s^k + \sum_{k = n}^m c_k s^{k - n} s^{n} = \sum_{k = 0}^{n - 1} c_k s^k + \sum_{k = n}^m s^k (\sum_{l = 0}^{n - 1} -\frac{a_l}{a_n} s^l)$. Evaluate $t$, and then replug, $\sum_{k = 0}^{n - 1} -\frac{a_k}{a_n} s^k$ into $s^n$, and then reevaluate and for every $s^k \ni k > n$ write $s^k$ as $s^k = s^{k - n}s^n$. Repeat this process, till no $s^n$ and larger powers of $s$ remain. Thus $t$ can be written as a linear combination of $B$.
+    
+    
+    Thus every element of $F[s]$ can be written as a linear combination of $B$. Thus $F[s]$ is a finite dimensional F-vector space. 
+    
+    Thus $a \implies b \implies c \implies a$, meaning $a \iff b$ and $b \iff c$ and $c \iff a$, because the chain of implications are cyclic.     
+\end{proof}
+
+\begin{PROB}{8b}\label{Problem 8b.}
+    Suppose s is not algebraic, show $F[s]$ is isomorphic to $F[X]$.
+\end{PROB}
+\begin{proof}
+    Let $\phi: F[X] \to F[s]$ where $f \to f(s)$. $\phi$ is surjective, because $\forall t \in F[s]$, $t = \sum_{k = 1}^{n}a_k s^k$ let $\phi(\sum_{k = 1}^{n}a_k X^k) = t$. Since $s$ is not algebriac, by definition $\not \exists f \in F[X] \ni f(s) = 0$. Thus $\ker \phi = 0$. Thus $\phi$ is a isomorphism.
+    
+    Thus $F[s] \cong F[s]$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+\end{PROB}
+\begin{proof}
+    Let $M$ be a $S$-Module. Define an action of $R$ on $ M$ where $\forall r \in R$ and $\forall m \in M$, $r \cdot m = f(r)m$. Since $f$ is a Ring homomorphism the action is linear. Thus $M$ is a R-Module.
+    
+    $V = IM$ is closed under addition because of the way $IM$ is defined as the all possible sums of all elements of the form $im$ where $i \in I$ and $m \in M$. $\forall n \in V$, $n = im$, for some $i \in I$ and $m \in M$ and $\forall r \in R$, $rv = rim$, $ri \in I$ (def of ideal), thus $rv \in V$. 
+    
+    
+    There exists a linear action of $R / I$ on $M / MI$ where $\forall x + I \in R / I$ and $\forall m + MI \in M / MI$, $(x + I) \ast (m + MI) := xm + MI$. $\forall i \in I$, $((x + i) + I) \ast (m + MI) = (x + i)m +MI = xm +im + MI = xm + MI$. The action is well defined. Thus $M / IM$ is a $R / I$ module, and thus a restriction of a $R / I$ module. Suppose $N$ is a restriction of a $R / I$ module. Let $f: M \to N$ be any $M$ linear homomorphism betweeen the modules. $f$ must send elements of $IM$ to 0, thus $IM \leq \ker f$. Thus f must factor through the qoutient map $M \to M/M  / MI$. Since the qoutient map is surjective, it must factor through uniquely.
+    
+    Let $\alpha: M \to N$. Let $\pi_N$ and $\pi_M$ are the standard quotient maps. $f := \alpha \circ \pi_N$. $\ker \pi_{N} = IN$. $a^*(\ker \pi_{N}) = a^*(IN) = IM$. Thus $IM \leq \ker f$. $f$ must factor through $\pi_M$ and thus $\exists \beta: M / IM \to N / IN$ and $f = \beta \circ \pi_M$ . If the $f$ is surjective, since $\pi_N$ is surjective, $\beta$ must also be surjective.           
+
+
+    \[\begin{tikzcd}
+        && N && {N/IN} \\
+        \\
+        M && {M/IM}
+        \arrow["\alpha", from=3-1, to=1-3]
+        \arrow[from=3-3, to=1-5]
+        \arrow["{\pi_N}"', from=1-3, to=1-5]
+        \arrow["{\pi_{M}}", from=3-1, to=3-3]
+        \arrow["f"{description}, from=3-1, to=1-5]
+    \end{tikzcd}\]
+
+
+    Let $\varphi: R^k \to (R / I)^k$ where $(r_1, \dots, r_k) \to (r_1 + I, \dots, r_k + I)$. $\forall a, b \in R^k$ and $\varphi(a(r_1, \dots, r_k) + b(s_1, \dots, s_k)) = (ar_1 + bs_2 + I, \dots, ar_k + bs_k + I) = a(r_1 + I, \dots, r_k + I) + b(s_1 + I, \dots, s_k + I) = a \varphi((r_1, \dots, r_k)) + b \varphi((s_1, \dots, s_k)),$ $\varphi$ is a homomorphism. $\ker \varphi = IR^k$. By the first isomorphism theorem of modules, $R^k / IR^k \cong (I / R)^k$. 
+    
+    Suppose we have $R^k \twoheadrightarrow R^j$. Let $I$ be a maximal ideal. Thus $R / I$ is a vectorspace and thus $R^k / I R^k \cong (R / I)^k$ similarly, $R^j /  IR^k \cong (R / I)^j$ which are vectorspaces. Thus since $R^k \twoheadrightarrow R^j$ is surjective, $\exists$ a surjective map from $(R / I)^k \twoheadrightarrow (R / I)^j$, which is a map of modules, but $R / I$ is a field, the map is a map of vectorspaces. Thus $j \leq k$.              
+\end{proof}
+
+
+
+\end{document}

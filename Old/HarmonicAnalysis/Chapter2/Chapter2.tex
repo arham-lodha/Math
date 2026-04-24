@@ -1,0 +1,131 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\h}[1]{\hat{#1}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\aabs}[1]{\left\lvert \left\lvert #1 \right\rvert\right\rvert}
+
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 2}
+\author{Arham Lodha}%put your name here
+\date{June 06, 2024}%enter the due date here
+\maketitle
+
+\section*{2.6}
+\begin{claim}{1}\label{Claim 1.}
+    For any summable function f, the Fourier transform 
+
+    \begin{equation*}
+        \h{f}(x) = \int f(x) e^{-2 \pi i n x} dx
+    \end{equation*}
+    exists as an ordinary Lebesgue integral and enjoys the following properties
+
+    \begin{enumerate}
+        \item $\aabs{\h{f}}_{L^{\infty}} \leq \aabs{f}_{L^{1}}$
+        \item $f \in \mathbf{C}(\R^1)$
+        \item $\lim_{\abs{n} \to \infty} \h{f}(n) = 0$  
+    \end{enumerate}
+    
+\end{claim}
+\begin{proof}
+    \begin{enumerate}
+        \item \begin{align*}
+            \aabs{\h{f}}_{L^{\infty}} = \max_{n \in \R}\abs{\h{f}(n)} &= \max_{n \in \R} \abs{\int_{-\infty}^{\infty} f(x) e^{-2 \pi i n x} dx} \\
+            &\leq \max_{n \in \R} \int_{-\infty}^{\infty} \abs{f(x) e^{-2 \pi i n x}} dx \\
+            &= \int_{-\infty}^{\infty} \abs{f(x)} dx \\
+            &= \aabs{f}_{L^{1}}
+        \end{align*}
+        \item \begin{align*}
+            \abs{\h{f}(m) - \h{f}(n)} &= \abs{\int_{-\infty}^{\infty}f(x)(e^{-2 \pi i m x} - e^{-2 \pi i n x}) dx} \\
+            &\leq \int \abs{f(x)} \abs{e^{-2 \pi i m x} - e^{-2 \pi i n x}} dx \to 0
+        \end{align*}
+
+        as $\abs{m - n} \to 0$ because $\lim_{m \to n} \abs{f(x)} \abs{e^{-2 \pi i m x} - e^{-2 \pi i n x}} = 0$ and $\abs{e^{-2 \pi i m x} - e^{-2 \pi i n x}} < \sqrt{2}$ and since $f(x)$ is summable $\abs{f(x)} < M$ thus $\abs{f(x)} \abs{e^{-2 \pi i m x} - e^{-2 \pi i n x}} < M \sqrt{-2}$ for any choice of $m$ and $n$. Thus by dominated convergence $\abs{\h{f}(m) - \h{f}(n)} \to 0$. Thus $\h{f} \in \mathbf{C}(\R)$        
+
+        \item
+        Since
+        
+        \begin{equation*}
+            \h{f}(\xi) = -\int f(x) e^{-2 \pi i \xi(x - y)} dx = -\int f(x + y) e^{-2 \pi i \xi x} dx
+        \end{equation*}
+
+        for $y = \frac{1}{2\xi}$.
+        
+        \begin{align*}
+            \h{f}(\xi) &= \frac{1}{2}\left[\int f(x) e^{-2 \pi i \xi x} dx - \int f(x + y) e^{-2 \pi i \xi x} dx\right] \\
+            &= \frac{1}{2}\int e^{-2 \pi i \xi x}(f(x) - f(x + y)) dx
+        \end{align*}
+
+        Thus,
+
+        \begin{equation*}
+            \abs{\h{f}(\xi)} = \abs{\frac{1}{2}\int e^{-2 \pi i \xi x}(f(x) - f(x + y)) dx} \leq \frac{1}{2} \int \abs{ e^{-2 \pi i \xi x}(f(x) - f(x + y))}dx = \frac{1}{2}\aabs{f - f_{y}}_{L^1}
+        \end{equation*}
+        
+        As $\abs{\xi} \to \infty \implies y \to 0 \implies \frac{1}{2}\aabs{f - f_{y}}_{L^1} \to 0$ by continuity of translation. Thus $\abs{\h{f}(\xi)} \to 0$ as $\abs{\xi} \to \infty$.    
+    \end{enumerate}
+\end{proof}
+
+\end{document}

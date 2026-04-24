@@ -1,0 +1,321 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Final}
+\author{Arham Lodha}%put your name here
+\date{November 23, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    What should we mean by The Group of symmetries of X? i.e. define what we should mean by an automorphism of X, as a G-set.
+\end{PROB}
+\begin{proof}
+    Let $X$ be a $G$-set and let $n = |X|$. An automorphism of a \textbf{set} is any rearrangement, or permutation, of the set. An automorphism of a \textbf{G-set} is any rearrangement, or permutation, of the set which ensures the G-set structure is maintained. So $\forall \phi \in Aut_G(X)$, $\phi$ is a automorphism, or rearrangement, of X, but it also must ensure the G-set structure is maintained and thus $\forall g\in G$, $\phi(g \ast x) = g \ast \phi(x)$. The action by g induces a permutation to $X$ through the homomorphism $f: G \to S_n$ caused by the action of G defined on X. So $\forall g \in G$, g induces a permutation on X which commutes with the permutation induced by $\phi$ by the G-set homomorphism rule. Thus $Aut_G(X)$ is the set of permutations in $S_n$ which commutes with all permutations of action by G induced by f. In other words, $Aut_G(X)$ is the set of permutations of X which commute with all permutations in the image of G through f.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+    Explain (briefly) how G acts on Pow(G) (the set of subsets) by both left, and right multiplication.
+\end{PROB}
+\begin{proof}
+    Let $\ast$ denote left multiplication by G and let $\cdot$ denote right multiplication by G.
+    
+    G acts on Pow(G) by left multiplication by the left multiplication of every element in the subset of G. Similarly G acts on Pow(G) by right multiplication by the right multiplication of every element in the subset of G. $\forall g \in G$, and $\forall H \in Pow(G)$, $H = \{h_1, \ldots, h_n\}$ where $n = |H|$ and $h_1, \ldots, h_n \in G$. $g \ast H = g \ast \{h_1, \ldots, h_n\} = \{gh_1, \ldots, gh_n\}$. $g \cdot H = g \cdot \{h_1, \ldots, h_n\} = \{h_1 g^{-1}, \ldots, h_n g^{-1} \}$.
+\end{proof}
+\begin{PROB}{2b}\label{Problem 2b.}
+    Now let $G/H$ be the set of cosets $G/H := \{ gH| g \in G \}$, a subset of Pow(G). Show that the right action of N(H) on Pow(G) preserves G/H -- in particular N(H) acts by right multiplication on G/H.
+\end{PROB}
+\begin{proof}
+    $\forall n \in N(H)$ and $\forall gH \in G/H$, $n \cdot gH = gHn^{-1}$. Because $n \in N(H)$ and the normalizer of a subgroup is also a subgroup $n^{-1} \in N(H)$. By definition of a normalizer, $n^{-1}Hn = H \implies n^{-1}H = Hn^{-1}$. Thus $gHn^{-1} = gn^{-1}H \in G/H$. Furthermore, let $n \in N(H)$ and $\forall g \in G$, $g = ge = gnn^{-1}$, thus $gH = gnn^{-1}H = n \cdot gnH$. Thus right action of $N(H)$ on Pow(G) preserves G/H.
+\end{proof}
+\begin{PROB}{2c}\label{Problem 2c.}
+    Show that the left action of G on Pow(G) preserves G/H, in particular G acts by left multiplication on G/H. 
+\end{PROB}
+\begin{proof}
+    $\forall g \in G$ and $\forall xH \in G/H$. $g \ast xH = gxH \in G/H$. $\forall x \in G$, $x = gg^{-1}x$ thus $xH = gg^{-1}xH = g \ast g^{-1}xH$
+\end{proof}
+\begin{PROB}{2d}\label{Problem 2d.}
+    Show that the right action of N(H) and left action of G, both on G/H, commute.
+\end{PROB}
+\begin{proof}
+    $\forall n \in N(H)$, $\forall g \in G$, $\forall xH \in G/H$, $g \ast (n \cdot xH) = g \ast xn^{-1}H = gxn^{-1}H = n \cdot gxH = n \cdot g \ast xH$. Thus the right action of $N(H)$ commutes with the left action of G on $G/H$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Determine (with proof) $Aut_G(G/H)$ -- automorphisms of this G-set as in 1.  A correct answer will relate (in a precise way) $Aut_G(G/H)$ to $N(H)$. 
+\end{PROB}
+\begin{proof}
+    Let $\alpha: N(H) \to Aut_G(G/H)$ defined as the following $\forall n \in N(H)$, $\alpha(n) = \phi_n$ where $\forall xH \in G/H$ $\phi_n(xH) = n \cdot xH = xn^{-1}H$. 
+
+    \begin{enumerate}{}
+        \item \textbf{Homomorphism: } $n_1, n_2 \in N(H)$, $\alpha(n_1n_2) = [xH \to xn_2^{-1}n_1^{-1}H] = [xH \to xn_1^{-1}H] \circ [xH \to xn_2^{-1}H] = \phi_{n_1} \circ \phi_{n_2} = \alpha(n_1) \circ \alpha(n_2)$
+        \item \textbf{Surjective: } $\forall f \in Aut_G(G/H)$, $f(H) = xH$, $x \in G$. $\forall h \in H$, $xH = f(H) = f(hH)$. Since f is a automorphism of $G$-sets, $f(hH) = hf(H)$. Thus $xH = hxH$. $x^{-1}xH = H = x^{-1}hxH$. Thus $\forall h \in H$, $x^{-1}hx \in H$. Thus $x^{-1}Hx \subseteq H$. But since $x^{-1}Hx \cong H$ then $|x^{-1}Hx| = |H|$ and $x^{-1}Hx = H$. Thus by definition of normalizer, $x \in N(H)$. Thus $f = \phi_{x^{-1}} = \alpha(x^{-1})$. Thus $\alpha$ is surjective. 
+    \end{enumerate}
+    
+    $\forall k \in \ker \alpha$, $\alpha(k) = \phi_k = id$, $\phi_k(H) = k^{-1}H = H$. Thus $k^{-1} \in H$ thus $k \in H$. Thus $\ker \alpha \subseteq H$. $\forall h \in H$, $\alpha(h) = \phi_h$, $\phi_h(H) = h^{-1}H = H$, thus $\forall xH \in G/H$, $\phi_h(xH) = xh^{-1}H = xH$. Thus $\phi_h = id$. Thus $h \in \ker \alpha \implies H \subseteq \ker \alpha \implies H = \ker \alpha$. By First Isomorphism Theorem since $\alpha$ is a surjective homomorphism then $Aut_G(G/H) \cong N(H)/\ker \alpha = N(H)/H$. Thus $Aut_G(G/H) \cong N(H)/H$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Let X and Y be transitive G-sets (ie G acts on either with a single orbit). Show they are isomorphic, as G-sets iff we can find x in X, y in Y, with equal stabilizers, ie $G^x = G^y$, and that this holds iff $G^x$ and $G^y$ are conjugate subgroups of G for any x in X and any y in Y.
+\end{PROB}
+\begin{claim}{4a}
+    Show $\exists x \in X, y \in Y$ with equal stabilizers, ie $G^x = G^y$, and that this holds iff $G^x$ and $G^y$ are conjugate subgroups of G for any x in X and any y in Y.
+\end{claim}
+\begin{proof}
+    Let X and Y by transitive G-sets. 
+
+    $\implies$: Suppose $\exists x \in X, y \in Y \ni G^x = G^y$. Since X and Y are transitive, $\forall a \in X$ and $\forall b \in Y$, $\exists g, h \in G$, $a = gx$ and $b = hy$. By the conjugation formula for stabilizers in the same orbit, we know $G^a = G^{gx} = gG^xg^{-1}$ and $G^b = G^{hy} = hG^yh^{-1}$. Thus $G^x = g^{-1}G^ag = G^y$. Thus $G^b = hg^{-1}G^agh^{-1} = (hg^{-1})G^a(hg^{-1})^{-1}$ thus $G^a$ and $G^b$ are conjugate subgroups. Thus $\forall a \in X$ and $\forall b \in Y$, $G^a$ is a conjugate subgroup to $G^b$.
+    
+    $\impliedby$: Suppose $G^x$ is conjugate to $G^y$ for any $x \in X$ and any $y \in Y$. Thus by definition, $\exists g \in G$ s.t $G^y = gG^ag^{-1}$ for some $a \in X$ and $y \in Y$. $ga = x \in X$ by definition of group action. By the conjugation formula for stabilizers in the same orbit, we know $G^x = G^{ga} = gG^ag^{-1} = G^y$. Thus $\exists x \in X, y \in Y \ni G^x = G^y$.
+\end{proof}
+\begin{claim}{4b}
+    Show they are isomorphic, as G-sets iff we can find x in X, y in Y, with equal stabilizers, ie $G^x = G^y$
+\end{claim}
+\begin{proof}
+    $\implies$: $X \cong Y$ as G-sets. Since X and Y are transitive and only have a single orbit, $X = G \ast x$ and $Y = G \ast y$ $\forall x \in X$ and $\forall y \in Y$. Since $G \ast x \cong G/G^x$ and $G \ast y \cong G/G^y$, thus $G/G^x \cong G/G^y$. Thus $G^x \cong G^y$ thus $G^x$ and $G^y$ are conjugate subgroups. Thus by the previous claim, $\exists x \in X$ and $\exists y \in Y$ such that $G^x = G^y$.
+
+    $\impliedby$: Suppose $\exists x \in X, y \in Y \ni G^x = G^y$. Since X and Y are transitive, $X = G \ast x$ and $Y = G \ast y$. Since $G \ast x \cong G/G^x$ and $G \ast y \cong G/G^y$ as G-sets. Since $G^x = G^y$, then $X = G \ast x \cong G/G^x = G/G^y \cong G \ast y = Y$. Thus $G \ast x \cong G \ast y$ and $X \cong Y$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let X be a G-set. Construct a natural homomorphism $Aut_G(X) \to Perm(X/G)$. Describe, with proof, the kernel. 
+\end{PROB}
+\begin{proof}
+    Let $f: Aut_G(X) \to Perm(X/G)$, defined as the follows, $\forall \phi \in Aut_G(X)$, $f(\phi) = [G \ast x \to \phi_*(G \ast x)]$. 
+
+    $\forall \phi_1, \phi_2 \in Aut_G(X)$, $f(\phi_1 \circ \phi_2) = [G \ast x \to \phi{_1}_*(\phi{_2}_*(G \ast x))] = [G \ast x \to \phi{_1}_*(G \ast x)] \circ [G \ast x \to \phi{_2}_*(G \ast x)] = f(\phi_1) \circ f(\phi_2)$. Thus $f$ is a homomorphism.
+
+    Let $X/G = \{G \ast x_1, \ldots, G \ast x_n\}$ be the set of all the distinct orbits of X. 
+
+    Let $K = \ker f$. 
+
+    $\forall i \in \{1, \ldots, n\}$, let $g: Aut_G(G \ast x_i) \to Aut_G(X)$ such that $\phi \to \bar \phi$ where $\forall x \in X$, if $x \in G \ast x_i$ $\bar \phi(x) = \phi(x)$ else $\bar \phi(x) = id_X(x) = x$. 
+    
+    $\forall a, b \in Aut_G(G \ast x_i)$, $\forall x \in X$, if $x \in G \ast x_i$ $g(a \circ b)(x) = (a \circ b)(x) = (\bar a \circ \bar b)(x) = (g(a) \circ g(b))(x)$ and if $x \not \in G \ast x_i$ then $g(a \circ b)(x) = id_X(x) = (id_X \circ id_X)(x) = (g(a) \circ g(b))(x)$. Thus g is a homomorphism. $\forall k \in \ker g$, $\forall x \in X$, if $x \not \in G \ast x_i$ $g(k)(x) = x$ by definition. If $x \in G \ast x_i$, $g(k)(x) = k(x) = x$. Thus $\forall x \in G \ast x_i$, $k(x) = x$ and the only automorphism which fixes all elements of a G-set is the identity. thus $k = id_{G \ast x_i}$. Thus $g$ is injective and $Aut_G(G \ast x_i) \leq Aut_G(X)$ naturally.
+
+
+
+    $\forall i \in \{1, \ldots, n\}$, $\forall \phi_i \in Aut_G(G \ast x_i)$. $\forall x \in G \ast x_i$, by definition $\bar \phi_j(x) = id_X(x) = x$ if $i \neq j$. By definition, $\bar \phi_i(x) \in G \ast x_i$. $(\bar \phi_1 \circ \ldots \ldots \circ \bar \phi_n)(x) = \phi_i(x) \in G \ast x_i$. Thus since each of the orbits is preserved, $(\bar \phi_1 \circ \ldots \ldots \circ \bar \phi_n) \in K$.
+
+    Let $h: Aut_G(G \ast x_1) \times \ldots \times Aut_G(G \ast x_n) \to K$ where $(\phi_1, \ldots, \phi_n) \to \bar \phi_1 \circ \ldots \circ \bar \phi_n$. $\forall i, j \in {1, \ldots, n} \ni i \neq j$, $\forall a \in Aut_G(G \ast x_i)$ and $\forall b \in Aut_G(G \ast x_j)$. $\forall x \in X$: 
+
+    \begin{enumerate}
+        \item If $x \not \in G \ast x_i$ and $x \not \in G \ast x_j$, then $(\bar a \circ \bar b)(x) = \bar a(id_X(x)) = id_X(x) = x$ and $(\bar b \circ \bar a)(x) = \bar b(id_X(x)) = x$. Thus if $x \not \in G \ast x_i \cup G \ast x_j,$ $(\bar a \circ \bar b)(x) = (\bar b \circ \bar a)(x)$
+        \item If $x \in G \ast x_i$. $x$ cannot be in $G \ast x_j$ because the orbits are pairwise disjoint and if $x \in G \ast x_j$ then $G \ast
+        x_i = G \ast x_j \implies i = j$ which is a contradiction with our assumption. $(\bar a \circ \bar b)(x) = a(x)$. $(\bar b \circ \bar a)(x) = \bar b(a(x)) = id_X(a(x)) = a(x)$. Thus if $x \in G \ast x_i$, $(a \circ b)(x) = a(x) = (b \circ a)(x)$
+        \item If $x \in G \ast x_j$. Then $(\bar a \circ \bar b)(x) = \bar a(b(x)) = b(x)$ and $(\bar b \circ \bar a)(x) = b(x)$. Thus if $x \in G \ast x_j$, $(a \circ b)(x) = b(x) = (b \circ a)(x)$ 
+    \end{enumerate}
+
+    Thus $\forall x \in X$, $(a \circ b)(x) = (b \circ a)(x) \implies ab = ba$. Thus $Aut_G(G \circ x_i)Aut_G(G \circ x_j) = Aut_G(G \circ x_j)Aut_G(G \circ x_i)$ $\forall i, j \in \{1, \ldots, n\} \ni i \neq j$. Thus each pair of subgroups in the direct product commutes in K. Thus all subgroups in the direct product commute. Thus h is a homomorphism. 
+
+    $\forall k \in K$, $\forall i \in \{1, \ldots, n\}$, $k$ preserves each orbit and is a automorphism of G-sets on each orbit. Let $k_i$ be the restriction of k on the orbit $G \ast x_i$, since $k$ is a automorphism of G-sets $k_i$ is also a automorphism of Gsets for $G \ast x_i$ thus $k_i \in Aut_G(G \ast x_i)$. Since k doesn't permute the orbits and preserves them thus acting on each orbit seperately, $k = \bar k_1 \circ \ldots \circ \bar k_n = h(k_1, \ldots, k_n)$. Thus $h$ is surjective.
+
+
+    $\forall i, j \in \{1, \ldots, n\} \ni i \neq j$. $\forall \phi \in Aut_G(G\ast x_i) \cap Aut_G(G \ast x_j)$, since $\phi \in Aut_G(G \ast x_i)$, $\forall x \in G \ast x_j$, $\bar \phi(x) = id_X(x)$. Similarly since $\phi \in Aut_G(G \ast x_j)$, $\forall x \in G \ast x_i$, $\bar \phi(x) = id_X(x)$. By definition, $\phi$ fixes all other orbits. The only automorphism which fixes all orbits is $id_X$. Thus $\phi = id_X$. $Aut_G(G\ast x_i) \cap Aut_G(G \ast x_j) = \{id\}$. Thus $Aut_G(G\ast x_i) \cap Aut_G(G \ast x_j) = \{id_X\}$. Thus h is injective.
+
+
+    Thus h is a isomorphism and $Aut_G(G \ast x_1) \times \ldots \times Aut_G(G \ast x_n) \cong K$
+
+    $\forall i \in {1, \ldots, n}$, let $H_i = G^{x_i}$. By the Orbit Stabilizer Theorem, $G \ast x_i \cong G/H_{i}$. $Aut(G/H_{i}) \cong N(H_i)/H_i$ by problem 3. So $Aut_G(G \ast x_i) \cong Aut_G(G/H_{i}) \cong N(H_i)/H_i$. 
+
+    Thus $\ker f = K \cong N(H_1)/H_1 \times \ast \times N(H_n)/H_n$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6a}\label{Problem 6a.}
+    Let X be a G-set with exactly n orbits $G \ast x_1,\ldots, G \ast x_n$, and assume the stabilizers $G^{x_i}$ are all equal. Call this subgroup of G, H. Explain why as a G-set, X is isomorphic to a disjoint union of $n = |X/G|$ copies of $G/H$.
+\end{PROB}
+\begin{proof}
+    By the group action homework, X is a disjoint union of orbits $G \ast x_1, \ldots, G \ast x_n$ so $X = \bigsqcup_{i \in \{1, \ldots, n\}}G \ast x_i$. 
+    
+    $\forall i = \{1, \ldots, n\}$, $H_i := G^{x_i}$. By the Orbit Stabilizer Theorem, $G \ast x_i \cong G/G^{x_i} = G/H_i$ as a G-set.
+    
+    So $X \cong \bigsqcup_{i \in \{1, \ldots, n\}}G/H_i$. However by assumption, $\forall i, j \in \{1, \ldots, n\}$, $H_i = H_j$. So by problem 4, since the stabilizers of $G/H_i$ which is $H_i$ are all isomorphic, $G/H_1 \cong G/H_2 \cong \ldots \cong G/H_n$. Let $H = H_1 = \ldots = H_n$. Thus $X$ is isomorphic to the disjoint union $n = |X/G|$ copies of $G/H$.
+\end{proof}
+\begin{PROB}{6b}\label{Problem 6b.}
+    Construct an injective homomorphism from $S_n =Perm(X/G)$ into $Aut_G(X)$.
+\end{PROB}
+\begin{proof}
+    $\forall i, j \in \{1, \ldots, n\}$, since $G^{x_i} = H = G^{x_j}$, by problem 4, $G \ast x_i \cong G \ast x_j$ as G-sets. Since the orbits are isomorphic as G sets, by definition there exists a isomorphism of G sets $f$ which maps $G \ast x_i$ to $G \ast x_j$ and a inverse isomorphism of G sets $f^{-1}$ which maps $G \ast x_j$ to $G \ast x_i$. $a: X \to X$, where $x \in G \ast x_i$ $a(x) = f(x)$ and $x \in G \ast x_j$, $a(x) = f^{-1}(x)$, and otherwise $a(x) = id_X(x)$. $a$ is a automorphism of G-sets because $f$,$f^{-1}$, and the identity map are automorphisms of G-sets. Thus $\exists a \in Aut_G(X)$ which swaps any two orbits.
+    
+    Let $\alpha: S_n \to Aut_G(X)$, where for any two cycle $(i j), \forall i, j \in \{1, \ldots, n\} \ni i \neq j$, $\alpha((i j))$ is the automorphism which swaps the two orbits. Thus $\forall p \in S_n$, $\alpha(p)$ is the automorphism which permutes the corresponding orbits. $\forall k \in \ker \alpha$, $\alpha(k) = id_X$ and no orbits are swapped, thus k is the permutation which fixes $\{1, \ldots, n\}$ thus $k = e$. Thus $\alpha$ is injective and $S_n \subset Aut_G(X)$.
+\end{proof}
+\begin{PROB}{6c}\label{Problem 6c.}
+    Describe, with proof, $Aut_G(X)$.
+\end{PROB}
+\begin{proof}
+
+    By assumption, $H = G^{x_1} = \ldots = G^{x_n}$. Let $G/H_i$ be the ith copy of $G/H$.
+
+    By Problem 6a, $X$ isomorphic the union of $|X/G|$ disjoint copies of $G/H$. Thus $X \cong \bigsqcup_{i \in \{1, \ldots, n\}} G/H_i$.
+
+    Let $N$ be the kernel of the homomorphism $Aut_G(X) \to S_n$. Thus $N \triangleleft Aut_G(X)$.
+    By problem 5, $N \cong Aut(G/H_1) \times \ldots \times Aut(G/H_n) \cong Aut(G/H) \times \ldots \times Aut(G/H) \cong N(H)/H \times \ldots \times N(H)/H = (N(H)/H)^n$.
+
+    $\forall \alpha \in Aut_G(X)$, $\alpha$ applies a automorphism which preserves the orbits then apply a automorphism which permutes the orbits. Thus $\alpha = \sigma \circ \phi$ where $\phi \in N$ and $\sigma \in S_n$. 
+
+    $\forall \alpha \in N \cap S_n$, by definition $\alpha$ is a permutation of the orbits which preserves all of them thus $\forall i \in \{1, \ldots, n\}$, $\alpha_*(G \ast x_i) = G \ast x_i$, the only permutation which preserves all the orbits in such a way is $e$. Thus $\alpha = e$. Thus $N \cap S_n = \{e\}$. 
+
+    Thus there exists a bijection between $N \times S_n$ and $Aut_G(X)$ as sets.
+
+    Since $X \cong \bigsqcup_{i \in \{1, \ldots, n\}} G/H_i$, $Aut_G(X) \cong Aut_G(X \cong \bigsqcup_{i \in \{1, \ldots, n\}} G/H_i)$ and there exists a bijection between $N \times S_n$ and $X \cong \bigsqcup_{i \in \{1, \ldots, n\}} G/H_i$.
+
+    By problem 3, $\forall \phi \in Aut(G/H)$, $\exists n \in N(H)$ s.t $\phi(xH) = n \cdot xH = xn^{-1}H$ (Note $\cdot$ denotes right action).
+
+    Since $H_i$ is just a copy of H. $G/H = G/H_1 \ast = G/H_n$. Thus $Aut_G(G/H) \cong Aut_G(G/H_1) \cong \ast \cong Aut(G/H_n)$. Thus $\forall \phi \in Aut_G(G/H)$ let $\phi_i \in Aut_G(G/H_i)$ be the isomorphic automorphism to $\phi$.
+
+    $\forall i \in \{1, \ldots, n\}$, $\forall \phi_i \in Aut_G(G/H_i) = Aut_G(G/H)$. $\phi(xH) = xn^{-1}H$ for some $n \in N(H)$. Let $\sigma \in S_n$ and let $\sigma' \in Aut_G(\bigsqcup_{i \in \{1, \ldots, n\}} G/H_i)$ be the corresponding automorphism to $\sigma$ which permutes the copies of $G/H$. Let $j:=\sigma(i)$. $\forall xH \in G/H_i$, $(\sigma \circ \phi_i)(xH) = \sigma(xn^{-1}H) = n \ast \sigma(xH) = \phi_j(\sigma(xH)) = (\phi_j \circ \sigma)(xH)$ where $\phi_j \in Aut(G/H_{\sigma(i)}) = Aut_G(G/H_j)$ is the equivalent automorphism to $\phi_i$ for the $G/H_j$ copy of $G/H$.
+
+    $\forall \sigma \in S_n$, let $\bar \sigma \in Aut(\bigsqcup_{i \in \{1, \ldots, n\}})$ be the corresponding automorphism under the map $\alpha$ (Problem 6b) which permutes the copies of $G/H$. $\forall \phi \in N$, by problem 5, $\phi = \bar \phi_1 \circ \ldots \circ \bar \phi_n$. Where $\bar \phi_i \in Aut_G(\bigsqcup_{i \in \{1, \ldots, n\}})$ is the corresponding automorphism under the map $g$ (Problem 5) to $\phi \in Aut_G(G/H_i)$ for all i.
+    
+    $\forall i \in \{1, \ldots, n\}$, let $j = \sigma(i)$. $\forall xH = xH_i \in G/H_i = G/H$, $(\bar \sigma \circ \phi \circ \bar \sigma^{-1})(\sigma(xH_i)) = \bar \sigma(\phi(xH_i)) = \bar \sigma(\bar \phi_i(xH_i)) = \bar \sigma(\phi_i(xH_i)) = \phi_j(\sigma(xH_i)) = \phi_j(xH_j)$.
+
+    Thus $C: S_n \to Aut(N)$ takes $\sigma \to [(\phi_1, \ldots, \phi_n) \to (\phi_{\sigma(1)}, \ldots, \phi_{\sigma(n)})]$ thus a permutation is sent to a function which takes a automorphism inside $Aut(G/H_i)$ to its corresponding automorphism inside $Aut(G/H_{\sigma(j)})$. Since $N \cong (N(H)/H)^n$, let $C' : S_n \to Aut(N)$ be the corresponding map under the isomorphism between $Aut(N) \cong Aut((N(H)/H)^n)$ thus $\sigma \to [(n_1, \ldots, n_n) \to (n_{\sigma(1)}, \ldots, n_{\sigma(n)})]$
+
+    Thus $Aut_G(X) \cong N \rtimes_{C} S_n$. Since $N \cong (N(H)/H)^n$, $Aut_G(X) \cong (N(H)/H)^n \rtimes_{C'} S_n$.
+
+    % Thus $Aut_G(X) \cong N \rtimes_{C} S_n$. Since $N = Aut(G/H_1) \times \ldots, \times Aut(G/H_n) \cong N(H_1)/H_1 \times \ldots \times N(H_n)/H_n$ and by assumption $\forall i, j \in \{1, \ldots, n\}$, $H_i = H = H_j$. Thus $N \cong N(H)/H \times \ast \times N(H)/H = (N(H)/H)^n$. Thus $Aut_G(X) \cong (N(H)/H)^n \rtimes_{C} S_n$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{7}\label{Problem 7.}
+    Let X be a G-set with exactly n-orbits as in 6), but now assume that the stabilizers $G^{x_i}$ and $G^{x_j}$ ARE NOT conjugate, for any i not equal to j.  Describe with proof, $Aut_G(X)$.
+\end{PROB}
+\begin{proof}
+    By problem 4, if no two stabilizers of different orbits are conjugate there exists no stabilizers of different orbits which are equal, thus no two orbits are isomorphic as G-sets. Thus $G \ast x_i \not \cong G \ast x_j$ for all $i \neq j$. $G \ast x_i \cong G/G^{x_i}$ and $G \ast x_j \cong G/G^{x_j}$ and $G/G^{x_i} \not \cong G/G^{x_j}$, as g-sets. Assume the contrary, suppose $\exists \alpha \in Aut_G(\bigcap_{i \in \{1, \ldots, n\}} G/G^{x_i}) \cong Aut_G(X) \ni \alpha_*(G/G^{x_i}) = G/G^{x_j}$. Then by definition, $G/G^{x_i} \cong G/G^{x_j}$ as G-sets thus a contradiction forms and thus there exists no $\alpha \in Aut_G(\bigcap_{i \in \{1, \ldots, n\}} G/G^{x_i}) \cong Aut_G(X)$ which swaps $G \ast x_i \cong G/G^{x_i}$ and $G \ast x_j \cong G/G^{x_j}$. Thus $\forall \alpha \in Aut_G(X)$, $\alpha$ preserves all the orbits ie. $\forall G \ast x \in X/G$, $\alpha_*(G \ast x) = G \ast x$. Thus $\alpha_*(G \ast x_i) = G \ast x_i$ for all i. Thus $\alpha$ doesn't permute any orbits and thus maps to the identity from the map $f: Aut_G(X) \to S_n$. Thus $\alpha \in \ker f = K$. Since $K \leq Aut_G(X)$ and since $K \leq Aut_G(X)$, $Aut_G(X) = K$. Let $H_i = G^{x_i}$ for all $i \in \{1, \ldots, n\}$. By Problem 5, $Aut_G(X) = N(H_1)/H_1 \times \ldots \times N(H_n)/H_n$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8a}\label{Problem 8a.}
+    Let X be a G-set.  Let sub(G) be the set of subgroups of G. This is itself a G-set, with G-acting by conjugation. Show we have a natural map of G-sets $X \to sub(G)$, sending $x \to G^x$
+\end{PROB}
+\begin{proof}
+    Let $F: X \to sub(G)$ which sends $x \to G^x$. $\forall g \in G$, $F(g \ast x) = G^{gx} = gG^{x}g^{-1} = g \ast F(x)$. Thus F is a homomorphism of G-sets.
+\end{proof}
+\begin{PROB}{8b}\label{Problem 8b.}
+    Construct the map $S: X/G \to sub(G)/G$, which takes an orbit to the conjugacy class of the stabilizer of any element of the orbit.
+\end{PROB}
+\begin{proof}
+    Let $S: X/G \to sub(G)/G$ which sends $G \ast x \to [G^x]$ and is induced from F. $S(G \ast x) = S({g \ast x : g \in G}) = \{F(g \ast x) : g \in G\} = \{gG^xg^{-1} : g \in G\} = [G^x]$.
+\end{proof}
+\begin{PROB}{8c}\label{Problem 8c.}
+    Show the fibres of the composition $X \to sub(G)/G$ are unions of orbits
+\end{PROB}
+\begin{proof}
+    Let $T: X \to sub(G)/G$ where $x \to [G^x]$. $\forall x \in X$, by definition of T, $x \in T^*([G^x])$. $\forall y \in X$, if $y \in T^*([G^x])$ then $G^y \in [G^x]$. $\forall gy \in G \ast y$, $G^{gy} = gG^{y}g^{-1}$ so $G^{gy} \in [G^x]$. Thus $G \ast y \subseteq T^*([G^x])$. Thus since $x \in T^*([G^x])$, then $G \ast x \subseteq T^*([G^x])$. $\forall y \in X \ni y \not \in G \ast x$ and $y \in T^*([G^x])$ then $G \ast y \subset T^*([G^x])$. Thus if a element is in $T^*([G^x])$ its entire orbit is also in $T^*([G^x])$. Thus $T^*([G^x])$ consist of a union of different orbits. 
+\end{proof}
+\begin{PROB}{8d}\label{Problem 8d.}
+    Orbits are isomorphic iff they are in the same fibre.
+\end{PROB}
+\begin{proof}
+    $\implies :$ Suppose $G \ast x \cong G \ast y$ as G-sets, by problem 4, $G^{gx}$ and $G^{gy}$ are conjugate for all $g \in G$. Thus by definition of conjugacy classes and the definition of T, $G \ast y \subseteq T^*([G^x])$ and $G \ast x \subseteq T^*([G^x])$.
+    $\impliedby :$ Suppose $G \ast x$ and $G \ast y$ are in the same fibre, then $G^y \in [G^x]$. By the definition of conjugacy class and problem 4, $G \ast x \cong G \ast y$ as G-sets.
+\end{proof}
+\begin{PROB}{8e}\label{Problem 8e.}
+    Describe, with proof, $Aut_G(X)$.
+\end{PROB}
+\begin{proof}
+    Let $X_T$ be the set of all the distinct fibres of T. So $X_T = \{T^*([G^x]) : [G^x] \in sub(G)/G\} = \{T^*([G^{x_1}]), \ldots, T^*([G^{x_k}])\}$ where $i \neq j$, $T^*([G^{x_i}]) \neq T^*([G^{x_j}])$. 
+
+    Let $k = |X_T|$ or the number of distinct fibres of T. For $i \in \{1, \ldots, k\}$, $T_i := T^*([G^{x_i}])$.
+
+    $\forall i \in \{1 \ldots, k\}$, by problem 8d, $T_i$ consists of disjoint isomorphic orbits. Let $\forall G \ast a, G \ast b \in T^*([G^x])/G$, $G \ast a \cong G \ast b$ as G-sets. By problem 4, $\exists x \in G \ast a$ and $\exists y \in G \ast y$ such that $G^x = G^y$. $G \ast a = G \ast x \cong G/G^x$ and $G \ast b = G \ast y \cong G/G^y$ and $G^x = G^y$. Thus every orbit in $T_i$ is isomorphic to $n = |T_i/G|$ copies of $G/G^{x_i}$. By problem 6, $Aut_G(T_i) \cong (Aut_G(G/G^{x_i}))^n \rtimes_{C_i} S_n$ where $C_i$ takes $\sigma \to [\phi_i \to \phi_{\sigma(i)}]$ thus a permutation is sent to a function which takes a automorphism inside $Aut(G/H_i)$ to its corresponding automorphism inside $Aut(G/H_{\sigma(j)})$. By Problem 6,  $Aut_G(T_i) \cong (Aut_G(G/G^{x_i}))^n \rtimes_C S_n \cong (N(G^{x_i})/G^{x_i})^n \rtimes_{C_i} S_n$
+
+    By problem 7, $\forall \phi \in Aut_G(X)$, $\phi$ cannot swap two non-isomorphic orbits. Since an orbit is not isomorphic to another orbit if they are in different fibres (Problem 8d), orbits in different fibres cannot be swapped. 
+
+    $\forall i \in \{1, \ldots, k\}$, and $\forall \phi_i \in Aut_G(T_i)$, define $\bar \phi_i \in Aut_G(X)$ such that $\forall x \in T_i$, $\bar \phi_i(x) = \phi_i(x)$ and $\forall x \in X \setminus T_i$, $\bar \phi_i(x) = id_X(x) = x$
+
+    Let $P: Aut_G(T_1) \times \ldots \times Aut_G(T_k) \to Aut_G(X)$ where $(\phi_1, \ldots, \phi_n) \to \bar \phi_1 \circ \ldots \circ \bar \phi_k$. For all $i \neq j$, $\forall \alpha \in Aut_G(T_i)$, $\beta \in Aut_G(T_j)$ and $\forall x \in X$,
+
+    \begin{enumerate}
+        \item If $x \in T_i$, then $(\bar \alpha \circ \bar \beta)(x) = \alpha(x) = (\bar \beta \circ \bar \alpha)(x)$
+        \item If $x \in T_j$, then then $(\bar \alpha \circ \bar \beta)(x) = \beta(x) = (\bar \beta \circ \bar \alpha)(x)$
+        \item If $x \in X \setminus (T_i \cup T_j)$, $(\bar \alpha \circ \bar \beta)(x) = x = (\bar \beta \circ \bar \alpha)(x)$
+    \end{enumerate}
+
+    Thus $\alpha \circ \beta = \beta \circ \alpha$. Thus $Aut_G(T_i) Aut_G(T_j) = Aut_G(T_j) Aut_G(T_i)$, $\forall i, j \in \{1, \ldots, k\} \ni i \neq j$. Thus P is a homomorphism because $Aut_G(T_1), \ldots, Aut_G(T_k)$ all commute with each other. 
+
+    $\forall \phi \in Aut_G(X)$, since $\phi$ cannot swap orbits in different fibres. It is only composed of automorphisms of each fibre. Thus $\phi = \bar \phi_1 \circ \ldots \circ \bar \phi_k$ where $\phi_i \in Aut(T_i)$. Thus P is surjective. 
+
+
+    For $Aut_G(T_i) \subseteq Aut_G(X)$ and $Aut_G(T_j) \subseteq Aut_G(X)$, $\forall \bar \alpha \in Aut_G(T_i) \cap Aut_G(T_j) \ni i \neq j$. Since $\bar \alpha \in Aut_G(T_i)$ by definition, $\forall x \in T_j$, $\bar \alpha(x) = id(x) = x$. The only automorphisms in $Aut_G(T_j)$ which fixes $T_j$ is the identity. thus $\alpha = e$. Thus P is injective.
+    
+
+    Thus P is a isomorphism and $Aut_G(T_1) \times \ldots \times Aut_G(T_k) \cong Aut_G(X)$. However since $Aut_G(T_i) \cong (Aut_G(G/G^{x_i}))^{|T_i|} \rtimes_{C_i} S_n \cong (N(G^{x_i})/G^{|T_i|})^n \rtimes_{C_i'} S_{|T_i|}$. $C_i: S_{|T_i|} \to Aut(Aut_G(G/G^{x_i})^{|T_i|})$ takes $\sigma \to [(\phi_1, \ldots, \phi_{|T_i|}) \to (\phi_{\sigma(1)}, \ldots, \phi_{\sigma(|T_i|)})]$ thus a permutation is sent to a function which takes a automorphism inside $Aut(G/G^{x_i})$ to its corresponding automorphism inside $Aut(G/G^{x_{\sigma(i)}})$. Since $Aut(Aut_G(G/G^{x_i})^{|T_i|}) \cong (N(H)/H)^{|T_i|}$, let $C_i' : S_n \to (N(H)/H)^{|T_i|}$ be the corresponding map under the isomorphism between $Aut(Aut_G(G/G^{x_i})^{|T_i|}) \cong Aut((N(H)/H)^{|T_i|})$ thus $\sigma \to [(n_1, \ldots, n_{|T_i|}) \to (n_{\sigma(1)}, \ldots, n_{\sigma(|T_i|)})]$.
+    
+    So $Aut_G(X) \cong ((N(G^{x_1})/G^{x_i})^{|T_1|} \rtimes_{C'_1} S_{|T_1|}) \times \ldots \times ((N(G^{x_k})/G^{x_k})^{|T_k|} \rtimes_{C'_k} S_{|T_k|})$
+\end{proof}
+
+\end{document}

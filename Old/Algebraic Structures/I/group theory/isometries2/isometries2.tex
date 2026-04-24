@@ -1,0 +1,149 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Isometries 2}
+\author{Arham Lodha}%put your name here
+\date{October 21, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Why is this cool? Explain why it is surprising that a composition of rotations is a rotation -- what data determines a rotation in $R^3$?
+\end{PROB}
+\begin{proof}
+    This is is cool because it is not evident what would be axis of rotation. A rotation requires a axis of rotation and a angle so when you compose two rotations in $\R^n$ it is not evident what remains as the axis of rotation and what is the angle. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let A be a rotation, not the identity. Prove that $V_1(A)$ (the eigenspace) is one dimensional, the axis of rotation. If the angle is not $\pi$, show this is the only eigenspace, and that for $\pi$ there are two eigenspaces, $V_1(A)$, which is one dimensional and $V_{-1}(A)$, which is 2 dim, orthogonal to $V_1(A)$.
+\end{PROB}
+\begin{proof}
+    If A is a rotation and not the identity. By definition it has a axis of rotation around which the rotation occurs. The points of the axis are by definition fixed. Thus $L \in V_1(A)$. A rotation doesn't fix any other points thus $V_1(A) = L$.
+
+    If A is a rotation by $\theta \neq \pi$. If A cannot have any other eigenvalues because for all $v \not \in V_1(A)$ $v$ and $Av$ are not collinear so 1 is the only real eigenvalue. If $\theta = \pm \pi$, since they are distinct then $\lambda = -1$ because points the on plane $\perp V_1(A)$ are also fixed, $V_1(A) \oplus V_{-1}(A) = \R^3$ thus $\dim V_{-1}(A) = 2$.  
+    % Let A be a rotation and not the identity. Since $AA^T = A^TA = I$, then $\det(I) = \det(A^TA) = \det(A^T)\det(A) = \det(A)^2 \therefore \det(A) = \pm 1$. For any 3x3 matrix A, $\det(-A) = (-1)^3\det(A) = -\det(A)$. Therefore, $\det(A - I) = \det((A - I)^T) = \det(A^T - I) = \det(A^T - A^TA) = -\det(A^T)\det(A - I) = -\det(A - I)$. Thus $\det(A - I) = 0$ and $1$ is a eigenvector of the rotation. Thus there exists a $v \ni Av = v$ and the line spanned by v remains invariant and is the axis of rotation.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    Now let A be in SO(3). We want to prove A is a rotation. The key is to find the 1-eigenspace. Prove that 1 is an eigenvalue (recall the complex eigenvalues have norm one and that eigenvalues are either real or come in conjugate pairs, and also the fact that a degree three real polynomial always has a real root). Let L be the span of a 1-eigenvector. Explain why P, the perp to L, is preserved by A, and why $A: P \to P$ is in SO(2). Conclude $A: P \to P$ is a rotation, conclude A is a rotation. This proves Eulers theorem.
+\end{PROB}
+\begin{claim}{3a}
+    $\forall A \in SO(3)$, 1 is a eigenvalue of A.
+\end{claim}
+\begin{proof}
+    Let $A \in SO(3)$. By definition, $\det A = 1$. Furthermore, characteristic polynomial $P_A(x)$ has degree 3 and real coefficents and since complex roots of $P_A(x)$ come in pairs or are real thus there is always a real root to $P_A(x)$. Thus A must have a real eigenvalue. Let $\lambda \in \R$ be a eigenvalue of A, $\det(A - I) = \det((A - I)^T) = \det(A^T - I) = \det(A^T - A^TA) = -\det(A^T)\det(A - I) = -\det(A - I)$. Thus $\det(A - I) = 0$. Thus 1 is a eigenvalue of A.
+\end{proof}
+\begin{claim}{3b}
+    Let L be the span of a 1-eigenvector. Explain why P, the perp to L, is preserved by A, and why $A: P \to P$ is in SO(2). Conclude $A: P \to P$ is a rotation, conclude A is a rotation. This proves Eulers theorem.
+\end{claim}
+\begin{proof}
+    Let L be the span of a 1-eigenvector, $v$. Let P be the subspace such that $L \perp P$. $\forall p \in P$, $\angles{p, v} = 0 = \angles{Ap, Av}$ since A preserves inner product. Thus $\forall p \in P$, $p \perp v$. Since $v$ is preserved, the plane P is is preserved as well. A can be made block diagonal s.t $A = \begin{bmatrix}
+        1 & 0\\
+        0 & B
+    \end{bmatrix}$, corresponds to the L, then B corresponds to P. Since $\det A = 1$ then $\det B = 1$ and since $A$ was orthogonal so is B thus $B \in SO(2)$ and is a rotation. Thus A must be a rotation as well.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4}
+    For W in O(3), show $W \rho_{v,\theta} W^{-1} = \rho_{Wv, \pm \theta}$ -- meaning we either get $\theta$ or $-\theta$. 
+\end{claim}
+\begin{proof}
+    $W \rho_{v, \theta} W^{-1}$ must be a rotation by the determinant. Since $\det(W \rho_{v, \theta} W^{-1}) = 1$.
+
+    $W \rho_{v, \theta} W^{-1}(Wv) = W \rho_{v, \theta} v = Wv$. Thus $Wv$ is fixed. The angle of a rotation is defined by its nonreal eigenvalue. All eigenvalues of $\rho_{v, \theta}$ are 1 and $e^{\pm i \theta}$ and eigenvalues don't change under conjugation. So $W \rho_{v, \theta} W^{-1} = \rho_{Wv, \pm \theta}$
+\end{proof}
+
+\bigskip
+
+\begin{claim}{5}
+    Use the fact that commuting matrices preserve each others eigenspaces to show that for non-identity A in SO(3), the "centralizer" of A in SO(3) (elements that commute with A) are exactly those rotations with the same axis, except when the angle for A is $\pi$. In this last case show that SO(2) (the rotations with the same axis as A) is index 2 in Z(A), the centralizer of A, and that Z(A) is naturally isomorphic to O(2). 
+\end{claim}
+\begin{proof}
+    $\forall A \in SO(3) \ni A \neq I, A \neq \rho_{v, \pi}.$  $\forall v \in \R^3$. $\forall B \in SO(3) \ni AB = BA$. Since commuting matrices perserve each other's eigenspace then, if nonzero $v \in V_1(A)$, then $Bv \in V_1(A)$. Thus $B$ preserves axis of rotation as $A$. So $v$ is a eigenvector of $B$. So either B has the same axis as A or $B = \rho_{w, \pi}$ where $w \perp v$. If v is the same axis then $B \in SO(2)$. If $B = \rho_{w, \pi}$ since A and B commute, then A preserves the eigenspace of B, where $BAw = Aw$ thus $Aw \in V_1(B)$ but $\dim V_1(B) = 1$ so $Aw = \lambda w$ and since $\theta \neq \pm \pi$ since A only has 1 eigenvalue 1 with eigenvector v and $v \perp w$  thus a contradiction occurs. Thus B can be any rotation around the same axis thus all of $SO(2)$.
+
+    IF $A = \rho_{v, \pi}$. Then the first case of the previous problem still applies, $SO(2) \in Z(A)$. However we also have $\rho_{w, \pi} \in Z(A)$. $\rho_{w, \pi}$ acting on the plane $P \perp v$ is the same thing as a reflection. So all rotations plus 1 reflections, generate $O(2)$ thus $Z(A) \cong O(s)$.    
+
+
+    $\forall A \in SO(3) \ni A = \rho_v(v, \pi), v \neq 0$. In the plane subspace $P \perp L_v$ (line spanned by v). $A: P \to P$, $A = \rho_\pi$. $SO(2) \in Z(A)$. $\forall b \in Z(A) \ni B \not \in SO(2)$, $bSO(2)$ are all reflections in $O(2)$. Thus $[Z(a) : SO(2)] = 2$. Thus $Z(A) \cong O(2)$.   
+\end{proof}
+
+\bigskip
+
+\begin{claim}{6}
+    Give a formula for conjugation in $Rig(\R^2)$, which Artin calls "M", in terms of his classification 6.3.4 --- that is generalize our formula that  $A r_L A^{-1}$ = $r_{A(L)}$ in O(2) (where $r_L$ is reflection about the line L).
+\end{claim}
+\begin{proof}
+    By the previous homework, $\forall A \in Rig(\R^2)$, $A = t_v \circ B$ for $B \in O(2)$. $A r_L A^{-1} = t_v \circ B r_L B^{-1} \circ t_{-v} = t_v \circ r_{B(L)} \circ t_{-v} = r_{B(L) + v}$ or reflection about line $B(L) + v$. $A \rho_\theta A^{-1} = t_v \circ B \rho_\theta B^{-1} \circ t_{-v} = t_v \circ \rho_{\pm\theta} \circ t_{-v}$ is rotation of $\theta$ about the point v.
+\end{proof}
+
+
+
+\end{document}

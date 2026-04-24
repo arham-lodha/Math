@@ -1,0 +1,201 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 5}
+\author{Arham Lodha}%put your name here
+\date{February 22, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+\end{PROB}
+\begin{proof}
+    Let $S = \left\{ x \in \R \mid x \geq 2 \right\}$. $\forall x \in S$, by definition of S, $x \geq 2$. Thus by definition of a lower bound, 2 is a lower bound. $\forall y \in \R \ni y$ is a lower bound of $S$. By definition of a lower bound, $\forall s \in S$, $y \leq s$ thus $y \leq 2$. Thus 2 is the greatest lower bound. Thus by definition of the infimum, $inf(S) = 2$. 
+    
+    Assume the contrary $\exists t \in \R \ni t$ is a upper bound of $S$. Then $\forall s \in S$, $t \geq s$, $2 \in S$, thus $t \geq S$. Thus $t \in S$. $\forall s \in S$, $t + 1 > t \geq s$ and since $t \geq 2$, $t + 1 > 2$. Thus $t + 1 \in S$, however since $t$ is a upper bound of $S$, $t \geq t + 1$, but $t + 1 > t$. Thus a contradiction occurs, and $\not \exists t \in \R \ni  t $ is a upper bound.                  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+\end{PROB}
+\begin{proof}
+    Let $S = \left\{ x \in \R \mid x > 1 \right\}$. $\forall y \leq 1$, by definition of the set, $\forall s \in S$, $s > 1$ thus $y \leq 1 < s \implies y \leq s$, thus $y$ is by definition a lower bound of S. So any number less than or equal to 1 is a lower bound of S, thus an example lower bound is $0$, since $0 \leq 1$.
+    
+    $1 \leq 1$, thus $1$ is a lower bound of $S$. $\forall n \in \R \ni n$ is a lower bound of $S$. Assume the contrary, $n > 1$. Then $n \in S$, by definition of $S$. Let $m = n - \frac{n - 1}{2}$. $m - 1 = n - 1 - \frac{n - 1}{2} = 2n - n - 2 - 1 = n - 1$, since $n > 1$, thus $m - 1= n - 1 > 0$. Thus $m > 1$. Thus $m \in S$. $n - m = n - n  - \frac{n - 1}{2} = \frac{n - 1}{2}$, since $n > 1$, then $\frac{n - 1}{2} > 0$. Thus $n - m > 0$, thus $n > m$. However by definition of a lower bound, since $m \in S$, $n \leq m$. Thus a contradiction occurs and $n \leq m$ and $n > m$. Thus by contradiction, $n \leq 1$. Since $1$ is a lower bound, and all lower bounds are less than it, $1$ is a greatest lower bound.                       
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+\end{PROB}
+\begin{proof}
+    Suppose $S$, a set, is bounded above. $-S := \left\{ -s : s \in S \right\}$. Since $S$ is bounded above, $\exists M \in \R \ni \forall s \in S, M \geq s$. By properties of ordering, $-M \leq -s$, by definition of $-S$, $-s \in S$. Thus $\forall s \in -S$, by definition of $-S$, $-s \in S$ since $-(-s) = s \in -S$, by Algebraic Properties of Reals. By definition of upper bound, $M \geq -s$, by algebraic properties of ordering, $-M \leq s$, thus by definition of a lower bound, $M$ is a lower bound. By definition of bounded below, $-S$ is bounded below. 
+    
+    Since $-S$ is bounded below, $\exists inf(-S) = x \in \R$. Since $S$ is bounded above, there exists upper bounds for S, thus $\forall y \in \R \ni y $ is a upperbound of $S$. Thus $\forall s \in S$, $y \geq s$. By algebraic properties of ordering, $-y \leq -s \in -S$. By definition of $-S$, $\forall t \in -S$, $-y \leq t$. Thus $-y$ is a lower bound of $-S$. By definition of infimum, $-y \leq x$. Thus, $\forall s \in -S$, $-y \leq x \leq s$. $\forall t \in S$, $-t \in -S$, thus $-y \leq x \leq -t$. By algebraic properties of ordering, $y \geq -x \geq t$. Thus $\forall t \in S$, $-s \geq t$, thus $-x$ is a upperbound for S. Moreover, since for all upper bounds of S, $y$, $y \geq -x$. Thus $-x$ is the least upper bound of $S$, thus $-x = sup(S)$. Thus $inf(-S) = x = -sup(S)$. Thus $inf(S) = -sup(S)$.                   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+\end{PROB}
+\begin{proof}
+    $S := \left\{ 1 - \frac{(-1)^n}{n} : n \in \N \right\}$ 
+
+
+    Let $x = 2$. $\forall n \in \N$, $2 - 1 + \frac{(-1)^n}{n} = 1 + \frac{(-1)^n}{n}$. $\forall n \in \N$, $\frac{1}{n} \leq 1$. If $n$ is odd, then $1 - \frac{1}{n} > 0$. Thus $2 -[1 - \frac{(-1)^n}{n}] = 2 - 1 + \frac{(-1)^n}{n} =  1 - \frac{1}{n} \geq 0$. Thus $x \geq 1 - \frac{(-1)^n}{n}$. If $n $ is even, thus $1 + \frac{(-1)^n}{n} = 1 + \frac{1}{n} \geq 0$, since sum of 2 positive numbers is positive. Thus $2 -[1 - \frac{(-1)^n}{n}] = 2 - 1 + \frac{(-1)^n}{n} \geq 0$. Thus $x \geq 1 - \frac{(-1)^n}{n}$. Thus $\forall n \in \N$, $x \geq 1 - \frac{(-1)^n}{n}$. Thus by definition of S, $\forall s \in S$, $2 \geq s$.  
+    Thus $x = 2$ is a upper bound of S. $\forall n < 2$, $\forall n < 2$. $2 = 1 - \frac{\left(-1\right)^1}{1}\in S$. Thus $n$ is not a upper bound of $S$. Thus $x = 2 = sup(S)$. 
+    
+    Let $y = \frac{1}{2}$, $\forall n \in \N$, $\frac{1}{2} - [1 - \frac{(-1)^n}{n}] = \frac{1}{2} - 1 +\frac{(-1)^n}{n} = -\frac{1}{2} + \frac{(-1)^n}{n}$. For $n$ odd, $-\frac{1}{2} + \frac{(-1)^n}{n} = -\frac{1}{2} - \frac{1}{n} < 0$, since the sum of 2 negative numbers is negative. For $n$ even, $-\frac{1}{2} + \frac{(-1)^n}{n} = -\frac{1}{2} + \frac{1}{n}$. Since $n$ is even, $n \geq 2$. $\forall n \in \N \ni n \geq 2$, $\frac{1}{2} - \frac{1}{n} \geq 0 \implies \frac{1}{n} - \frac{1}{2} \leq 0$. Thus $-\frac{1}{2} + \frac{(-1)^n}{n} = -\frac{1}{2} + \frac{1}{n} \leq 0$. Thus $\forall n \in \N$, $\frac{1}{2} - [1 - \frac{(-1)^n}{n}] \leq 0 \implies \frac{1}{2} \leq 1 - \frac{(-1)^n}{n}$. Thus by definition of S, $\forall s \in S$, $\frac{1}{2} \leq s$.
+    
+    Thus $\frac{1}{2}$ is a lower bound of S, $\forall n \in \R \ni n > \frac{1}{2}$. $\frac{1}{2} = 1 - (-1)^2 / 2$, thus $0.5 \in S$. Since $n > 0.5$, $n$ is not a lower bound of S. Thus since there is no lower bound greater than $\frac{1}{2}$, $\frac{1}{2}$ is the greatest lower bound and thus $inf(S) =\frac{1}{2}$.         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+\end{PROB}
+\begin{proof}
+    $S := \left\{ \frac{1}{n} : n \in \N \right\}$ 
+    Let $x = 0$. $\forall n \in \N$, $0 - \frac{1}{n} = -\frac{1}{n} < 0$ since $\frac{1}{n}$ is positive (division of 2 positive values is positive). Thus $0 \leq \frac{1}{n}$. By definition of $S$, $\forall s \in S$, $0 \leq s$. Thus $0$ is a lower bound of S. 
+    
+    
+    $\forall y \in \R \ni y > 0$. Let $n = \ceil{\frac{1}{y}} + 1$. Thus $\frac{1}{n} < y$. $n \in \N$, thus $\ceil{\frac{1}{y}} + 1 = s \in S$. Thus $y > s$. Thus $y$ is not a lower bound of $S$. Thus $\forall y \in \R \ni y > 0$, $y$ cannot be a lower bound for S. Thus $x = 0$ is the greatest lower bound of S. Thus $inf(S) = 0$.            
+\end{proof}
+
+
+\bigskip
+
+\begin{PROB}{6a}\label{Problem 6a.}
+\end{PROB}
+\begin{proof}
+    Given $\epsilon > 0$. Choose $K \in \N \ni K > \frac{1}{\epsilon}$, thus $\epsilon > \frac{1}{K}$ . Thus $\forall n \in \N \ni n \geq K$, $\frac{1}{n} \leq \frac{1}{K}$, because $n \geq K$. Thus $\frac{1}{n} < \epsilon$. Since $n^2 + 2 > n^2$, since $n > 0 \implies n^2 > 0$. Thus $\frac{1}{n^2 + 2} < \frac{1}{n^2}$.    
+    
+    
+    Thus 
+    
+    \[
+        \abs{\frac{n}{n^2 + 2} - 0} = \abs{\frac{n}{n^2 + 2}} < \abs{\frac{n}{n^2}} = \abs{\frac{1}{n}} \leq \abs{\frac{1}{K}} < \epsilon.
+    \]
+
+    Thus for $\epsilon > 0$, $\exists K \in \N \ni \forall n \in \N \ni n \geq K, \abs{\frac{n}{n^2 + 2} - 0} < \epsilon$, thus by definition of the limit of a sequence,
+    
+    \[
+        \lim \left(\frac{n}{n^2 + 2}\right) = 0
+    \]
+\end{proof}
+
+\begin{PROB}{6a}\label{Problem 6a.}
+\end{PROB}
+\begin{proof}
+    Given $\epsilon > 0$. Choose $K \in \N \ni K > \frac{9}{2\epsilon}$, thus $\epsilon > \frac{9}{2K}$ . Thus $\forall n \in \N \ni n \geq K$, $\frac{9}{2n} \leq \frac{9}{2K}$, because $n \geq K$. Thus $\frac{9}{2n} < \epsilon$. 
+    
+    
+    Thus 
+    
+    \[
+        \abs{\frac{4n + 1}{2n + 5} - 2} = \abs{\frac{4n + 1 - 4n - 10}{2n + 5}} = \abs{\frac{-9}{2n + 5}} = 9 \abs{\frac{1}{2n + 5}}
+    \]
+
+    Since $2n + 5 > 2n$ because $n$ is positive, then $\frac{1}{2n + 5} < \frac{1}{2n}$. And since $2n +5 > 0$, $\frac{1}{2n + 5} > 0 \implies \abs{\frac{1}{2n + 5}} = \frac{1}{2n + 5}$ 
+
+    Thus, $9 \abs{\frac{1}{2n + 5}} \leq \frac{9}{2n} \leq \frac{1}{2K} < \epsilon$.  
+
+    Thus for $\epsilon > 0$, $\exists K \in \N \ni \forall n \in \N \ni n \geq K, \abs{\frac{4n + 1}{2n + 5} - 2} < \epsilon$, thus by definition of the limit of a sequence,
+    
+    \[
+        \lim \left(\frac{4n + 1}{2n +5}\right) = 2
+    \]
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{6c}\label{Problem 6c.}
+\end{PROB}
+\begin{proof}
+    Given $\epsilon > 0$. Choose $K \in \N \ni K > \frac{1}{\sqrt{\epsilon}}$, thus $\epsilon > \frac{1}{\sqrt{K}}$ . Thus $\forall n \in \N \ni n \geq K$, $\frac{1}{\sqrt{n}} \leq \frac{1}{\sqrt{K}}$, because $n \geq K$. Thus $\frac{1}{\sqrt{n}} < \epsilon$.      
+    
+    
+    Thus 
+    
+    \[
+        \abs{\frac{\sqrt{n}}{n + 2} - 0} = \abs{\frac{\sqrt{n}}{n +2}}
+    \]
+
+    Since $n + 2 > n$, $\frac{\sqrt{n}}{n + 2} <\frac{\sqrt{n}}{n}$. And since, $\frac{\sqrt{n}}{n + 2}> 0$, since $n >0$ so $n + 2 > 0$. Thus,
+    
+    
+    \[
+        \abs{\frac{\sqrt{n}}{n + 2} - 0} = \abs{\frac{\sqrt{n}}{n +2}} < \frac{\sqrt{n}}{n} = \frac{1}{\sqrt{n}} < \frac{1}{\sqrt{K}} < \epsilon
+    \]
+
+    Thus for $\epsilon > 0$, $\exists K \in \N \ni \forall n \in \N \ni n \geq K, \abs{\frac{\sqrt{n}}{n + 2} - 0} < \epsilon$, thus by definition of the limit of a sequence,
+    
+    \[
+        \lim \left(\frac{\sqrt{n}}{n + 2}\right) = 0
+    \]
+\end{proof}
+
+\end{document}

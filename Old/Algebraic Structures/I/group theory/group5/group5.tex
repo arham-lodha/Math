@@ -1,0 +1,387 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Group 5}
+\author{Arham Lodha}%put your name here
+\date{September 29, 2023}%enter the due date here
+\maketitle
+
+
+\section*{Quotient Group}
+
+\begin{claim}{1}
+    If a subgroup H of a group G is not normal, there are left cosets aH and bH whose product is not a coset.
+\end{claim}
+\begin{proof}
+    Let $H \subset G$ be a subgroup of G which is not normal. Assume the contrary that the product of left cosets $aH$ and $bH$, $abH$ is always a coset. $\forall g \in G$, let $a = g$ and $b = g^{-1} \in G$. Thus $abH = eH = H$. By definition of a coset $gh \in gH$ for $h \in H$ by definition of a coset. Thus $ghg^{-1} \in abH = H$ by definition of a coset. Thus $ghg^{-1} \in H$ for all $g \in G$. Thus H is normal. Thus a contradiction forms and there exists left cosets $aH$ and $bH$ whose product is not a coset. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    In the general linear group $GL_3(\R)$, consider the subsets $$H = \begin{bmatrix}
+        1 & * & * \\ 
+        0 & 1 & * \\ 
+        0 & 0 & 1
+    \end{bmatrix}$$, and $$K = \begin{bmatrix}
+        1 & 0 & * \\ 0 & 1 & 0 \\ 0 & 0 & 1
+    \end{bmatrix}$$
+
+    where * represents an arbitrary real number. Show that H is a subgroup, that K is a normal subgroup of H, and identify the quotient group $H / K$. Determine the center of H
+\end{PROB}
+\begin{solution}
+    H is closed because the product of 2 upper trianglar matrix is upper trianglar as well. $I \in H$, thus H has the identity. Finally $\forall A \in H$, $A = \begin{bmatrix}
+        1 & a & b \\ 
+        0 & 1 & c \\ 
+        0 & 0 & 1
+    \end{bmatrix}$ and $A^{-1} = \begin{bmatrix}
+        1 & -a & ac-b \\ 
+        0 & 1 & -c \\ 
+        0 & 0 & 1
+    \end{bmatrix} \in H$. Thus H is a subgroup.
+
+    $K \subset H$ containing the identity, and elements of K can be multiplied by adding the upper-right elements together, implying that K
+    satisfies the conditions to be a subgroup of H. Furthermore multiplication between elements of K
+    and elements of H is given by, $\forall A \in K$ and $\forall B \in H$
+
+    \[AB = \begin{bmatrix}
+        1 & 0 & x \\ 
+        0 & 1 & 0 \\ 
+        0 & 0 & 1
+    \end{bmatrix}\begin{bmatrix}
+        1 & a & b \\ 
+        0 & 1 & c \\ 
+        0 & 0 & 1
+    \end{bmatrix} = \begin{bmatrix}
+        1 & a & b + x \\ 
+        0 & 1 & c \\ 
+        0 & 0 & 1
+    \end{bmatrix}\]
+
+    \[BA = \begin{bmatrix}
+        1 & a & b \\ 
+        0 & 1 & c \\ 
+        0 & 0 & 1
+    \end{bmatrix}\begin{bmatrix}
+        1 & 0 & x \\ 
+        0 & 1 & 0 \\ 
+        0 & 0 & 1
+    \end{bmatrix} = \begin{bmatrix}
+        1 & a & b + x \\ 
+        0 & 1 & c \\ 
+        0 & 0 & 1
+    \end{bmatrix}\]
+
+    Thus $\forall A \in K$ and $\forall B \in H$, $AB = BA$ thus $K \subset Z(H)$ and K is normal.
+
+    $\forall h \in H$, the coset $hk$ would contain all elements of H that are equal to h in the $1,2$ and $2,3$ entries. Call this coset $C_{ac}$ where $h_{1,2} = a$ and $h_{2, 3} = c$. Lets see how the cosets interact
+
+    $\begin{bmatrix}
+        1 & a & b \\ 
+        0 & 1 & c \\ 
+        0 & 0 & 1
+    \end{bmatrix}\begin{bmatrix}
+        1 & d & e \\ 
+        0 & 1 & f \\ 
+        0 & 0 & 1
+    \end{bmatrix} = \begin{bmatrix}
+        1 & d+a & e+af+b \\ 
+        0 & 1 & f+c \\ 
+        0 & 0 & 1
+    \end{bmatrix} \in C_{d+a f+c}$
+
+    Thus the product of $C_{ac}$ and $C_{de}$ is $C_{d+a, f+c}$ so the quotient group is isomorphic to $\R^+ \times \R^+$. Let $\forall A \in H$, $A = \begin{bmatrix}
+        1 & a & b \\ 
+        0 & 1 & c \\ 
+        0 & 0 & 1
+    \end{bmatrix}$ and $\forall D \in H$, $D = \begin{bmatrix}
+        1 & d & e \\ 
+        0 & 1 & f \\ 
+        0 & 0 & 1
+    \end{bmatrix}$
+
+
+    $AD = \begin{bmatrix}
+        1 & d+a & e+af+b \\ 
+        0 & 1 & f+c \\ 
+        0 & 0 & 1
+    \end{bmatrix}$
+
+    and $DA = \begin{bmatrix}
+        1 & d+a & e+cd+b \\ 
+        0 & 1 & f+c \\ 
+        0 & 0 & 1
+    \end{bmatrix}$
+
+    Thus if $AD = DA$, $af = cd$. If either a
+    or c is nonzero, it is always possible to choose f
+    and d such that $af \neq cd$, thus the center of $H$ is K.
+\end{solution}
+
+
+\bigskip
+
+\begin{claim}{3}
+    Let P be a partition of a group G with the property that for any pair of elements A, B of the partition, the product set AB is contained entirely within another element C of the partition. Let N be the element of P that contains 1. Prove that N is a normal subgroup of G and that P is the set of its cosets.
+\end{claim}
+\begin{proof}
+    Let P be a partition of a group G with the property that for any pair of elements A, B of the partition, the product set AB is contained entirely within another element C of the partition. If $AB \in C$ and if $AB \in C'$ then $C = C'$ because the elements of a partition are pairwise disjoint.
+
+    Define a multiplication on the partition such that $A \ast B = C$ s.t $AB \subset C$ s.t $C \in P$. Such a unique C will always exist by the definition of our partition, thus the multiplication is well defined. Furthermore by the equivalence relation homework, we know a partition and the set of all equivalence classes for a given set are the same thing. Then define the following $\sim$ $\forall a, b \in G$, $a \sim b \iff a,b $ in the same element of the partition P. Thus if $a \in A$ then $[a] = A$. Then for $a \in A$ and $b \in B$, the product set $AB = [a][b] \subset C$, however by definition of product set $ab \in C$ thus $[ab] = C$ and $[a][b] \subset [c]$ and $[a] \ast [b] = [c]$. Create a natural map $f: G \twoheadrightarrow G/\sim $ such that $f(a) = [a]$. Let $N = [e]$. Then forall $a \in G$, $[e][a] = [a]$ because $e \in [e]$ and $a \in [a]$, thus $ea = a \in C$ but since $C$ is a element of P containing $a$ then $C = [a]$, thus $[e][a] \in [a]$ and $[e] \ast [a] = [a]$. The arguement is symmetric for $[a] \ast [e] = [a]$ thus $[e]$ is the identity in $G/\sim$. Furthermore, $\forall g \in G$, $[g] \ast [g^{-1}] = [gg^{-1}] = [e]$ thus $[g]^{-1} = [g^{-1}]$ similarly, $[g^{-1}][g] = [g^{-1}g] = [e]$. Thus $G/\sim$ has inverses. Finally $\forall a, b, c \in G$, $[a] \ast ([b] \ast [c]) = [a] \ast [bc] = [abc] = f(abc)$ and $([a] \ast [b]) \ast [c] = [ab] \ast [c] = \ast[abc] = f(abc)$. Thus $G/\sim$ is associative. Thus $G/\sim$ is a group. Finally $\forall a, b \in G$, $f(ab) = [ab] = [a] \ast [b] = f(a)\ast f(b)$ thus f is a homorphism. Thus $[e] = N$ is the kernel of the homorphism f and thus must be normal. $G/\sim \cong P$ is the set of its cosets.
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Let $H = \{\pm 1, \pm i\}$ be a subgroup of $G = C^\times$ of the fourth roots of unity. Describe the cosets of $H$ in $G$ explicitly. Is $G/H \cong G$?
+\end{PROB}
+\begin{proof}
+    $\forall g \in G$, $gHg^{-1} = gg^{-1}H$ because G is abelian and $gHg^{-1} = H$ and thus H is normal.
+
+    For all $g \in G$, $gH = \{g, -g, gi, -gi\}$. There exists a surjective homorphism $f: C^\times \to C^\times$ which takes $x \to x^4$. $H$ is the kernel of $f$, because $f(x) = 1 \iff x \in [\pm 1, \pm i] = H$. Furthermore there exists a natural surjective homorphism from $p: C^\times \to C^\times/H$. Thus since $\ker p = H \subseteq \ker f = H$, f factors through p through the prehomework theorem. Thus the homorphism F such that $f = F \circ p$ is surjective because p and f are surjective. Furthermore $\forall aH, bH \in C^\times/H$, if $F(aH) = F(bH)$, then $f(a) = f(b)$ and $f(ab^{-1}) = 1$ thus $ab^{-1} \in H$. Since $C^\times$ is abelian, $ab^{-1} = b^{-1}a \in H$. By definition of a coset, $bb^{-1}a \in bH$ thus $a \in bH$ however since H is normal cosets are pairwise disjoint and thus $aH = bH$. Thus $F$ is injective. thus there exists a bijection and a homorphism from $G/H \to C^\times$ and thus $G/H \cong C^\times$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Let G be the group of upper triangular real matrices $\begin{bmatrix}
+        a & b \\ 0 & d
+    \end{bmatrix}$, with $a$ and $b$ different from zero. For each of the following subsets, determine whether or not S is a subgroup, and whether or not S is a normal subgroup. If S is a normal subgroup, identify the quotient group $G/S$.
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}{}
+        \item S is the subset defined by $b = 0$.
+        S is a subgroup because two diagonal matrices multiply result in a diagonal matrix, I is in here, and inverses exist as well. S is not normal because $$\begin{bmatrix}
+            x & y \\ 0 & z
+        \end{bmatrix}\begin{bmatrix}
+            a & 0 \\ 0 & d
+        \end{bmatrix}\left(\frac{1}{ad}\right)\begin{bmatrix}
+            z & -y \\ 0 & x
+        \end{bmatrix} = \frac{1}{ad}\begin{bmatrix}
+            axz & xy(d-a) \\ 0 & dzx
+        \end{bmatrix} \not \in S$$.
+
+        \item S is the subset $d = 1$. 
+        S is not a subgroup because $\begin{bmatrix}
+            a & b \\ 0 & 1
+        \end{bmatrix}^{-1} = \frac{1}{a}\begin{bmatrix}
+            1 & -b \\ 0 & a
+        \end{bmatrix} \not \in S$ if $a \neq 1$. 
+
+        \item S is a subset $a = d$
+        
+        S is closed $\forall A, X \in S$, $AX = \begin{bmatrix}
+            a & b \\ 0 & a
+        \end{bmatrix}\begin{bmatrix}
+            x & y \\ 0 & x
+        \end{bmatrix} = \begin{bmatrix}
+            ax & ax + by \\ 0 & ax
+        \end{bmatrix} \in S$. S contains the identity and $\forall A \in S$, $A^{-1} = \frac{1}{a^2}\begin{bmatrix}
+            a & -b \\ 0 & a
+        \end{bmatrix} \in S$. Thus S is a subgroup.
+
+
+        $\forall X \in G$ and $\forall A \in S$, $XAX^{-1} = \frac{1}{xz}\begin{bmatrix}
+            x & y \\ 0 & z
+        \end{bmatrix}\begin{bmatrix}
+            a & b \\ 0 & a
+        \end{bmatrix}\begin{bmatrix}
+            z & y^{-1} \\ 0 & x
+        \end{bmatrix} = \frac{1}{xz}\begin{bmatrix}
+            axz & bx^2 \\ 0 & axz
+        \end{bmatrix} \in S$. Thus S is normal.
+
+        The quotient group $G/S$ would be represented by matrices of the form
+  \begin{equation*}
+    \begin{bmatrix}
+      1 & 0\\
+      0 & d
+    \end{bmatrix},
+  \end{equation*}
+  for $d \in \mathbb{R}^\times$ since this would cover all of $G$:
+  \begin{equation*}
+    \begin{bmatrix}
+      1 & 0\\
+      0 & d
+    \end{bmatrix}
+    \begin{bmatrix}
+      a & b\\
+      0 & a
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      a & b\\
+      0 & ad
+    \end{bmatrix},
+  \end{equation*}
+  and since each matrix of the form above gives a different coset since multiplying by elements in $S$ cannot give another matrix of the same form unless $d$ is the same.
+    \end{enumerate}
+\end{solution}
+
+\section*{Miscellanious}
+
+\begin{PROB}{1}\label{Problem 1.}
+    Describe the column vectors $(a, c)^T$ that occur as the first column of an integer matrix A whose inverse is also an integer matrix.
+\end{PROB}
+\begin{proof}
+    $A$ is a 2 x 2 matrix where $A = \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}$ where $a,b,c,d \in Z$. $\det(I) = \det(AA^{-1}) = \det(A)\det(A^{-1})= 1$. Since $A$, $A^{-1}$ has integer entries $\det(A), \det(A^{-1}) \in \Z$. Thus $\det(A) = 1$. Thus $ad - bc = 1$. Let $b' = -b$, thus $ad + b'c = 1$. Thus there exists $b', d \in \Z$, such that $ad + b'c =1 $, thus by Bezout's theorem, $\gcd(a, c) = 1$. If $a = c = 0$, then $\det(A) = 0$ and it is singular thus forming a contradiction. If $\gcd(a, c) > 1$, then by Bezout's theorem the determinant of any integer matrix with this property will also be a multiple of that GCD. So it is only the coprime $a, c$.
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2a}
+    Every group of even order contains a element of order 2.
+\end{claim}
+\begin{proof}
+    Let G be a group with even order. Define the equivalence relation, $\forall a, b \in G$ $a \sim b \iff b = a^{-1}$. The number of equivalence classes of odd size must be even. The element e is in its own equivalence class, so there must be some equvivalence class of odd size. Moreover since elements can only have 1 unique inverse the equivalence classes can only contain 1 element (if the element in the equivalence class is its own inverse) or 2 (element and its inverse). So there must be a $a \in G$ s.t $a = a^{-1}$
+\end{proof}
+
+\begin{claim}{2b}
+    Every group of order 21 contains a element of order 3
+\end{claim}
+\begin{proof}
+    Let G be a group with order 21. By Lagrange's Theorem, the order of cyclic subgroups of G must be 21, 7, 3, 1.
+
+    \begin{enumerate}
+        \item If $S \subseteq G$ has order 21 and is cyclic, then $S = G$ and S is generated by a single element $g \in G$ s.t $g^{21} = e$, then $g^21 = (g^7)^3 = e$. Let $g^7 = a$, thus $a^3 = e$ and order of a is 3 and thus there exists a element of order 3.
+        \item If all cyclic subgroups have order 1 they are all $e$ thus $|G| \neq 7$ and thus there must be a cyclic subgroup of different order.
+        \item Cyclic subgroup of order 3 is trivial because the element generating the subgroup will have order 3 and thus G contains a element of order 3.
+        \item Suppose all cyclic subgroups of G have order 7. Let $g, h \in G$, suppose $\exists f \in \langle g \rangle \cap \langle h \rangle$, then $f = g^a$ and $f = h^b$ for $a, b \in [0, \ldots, 6]$. If $a = b = 0$, then $e$ would be in both subgroups. However if $a \neq 0$ and $b \neq 0$, thus $g^a = f^b$ but since 7 is prime and thus a coprime to $7$, thus $g^a = f^b$ generates $\langle g \rangle$ but since $b$ also coprime to 7, $g^a = f^b$ generates $\langle f \rangle$. Thus $f \in \langle g \rangle$ thus $\langle g \rangle = \langle f \rangle$. Thus the only element in the intersection of the cyclic subgroups with order 7 is e and all the other 6 elements in each subgroup were not in the intersection with any other cyclic subgroup. Thus the number of elements is $6n + 1$ where n is the number of subgroups. However there exists no $n \in \Z$ s.t $21 = 6n + 1$ because $6 \not \mid 20$. Thus a contradiction forms and there cannot be cyclic groups of order 7 only and thus there must exist a cyclic group of order 3 and thus a element of order tree.
+    \end{enumerate}
+\end{proof}
+
+\begin{PROB}{3}\label{Problem 3.}
+    Classify cyclic groups of order 6
+\end{PROB}
+\begin{claim}{3a}
+    Let G be a group in which every element has order 2. Then G is Abelian
+\end{claim}
+\begin{proof}
+    Let G be a group, in which every element has order 2. Thus $\forall a \in G$, $a^2 = e$ thus $a = a^{-1}$. Thus for all $a, b \in G$, $ab = a^{-1}b^{-1} = (ba)^{-1} = ba$. Thus G is abelian
+\end{proof}
+
+\begin{claim}{3b}
+    Let G be a group in which every element has order 2, $G \cong F_2^n$
+\end{claim}
+\begin{proof}
+    Since G is abelian, let it be additive thus $(G, +) \cong G$. Thus $\forall x \in (G, +)$, $x + x = 2x = 0$. Thus $\forall x \in (G, +)$, $ax = (a \mod 2)x$. Vectorspaces under $F_2$ are also abelian and have this property and have all other properties of $(G, +)$. Thus $(G, +)$ is isomorphic to Vectorspaces under $F_2$. Assuming G is finite, define $f: (G, +) \to F_2^n$. Let $G = \{0, x_1, \ldots, x_n\}$ be the unique elements of $G$. $f(x_i) = e^n_i$ and $f(0) = 0$. $f(x_i + x_j) = e_i + e_j = f(x_i) + f(x_j)$ thus f is a homorphism. $f$ is a isomorphism and thus $G \cong F_2^n$.
+\end{proof}
+
+\begin{claim}{3d}
+    Let H be a subgroup of a group G, of index 2. Then H is normal.
+\end{claim}
+\begin{proof}
+    Let H have index 2 in a group G. Let $g \in G$, if $g \in H$ then $gH = H = Hg$ by closure. If $g \not \in H$, since there are only two left cosets of H in G and $g \not \in H$, they must be $H$ and $gH$. Since the left cosets are pairwise disjoint but their union should be G, $gH = G \setminus H$. But the right cosets are also pairwise disjoint whose union is G, thus $Hg = G \setminus H$. Thus $gH = Hg$ for all $g \in G$ so H is normal.
+\end{proof}
+
+\begin{claim}{3c}
+    Classify all subgroups of order of $|G| = 6$
+\end{claim}
+\begin{proof}
+    By Lagrange's theorem, elements of G must have order 1, 2, 3, 6.
+    \begin{enumerate}
+        \item Suppose G has order 6, then $G \cong \mu_6$.
+        \item Assume the contrary every element of G has order 2, then $G \cong F_2^n$. But $|G| = 6$ and $|F_2^n| = 2^n$ and there exists no natural number n such that $2^n = 6$. So $G$ cannot have every element of order 2.
+        \item Assume the contrary every element had order 1, then each element would be the identity so the only element in G would be $1$. Then order of $G$ would be 1 and thus a contradiction would form and thus every element cannot have order 1 and thus a group like this wouldn't exist.
+        \item Assume the contary every element had order 3. Let $g, h \in G$, suppose $\exists f \in \langle g \rangle \cap \langle h \rangle$, then $f = g^a$ and $f = h^b$ for $a, b \in [0, \ldots, 2]$. If $a = b = 0$, then $e$ would be in both subgroups. However if $a \neq 0$ and $b \neq 0$, thus $g^a = f^b$ but since 3 is prime and thus a coprime to $3$, thus $g^a = f^b$ generates $\langle g \rangle$ but since $b$ also coprime to 3, $g^a = f^b$ generates $\langle f \rangle$. Thus $f \in \langle g \rangle$ thus $\langle g \rangle = \langle f \rangle$. Thus the only element in the intersection of the cyclic subgroups with order 3 is e and all the other 2 elements in each subgroup were not in the intersection with any other cyclic subgroup. Thus the number of elements in G or its order is $2n + 1$ where n is the number of subgroups. $2n + 1 \equiv 1 \mod 2$. Thus $|G| \equiv 1 \mod 2$. This is a contradiction because $|G| \equiv 0 \mod 2$. Thus not all elements of G can be order 3.
+    \end{enumerate}
+
+    Thus either G has order 6 or has element x of order 3 and element y of order 2.
+    
+    If G is order 6, it is $\mu_6$ as stated above.
+    Otherwise, there exists $x$ of order 3 and $y$ of order 2. $[G : \langle x \rangle]= 2$, because the cosets would be split of elements in the cyclic group and those not thus $\langle x \rangle$ is the normal subgroup of G. Thus $\forall y \in G$, $yxy \in  \langle x \rangle$. $yxy = x$ if $y \in \langle x \rangle$ and $yxy = -x$ if $y \not \in \langle x \rangle$. Thus such a group would be congruent to $S_3$.
+\end{proof}
+
+\begin{PROB}{9}\label{Problem 9.}
+    Double Cosets
+\end{PROB}
+\begin{proof}
+    Let $H, K$ be subgroups of G
+    Let $g, f \in G$. Let $HgK$ and $HfK$ be double cosets. Suppose $x \in HgK \cap HfK$ then $x = h_1gk_1 = h_2fk_2$. Thus $h_2^{-1}h_1gk_1k_2^{-1} = f$ and $h_2^{-1}h_1 \in H$ and $k_1k_2^{-1} \in K$ by closure. Thus $f \in HgK$. Thus $HfK = HgK$. So the double cosets are pairwise disjoint and since $\forall g \in G$ $ege = g \in HgK$ thus the union of all the double cosets is G and thus the double cosets partition G.
+\end{proof}
+
+\bigskip
+\begin{PROB}{10}\label{Problem 10.}
+    Double cosets are the right coset iff H is normal.
+\end{PROB}
+\begin{proof}
+    $(\implies)$: Suppose double cosets are the right coset. Thus for all $g \in G$, $HgH = Hg$. But $egH \in HgH$ and but $egH = gH$ thus $gH \subset HgH$. Thus $gH = Hg$ and thus H is normal.
+    $(\impliedby)$: Suppose H is normal. Then $\forall g \in G$, and $\forall h_1, h_2 \in H$, $h_1gh_2 \in HgH$ and $eh_1gh_2 = gg^{-1}h_1gh_2 = gh_3h_2$ because H is normal $g^{-1}h_1g = h_3 \in H$ thus $gh_3h_2 \in gH$. Thus $HgH \subset gH$. $\forall gh \in gH$, $egh = gh \in HgH$, thus $gH \subset HgH$ thus $HgH = gH = Hg$ because H is normal.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{12}\label{Problem 12.}
+    Postage Stamp Problem
+\end{PROB}
+\begin{proof}
+    Since a and b are coprime, $[b]_a \in \Z/a\Z$ generates the group. Thus forall $k \in [0, \ldots, a - 1]$  $\exists n \in [1, \ldots, a]$ s.t $nb \equiv k \mod a$. Define $d_i := nb$ where $nb \equiv i \mod a$. If $ab = ra + sb$ where $r, b \in \N$ either $r, s$ must be 0, thus the minimum $n > ab$. $\forall m \geq ab + 1$, $m \cong j (\mod a)$ for $j \in [0, \ldots, a-1]$ then $m - d_j > 0$ because $d_j \leq ab$ thus $m - d_j \geq 1$. Furthermore $a \mid (m - d_j)$ because $d_j \equiv j \mod a$, thus $ka = m -d_j$ thus $m = ka + d_j$ furthermore by definition $d_j = nb$ for $n>0$ and $nb \equiv j \mod a$. Thus $ka + nb = m$ for all $m \geq ab + 1$.
+\end{proof}
+
+
+\end{document}

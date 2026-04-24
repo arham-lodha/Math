@@ -1,0 +1,351 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\HC}{\mathcal{H}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 7}
+\author{Arham Lodha}%put your name here
+\date{May 20, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let $\alpha$ and $\beta$ be a complex number. Define $(a_n)_{n \geq 0}$ be a power series expansion. 
+    
+    \[\frac{1}{(1 - \alpha X)(1 - \beta X)} = \sum_{n \geq 0} a_n X^n\]
+\end{PROB}
+
+\begin{align*}
+    \sum_{n \geq 0} a_n X^n &= \frac{1}{(1 - \alpha X)(1 - \beta X)}\\
+    &= \frac{1}{1 - \alpha X}\frac{1}{1 - \frac{\beta}{\alpha}} + \frac{1}{1 - \beta X}\frac{1}{1 - \frac{\alpha}{\beta}} \\
+    &= \frac{1}{1 - \alpha X} \frac{\alpha}{\alpha - \beta} - \frac{1}{1 - \beta X} \frac{\beta}{\alpha - \beta} \\
+    &= \frac{1}{\alpha - \beta}\left(\frac{\alpha}{1 - \alpha X} - \frac{\beta}{1 - \beta X}\right) \\
+    &= \frac{1}{\alpha - \beta}\left(\sum_{n \geq 0} \alpha^{n + 1} X^n - \sum_{n \geq 0} \beta^{n + 1} X^n \right)
+\end{align*} 
+
+Thus \[a_n = \frac{1}{\alpha - \beta}(\alpha^{n + 1} - \beta^{n + 1})\]
+
+\begin{claim}{1a}\label{Claim 1a.}
+    \[\sum_{n \geq 0} a_n^2 X^n = \frac{1 + \alpha \beta X}{(1 - \alpha^2 X)(1 - \alpha \beta X)(1 - \beta^2 X)}\]
+\end{claim}
+\begin{proof}
+    \begin{align*}
+        a_n^2 &= \frac{1}{(\alpha - \beta)^2}(\alpha^{n + 1} - \beta^{n + 1})^2 \\
+        &= \frac{1}{(\alpha - \beta)^2}(\alpha^{2(n + 1)} - 2\alpha^{n + 1}\beta^{n + 1} + \beta^{2(n + 1)})
+    \end{align*}
+
+    Thus,
+
+    \begin{align*}
+        \sum_{n \geq 0} a_n^2 X^n &= \frac{1}{(\alpha - \beta)^2}\left(\frac{\alpha^2}{1 - \alpha^2 X} - \frac{2\alpha \beta}{1 - \alpha \beta X} + \frac{\beta^2}{1 - \beta^2 X}\right) \\
+    \end{align*}
+
+    We first calculate the numerator:
+
+    \begin{align*}
+        &\alpha^2(1 - \alpha \beta X)(1 - \beta^2 X) - 2 \alpha \beta (1 - \alpha^2 X)(1 - \beta^2 X)\\ &+ \beta^2(1 - \alpha^2 X)(1 - \alpha \beta X)\\
+        &= (\alpha - \beta)^2(1 + \alpha \beta X)
+    \end{align*}
+
+    Thus 
+
+    \begin{align*}
+        \sum_{n \geq 0} a_n^2 X^n &= \frac{1}{(\alpha - \beta)^2} \frac{(1 + \alpha \beta X)(\alpha - \beta)^2}{(1 - \alpha^2 X)(1 - \alpha \beta X)(1 - \beta^2 X)} \\ 
+        &= \frac{1 + \alpha \beta X}{(1 - \alpha^2 X)(1 - \alpha \beta X)(1 - \beta^2 X)}
+    \end{align*}
+\end{proof}
+
+\begin{claim}{1b}\label{Claim 1b.}
+    \[
+        \sum_{n \geq 0}a_{2n} X^n = \frac{\alpha + \beta}{(1 - \alpha^2 X)(1 - \beta^2 X)}
+    \]
+\end{claim}
+\begin{proof}
+    \[a_{2n} = \frac{1}{\alpha - \beta}(\alpha^{2n + 1} - \beta^{2n + 1})\]
+
+    \begin{align*}
+        \sum_{n \geq 0} a_{2n} X^n &= \frac{1}{\alpha - \beta}\left(\frac{\alpha}{1 - \alpha^2X} - \frac{\beta}{1 - \beta^2X}\right) \\
+        &= \frac{1}{\alpha - \beta}\left(\frac{\alpha(1 - \beta^2X) - \beta(1 - \alpha^2 X)}{(1 - \alpha^2X)(1 - \beta^2X)}\right) \\
+        &= \frac{1}{\alpha - \beta}\left(\frac{\alpha - \alpha\beta^2X - \beta + \alpha^2 \beta X}{(1 - \alpha^2X)(1 - \beta^2X)}\right) \\
+        &= \frac{1}{\alpha - \beta}\left(\frac{\alpha - \beta + \alpha\beta X(\alpha - \beta)}{(1 - \alpha^2X)(1 - \beta^2X)}\right) \\
+        &= \frac{1}{\alpha - \beta}\left(\frac{(\alpha - \beta)(1 + \alpha \beta X)}{(1 - \alpha^2 X)(1 - \beta^2 X)}\right) \\
+        &=\frac{1 + \alpha  \beta X}{(1 - \alpha^2 X)(1 - \beta^2 X)}
+    \end{align*}
+\end{proof}
+
+\begin{claim}{1c}\label{Claim 1c.}
+    \[\sum_{n \geq 0}\frac{d(n^2)}{n^s} = \frac{\zeta{(s)}^3}{\zeta(2s)}\]
+\end{claim}
+\begin{proof}
+    $\forall n \in \N$, for each prime $p$, $\exists k_p \in \N \cup \left\{ 0 \right\}$ such that $n = \prod_{p} p^{k_p}$ by prime factorization. Thus $n^2 = \prod_{p} p^{2k_p}$ Thus $d(n) = \prod_{p}(k_p + 1)$ and $d(n^2) = \prod_p (2k_p + 1)$. Thus we can break the dirichlet series into product of sums. 
+    
+    \begin{align*}
+        \sum_{n \geq 0} \frac{d(n^2)}{n^s} &= \sum_{n \geq 0}\prod_{p}\frac{(2k_p + 1)}{p^s} \\
+        &= \prod_{p} \sum_{k \geq 0} \frac{2k + 1}{p^{ks}}
+    \end{align*}
+
+    Lets look at 
+
+    \[f(x) = \sum_{k \geq 0}(2k + 1) x^k = 2\sum_{k \geq 0} k x^k + \sum_{k \geq 0} x^k\]
+
+    Note for $\abs{x} < 1$ 
+
+    \[\sum_{k \geq 0}x^k = \frac{1}{1 - x}\]
+
+    \begin{align*}
+        \sum_{k \geq 0} k x^k = x\frac{d}{dx} \sum_{k \geq 0} x^k &= x \frac{d}{dx} \frac{1}{1 - x} \\
+        &= \frac{x}{(1 - x)^2}
+    \end{align*}
+
+    Thus for $\abs{x} < 1$, 
+    
+    \begin{align*}
+        f(x) &= \frac{2x + (1 - x)}{(1 - x)^2} \\
+        &= \frac{x + 1}{(1 - x)^2}
+    \end{align*} 
+
+    Thus,
+
+    \begin{align*}
+        \sum_{n \geq 0} \frac{d(n^2)}{n^s} &= \prod_{p} \sum_{k \geq 0} \frac{2k + 1}{p^{ks}} \\
+        &= \prod_{p} f\left(\frac{1}{p^s}\right) \\
+        &= \prod_{p} \frac{p^{-s} + 1}{(1 - p^{-s})^2} \\
+        &= \prod_{p} \frac{(p^{-s} + 1)(1 - p^{-s})}{(1 - p^{-s})^3} \\
+        &= \prod_{p} \frac{(1 - p^{-2s})}{(1 - p^{-s})^3} \\
+        &= \left(\prod_{p}(1 - p^{-s})^{-1}\right)^3 \left(\prod_{p}(1 - p^{-2s})^{-1}\right)^{-1} \\
+        &= \frac{\zeta{(s)}^3}{\zeta(2s)}
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Let $q \geq 2$ be an integer and let $\chi$ be a primitive dirichlet character modulo $q$. Assume $\chi(-1) = 1$. 
+    
+    Let 
+
+    \[\Lambda(s, \chi) = q^{s / 2} \pi^{-\frac{s}{2}}\Gamma\left(\frac{s}{2}\right)L(s, \chi)\]
+\end{PROB}
+\begin{claim}{2a}\label{Claim 2a.}
+    \[\Lambda(s, \chi) = \epsilon \Lambda(1 - s, \overline{\chi})\]
+    
+    where $\epsilon \in \C$ and $\abs{\epsilon} = 1$.    
+\end{claim}
+\begin{proof}
+    $\forall s \in \C \ni \Re(\frac{s}{2}) > 1$ and $n \geq 1$
+    
+    \begin{align*}
+        \pi^{-\frac{s}{2}} \Gamma\left(\frac{s}{2}\right) n^{-s} &= \int_{0}^{\infty} n^{-s}\pi^{-\frac{s}{2}} t^{\frac{s}{2} - 1}e^{-t} dt \\
+        &= \int_{0}^{\infty} (n^2 \pi)^{-\frac{s}{2}} t^{\frac{s}{2} - 1}e^{-t} dt & (t = n^2 \pi x) \\
+        &= \int_0^{\infty} (n^2 \pi)^{-\frac{s}{2}} (n^2 \pi x)^{\frac{s}{2} - 1} e^{-n^2 \pi x} n^2 \pi dx \\
+        &= \int_{0}^{\infty} e^{-n^2 \pi x} x^{\frac{s}{2} - 1} dx
+    \end{align*}
+    Thus, 
+    \begin{align*}
+        \Lambda(s, \chi) &= q^{s / 2} \pi^{-\frac{s}{2}}\Gamma\left(\frac{s}{2}\right)L(s, \chi) \\
+        &= q^{\frac{s}{2}} \pi^{-\frac{s}{2}}\Gamma\left(\frac{s}{2}\right) \sum_{n \geq 1} \chi(n) n^{-s} \\
+        &= q^{\frac{s}{2}} \sum_{n \geq 1} \chi(n) \pi^{-\frac{s}{2}}\Gamma\left(\frac{s}{2}\right) n^{-s} \\
+        &=  q^{\frac{s}{2}} \sum_{n \geq 1} \chi(n) \int_0^\infty e^{-n^2 \pi x} x^{\frac{s}{2} - 1} dx \\
+        &= q^{\frac{s}{2}} \int_0^\infty \left(\sum_{n \geq 1} \chi(n) e^{-n^2 \pi x}\right) x^{\frac{s}{2} - 1} dx 
+    \end{align*}
+
+    Because of quick convergence, there is no issue with interchange of sum and integral (Tonelli Theorem and Absolute convergence).  
+
+    But note 
+
+    \begin{align*}
+        \Theta(x, \chi) &= \sum_{n \in \Z} \chi(n) e^{in^2 \pi x}\\ 
+        &= \chi(0) + \sum_{n \geq 1} (\chi(n) + \chi(-n)) e^{i n^2 \pi x} \\
+        &= \sum_{n \geq 1} (\chi(n) + \chi(-1)\chi(n)) e^{i n^2 \pi x} \\
+        &= \sum_{n \geq 1} 2 \chi(n) e^{i n^2 \pi x} \\
+        &= 2 \sum_{n \geq 1} \chi(n) e^{i n^2 \pi x}
+    \end{align*}
+
+
+    Thus 
+
+    \[\Lambda(s, \chi) = \frac{q^{\frac{s}{2}}}{2} \int_{0}^{\infty} \Theta(ix, \chi) x^{\frac{s}{2} - 1} dx\]
+    
+    Lets analyze the integral. We will break the integral into two parts $(0, \frac{1}{q})$ and $(\frac{1}{q}, \infty)$.  
+
+    \[\int_{0}^{\infty} \Theta(ix, \chi) x^{\frac{s}{2} - 1} dx = \int_{0}^{\frac{1}{q}} \Theta(ix, \chi) x^{\frac{s}{2} - 1} dx + \int_{\frac{1}{q}}^{\infty} \Theta(ix, \chi) x^{\frac{s}{2} - 1} dx \]
+
+    By the Jacobi Transformation Theorem, 
+    \begin{align*}
+        \int_{0}^{\frac{1}{q}} \Theta(ix, \chi) x^{\frac{s}{2} - 1} dx &= \frac{\tau(\chi)}{q}\int_{0}^{\frac{1}{q}} \Theta\left(-\frac{1}{iq^2x}, \overline{\chi}\right)x^{\frac{s - 1}{2}} \frac{dx}{x} \\
+        \int_{\frac{1}{q}}^{\infty} \Theta(ix, \chi) x^{\frac{s}{2} - 1} dx &= \frac{\tau(\chi)}{q}\int_{\frac{1}{q}}^{\infty} \Theta\left(-\frac{1}{iq^2x}, \overline{\chi}\right)x^{\frac{s - 1}{2}} \frac{dx}{x}
+    \end{align*}
+
+    Let $y = \frac{1}{q^2 x}$. Then $dy = - \frac{1}{q^2 x^2} dx$. $\frac{dy}{y} = dy q^2 x = -\frac{dx}{x}$. Thus, 
+
+    \begin{align*}
+        \frac{\tau(\chi)}{q}\int_{0}^{\frac{1}{q}} \Theta\left(-\frac{1}{iq^2x}, \overline{\chi}\right)x^{\frac{s - 1}{2}} \frac{dx}{x} &= \frac{\tau(\chi)}{q}\int_{\frac{1}{q}}^{\infty} \Theta\left(iy, \overline{\chi}\right)\left(\frac{1}{q^2 y}\right)^{\frac{s - 1}{2}} \frac{dy}{y} \\
+        &= \frac{\tau(\chi)}{q} q^{1 - s} \int_{\frac{1}{q}}^{\infty} \Theta\left(iy, \overline{\chi}\right)y^{\frac{1 - s}{2}} \frac{dy}{y}
+    \end{align*}
+
+    and, 
+
+    \begin{align*}
+        \frac{\tau(\chi)}{q}\int_{\frac{1}{q}}^{\infty} \Theta\left(-\frac{1}{iq^2x}, \overline{\chi}\right)x^{\frac{s - 1}{2}} \frac{dx}{x} &= \frac{\tau(\chi)}{q}\int_{0}^{\frac{1}{q}} \Theta\left(iy, \overline{\chi}\right)\left(\frac{1}{q^2 y}\right)^{\frac{s - 1}{2}} \frac{dy}{y} \\
+        &= \frac{\tau(\chi)}{q} q^{1 - s} \int_{0}^{\frac{1}{q}} \Theta\left(iy, \overline{\chi}\right)y^{\frac{1 - s}{2}} \frac{dy}{y}
+    \end{align*}
+
+    Note the following
+    \begin{align*}
+        \tau(\chi) \tau(\overline{\chi}) &= \left(\sum_{n \in \Z_q} \chi(n) e\left(\frac{n}{q}\right)\right)\left(\sum_{m \in \Z_q} \overline{\chi}(m) e\left(\frac{m}{q}\right)\right) \\
+        &= \sum_{n, m \in \Z_q} \chi(n) \overline{\chi}(m) e\left(\frac{n + m}{q}\right) \\
+        &= \sum_{n, m \in \Z_q} \chi(n m^{-1}) e\left(\frac{n + m}{q}\right) \\
+        &= \sum_{a \in \Z_q} \chi(a) \sum_{m \in \Z_q} e\left(\frac{(a + 1)m}{q}\right) \\
+        &= \sum_{a \in \Z_q} r\chi(a) \delta_{0, a + 1} \\
+        &= q \chi(-1) = q
+    \end{align*}
+
+    Thus, $\abs{\tau(\chi)} = \sqrt{q}$. Thus $\abs{\tau(\chi)/\sqrt{q}} = 1$. Let $\epsilon = \frac{\tau(\chi)}{\sqrt{q}}$. 
+
+
+    Thus, 
+
+    \begin{align*}
+        \Lambda(s, \chi) &= \frac{\epsilon}{2} q^{\frac{1}{2} - s + \frac{s}{2}} \int_{0}^{\infty} \Theta(iy, \overline{\chi}) y^{\frac{1 - s}{2}} \frac{dy}{y} \\
+        &= \frac{\epsilon}{2} q^{\frac{1 - s}{2}} \int_{0}^{\infty} \Theta(iy, \overline{\chi}) y^{\frac{1 - s}{2}} \frac{dy}{y}
+    \end{align*}
+
+    Note, 
+
+    \begin{align*}
+        \Lambda(1 - s, \overline{\chi}) &= \frac{q^{\frac{1 - s}{2}}}{2} \int_{0}^{\infty} \Theta(iy, \overline{\chi}) y^{\frac{1 - s}{2}} \frac{dy}{y}
+    \end{align*}
+
+    Thus, 
+
+    \[\Lambda(s, \chi) = \epsilon \Lambda(1 - s, \overline{\chi})\]
+
+\end{proof}
+
+\begin{claim}{2b}\label{Claim 2b.}
+    Let $X \geq 1$ be a real number. The integral
+    
+    \[I(X, \chi) = \frac{1}{2\pi i} \int_{3 + i\R}\Lambda(s + \frac{1}{2}, \chi)X^s \frac{ds}{s}\]
+
+    exists. 
+\end{claim}
+\begin{proof}
+    Let us examine the behavior of the integrand on the line $\Re(s) = 3$. Let $s = 3 + it$ for $t \in \R$. 
+    
+    \begin{align*}
+        \Lambda(it + \frac{7}{2}, \chi) X^{3 + it} \frac{dt}{3 + it}
+    \end{align*}
+
+    Let us expand the $\Lambda$ term.  
+
+    \begin{align*}
+        \Lambda(it + \frac{7}{2}, \chi) &= q^{\frac{it}{2} + \frac{7}{4}} \pi^{-\frac{it}{2} - \frac{7}{4}}\Gamma\left(\frac{it}{2} + \frac{7}{4}\right)L(it + \frac{7}{2}, \chi) 
+    \end{align*}
+
+    Lets start bounding $\Lambda$.  
+
+    \begin{align*}
+        \abs{L(it + \frac{7}{2}, \chi)} &\leq \sum_{n \geq 1}\abs{n^{-\left(it + \frac{7}{2}\right)}} \\
+        &\leq \sum_{n \geq 1}n^{-\frac{7}{2}} \\
+        &= \zeta\left(\frac{7}{2}\right)
+    \end{align*}
+
+    \begin{align*}
+        \abs{\Gamma\left(\frac{it}{2} + \frac{7}{4}\right)} &= \abs{\sqrt{2\pi}\left(\frac{it}{2}\right)^{\frac{5}{4}}e^{-\pi \abs{t}/4} \left(\frac{\abs{t}}{2e}\right)^{\frac{i}{2}t}\left(1 + O\left(\frac{1}{\abs{t}}\right)\right)} \\
+        &= \abs{\sqrt{2\pi}\left(\frac{t}{2}\right)^{\frac{5}{4}}e^{-\pi \abs{t}/4} \left(1 + O\left(\frac{1}{\abs{t}}\right)\right)} \\
+        &= \abs{\sqrt{2\pi}\left(\frac{t}{2}\right)^{\frac{5}{4}}e^{-\pi \abs{t}/4} + \sqrt{2\pi}\left(\frac{t}{2}\right)^{\frac{1}{4}}e^{-\pi \abs{t}/4} } \\
+        &\leq C \left(\frac{\abs{t}}{2}\right)^{\frac{5}{2}} e^{- \pi \abs{t} / 4}
+    \end{align*}
+
+    For the constants:
+    
+    \[\abs{q^{\frac{it}{2} + \frac{7}{4}} \pi^{-\frac{it}{2} - \frac{7}{4}}} = \left(\frac{q}{\pi}\right)^{\frac{7}{4}}\]
+
+    Thus 
+
+    \begin{align*}
+        \abs{\Lambda(it + \frac{7}{2}, \chi)} \leq C' \abs{t}^{\frac{5}{4}} e^{-\abs{t}/4}
+    \end{align*}
+
+    Thus,
+
+    \begin{align*}
+        \abs{\Lambda(it + \frac{7}{2}, \chi) X^{3 + it} \frac{1}{3 + it}} &= \abs{\Lambda(it + \frac{7}{2}, \chi) X^{it} \frac{1}{3 + it}} \\
+        &\leq C' \abs{t}^{\frac{5}{4}}e^{-\abs{t}/4} X^{3} \frac{1}{\abs{3 + it}} \\
+        &\leq C' \abs{t}^{\frac{5}{4}}e^{-\abs{t}/4} X^{3} \frac{1}{\abs{t}} \\
+        &= C' \abs{t}^{-\frac{1}{4}} e^{-\abs{t}/4} X^3
+    \end{align*}
+
+    as $\abs{t} \to \infty$ $\abs{t}^{-\frac{1}{4}} e^{-\abs{t}/4}$ decays exponentially, ensuring the integral converges absolutely. $I(X, \chi)$ exists since it is absolutely convergent.   
+\end{proof}
+\bigskip
+
+\end{document}

@@ -1,0 +1,212 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Small Groups}
+\author{Arham Lodha}%put your name here
+\date{November 02, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{M.2a}\label{Problem M.2a.}
+    Prove that the set Aut G of automorphisms of a group G forms a group, the law of composition being composition of functions.
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}{}
+        \item \textbf{Identity}: $id_G$ is a isomorphism and a function from a group to itself. Thus $id_G \in Aut(G)$ Additionally $\forall f \in Aut(G)$, $\forall g \in G$, $f(id_G(g)) = f(g)$ and $id_G(f(g)) = f(g)$. Thus $f \circ id_G = id_G \circ f$. 
+        \item \textbf{Inverses}: By definition of a automorphisms, $\forall f \in Aut(G)$ it is a isomorphism and thus has a unique inverse. Furthermore if $f \in Aut(G)$ then $f^{-1} \in Aut(G)$.
+        \item \textbf{Closure}: $\forall f_1, f_2 \in Aut(G)$, by properties of composition $f_1 \circ f_2$ is a function which takes G to G. Furthermore $\forall g, h \in G$, $f_1(f_2(gh)) = f_1(f_2(g)f_2(h)) = f_1(f_2(g))f_1(f_2(h))$ thus $f_1 \circ f_2$ is a homomorphism. Since $f_1, f_2$ are both bijections their composition must be as well. Thus $f_1 \circ f_2 \in Aut(G)$
+    \end{enumerate}
+\end{proof}
+
+\begin{PROB}{M.2b}\label{Problem M.2b.}
+    Prove that the map $\phi: G \to Aut(G)$ defined by $g \to $ (conjugation by g) is a homomorphism, and determine its kernel.
+\end{PROB}
+\begin{proof}
+    $\forall g, h \in G$, $\phi(gh) = [a \to (gh)a(gh)^{-1}] = [a \to ghah^{-1}g] = [a \to gag^{-1}] \circ [a \to hah^{-1}] = \phi(g) \circ \phi(h)$. Thus $\phi$ is injective. $\forall k \in \ker \phi$, $\forall g \in G$, $\phi(k) = id_G$ thus $\phi(k)(g) = kgk^{-1} = g$. Thus $\forall g \in G$, $kg = gk$, thus $k \in Z(G)$. Thus $\ker \phi \subseteq Z(G)$. $\forall k \in Z(G)$, $\forall g \in G$, $\phi(k)(g) = kgk^{-1} = gkk^{-1} = g$. Thus $\phi(k) = id_G$ and $k \in \ker \phi$. Thus $Z(G) \subseteq \ker(\phi) \implies \ker(\phi) = Z(G)$.
+\end{proof}
+
+\begin{PROB}{M.2c}\label{Problem M.2c.}
+    The automorphisms that are obtained as conjugation by a group element are called inner automorphisms. Prove that the set of inner automorphisms, the image of $\phi$, is a normal subgroup of the group Aut G.
+\end{PROB}
+\begin{proof}
+    $Im \phi$ is a subgroup because image of a homomorphism is a subgroup. $\forall h \in G$, $f = \phi(h)$ is a inner automorphism. $\forall a \in Aut(G)$ and $\forall g \in G$, $(a \circ f \circ a^{-1})(g) = a(f(a^{-1}(g))) = a(ha^{-1}(g)h^{-1}) = a(h)ga(h^{-1}) = a(h)ga(h)^{-1} \in \phi_*(G)$. Thus $\phi_*(G) \trianglelefteq Aut(G)$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{M.3a}\label{Problem M.3a.}
+    Determine the group of automorphisms (see Exercise M.2) of the group $C_4$
+\end{PROB}
+\begin{solution}
+    $\forall f \in Aut(C_4)$, $f(x) = x^k$ where $C_4 = \langle x^k \rangle$ thus $f(x^a) = x^{ka}$. By a previous homework, $x^k$ only generates $C_4 \iff gcd(k, 4) = 1$, thus $k = 1, 3$. 
+    
+    Define $\phi_m: C_4 \to C_4$ s.t $\forall g \in C_4: \phi_m(g) = g^m$. Thus $f = \phi_k$. Thus $Aut(C_4) = \{\phi_{1}, \phi_{3}\}$. Thus $Aut(C_4) \cong C_2$. 
+\end{solution}
+
+\begin{PROB}{M.3b}\label{Problem M.3b.}
+    Determine the group of automorphisms (see Exercise M.2) of the group $C_6$
+\end{PROB}
+\begin{solution}
+    $\forall f \in Aut(C_6)$, $f(x) = x^k$ where $C_4 = \langle x^k \rangle$ thus $f(x^a) = x^{ka}$. By a previous homework, $x^k$ only generates $C_4 \iff gcd(k, 6) = 1$, thus $k = 1, 5$. 
+    
+    Define $\phi_m: C_6 \to C_6$ s.t $\forall g \in C_6: \phi_m(g) = g^m$. Thus $f = \phi_k$. Thus $Aut(C_6) = \{\phi_{1}, \phi_{5}\}$. Thus $Aut(C_6) \cong C_2$. 
+\end{solution}
+
+\begin{PROB}{M.3c}\label{Problem M.3c.}
+    Determine the group of automorphisms (see Exercise M.2) of the group $C_2 \times C_2$
+\end{PROB}
+\begin{proof}
+    $C_2 \times C_2 = \langle x, y \mid x^2 = y^2 = e, xy = yx \rangle$. The elements $x, y, xy$ are all elements with order 2 s.t any multiplication of the two produces the third. Any automorphism will send elements to elements of the same order. Thus any automorphism permutes the 3 elements. Thus $Aut(C_2 \times C_2) \subseteq S_3$. $Aut(C_2 \times C_2)$ acts on set $\{x, y, xy\}$. $\exists f \in Aut(C_2 \times C_2)$ which swaps $x$ and $y$ and fixes $xy$. $\exists g \in Aut(C_2 \times C_2)$ which fixes $y$ and swaps $x$ and $xy$. $Aut(C_2 \times C_2)^x$ fixes x and freely permutes $y$ and $xy$. Thus $Aut(C_2 \times C_2)^x \cong S_2$. Thus $|Aut(C_2 \times C_2)| = 3 * 2 = 6$. Thus $Aut(C_2 \times C_2) \cong S_3$. 
+\end{proof}
+\begin{PROB}{M.3d}\label{Problem M.3d.}
+    Determine the group of automorphisms (see Exercise M.2) of the group $D_4$
+\end{PROB}
+\begin{proof}
+    $D_4 = \langle x, y \mid x^4 = y^2 = e , xy = yx^{-1} \rangle$
+
+    Let $A = Aut(D^4)$.
+    A automorphism must send a elements to elements with the same order. Thus $\forall f \in A$, $f(x) = x^k$ where $k = 1, 3$ because $\langle f(x) \rangle = C_4$ and $f(y) = x^my$ for $m = 0, 1, 2,3$.
+
+    $A$ acts on $C_4$. Thus $|A \cdot x| = 2$. $A^x$ is everything which fixes $x$, automorphisms in this can change $y \to x^my$. Thus $|A^x| = 4$. Thus By orbit stabilizer, $|A| = 8$. Define $\alpha \in A \ni \alpha(x) = x^3$ and $\alpha(y) = y$ and $\beta_m \in A \ni \beta_m(y) = x^my$ and $\beta_n(x) = x$.
+    
+    $(\alpha \circ \alpha)(x) = \alpha(\alpha(x)) = \alpha(x^3) = x^9 = x$. Since $\alpha \circ \alpha$ fixes $x, y$ (y by definition of $\alpha$), it fixes $D_4$. Thus $\alpha \circ \alpha = \alpha^2  = id$. 
+
+    $(\beta_1 \circ \beta_1)(y) = \beta_2(y) = x^2y$. $(\beta_2 \circ \beta_1)(y) = \beta_3(y) = x^3y$. Finally $(\beta_3 \circ \beta_1(y)) = x^4y = y = \beta_0(y) = id(y)$. Thus $\beta_1^4 = id$.
+    
+
+    Finally $(\beta_1 \circ \alpha)(x) = \beta_1(x^3) = x^3$ and $(\beta_1 \circ \alpha)(y) = xy$ and $\alpha \circ \beta_1^{-1} = \alpha \circ \beta_3$. $(\alpha \circ \beta_3)(x) = x^3$ and $(\alpha \circ \beta_3)(y) = \alpha(x^3y) = xy$. Thus $\beta_1 \circ \alpha = \alpha \circ \beta_1^{-1}$.
+
+    Thus A follows all relations of $D_4$ and has the size of $D_4$. Thus $A \cong D_4$
+\end{proof}
+\begin{PROB}{M.3e}\label{Problem M.3e.}
+    Determine the group of automorphisms (see Exercise M.2) of the group $Q_8$
+\end{PROB}
+\begin{proof}
+    Solved below
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{1}\label{Problem 1.}
+    Using our description via generators and relations explain why $Aut(D_n)$ as a set is equal to $Z/nZ^* \times$ {the set of reflections}. In particular its order is $|Z/nZ^*| n$  --- recall $(Z/nZ)^*$ means the subset of elements of $Z/nZ$ which are invertible (under multplication. Note this is a finite (multiplicative) Abelian group. 
+\end{PROB}
+\begin{solution}
+    $\forall A \in Aut(D_n)$, A must preserve all relations of $D_n$ thus sending elements to other elements of the same order. $A(x) = x^k$ where $\gcd(n, k) = 1$ because $o(x^k) = n \iff gcd(n, k) = 1$ and $A(y) = x^my \ni m = 0, \ldots, n-1.$ $x_my$ is a reflection in $D_n$. The map between $Z/nZ^* \times$ {the set of reflections} $\to Aut(D_n)$ is $(k, x^my) \to [x \to x^k, y \to x^my]$. The map is injective and surjective thus as sets $Aut(D_n)$ is equal to $Z/nZ^* \times$ {the set of reflections}.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    $Aut(G)$ of course acts on G.  Show $Aut(D_n)^{Y}$ is isomorphic to $Z/nZ^*$ (where the notation means the stabilizer of the reflection Y). Is this a normal subgroups of $Aut(D_n)$?
+\end{PROB}
+\begin{proof}
+    $\forall f \in Aut(D_n)^{y}$ $f(x) = x^k \ni gcd(k , 1)$ and $f(y) = y$. $\phi: Z/nZ^* \to Aut(D_n) \ni k \to [x \to x^k , y \to y]$ is a homomorphism. $\forall k \in \ker \phi$, $\phi(k) = id$. Thus $\phi(k)(x) = x^k = x$ thus $k = \bar{1}$. Thus map is injective. Since f must map elements of the same order to other elements of the same order, $\forall f \in Aut(D_n)^{y}$ $f(x) = x^k \ni gcd(k , 1)$ and $f(y) = y$. $k \in Z/nZ^*$ by definition, thus $\phi(k) = f$. Thus $\phi$ is a isomorphism and $ Aut(D_n)^{y} \cong Z/nZ^*$
+
+    $\forall g \in Aut(D_n)$, $g(x) = x^m$ and $g(y) = x^ky$ where $m \in Z/nZ^*, k \in [0, \ldots, n-1]$. $g^{-1}(x) = x^{m^{-1}}$ and $g^{-1}(y) = x^{-km^{-1}}y$. $(g^{-1} \circ g)(y) = g^{-1}(x^ky) = x^{km^{-1}}x^{-km^{-1}}y = y$.  
+
+    $\forall \sigma \in Aut(D_n)^y$, $\sigma(x) = x^a \ni a \in Z/nZ^*$. $g(\sigma(g^{-1})) = g(\sigma(x^{-km^{-1}y})) = g(\sigma(x^{-km^{-1}}))g(y) = g(x^{-km^{-1}a})x^ky = x^{-ka + k}y$. Thus $g \sigma g^{-1} \not \in Aut(D_n)^y$. Thus $Aut(D_n)^y $ not normal in $ Aut(D_n)$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+    In particular $ Aut(D_4)$ has order 8. What group is it?   Note, if we use our usual generators X,Y, then the 8 auts are all given by  $X \to X^{\pm 1}$, and $Y \to X^i Y$ for some i in 0,..,3.  
+\end{PROB}
+\begin{proof}
+    Solved in 3d of Artin Miscellanous above.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+    Show that $Q_8 = \langle I,J| I^4 = J^4 = 1, I^2 = J^2, I J  = J^{-1}I \rangle = \{\pm 1, \pm i, \pm j, \pm k \} $  Using this show that $Aut(Q_8)$ has order 24. Let S be the 6 elements of order 4. Note they come in natural pairs, each element with its inverse.  See that we have a natural map $Aut(Q_8) \to S_6$ := Perm(the elements of order 4). What group do you want $Aut(Q_8)$ to be? What do you want these six things to be (where else have you seen $S_4$ acting on 6 things which are naturally in pairs?)  The next problem should help.
+\end{PROB}
+\begin{proof}
+    Any automorphism must send elements of the same order to other elements of the same order. Since there are only 1 element of order 2 which is $-1$. Any automorphism of $Q_8$ fixes $\pm 1$. $Aut(Q_8)$ acts on $\{\pm i, \pm j, \pm k\}$ all elements of order 4. $Aut(Q_8)$ can send i to j, j to k, and k to i and i to -i. $Aut(Q_8)$ can send i to any one of the $\{\pm i, \pm j, \pm k\}$. Thus $|Aut(Q_8) \cdot i| = 6$. Furthermore $Aut(Q_8)^i$ must fix $\pm i$ but preserves the $\pm j, k$ pairs and thus can only send $j \to \pm j$ and $k \to \pm k$. Thus $|Aut(Q_8)^i| = 4$. Thus $|Aut(Q_8)| = 24$. We want $Aut(Q_8) \cong S_4$. The six things should be faces.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    Consider $S_6$ acting on 6 things, S. divide the elements of S into pairs, and let $i: S \to S$ be the "involution" which takes each element to its "buddy" (the other element of its pair). Involution just means $i^2 = id$. Let H be the subgroup of $S_6$ of elements that are both compatible with the equivalence relation (given by the pairs), and which commute with i.  Show that H is isomorphic to $S_4$, and that this inclusion of $S_4$ in $S_6$ is conjugate to the inclusion of $S_4$ in $S_6$ we get by realizing $S_4$ as the rotational symmetries of a cube, acting on the 6 faces  (which we note come in pairs.  What is the involution that this $S_4$ commutes with?). 
+\end{PROB}
+\begin{solution}
+    Let $S$ be a set with six elements split in 3 pairs, (A pair is a equivalence class). Thus S can be split into a set of pairs, $\{(a, b), (c, d), (e, f)\} = \{P_1, P_2, P_3\}$. Let the involution, $i$, on the set take an element to the other element in the pair. Let $W \subset S_6$ be the subgroup of $S_6$ which preserves the equivalence classes. The permutation of the 3 equivalence classes is in $W$ so $\phi: W \to S_3$ is surjective where $w \in W$ maps to how it permutes the pair. $|S_3| = 6$. $\forall k \in \ker \phi$, $k$ fixes all the pairs and just permutes the elements within each pair. Thus $|\ker \phi| = 2^3 = 8$. Thus $|W| = 48$. 
+
+    $S_4$ is the subgroup of $S_6$ which corresponds to the rotational symmetries of the cube. It also acts on 6 things, the faces of a cube and preserves opposites. Thus there is a completely natural equivalence class on the faces of a cube where 2 faces are equivalent iff they are opposites. Thus the set of 6 faces gets split up into pairs. Thus $S_4 \subset W$. However $S_4$ also commutes with $-I \in Rig(R^3)$, an involution which swaps opposites. $[W : S_4] = 2$.
+
+
+    Thus subgroup $H$ of $W$ is the subgroup which commutes with the involution $i$ on the set $X$. H acts on S. $|H \cdot a| = 6$ because a can go to any element in the 6 set. $\forall f \in H^a$ since f must fix the pairs $f(b) = b$ so all f can do is permute $P_2$ and $P_3$ and/or swap elements within each pair thus $|H^a| = 4$. Thus $|H| = 24$ and $[W: H] = 2$ and $H \cong S_4$. Thus $Aut(Q_8) \cong S_4$
+
+    By the previous homework problem 3, we know the we know that the inclusions are conjugate.
+
+\end{solution}
+
+
+
+
+
+
+
+\end{document}

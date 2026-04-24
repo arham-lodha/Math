@@ -1,0 +1,202 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Conjugacy in $SL_2(F_3)$ II}
+\author{Arham Lodha}%put your name here
+\date{November 14, 2023}%enter the due date here
+\maketitle
+
+We continue aiming for $24 = 1 + 1 + 6 + 4 + 4 + 4 + 4$ and recall we have $S \to PS = A_4 \subset PG = S_4$ = permutation of the 4 one dim subspaces of PV, $V = F_3^2$. What are the possible characteristic polys for a matrix in S? $X^2 + 1$, $X^2 - 2 X + 1 = (X-1)^2$,$X^2 + 2X + 1 = (X + 1)^2$. (note 2 = -1 in $F_3$). 
+
+\begin{PROB}{10a}\label{Problem 1a.}
+    Show that a one dimensional subspace of V preserved by s is the same thing as a fixed point of the permutation q(s) in $PS = A_4$. 
+\end{PROB}
+\begin{proof}
+    Let $s \in S$ s.t s preserves a one dimensional subspace of V, $l$. Thus $l \subseteq V_\lambda(s)$. Then $q(s) = sZ$ preserves the eigenspace $V_\lambda(s)$. If $\dim V_\lambda(s) = 2$, then $s$ scales all vectors and thus $s \in Z$ and thus $q(s) = Z$ and the corresponding permutation is the identity and l is a fixed point in the permutation. If $\dim V_\lambda(s) = 1$, then $V_\lambda(s) = l$ and thus if $sZ$ preserves the eigenspace $sZ(l) = l$ thus l is fixed in the corresponding permutation. 
+\end{proof}
+\begin{PROB}{10b}\label{Problem 1b.}
+    Suppose s is not in the center (not I or -I). Show that $p(s)$ is a 3-cycle iff s has an eigenvalue (in $F_3$) which is iff its characteristic polynomial factors.
+\end{PROB}
+\begin{proof}
+    Suppose $s \not \in Z(S)$. 
+
+    $(\implies)$ Suppose s has a eigenvalue $\lambda$ in $F_3$, then $\lambda$ is a root of its characteristic polynomial thus its characteristic polynomial factors.
+
+    $(\impliedby)$ Suppose the characteristic polynomial of s factors. Thus there exists a root of the characteristic polynomial in $F_3 \implies s$ has a eigenvalue in $F_3$ by definition.
+
+    $(\implies)$ $p(s)$ is a 3 cycle. Then there is a 1 dimensional subspace which is a fixed point in $p(s)$. Thus $s$ preserves the one dimensional subspace thus the one dimensional subspace is in a eigenspace of s.
+
+    $(\impliedby)$ Suppose s has a eigenvalue, $\lambda$. Then $V_\lambda(S) \neq \emptyset$. Since $s \not \in Z(S)$. Then $\dim V_\lambda(S) = 1$ since $s \not \in F^*$. By the previous part we know that if s preserves a 1 dimensional subspace the subspace is a fixed point in $p(s)$. The only permutations in $A_4$ which have a fixed point are $I$ and any three cycle. Since $s \not \in Z$, $p(s) \neq Z = I$ so $p(s)$ must be a 3 cycle.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{11a}\label{Problem 11a.}
+    Show that if s and -s are conjugate, then Tr(s) = 0.
+\end{PROB}
+\begin{proof}
+    The trace of any two conjugate matrices are equal, because 2 conjugate matrices have the same eigenvalues.
+    $s \sim -s \implies Tr(s) = Tr(-s) = -Tr(s)$ because trace is linear. Thus $Tr(s) = 0$.
+\end{proof}
+
+\begin{PROB}{11b}\label{Problem 11b.}
+    SHow that if s and -s are conjugate, then p(s) has no fixed point, so has to be in the conjugacy class 3. 
+\end{PROB}
+\begin{proof}
+    If $s \sim -s \implies Tr(s) = 0$ (by problem 11a). $P_s(x) = x^2 + Tr(s) + \det(s) = x^2 + \det(s)$. The characteristic polynomial is not factorable. Thus s has no eigenvalue in $F^3$ thus there is no fixed point in $p(s)$. The conjugacy class of 3 corresponds to the conjugacy class of the (i j)(k l) which have no fixed points. All other non 1 conjugacy classes correspond to 3 cycles which have fixed points. Thus it has to be conjugacy class of 3. 
+\end{proof}
+
+\begin{PROB}{11c}\label{Problem 11c.}
+    Conclude, from the theory in the previous homework that the "inverse image of 1 + 3 + 4 + 4" gives 1 + 1 + 6 + 4 + 4 + 4 + 4.
+\end{PROB}
+\begin{proof}
+    The 1 corresponds to $I$ whose inverse image is $I$ and $-I$ which are both in the center. So it becomes 1 + 1. Since elements in the conjugacy class of $3$ elements are conjugate to their negatives, it doubles and turns into $3$ and $3$. The elements in the conjugacy class of 4 elements have characteristic polynomial of $(x - 1)^2$ or $(x + 1)^2$. For the first conjugacy class with the characteristic polynomial of $(x - 1)^2$ a representative matrix is $\begin{bmatrix}
+        1 & 1 \\ 0 & 1
+    \end{bmatrix}$. $A\begin{bmatrix}
+        1 & 1 \\ 0 & 1
+    \end{bmatrix} = \begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix}\begin{bmatrix}
+        1 & 1 \\ 0 & 1
+    \end{bmatrix} = \begin{bmatrix}
+        -1 & -1 \\ 0 & -1
+    \end{bmatrix}\begin{bmatrix}
+        a & b \\ c & d
+    \end{bmatrix} \implies \begin{bmatrix}
+        a & a + b \\ c & c + d
+    \end{bmatrix} = \begin{bmatrix}
+        -a - c & -b - d \\ -c & -d
+    \end{bmatrix}$ thus $c = -c$ and $c = 0$ and A is not invertible and thus a matrix is not conjugate to its negative. Thus the 4 breaks up. $-A$ corresponds to the other conjugacy class of 4 and since $A \not \sim -A$ both 4s break up. Thus $4 + 4 = 4 + 4 + 4 + 4$. Thus the inverse image of $1 + 3 + 4 + 4$ is $1 + 1 + 6 + 4 + 4 + 4 + 4$.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{12}\label{Problem 12.}
+    Now write down representatives for each of the 7 conjugacy classes
+\end{PROB}
+\begin{proof}
+    Representative of conjugacy class of 1: I.
+    
+    Representative of conjugacy class of 1: -I.
+
+    Representative of conjugacy class of 3: $\begin{bmatrix}
+        0 & -1 \\ 1 & 0
+    \end{bmatrix}$
+
+    Representative of conjugacy class of 4: $\begin{bmatrix}
+        1 & 1 \\ 0 & 1
+    \end{bmatrix}$
+
+    Representative of conjugacy class of 4: $\begin{bmatrix}
+        -1 & -1 \\ 0 & -1
+    \end{bmatrix}$
+
+    Representative of conjugacy class of 4: $\begin{bmatrix}
+        1 & -1 \\ 0 & 1
+    \end{bmatrix}$
+
+    Representative of conjugacy class of 4: $\begin{bmatrix}
+        -1 & 1 \\ 0 & -1
+    \end{bmatrix}$
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{13}\label{Problem 13.}
+    Here we did S = $SL_2.$ Do "the same thing" for G = $GL_2.$  E.g. consider the 3-cycles, which are an "8" in the class equation for $S_4$. Explain why, from what we already did (and our theory from the previous two homeworks) why necessarily the inverse image in G has to be 8 + 8. Also explain why the inverse image of the 4 = 2 + 2 conj class (product of two disjoint 2-cycles) has to be 6. and the inverse image of 1 has to be $1 + 1$.  How about 2-cycles? explain why p(g) is a 2-cycle for non-central s iff s is diagonalizable, with eigenvalues 1, -1.  Show that s and -s are conjugate, conclude the "6" in the class equation for $S_4$ has inverse image 12 in the class equation for G.  Finish the analysis. 
+\end{PROB}
+\begin{proof}
+    The class equation for $S_4$ is $1 + 3 + 6 + 6 + 8$.
+
+    In $G = GL_2(F_3)$ all the characteristic equations are:
+
+    \begin{enumerate}{}
+        \item $X^2 + 1$
+        \item $X^2 - 2 X + 1 = (X-1)^2$
+        \item $X^2 + 2X + 1 = (X + 1)^2$
+        \item $X^2 - 1 = (X - 1)(X + 1)$
+        \item $X^2 + 1 X - 1$
+        \item $X^2 - 1X - 1$
+    \end{enumerate}
+
+    For the conjugacy class of size 8. We know its entirely contained as a set in $A_4$ as the conjugacy class of 4 + 4. We know that $SL_2(F_3)$ is the preimage of $PSL_2(F_3)$ of the function $GL_2(F_3) \to PGL_2(F_3)$. We know that the preimage of the $4 + 4$ is $4 + 4 + 4 + 4$. The possibilities for the preimage conjugacy class of size 8 in $S_4$ are Conjugacy class of $16$ or conjugacy classes $8 + 8$. We know that in the map from $GL_2(F_3) \to SL_2(F_3)$ the classes need to break up into $4 + 4 + 4+ 4$, this is not possible if they are $16$ as if 16 breaks up it breaks up into 8 + 8 (past homework). So 8 + 8 is the only possibility of the preimage of the Conjugacy class of size 8.
+
+    The permutations with matrices with characteristic polynomial 4 are permutations with 2 fixed points so a single 2 cycle and they correspond to one of the 6s. So a matrix like $\begin{bmatrix}
+        1 & 0 \\ 0 & -1
+    \end{bmatrix}$, $\begin{bmatrix}
+        -1 & 0 \\ 0 & 1
+    \end{bmatrix}$ are Conjugate because they have the same eigenvalues. Thus the 6 doesn't split up and becomes 12.
+
+    Permutations in the other conjugacy classes of 6 elements correspond to the matrices with characteristic polynomials of 5 and 6, matrices with no eigenvalues and thus no fixed points and they are not in $A_4$. The matrices corresponding to 4 cycles. One such matrix is $\begin{bmatrix}
+        1 & 1 \\ 1 & 0
+    \end{bmatrix}$ which is not conjugate to its negative after checking. Thus 6 splits up to be 6 + 6. 
+
+    Since the conjugacy class of 3 stays together in $A_4$ it must also stay together in $S_4$, because we know its elements are conjugate to its negative in $SL_2(F_3)$.
+
+    Thus the class equation is 1 + 1 + 6 + 6 + 12 + 8 + 8.
+\end{proof}
+
+\end{document}

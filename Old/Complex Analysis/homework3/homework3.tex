@@ -1,0 +1,641 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand*{\lm}[1]{\lim_{#1 \to \infty}}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 3}
+\author{Arham Lodha}%put your name here
+\date{March 27, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+\end{PROB}
+\begin{proof}
+    Let $\gamma_R$, be a semicircle contour of radius $R$. 
+    
+    \begin{equation}
+        \lm{R} \int_{\gamma_R} \left(\frac{e^{iz}}{z^2 + a^2}\right) dz 
+        = \lm{R} \int_{0}^{2 \pi} \left(\frac{Ri e^{i \theta} e^{i Re^{i \theta}}}{R^2 e^{2i \theta} + a^2}\right) d \theta + \lm{R} \int_{-R}^{R} \frac{e^{ix}}{x^2 + a^2} dx.
+    \end{equation}
+
+    Focusing on the arc component of the contour, by the integral equality
+    \begin{align*}
+        \abs{\int_{0}^{2 \pi} \left(\frac{Ri e^{i \theta} e^{i Re^{i \theta}}}{R^2 e^{2i \theta} + a^2}\right) d \theta} 
+        &\leq \int_{0}^{2 \pi} \abs{\frac{Ri e^{i \theta} e^{i Re^{i \theta}}}{R^2 e^{2i \theta} + a^2}} d \theta \\
+        &= \int_{0}^{2 \pi} \frac{\abs{R}}{\abs{R^2e^{2 i \theta} + a^2}} \abs{e^{i Re^{i \theta}}} d \theta \\
+        &\leq \int_{0}^{2 \pi} \frac{\abs{R}}{\abs{R^2e^{2 i \theta}}} \abs{e^{i Re^{i \theta}}} d \theta \\
+        &= \int_{0}^{2 \pi} \frac{1}{\abs{R}}\abs{e^{iRe^{i \theta}}} d \theta = \int_{0}^{2 \pi}\frac{1}{\abs{R}}\abs{e^{-\sin(\theta)R} e^{i R \cos(\theta)}} d \theta\\
+        &= \int_{0}^{2 \pi} \abs{\frac{e^{-R \sin(\theta)}}{R}} d \theta
+    \end{align*}
+
+    Thus as $R \to \infty$, $e^{-R \sin(\theta)} \to 0$ and $\frac{1}{|R|} \to 0$. Thus $\int_{0}^{2 \pi} \abs{\frac{e^{-R \sin(\theta)}}{R}} d \theta \to 0$. Thus, 
+
+    \begin{equation}
+        \lm{R} \int_{0}^{2 \pi} \left(\frac{R i e^{i \theta} e^{i Re^{i \theta}}}{R^2 e^{2i \theta} + a^2}\right) d \theta = 0
+    \end{equation}. 
+
+    Thus, 
+
+    \begin{equation*}
+        \lm{R} \int_{\gamma_R} \left(\frac{e^{iz}}{z^2 + a^2}\right) dz 
+        = \lm{R} \int_{-R}^{R} \frac{e^{ix}}{x^2 + a^2} dx = \int_{-\infty}^{\infty} \frac{e^{ix}}{x^2 + a^2} dx.
+    \end{equation*}
+
+    $z^2 + a^2 = (z - ia)(z + ia)$, thus $\frac{e^{iz}}{z^2 + a^2}$ only has poles at $z = \pm ia$. Only $ia$ is inside the semicircle bounded by our contour. 
+    
+    \begin{align*}
+        (z - ia)\frac{e^{iz}}{z^2 + a^2} &= \frac{e^{iz}}{z + ia}
+    \end{align*}
+
+    $\frac{e^{iz}}{z + ia}$ is holomorphic on the domain bounded by the contour since $e^{iz}$ is holomorphic and $z + ia$ is holomorphic and nonzero. Thus $z = ia$ is a simple pole. 
+    
+    
+    Thus by residue theorem and since $z = ia$ is the only pole in the domain bounded by the contour, 
+
+    \begin{align*}
+        \lm{R} \oint_{\gamma_R} \left(\frac{e^{iz}}{z^2 + a^2}\right) dz 
+        &= 2 \pi i \lim_{z \to ia} (z - ia) \frac{e^{iz}}{z^2 + a^2} \\
+        &= 2 \pi i \lim_{z \to ia} \frac{e^{iz}}{z + ia} \\
+        &= \frac{2 \pi i e^{-a}}{2ia} \\
+        &= \frac{\pi e^{-a}}{a}
+    \end{align*}
+
+    Thus by 2, 
+
+    \begin{align*}
+        \int_{-\infty}^{\infty} \frac{x e^{ix}}{x^2 + a^2} dx &= \frac{i\pi a e^{-a}}{a} \\
+        &= \frac{\pi e^{-a}}{a}.
+    \end{align*}
+
+    Since, 
+
+    \begin{align*}
+        \int_{-\infty}^{\infty} \frac{x \sin(x)}{x^2 + a^2} dx &= \Im{\left(\int_{-\infty}^{\infty} \frac{x e^{ix}}{x^2 + a^2}dx\right)} \\
+        &= \Im{(i\pi e^{-a})} = \frac{\pi e^{-a}}{a}
+    \end{align*}
+
+    Thus, 
+
+    \begin{equation*}
+        \int_{-\infty}^{\infty} \frac{x \sin(x)}{x^2 + a^2} dx = \pi e^{-a}
+    \end{equation*}
+\end{proof}
+
+\bigskip
+\begin{PROB}{2}\label{Problem 2.}
+    
+\end{PROB}
+\begin{proof}
+    Let $\gamma_R$, be a semicircle contour of radius $R$. 
+    
+    \begin{equation}
+        \lm{R} \int_{\gamma_R} \left(\frac{ze^{iz}}{z^2 + a^2}\right) dz 
+        = \lm{R} \int_{0}^{2 \pi} \left(\frac{R^{2}i e^{2 i \theta} e^{i Re^{i \theta}}}{R^2 e^{2i \theta} + a^2}\right) d \theta + \lm{R} \int_{-R}^{R} \frac{x e^{ix}}{x^2 + a^2} dx.
+    \end{equation}
+
+    Focusing on the arc component of the contour, by the integral equality
+    \begin{align*}
+        \abs{\int_{0}^{2 \pi} \left(\frac{R^{2}i e^{2i \theta} e^{i Re^{i \theta}}}{R^2 e^{2i \theta} + a^2}\right) d \theta} 
+        &\leq \int_{0}^{2 \pi} \abs{\frac{R^{2}i e^{2i \theta} e^{i Re^{i \theta}}}{R^2 e^{2i \theta} + a^2}} d \theta \\
+        &= \int_{0}^{2 \pi} \frac{\abs{R^2}}{\abs{R^2e^{2 i \theta} + a^2}} \abs{e^{i Re^{i \theta}}} d \theta \\
+        &\leq \int_{0}^{2 \pi} \frac{\abs{R^2}}{\abs{R^2e^{2 i \theta}}} \abs{e^{i Re^{i \theta}}} d \theta \\
+        &= \int_{0}^{2 \pi} \abs{e^{iRe^{i \theta}}} d \theta = \int_{0}^{2 \pi}\abs{e^{-\sin(\theta)R} e^{i R \cos(\theta)}} d \theta\\
+        &= \int_{0}^{2 \pi} \abs{e^{-R \sin(\theta)}} d \theta
+    \end{align*}
+
+    Thus as $R \to \infty$, $e^{-R \sin(\theta)} \to 0$. Thus $\int_{0}^{2 \pi} \abs{e^{-R \sin(\theta)}} d \theta \to 0$, meaning:  
+
+    \begin{equation}
+        \lm{R} \int_{0}^{2 \pi} \left(\frac{R^{2}i e^{2i \theta} e^{i Re^{i \theta}}}{R^2 e^{2i \theta} + a^2}\right) d \theta = 0
+    \end{equation}. 
+
+    Thus, 
+
+    \begin{equation}
+        \lm{R} \int_{\gamma_R} \left(\frac{ze^{iz}}{z^2 + a^2}\right) dz 
+        = \lm{R} \int_{-R}^{R} \frac{x e^{ix}}{x^2 + a^2} dx = \int_{-\infty}^{\infty} \frac{x e^{ix}}{x^2 + a^2} dx.
+    \end{equation}
+
+    $z^2 + a^2 = (z - ia)(z + ia)$, thus $\frac{ze^{iz}}{z^2 + a^2}$ only has poles at $z = \pm ia$. Only $ia$ is inside the semicircle bounded by our contour. 
+    
+    \begin{align*}
+        (z - ia)\frac{ze^{iz}}{z^2 + a^2} &= \frac{ze^{iz}}{z + ia}
+    \end{align*}
+
+    $\frac{ze^{iz}}{z + ia}$ is holomorphic on the domain bounded by the contour since $ze^{iz}$ is holomorphic and $z + ia$ is holomorphic and nonzero. Thus $z = ia$ is a simple pole. 
+    
+    
+    Thus by residue theorem and since $z = ia$ is the only pole in the domain bounded by the contour, 
+
+    \begin{align*}
+        \lm{R} \oint_{\gamma_R} \left(\frac{ze^{iz}}{z^2 + a^2}\right) dz 
+        &= 2 \pi i \lim_{z \to ia} (z - ia) \frac{z e^{iz}}{z^2 + a^2} \\
+        &= 2 \pi i \lim_{z \to ia} \frac{z e^{iz}}{z + ia} \\
+        &= \frac{-2 \pi a e^{-a}}{2ia} \\
+        &= \frac{i\pi a e^{-a}}{a}
+    \end{align*}
+
+    Thus by 5, 
+
+    \begin{align*}
+        \int_{-\infty}^{\infty} \frac{x e^{ix}}{x^2 + a^2} dx &= \frac{i\pi a e^{-a}}{a} \\
+        &= i \pi e^{-a}.
+    \end{align*}
+
+    Since, 
+
+    \begin{align*}
+        \int_{-\infty}^{\infty} \frac{x \sin(x)}{x^2 + a^2} dx &= \Im{\left(\int_{-\infty}^{\infty} \frac{x e^{ix}}{x^2 + a^2}dx\right)} \\
+        &= \Im{(i\pi e^{-a})} = \pi e^{-a}
+    \end{align*}
+
+    Thus, 
+
+    \begin{equation}
+        \int_{-\infty}^{\infty} \frac{x \sin(x)}{x^2 + a^2} dx = \pi e^{-a}
+    \end{equation}
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{8}\label{Problem 8.}
+\end{PROB}
+\begin{proof}
+    Let $\gamma$ be contour along the unit circle. Let $\alpha = \frac{b}{a}$. Let $\mathbb{D} := \left\{ z \in \Z | |z| < 1 \right\}$. 
+    
+    Let $\lambda_+ := \frac{-1 + \sqrt{1 - \alpha^2}}{\alpha}$ and let $\lambda_- = \frac{-1 - \sqrt{1 - \alpha^2}}{\alpha}$.
+
+    Since $a > |b| \implies |\alpha| < 1 \implies \abs{\frac{1}{\alpha}} > 1$.
+    
+    
+    \begin{align*}
+        \lambda_- \lambda+ &= \left(\frac{-1 + \sqrt{1 - \alpha^2}}{\alpha}\right)\left(\frac{-1 - \sqrt{1 - \alpha^2}}{\alpha}\right) \\
+        &= \frac{1 - (1 - a^2)}{\alpha} = \alpha
+    \end{align*}
+
+    \begin{enumerate}
+        \item \textbf{If $b < 0$:} Thus $\alpha < 0$ and $\frac{1}{\alpha} < 0$. Thus $\frac{1}{\alpha} < -1 < 0 \implies -\frac{1}{\alpha} > 1$. Since $\sqrt{1 - \alpha^2} > 0 \implies -\frac{\sqrt{1 - \alpha^2}}{\alpha} > 0$. Thus, since $-\frac{\sqrt{1 - \alpha^2}}{\alpha} < 0 $,  $\lambda_- = \frac{-1}{\alpha} -\frac{\sqrt{1 - \alpha^2}}{\alpha} > 1 $. Thus $\lambda_- \not \in \mathbb{D}$. 
+        \item \textbf{If $b > 0$:} Thus $\alpha > 0$ and $\frac{1}{\alpha} > 0$. Thus $\frac{1}{\alpha} > 1 \implies -\frac{1}{\alpha} < 0$.Since $\sqrt{1 - \alpha^2} > 0 \implies = -\frac{\sqrt{1 - \alpha^2}}{\alpha} < 0$. Thus, since $-\frac{\sqrt{1 - \alpha^2}}{\alpha} < 0 $,  $\lambda_- = -\frac{1}{\alpha} - \frac{\sqrt{1 - \alpha^2}}{\alpha} < -\frac{1}{\alpha} < -1 $. Thus $\lambda_- \not \in \mathbb{D}$.
+    \end{enumerate}
+
+    But since $\lambda_- \lambda_+ = \alpha$, and $\abs{\alpha} < 1$ and $\abs{\lambda_-} > 1$, $\abs{\lambda_+} < \alpha < 1$. Thus $\lambda_+ \in \mathbb{D}$
+        
+    Since the zeros of $\alpha z^2 + 2z + a$ are $\lambda_+$ and $\lambda_-$, $\frac{1}{\alpha z^2 + 2 z + \alpha}$ has no other poles other than $\lambda_+$ and $\lambda_-$       
+    
+    \begin{align*}
+        (z - \lambda_+) \frac{1}{\alpha z^2 + 2 z + \alpha} &= (z - \lambda_+) \frac{1}{\alpha (z - \lambda_+)(z - \lambda_{-})} \\
+        &= \frac{1}{z - \lambda_-}
+    \end{align*}
+
+    and $\frac{1}{z - \lambda_-}$ is holomorphic on the unit disk. Thus $z = \lambda_+$ is simple pole of $\frac{1}{\alpha z^2 + 2 z + \alpha}$. 
+    
+    
+    Thus by the residue theorem, 
+
+    \begin{align*}
+        \oint_{\gamma} \frac{1}{\alpha z^2 + 2 z + \alpha} dz &= 2 \pi i \text{res}_{\lambda_{+}}\left(\frac{1}{\alpha z^2 + 2z + \alpha}\right) \\
+        &= 2 \pi i \lim_{z \to \lambda_+} \frac{(z - \lambda_+)}{\alpha (z - \lambda_+)(z - \lambda_-)} \\
+        &= \frac{2 \pi i}{\alpha(\lambda_+ - \lambda_-)} \\
+        &= \frac{2 \pi i}{2\sqrt{1 - \alpha^2}} \\
+        &= \frac{\pi i}{\sqrt{1 - \alpha^2}} 
+    \end{align*}
+
+    \begin{align*}
+        \int_{0}^{2 \pi} \frac{d \theta}{a + b \cos \theta} 
+        &= \frac{1}{a} \int_{0}^{2 \pi} \frac{d \theta}{1 + \alpha \cos \theta} \\
+        &= \frac{1}{a} \int_{0}^{2 \pi} \frac{d \theta}{1 + \frac{\alpha e^{i \theta} + \alpha e^{-i \theta}}{2}} \\
+        &= \frac{2}{a} \int_{0}^{2 \pi} \frac{d \theta}{2 + \alpha e^{i \theta} + \alpha e^{-i \theta}} \\
+        &= \frac{2}{a} \int_{0}^{2 \pi} \frac{d \theta}{2 + \alpha e^{i \theta} + \frac{\alpha}{e^{i \theta}}}\\
+        &= \frac{2}{a} \oint_{\gamma} \frac{1}{zi(2 + \alpha z + \frac{\alpha}{z})} dz \\
+        &= \frac{2}{ai} \oint_{\gamma} \frac{1}{\alpha z^2 + 2 z + \alpha} dz \\
+        &= \frac{2}{ai} \left(\frac{\pi i}{\sqrt{1 - \alpha^2}}\right) \\
+        &= \frac{2 \pi}{a \sqrt{1 - \frac{b^2}{a^2}}} \\ 
+        &= \frac{2 \pi b}{\sqrt{a^2 - b^2}}
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{9}\label{Problem 9.}
+\end{PROB}
+\begin{proof}
+    Let $\gamma_R$ be the rectange contour with corners at $0$, $1$, $1 + Ri$, and $Ri$.
+    
+    Slit the plane on $(\infty, 0]$ and define the domain of the complex logarithm as $\C - (-\infty , 0]$ .
+    
+    Let $z = a + bi$. By the sum and difference identities of sine and cosine and definition of hyperbolic trigonometric functions, 
+    \begin{align*}
+        \sin(\pi z) 
+        &= \sin(\pi a + \pi b i) \\
+        &=  \sin(\pi a)\cos(\pi b i) + \cos(\pi a) \sin(\pi b i) \\
+        &= \sin(\pi a)\cosh(\pi b) + i \cos(\pi a) \sinh(\pi b)
+    \end{align*} 
+
+    By Cauchy's Theorem, 
+
+    \begin{align}
+        \lim_{R \to \infty} \oint_{\gamma} \log(\sin(\pi z)) dz &= 0
+    \end{align} 
+
+    However, the contour integral also equals 
+
+    \begin{align*}
+        \lm{R} \oint_{\gamma} \log(\sin(\pi z)) dz &= \int_{0}^1 \log(\sin(\pi x)) dx \\
+        &+ \lm{R} i\int_{0}^R \log(\sin(\pi(1 + iy))) dy\\ 
+        &+ \lm{R} \int_{1}^0 \log(\sin(\pi (x + iR))) dx \\
+        &+ \lm{R} i\int_{R}^0 \log(\sin(i\pi y)) dy
+    \end{align*}
+
+    Doing the vertical components: 
+
+    \begin{align*}
+        \lm{R} i\left[\int_{0}^R \log(\sin(\pi(1 + iy))) dy + \int_{R}^0 \log(\sin(i\pi y)) dy\right] 
+        &= \lm{R} \left[i\int_{0}^R \log(\sin(\pi(1 + iy))) dy + i \int_{R}^0 \log(\sin(i\pi y)) dy\right] \\
+        &= \lm{R} \left[i\int_{0}^R \log(-i \sinh(y \pi) ) dy + i\int_{R}^0 \log(i\sinh(\pi y)) dy\right] \\
+        &= \lm{R} i\int_{0}^R \left(\log(\sinh(y \pi)) - \frac{\pi}{2}i\right) dy \\
+        &- \lm{R} i\int_{0}^R \left(\log(\sinh(\pi y))+ \frac{\pi}{2}i\right) dy \\
+        &= \lm{R} \int_{0}^R \left(\frac{\pi}{2} + \frac{\pi}{2}\right) dy \\
+        &= \lm{R} \pi R
+    \end{align*}
+
+    Doing the top horizontal component:
+
+    \begin{align*}
+        \lm{R} \int_{1}^0 \log(\sin(\pi (x + iR))) dx &= - \lm{R} \int_{0}^1 \log(\sin(\pi x) \cosh(R \pi) + i\cos(\pi x)\sinh(R \pi)) dx \\
+        &= - \lm{R} \int_{0}^1 \log\left[
+            \sin(\pi x) \left(\frac{e^{R \pi} + e^{-R \pi}}{2}\right)
+            + i \cos(\pi x) \left(\frac{e^{R \pi} - e^{-R \pi}}{2}\right)
+        \right] dx \\
+        \text{(For large R)}
+        &= - \lm{R} \int_{0}^1 \log\left[
+            \sin(\pi x) \left(\frac{e^{R \pi}}{2}\right)
+            + i \cos(\pi x) \left(\frac{e^{R \pi}}{2}\right) \right] dx \\
+        &= - \lm{R} \int_{0}^1 \log\left[\frac{e^{R \pi}}{2} \left(\sin(\pi x) 
+        + i \cos(\pi x)\right)\right] dx \\
+        &= - \lm{R} \int_{0}^1 \log\left [\frac{e^{R \pi}}{2} e^{i \pi (\frac{1}{2} - x)}\right] dx \\
+        &= - \lm{R} \int_{0}^1 \left(\log{\frac{e^{R \pi}}{2}} + \frac{\pi}{2} - \pi x\right) dx \\
+        &= - \lm{R} \int_{0}^1 \left(R \pi - \log(2) + \frac{\pi}{2} - \pi x\right) dx \\
+        &= - \lm{R} \left(R \pi - \log(2) + \frac{\pi}{2} - \frac{\pi}{2}\right) \\
+        &= - \lm{R} \left(R \pi - \log(2)\right)
+    \end{align*}. 
+
+    Thus, 
+
+    \begin{align*}
+        0 &= \lim_{R \to \infty} \oint_{\gamma} \log(\sin(\pi z)) dz \\
+        &= \int_{0}^1 \log(\sin(\pi x)) dx \\
+        & + \lm{R} \left[\int_{0}^R \log(\sin(\pi(1 + iy))) dy + \int_{R}^0 \log(\sin(i\pi y)) dy\right]\\ 
+        &+ \lm{R} \int_{1}^0 \log(\sin(\pi (x + iR))) dx\\
+        &=\lm{R} \int_{0}^1 \log(\sin(\pi x)) dx + \lm{R} \left(R \pi - R \pi + \log(2)\right) \\
+        0 &= \lm{R} \int_{0}^1 \log(\sin(\pi x)) dx + \log(2)
+    \end{align*}
+
+    Thus, 
+
+    \begin{equation*}
+        \int_{0}^1 \log(\sin(\pi x)) dx = -\log(2)
+    \end{equation*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{10}\label{Problem 10.}
+\end{PROB}
+\begin{proof}
+    Let $\gamma_{R, \epsilon}$ be the semicircle cutout contour with a radius of $R$ and a inner radius of $\epsilon$. Slit the plane on $\left\{ i(- \infty, 0] \right\}$ and define $\C - \left\{i(\infty, 0] \right\}$ as the domain of the complex logarithm.         
+
+    Let
+    \begin{equation*}
+        f(x) = \frac{\log(x)}{x^2 + a^2} = \frac{\log(x)}{(x - ia)(x + ia)} = \frac{1}{x - ia} \left(\frac{\log(x)}{x - ia}\right)
+    \end{equation*}
+    
+
+    By Cauchy's formula, 
+    \begin{equation*}
+        \lm{R} \lim_{\epsilon \to 0} \oint_{\gamma_{R, \epsilon}} f(x) dx = \lm{R} \lim_{\epsilon \to 0} \oint_{\gamma_{R, \epsilon}}\frac{1}{x - ia} \left(\frac{\log(x)}{x + ia}\right)dx = \lm{R} \lim_{\epsilon \to 0}  2\pi i \left(\frac{\log(ia)}{ia + ia}\right) = \frac{\pi}{a}\left[\log(a) + \frac{\pi}{2}i\right]
+    \end{equation*}.
+
+
+    However the contour integral is also equal to, 
+
+    \begin{equation}
+        \oint_{\gamma_{R, \epsilon}} f(x) dx = \int_{\epsilon}^{R} f(x) dx + \int_{0}^{\pi} f(Re^{i \theta}) iRe^{i \theta} d \theta + \int_{-R}^{-\epsilon} f(x) dx + \int_{\pi}^{0} f(\epsilon e^{i \theta}) i \epsilon e^{i \theta} d \theta
+    \end{equation}
+
+
+    By taking the portions on the real axis, 
+
+    \begin{align}
+        \lim_{R \to \infty, \epsilon \to 0} \left[
+            \int_{\epsilon}^{R} f(x) dx + \int_{-R}^{-\epsilon} f(x) dx
+        \right] 
+        &= \lim_{R \to \infty, \epsilon \to 0} \left[\int_{\epsilon}^{R} \frac{\log(x)}{x^2 + a^2} dx + \int_{-R}^{-\epsilon} \frac{\log(-x) + i \pi}{x^2 + a^2} dx \right]\\
+        &= \lim_{R \to \infty, \epsilon \to 0} \left[\int_{\epsilon}^{R} \frac{\log(x)}{x^2 + a^2} dx - \int_{R}^{\epsilon} \frac{\log(u) + i \pi}{u^2 + a^2} du \right]\\
+        &= \lim_{R \to \infty, \epsilon \to 0} \left[\int_{\epsilon}^{R} f(x) dx + \int_{\epsilon}^{R} f(x) + i \pi \int_{\epsilon}^{R} \frac{1}{x^2 + a^2} dx\right] \\
+        &= 2 \lim_{R \to \infty, \epsilon \to 0} \left[\int_{\epsilon}^{R} f(x) dx + \frac{i \pi}{a} \left[\arctan\left(\frac{x}{a}\right)\right]^{R}_{\epsilon}\right] \\
+        &= 2 \lim_{R \to \infty, \epsilon \to 0} \left[\int_{\epsilon}^{R} f(x) dx + \frac{i \pi}{a} (\arctan(R) + \arctan(\epsilon))\right] \\
+        &= 2 \lim_{R \to \infty, \epsilon \to 0} \left[\int_{\epsilon}^{R} f(x) dx\right] + \frac{i \pi^2}{2a}.
+    \end{align} 
+
+    Line 14 is valid because as $R \to \infty$, $\arctan(R) \to \frac{\pi}{2}$ and as $\epsilon \to 0$, $\arctan(\epsilon) \to 0$.       
+
+
+    By taking the curve on the a semicircle with radius $R$ , 
+
+    \begin{align*}
+        \lm{R} \int_{0}^{\pi} f(Re^{i \theta}) iRe^{i \theta} d \theta &= i \lm{R}\int_{0}^{\pi} \frac{R e^{i \theta}\log(Re^{i \theta})}{R^2 e^{2i \theta} + a^2} d \theta \\
+        &= i \lm{R} \int_{0}^{\pi} \frac{(e^{i \theta}\log(R) + ie^{i \theta}\theta)}{R e^{2 i \theta} + \frac{a^2}{R}} d \theta
+    \end{align*}
+
+
+    As $R \to \infty$, $R$ grows faster than $\log(R)$ thus R dominates meaning the denominator dominates, and $\frac{(e^{i \theta}\log(R) + ie^{i \theta}\theta)}{R e^{2 i \theta} + \frac{a^2}{R}} \to 0$  
+    
+    Thus:
+
+    \begin{equation}
+        \lm{R} \int_{0}^{\pi} f(Re^{i \theta}) iRe^{i \theta} d \theta = 0
+    \end{equation}
+
+    \begin{align*}
+        - \lim_{\epsilon \to 0} \int_{0}^{\pi} f(\epsilon e^{i \theta}) i \epsilon e^{i \theta} d \theta &= - i \lim_{\epsilon \to 0} \int_{0}^{\pi} \frac{\epsilon e^{i \theta}\log( \epsilon e^{i \theta})}{\epsilon^2 e^{2i \theta} + a^2} d \theta \\
+        &= i \lim_{\epsilon \to 0} \int_{0}^{\pi} \frac{(e^{i \theta}\log(\epsilon) + i e^{i \theta}\theta)}{\epsilon e^{2 i \theta} + \frac{a^2}{\epsilon}} d \theta
+    \end{align*}
+
+    As $\epsilon \to 0$, $a^2 / \epsilon \to \infty$ faster than $\log(\epsilon) \to - \infty$, thus $\frac{a^2}{\epsilon}$ dominates and the denominator goes to infinity faster than the numerator goes to $-\infty$, thus $\frac{(e^{i \theta}\log(\epsilon) + i e^{i \theta}\theta)}{\epsilon e^{2 i \theta} + \frac{a^2}{\epsilon}} \to 0$. Thus, 
+    
+    
+    Thus,
+
+    \begin{equation}
+        - \lim_{\epsilon \to 0}  \int_{0}^{\pi} f(\epsilon e^{i \theta}) i \epsilon e^{i \theta} d \theta = 0
+    \end{equation}
+    
+    Substitute 14, 15, and 16 into 8 and use the result from Cauchy's Formula. 
+
+    Thus,
+    
+    \begin{align*}
+        2 \int_{0}^{\infty} f(x) dx + \frac{i \pi^2}{2a} &= \frac{\pi}{a}\left[\log(a) + \frac{\pi}{2}i\right] \\
+        \int_{0}^{\infty} f(x) dx&= \frac{\pi \log(a)}{2a}
+    \end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{11a}\label{Problem 11a.}
+\end{PROB}
+\begin{proof}
+
+    Let $\mathbb{D} := \left\{ z \in \C | |z| < 1 \right\}$. Slit the plane on $(\infty, 0]$ and define the domain of the complex logarithm as $\C - (-\infty , 0]$ .  
+
+    Let $\gamma$ be the contour along the unit circle.  
+
+    Assume the contrary $\exists z \in \mathbb{D} \ni 1 - az \leq 0$, which means $az \geq 1 \implies \abs{az} \geq 1$. Since $\abs{z} < 1$, this means, $\abs{a} \geq 1$ which is a contradiction. Thus $\forall z \in \mathbb{D} \ni 1 - az > 0 \implies \log(1- az)$ has no poles on the unit disk and thus is holomorphic on the domain. 
+    
+    $z = 0$, is a simple pole of $\frac{\log(1 - az)}{z}$ since $z\frac{\log(1 - az)}{z} = \log(1 - az)$ which is holomorphic on the domain. 
+    
+    By the Residue theorem, 
+
+    \begin{equation*}
+        \oint_\gamma \frac{\log(1 - a z)}{z} dz = 2 \pi i \lim_{z \to 0} \frac{z \log(1 - az)}{z} = 2 \pi i \lim_{z \to 0} \log(1 - az) = 0
+    \end{equation*}
+
+    Thus, 
+
+    \begin{align*}
+        \int_{0}^{2 \pi} \log \abs{1 - a e^{i \theta}} d \theta = \frac{1}{i}\oint_\gamma \frac{\log(1 - a z)}{z} dz = 0
+    \end{align*}
+\end{proof}
+\begin{PROB}{11b}\label{Problem 11b.} 
+\end{PROB}
+\begin{proof}
+    Suppose $|a| = 1$ thus $a = e^{i \varphi}$. 
+
+    Let $\mathbb{D} := \left\{ z \in \C | |z| < 1 \right\}$. Slit the plane on $(\infty, 0]$ and define the domain of the complex logarithm as $\C - (-\infty , 0]$.    
+
+    Let $\gamma$ be the contour along the unit circle. We are allowed to integrate through $z = 1$, because $z = 1$ is a logarithmic singularity.  
+
+    Assume the contrary $\exists z \in \mathbb{D} \ni 1 - z \leq 0$, which means $z \geq 1 \implies \abs{z} \geq 1$ which is a contradiction. Thus $\log(1 - z)$ is holomorphic on $\mathbb{D}$.
+    
+    
+    $z = 0$, is a simple pole of $\frac{\log(1 - z)}{z}$ since $z\frac{\log(1 - z)}{z} = \log(1 - z)$ which is holomorphic on the domain. 
+    
+    By the Residue theorem, 
+
+    \begin{equation*}
+        \oint_\gamma \frac{\log(1 - z)}{z} dz = 2 \pi i \lim_{z \to 0} \frac{z \log(1 - z)}{z} = 2 \pi i \lim_{z \to 0} \log(1 - z) = 0
+    \end{equation*}
+
+    Thus, 
+    
+    \begin{align*}
+        \int_{0}^{2 \pi} \log \abs{1 - a e^{i \theta}} d \theta
+        &= \int_{0}^{2 \pi} \log \abs{1 - e^{i \varphi} e^{i \theta}} d \theta \\
+        &=\int_{0}^{2 \pi} \log \abs{1 - e^{i(\theta + \varphi)}} d \theta \\
+        &= \int_{\varphi}^{2 \pi + \varphi} \log \abs{1 - e^{ix}} d x \text{ (By substitution $x = \theta + \varphi$)} \\
+        &= \int_{\varphi}^{2 \pi} \log \abs{1 - e^{ix}} d x  + \int_{2\pi}^{2 \pi + \varphi} \log \abs{1 - e^{ix}} d x \\
+        &= \int_{\varphi}^{2 \pi} \log \abs{1 - e^{ix}} d x  + \int_{0}^{\varphi} \log \abs{1 - e^{ix}} d x \text{ (since $e^{ix}$ is periodic with period of $2 \pi$ )} \\
+        &= \int_{0}^{2 \pi} \log \abs{1 - e^{ix}} d x \\
+        &= \frac{1}{z} \oint_\gamma \frac{\log(1 - z)}{z} dz = 0
+    \end{align*} 
+\end{proof}
+
+\bigskip
+
+
+\begin{PROB}{12}\label{Problem 12.}
+\end{PROB}
+\begin{proof}
+    Suppose $u \not \in \Z$. 
+    
+    $\forall z \in \C \ni \sin(\pi z) = 0$. Let $z = a + bi$. Thus, 
+    
+    \begin{align*}
+        0 &= \sin(\pi z)\\ &= \frac{e^{iz} - e^{-iz}}{2i} \\
+        \implies 0 &= e^{i \pi z} - e^{-i \pi z} \\
+        &= e^{a \pi i}e^{-\pi b} - e^{-a \pi i}e^{\pi b} \\
+        \implies e^{a \pi i}e^{- \pi b} &= e^{-a \pi i}e^{\pi b} \implies
+        -\pi b \pm a \pi i = \pi b \pm a \pi i \implies b = 0 \\
+        e^{a \pi i} &= e^{-a \pi i} \\
+        e^{2 a \pi i} &= 1 \\
+        \implies \exists n \in \Z \ni 2\pi n &= 2a \pi \implies a \in \Z
+    \end{align*}
+
+    Thus $\forall n \in \Z$, $n$ is zero of $\sin(\pi z)$ and thus a pole of $\cos( \pi z) / \sin(\pi z).$
+
+    To find out if $n$ is a simple root of $\cot$, expand $\cos(\pi z)$ and $\sin(\pi z)$ around $z = n$.      
+
+    \begin{align*}
+        (z - n)\frac{\cos(\pi z)}{\sin(\pi z)} &= \frac{(z - n) \left[(-1)^{n - 1} + \frac{\pi^2}{2}(x - n)^2 - \frac{1}{4} \frac{\pi^4}{4!}(x - n)^4 + ... \right]}{(z - n) - \frac{\pi^3}{3!}(z-n)^3 + \frac{\pi^5}{5!}(z - n)^5 + \dots} \\
+        &= \frac{(z - n) \left[(-1)^{n - 1} + \frac{\pi^2}{2}(x - n)^2 - \frac{1}{4} \frac{\pi^4}{4!}(x - n)^4 + ... \right]}{(z-n)[1 - \frac{\pi^3}{3!}(z-n)^2 + \frac{\pi^5}{5!}(z - n)^4 + \dots]} \\
+        &= \frac{\left[(-1)^{n - 1} + \frac{\pi^2}{2}(x - n)^2 - \frac{1}{4} \frac{\pi^4}{4!}(x - n)^4 + ... \right]}{[1 - \frac{\pi^3}{3!}(z-n)^2 + \frac{\pi^5}{5!}(z - n)^4 + \dots]}
+    \end{align*}
+
+
+    $\frac{\left[(-1)^{n - 1} + \frac{\pi^2}{2}(x - n)^2 - \frac{1}{4} \frac{\pi^4}{4!}(x - n)^4 + ... \right]}{[1 - \frac{\pi^3}{3!}(z-n)^2 + \frac{\pi^5}{5!}(z - n)^4 + \dots]}$ is holomorphic thus, $n$ is a simple pole. 
+    
+    Let $f(x) = \frac{\cot(\pi x)}{(x + u)^2}$.
+    
+    $z = -u$ is a order two pole of $f$. Thus $f$ has poles at $-u$ and every integer.
+    
+    
+    $\forall N \in \N \ni N > |u|$, let $\gamma_N$ be the contour which is a circle centered at the $0$ with radius $N + \frac{1}{2}$.    
+    
+
+    $\forall n \in \Z$, 
+
+    \begin{align*}
+        \text{res}_{n}(f) &= \lim_{z \to n} (z - n) \frac{\cot(\pi z)}{(z + u)^2} \\
+        &= \lim_{z \to n} \frac{\cos(\pi z) (z - n)}{(z + u)^2 \sin(\pi z)} \\
+        &= \lim_{z \to n} \frac{\cos(\pi z) - (z - n) \sin(\pi z)}{2(z + u) \sin(\pi z) + (z + u)^2 \cos(\pi z)} \\
+        &= \frac{1}{z + u}
+    \end{align*}
+
+    Similarly,
+
+    \begin{align*}
+        \text{res}_{-u}(f) &= \lim_{z \to -u} \frac{d}{dz}(z + u)^2 \frac{\cot(\pi z)}{(z + u)^2} \\
+        &= \lim_{z \to u} \frac{d}{dz} \cot(\pi z) \\
+        &= - \pi \lim_{z \to u} \csc^2(\pi z) \\
+        &= -\pi \csc^2(\pi (-u)) =  -\pi \csc^2(\pi u)
+    \end{align*}
+
+    Thus by the residue formula, $\forall N \in \N \ni N \geq |u|$  
+
+    \begin{align*}
+        \oint_{\gamma_N} f(z) dz &= 2 \pi i \left[\sum_{n = -N}^{N} \text{res}_{n}(f) + \text{res}_{-u}(f)\right] \\
+        &= 2 \pi i \left[\sum_{n = -N}^{N} \frac{1}{(n + u)^2} -\pi \csc^2(\pi u)\right]
+    \end{align*}
+
+
+    \begin{align*}
+        \lim_{N \to \infty} \oint_\gamma \frac{\pi\cot(\pi z)}{(z + u)^2} dz &= \lim_{N \to \infty}  \pi \int_{0}^{2 \pi} \frac{(N + \frac{1}{2})e^{i \theta} \cot(\pi (N + \frac{1}{2})e^{i \theta})}{((N + \frac{1}{2})e^{i \theta}) + u)^2} dz \\
+        &= 
+    \end{align*}
+
+    Let $M = N + \frac{1}{2}$ 
+
+    \begin{align*}
+        \cot\left(\pi Me^{i \theta}\right) &= i \frac{e^{\pi i M e^{i \theta}} + e^{- \pi i M e^{i \theta}}}{e^{\pi i M e^{i \theta}} - e^{- \pi i M e^{i \theta}}} \\
+        &= i \frac{e^{\pi M i \cos(\theta)} e^{- \pi M \sin(\theta)} + e^{-\pi Mi \cos(\theta)} e^{\pi M \sin(\theta)}}{e^{\pi M i \cos(\theta)} e^{- \pi M \sin(\theta)} - e^{-\pi Mi \cos(\theta)} e^{\pi M \sin(\theta)}}
+    \end{align*} 
+
+
+    As $N \to \infty$ sequentially (ie takes integer values),
+    
+    If $\theta \in (0, \pi)$ 
+    
+    \begin{align*}
+        \cot\left(\pi Me^{i \theta}\right) &\approx i \frac{e^{-\pi Mi \cos(\theta)} e^{\pi M \sin(\theta)}}{-e^{-\pi Mi \cos(\theta)} e^{\pi M \sin(\theta)}}
+    \end{align*}
+
+    Thus $\abs{\cot\left(\pi Me^{i \theta}\right)} \approx 1$ if $\theta \in (\pi, 2 \pi)$   
+
+    If $\theta \in (\pi, 2 \pi)$:
+
+    \begin{align*}
+        \cot\left(\pi Me^{i \theta}\right) &\approx i \frac{e^{\pi Mi \cos(\theta)} e^{-\pi M \sin(\theta)}}{e^{\pi Mi \cos(\theta)} e^{-\pi M \sin(\theta)}}
+    \end{align*}
+
+    Thus $\abs{\cot\left(\pi Me^{i \theta}\right)} \approx 1$ if $\theta  \in (\pi, 2 \pi)$ 
+
+    If $\theta = n \pi$ for $n \in [0, 1, 2]$, $\cot\left(\left(\pi Me^{i \theta}\right)\right) = 0$. 
+    
+    Thus $\abs{\cot\left(\pi Me^{i \theta}\right)} \leq 1$ 
+
+    By the integral inequality,
+
+    \begin{align*}
+        \abs{\lim_{N \to \infty}  \int_{0}^{2 \pi} \frac{(N + \frac{1}{2})e^{i \theta} \cot(\pi (N + \frac{1}{2})e^{i \theta})}{((N + \frac{1}{2})e^{i \theta}) + u)^2} dz} 
+        &\leq \lim_{N \to \infty} \int_{0}^{2 \pi} \abs{\frac{(N + \frac{1}{2})e^{i \theta} \cot(\pi (N + \frac{1}{2})e^{i \theta})}{((N + \frac{1}{2})e^{i \theta}) + u)^2}} dz \\
+        &= \lim_{N \to \infty} \int_{0}^{2 \pi} \abs{\frac{(N + \frac{1}{2}) \cot(\pi (N + \frac{1}{2})e^{i \theta})}{((N + \frac{1}{2})e^{i \theta}) + u)^2}} dz \\
+        &= \lim_{N \to \infty} \int_{0}^{2 \pi} \abs{\frac{(N + \frac{1}{2})}{((N + \frac{1}{2})e^{i \theta}) + u)^2}} \abs{\cot\left(\pi Me^{i \theta}\right)} dz \\
+        &\leq \lim_{N \to \infty} \int_{0}^{2 \pi} \abs{\frac{(N + \frac{1}{2})}{((N + \frac{1}{2})e^{i \theta}) + u)^2}} dz
+    \end{align*}
+
+    As $N \to \infty$, the denominator dominates. thus, $\lim_{N \to \infty} \int_{0}^{2 \pi} \abs{\frac{(N + \frac{1}{2})}{((N + \frac{1}{2})e^{i \theta}) + u)^2}} dz = 0$ 
+    
+    \begin{equation}
+        \abs{\lim_{N \to \infty}  \int_{0}^{2 \pi} \frac{(N + \frac{1}{2})e^{i \theta} \cot(\pi (N + \frac{1}{2})e^{i \theta})}{((N + \frac{1}{2})e^{i \theta}) + u)^2} dz} = 0
+    \end{equation}
+
+    Thus, 
+
+    \begin{equation*}
+        2 \pi i \left[\lm{N}\sum_{n = -N}^{N} \frac{1}{(n + u)^2} -\pi \csc^2(\pi u)\right] = 0
+    \end{equation*}
+
+    Thus
+
+    \begin{equation*}
+        \sum_{n = -\infty}^{\infty} \frac{1}{(n + u)^2} = \pi \csc^2(\pi u) = \frac{\pi}{\sin(\pi u)}
+    \end{equation*}
+\end{proof}
+
+
+
+\end{document}

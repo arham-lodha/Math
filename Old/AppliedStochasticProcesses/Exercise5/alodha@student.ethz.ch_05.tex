@@ -1,0 +1,291 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Exercise 05}
+\author{Arham Lodha}%put your name here
+\date{March 19, 2025}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item F - $C = \left\{ \left\{ a \right\}, \left\{ b, c \right\}, \left\{ d, e \right\} \right\}$ 
+        \item F
+        \item T
+        \item F
+        \item T - $\Z$ such that $p_{x, x} = 1$ for $x \in \Z$   
+    \end{enumerate}
+    
+\end{solution}
+
+\begin{PROB}{1b}\label{Problem 1b.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item $F$ - If $\epsilon = 0$, $C = \left\{ \left\{ a, b \right\}, \left\{ c, d \right\} \right\}$
+        \item $F$ - Assume $\pi$ is reversible then  $\pi_c p_{c,d} = \pi_d p_{d, c} \implies \frac{1}{4} p_{c, d} = \frac{1}{4} p_{d, c} \implies p_{c, d} = \frac{2}{3} = \frac{1}{3}= p_{d, c}$ which is a contradiction. 
+        \item T -
+        
+        \begin{enumerate}
+            \item $a + b$: $\pi_a p_{a, b}= \frac{1}{2} * \frac{1}{8} = \frac{1}{2} * \frac{1}{8} = \pi_b p_{b, a}$ 
+            \item $c + d$: $\pi_c p_{c, d} = \frac{2}{3} \frac{1}{4} = \frac{1}{6} = \frac{1}{2} \frac{1}{3} = \pi_d p_{d, c}$
+            \item $b + c$: $\pi_b p_{b, c} = \frac{1}{8} \epsilon = \frac{1}{4} \epsilon = \pi_c p_{c, b} \iff \epsilon = 2\epsilon \iff \epsilon = 0$.    
+        \end{enumerate}
+
+        Thus $\pi$ is reversible $\iff$ $\epsilon = 0$   
+        
+        
+        \item T - for $\epsilon = 0$ $\pi$ is reversible. Since reversible implies stationary, $\pi$ is stationary for $\epsilon = 0$
+        \item Let $P_{\epsilon}$ be the transition matrix for the markov chain. $\pi P_\epsilon = \pi$ $\forall \epsilon \in [0, \frac{1}{3}]$. Thus $\pi$ is stationary for all $\epsilon \in [0, \frac{1}{3}]$       
+    \end{enumerate}
+    
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item $\forall x_0, x_1 \in \N \cup \left\{ 0 \right\}$, $\PR(X_0 = x_0) = \PR(X_0 = x_0) \PR(X_1 = x_1 \mid X_0 = x_0) = \delta_{x_0}^1 p_{x_0, x_1}$.
+        
+        Assume that $\forall x_0, \dots, x_n \in \N \cup \left\{ 0 \right\}$ \[\PR(X_n = x_n, \dots, X_0 = x_0) = \delta_{x_0}^1 \prod_{i = 1}^{n} p_{x_{i - 1}, x_i}\]
+        
+        $\forall x_0, \dots, x_{n + 1} \in \N \cup \left\{ 0 \right\}$
+        
+        \begin{align*}
+            \PR(X_{n + 1} = x_n, X_n = x_n, \dots, X_0 = x_0) &= \PR(X_n = x_n, \dots, X_0 = x_0) \PR(X_{n + 1} = x_n | X_n = x_n, \dots, X_0 = x_0) \\
+            &= \delta_{x_0}^1 \prod_{i = 1}^{n} p_{x_{i - 1}, x_i} \PR(X_{n + 1} = x_n | X_n = x_n) \text{ (definition of process)} \\
+            &= \delta_{x_0}^1 \prod_{i = 1}^{n + 1} p_{x_{i - 1}, x_i}
+        \end{align*}
+
+        Thus $\left(X_n\right)_{n \geq 0} \sim MC(\delta^1, P)$.
+        
+        
+        \item $\forall (x, y) \in \N \times (\N \cup \left\{ 0 \right\})$, 
+        
+        \[p_{x, y} := \sum_{n_1, \dots, n_x \in \N \ni \sum n_i = y} \prod_{i = 1}^x \nu(n_i)\]
+
+        \[p_{0, y}:= \delta_{y}^0\]
+    \end{enumerate}
+    
+\end{proof}
+
+\begin{PROB}{2b}\label{Problem 2b.}
+\end{PROB}
+\begin{proof}
+    Note $\forall x \in \N$, $p_{0, x} = 0$. Thus 0 only communicates with itself. $\left\{ 0 \right\}$ is closed. 
+    
+    $\forall x, y \in \N \ni y \leq x$. We want to show that $x \to y$. Then we want to show that $1 \to x$. 
+    
+    \[p_{x, y} \geq \nu(0)^{x - y} \nu(1)^{y} > 0\]
+
+    The last inequality comes from the fact that $\nu(0), \nu(1) > 0$. 
+    
+    Thus $x \to y$. 
+    
+    Now for $1 \to x$. Note that $\nu(0) + \nu(1) < 1$, thus $\exists n > 1 \ni \nu(n) > 0$. $\exists k \in \N \ni x \leq kn$. We want to show $1 \to kn$ is true. 
+    
+    \[p_{1, kn}^{(k)} \geq p_{1, n}\prod_{i = 2}^{k} p_{(i - 1)n , in} \geq \nu(n) \prod_{i = 2}^{k} \nu(0)^{(i - 1)n - i}\nu(n)^{i} > 0\]
+    
+    Then $kn \to x$. Thus $1 \to x$. Thus $x$ communicates with 1. Since communication is a equivalence relation $\N$ is communication class. Note $p_{x, 0} = \nu(0)^x > 0 \implies x \to 0$. Thus $\N$ is not closed.   
+\end{proof}
+
+\begin{PROB}{2c}\label{Problem 2c.}
+\end{PROB}
+\begin{proof}
+    $\N$ is transient since it is not closed.
+
+    Note for $n \in \N$ if $X_n = 0$, then $X_{n + 1} = 0$ a.s. Thus $P_0(V_0 = \infty) = 1$. Thus $V_0 = \infty$ a.s. Thus $\left\{ 0 \right\}$ is recurrent.      
+\end{proof}
+
+\begin{PROB}{2d}\label{Problem 2d.}
+    
+\end{PROB}
+\begin{proof}
+    if $\nu(0) = 0$ and $\nu(1) < 1$. That means $\forall x, y \in \N \ni y < x \implies y \to x$ but $x \not \to y$. Thus $\left\{ x \right\}$ is a communication class. Thus $\N \cup \left\{ 0 \right\}$ are the set of communication classes. 
+
+    Only $\left\{ 0 \right\}$ is closed. 
+    
+    $(c)$ doesn't change. 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3a.}
+\end{PROB}
+\begin{proof}
+    $S = [0, \dots, N]$ where the following transition probability is followed, $\forall x, y \in [0, \dots, N]$
+    
+    \[p_{x, y} = \begin{cases*}
+        \frac{i}{N} & \text{ if $y = x - 1$ } \\
+        \frac{N - i}{N} & \text{ if $y = x + 1$ } \\
+        0 & \text{ otherwise}
+    \end{cases*}\]
+\end{proof}
+\begin{PROB}{3b}\label{Problem 3b.}
+\end{PROB}
+\begin{proof}
+    \[\pi = \left({N \choose 0} 2^{-N}, {N \choose 1} 2^{-N}, \dots, {N \choose N} 2^{-N}\right)\]
+    
+    is a reversible distribution of the model. 
+
+    Suppose $\pi = (\pi_0, \dots, \pi_N)$ is a reversible distribution for the model. $\forall i \in [0, \dots, N - 1]$ it follows the following rule:
+    
+    \[\pi_{i} p_{i. i + 1} = \pi_{i + 1} p_{i + 1, i}\]
+
+    That means 
+
+    \begin{align*}
+        \pi_{i} \frac{N - i}{N} &= \pi_{i + 1}\frac{i + 1}{N} \\
+        \pi_{i + 1} &= \frac{N - i}{i + 1} \pi_i
+    \end{align*}
+
+    Thus \begin{align*}
+        \pi_1 &= N \pi_0 \\
+        \pi_2 &= N\left(\frac{N - 1}{2}\right)\pi_0 \\
+        &\vdots\\
+        \pi_m &= \pi_0 \prod_{i = 0}^{m - 1}\left(\frac{N - 1}{i + 1}\right) \\
+        &= \pi_0 \left(\frac{N}{1}\right) \left(\frac{N - 1}{2}\right) \dots \left(\frac{N - m + 1}{m}\right) \\
+        &= \frac{\pi_0}{m!} \left(\frac{N!}{\left(N - m\right)!}\right) \\
+        &= {N \choose m} \pi_0
+    \end{align*} 
+
+    Then 
+
+    \begin{align*}
+        1 &= \sum_{i = 0}^N \pi_0\\
+        &= \pi_0 \left(1 + \sum_{i = 1}^{N} {N \choose i}\right) \\
+        &= \pi_0 \sum_{i = 0}^{N} {N \choose i} \\
+        &= 2^{N} \pi_0 \implies \pi_0 = 2^{-N} \implies \pi_m = {N \choose m} 2^{-N} 
+    \end{align*}
+
+    Thus     \[\pi = \left({N \choose 0} 2^{-N}, {N \choose 1} 2^{-N}, \dots, {N \choose N} 2^{-N}\right)\]
+
+    is a reversible thus stationary distribution.
+
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+\end{PROB}
+\begin{proof}
+
+    Note \[P = \begin{bmatrix}
+        p & 1 - p \\ q & 1 - q
+    \end{bmatrix}\]
+
+    One direction is trivial. If $\pi$ is reversible it is stationary. 
+    
+    $\implies: $ Suppose $\pi$ is stationary. Thus
+    \[\pi P = \pi \implies p \pi_1 + (1 - q) \pi_2 = \pi_1\]
+    
+    Thus subtracting $p \pi_1$ from both sides of equation 1 gives us:   
+
+    \[p_{2, 1} \pi_2 = (1 - q) \pi_2 = (1 - p) \pi_1 = p_{1, 2} \pi_1 \]
+
+    Thus $\pi$ is reversible.  
+
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5a}\label{Problem 5a.}
+\end{PROB}
+\begin{proof}
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5b}\label{Problem 5b.}
+\end{PROB}
+\begin{proof}
+
+    Note the following,  
+
+    \begin{align*}
+        \angles{Pf, g}_{\pi} &= \sum_{x \in S} (Pf)(x) g(x) \pi_x \\
+        &= \sum_{x \in S} \sum_{y \in S}  p_{x, y} f(y) g(x) \pi_x \\
+        &= \sum_{y \in S} \sum_{x \in S} p_{x, y} f(y) g(x) \pi_x
+    \end{align*}
+\end{proof}
+
+
+\end{document}

@@ -1,0 +1,204 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{SMALL REU Assignment}
+\author{Arham Lodha}%put your name here
+\date{February 09, 2025}%enter the due date here
+\maketitle
+
+
+\section{Low Lying Zeros}
+
+Overall, I found the papers quite fascinating. I was particularly struck by the unexpected connection between nuclear physics and number theory. In \emph{From Quantum Systems to L-Functions: Pair Correlation Statistics and Beyond}, a table neatly illustrates the correspondences:
+\begin{itemize}
+    \item \textbf{Nucleus} $\leftrightarrow$ L-function,
+    \item \textbf{Neutrons (as probes)} $\leftrightarrow$ Schwartz functions (with Fourier transforms of compact support),
+    \item \textbf{Energy levels} $\leftrightarrow$ Zeros.
+\end{itemize}
+Although such connections are well known in random matrix theory (RMT) and number theory, I still find it remarkable that techniques from one field help illuminate problems in the other.
+
+I was also intrigued by the Odlyzko--Schönhage algorithm for computing zeros of the Riemann zeta function. My curiosity led me on a side quest: How does the algorithm compute such an enormous number of zeros, especially ones of massive magnitude? This computational prowess, in turn, provides strong empirical support for the GUE conjecture. I was pleasantly surprised by the use of the FFT to parallelize the computation of the Dirichlet series associated with the zeta function. Even though the algorithmic results were not directly used in the proofs, they offered essential empirical verification of the conjectures proposed by Montgomery, Katz, and Sarnak. I was also intrigued at Ratio Conjecture's ability to capture both local and global statistics of the zeros.
+
+Most proofs in these papers rely heavily on complex analysis, particularly residue calculus and the exploitation of the functional equations of the zeta and L-functions to simplify integrals. Furthermore, Katz and Sarnak, employed Fourier analysis to ensure the convergence of sums in the $n$-level density functions by choosing Schwartz functions as test functions. 
+
+While the asymptotic behavior of the zeros of L-functions mimics the eigenvalue statistics of important matrix ensembles, the local statistics do not capture the arithmetic subtleties—often hidden in the lower order terms that dominate a finite number of zeros. To better understand these low-lying zeros, I propose the following questions along with preliminary ideas for investigation:
+
+\begin{enumerate}
+    \item \textbf{Rate of Convergence:} What is the rate of convergence to the asymptotic behavior for L-functions, and does this depend on the symmetry type (orthogonal, symplectic, or unitary)? 
+    \begin{enumerate}
+        \item I would compute various local statistics (e.g., nearest neighbor distances, $n$-point correlations) for different L-function families and plot the deviations from the expected asymptotic values. This could reveal whether the convergence rate is universal or family-dependent.
+    \end{enumerate}
+    
+    \item \textbf{Distribution of Maximum Gaps:} Let $\{\gamma_n\}_{n=1}^\infty$ be the ordered imaginary parts of the zeros of an L-function. Does the function 
+    \[
+    f(n) = \max\{ \gamma_{i+1} - \gamma_i : i \le n\}
+    \]
+    follow any particular distribution?
+    \begin{enumerate}
+        \item Investigating the growth of the maximum gap, particularly near the origin, could provide insights into the spacing behavior of zeros.
+    \end{enumerate}
+\end{enumerate}
+
+In my opinion, the rate of convergence question is particularly compelling. Studying the decay rate of the error between empirical and expected values could shed light on both the universality and the arithmetic nuances of L-functions. Additionally, these problems offer rich opportunities for computational experiments. I have extensive experience with programming in languages such as Java, C++, Python, Julia, and Typescript, and I anticipate that Julia and Python—thanks to their robust numerical libraries—will be especially useful.
+
+However, one overarching question remains: \textbf{Why do the eigenvalues of random matrices behave similarly to the zeros of L-functions?} In nuclear physics, the correspondence is intuitive—large Hermitian matrices model infinite-dimensional Hamiltonians, whose eigenvalues represent energy levels. For L-functions, we have the ingredients of size and complexity, but the role of symmetry is less clear. What is the underlying symmetry that causes the statistical distributions to mirror one another? To me, this is the most intriguing puzzle of all.
+
+\section{Random Harmonic Series}
+
+The central idea in the paper is to decompose a complicated random variable into a sum of simpler, well-understood random variables. Concretely, the authors show that
+\[
+X = \sum_{i=1}^{\infty} \frac{e_i}{i} = \sum_{i=1}^{\infty} U_i,
+\]
+where the sequence $(e_i)_{i=1}^{\infty}$ consists of independent random variables taking the values $\pm1$, and 
+\[
+U_i = \frac{2}{2i+1} \left( \sum_{j=1}^{\infty} \frac{e_{2^{j-1}(2i+1)}}{2^j} \right).
+\]
+A previous result establishes that each $U_i$ is uniformly distributed. Although regrouping terms in an infinite sum is generally a delicate matter, one can show that the mean squared difference between 
+\(\displaystyle X\) and the partial sums \(\displaystyle \sum_{i=1}^{n} U_i\) converges to 0. Thus, almost surely,
+\[
+X = \sum_{i=1}^{\infty} U_i.
+\]
+
+This decomposition allows us to deduce properties of \(X\) (such as its density and characteristic functions) by leveraging the corresponding properties of the \(U_i\). In fact, the characteristic function of \(X\) is simply the product of the characteristic functions of the \(U_i\); then, applying the inverse Fourier transform yields the density function. Furthermore, the density of the finite sum \(\sum_{i=1}^{n} U_i\) converges to that of \(X\).
+
+Using these ideas, the authors deduce, for instance, that the probability density function (pdf) of \(X\) satisfies 
+\[
+\text{pdf}_X(0) < \frac{1}{4} \quad \text{and} \quad \text{pdf}_X(2) < \frac{1}{8}.
+\]
+Although the techniques used to exploit the (a)symmetry of the density at different points are elegant, I believe the true contribution lies in the artful decomposition of \(X\). 
+
+Inspired by this approach, I propose the following questions:
+
+\begin{enumerate}
+    \item \textbf{Biased Coin Tosses:} How does the distribution of \(X\) change if 
+    \[
+    P(e_i = 1) = p,\quad P(e_i = -1) = p,\quad P(e_i = 0) = 1-2p, \quad\text{with } 0 \le 2p \le 1?
+    \]
+    \begin{enumerate}
+        \item I would start by decomposing \(X\) as in the paper but with a biased coin. Analyzing the binary expansion under bias should reveal how the distribution’s shape changes. 
+        \item Parallel computer simulations in Julia could provide empirical evidence for the theoretical predictions.
+        \item Intuitively, as \(p \to 0\), the pdf is expected to exhibit a flatter peak.
+        \item (Note: An earlier variant considered \(P(e_i = 1) \neq P(e_i = -1)\), but inspection suggests that \(X\) diverges almost surely in that case.)
+    \end{enumerate}
+    
+    \item \textbf{Introducing Dependence:} What happens if the \(e_i\) are not independent but form a Markov chain with
+    \[
+    P(e_i=1 \mid e_{i-1}=1) = \frac{1}{2} + \epsilon,\quad P(e_i=-1 \mid e_{i-1}=1) = \frac{1}{2} - \epsilon,
+    \]
+    \[
+    P(e_i=1 \mid e_{i-1}=-1) = \frac{1}{2} - \epsilon,\quad P(e_i=-1 \mid e_{i-1}=-1) = \frac{1}{2} + \epsilon,
+    \]
+    where \(\epsilon \in [0,\frac{1}{2}]\)?
+    \begin{enumerate}
+        \item In this case, the neat decomposition might not work as well. Instead, a simplified model (a toy version of the binary sequence) combined with numerical simulations (again, perhaps in Julia) could offer some insights.
+    \end{enumerate}
+    
+    \item \textbf{Rate of Convergence:} What is the rate of convergence between the density function of
+    \[
+    \sum_{i=1}^{n} U_i + \sigma_n Z
+    \]
+    (with \(Z\) a standard normal random variable) and that of \(X\)?
+    \begin{enumerate}
+        \item One strategy is to define 
+        \[
+        f_n(x) = g(x) - g_n(x),
+        \]
+        where \(g\) is the density of \(X\) and \(g_n\) is the density of the finite approximation. Studying norms such as \(\|f_n\|_{L^1}\) or \(\|f_n\|_{L^2}\) might yield useful estimates.
+    \end{enumerate}
+    
+    \item \textbf{Generalized Harmonic Series:} What does the distribution of 
+    \[
+    X_\alpha = \sum_{i=1}^{\infty} \frac{e_i}{i^\alpha}
+    \]
+    look like?
+    \begin{enumerate}
+        \item A similar decomposition—perhaps by expressing terms like \(\sum_{j=1}^{\infty} f_j 2^{-\alpha j}\) for \(f_j \in \{0,1\}\)—could be attempted.
+        \item Empirical simulations in Julia would again be useful to verify any theoretical predictions.
+    \end{enumerate}
+    
+    \item \textbf{Rearrangements of Conditionally Convergent Series:} The paper notes that 
+    \[
+    \sum_{i=1}^{\infty} (-1)^{i+1}\frac{1}{i} = \ln(2),
+    \]
+    while a rearrangement yields 
+    \[
+    \sum_{i=1}^{\infty} u_i = 0.
+    \]
+    What are the possible sums obtainable by rearranging \(\sum_{i=1}^{\infty} (-1)^{i+1}\frac{1}{i}\) or any conditionally convergent series?
+    \begin{enumerate}
+        \item Although a rigorous analytical approach might be challenging, one could begin by experimenting: writing a program that randomly partitions (say, the first 1000 terms) and observes the resulting sums to build intuition.
+    \end{enumerate}
+    
+\end{enumerate}
+    
+\end{document}

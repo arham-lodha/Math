@@ -1,0 +1,455 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 4}
+\author{Arham Lodha}%put your name here
+\date{May 18, 2024}%enter the due date here
+\maketitle
+
+\begin{claim}{4.1}\label{Claim 4.1.}
+    A space $(X, \T)$ is $T_1$ if and only if every point of $X$ is a closed set   
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $(X, \T)$ is $T_1$. By definition of $T_1$ space, $\forall x, y \in X \ni x \neq y$, $\exists V \in \T \ni y \in V$ but $X \not \in U$. Thus $y$ is not a limit point of $\left\{ x \right\}$ if $y \neq x$. Thus the closure of $\left\{ x \right\}$ is $\left\{ x \right\}$. Thus each point is a closed set. 
+    
+    $\impliedby:$ Suppose every point of $X$ is a closed set. Then by the negation of the definition of a limit point $\forall x, y \in X \ni x \neq y$, $\exists U, V \in \T \ni x \in U, y \in V, x \not \in V, y \not \in U$. Thus by the definition of $T_1$ spaces, $(X, T)$ is a $T_1$ space.      
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.2}\label{Problem 4.2.}
+    Let $X$ be a space with a finite complement topology. Show $X$ is $T_1$   
+\end{PROB}
+\begin{proof}
+    $\forall x, y \in X \ni x \neq y$, $\exists U, V \in \T \ni U = X \setminus \left\{ y \right\}, V = X \setminus \left\{ x \right\}$ thus $x \in U$ and $y \in V$ but $y \not \in U$ and $x \not \in V$. Thus $X$ is $T_1$        
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.3}\label{Problem 4.3.}
+    Show $\R_{s td}$ is Hausdorff, $T_2$.  
+\end{PROB}
+\begin{proof}
+    $\forall x, y \in \R \ni x \neq y$. WLOG $x < y$. Let $U = (-\infty, \frac{x+ y}{2})$ and $V = (\frac{x + y}{2}, \infty)$. Since $x < y \implies x < \frac{x+ y}{2} < y$. Thus $x \in U$ and $y \in V$. Assume the contrary $\exists z \in U \cap V \implies z < \frac{x + y}{2}$ and $x > \frac{x + y}{2}$ which is a contradiction. Thus $\R_{st d}$ is Hausdorff.         
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.4}\label{Problem 4.4.}
+    Show $H_{bub}$ is regular 
+\end{PROB}
+\begin{proof}
+    $\forall p =(x, y) \in H$ and $\forall A \subset X$ where $A$ is closed and $p \not \in A$. Thus $\exists U \in T \ni U \cap A = \emptyset$. Thus $\exists r \in \R^+ \ni B(p, r) \subseteq U$ since $B(p, r)$ is a basis element. Let $\delta = \min(\abs{p - q} \mid q \in A) / 2$. Let $V = B(p, \min(r, \delta))$ and let $W = \bigcup_{(a_x, a_y) \in A} B((a_x, a_y), \min(\delta, a_y))$. $p \subseteq V \subseteq U$ and thus $V \cap A = \emptyset$. $A \subseteq W$. 
+    
+    Assume the contrary, $\exists q \in V \cap W$. Thus $q \in V \implies \abs{p - q} < \min(r, \delta) \leq \delta = 0.25 * \min(\abs{p -o} \mid o \in A) \implies 3 * \delta \leq \abs{q - o}$ $\forall o \in A$ which contradicts the fact that since $q \in W$, $\exists o \in A \ni \abs{q - o} < \delta < 3 \delta$. Thus by contradiction, $V \cap W = \emptyset$. 
+    
+    Thus $H_{bub}$ is regular.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.5}\label{Problem 4.5.}
+    $R_{L L}$ is normal 
+\end{PROB}
+\begin{proof}
+    $\forall A, B \in 2^\R$ such that $A, B$ are closed and $A \cap B = \emptyset$. $\forall a \in A$, a is not a limit point of $B$ otherwise $a \in B$ which contradicts disjoint, $\exists U_a \in \T \ni U_a \cap B = \emptyset$. WLOG assume $U_a = [a, a + \epsilon_a)$ since $[a, a + \epsilon_a) \subseteq U_a$ for some $\epsilon_a$. Now let $\epsilon'_a = \min(\epsilon_a, \min\left\{ \abs{a - b} * 0.25 \mid \forall b \in B \right\})$. Thus $[a, a + \epsilon_a') \subseteq [a, a + \epsilon_a)$. Do the same $\forall b \in B$ instead of $\epsilon$ use $\delta$. Let $U = \bigcup_{a \in A}[a, a + \epsilon_a')$ and $V = \bigcup_{b \in B} [b, b + \delta_b')$. 
+    
+    $\forall x \in U \cap V \implies \exists a \in A, b \in B \ni x - a < \epsilon_a'$ and $x - b < \delta_b'$. However this is a contradiction. 
+    
+    Thus $\R_{L L}$ is normal 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.6a}\label{Problem 4.6a.}
+    Consider $\R^2$ with the standard topology. Let $p \in \R^2 \ni p \not \in A$, a closed set. Show $\inf\left\{ d(a, p) \mid a \in A \right\} > 0$   
+\end{PROB}
+\begin{solution}
+    By definition $\forall x, y \in \R^2, d(x, y) \geq 0$. Assume the contrary, $\inf\left\{ d(a, p) \mid a \in A \right\} = 0$. Thus $\forall r > 0$, $\exists a \in A \ni d(p, a) < r \implies a \in B(p, r) \cap A$. Thus $\forall U \in \T \ni p \in U$, $\exists \epsilon > 0 \ni B(p, \epsilon) \subseteq U \implies (U \setminus {p}) \cap A \neq \emptyset \implies p$ is a limit point of A which implies $p \in A$ which is a contradiction of the fact that $p \not \in A$.         
+\end{solution}
+\begin{PROB}{4.6b}\label{Problem 4.6b.}
+    Show that $\R^2$ with standard topology is regular 
+\end{PROB}
+\begin{proof}
+    $\forall p \in \R^2$ and for all closed sets $A \subset \R^2 \ni p \not \in A$. By the above $\delta := \inf \left\{ d(a, p) \mid a \in A \right\} * 0.25 > 0$. Let $U = B(p, d)$. Let $V = \bigcup_{a \in A} B(a, d)$. $p \in U$ and $A \in V$. 
+    
+    Assume the contrary that $\exists x \in U \cap V$. Thus $d(x, p) < \delta$ and $\exists a \in A \ni d(x, a) < \delta$. Thus $d(x, a) \leq d(x, p) + d(x, a) < \delta + \delta = 2\delta$. However $d(x, a) \geq 4 \delta$ which is a contradiction. Thus $U \cap V = \emptyset$.     
+\end{proof}
+\begin{PROB}{4.6c}\label{Problem 4.6c.}
+    Find two disjoint closed subsets $A$ and $B$ of $\R^2$ with the standard topology such that 
+    
+    \[
+        \inf\left\{ d(a, b) \mid a \in A, b \in B \right\} = 0
+    \] 
+\end{PROB}
+\begin{proof}
+    Let $A = \N \times \left\{ 0 \right\}$ and let $B = \left\{ n + \frac{1}{n} \mid n \in \N \right\}\times \left\{ 0 \right\}$.   
+\end{proof}
+\begin{claim}{4.6d}\label{Claim 4.6d.}
+    Show $\R^2$ with standard topology is normal
+\end{claim}
+\begin{proof}
+    For each point a take the minimum distance
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.7a}\label{Claim 4.7a.}
+    A $\T_2$-spaces (Hausdorff) is a $\T_1$-space  
+\end{claim}
+\begin{proof}
+    Let $(X, \T)$ be a $T_2$ space. $\forall x, y \in X$, $\exists U, V \in \T \ni x \in U$ and $y \in V$ such that $U \cap V = \emptyset$. Thus $x \not \in V$ and $y \not \in U$. Thus $(X, \T)$ is a $\T_1$ space.          
+\end{proof}
+
+\begin{claim}{4.7b}\label{Claim 4.7b.}
+    A $\T_3$-space is a Hausdorff space 
+\end{claim}
+\begin{proof}
+    Since $X$ is $T_1$, $\forall x, y \in X \ni x \neq y$ $\exists A \in \T \ni x \in A, y \not \in A$. Thus $y_1 \in A$ which is closed. Since $X$ is regular, there exists $U, V \in \T \ni x \in U, A \subseteq V, U \cap V = \emptyset$. Thus $y \in V$ and $y \not \in V$. Thus $x \in U, y \in V, U \cap V = \emptyset$. Thus $X$ is a Hausdorff space.           
+\end{proof}
+
+\begin{claim}{4.7c}\label{Claim 4.7c.}
+    A $T_4$ space (normal and $T_1$) is a $T_3$ space (regular and $T_1$) 
+\end{claim}
+\begin{proof}
+    $\forall x \in X$ and for all closed subsets $A \subset X$ such that $x \not \in A$. Since $X$ is $T_4$ it is also $T_1$. Thus $\forall y \in X$, there $\exists V_y \in \T \ni y \in V_y, x\not\in V_y$. Thus $\forall y \in X \ni y \neq x$, $y \in \bigcup_{y \in X \setminus \left\{ x \right\}} V_y$ but $x \not \in \bigcup_{y \in X \setminus \left\{ x \right\}} V_y$. Thus $(\bigcup_{y \in X \setminus \left\{ x \right\}} V_y)^c = \left\{ x \right\}$ is closed. Thus since $x \not \in A \implies \left\{ x \right\} \cap A = \emptyset$. Since $X$ is $\T_4$, that means $\exists U, V \in \T \ni x \in U, A \subseteq V, U \cap V = \emptyset$. Thus $X$ is regular and thus $X$ is $T_3$                  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.8}\label{Claim 4.8.}
+    A topological space $X$ is regular iff $\forall p \in X$ and $\forall U \in \T \ni p \in U$ there is a open set $V$ containing p such that $\overline{V} \subseteq U$      
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $X$ is a regular space. $\forall p \in X$ and $\forall U \in \T \ni p \in U$, $p \not \in U^c$, a closed set. By definition of regular, $\exists V, W \in \T \ni p \in V, U^c \subseteq W, V \cap W = \emptyset$. Thus $p \in V \subseteq W^c$ and $W^c \subseteq U$. Let $W' = Int(W^c)$, $p \in V \subseteq W'$ and $\overline{W'} \subseteq W^c \subseteq U$.    
+    
+    
+    $\impliedby:$ Suppose that $\forall p \in X$ and $\forall U \in \T \ni p \in U$, $\exists V \in \T \ni p \in V, \overline{V} \subseteq U$. $\forall A \in \mathcal{C}$, closed subsets, such that $p \not \in A$. $A^c$ is a open subset. Thus $\exists V_1 \in \T \ni \overline{V_1} \subseteq A^c$. Thus $A \subseteq X -\overline{V_1}$. Since $V_1 \subset V_1 \implies V_1 \cap (X - \overline{V_1}) = \emptyset$. $p \in V_1$ and $A \subseteq X- \overline{V_1}$. Thus $X$ is regular.                
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.9}\label{Claim 4.9.}
+    A topological space $X$ is regular iff for all closed sets A and $\forall U \in \T \ni A \subseteq U$ there is a open set $V$ containing A such that $\overline{V} \subseteq U$      
+\end{claim}
+\begin{proof}
+    $\implies:$ Suppose $X$ is a normal space. $\forall A \subseteq X$, closed, and $\forall U \in \T \ni A \subseteq U$. $A \not \subseteq U^c$. By the definition of regular, $\exists V, W \in \T \ni A \subseteq V, U^c \subseteq W, V \cap W = \emptyset$. Thus $A \subseteq V \subseteq W^c \subseteq U$. Let $W' = Int(W^c)$. Thus $A \subseteq V \subseteq W'$ and $\overline{W'} \subseteq W^c \subseteq U$. 
+    
+    $\impliedby: $ Suppose for all closed sets A and $\forall U \in \T \ni A \subseteq U$ there is a open set $V$ containing A such that $\overline{V} \subseteq U$. $\forall D \in \mathcal{C} \ni A \cap D = \emptyset$. $D^c$ is a open subset. Thus $\exists U \in \T \ni A \subseteq U \subseteq \overline{U} \subseteq D^c$. Thus $D \subseteq X \setminus \overline{U}$ and $U \cap (X \setminus \overline{U}) = \emptyset$. Thus $X$ is normal.       
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.10}\label{Claim 4.10.}
+    A topological space $X$ is normal iff for each pair of disjoint closed sets $A$ and $B$, there are disjoint open sets $U$ and $V$ such that $A \subseteq U$ and $B \subseteq V$ and $\overline{U} \cap \overline{V} = \emptyset$        
+\end{claim}
+\begin{proof}
+    $\impliedby:$ Trivial because if closure is disjoint then set is disjoint.
+    
+    $\implies$: Suppose $X$ is normal. Then for any two disjoint closed sets $A$ and $B$, $\exists U', V' \in \T \ni A \subseteq U', B \subseteq V', U' \cap V' = \emptyset$. By claim 4.9, $\exists U \in \T \ni A \subseteq U \subseteq \overline{U} \subseteq U'$ and similarly for $B \subseteq V$. Since $U' \cap V' = \emptyset$, thus $\overline{U} \cap \overline{V} = \emptyset$. Thus forward direction is true.            
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.11}\label{Claim 4.11.}
+    \textbf{(Shrinking Lemma)} A topological space $X$ is normal iff $\forall U, V \in \T \ni U \cup V = X$ there exists open sets $U', V'$ such that $\overline{U'} \subseteq U$ and $\overline{V'} \subseteq V$ and $U' \cup V' = X$      
+\end{claim}
+\begin{proof}
+    $\implies$: Suppose $X$ is normal. Then $\forall U ,V \in \T \ni U \cup V = X \implies U^c \cap V^c = \emptyset$. By normality and 4.9, $\exists M, N \in \T \ni U^c \subseteq M, V^c \subseteq N, \overline{M} \cap \overline{N} = \emptyset$. Thus $U^c \subseteq M \subseteq \overline{M}$ and $V^c \subseteq N \subseteq \overline{N}$. Thus $X \setminus \overline{M} \subseteq X \setminus N \subseteq U$ and similarly $X - cl(N) \subseteq X - N \subseteq V$. $X - N$ and $X - M$ is closed thus $cl(X - cl(N)) \subseteq X - N$ and similarly $cl(X - cl(M)) \leq cl(X - M)$ and $X - cl(M), X - cl(N) \in \T$. Since $cl(M) \cap cl(N) = \emptyset \implies X - \cl(M) \cup X - \cl(N) = X$.   
+    
+    $\impliedby:$ Suppose the latter half of the theorem is true. $\forall A, B \in \mathcal{C} \ni A \cap B = \emptyset \implies A^c \cup B^c = X$. Thus $\exists U', V' \in \T \ni cl(U') \subseteq A^c$ and $cl(V') \subseteq B^c$ such that $U' \cup V' = X \implies \cl(U') \cup \cl(V') = X$. Thus $A \subseteq X - cl(U')$, $B \subseteq X - cl(V')$ and $X - cl(U') \cap X - cl(V') = \emptyset$        
+\end{proof}
+
+\bigskip
+
+% \begin{PROB}{4.12a}\label{Problem 4.12a.}
+%     Describe an example of a topological space that is $T_1$ but not $T_2$   
+% \end{PROB}
+% \begin{solution}
+%     Take $\R$ with finite complement topology.  
+% \end{solution}
+% \begin{PROB}{4.12b}\label{Problem 4.12b.}
+%     Describe an example of a topological space that is $T_2$ but not $T_1$   
+% \end{PROB}
+% \begin{proof}
+%     Take $H$, the half plane, with open balls with radii, $0 < r \leq y$ and half balls with $r = 10$ for points on the $x$ axis with the diameter cut out except for the center. Thus $F = \left\{ x \mid 0 < x < 1 \right\}$ is closed and $(0, 1)$ is point. No open set containing F and no open set containing $(0, 1)$ is disjoint. 
+% \end{proof}
+% \begin{PROB}{4.12c}\label{Problem 4.13c.}
+    
+% \end{PROB}
+
+\begin{claim}{4.15}\label{Claim 4.15.}
+    Order Topologies are $T_1$, Hausdorff, regular, and normal  
+\end{claim}
+\begin{proof}
+    Let $X$ be a topological space with a order topology. $\forall x, y \in X$, wlog $x < y$
+    
+    \begin{enumerate}
+        \item Suppose $\exists b \in X \ni x < b < y$. Then $U := \left\{ a | a < b \right\}$ and $V := \left\{ a \mid a > b \right\}$. Thus $x \in U$ and $y \in V$ and $U \cap V = \emptyset$. 
+        \item Otherwise. Let $U := \left\{ a \mid a < y \right\}$ and $V := \left\{ a \mid a > x \right\}$. $U \cap V = \emptyset$, because otherwise it reduces to the case above. Moreover $x \in U$ and $y \in V$.         
+    \end{enumerate}
+
+    Thus $X$ is Hausdorff. 
+    
+    It suffices to prove that $X$ is $T_4$ ie normal. 
+    
+    Define the following functions $\forall A \subseteq X$, 
+
+    $f_A := A \to X \cup \left\{ -\infty \right\}$ where $a \to \max(\left\{ y \mid y \in X \setminus A, y < a \right\} \cup \left\{ -\infty \right\})$ 
+    
+    $g_A := A \to X \cup \left\{ \infty \right\}$ where $a \to \min(\left\{ y \mid y \in X \setminus A, y > a \right\} \cup \left\{ \infty \right\})$.
+    
+    Also define the intervals, $\forall a, b \in A \ni a < b$  $(-\infty, a) := \left\{ x \mid x < a \right\}$, $(a, b) := \left\{ x \mid a < x < b \right\}$, $(a, \infty) := \left\{ x \mid x > a \right\}$.
+
+    $\forall A, B \in \mathcal{C} \ni A \cap B = \emptyset$. Define $\forall a \in A, \forall b \in B$  $U_a := (f_A(a), g_A(a))$, $V_b := (f_B(b), g_B(b))$. Thus $a \in U_a$ and $b \in V_b$. $\forall x \in U_a \cap V_b \implies f_A(a) < x < g_A(a)$ and $f_B(b) < x < g_B(b)$ which means $x \in A \cap B$ which is a contradiction. Thus $U_a \cap V_b = \emptyset$. Let $U := \bigcup_{a \in A} U_a$ and $V := \bigcup_{b \in B} V_b$. $U \cap V = \emptyset$ by above. But $A \subseteq U$ and $B \subseteq V$. Thus $X$ is normal thus $T_4$ thus also regular.             
+\end{proof}
+
+\pagebreak
+
+\section*{Seperation Properties and Products}
+\begin{claim}{4.16}\label{Claim 4.16.}
+    Let $X$ and $Y$ be Hausdorff. Then $X \times Y$ is Hausdorff.
+\end{claim}
+\begin{proof}
+    $\forall (x_1, y_1), (x_2, y_2) \in X \times Y \ni x_1 \neq x_2$ or $y_1 \neq y_2$. 
+    
+    \begin{enumerate}
+        \item If $x_1 \neq x_2$, then since $X$ is Hausdorff $\exists U_X, V_X \in \T_X \ni x_1 \in U_X,x_2 \in V_X, U_X \cap V_X = \emptyset$. $Y \in \T_Y$ so let $U = U_X \times Y$ and $V = V_X \times Y$. Since $U_X \cap V_X = \emptyset \implies U \cap V= \emptyset$ and since $x_1 \in U_x \implies (x_1, y_1) \in U_X \times Y$ and similarly $(x_2, y_2) \in V$
+        \item If $y_1 \neq y_2$, since $Y$ is Hausdorff $\exists U_Y, V_Y \in \T_Y \ni y_1 \in U_Y, y_2 \in V_Y, U_Y \cap V_Y = \emptyset$. Let $U = X \times U_Y$ and let $V = Y \times V_Y$                
+    \end{enumerate}
+
+    Thus $X \times Y$ is Hausdorff. 
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.17}\label{Claim 4.17.}
+    Let $X$ and $Y$ be regular. Then $X \times Y$ is regular   
+\end{claim}
+\begin{proof}
+    $\forall p \in X \times Y$ and $\forall A \in \T \ni p \in A$, by definition of product 
+    space $\exists \left\{ S_{\alpha} \right\}_{\alpha \in \lambda} \subset \T_X, \exists \left\{ T_{\alpha} \right\}_{\alpha \in \lambda} \in \T_Y \ni A = \bigcup_{\alpha \in \lambda} S_\alpha \times T_\alpha$ thus $\exists \alpha \in \lambda \ni p \in S_\alpha \times T_\alpha$. Let $p = (x, y)$ for $x \in X$ and $y \in Y$. Thus $x \in S_\alpha$ and $y \in T_\alpha$. Since $X$ and Y are regular by 4.8, $\exists U \in \T_X \ni x \in U \subseteq \overline{U} \subseteq S_\alpha$ and $\exists V \in \T_Y \ni y \in V \subseteq \overline{V} \subseteq T_\alpha$. Thus $p \in U \times V , \overline{U} \times \overline{V} \subseteq A$ and $\cl(U) \times \cl(V)$ is closed in $X \times Y$ and $\cl(U \times V) \subseteq \cl(U) \times \cl(V)$ (actually equality). Thus by 4.8, $X \times Y$ is regular.               
+\end{proof}
+
+\pagebreak
+
+\section{Heredity}
+\begin{claim}{4.19}\label{claim 4.19.}
+    Every Hausdorff space is heriditarilly Hausdorff
+\end{claim}
+\begin{proof}
+    Let $X$ be a Hausdorff space. $\forall Y \subset X$, $\forall x, y \in Y \ni x \neq y$ since $X$ is Hausdorff $\exists U, V \in \T \ni x \in U, y \in V, U \cap V = \emptyset$. Thus $x \in U \cap Y \in \T_Y$ and $y \in V \cap Y \in \T_Y$ and $U \cap Y \cap V \cap Y = \emptyset$. Thus $Y$ is Hausdorff. Thus $X$ is heriditarilly Hausdorff.             
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.20}\label{claim 4.20.}
+    Every regular space is heriditarilly regular
+\end{claim}
+\begin{proof}
+    Let $X$ be a regular space. $\forall Y \subset X$, $\forall y \in Y$ and $\forall A \in \mathcal{C}_Y \ni y \not \in A$ by Claim 3.28 $\exists B \in \mathcal{C}_X \ni B \cap Y = A \implies y \not \in B$. Since $X$ is regular, $\exists U, V \in \T \ni x \in U, B \subseteq V, U \cap V = \emptyset$. Thus $x \in U \cap Y \in \T_Y$ and $A \subseteq V \cap Y \in \T_Y$ and $(U \cap Y) \cap (V \cap Y) = \emptyset$. Thus $Y$ is regular. Thus $X$ is heriditarilly regular.             
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.21}\label{Claim 4.21.}
+    $2^\R$ is normal
+\end{claim}
+\begin{proof}
+    $\forall C, D \in \mathcal{C} \ni C \cap D = \emptyset$. Let 
+    
+        
+    
+    % $\forall c \in C$, $U(c, 1)$ is clopen. Thus $\bigcup_{c \in C} U(c, 1)$ is open. Thus $\bigcup $ . Thus let $V = V_1 \cap \left(\bigcup_{c \in C} U(c, 0)\right)$
+    
+    % similarly $\bigcup_{d \in D} U(d, 0)$ is open. Thus $U = U_1 \cap \bigcup_{d \in D} U(d, 0)$
+    
+    % Assume the contrary that $X \in U \cap V \implies X \in U \implies \exists c \in C \ni c \in X$ and $\exists d $    
+\end{proof}
+
+\bigskip
+
+
+\begin{definition}
+    The \textbf{Tychonoff Plank} is a product of two ordinal spaces $(\omega_0 + 1) \times (\omega_1 + 1)$ 
+\end{definition}
+
+\begin{claim}{4.22a}\label{Claim 4.22a.}
+    The Tychonoff Plank is normal 
+\end{claim}
+\begin{proof}
+    
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.23}\label{Claim 4.23.}
+    Let A be a closed subset of a normal space $X$. Then $A$ is normal when given the subspace topology  
+\end{claim}
+\begin{proof}
+    $\forall C, D \subseteq \mathcal{C}_A \ni C \cap D = \emptyset$, by claim 3.29 $\cl_X(C) \cap A = C$ and $\cl_X(D) \cap A = D$. Assume the contrary $\exists x \in \cl_X(C) \cap \cl_X(D)$, thus $\forall U \in \T_X \ni x \in U, \left(U - \left\{ x \right\}\right) \cap C \cap D \neq \emptyset \implies \left(U - \left\{ x \right\}\right) \cap A \neq \emptyset$ since $C, D \subseteq A$. Thus $x \in A$, since $A$ is closed. Thus $x \in C$ and $x \in D$ which is a contradiction since $C \cap D =\emptyset$. Thus $\cl_X(C) \cap \cl_X(D) = \emptyset$. By the normality of $X$, $\exists U, V \in \T_X \ni \cl_X(C) \subseteq U$, $\cl_X(D) \subseteq V, U \cap V = \emptyset$. Thus $C \subseteq (U \cap A) \in \T_A$ and $D \subseteq (V \cap A) \in \T_A$ and $(U \cap A) \cap (V \cap A) = \emptyset$. Thus $(A, \T_A)$ is normal.                    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.25}\label{Problem 4.25.}
+    Let $Y$ be a subspace of $X$, and let $A, B \in \mathcal{C}_Y \ni A \cap B = \emptyset$, show $\cl_X(A) \cap B = \emptyset$ and $\cl_X(B) \cap A = \emptyset$     
+\end{PROB}
+\begin{proof}
+    Assume the contrary, $\exists x \in \cl_X(A) \cap B \implies x \in B \implies x \in Y$. Thus $x \in cl_X(A) \implies x \in cl_X(A) \cap Y = A$, claim 3.29. Thus $x \in A \cap B = \emptyset$, a contradiction. Thus $\cl_X(A) \cap B = \emptyset$.
+    
+    Arguement is symmetric for $\cl_X(B) \cap A = \emptyset$.  
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.26}\label{Problem 4.26.}
+    The space $X$ is a completely normal space if and only if $X$  is hereditarily normal.
+\end{PROB}
+\begin{proof}
+    $\implies$: Suppose $X$ is completely normal. $\forall Y \subseteq X$, $\forall A, B \in \mathcal{C}_Y \ni A \cap B = \emptyset$. By problem 4.25, $\cl_X(A) \cap B = \emptyset$ and $\cl_X(B) \cap A = \emptyset$ thus $A$ and $B$ are seperated sets in $X$. Since $X$ is completely normal, $\exists U, V \in \T_X \ni A \subseteq U, B \subseteq V, U \cap V = \emptyset$. Thus $A \subseteq U \cap Y \in \T_Y$ and $B \subseteq V \cap Y \in \T_Y$ and $(U \cap Y) \cap (V \cap Y) = \emptyset$. Thus $Y$ is normal. Thus $X$ is hereditarily normal. 
+    
+    $\impliedby:$ Suppose $X$ is hereditarily normal. $\forall A, B \subseteq X \ni \cl(A) \cap B = \emptyset, \cl(B) \cap A = \emptyset$. Let $Y = X \setminus (\cl(A) \cap \cl(B))$ is open. Assume the contary, $\exists x \in \cl_Y(A) \cap \cl_Y(B)$, then $x \in \cl_Y(A) = \cl(A) \cap Y$ and $x \in \cl(B) \cap Y$ thus $x \in \cl(A) \cap \cl(B)$ which is a contradiction since $Y = X \setminus (\cl(A) \cap \cl(B))$ thus $x \not \in \cl(A) \cap \cl(B)$. Thus by contradiction $\cl_Y(A)$ is disjoint from $\cl_Y(B)$. Thus since $X$ is hereditarily normal, $Y$ is normal. Thus $\exists U, V \in \T_Y \ni \cl_Y(A) \subeq U, \cl_Y(B) \subeq V, U \cap V = \emptyset$. Since $U = Y \cap U'$ and $V= Y \cap V'$ for $U', V' \in \T$, $U ,V \in \T$ by closure of finite intersections. Thus $A \subseteq U$ and $B \subseteq V$ and $U \cap V = \emptyset$. Thus X is completely normal.                        
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4.27}\label{Problem 4.27.}
+\end{PROB}
+\begin{solution}
+    \begin{enumerate}
+        \item The subspace topology of $S = (0, 1) \cup \left\{ 2 \right\}$ has the open set $\left\{ 2 \right\} = (1.5, 2.5) \cap S$. You can't get the open set $\left\{ 2 \right\}$ with a order topology because $\forall a \in S$, $\exists b \in S \ni a < b < 2$ because $a$ must be in $(0, 1)$. Thus if $a \in (0, 1)$ take $b = \frac{1 + a}{2}$ $a < b < 1 < 2$, thus $b \in (a, \infty)$. 
+        \item Take $L := \left\{ (x, \frac{1}{2}) \mid x \in [0, 1] \right\}$. $\T_L$ is the discrete topology. Thus $\left\{ (\frac{1}{2}, \frac{1}{2}) \right\}$ is a open set. $\forall a < \frac{1}{2}, b > \frac{1}{2}$, take $a' = \frac{a + 0.5}{2}$ and $b' = \frac{b + 0.5}{2}$ thus $(a', \frac{1}{2}), (\frac{1}{2}, \frac{1}{2}) \in ((a, \frac{1}{2}), (1, \frac{1}{2})]$ and $(b', \frac{1}{2}), (\frac{1}{2}, \frac{1}{2}) \in [(0, \frac{1}{2}), (b, \frac{1}{2}))$ and $\left\{ a', b' \right\} \times {\frac{1}{2}} \subseteq (a \times \frac{1}{2}, b \times \frac{1}{2})$. Thus $\T_L$ is not a order topology
+        \item $L := \left\{ (x, 1) \mid x \in [0, 1] \right\}$ 
+    \end{enumerate}
+\end{solution}
+
+\bigskip
+
+\begin{claim}{4.28}\label{Claim 4.28.}
+    Order topologies are hereditarily normal
+\end{claim}
+\begin{proof}
+    $\forall Y \subseteq X$. 
+
+    Let $Y \cup \left\{ \infty \right\}$ have the ordering induced by $Y$ and where $\forall y \in Y$, $\infty > y$. Similarly let $Y \cup \left\{ -\infty \right\}$ have the ordering induced by $Y$ where $\forall y \in Y$, $-\infty < y$.      
+    
+    Define the following functions $\forall A \subseteq Y$: $f_A : A \to Y \cup \left\{ -\infty \right\}$ and $g_A: A \to Y \cup \left\{ \infty \right\}$. Define $f_A$ where $a \to \max\left(\left\{ x \mid x \in Y \setminus A, x < a \right\}\cup \left\{ -\infty \right\}\right)$. Define $g_A$ where $a \to \min\left(\left\{ x \mid x \in Y \setminus A, x > a \right\} \cup \left\{ \infty \right\}\right)$. 
+    
+    Define the function $(,) := Y \times Y \to 2^Y$ where $\forall a, b \in Y$, $(a, b) \to \left\{ x \in Y \mid a < x < b \right\}$, $(a, \infty) \to \left\{ x \in Y \mid a < x \right\}$, $(-\infty, b) \to \left\{ x \in Y \mid b < x \right\}$. 
+    
+    $\forall A, B \in \mathcal{C}_Y \ni A \cap B = \emptyset$. Define $\forall a \in A, \forall b \in B$, $U_a := (f_A(a), g_A(a))$, $V_b := (f_B(b), g_B(b))$. Thus $a \in U_a$ and $b \in V_b$. 
+    
+    $\forall (a, b) \in A \times B$, $\forall x \in U_a \cap V_b \implies f_A(a) < x < g_A(a)$ and $f_B(b) < x < g_B(b)$ which means $x \in A \cap B$ which is a contradiction. Thus $U_a \cap V_b = \emptyset$. Let $U := \bigcup_{a \in A} U_a$ and $V := \bigcup_{b \in B} V_b$. $U \cap V = \emptyset$ by the above. But $A \subseteq U$ and $B \subset V$   Thus $Y$ is normal. Thus $X$ is hereditarily normal.            
+\end{proof}
+
+\pagebreak
+
+\textbf{COME BACK HERE!!!!}
+\section{The normality Lemma}
+
+\begin{claim}{4.29}\label{Claim 4.29.}
+    (\textbf{Normality Lemma}). Let $A$ and $B$ be subsets of a topological space $X$, and let $\left\{ U_i \right\}_{i \in \N}$ and $\left\{ V_i \right\}_{i \in \N}$ be two collections of open sets such that 
+    
+    \begin{enumerate}
+        \item $A \subeq \bigcup_{i \in \N}U_i$
+        \item $B \subeq \bigcup_{i \in \N} V_i$
+        \item $\forall i \in \N$, $\overline{U_i} \cap B = \emptyset$ and $\overline{V_i} \cap A = \emptyset$    
+    \end{enumerate}
+    then there exists $U, V \in \T \ni A \subeq U, B \subeq V, U \cap V = \emptyset$ 
+\end{claim}
+\begin{proof}
+    Let $A$ and $B$ be subsets of a topological space $X$, and let $\left\{ U_i \right\}_{i \in \N}$ and $\left\{ V_i \right\}_{i \in \N}$ be two collections of open sets which satisfy conditions 1, 2, 3 
+
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.30}\label{Claim 4.30.}
+    If $X$ is normal and $C = \bigcup_{i \in \N} K_i$ is the union of closed sets $K_i$ in $X$ then $C$ is normal     
+\end{claim}
+\begin{proof}
+    $\forall A, B \in \mathcal{C}_C \ni A \cap B = \emptyset$. $\cl_X(A) \cap C = A$ and $\cl_X(B) \cap C = B$.     
+\end{proof}
+
+\bigskip
+
+\begin{claim}{4.31}\label{Claim 4.31.}
+    Suppose $X$ is regular and countable. Then $X$ is normal  
+\end{claim}
+\begin{proof}
+    
+\end{proof}
+
+
+\end{document}

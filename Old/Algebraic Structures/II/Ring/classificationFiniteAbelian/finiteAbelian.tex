@@ -1,0 +1,218 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Finite Abelian}
+\author{Arham Lodha}%put your name here
+\date{March 14, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{0}\label{Problem 0.}
+\end{PROB}
+\begin{proof}
+
+    $\forall r \in S$, $r * 0_s + r = r * (0 + 1_s) = r(1_s) = r \implies r*0_s = 0$.   
+
+    $\forall r \in S$, $0 = r * 0s = r * 1_{s} = r$, thus $r = 0$. Thus $S = \left\{ 0 \right\}$   
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{1}\label{Problem 1.}
+    
+\end{PROB}
+\begin{proof}
+    If $S$ acts on A, it means there $\exists f: S \times A \to A$ with the following properties, $\forall r, s \in S$ and $\forall a, b \in A$   
+    
+    \begin{enumerate}
+        \item Distributivity over group addition: $f(r, a + b)  = f(r, a) + f(r, b)$,
+        \item Distributivity over ring addition: $f(r + s, a) = f(r, a) + f(r, b)$
+        \item Compatibility over ring multiplication: $f(rs, a) = f(r, f(s, a))$
+        \item Multiplicative identity element: $f(1, a) = a$
+    \end{enumerate}
+
+    Let $g: S \to Hom_{gr}(A, A)$, a ring homo. Where $\forall s \in S$, $g(s) := [a \to f(s, a)]$. Thus $g$ determines the choice of $f$ and vice versa.      
+
+
+    Let $g_1, \dots, g_k$, be the generators of $M$. $\forall m \in M, m = r_1g_1 + \dots, r_kg_k$. Thus the map, sending $\left(r_1, \dots, r_k\right)\to m$ is surjective.
+    
+    A determines M, because the number of rows determine the number of generators of M, while each column describes one of the relations which describe M. Since generators and relations determine a group, A determines a group with the same generators and relations as M, and thus isomorphic (in this case equal) to M, by the universal property.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+\end{PROB}
+\begin{proof}
+    $M(A) \cong S^g / Im(A)$ and $M(RAC) \cong S^g / Im(RAC)$.
+    
+    $Im(AC) \cong Im(A)$, because $C$ is a isomorphism of $S^k$, thus the image doesn't change.    
+
+    $\forall x + Im(RAC) \in M(RAC)$, $\exists y + Im(A) \in M(A) \ni R_*(y + Im(A)) = x + Im(RAC)$, because $R$ is invertible and $C$ is invertible and thus isomorphisms. Thus $R_*$  is a surjective map from $M(A)$ to $M(RAC)$.
+    
+    
+    $\forall a + Im(A), b + Im(A) \in M(A) \ni R_*(a + Im(A)) = R_*(b + Im(A)) \implies Ra + R_*(Im(A)) = Ra + R_*(Im(AC)) = Ra + Im(RAC) = Rb + R_*(Im(B)) = Rb + R_*(Im(AC)) = Rb + Im(RAC) \implies a + Im(AC) = b + Im(AC)$, because R is invertible. Thus $R_*$ is injective. 
+    
+    $\forall a + Im(A), b + Im(A)$, $\forall r, s \in S$, $R_*(r(a + Im(A)) + s(b + Im(A))) = R_*((ra + sb) + Im(A)) = ra + sb + Im(RAC) = ra + Im(RAC) + sb + Im(RAC) = rR_*(a + Im(A)) + sR_*(b + Im(A))$  
+    
+    Thus $M(A) \cong M(RAC)$ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+\end{PROB}
+\begin{proof}
+    Since $M(RAC) \cong M(A)$, without loss of generality, let $A$ be "diagonal" after row and column operations. Thus $A = \begin{bmatrix}
+        D & 0 \\ 0 & 0
+    \end{bmatrix}$ where $D = \begin{bmatrix}
+        a_1 & \\ & \ddots \\ & & a_n
+    \end{bmatrix}$. Let $a_i = 0$ $\forall i > n$.   
+    
+    
+    Thus $\forall v \in S^k$, $v = (s_1, \dots, s_k)$ and $Av = (a_1s_1, \dots, a_ns_k, a_{n + 1}, \dots, a_{g})$. Thus $\forall v \in A_*(S^k)$, the ith component of v are multiples of $a_i$. Thus $Im(S^K) \leq \bigoplus_{i= 1}^n a_iS$, however $\forall (s_1, \dots, s_n) \in \bigoplus_{i= 1}^n a_iS$, $(\frac{s_1}{a_i}, \dots, \frac{s_n}{a_n}, 0, \dots, 0) \in S^k, A(\frac{s_1}{a_i}, \dots, \frac{s_n}{a_n}, 0, \dots, 0) = (s_1, \dots, s_n, 0, \dots, 0) \implies  (s_1, \dots, s_n, 0, \dots, 0) \in A_*(S^k) \implies  (s_1, \dots, s_n) \in A_*(S^k)$, naturally. Thus, $Im(S^K) \cong \bigoplus_{i= 1}^n a_iS$ 
+    
+    Consider the map, $\phi: M(A) \to \bigoplus_{i = 1}^{n} S / a_i S$ which sends the equivalence class of $(x_1, \dots, x_g) \to (x_1 + a_1S_1, \dots, x_n + a_nS_n, \dots, x_g)$
+    
+    $\forall w \in A_*(S^k)$, by the above, $w = \left(a_1s_1, \dots, a_ns_n, 0, \dots, 0\right)$ , $\phi((x_1, \dots, x_g) + w)=\phi(x_1 + a_1s_1, \dots, x_n + a_ns_n, x_{n + 1}, \dots, x_g) = (x_1 + a_1S_1, \dots, x_n + a_nS_n, \dots, x_g) = \phi((x_1, \dots, x_g))$, so well defined
+    
+    $\forall (x_1, \dots, x_g), (y_1, \dots, y_g) \in S^g \ni \phi((x_1, \dots, x_g)) = \phi((y_1, \dots, y_g)) \implies x_i - y_i \in a_i S_i \forall i \implies x - y \in A_*(S^K) \implies (x_1, \dots, x_g) = (y_1, \dots, y_g)$ in $M(A)$
+    
+    $\forall y = (a_1s_1 + a_i S, \dots, a_ns_n + a_i S) \in \bigoplus_{i = 1}^{n} S / a_i S$, $\phi(a_1s_1, \dots, a_ns_n, 0, \dots, 0) = y$. 
+    
+    
+    Thus $M(A) \cong \bigoplus_{i = 1}^{n} S / a_i S$ 
+\end{proof}
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+\end{PROB}
+\begin{proof}
+    % Let $A$ be a integer matrix. Create $R$ and $C$ using the row and column elementary matrix required in guassian elimination. Since $A$ is a integer matrix, $R$ and $C$ have rational entries. To make $R$ and $C$ integer matrices, multiply each matrix by the least common multiple of the denomenators of the canonical forms of each entry. Thus $RAC$ is a integer diagonal matrix. Thus $RAC = \begin{bmatrix}
+    %     D &0 \\ 0& 0
+    % \end{bmatrix}, D = \begin{bmatrix}
+    %     a_{1} \\ & \ddots \\ & & a_{n}
+    % \end{bmatrix}$. 
+
+    % Let $H_{i, j}$ be matrix which is like the identity, but at the i, jth entry there is a 1. 
+    
+    
+    % Modify $R$ and $C$ using the following algorithm.
+    
+    % \begin{enumerate}
+    %     \item Let $k = 1$. 
+    %     \item Multiply R by a diagonal matrix which is -1 on the diagonal entries which are negative. Thus all entries are positive of $RAC$
+    %     \item Modify R and $C$ to order the diagonal entries so $a_i \leq a_{i + 1}$ $\forall i$.
+    %     \item Then multiply C by $H_{k, k + 1}$. Let $ca_{k} + da_{k + 1} = gcd(a_{k}, a_{k + 1})  = g$. Multiply the row matrix such that $a_{k}$ becomes the g. Thus $a_{k} | a_{k + 1}$
+    %     \item Repeat this algorithm for all $k$
+    %     \item Thus $a_{1} | a_2 | a_3 \dots | a_n$     
+    % \end{enumerate}
+    
+    
+    
+    
+    % Let $A$ be a integer matrix. Construct $R , C $ be with the following algorithm. 
+    
+    % Let $j_1$ be the column index of th entry with the smallest absolute value. Let $R_1$ be the row permutation necessary to move the entry to the top row and $C_1$ be the column permutation to move the entry to the first column. Let $A_1 = R_1AC_1$. Thus $[A_{1}]_{1, 1}$ has the entry with the smallest absolute value.
+
+    $\forall m , n \in \N$.  
+    
+    Inductive step: Suppose all $k \times l$ where $k < m$ and $l < n$ matrices satisfy the theorem. 
+
+    Inductive Hypothesis: Let $A$ be a matrix of size $m \times n$. Let $R$ and $C$ be the necessary row and colmn permutation matrices to get the smallest possible entry of $A$ to the top right corner of matrix, ie the $R$ and $C$ such that $[RAC]_{1, 1}$ has the smallest nonzero absolute value.
+    
+    For each row $r_i$ in $A$, by the Division algorithm, $\exists q, r \in \Z$    
+    For each row $r_i$ in A, by the Division Algorithm, $\exists q, r \in \Z \ni qa_{1, 1} + r = a_{i, 1}$. Multiply R by the row operation which replaces the $r_i$ with $r_i - qr_1$. Now $a_{i, 1} = r$. But since the choice of $R$ and $C$ ensured that $a_{i, i}$ is the smallest possible nonzero value and $r < a_{i, i}$, thus $r = 0$. Thus $a_{1, 1}$ divided the elements of the colmun. Similarly for the columns, $r = 0$ and the elements of the first row are divisible by $a_{1, 1}$.  
+
+    If $m = 1$ or $n = 1$, then we are done.
+    
+    
+    If $m, n \geq 2$, we can get the jth row to the first row with the row operation $r_1 + r_i \to r_1$ to get the matrix A'. For each element of the first row of $A'$, by the euclidean algoirthm, $\exists q, r \in \Z \ni qa'_{1, 1} + r = a'_{1, i}$. Do the column operation $c_i - qc_1 \to c_i$. Now $a_{1, i}' = r$. By the choice of $R$ and $C$ has ensured that $a_{1, 1}'$ is the smallest possible nonzero value, thus $a_{1, 1} | a_{1, i}'$ thus $a_{1, 1} | a_{j, i}$. Thus $a_{i, i}$ divides every entry of $A$. 
+    
+    Thus submatrix B excluding the first column and row is $a_{1, 1}B'$. 
+    
+    Thus by the induction hypothesis, $B$ can diagonalized where $b_{i, i} | b_{i + 1, i+ 1}$. Since $B = a_{1, 1}B'$, thus $a_{1, 1} | b_{i, i}$.
+
+
+    Thus by induction any matrix can be diagonal using row and column operations where $i$-th diagonal entry divides the $i + 1$ diagonal entry.   
+    % Repeat the euclidean algorithm for this row until, $a_{1,1} = gcd(a_{1, 1}, a_{i, 1})$. Thus now $a_{1, 1}$ divides every element of its column. Repeat this process for the row, so $a_{1, 1}$ divides every element of its row as well. Now entry of the row and column by subtracting the row by $a_{i,1}/a_{1,1} * r_1$ and column by $a_{1, i}/a_{1, 1} r_1$.                
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+\end{PROB}
+\begin{proof}
+    Let $G$ be a finitely generated abelian group. Thus by problem 1 and 2, there exists a finite presentation of $G$ which is the matrix $A$ in the ring of integers. Thus by definition, $M(A) = G$. By 3, $M(A) \cong \bigoplus_{i}^n \left(\Z / a_i\Z\right) \oplus \Z^r$ (as vectorspaces). By 4, we can pick the $a_i$ such that $a_1 | \dots | a_n$.  
+\end{proof}
+
+\bigskip
+
+
+
+
+
+\end{document}

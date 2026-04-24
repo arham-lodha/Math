@@ -1,0 +1,120 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+\newcommand{\lie}[1]{\mathfrak{#1}}
+\newcommand{\ad}[1]{\text{ad}_{#1}}
+\newcommand{\tr}[1]{\text{tr}\left(#1\right)}
+
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Chapter 1}
+\author{Arham Lodha}%put your name here
+\date{November 18, 2024}%enter the due date here
+\maketitle
+
+\begin{definition}
+    Let $V$ be a vector space. The \textbf{vectorspace complexification} of $V$ is $V \otimes_{\R} \C$. However you can view $V \oplus_{\R} \C$ as $V \oplus iV$ with regular complex multiplication ie $(a + bi)(v_1 + iv_2) = (a v_1 - b v_2) + i(bv_1 + av_2)$      
+\end{definition}
+
+\begin{definition}
+    Let $\lie{g}$ be a Lie Algebra with lie bracket $[,]$. $\forall x \in \lie{g}$ let $\mathbf{\ad{x}} := [y \to [x, y]]$. The \textbf{Killing Form} is a symmetric bilinear form $K: \lie{g} \times \lie{g} \to F$ where $F$ is the field $\lie{g}$ is over where $K(x, y) = \tr{\ad{x} \circ \ad{y}}$         
+\end{definition}
+
+\begin{PROB}{1}\label{Problem 1.}
+    Let $V$ be a Lie algebra over $\R$
+    
+    \begin{enumerate}
+        \item Let $V^\C$ be the vector space complexification $V^\C = V \otimes_R \C$. Show that the bracket operation on $V$ extends consistently and uniquely to $V^\C$ so $V^\C$ becomes a complex lie algebra.  
+        \item Let $V$ be finite dimensional and let B and $B^\C$ be the killing forms of $V$ and $V^\C$. Show that $B^\C|_{V \times V} = B$   
+        \item Show that $V$ semisimple iff $V^\C$ semisimple
+        \item       
+    \end{enumerate}
+    
+\end{PROB}
+\begin{proof}
+    \begin{enumerate}
+        \item $[v_1 + iv_2, w_1 + iw_2] = [v_1, w_1] +i[v_2, w_1] + i[v_1, w_2] - [v_2, w_2]$. This is bilinear and satisfies the jacobi identity. 
+
+        \item $\ad{x}(\ad{y}(z_1 + iz_2)) = [x, [y, z_1 + iz_2]] = [x, [y, z_1] + i[y, z_2]] = [x, [y, z_1]] + i[x, [y, z_2]]$. The matrix of $\ad{x},\ad{y}$ is the same in $V$ and $V^\C$. thus $B$ and $B^\C$ must be the same restricted to $V \times V$. 
+        
+        \item $\implies:$ Suppose $V$ is semisimple. Assume the contrary that $V^\C$ is not semisimple, thus $\exists x \in V^\C$ such that $\forall y \in V^\C, B_{V^\C}(x, y) = 0$. $x = x_1 + i x_2$ for $x_1, x_2 \in V$. Thus $B_{V \C}(x, y) = B_{V^\C}(x_1 + ix_2, y) = B_{V^\C}(x_1, y) + iB_{V^\C}(x_2, y)$. Note $\forall y \in V$, $B_{V^\C}(x_i, y) = B_{V}(x_i, y) \in \R$. Thus if $B_{V}(x_1, y) + i B_{V}(x_2, y) = 0 \implies B_{V}(x_1, y) = 0$ and $B_{V}(x_2, y) = 0$. Thus $B_{V}$ is degenerate which is a contradiction since $V$ is semisimple. 
+        
+        $\impliedby:$ Suppose $V^\C$ is semisimple. Assume the contrary, $V$ is not semisimple, then $B_V$ is degenerate. Thus $\exists x \in V \ni \forall y \in V, B_V(x, y) = 0$. $\forall y = y_1 + i y_2 \in V^\C$, $B_{V^\C}(x, y) = B_{V^\C}(x, y_1) + iB_{V^\C}(x, y_2) = B_{V}(x, y_1) + iB_V(x, y_2) = 0$. Thus $B_{V^\C}$ is degenerate. Thus by contradiction, $V$ must be semisimple. 
+
+        \item 
+    \end{enumerate}
+
+
+    
+\end{proof}
+
+\end{document}

@@ -1,0 +1,523 @@
+%HOMEWORK template for M 325K
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand*{\T}{\mathcal{T}}
+\newcommand*{\B}{\mathcal{B}}
+\newcommand*{\U}{\mathcal{U}}
+\newcommand*{\cl}{\mathrm{cl}}
+\newcommand*{\subeq}{\subseteq}
+\newcommand*{\empset}{\emptyset}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+\newenvironment{#1}[1]
+{%
+\renewcommand\customgenericname{#2}%
+\renewcommand\theinnercustomgeneric{##1}%
+\innercustomgeneric%
+}
+{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+{\end{proof}}
+
+\newenvironment{definition}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+{\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Homework 12}
+\author{Arham Lodha}%put your name here
+\date{November 18, 2024}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+	Prove $L_1, L_2, L_3, L_4$ are Compact oriented 3 manifolds 
+\end{PROB}
+\begin{proof}
+	It suffices to show the conditions for $L_1$ and then invoking problem 2, it will apply for them all. 
+	
+	\begin{enumerate}
+		\item $L_1(p, q)$ is the image of a surjective map from $S^3$ a compact space and thus is compact. 
+		\item The action of $\Z_p$ on $S^3$ has the property that $\forall g \in \Z_p \setminus 0$, $\forall y \in S^3, \exists U \in \T_{S^3} \ni y \in U$ and $U \cap gU = \empset$, this is because if you look at the action of $\Z_p$ on the torii deconstruction of $S^3$, you see each point travels around the solid tori (maybe with a twist), and so if you take $U$ to be a small enough open ball, the action of $\forall g \in \Z_p \setminus \left\{ 0 \right\}$ will ensure $U \cap gU = \empset$. Thus $\varphi: S^3 \to L_1(p, q)$ is a covering space map. For all $x \in L_1(p, q)$ $\exists U_x \in \T_{L_1(p, q)} \ni x \in U_x$ and $\varphi^{-1}(U_x)$ is s disjoint union of homeomorphic copies of $U_x$. By surjectivity, $\exists x_0 \in \varphi^{-1}(x_0)$, since $S^3$ is a 3 manifold $\exists V_{x_0} \in \T_{S^3} \ni x_0 \in V_{x_0} \implies x \in \varphi(V_{x_0})$ where $V_{x_0}$ is homeomorphic to $\R^3$. There exists a homeomorphic copy of $U_x$, $U_{x_0}$,  inside $\varphi^{-1}(U_x)$ such that $x_0 \in U_{x_0}$. Then $\varphi|_{U_{x_0} \cap V_{x_0}}$ is a homeomorphism and since $L_2(p, q)$ is a qoutient map $V_{x_0}$ is open so $U \cap \varphi(V_{x_0})$ is a open set homeomorphic to $\R^3$. Additionally $S^3$ is $2^{nd}$ countable and since $L_1(p, q)$ is the image of a surjective map from a second countable space, $L_1(p, q)$ is second countable. 
+		
+		$\forall U \in \T_{S^3}$, $\varphi^{-1}(\varphi(U)) := \left\{ gx \mid g \in G, x \in U \right\} = \bigcup_{g \in \Z_p} gU$ is open. Thus $\varphi(U)$ is open. Thus $\varphi$ is a open map.     
+
+		$\forall x, y \in S^3 \ni \Z_p x \neq \Z_p y$ (orbits are not equal). Thus $\forall g \in \Z_p$, $\exists U_g, V_g \in \T_{S^3} \ni g x \in U_g$ and $y \in V_g$ and $U_g \cap V_g = \empset$  . Then let $U = \bigcap_{h \in \Z_p} h^{-1} U_h$ and $V = \bigcap_{h \in \Z_p} V_h$. Thus $x \in U$ and $y \in V$ and $gU$ is a neighborhood of $gx$ within $U_g$ thus $gU \cap V = \empset$ for all $g$.
+		
+		Assume the contrary, $\exists x \in \varphi(U) \cap \varphi(V) = \varphi(U \cap V) \implies \exists y \in S^3$ and $g \in G \ni gy \in U \cap V$ but that is a contradiction. Thus $L_1(p, q)$ is Hausdorff. $L_1(p, q)$ is a 3 manifold.  
+		
+		\item Since the action of $\Z_p$ on $S^3$ is a rotation with a twist, it is orientation preserving. So the qoutient space $L_1(p, q)$ must be orientable as it will inherit the orientation of $S^3$. For each $x \in S^3$ there is a open set $U$ which doesn't have overlap when acted by $\Z_p$ other than identity. Since $S^3$ has a consistant global orientation the orientation of each U is the same so when you map it down to $L_1(p, q)$ the orientation must be the same for all of them either way because since $\Z_p$ acts in a orientation preserving way $gU$ has the same orientation as $U$. So the orientations of each open set of $L_1(p, q)$ is consistent so orientation of $L_1(p, q)$ is consistent globally. Thus $L_1(p, q)$ is orientable.               
+	\end{enumerate}
+
+	Thus $L_1(p, q)$ is a compact orientable 3 manifold. Thus by 2, $L_2(p, q), L_3(p, q), L_4(p, q)$ are also compact orientable 3 manifold. 
+	
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2}\label{Problem 2.}
+    Show $L_1(p, q) \cong L_2(p, q) \cong L_3(p, q) \cong L_4(p, q)$ 
+\end{PROB}
+\begin{proof}
+	Let $\omega = e^{2 \pi i/p}$. 
+
+    \begin{enumerate}
+
+
+        \item $L_1 \cong L_2$: Let $\varphi: L_{2}(p, q) \to L_1(p, q)$ where $[(z, t)] \to \left[\left(\sqrt{1 - \abs{z}^2} e^{- \frac{\pi i t}{p}}, z\right)\right]$
+        
+		Let's see this well defined: 
+
+		\begin{enumerate}
+			\item $\abs{t} < \sqrt{1 - \sqrt{z}^2}$: $[(z, t)] = \left\{ (z, t) \right\}$. Thus $\varphi$ is well defined for this case. 
+			\item $t = -\sqrt{1 - \abs{z}^2}$: $[(z, t)]:= \left\{ (z, t), (\omega^q z, -t) \right\}$. Thus 
+			
+			\begin{align*}
+				\varphi([\omega^q z, -t]) &= \left[\left(\sqrt{1 - \abs{z}^2} e^{\frac{\pi i t}{q}}, \omega^q z\right)\right] \\
+				&= \left[\left(\sqrt{1 - \abs{z}^2} e^{\frac{\pi i t}{p}} \omega^{-1}, z\right)\right] \\
+				&= \left[\left(\sqrt{1 - \abs{z}^2} e^{-\pi i \frac{t}{p}}, z\right)\right] \\
+				&= \varphi([(z, t)])
+			\end{align*}
+
+		\item $t = \sqrt{1 - \abs{z}^2}$: $[(z, t)] := \left\{ (z, t), (\omega^{-q}z, -t) \right\}$
+		
+		\begin{align*}
+			\varphi([(\omega^{-q}z, -t)]) &= \left[
+				\left(
+					\sqrt{1 - \abs{z^2}} e^{\frac{\pi it}{p}}, \omega^{-q}t 
+				\right)
+			\right] \\
+			&= \left[
+				\left(
+					\sqrt{1 - \abs{z^2}} e^{\frac{\pi it}{p} }\omega^{-1}, t 
+				\right)
+			\right] \\
+			&= \left[
+				\left(
+					\sqrt{1 - \abs{z^2}} e^{-\frac{\pi it}{p}}, t 
+				\right)
+			\right] \\
+			&= \varphi([(z, t)])
+		\end{align*}
+		\end{enumerate}
+
+		Thus $\varphi$ is well defined. 
+		
+		Let $\rho: L_1(p, q) \to L_2(p, q)$ where $[z_1, z_2] \to [z_2, -\frac{p}{\pi}\arg{z_1}]$. Thus $(\rho \circ \varphi)(z, t) = \rho[\sqrt{1 - \abs{z}^2} e^{\frac{-i \pi t}{p}}, z] = [z, t]$. Thus $\varphi$ is injective.     
+		
+		Lets see its surjective. $\forall (z_1, z_2) \in S_3$. Let $z = z_2$ and let $t = -\frac{p}{\pi} \arg(z_1)$. Then, $\varphi([(z, t)]) = [(z_1, z_2)]$. Thus $\varphi$ is surjective. Since $L_2$ is the qoutient from a compact space $B$, it is compact. As proven in the previous problem $L_1$ is Hausdorff. Thus $\varphi$ is a homeomorphism.    
+
+		
+        
+		\item $L_1 \cong L_3$: Let $T_1 = \left\{ (z_1, z_2) \mid \abs{z_2}^2 \leq \frac{1}{2} , \abs{z_1}^2 + \abs{z_2}^2 = 1\right\}$ 
+		
+		and $T_2 = \left\{ (z_1, z_2) \mid \abs{z_1}^2 \leq \frac{1}{2} , \abs{z_1}^2 + \abs{z_2}^2 = 1\right\}$. $S^3 \cong T_1 \cup T_2$. $T_1$ and $T_2$ are solid tori. Let $m_i,l_i$ be the meridian and longitude of $T_i$. $m_1 = z_1 \times S^1$ and $l_1 = S^1 \times z_2$ and $m_2 = S^1 \times z_2$ and $l_2 = z_1 \times S^1$. 
+		
+		In standard $S^3$, $m_1 \simeq l_2$ and $l_1 \simeq m_2$. But now lets see what changes by the action of $\Z_p$ on $T_1$ and $T_2$. The classes of orbits of the action, $\frac{1}{p}$th chunks of the tori where the end faces are identified. More details are provided in the picture corresponding to this problem. $T_1 / \Z_p$ has the following equivalence:
+
+		\[(z_1, z_2) \sim (\omega z_1, \omega^q z_2)\]
+
+		Similarly $T_2 / \Z_p$ has the following equivalences: 
+		
+		\[(z_1, z_2) \sim (\omega^k z_1, \omega z_2)\]
+
+		where $k = q^{-1} \in \Z_p^\times$. This causes $T_1 / \Z_p$ and $T_2 / \Z_p$ to be chunks of $T_1$ and $T_2$ where the end faces are identified. Thus $T_1 / \Z_p \cong D^2 \times S^1 \cong T_2 / \Z_p$. Under the action of $\Z_p$ we will also examine the meridians and longitude to see how they transform under the action
+		
+		\begin{align*}
+			m_1 &\to m_1 \\
+			l_1 &\to pl_1 + qm_1 \\
+			m_2 &\to m_2 \\
+			l_2 &\to km_2 + pl_2
+		\end{align*}
+
+		Since $m_2 \sim l_1$ in $S^3$, in $L_1(p, q)$, $m_2 \sim pl_1 + qm_1$ and similarly $m_1 \sim km_2 + pl_2$. $L_1(p, q)$ is the disjoint union of two solid tori $T_1 / \Z_p$ and $T_2 / \Z_p$ with the identification $m_2 \sim pl_1 + qm_1$. This is by definition $L_3(p, q)$.          
+
+		\item $L_3 \cong L_4$: Let $K$ be the unknot. By definition of Dehn Surgery, you attach $S^3 - K \cong D^2 \times S^1 = T_1$ to a tubular neighborhood of $K$ which is homeomorphic to $D^2 \times S^1 = T_2$ by a map which sends $m_2 \to q m_1 + p m_2$. Where $m_i$ and $l_i$ are the meridian and the longitude of $T_i$. This is by definition, the description of $L_3$. Thus $L_4 \cong L_3$.           
+    \end{enumerate}
+    
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{3}\label{Problem 3.}
+	Compute the Homology Groups of $L_2(p, q)$.  
+\end{PROB}
+\begin{proof}
+	The CW structure of $L_2(p, q)$ is as follows, a 0 cell, a 1 cell, a 2 cell, and a 3 cell. Thus the cellular chain complex is as follows: 
+	
+	% https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiXFxaIl0sWzIsMCwiXFxaIl0sWzMsMCwiXFxaIl0sWzQsMCwiXFxaIl0sWzUsMCwiMCJdLFs0LDVdLFszLDQsImRfMSJdLFsyLDMsImRfMiJdLFsxLDIsImRfMyJdLFswLDFdXQ==
+\[\begin{tikzcd}
+	0 & \Z & \Z & \Z & \Z & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["{d_3}", from=1-2, to=1-3]
+	\arrow["{d_2}", from=1-3, to=1-4]
+	\arrow["{d_1}", from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+
+	Note the map that attaches the 2 cell to the 1 cell is a p sheeted covering of the 1 cell. 
+
+	\begin{align*}
+		d_1 &= 0 \\
+		d_2 &= p \\
+	\end{align*} 
+
+	So, $H_0(L_2(p, q)) = \Z$, $H_1(L_2(p, q)) = \Z / p \Z = \Z_p$, $H_2(L_2(p, q)) = \ker d_2 / Im d_3 = 0 $ . Furthermore $\ker d_2 = 0$ and since $Im d_3 \subeq \ker d_2 \implies Im d_3 = 0$. Thus $d_3 = 0$. Thus $H_3(L_2(p, q)) = \Z$.       
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+	Compute the Fundamental Group of $L_1(p, q)$ 
+\end{PROB}
+\begin{proof}
+	The action of $\Z_p$ on $S^3$ has the property that $\forall g \in \Z_p \setminus 0$, $\forall y \in S^3, \exists U \in \T_{S^3} \ni y \in U$ and $U \cap gU = \empset$, this is because if you look at the action of $\Z_p$ on the torii deconstruction of $S^3$, you see each point travels around the solid tori (maybe with a twist), and so if you take $U$ to be a small enough open ball, the action of $\forall g \in \Z_p \setminus \left\{ 0 \right\}$ will ensure $U \cap gU = \empset$. Furthermore note $S^3 / \Z_p = L_1(p, q)$. Additionally let $p: S^3 \to L_1(p, q)$ be the qoutient map. $\pi_1(S^3) = 0$. By Proposition 1.40, $\Z_p \cong \pi_1(S^3 / \Z_p) / \pi_1(S^3) \cong \pi_1(L_1(p, q))$.         
+\end{proof}
+
+\section*{Hatcher Problems}
+
+\begin{claim}{2.2.18A}\label{Claim 2.2.18A.}
+	For $(X, A)$ a CW pair you have the following:
+
+	\begin{enumerate}
+		\item $H_k(X^{n}, X^{n - 1} \cup A^{n})$ is free if $k = n$ otherwise is trivial. 
+		\item $H_k(X^{n} \cup A^{n + 1}, A^{n + 1}) = 0$ for all $k  > n$  
+		\item $X^n \xhookrightarrow{} X$ and $A^n \xhookrightarrow{} A$ induce isomorphisms between $H_{n}(X^{n + 1}, A^{n + 1})$ and $H_{n}(X, A)$  
+		\item $H_n(X^n \cup A^{n + 1}, A^{n + 1}) \cong H_n(X^n, A^n)$    
+	\end{enumerate}
+	
+\end{claim}
+\begin{proof}
+	\begin{enumerate}
+		\item $(X^n, X^{n - 1} \cup A^{n})$ is a CW pair and thus a good pair. Thus $H_k(X^{n}, X^{n - 1} \cup A^{n}) \simeq H_k(X^{n} / (X^{n - 1} \cup A^{n}))$. $X^{n} / (X^{n - 1} \cup A^{n})$ is a wedge of $S^n$, where the number of $S^n$ is the number of $n$-cells which is in $X^n$ but not in $A^n$. Thus $H_k(X^{n} / (X^{n - 1} \cup A^{n})) = \oplus H_k(S^n)$ which is $\Z$ when $k = n$ and 0 otherwise. $H_k(X^{n}, X^{n - 1} \cup A^{n})$ is free if $k = n$ otherwise is trivial.
+		\item Let $A = A^{n + 1}$ and $B = X^n$, by excision $H_k(X^{n} \cup A^{n + 1}, A^{n + 1}) \simeq H_k(X^n, A^n)$. $(X^n, A^n)$ is a CW pair and thus is a good pair. Thus $H_k(X^n, A^n) = H_k(X^n / A^n)$. $X^n / A^n$ is a n dimensional CW complex. By Lemma 2.34b, $H_k(X^n / A^n) = 0$. 
+		\item $X^{n + 1} / A^{n + 1}$ is a a $n + 1$ dimensional CW Complex, where its $n + 1$ skeleton is the $n + 1$ skeleton of $X^{n + 1}$ where $A^{n + 1}$ skeleton have been identified to a point. $(X / A)$ is also a $CW$ complex, where A in $X$ has been identfied to a point. But note $(X / A)^{n + 1}$ or the $n + 1$ skeleton of $X / A$ is the $n + 1$ skeleton of $X$, ie $X^{n + 1}$, which is not in $A$ and $A$ is reduced to a point. Any cell in the $X^{n + 1}$ is either in $A$ or not in $A$. If its in $A$, its in $A^{n + 1}$. And if its not in $A$ its not in $A^{n + 1}$. $(X / A)^{n + 1}$ is the n skeleton of $X^{n + 1}$ where $A$ has been reduced to a point, it is the same thing as $X^{n + 1}$ where $A^{n + 1}$ is reduced to a point, this is by definition the same thing as $X^{n + 1}/ A^{n + 1}$. Furthermore $(X, A)$ and $(X^{n + 1}, A^{n + 1})$ are good pairs, and by 2.34(c), $H_n(\frac{X}{A}) \cong H_n((\frac{X}{A})^{n + 1})$. Thus we have 
+		\[H_n(X^{n + 1} , A^{n + 1}) \cong H_n(X^{n + 1}/ A^{n + 1}) \cong H_n((X / A)^{n + 1}) \cong H_n(X / A) \cong H_n(X, A)\]
+		\item Let $A =  A^{n + 1}$ and $B = X^n$. By excision, $H_n(X^n \cup A^{n + 1}, A^{n + 1}) \cong H_n(B, A \cap B) = H_n(X^n, A^n)$.    
+	\end{enumerate}
+	 
+\end{proof}
+
+\begin{PROB}{2.2.18}\label{Problem 2.2.18.}
+    For $(X, A)$, a CW Pair, show there is a relative cellular chain complex formed by groups isomorphic to $H_i(X^{i}, X^{i - 1} \cup A^{i})$  
+\end{PROB}
+\begin{proof}
+
+	Use Lemma 2.2.18A, to create this commutative diagram using the long exact sequences of triples $(X^{n + 1}, X^n \cup A^{n + 1}, A^{n + 1}), (X^{n}, X^{n - 1} \cup A^{n}, A^n), (X^{n - 1}, X^{n - 2} \cup A^{n - 1}, A^{n - 1})$. Let $d_n$ be the maps which make the diagram commute.   
+
+% https://q.uiver.app/#q=WzAsMTQsWzIsMywiSF9uKFhebiwgWF57biAtIDF9IFxcY3VwIEFebikiXSxbMywzLCJIX3tuLTF9KFhee24gLSAxfSwgWF57bi0yfSBcXGN1cCBBXntuLTF9KSJdLFsyLDEsIkhfbihYXntuLTF9XFxjdXAgQV5uLCBBXm4pID0gMCJdLFsyLDIsIkhfbihYXm4sQV5uKSJdLFsyLDQsIkhfe24tMX0oWF57bi0xfVxcY3VwIEFebiwgQV5uKSJdLFszLDUsIjAiXSxbMyw0LCJIX3tuLTF9KFhee24tMX0sQV57bi0xfSkiXSxbMywyLCJIX3tuLTJ9KFhee24tMn1cXGN1cCBBXntuLTF9LCBBXntuLTF9KSJdLFsxLDMsIkhfe24rMX0oWF57bisxfSwgWF57bn0gXFxjdXAgQV57bisxfSkiXSxbMCwzLCIuLi4iXSxbNCwzLCIuLi4iXSxbMSwyLCJIX24oWF57bn0gXFxjdXAgQV57bisxfSwgQV57bisxfSkiXSxbMSwxLCJIX3tufShYXntuKzF9LEFee24rMX0pIl0sWzEsMCwiSF97bn0oWF57bisxfSwgWF57bn0gXFxjdXAgQV57bisxfSk9MCJdLFswLDEsImRfbiJdLFsyLDNdLFszLDAsImIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFswLDQsImEiXSxbNCw2LCJcXGNvbmciLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbNSw2XSxbNiwxLCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6ImJvdHRvbSJ9fX1dLFsxLDddLFs4LDAsImRfe24rMX0iXSxbOSw4XSxbMSwxMF0sWzgsMTEsImMiXSxbMTEsMywiXFxjb25nIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzExLDEyLCJkIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzEyLDEzXV0=
+\[\begin{tikzcd}
+	& {H_{n}(X^{n+1}, X^{n} \cup A^{n+1})=0} \\
+	& {H_{n}(X^{n+1},A^{n+1})} & {H_n(X^{n-1}\cup A^n, A^n) = 0} \\
+	& {H_n(X^{n} \cup A^{n+1}, A^{n+1})} & {H_n(X^n,A^n)} & {H_{n-2}(X^{n-2}\cup A^{n-1}, A^{n-1})} \\
+	{...} & {H_{n+1}(X^{n+1}, X^{n} \cup A^{n+1})} & {H_n(X^n, X^{n - 1} \cup A^n)} & {H_{n-1}(X^{n - 1}, X^{n-2} \cup A^{n-1})} & {...} \\
+	&& {H_{n-1}(X^{n-1}\cup A^n, A^n)} & {H_{n-1}(X^{n-1},A^{n-1})} \\
+	&&& 0
+	\arrow[from=2-2, to=1-2]
+	\arrow[from=2-3, to=3-3]
+	\arrow["e", two heads, from=3-2, to=2-2]
+	\arrow["\cong"{description}, draw=none, from=3-2, to=3-3]
+	\arrow["b", hook, from=3-3, to=4-3]
+	\arrow[from=4-1, to=4-2]
+	\arrow["c", from=4-2, to=3-2]
+	\arrow["{d_{n+1}}", from=4-2, to=4-3]
+	\arrow["{d_n}", from=4-3, to=4-4]
+	\arrow["a", from=4-3, to=5-3]
+	\arrow[from=4-4, to=3-4]
+	\arrow[from=4-4, to=4-5]
+	\arrow["\cong"{description}, draw=none, from=5-3, to=5-4]
+	\arrow[hook', from=5-4, to=4-4]
+	\arrow[from=6-4, to=5-4]
+\end{tikzcd}\]
+
+By injectivity and exactness, $\ker d_n = \ker a = Im b \cong H_n(X^n, A^n) \cong H_n(X^n \cup A^{n + 1}, A^{n + 1})$.  
+
+Again by injectivity and exactness, $Im d_{n+1} \cong Im(c) = \ker e$. Thus the homotopy group of the cellular chain formed by $H_{n}(X^{n} , X^{n - 1} \cup A^{n})$ is $H_n(X^n \cup A^{n + 1}, A^{n + 1}) / \ker e \cong H_n(X^{n + 1}, A^{n + 1})$ by isomorphism theorem of groups since e is surjective. By the Lemma 2.2.18A, $H_n(X^{n + 1}, A^{n + 1}) = H_n(X, A)$. Thus Thus the homotopy group of the cellular chain formed by $H_{n}(X^{n} , X^{n - 1} \cup A^{n})$ is $H_n(X, A)$.       
+	 
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.2.20}\label{Problem 2.2.20.}
+	Suppose $X$ and $Y$ are finite CW complexes. \[\chi(X \times Y) = \chi(X) \chi(Y)\]   
+\end{PROB}
+\begin{proof}
+	For a arbitrary CW complex A, let $c^A_i$ be the number ith cells in A. 
+
+	By Theorem A.6, $X \times Y$ has the CW structure where the characteristic maps of the structure are $\varphi_\alpha \times \psi_\beta$ where $\varphi_\alpha$ are the characteristic maps of $X$ and $\psi_\beta$ are the characteristic maps of $Y$. Thus 
+	
+	\[c^{X \times Y}_k = \sum_{i + j = k} c_{i}^X c_j^Y\]
+	
+	Thus, 
+
+	\begin{align*}
+		\chi(X \times Y) &= \sum_{k}(-1)^k c_k^{X \times Y} \\
+		&= \sum_{k}(-1)^k \sum_{i + j = k} c_{i}^X c_j^Y \\
+		&= \sum_{k} \sum_{i + j = k} (-1)^{i + j} c_{i}^X c_j^Y \\ 
+		&= \left(\sum_{i} (-1)^i c^X_i \right)\left(\sum_{j} (-1)^j c_j^Y \right) \\
+		&= \chi(X) \chi(Y)
+	\end{align*} 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.2.21}\label{Problem 2.2.21.}
+	A finite CW complex $X$, is a union of subcomplexes $A$ and $B$, show that $\chi(X) = \chi(A) + \chi(B) - \chi(A \cap B)$    
+\end{PROB}
+\begin{proof}
+	Any cell must be at least $A$ or $B$. By law of inclusion exclusion,   
+
+	\[c_k^X = c_k^A + c_k^B - c_k^{A \cap B}\]
+
+	Thus, 
+
+	\begin{align*}
+		\chi(X) &= \sum_{k}(-1)^k c_k^{X \times Y} \\
+		&= \sum_{k}(-1)^k (c_k^A + c_k^B - c_k^{A \cap B}) \\
+		&= \left(\sum_{k} (-1)^k c_k^A\right) + \left(\sum_{k} (-1)^k c_k^B\right) - \left(\sum_{k} (-1)^k c_k^{ A \cap B }\right) \\
+		&= \chi(A) + \chi(B) - \chi(A \cap B)
+	\end{align*}
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2.2.22}\label{Claim 2.2.22.}
+	For $X$ a finite CW complex and $p: Y \to X$ an $n$-sheeted covering, show that $\chi(Y) = n \chi(X)$    
+\end{claim}
+\begin{proof}
+	Let $\varphi_\alpha: e^n_\alpha \to X$ be a characteristic map. Since $\pi_1(e^n_\alpha, *) = 0$, there is a lift $\varphi_\alpha': e^n_\alpha \to Y$ and thus each $p^{-1}(e^n _\alpha)$ is homeomorphic to $e^n_\alpha$. Sinc $p: Y \to X$ is a n sheeted covering $p|_{e_\alpha^n}$ is a n sheeted covering of $e_\alpha^n$. Thus each cell has $n$ copies. Thus $c_k^Y = c_k^X \times n$. 
+	
+	Thus $\chi(Y) = \sum_k (-1)^k c_k^Y = n  \sum_k (-1)^k c_k^X = n \chi(X)$.  
+\end{proof}
+
+\bigskip
+
+\begin{claim}{2.2.24}\label{Claim 2.2.24.}
+	Show that if the closed orientable surface $M_g$ of genus $g$ is a covering space of $M_h$, $g = n(h - 1) + 1$ where $n$ is the number of sheets in the covering.      
+\end{claim}
+\begin{proof}
+	$\forall g \in \N \cup \left\{ 0 \right\}$, $\chi(M_g) = 2 - 2g = 2(1 - g)$ as previously proven. 
+	
+	Suppose $M_g$ for $g \in \N \cup \left\{ 0 \right\}$ is a n sheeted covering of $M_h$. Then by 2.2.22, 
+	
+	\[2 - 2g = \chi(M_g) = n \chi(M_h) = 2n(1 - h)\]
+
+	Thus $g = \frac{2n(h - 1) + 2}{2} = n(h - 1) + 1 $ 
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.2.28a}\label{Problem 2.2.28a.}
+	Use Mayer Vietoris to compute the homology groups of space of $S_1 \times S_1 \sqcup M$ where boundary circle of M is identified to $S^1 \times \left\{ x_0 \right\}$  
+\end{PROB}
+\begin{proof}
+	Let $A$ be the torus plus a tiny portion of the mobius strip which deformation retracts to the torus and let $B$ be the mobius strip plus a tiny portion of the torus which deformation retracts to the mobius strip.
+
+	Note: 
+
+	\begin{equation*}
+		\tilde{H}_n(S^1 \times S^1) = \begin{cases}
+			\Z^2 & \text{if $n = 1$} \\
+			\Z & \text{if $n = 2$} \\
+			0 & \text{otherwise} 
+		\end{cases}
+	\end{equation*}
+
+	Additionally Note that $M$ deformation retracts to center circle. 
+	
+	Furthermore note there are no 3 cells. So we have the following Mayer Vietoris Sequence: 
+
+	% https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiXFxaXFxvcGx1czAiXSxbMiwwLCJcXHRpbGRle0hfMn0oWCkiXSxbMywwLCJcXFoiXSxbNCwwLCJcXFpeMiBcXG9wbHVzIFxcWiJdLFs1LDAsIlxcdGlsZGV7SH1fMShYKSJdLFs2LDAsIjAiXSxbMCwxXSxbMSwyLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDNdLFszLDQsImkiXSxbNCw1XSxbNSw2LCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XV0=
+\[\begin{tikzcd}
+	0 & {\Z\oplus0} & {\tilde{H_2}(X)} & \Z & {\Z^2 \oplus \Z} & {\tilde{H}_1(X)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow["j", from=1-3, to=1-4]
+	\arrow["i", from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow[two heads, from=1-6, to=1-7]
+\end{tikzcd}\]
+
+	Note the generator of $A \cap B$ goes around once $S^1 \times \left\{ z_0 \right\}$ in A and 2 times around B. 
+	
+	Thus $i = \begin{bmatrix}
+		1 \\ 0 \\ -2
+	\end{bmatrix}$. Thus $H_1(X) \cong \tilde{H_1}(X) = \Z^2 \oplus \Z / span\left(\begin{bmatrix}
+		1 \\ 0 \\ -2
+	\end{bmatrix}\right) = \Z^2 \oplus \Z_2$ 
+	
+	$i$ is injective, thus by exactness $Im j = \ker i = 0$. Thus we have the exact sequence: 
+	
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiXFxaXFxvcGx1czAiXSxbMiwwLCJcXHRpbGRle0hfMn0oWCkiXSxbMywwLCIwIl0sWzAsMV0sWzEsMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMiwzLCIwIl1d
+\[\begin{tikzcd}
+	0 & {\Z\oplus0} & {\tilde{H_2}(X)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow["0", from=1-3, to=1-4]
+\end{tikzcd}\]
+
+Thus $\Z \cong H_2(X) \cong \tilde{H_2}(X)$. Furthermore $X$ is connected, so $H_0(X) = \Z$. Furthermore for all $n > 2$, $H_n(X) = 0$.      
+\end{proof}
+
+\begin{PROB}{2.2.28a}\label{Problem 2.2.28a.}
+	Use Mayer Vietoris to compute the homology groups of space of $\R P^2$ where boundary circle of M is identified to $\R P^1$  
+\end{PROB}
+\begin{proof}
+	Let $A$ be the $\R P^2$  plus a tiny portion of the mobius strip which deformation retracts to the torus and let $B$ be the mobius strip plus a tiny portion of the torus which deformation retracts to the $\R P^2$ .
+	
+	There are no 3 cells. So we have the following Mayer Vietoris Sequence: 
+% https://q.uiver.app/#q=WzAsNixbMSwwLCJcXHRpbGRle0hfMn0oWCkiXSxbMiwwLCJcXFoiXSxbMywwLCJcXFpfMlxcb3BsdXNcXFoiXSxbNCwwLCJcXHRpbGRle0h9XzEoWCkiXSxbNSwwLCIwIl0sWzAsMCwiMCJdLFswLDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzEsMiwiaSJdLFsyLDMsIiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFszLDRdLFs1LDBdXQ==
+\[\begin{tikzcd}
+	0 & {\tilde{H_2}(X)} & \Z & {\Z_2\oplus\Z} & {\tilde{H}_1(X)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow["i", from=1-3, to=1-4]
+	\arrow[two heads, from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+
+Again generator of $A \cap B$, goes once around $A$ and 2 times around $B$. Thus $i = \begin{bmatrix}
+	1 \\ -2
+\end{bmatrix}$. $i$ is injective. By exactness, $H_2(X) = \tilde{H_2}(X) = \ker i = 0$. Furthermore, $H_1(X) = \tilde{H_1}(X) = \frac{\Z_2 \oplus \Z}{span\left(\begin{bmatrix}
+	-1 \\ 2
+\end{bmatrix}\right)} = \Z_2 \oplus \Z_2$. X is connected so $H_0(X) = \Z$ and forall $n > 2$ $H_n(X) = 0$.        
+
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2.2.29a}\label{Problem 2.2.29a.}
+	X is 2 solid genus $g$ solids with boundary genus g surface identified by identity. Let $R$ be the 2 solid genus $g$ solid    
+\end{PROB}
+\begin{proof}
+	Let $A$ be a open set which deformation retracts to one copy of $R$ and let $B$ be the open set which deformation retracts to the other copy of $\R$. Note $R$ deformation retracts to chain of $S^1$'s which is homotopy equivalent to wedge of g $S^1$s. Thus $R \simeq \bigvee_{k = 1}^g S^1$. 
+
+	Note $X$ is connected so $H_0(X) = \Z$. $A \cap B \simeq M_g$. 
+
+	
+	By Meyer Vietoris:
+
+
+	% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxvcGx1c197aT0xfV4yIFxcdGlsZGV7SF8zfShSKSBcXGNvbmcgMCJdLFsyLDAsIlxcdGlsZGV7SF8zfShYKSJdLFszLDAsIlxcWiJdLFs0LDAsIlxcb3BsdXNfe2k9MX1eMiBcXHRpbGRle0hfMn0oUikgXFxjb25nIDAiXSxbMCwxXSxbMSwyXSxbMiwzLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9LCJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {\oplus_{i=1}^2 \tilde{H_3}(R) \cong 0} & {\tilde{H_3}(X)} & \Z & {\oplus_{i=1}^2 \tilde{H_2}(R) \cong 0}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[hook, two heads, from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+
+% https://q.uiver.app/#q=WzAsNixbMCwwLCJcXG9wbHVzX3tpPTF9XjIgXFx0aWxkZXtIXzJ9KFIpIFxcY29uZyAwIl0sWzEsMCwiXFx0aWxkZXtIXzJ9KFgpIl0sWzIsMCwiXFxaXnsyZ30iXSxbMywwLCJcXG9wbHVzX3tpPTF9XjIgXFx0aWxkZXtIXzF9KFIpIFxcY29uZyBcXFpeezJnfSJdLFs0LDAsIlxcdGlsZGV7SF8xfShYKSJdLFs1LDAsIjAiXSxbMCwxXSxbMSwyLCJqIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMiwzLCJpIl0sWzMsNCwiayIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFs0LDVdXQ==
+\[\begin{tikzcd}
+	{\oplus_{i=1}^2 \tilde{H_2}(R) \cong 0} & {\tilde{H_2}(X)} & {\Z^{2g}} & {\oplus_{i=1}^2 \tilde{H_1}(R) \cong \Z^{2g}} & {\tilde{H_1}(X)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow["j", hook, from=1-2, to=1-3]
+	\arrow["i", from=1-3, to=1-4]
+	\arrow["k", two heads, from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+
+	The generator of $H_2(M_g)$ maps to 1 and -1 in A and B respectively so i is.  
+
+	\[i = \begin{bmatrix}
+		1 & & \hdots & 0 & \dots\\
+		& 1 & \hdots & 0 & \dots \\
+		\vdots & \vdots & \ddots & \vdots \\
+		-1 & & \hdots & 0 & \dots\\
+		& -1 & \hdots & 0 & \dots \\
+		\vdots & \vdots & \ddots & \vdots \\
+	\end{bmatrix}\] 
+
+	Let $a_1, \dots, a_g$ be the generator for $\tilde{H}_1(A)$. Let $b_1, \dots, b_g$ be the generator for $\tilde{H}_1(B)$. 
+	
+	Let $m_1, \dots, m_2g$ be the generator for $\tilde{H}_1(M_g)$.        
+	
+	$i$ sends $m_i \to a_i - b_i$  for $i \in [1, \dots, g]$ and $m_i \to 0$ otherwise. 
+	
+	Thus $H_1(X) = \tilde{H_1}(X) = \frac{\Z^{2g}}{span(a_1 - b_1, \dots, a_g - b_g)} \cong \Z^g$. 
+	
+	$ H_2(X) = \tilde{H}_2(X)  = \ker i = span(m_{g+1}, \dots, m_{2g}) = \Z^g$.
+	
+	Finally $H_3(X) = \tilde{H}_3(X) = \Z$. Since $X$, is connected $H_0(X) = \Z$. $\forall n > 3$, $H_n(X) = 0$.       
+\end{proof}
+
+\begin{PROB}{2.2.29b}\label{Problem 2.2.29b.}
+	Find $H_k(R, M_g)$ 
+\end{PROB}
+\begin{proof}
+	Note $R$ deformation retracts to chain of $S^1$'s which is homotopy equivalent to wedge of g $S^1$s. Thus $R \simeq \bigvee_{k = 1}^g S^1$. We have the following exact sequence but note $i_*$ is the induced map from the inclusion of $i : M_g \xhookrightarrow{} R$. By Lemma 2.34(c), i is surjective.
+	
+% https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiSF8yKFIsIE1fZykiXSxbMiwwLCJcXFpeezJnfSJdLFszLDAsIlxcWl5nIl0sWzQsMCwiSF8xKFIsIE1fZykiXSxbNSwwLCIwIl0sWzAsMV0sWzEsMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMiwzLCJpXyoiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw0LCJqIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzQsNV1d
+\[\begin{tikzcd}
+	0 & {H_2(R, M_g)} & {\Z^{2g}} & {\Z^g} & {H_1(R, M_g)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow["{i_*}", two heads, from=1-3, to=1-4]
+	\arrow["j", two heads, from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+\end{tikzcd}\]
+
+Since $\ker j = Im i_* = \Z_g$ and $j$ is surjective, $H_1(R, M_g) = 0$. Additionally $i_*$ is the map which identify the meridian and longitude of each "torus", section, of the $M_g$ surface. Or notationally, 
+
+\[
+i_* = \begin{bmatrix}
+	1 & -1 & 0 & \hdots \\ 
+	0 & 0 & 1 & -1 & \hdots \\
+	\vdots & \vdots & \ddots & \ddots
+\end{bmatrix}
+\]
+
+Thus kernel of $i_*$ is the span of all the longitudes. So $H_2(R, M_g) \cong \ker i_* \cong \Z^g$. Finally $H_m(R, M_g) = 0$ for all $m \neq 2$.       
+
+\end{proof}
+
+\end{document}

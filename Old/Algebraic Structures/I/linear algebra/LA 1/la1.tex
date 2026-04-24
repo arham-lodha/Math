@@ -1,0 +1,318 @@
+%HOMEWORK template for M 325K
+
+\documentclass{article}
+\headheight=7pt         \topmargin=14pt
+\textheight=574pt       \textwidth=445pt
+\oddsidemargin=18pt     \evensidemargin=18pt
+
+%Begin package import
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{tikz-cd}
+
+%End package import
+%Begin custom commands
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\BF}[1]{\textbf{#1}}
+\newcommand{\e}{\epsilon}
+\newcommand{\ceil}[1]{\lceil{#1}\rceil}
+\newcommand{\floor}[1]{\lfloor{#1}\rfloor}
+\newcommand{\rarr}[0]{\rightarrow}
+\newcommand{\IM}[1]{\text{Im}(#1)}
+\newcommand{\Hom}[0]{\text{Hom}}
+\newcommand{\Pow}[1]{\text{Pow}(#1)}
+%End custom commands
+%Begin custom theorems
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+	\newenvironment{#1}[1]
+	{%
+		\renewcommand\customgenericname{#2}%
+		\renewcommand\theinnercustomgeneric{##1}%
+		\innercustomgeneric
+	}
+	{\endinnercustomgeneric}
+}
+
+\newcustomtheorem{THRM}{Theorem}
+\newcustomtheorem{LEM}{Lemma}
+\newcustomtheorem{EX}{Exercise}
+\newcustomtheorem{COR}{Corollary}
+\newcustomtheorem{PROB}{Problem}
+\newcustomtheorem{claim}{Claim}
+
+\newenvironment{solution}
+  {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+  {\end{proof}}
+
+\newenvironment{definition}
+  {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Definition]}
+  {\end{proof}}
+
+%End custom theorems
+\begin{document}
+
+\title{Linear Algebra Bootcamp 1}
+\author{Arham Lodha}%put your name here
+\date{August 25, 2023}%enter the due date here
+\maketitle
+
+\begin{PROB}{1}\label{Problem 1.}
+	Show that $\Z/p\Z$ is a field iff p is prime.
+\end{PROB}
+\begin{proof}
+
+	
+
+	By definition, $\Z/p\Z$ is the set of equivalence classes which form from the equivalence relation $\sim$ on $\Z$, for all $a, b \in \Z$ $a \sim b \iff a \mod n = b \mod n$.
+
+	($\implies$): Suppose $\Z/p\Z$ is a field for $p \in \Z$. Assume the contrary, $p$ is not prime. By the definition of a field, $\exists [0] \in \Z/p\Z$ s.t $[0]$ is the additive identity. By the definition of a field, for all $[a] \neq [0]$ in $\Z/p\Z$ there exists a multiplicative inverse. Choose a $a \in \Z$ s.t $a | p$. There exists a $[b] \neq [0]$ in $\Z/p\Z$ s.t $[a] *_p [b] = [1]$. Then by definition, $[a] *_p [b] = [ab \mod p] = [1]$. Thus by the definition of the equivalence relation, $ab \mod p \equiv 1 \mod p$, thus $\gcd(ab,p) = 1$. Thus by definition of coprime, $ab$ is coprime to $p$. However since $a$ divides $p$, $a$ must be a common factor for both $ab$ and $p$. Thus a contradiction forms and $p$ must be prime.
+
+	$(\impliedby)$: Suppose $p$ is prime. For all $[a] \neq [0]$, it means $a \nsim 0$ and thus $a \nsim p$ by the definition of equivalence classes. By the definition of the equivalence relation, $a \mod p \not\equiv 0$, thus $a$ and $p$ are coprime by the definition of prime numbers. By the definition of coprime numbers, $\gcd(a, p) = 1$. By Bezout's Theorem, $ma + np = 1$ for $m, n \in \Z$. Then by applying $\mod n$ to both sides, we see $(ma + np) \mod n = ma \mod n = 1 \mod n$. Then by the definition of equivalence classes, it means there exists a $m\in \Z$ s.t $[ma] = [1]$ for all $a \in \Z$ such that $[a] \neq [0]$. Thus by the existence of a multiplicative inverse, $\Z/p\Z$ is a field.
+
+
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{2a}\label{Problem 2a.}
+	Define what is meant by a linear function between vector spaces (over the same field). 
+\end{PROB}
+\begin{definition}
+	Let $V, W$ be vector spaces over F. Let $f: V \rarr W$ be a linear function. The properties of f are as follows:
+
+	\begin{enumerate}
+		\item For all $c \in F$ and for all $v \in V$, $f(cv) = cf(v)$.
+		\item For all $a, b \in V$, $f(v + w) = f(v) + f(w)$.
+	\end{enumerate}
+\end{definition}
+
+
+\begin{PROB}{2b}\label{Problem 2b.}
+	If V,W are vector spaces over F, we indicate the set of linear maps as $\Hom_F(V,W)$.  What should we mean by an isomorphism? (it should be a linear map which has an inverse linear map). 
+\end{PROB}
+\begin{solution}
+	An isomorphism is a linear map $f \in \Hom_F(V, W)$ such that $\exists g \in \Hom_F(V, W)$ such that $f \circ g = g \circ f = id_V$ thus $g^{-1}$.  
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{3a}\label{Problem 3a.}
+	If V is a vector space over F, which subsets of V are interesting from the vector space perspective? 
+\end{PROB}
+\begin{solution}
+	Subsets of V which are nonempty and also vector spaces are the interesting subsets of V. Let $S \subset V$. It is interesting if it follows 3 conditions:
+
+	\begin{enumerate}
+		\item Nonempty: $S \neq \emptyset$. If $S$ was the empty set it would be quite boring.
+		\item Closed under Addition: For all $a, b \in S$ then $a + b \in S$.
+		\item Closed under Multiplication with element in field F: For all $c \in F$ and for all $a \in S$, then $ca \in S$.
+	\end{enumerate}
+\end{solution}
+
+\begin{PROB}{3b}\label{Problem 3b.}
+	Let $f: V \rarr W$ be F-linear.
+	Show that $f_*: \Pow{V} \rarr \Pow{W}$ and $f^*: \Pow{W} \rarr \Pow{V}$ take subspaces to subspaces.
+\end{PROB}
+\begin{proof}
+	\begin{enumerate}
+		\item For $f_*: Pow(V) \rarr Pow(W)$: For all $S \in \Pow{V}$ s.t S is a subspace.
+		\begin{enumerate}
+			\item \textbf{Nonempty}: Since $S$ is a subspace, it is by definition nonempty. Thus there exist an $s \in S$. Then by definition, $f(s) \in f_*(S)$. Thus $f_*(S)$ is nonempty.
+			\item \textbf{Closed under Addition}: Since $S$ is a subspace, it is by definition closed under Addition. Thus for all $a, b \in S$, $a + b \in S$. By the definition of an image, $f(a), f(b) \in f_*(S)$ and $f(a + b) \in f_*(S)$. By the definition of a linear map, $f(a + b) = f(a) + f(b)$, thus $f(a) + f(b) \in f_*(S)$. Thus $f_*(S)$ is closed under addition.
+			\item \textbf{Closed under Multiplication with element in field F}: Since $S$ is a subspace, by definition for all $c \in F$ and for all $a \in S$, then $ca \in S$. Thus by the definition of a image, both $f(a) \in f_*(S)$ and $f(ca) \in f_*(S)$. By the definition of a linear map, $f(ca) = cf(a)$, so $cf(a) \in f_*(S)$ Thus $f_*(S)$ is closed under multiplication with elements in F. 
+		\end{enumerate}
+		
+		Thus $f_*(S)$ is a subspace.
+
+		\item For $f^*: Pow(W) \rarr Pow(V)$: For all $T \in \Pow{W}$ s.t T is a subspace.
+		\begin{enumerate}
+			\item \textbf{Nonempty}: Since $T$ is a subspace, it is by definition nonempty and must contain $0_w$, 0 component. Furthermore $0_v$, $f(0_v) = 0_w$. Thus $0_v \in f^*(T)$ and $f^*(T)$ not empty.
+			\item \textbf{Closed under Addition}: Let $f(a), f(b) \in T$ for $a, b \in V$. Then because $T$ is a subspace and by the definition of a linear map, $f(a) + f(b) = f(a + b) \in T$ so $a, b, a + b \in f_*(T)$.
+			\item \textbf{Closed under Multiplication with element in field F}: Let $f(a) \in T$ where $a \in V$. Then because $T$ is a subspace and by the definition of a linear map, $\forall m \in F$ $mf(a) = f(ma) \in T$. Thus $a, ma \in f^*(T)$ for all $m \in F$.
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+\begin{PROB}{3c}\label{Problem 3c.}
+	In particular $\ker(f) := f^*({0})$ is a subspace of V.
+\end{PROB}
+\begin{proof}
+	Let $0 \in W$ be the zero element in W. Then let $A = \{0\}$ only has the element 0. Since $0 + 0 = 0$, $0 + 0 \in A$. Furthermore for anly $f \in F$, $f*(0) \in A$. Thus A is a subset. Since $V$ is also a vector space must have at least 1 element which is the zero element. So $0_v \in V$ and by definition of a linear map $f(0_v) = 0$. Thus since $A$ is a subspace of W. Then by the reasons in 3b, $f^*(A)$ is also a subspace. 
+\end{proof}
+
+\begin{PROB}{3d}\label{Problem 3d.}
+	Let $V \rarr V/\sim$ be the associated equivalence relation (from earlier homework, two elements a,b are equiv iff f(a) = f(b)).  Give a natural bijection from [a] to [b], and in particular from [a] to [0] = ker(f). 
+\end{PROB}
+\begin{solution}
+	A natural bijection from $g: [a] \rarr [b]$ is for all $s \in [a]$ $g(s) := b - a + s$. Let $h: [b] \rarr [a]$ s.t for all $t \in [a]$ $h(t) := a - b + t$. $\forall s \in [a]$, $(h \circ g)(s) = h(g(s)) = h(b - a + s) = a - b + b - a + s = s$, so $h$ is a left inverse of g. $\forall t \in [b]$, $(g \circ h)(t) = g(h(t)) = g(a - b + t) = b - a + a - b + t = t$. Thus $h \circ g = id_a$ and $ g \circ h = id_b$, and g has right and left inverses, and is thus bijective. The natural bijection, $j: [a] \rarr [0]$. For all $s \in [a]$, $j(s) = 0$.
+\end{solution}
+
+\begin{PROB}{3e}\label{Problem 3e.}
+	Say V and W are finite (as sets) Show then F must be finite (unless both V and W are both {0}). 
+\end{PROB}
+\begin{proof}
+	Suppose V and W are finite. Assume the contrary, $F$ is not finite. There is only one additive identity $0 \in F$ by the definition of a field. $\abs{F/\{0\}} = \infty$ because F is not finite. Then by the definition of a vector space, for all $v \in V$ and $\forall f \in F$ and thus for all $f \in F/\{0\}$ $va \in V$. However since there is an infinite number of elements in $F$, there is an infinite number of elements in V and W. Thus by contradiction, $F$ is finite.
+\end{proof}
+
+\begin{PROB}{3f}\label{Problem 3f.}
+	What does the standard "stack" picture of $f: V \rarr W$ look like? (In case we have not already done it in class: we can draw any function f: $V \rarr W$ between two finite sets as a bunch of dots in the plane -- we take W some finite set of dots along the X-axis, and V a set of finite dots in the x-y plane, drawn so that f(x) is directly below x. Then f is defined by the picture, the function just "goes straight down".)  
+\end{PROB}
+\begin{solution}
+	The standard stack picture of f would look like the kernel subspace over $[0]$ and then that subspace shifted to every equivalence class since ever equivalence class is geometrically just a translation of the equivalence class of $[0]$.
+\end{solution}
+
+\begin{PROB}{3g}\label{Problem 3g.}
+	Show that $\abs{f_*(V)}\abs{\ker(f)} = \abs{V}$ (where $\abs{X}$ means the cardinality of the set X).
+\end{PROB}
+\begin{proof}
+	$f_*(V) = V/\sim$ under the previous equivalence relation. Thus $\abs{f_*(V)}$ gives us the number of equivalence classes. Previously we showed the size of each equivalence class is the same because a bijection exists between every equivalence class and $[0] = \ker(f)$. So $\abs{\ker(f)} = \abs{\{0\}}$ gives the size of the equivalence classes. So $\abs{f_*(V)}\abs{\ker(f)} = \abs{F}$
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{4}\label{Problem 4.}
+	We write $F^n$ for column vectors of length n with entries in F, and $F_n$ for row vectors. These are each naturally F-vector spaces. For any vector space V, show that $Hom_F(F^n,V)$ is in natural bijection with $V \times .. \times V$, with n-factors -- give the inverse map explicitly. Observe that both sets are naturally F-vector spaces and that this is an iso of vector spaces. 
+\end{PROB}
+\begin{proof}
+	Let $0 \in F$ be the additive identity in F. Let $1 \in F$ be the multiplicative identity. Define $e_i$, to be the standard basis of $F^n$, or an n dimensional vector with 0 in all places except the $i$th index which is occupied by 1.
+	\begin{equation}
+		e_i = (0, 0, ..., 1, ..., 0, 0)
+	\end{equation}
+
+	Define $\alpha: \Hom_F(F^n, V) \rarr V \times ... \times V$. For all $\phi: F^n \rarr V \in \Hom_F(F^n, V)$, $\alpha(\phi) := (\phi(e_1), \phi(e_2), ..., \phi(e_n)) \in V \times ... \times V$. Define $\beta: V \times ... \times V \rarr \Hom_F(F^n, V)$ s.t for all $v \in V \times ... \times V$ where $v = (v_1, v_2, ..., v_n)$, $\beta(v) := \gamma(f)$ for all $f \in F^n$. $\forall f \in F^n$, $\gamma(f) = \sum_{i = 1}^{n}(f_iv_i)$ where $f_i$ is the ith value of $f$.
+
+	For all $\phi \in \Hom_F(F^n, V)$, $(\beta \circ \alpha)(\phi) = \beta((\phi(e_1), \phi(e_2), ..., \phi(e_n))) = \gamma(f) := \sum_{i = 0}^{n}f_i\phi(e_i) = \sum_{i = 0}^{n}\phi(f_i*e_i)$ for all $f \in F$. For all $j \in \Z$ where $j \in [0, n]$, $\gamma(e_j) = \sum_{i = 0}^{n}\phi(e_{j_i}*e_j) = \phi(e_j)$. If for all $e_j$, $\gamma(e_j) = \phi(e_j)$ then by definition of a linear map, $\gamma = \phi$. Thus $\beta$ is $\alpha's$ left inverse.
+
+	For all $v \in V \times ... \times V$, $(\alpha \circ \beta)(v) = \alpha(\beta(v)) = \alpha(\gamma)$ where $\gamma(f):= \sum_{i=1}^{n}(f_i * v_i)$ for all $f \in F^n$. Then for all $e_j$, $\gamma(e_j) = \sum_{i=1}^{n}(e_{j_i} * v_i) = v_i$. Thus $\alpha(\gamma) = (v_1, v_2, ..., v_n) = v$. Thus $\beta$ is $\alpha's$ right inverse.
+
+	Thus $\alpha$ and $\beta$ are each others inverse maps, and $\alpha$ is bijective.
+\end{proof}
+
+\bigskip
+
+\begin{PROB}{5}\label{Problem 5.}
+    When we have a function between two sets, we can ask if its surjective, or injective. Given a tuple $(v_1,..,v_n)$, when is the associated linear map injective? When is it surjective. Better to ask, in any case, what is the kernel, and what is the image? This gives us the notions of span and linear independence. 
+\end{PROB}
+\begin{solution}
+	The associated linear map is injective iff $\abs{\ker{f}} = 1$ for our map f. Thus only one element in $v \in V \times ... \times V$ for which $f(v) = 0$, the 0 tuple. If there exists more than one element such that $f(v) = 0$, then f would not be injective. Furthermore suppose $\exists a, b \in V \times V ... \times V$ such that $f(a) = f(b)$. Then there exists $-f(b) = f(-b)$ in our target set, which is also a vector space since $V \times ... \times V$ is. Thus $f(a) + f(-b) = f(0)$. Then $f(a - b) = f(0)$, either $a - b = 0$ and $a = b$, and/or $a - b \in \ker(0)$. If $a = b$, then $f$ is injective, but if $a \neq b$ but $a - b \in \ker(0)$, then $f$ is not injective. If the number of linearly independent vectors in V doesn't equal n then the linear map will not be injective because there exists multiple linear combinations equal to 0 and $f(0)$ always equals 0 so their exists multiple $v \in V \times V \times V ... \times V$ s.t $f(v) = 0$.
+
+	The associated linear map is surjective iff $\{\sum_{i = 1}^{n} a_i * f(v_i) | a \in F^n\}$ is equal to the target vectorspace. In other words does $\IM{f}$ spans the target set. Thus the number of linearly independent vectors in $\IM{f}$ equals the target set.
+\end{solution}
+
+\bigskip
+
+\begin{PROB}{6}\label{Problem 6.}
+	Explain why $\Hom_F(F^m,F^n)$ is naturally isomorphic (as an F-vector space) to $M_{n \times m}$, the set of $n \times m$ matrices over F. Show that matrix multiplication corresponds to composition of functions. 
+\end{PROB}
+\begin{solution}
+	$S := \Hom_F(F^m, F^n)$ is naturally isomorphic to a $T: M_{n \times m}$, because you can create a bijection $\alpha: \Hom_F(F^m, F^n) \rarr M_{n \times m}$ from one to the other. For all $\phi \in \Hom_F(F^m, F^n)$, $$\alpha(\phi) = [\phi(e_1)  \phi(e_2) \phi(e_3)... \phi(e_m)]$$ Define $\beta: M_{n \times m} \rarr \Hom_F(F^m, F^n)$, where for all $A \in M_{n \times m}$ where $A = [a_1 a_2 a_3 a_4 ... a_m]^T$ where $a_i$ is a column of A transpose, $ \beta(m)=\gamma(f) := \sum_{i = 1}^{n} a_i \cdot f_i$ for all $f \in F^m$.
+	
+	% For all $\phi \in S$, $\beta(\alpha(\phi)) = \beta([\phi(e_1)  \phi(e_2) \phi(e_3)... \phi(e_m)]) = $
+	
+	$\alpha$ and $\beta$ are inverses and thus $\alpha$ is a bijection and $\Hom_F(F^m, F^n)$ is naturally isomorphic to a $M_{n \times m}$.
+
+	The matrix multiplication of $A \in M_{a \times b}$ and $B \in M_{c \times a}$ matrix for $a, b, c \in \N$, leads to a matrix $AB = C \in M_{c \times b}$. Since there exists a bijection between linear maps and matrices, each matrix has a corresponding function $\beta(A) = \phi_1$, $\beta(B) = \phi_2$, $\beta(C) = \phi_3$.
+
+	\begin{equation}
+		C = AB = \begin{bmatrix}
+			\phi_1(e_{1})_1 && \phi_1(e_{2})_1 && .. && \phi_1(e_{a})_1\\
+			\phi_1(e_{1})_2 && \phi_1(e_{2})_2 && .. && \phi_1(e_{a})_2\\
+				: && : && : && : \\
+			\phi_1(e_{1})_b && \phi_1(e_{2})_b && .. && \phi_1(e_{a})_B\\
+		\end{bmatrix}
+		\begin{bmatrix}
+			\phi_2(e_{1}) && \phi_2(e_{2}) && .. && \phi_2(e_{c})\\
+		\end{bmatrix}
+	\end{equation}
+
+
+	\begin{equation}
+		C = \begin{bmatrix}
+			\phi_2(e_{1} * \phi_1(e_{1})_1  + e_{2} * \phi_1(e_{2})_1 + .. +  e_{c} * \phi_1(e_{a})_1)_1 && ... && \phi_2(e_{1} * \phi_1(e_{c})_1  + e_{2} * \phi_1(e_{c})_1 + .. +  e_{c} * \phi_1(e_{c})_1)_1\\
+			\phi_2(e_{1} * \phi_1(e_{1})_2 + e_{2} * \phi_1(e_{2})_2 + .. + e_{c} * \phi_1(e_{a})_2)_2 && ... && \phi_2(e_{1} * \phi_1(e_{c})_2  + e_{2} * \phi_1(e_{c})_2 + .. +  e_{c} * \phi_1(e_{c})_2)_2\\
+				: && : && \\
+			 \phi_2(e_{1} * \phi_1(e_{1})_b + e_{2} * \phi_1(e_{2})_b  + .. + e_{c} * \phi_1(e_{a})_b )_b && .. && \phi_2(e_{1} * \phi_1(e_{c})_b  + e_{2} * \phi_1(e_{c})_b + .. +  e_{c} * \phi_1(e_{c})_b)_b\\
+		\end{bmatrix}
+	\end{equation}
+
+	\begin{equation}
+		=
+		\begin{bmatrix}
+			\phi_2(\phi_1(e_1)_1)_1 && .. && \phi_2(\phi_1(e_c)_1)_1 \\
+			: && : && : \\
+			\phi_2(\phi_1(e_1)_1)_b && .. && \phi_2(\phi_1(e_c)_1)_b \\
+		\end{bmatrix}
+		= \begin{bmatrix}
+			\phi_2(\phi_1(e_1)) && .. && \phi_2(\phi_1(e_c))
+		\end{bmatrix}
+		= \begin{bmatrix}
+			\phi_3(e_1) && .. && \phi_3(e_c)
+		\end{bmatrix}
+	\end{equation}
+
+	Thus $C = AB = \phi_1 \circ \phi_2$.
+
+\end{solution}
+
+\begin{PROB}{7}\label{Problem 7.}
+	Now we prove the first basic lemma of linear algebra. Suppose $v_1,...,v_m$ span the vector space V and $w_1,,.w_k$ in V are linear independent. Show $k \leq m$.  Reduce this to showing that if A: $F^k \rarr F^m$ is injective (here A is a $m \times k$ matrix) then $k \leq m$, with equality iff A is an isomorphism. To prove this, let R and C be square invertible matrices of the right size so RAC makes sense. Show that RAC is injective (resp surjective) iff A is. Explain why R and C stand for Row and Column operations. Show given any A, we can find R,C (invertible) so that RAC is as simple as possible -- namely all entries $a_{i,j}$ are zero unless i=j, and then the only other possibily is 1.  Moreover we can assume the diagonal entires are 1,1,1,..,1,0,0,0 ...., 0.
+\end{PROB}
+\begin{solution}
+	\begin{claim}{7a}
+		If A: $F^k \rarr F^m$ is injective (here A is a $m \times k$ matrix) then $k \leq m$
+	\end{claim}
+	\begin{proof}
+		Suppose A is injective. Due to being injective, $\ker A = \{0\}$. Meaning $A$ has $k$ linearly independent rows. Assume the contrary, $k > m$. Then there are more linearly independent vectors in $F^k$ than dimensions in $F^m$. After applying A, on the basis of $F^k$ we see that we have at k vectors in $F^m$. However since $k > m$, thus we know at least 2 vectors must be linearly dependent. By definition, there exists a linear combination of these vectors which 0, meaning $\ker A \neq {0}$, thus forming a contradiction. Thus by contradiction, $k \leq m$.
+	\end{proof}
+	\begin{claim}{7b}
+		If A: $F^k \rarr F^m$ is injective (here A is a $m \times k$ matrix) then $k = m$ iff A is an isomorphism.
+	\end{claim}
+	\begin{proof}
+		$(\implies)$: Suppose $A$ be injective then $k = m$. If $A$ is an injective matrix then it means the $\ker{A} = 1$. If the $\ker(A) = 1$ and $k = m$ it means $A$ has $k = m$ linearly independent vectors and thus is both surjective and injective. Thus $A$ is bijective and is a isomorphism.
+
+		$(\impliedby)$: Suppose $A$ is a isomorphism and thus is bijective function, by definition of a isomorphism. If a bijection exists from $F^m \rarr F^k$, by definition each element in $F^m$ has a one to one correspondance with $F^k$ and thus $\abs{F^m} = \abs{F^k}$.
+	\end{proof}
+
+	\begin{claim}{7c}
+		Show that RAC is injective (resp surjective) iff A is.
+	\end{claim}
+	\begin{proof}
+		$(\implies)$ : Let $A$ be injective. Let R and C be square invertible matrices of the right size so RAC makes sense. Since R and C are invertible, they must be surjective. Since linear maps and matrices are naturally isomorphic and matrix multiplication and function composition correspond, the product of two matrices corresponds to the composition of two functions.
+		The product of injective matrices (or the composition of functions) must thus be injective as well.
+
+		$(\impliedby)$: Let $RAC$ be injective. Since matrices correspond to functions, and more importantly matrix multiplication corresponds to function composition, and if the composition of functions is injective then the functions themselves need to be injective. Thus A is injective.
+	\end{proof}
+
+	
+	C is a matrix such that AC makes A go to upper triangular form. Thus C is a matrix which are column operations. Furthermore, R is a matrix such that it turns the upper triangular form of $A$ into a diagonal matrix.
+	
+\end{solution}
+
+\begin{PROB}{8}\label{Problem 8.}
+	Now prove the first basic result from linear algebra: If V has a basis with n-elements, then any linearly independent set in V has at most n elements, and any linear independent set with at least n-elements has exactly n-elements and is a basis. In particular any two bases that have the same number of elements, and the notion of dimension makes sense (its also true that in general any two bases have the same cardinality). 
+\end{PROB}
+\begin{claim}{8a}
+	If V has a basis with n-elements, then any linearly independent set in V has at most n elements, and any with at least n-elements has exactly n-elements and is a basis.
+\end{claim}
+\begin{proof}
+	Suppose V has basis, $B$, with n-elements. By 7, any linearly independent set in $V$, wil have at most $n$ elements.
+\end{proof}
+\begin{claim}{8b}
+	If V has a basis with n-elements, then any linearly independent set in V has at most n elements, and any with at least n-elements has exactly n-elements and is a basis.
+\end{claim}
+\begin{proof}
+	Suppose V has basis, $B$, with n-elements and there exists a linearly independent set $S$ with at least n elements. Then by 8a, it must also have at most n elements. Thus it must have exactly n elements. If it has $n$ elements and is linearly independent, it will $span(S) = V$ by definition of linear independence. Thus by definition of the basis, $S$ is basis.
+\end{proof}
+\end{document}
