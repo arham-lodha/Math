@@ -1,0 +1,7 @@
+[package]
+name = "math-notes"
+version = "1.0.0"
+entrypoint = "lib.typ"
+authors = ["Arham"]
+license = "MIT"
+description = "Lecture-notes template (two-sided book layout, chapter headers, theorem environments)."

@@ -1,0 +1,7 @@
+[package]
+name = "my-prelude"
+version = "1.0.0"
+entrypoint = "lib.typ"
+authors = ["Arham"]
+license = "MIT"
+description = "Pure-math prelude: theorem envs, math macros, paired delimiters, common operators."

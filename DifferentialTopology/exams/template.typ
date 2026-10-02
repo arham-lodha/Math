@@ -25,6 +25,20 @@
 #let _todos-visible = true
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ── Toggle this to false to hide all solutions/proofs ────────────────────────
+#let _solutions-visible = true
+// ─────────────────────────────────────────────────────────────────────────────
+
+#let _solution-hidden-block = block(
+  above: 0.6em, below: 0.6em,
+  fill: rgb("#f0f0f0"),
+  stroke: (left: rgb("#bbb") + 2pt),
+  inset: (x: 10pt, y: 8pt),
+  radius: 2pt,
+  width: 100%,
+  text(fill: rgb("#999"), style: "italic")[Solution hidden],
+)
+
 #let _todo-fill   = rgb("#fff8e1")
 #let _todo-stroke = rgb("#f5a623") + 2.5pt
 #let _todo-label  = text(fill: rgb("#c87000"), size: 9pt, weight: 700)[[TODO]]
@@ -93,15 +107,39 @@
   }
 }
 
-#let solution(body) = block(
-  above: 0.6em, below: 0.6em,
-  fill: rgb("#f5f5f5"),
-  stroke: (left: rgb("#999") + 2pt),
-  inset: (x: 10pt, y: 8pt),
-  radius: 2pt,
-  width: 100%,
-  [#emph[Solution.] #body],
-)
+#let solution(body) = if _solutions-visible {
+  block(
+    above: 0.6em, below: 0.6em,
+    fill: rgb("#f5f5f5"),
+    stroke: (left: rgb("#999") + 2pt),
+    inset: (x: 10pt, y: 8pt),
+    radius: 2pt,
+    width: 100%,
+    [#emph[Solution.] #body],
+  )
+} else {
+  _solution-hidden-block
+}
+
+#let proof(..args) = if _solutions-visible {
+  let pos = args.pos()
+  let body = pos.last()
+  let name = if pos.len() >= 2 { pos.at(0) } else {
+    args.named().at("name", default: none)
+  }
+  block(
+    width: 100%,
+    inset: (top: 4pt, bottom: 4pt),
+    breakable: true,
+    [
+      #emph[Proof#if name != none [ (#name)]:]
+      #h(0.3em)#body
+      #h(1fr) #box($square.stroked$)
+    ],
+  )
+} else {
+  _solution-hidden-block
+}
 
 #let homework(
   course: "Course",

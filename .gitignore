@@ -1,0 +1,10 @@
+.DS_Store
+.gstack/
+*.bak
+*.aux
+*.log
+**/.claude/worktrees/
+
+# Teaching/: math115a-ta is its own repo (ucla-math115a); CalculusAB holds student
+# data/transcripts. Neither belongs in this repo.
+Teaching/

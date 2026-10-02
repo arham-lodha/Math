@@ -1,0 +1,7 @@
+[package]
+name = "math-homework"
+version = "1.0.0"
+entrypoint = "lib.typ"
+authors = ["Arham"]
+license = "MIT"
+description = "Homework / problem-set template (problem, part, solution, TODO highlighting, optional explicit problem numbers)."
