@@ -38,7 +38,16 @@
   $0 < theta < 1$, and $1/r = (1 - theta)/p + theta/q$,
   $ norm(f)_r <= norm(f)_p^(1 - theta) norm(f)_q^theta. $
 ]
-#solution[]
+#solution[
+  $=>:$ Suppose Holder's inequality is true for all choices of parameters. Suppose $ 1/r = (1 - theta) / (p) + (theta) / (q). $ Let $ alpha & = (p) / (1 - theta) \
+   beta & = (q) / (theta). $ Thus by Holder's inequality we have $ norm(f)_r &= norm(f^(1 -theta) f^(theta))_r \ &<= norm(f^(1 - theta))_alpha norm(f^(theta))_(beta) \ &= (integral_(X) abs(f (x))^((1 - theta) alpha) dif mu)^(1/alpha) (integral_X abs(f(x))^(theta beta) dif mu )^(1/beta) \ &= (integral_(X) abs(f(x))^(p) dif mu)^((1 - theta) / (p)) (integral_(X) abs(f(x))^(q) dif mu )^((theta ) / (q)) = norm(f)_p^(1 - theta) norm(f)_q^(theta). $
+
+  $<==:$ Suppose the log-convexity of $L^p$ is true. Let $ 1/r = 1/p + 1/q. $ Let $ alpha & = p/2 \
+   beta & = q/2 \
+  theta & = 1/2. $ Then $ norm(f g)_r & = norm(f g)_(alpha)^(1/2) norm(f g)^(1/2)_beta \
+              & = (integral_(0)^1 abs(f g)^(p/2) dif mu )^(p) $
+
+]
 
 #problem(num: "13")[
   Differentiate $log norm(f)_p$ twice with respect to $alpha := 1/p$ and show

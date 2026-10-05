@@ -8,7 +8,7 @@ This is a math coursework repository for Arham Lodha. All documents are written 
 
 - `ComplexAnalysis/` — MATH 246A and MATH 246B (Complex Analysis I & II)
 - `DifferentialTopology/` — homework and exam documents
-- `Algebra/` — homework sets
+- `Algebra/` — UCLA algebra qual prep: `qual/` problem compilation (LaTeX), `Practice/` skill drills; has its own `CLAUDE.md`
 - `BasicExamPrep/` — exam practice, lecture notes, analysis notes
 - `RealAnalysis/`, `CommutativeAlgebra/`, `FourierAnalysis/` — current-term courses (MATH 245A, 215A, 247A), each with its own `CLAUDE.md`
 - `Textbooks/` — reference PDFs and a bookmark tool (see its `CLAUDE.md`)
@@ -39,7 +39,7 @@ Each document lives in its own subdirectory with exactly two files:
 
 Run `_shared/install.sh` once per machine to link the packages into Typst's local package dir. `DifferentialTopology/exams` and the paper-style notes under `BasicExamPrep/Analysis/Notes/` keep their own full `template.typ`.
 
-Known issue: typst 0.13.1 doesn't know the `chevron` symbol, so a few older documents (`Algebra/homework1`, `BasicExamPrep/exams`, `BasicExamPrep/LA`, `DifferentialTopology/smooth-manifolds`) fail to compile until typst is upgraded or `chevron.l/r` is swapped for `angle.l/r`.
+Known issue: typst 0.13.1 doesn't know the `chevron` symbol, so a few older documents (`BasicExamPrep/exams`, `BasicExamPrep/LA`, `DifferentialTopology/smooth-manifolds`) fail to compile until typst is upgraded or `chevron.l/r` is swapped for `angle.l/r`.
 
 Notes documents additionally have `refs.bib` for bibliography and sometimes `figures.typ` for diagrams.
 

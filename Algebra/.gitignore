@@ -1,0 +1,6 @@
+# LaTeX build artifacts (qual/)
+*.toc
+*.idx
+*.ind
+*.ilg
+*.out

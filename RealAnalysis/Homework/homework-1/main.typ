@@ -54,21 +54,30 @@
 #problem(num: "1.3*")[
   Suppose $mu$ is an outer measure on $X$ such that $mu(X) < oo$ and suppose $S$ is the set of $mu$-measurable subsets. Suppose $cA subset.eq S$ is such that for every $A in cA$, $mu(A) > 0$ and for every $A, B in cA$ such that $A eq.not B$ then $A inter B = emptyset$. Show that $cA$ is countable.
 ]
-#solution[]
+#solution[Let $ I_n := {A in cA : mu[A] >= 1/n}. $ Note that $ cA = union.big_(n in NN) I_n. $ Assume the contrary that $I_n$ is not finite. Let $J subset.eq I_n$ be a countably infinite subset, $ mu [X] >= mu [union.big_(A in I_n) A] >= mu [union.big_(A in J) A] = sum_(A in J) mu [A] >= sum_(A in J) 1/n = oo. $ Thus a contradiction occurs. Hence $abs(I_n)$ is finite. Hence $cA$ is a countable union of finite sets hence must be finite.
+
+]
 
 #problem(num: "1.4*")[
   Let $mu$ be an outer measure on a set $X$ and let $S$ be the collection of $mu$-measurable subsets on $X$. Show that we cannot have
   $ {mu(E) : E in S} = [0, 1). $
 ]
-#solution[]
+#solution[Note that $X in S$. Thus $exists alpha in [0, 1)$ where $mu[X] = alpha$. But since we have a bijection between ${mu(E) : E in S} = [0, 1)$ there exists a $E in S$ such that $mu(S) = (alpha + 1) / (2)$. But $E subset.eq X$ and by monotonicity of outer measure, $(alpha + 1) / (2) = mu(E) <= mu(X) = alpha$ this is a contradiction.
+]
 
 #problem(num: "1.5*")[
-  Let $mu$ be a measure on a set $X$ such that $mu[X] = 1$ and let cM be the set of $mu$-measurable sets. Suppose that $mu[M] > 0$ for each $emptyset eq.not M in cM$ and let
+  Let $mu$ be a measure on a set $X$ such that $mu[X] = 1$ and let $cM$ be the set of $mu$-measurable sets. Suppose that $mu[M] > 0$ for each $emptyset eq.not M in cM$ and let
   $ alpha(x) = inf_(M in cM) {mu[M] : x in M} quad (x in X). $
   #part[Show that there exists a set $A_x in cM$ such that $x in A_x$ and $mu[A_x] = alpha(x)$.]
   #part[Show that the sets ${A_x}$ are either disjoint or identical.]
 ]
-#solution[]
+#solution[*(a)*: We know that following that: $forall n in NN$ there exists a $E_n in cM$ such that $ mu(E_n) <= alpha(x) + 1/n $ and $x in E_n$. $ inter.big_(n in NN) E_n in.rev {x}. $ Consider $ F_k := inter.big_(n = 1)^k E_k. $ Note that $F_1 supset.eq F_2 supset.eq ...$, and ${x} in F_k => alpha(x) <= mu(F_n) <= mu(E_n) = alpha(x) + 1/n$. By problem 1, we know that $ lim_(n -> oo) mu [F_n] = mu[inter.big_(n in NN) F_n ]. $ By the squeeze theorem we know, that $ alpha(x) <= mu [inter.big_(n in NN) F_n ] <= lim_(n -> oo) (alpha(x) + 1/n) = alpha (x) => mu[inter.big_(n in NN) F_n ] = alpha(x). $ Furthermore, we know that $ inter.big_(n in NN) F_n = inter.big_(n in NN) E_n "is measurable.". $ Thus $ A_x = inter.big_(n in NN) F_n $
+
+  *(b)*: Suppose $x, y in X$ where $A_x != A_y$. Assume the contrary, that $A_x inter A_y != emptyset$.
+
+  Case 1:
+
+]
 
 #problem(num: "1.6")[
   Let $mu$ be a measure on $X$ such that $mu[X] < oo$. Show that if ${x}$ is $mu$-measurable for every $x in X$ then there are at most countably many $x in X$ such that $mu[{x}] > 0$.
