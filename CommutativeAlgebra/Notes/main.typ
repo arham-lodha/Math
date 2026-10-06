@@ -11,6 +11,9 @@
   bibliography-file: "refs.bib",
 )
 
+#let jac = $frak(N)$
+#let nil = $frak(R)$
+
 // ── Usage ────────────────────────────────────────────────────────────────────
 //
 //  Chapters (level-1 headings) break to a new page automatically and reset
@@ -211,4 +214,39 @@ For elements $f_1, ..., f_r in A$ write ${f_1 = 0, ..., f_r = 0} subset.eq Spec(
   1. $Spec(QQ) = {(0)}$
   2. $Spec(RR) = {(0)}$
   3. $Spec(ZZ) = {(0)} union {(p) : p "prime"}$. $ {10 = 0} = {(2), (5)} $
+  3. $Spec[CC[x]]$: $CC[x]$ is a PID, and thus we know how the prime ideals look. The prime ideal looks $(0)$ or $(f)$ where $f in CC[x]$ monic irreducible polynomial. Since $CC$ is algebraic closed, we know that $f$ has degree greater than 1 it can be factored. Thus $f$ must be degree 1 polynomial. $lcoset(CC[x], (0))$ is a domain but not a field. $lcoset(CC[x], (x - b)) iso CC$. $Spec(CC[x])$ looks like $CC$ with a extra point $(0)$. The closed subsets of $X$ are the subsets $ V(I) := {frak(p) in Spec(CC[x]) : I subset.eq frak(p)}. $ Note that $CC[x]$ is a PID, thus any ideal is $(0), (1), ((x - b_1)^(n_1) ... (x - b_n)^(n_r))$ where $b_i in CC$ and $r >= 1$.
+
+  $
+                                                                      V((0)) = {0 = 0} & := Spec(C[[x]]) \
+                                                                      V((1)) = {1 = 0} & = emptyset \
+    V((x - b_1)^(n_1) ... (x - b_n)^(r_n) ) = {(x - b_1)^(n_1)... (x - b_n)^(n_r) = 0} & = {(x - b_1), ..., (x - b_n)}
+  $
+
+  Thus the closed subsets of $Spec(CC)$ looks like finite sets of $CC$ portion of $Spec[CC]$, empty set, and the whole set. Thus as a topological space, $Spec(CC)$ looks exactly like $CC$ plus a extra point. $(0)$ is called a generic point because the closure of the point is the whole space.
+
+  #figs.spec-cx
+]
+
+#theorem("Nilradical is intersection of all prime ideals")[
+  The nilradical, $nil$, is the set of nilpotent elements of a ring. $ nil = inter.big_(frak(p) in Spec(A)) frak(p) $
+]
+#proof[
+  1. $nil subset.eq inter.big_(frak(p) in Spec(A)) frak(p):$ This is trivial because $x in nil => x^n = 0$ and thus $x = 0 in lcoset(A, frak(p))$ because $lcoset(A, frak(p))$ is a domain, hence $x in frak(p)$.
+  2. $nil supset.eq inter_(frak(p) in Spec(A)) frak(p)$: We will go for a contrapositive. Suppose $x$ is not nilpotent. Then you want $frak(p) in Spec(A)$ such that $x in.not frak(p)$. Consider the poset of $P = {I subset.eq Spec(A) : x^NN in.not I}$ with the comparison relation given by $subset.eq$. Suppose $S = emptyset$ empty chain, note that $P != emptyset$ because $(0) in P$. If $S$ is a nonempty chain in $P$, let $ J = union.big_(I in S) I subset.eq A $ is a ideal. Since no interim ideal contains any positive power of $x$, $J$ doesn't contains any positive power of $x$. By Zorn's lemma there exists a maximal element $I$. Clearly $1 in.not I$, because $x in.not I$. Suppose $y in R - I$, $z in R - I$ and $y z in I$. Thus $I subset I + (y)$ and $I subset I + (z)$. So $I + (z), I + (y)$
+]
+
+#definition("Radical Ideal")[
+  A ideal $I$ is *radical* if $lcoset(R, I)$ has no nilpotent elements.
+]
+
+#definition("Radical of a Ideal")[
+  For a ideal $I$ in a ring $R$, the *radical* of $I$ is $ r(I) := {x in R: (exists n >= 1) x^n in I} = [R -> lcoset(R, I)]^(-1)(nil) $ where $[R -> lcoset(R, I)]^(-1) (nil)$ is the inverse image of the nilradical of $lcoset(R, I)$. Equivalently $r(I)$, is the smallest radical ideal containing $I$.
+]
+
+#corollary()[
+  For any ideal $I subset.eq R$, $r(I)$ is the intersection of the prime ideals that contain $I$.
+]
+
+#theorem()[
+  For any ring $R$ and ideals $I, J subset.eq R$. $V(I) = V(J) <=> r(I) = r(J)$.
 ]
