@@ -42,10 +42,12 @@
   $=>:$ Suppose Holder's inequality is true for all choices of parameters. Suppose $ 1/r = (1 - theta) / (p) + (theta) / (q). $ Let $ alpha & = (p) / (1 - theta) \
    beta & = (q) / (theta). $ Thus by Holder's inequality we have $ norm(f)_r &= norm(f^(1 -theta) f^(theta))_r \ &<= norm(f^(1 - theta))_alpha norm(f^(theta))_(beta) \ &= (integral_(X) abs(f (x))^((1 - theta) alpha) dif mu)^(1/alpha) (integral_X abs(f(x))^(theta beta) dif mu )^(1/beta) \ &= (integral_(X) abs(f(x))^(p) dif mu)^((1 - theta) / (p)) (integral_(X) abs(f(x))^(q) dif mu )^((theta ) / (q)) = norm(f)_p^(1 - theta) norm(f)_q^(theta). $
 
-  $<==:$ Suppose the log-convexity of $L^p$ is true. Let $ 1/r = 1/p + 1/q. $ Let $ alpha & = p/2 \
-   beta & = q/2 \
-  theta & = 1/2. $ Then $ norm(f g)_r & = norm(f g)_(alpha)^(1/2) norm(f g)^(1/2)_beta \
-              & = (integral_(0)^1 abs(f g)^(p/2) dif mu )^(p) $
+  $<==:$ Suppose the log-convexity of $L^p$ is true. Let $ 1/r = 1/p + 1/q. $ We will first show that it is sufficient to prove that if $norm(f)_p <= 1$ and $norm(g)_q <= 1$ then $norm(f g)_r <= 1$. WLOG $norm(F)_p != 0 != norm(G)_q$ otherwise $F$ or $G$ are zero almost everywhere and hence $F G$ is zero almost everywhere and $norm(F G)_r = 0$ and the statement is trivially true. Let $ norm(F G)_r & <= norm(F)_p norm(G)_q norm((F/norm(F)_p) (G / norm(G)_q))_r <= norm(F)_p norm(G)_q. $ Thus it is sufficient to prove that $norm(f)_p <= 1$ and $norm(g)_q <= 1$ implies that $norm(f g)_r <= 1$. Consider the following function $ F(x) := cases((f(x)) / abs(g(x))^(q/p) "if" g(x) != 0, 0 "otherwise"). $ Let $d nu = abs(g(x))^q d mu$. Then we have that $ norm(F)_(L^(p)(X, dif nu))^p & = integral_X F(x)^p dif nu \
+                               & = integral_{x : g(x) != 0} (abs(f(x))^p / (abs(g(x))^q)) abs(g(x))^q dif mu \
+                               & = integral_({x: g(x) != 0}) abs(f(x))^p dif mu \
+                               & <= norm(f)_(L^p (X, d mu))^p <= 1. $ We also have $ norm(F)_(L^r (X, d nu))^r & = integral_X F(x)^r dif nu \
+                            & = integral_{x: g(x) != 0} (abs(f(x))^r) / (abs(g(x))^((r q) / (p)) ) $
+
 
 ]
 

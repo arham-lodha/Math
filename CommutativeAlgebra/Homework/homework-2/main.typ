@@ -125,5 +125,15 @@ For the sake of notation, let $ [a_0, ..., a_n] = sum_(k = 0)^(n) a_k x^k in A[x
 
   Show that a polynomial in $k[x_1, dots, x_n]$ of the form $x_n - f(x_1, dots, x_(n-1))$ is irreducible over $k$. Show that a polynomial of the form $x_n^2 - f(x_1, dots, x_(n-1))$ is irreducible over $k$ if and only if $f$ is not a square in $k[x_1, dots, x_(n-1)]$.
 ]
+#solution[
+  Note the following that $ k[x_1, ..., x_n][y] iso k[x_1, ..., x_n, y] $ hence if a polynomial in $k[x_1, ..., x_n][y]$ is irreducible over $k[x_1, ..., x_n]$ it is irreducible over $k$ as a element of $k[x_1, ..., x_n]$. We will use this fact to prove the first statement. Suppose that $y - f(x_1, ..., x_n) = A B$ where $y - f(x_1, ..., x_n)$, $A$, and $B$ are viewed as elements of $k[x_1, ..., x_n][y]$. Either $A$ or (exclusive) $B$ must have degree 0 and the other must have degree 1 (in $y$). Without loss of generality, $A$ has degree 1 and $B$ has degree 0. Since the coefficient in front of $y$, in $y - f(x_1, ..., x_n)$, is nonzero hence the constant term of $B$ must be nonzero, hence unit since $k$ is a field. Hence $B$ is a unit in $k[x_1, ..., x_n]$. Hence $y - f(x_1, ..., x_n)$ is irreducible as a element of $k[x_1, ..., x_n]$. Thus this implies that it is irreducible as a element of $k[x_1, ..., x_n, y]$.
+
+  Suppose $y^2 - f(x_1, ..., x_(n))$ is irreducible. Assume the contrary that $f$ is a square in $k[x_1, ..., x_n]$. Then $exists g in k[x_1, ..., x_n]$ such that $g^2 = f$. Then $ (y - g)(y + g) & = y^2 - f. $ Both $y - g$ and $y + g$ are nonunit, hence $y^2 - f$ cannot be irreducible.
+
+  Suppose $f$ is not a square. Suppose $ y^2 - f = A dot B $ where $A, B in k[x_1, ..., x_n][y]$. WLOG $deg(A) >= deg(B)$.
+
+  1. $deg(A) = 2$: Then $B$ must have a nonzero constant term, hence it must be unit and $y^2 - f$ is irreducible.
+  2. $deg(A) = 1 => deg(B) = 1$. Thus $A = g_1 y - h_1$ and $B = g_2 y + h_2$ were
+]
 
 

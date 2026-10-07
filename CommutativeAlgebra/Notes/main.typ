@@ -250,3 +250,55 @@ For elements $f_1, ..., f_r in A$ write ${f_1 = 0, ..., f_r = 0} subset.eq Spec(
 #theorem()[
   For any ring $R$ and ideals $I, J subset.eq R$. $V(I) = V(J) <=> r(I) = r(J)$.
 ]
+
+= Module
+#definition("Left Module")[
+  A *Left Module* over a ring $A$ (not necessarily commutative) is a abelian group $M$ with a action of the ring $A$ such that:
+  1. $1 * m = m$ for all $m in M$
+  2. $(a b) * m = a (b ast m)$
+  3. $(a + b) * m = a * m + b * m$
+]
+#remark()[
+  A right $A$-module M, written $m ast a in M$ for $m in M$ and $a in A$. They are not always equal to to the left $A$-module. For a commutative ring left and right modules are the same.
+]
+
+#example[
+  For a field $k$, a $k$-vector space is a $k$-module. For a ring $A$ and $n >= 0$, $A^n$ is a $A$-modules, called the free module. A $ZZ$-module is equivalent to a abelian group. An ideal $I$ in a commutative ring determines two obvious modules: $I$ itself, $lcoset(A, I)$. In a more general setting, a left ideal is a left submodule of $A$, a right ideal is a right submodule. For $k$ a field, a $k[x]$-module is a $k$-vector space $M$ together with a $k$-linear map from $M -> M$ (action of $x$). More generally, a $k[x_1, ..., x_n]$ is a $k$ vectorspace with n maps $x_1: M -> M$, ... $x_n: M -> M$ such that the maps commute. If $E$ is a real vector bundle over a topological space $X$, then the set $M$ of continuous sections of $E$ is a module over the $C(X)$.
+
+  #figs.bundle-sections
+]
+
+When seeing the theorem about modules , consider what it tells you about ideals, by looking at $lcoset(A, I)$.
+
+The category of $A$ modules is a additive category, unlike (say) the category of commutative rings or commutative $A$-algebra. Thus $A$-modules form a nicer simpler category, and studying $A$-modules is nicer than studying $A$. For a commutative ring, $Hom_A (M, N)$ is a $A$-module (this is not true for a generic ring).
+
+#definition()[
+  For a $A$ linear map $phi$: $ ker(phi) & := {x in M: phi(x) = 0} \
+   im(phi) & := {f(m) : m in M} \
+  coker(f) & = lcoset(N, im(phi)) $
+]
+
+#theorem("Universal Property of Quotient Module")[
+  Given $M$ a $A$-module and $N$ a $A$-submodule, we get a quotient module $lcoset(M, N)$ with a A linear map $phi: N -> lcoset(M, N)$ with $ker phi = N$. Equivalently, for any module $Q$, there is a 1 to 1 correspondence between $A$-linear maps $lcoset(N, M) -> Q$ and $A$ linear maps $N -> Q$ with kernel which contains $M$.
+
+  #figs.quotient-ump
+]
+
+#theorem("Universal Property of Free Module")[
+  For a commutative ring $A$ and any $n >= 0$, there is a 1 to 1 correspondence from $A$-linear maps $A^n -> M$ with n-tuples of elements of $M$.
+
+  #figs.free-ump
+]
+
+For any ring homomorphism $A ->^f B$, we get a continuous map $  Spec B & ->^(f^*) Spec A \
+frak(p) & -> f^(-1)(frak(p)). $ Thus $Spec$ is a contravariant functor.
+
+#theorem()[
+  For any ideal $I$ in a commutative ring, the ring homomorphism $A -> lcoset(A, I)$ determines a continuous map $ Spec(lcoset(A, I)) -> Spec(A) $ is a homomorphism into a closed subset of $Spec(A)$. ]
+#proof[
+  Follow your nose.
+]
+
+#example([
+  What is $Spec(lcoset(Z, 10))$?
+])[ By the theorem, the set is homomorphic to ${10 = 0} subset.eq Spec(ZZ)$ in otherwords ${(2), (10)}$ with the discrete topology. ]
