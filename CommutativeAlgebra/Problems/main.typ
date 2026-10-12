@@ -11,8 +11,8 @@
 )
 
 #set enum(numbering: "i)")
-#let jac = $frak(N)$
-#let nil = $frak(R)$
+#let jac = $frak(R)$
+#let nil = $frak(N)$
 
 // ── Usage ────────────────────────────────────────────────────────────────────
 //
@@ -137,9 +137,16 @@ Just a note on notation, $f = sum_(k = 0)^(n) a_k x^k in A[x]$ can be identified
 #exercise[
   A ring $A$ is such that every ideal not contained in the nilradical contains a nonzero idempotent (that is, an element $e$ such that $e^2 = e != 0$). Prove that the nilradical and Jacobson radical of $A$ are equal.
 ]
+#proof[
+  It suffices to show that $ jac subset.eq nil. $ Assume the contrary, that $jac subset.eq.not nil$. Thus $exists e in jac$ such that $e != 0$ and $e^2 = e$. By Prop 1.9, $1 - e^2 = 1 - e$ is a unit. Let $f = (1 - e)^(-1).$ Note the following computation, $ e = e (1 - e) f & = (e - e^2) f = (e - e) f = 0. $ This is a contradiction. Hence $jac subset.eq nil$ and $jac = nil$.
+]
 
 #exercise[
   Let $A$ be a ring in which every element $x$ satisfies $x^n = x$ for some $n > 1$ (depending on $x$). Show that every prime ideal in $A$ is maximal.
+]
+#proof[
+  The problem is equivalent to showing that $lcoset(A, frak(p))$ is a field for any prime ideal $frak(p)$. Fix $frak(p) in Spec(A)$. We want to show that $lcoset(A, frak(p))$ is a field.
+  $ x^n - x & = 0 = x (x^(n - 1) - 1). $ Thus in $lcoset(A, frak(p))$ which is a domain, either $x = 0$ or $x^(n - 1) - 1 = 0$. Thus if $x != 0$, then $x^(n - 1) = 1$. Thus $x^(n - 2) x = 1$ and $x$ is unit. Thus every nonzero element in $lcoset(A, frak(p))$ is unit and $lcoset(A, frak(p))$ is a field and $frak(p)$ is maximal.
 ]
 
 #exercise[

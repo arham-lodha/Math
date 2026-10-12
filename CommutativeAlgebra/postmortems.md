@@ -35,3 +35,14 @@ Covers both `Homework/` and `Problems/` — the heading names the scope (a pset 
 **Alternative approaches:**
 - Ex. 2.4 — tried a global argument that every element of the intersection of maximal ideals also lies in every prime. This can't work without using the structure of $A[x]$: for a general ring $\mathfrak{N} \subsetneq \mathfrak{R}$ happens (e.g. $k[[t]]$, where $(t)$ is the Jacobson radical but the nilradical is $0$), so any valid argument has to use something polynomial-specific — which is exactly what Ex. 2(i) on units of $A[x]$ does. The element-wise route is the cleaner one here.
 **Notes:** Carry forward: when a statement is about a radical, ask whether the element-wise characterization (units for Jacobson, nilpotents for nilradical) or the ideal-wise one (maximal/prime ideals) fits the ring at hand — and test the global version on a ring where the two radicals differ to see whether the claim can even be true in general. Also reuse "multiply by $x$ to push the constant term out of the constant slot."
+
+## 2026-10-11 — Ex. 1.5–1.7 (power series; Jacobson radical vs nilradical with idempotents; $x^n = x$ rings)
+**Struggled with:** Connecting the Jacobson radical machinery in 1.5 (the Prop 1.9 elementwise characterization and "$x \in \mathfrak{R}$" trick in (c)/(d)). 1.6 and 1.7 were routine symbol manipulation.
+**Left unproved:**
+- 1.5(e) — forgot to do it; deliberately moving on for now.
+- 1.5(b) converse — not pursued (skipping the rest of 1.5 for now). Pointer: Ch. 7 Ex. 2 / the converse is false in general.
+**Alternative approaches:**
+- 1.5(b) — current write-up has a gap: $g_m^n$ has degree $nm$ but only agrees with $f^n$ through $x^m$, so "coefficients vanish" doesn't give $g_m^n = 0$. Cleaner: map to $(A/\mathfrak{p})[[x]]$ (a domain), nilpotent $\Rightarrow$ image 0 $\Rightarrow$ all $a_i \in \mathfrak{p}$ for every $\mathfrak{p}$, so $a_i \in \mathfrak{N}$. Same "reduce to a domain" trick as 1.2. Not yet revisited.
+- 1.6 — didn't consider a slicker route; note $e(1-e)=0$ with $1-e$ a unit gives $e=0$ directly (essentially what's written).
+- 1.7 — tried building $\phi: A \to B$ with $\mathfrak{p} \subseteq \ker\phi \Rightarrow \ker\phi = \mathfrak{p}$ to get maximality; didn't work out, fell back to the direct "$A/\mathfrak{p}$ is a field" argument, which is the natural route.
+**Notes:** Arham finds the Jacobson-radical trick (elementwise $1 - fg$ unit) neat. 1.5(b) write-up should be fixed if/when 1.5 is revisited.

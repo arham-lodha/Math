@@ -21,7 +21,7 @@ For the sake of notation, let $ [a_0, ..., a_n] = sum_(k = 0)^(n) a_k x^k in A[x
   Assume the contrary, that $k[y]$ and $k[x, x^(-1)]$ are isomorphic as $k$-algebras. Thus there exists a $L: k[x,x^(-1)] -> k[y]$ a $K$ algebra isomorphism. Then $L(x) = f = [a_0, ..., a_n]$ is a unit because $x$ is a unit in $k[x, x^(-1)]$. Thus exists $g = f^(-1) in k[x]$. $ g := [b_0, ..., b_m]. $ $ 1 = f g = a_0 b_0 + .... + a_n b_m y^(m n) => a_n b_m = 0. $ But $a_n != 0 != b_m$. A field has no nonzero zero divisors. Thus a contradiction occurs.
 ]
 
-#problem(todo: true)[
+#problem()[
   Let $k$ be a field. Show how to view the ring $k[x, y] \/ (x - 1, x^2 + y^2 - 1)$ as the quotient ring of $k[y]$ by a certain ideal. Deduce that the ideal $(x - 1, x^2 + y^2 - 1)$ is not prime, and compute its radical.
 ]
 #solution[Note that
@@ -37,7 +37,6 @@ For the sake of notation, let $ [a_0, ..., a_n] = sum_(k = 0)^(n) a_k x^k in A[x
 
   Under this isomorphism, we have $(x^2 + y^2 - 1) -> (y^2)$. Thus $ (k[x, y]) / ((x - 1, x^2 + y^2 - 1)) iso (k[y]) / ((y^2)). $ $y * y = 0 in lcoset(k[y], (y^2))$, thus the ring isn't a domain. Hence the ideal isn't prime.
 
-  TODO CALCULATE RADICAL.
 
 
 ]
@@ -46,7 +45,7 @@ For the sake of notation, let $ [a_0, ..., a_n] = sum_(k = 0)^(n) a_k x^k in A[x
   #part(todo: true)[
     Let $R$ be a domain. Show that the polynomial ring $R[x]$ is a domain and that the group of units $R[x]^*$ is equal to $R^*$ (viewed as constant polynomials). Give an example showing that this description of $R[x]^*$ fails for $R$ not a domain, and say where your proof fails. By induction on $n$, it follows that the polynomial ring $A = k[x_1, dots, x_n]$ over a field $k$ is a domain, and that $A^* = k^*$.
   ]
-  #part(todo: true)[
+  #part()[
     Show that the power series ring $B = k[[x_1, dots, x_n]]$ over a field is also a domain, and find the group of units $B^*$.
   ]
 ]
@@ -74,7 +73,7 @@ For the sake of notation, let $ [a_0, ..., a_n] = sum_(k = 0)^(n) a_k x^k in A[x
 
 ]
 
-#problem(todo: true)[
+#problem()[
   Let $A$ and $B$ be commutative rings. The product ring $A times B$ (not to be confused with a tensor product) is the product set, with ring structure $(a_1, b_1) + (a_2, b_2) = (a_1 + a_2, b_1 + b_2)$ and $(a_1, b_1)(a_2, b_2) = (a_1 a_2, b_1 b_2)$. State and prove a universal property that characterizes $A times B$ in the category of commutative rings. (If this is not familiar, see the section on category theory in chapter 1 of Serge Lang's book _Algebra_.)
 ]
 #proof[
@@ -109,7 +108,7 @@ For the sake of notation, let $ [a_0, ..., a_n] = sum_(k = 0)^(n) a_k x^k in A[x
   (pi_2 compose q)(c) & = (pi_2 compose q prime)(c) & = q_2(c). $ Thus $q(c) = (q_1(c), q_2(c)) = q prime (c)$. Hence $q = q prime$. Hence $q$ is unique.
 ]
 
-#problem(todo: true)[
+#problem()[
   For rings $A$ and $B$, give an example to show that an (additive) subgroup of the ring $A times B$ need not be of the form $S times T$, for subgroups $S subset A$ and $T subset B$. (The question is about equality of subgroups, not isomorphism of subgroups.) But show that every ideal in $A times B$ is of the form $I times J$ for ideals $I subset A$ and $J subset B$. Building on that, show that $"Spec"(A times B)$ is the disjoint union of $"Spec"(A)$ and $"Spec"(B)$, as a set. (In fact, it is the disjoint union as a topological space, but you need not prove that.)
 ]
 #proof[
@@ -120,7 +119,7 @@ For the sake of notation, let $ [a_0, ..., a_n] = sum_(k = 0)^(n) a_k x^k in A[x
   Suppose $frak(p) in Spec(A times B)$, $frak(p) = pi_1(frak(p)) times pi_2 (frak(p))$. Note that $ lcoset((A times B), frak(p)) ->^~ (A) / (pi_1(frak(p))) times (B) / (pi_2(frak(p))). $ note that $lcoset((A times B), frak(p))$ must be a domain. Assume the contrary that $pi_1(frak(p)) != A$ and $pi_2(frak(p)) != B$. Thus $ (1, 0) * (0, 1) = (0, 0) in (A) / (pi_1(A)) times (B) / (pi_2 (B)) $ this contradicts the domain nature of $lcoset((A times B), frak(p))$. Thus at least one must be $A$ or $B$. Thus $frak(p)$ is of the form $pi_1(frak(p)) times B$ or $A times pi_2 (frak(p))$ where $pi_i (frak(p))$ is prime. Thus $ Spec (A times B) := Spec(A) union.sq Spec(B) $
 ]
 
-#problem(todo: true)[
+#problem()[
   Let $k$ be a field. Since $R = k[x_1, dots, x_n]$ is a UFD, the ideal $(f)$ is prime for every irreducible polynomial $f$ in $R$. The following exercise gives some practice in finding irreducible polynomials. (I recommend proving this by hand rather than trying to use big theorems: just analyze what a factorization of the given polynomial would have to look like.)
 
   Show that a polynomial in $k[x_1, dots, x_n]$ of the form $x_n - f(x_1, dots, x_(n-1))$ is irreducible over $k$. Show that a polynomial of the form $x_n^2 - f(x_1, dots, x_(n-1))$ is irreducible over $k$ if and only if $f$ is not a square in $k[x_1, dots, x_(n-1)]$.
@@ -133,7 +132,12 @@ For the sake of notation, let $ [a_0, ..., a_n] = sum_(k = 0)^(n) a_k x^k in A[x
   Suppose $f$ is not a square. Suppose $ y^2 - f = A dot B $ where $A, B in k[x_1, ..., x_n][y]$. WLOG $deg(A) >= deg(B)$.
 
   1. $deg(A) = 2$: Then $B$ must have a nonzero constant term, hence it must be unit and $y^2 - f$ is irreducible.
-  2. $deg(A) = 1 => deg(B) = 1$. Thus $A = g_1 y - h_1$ and $B = g_2 y + h_2$ were
+  2. $deg(A) = 1 => deg(B) = 1$. Thus $A = g_1 y + h_1$ and $B = g_2 y + h_2$ where $g_1, g_2, h_1, h_2 in k[x_1, ..., x_n]$. Thus $ A B = (g_1 y + h_1)(g_2 y + h_2) & = g_1 g_2 y^2 + g_1 y h_1 + g_2 y h_2 + h_1 h_2. $ $g_1 g_2 = 1 => g_1$ and $g_2$ are units in $k[x_1, ..., x_n] => g_1$ and $g_2$ are units in $k$ because the coefficients must be nilpotent, hence $0$. Thus $g_1, g_2 in k^times$. $ (g_1 h_2 + g_2 h_1)y = 0 => g_1 h_2 = - (g_1)^(-1) h_1 => g_1^2 h_2 = - h_1 $
+
+  Thus $ -f & = h_1 h_2 \
+     & = (-g_1^2 h_2)h_2 \
+     & = -(g_1 h_2)^2 => f = (g_1 h_2)^2 $hence $f$ is a square and a contradiction occurs. Thus $y^2 - f$ is irreducible.
+
 ]
 
 

@@ -153,8 +153,10 @@
 #problem(num: "3.5")[
   Let $U subset.eq CC$ be a region and $u: U -> RR$ harmonic. Suppose $v$ and $w$ are harmonic conjugates of $u$ on $U$. Show that $v - w$ is constant on $U$.
 ]
-#solution[
+#solution[Note that $f = u + i v$ and $g = u + i w$ are holomorphic. Thus $f$ and $g$ satisfy the Cauchy Riemann equations: $ u_x & = v_y = w_y \
+  u_y & = -v_x = - w_x $
 
+  Thus $v_y = w_y$ and $v_x = w_x$. Let $h = v - w$. We know that $ grad(h) = 0. $ We want to show that $h$ is a constant. We will show $h$ is locally constant and hence is constant by path connectedness of $U$. Take $arrow(x) in U$ (viewing as a element of $RR^2$). By openness of $u$, there exists $delta > 0$ such that $B(x, delta) subset.eq U$. $B(x, delta)$ is convex and hence $forall y in B(x, delta)$, there exists a line from $y$ to $x$. By the mean value theorem, $exists theta in [0, 1]$ such that $ abs(h(x) - h(y)) <= grad(h)(x + theta(y - x)) dot (x - y) = 0. $ Thus $h(x) - h(y) = 0 => h(x) = h(y)$. Thus $h$ is locally constant. Now since $h$ is locally constant and $U$ is path connected, it must be constant. Thus $v - w$ is a constant function.
 ]
 
 #problem(num: "3.6")[
@@ -162,18 +164,49 @@
   #part[if $op("Re")(f)$ or $op("Im")(f)$ is constant on $U$, then $f$ is constant.]
   #part[if $abs(f)$ is constant on $U$, then $f$ is constant.]
 ]
-#solution[]
+#solution[
+  $f = u + i v$ holomorphic and where $u$ and $v$ are real valued.
+  1. It suffices to prove the statement for $u$ constant. If $v$ was constant, then consider $i f = -v + i u$, which is constant and hence $f$ is constant. We know the following $ 0 = u_x & = v_y \
+    0 = u_y & = -v_x. $ Hence $grad(v)$ is 0. Now use multivariable mean value theorem to show that $v$ is locally constant and hence constant. Thus $f$ must be constant.
+  2. Suppose $abs(f)$ is constant on $U$. That means $ c = abs(u + i v) & = (u + i v)conj((u + i v)) \
+                     & = u^2 + v^2. $
+
+  Thus $ 0 & = 2 u u_x + 2v v_x \
+  0 & = 2 u u_x - 2v u_y \ $ and $ 0 & = 2 u u_y + 2 v u_x. $ Let $ M(x, y) = mat(u(x, y), -v(x, y); v(x, y), u (x, y)). $ We have that $ M vec(u_x (x, y), u_y (x, y)) = 0. $ Note that $det(M) = abs(f)^2$.
+  1. $abs(f)^2 = 0$, then $f = 0$ and we are done.
+  2. $abs(f)^2 != 0$: $M(x, y)$ is invertible and $grad(u) = 0 => u$ locally constant, hence constant, and $f$ constant.
+
+]
 
 #problem(num: "3.7")[
   Let $U, V subset.eq CC$ be open, $h: V -> RR$ harmonic, and $f: U -> V$ holomorphic. Show that $g := h compose f: U -> RR$ is harmonic.
   _Hint:_ you may disregard smoothness issues. To show $Delta g = 0$, use Wirtinger derivatives throughout.
 ]
-#solution[]
+#solution[
+  Note the following $ 4 partial_conj(z) partial_z = 4 partial_z partial_(conj(z)) &= (partial_x - i partial_y)(partial_x + i partial_y) = partial_x^2 + partial_y^2 = Delta. $
+  Consider $ Delta(h compose f) & = 4 partial_z partial_(conj(z)) (h compose f) \
+                     & = 4 partial_z ((partial_(conj(z))(h) compose f) partial_conj(z) (f) ) \
+                     & = 0 quad ("Because" f in cH(U) ) $ Thus $h compose f$ is harmonic.
+]
 
 #problem(num: "3.8")[
   Let $U subset.eq CC$ be open. A $C^2$ function $s: U -> RR$ is _subharmonic_ if $Delta s >= 0$ on $U$. Show that if $f: U -> CC$ is holomorphic, then $s(z) = log(1 + abs(f(z))^2)$ is subharmonic on $U$.
 ]
-#solution[]
+#solution[
+  Note the following: $ partial_conj(z) abs(f)^2 & = partial_(conj(z)) (f conj(f) ) \
+                           & = partial_(conj(z))(f) conj(f) + partial_(conj(z))(conj(f)) f \
+                           & = conj(partial_z (f)) f $
+  $ partial_z abs(f)^2 & = partial_z f conj(f) $
+
+  $
+    Delta abs(f)^2 & = 4 partial_z partial_conj(z)(f conj(f)) \
+                   & = 4 abs(partial_z f)^2
+  $
+  Also $partial_z partial_conj(z) abs(f)^2 = abs(partial_z f)^2$ and $abs(partial_z abs(f)^2)^2 = abs(f)^2 abs(partial_z f)^2$. Since $f$ is smooth and $1 + abs(f)^2 >= 1$, $s$ is $C^2$. Then
+  $
+    Delta s = 4 partial_z partial_conj(z) (s) &= 4 partial_z ((1) / (1 + abs(f)^2) dot partial_(conj(z))(abs(f)^2) ) \ &= -4(1 + abs(f)^2)^(-2) partial_(conj(z))(abs(f)^2) partial_(z)(abs(f)^2) + 4(1 + abs(f)^2)^(-1) partial_z partial_conj(z) abs(f)^2 \ &= -4(1 + abs(f)^2)^(-2) abs(f)^2 abs(partial_z f)^2 + 4 (1 + abs(f)^2)^(-1) abs(partial_z f)^2 \ &= (4 abs(partial_z f)^2) / (1 + abs(f)^2)^2 (1 + abs(f)^2 - abs(f)^2) = (4 abs(partial_z f)^2) / (1 + abs(f)^2)^2 >= 0.
+  $
+]
 
 #problem(num: "3.9")[
   Let $u$ be a $C^2$ function on an open subset of $RR^2$, viewed as $u(x, y)$ and, via $x = r cos phi$, $y = r sin phi$, as a function of $(r, phi)$. Subscripts denote partial derivatives.
@@ -181,7 +214,14 @@
   #part[Find similar expressions for $u_(r r)$ and $u_(phi phi)$.]
   #part[Using (a) and (b), show that $Delta u = u_(x x) + u_(y y) = u_(r r) + 1/r u_r + 1/r^2 u_(phi phi)$.]
 ]
-#solution[]
+#solution[
+  *(a)*: By the multivariable chain rule we know that $ u_r & = u_x x_r + u_y y_r \
+      & = cos(phi) u_x + sin(phi) u_y $ and $ u_phi & = u_x x_phi + u_y y_phi \
+        & = - r u_x cos(x) + r sin(phi) u_y $
+
+  *(b)*: $ u_(r r) & = cos(phi)(u_(x x) cos(phi) + u_(x y) sin(phi)) + sin(phi)(u_(x y) cos(phi) + u_(y y) sin(phi) ) \
+          & = u_(x x) cos^2 (phi) + 2 u_(x y) cos(phi) sin(phi) + u_(y y) sin^2(phi ) $
+]
 
 // ── Section 4: Path integrals ────────────────────────────────────────────────
 
