@@ -152,7 +152,7 @@
   #note("Mailed to the Chronicle with a 'dripping pen' greeting card. Many published 'solutions' over the years, none verifiable.")
 ]
 
-#s("Z13 and Z32: unsolvable in principle")[
+#s("Z13 and Z32")[
   #align(center)[
     #image("images/z13.png", width: 70%)
     #small[Z13, April 1970: "My name is —"]
@@ -160,9 +160,7 @@
     #image("images/z32.png", width: 80%)
     #small[Z32, June 1970: "The map coupled with this code will tell you where the bomb is set."]
   ]
-  #v(0.4em)
-  Thousands of proposed "solutions". Today's first question: *how could you ever tell?*
-  #note("Teaser: these are not unsolved, they are unsolvable. We will prove that with Shannon's unicity distance. Then search, then why Z340 needed both ideas at once.")
+  #note("Just show them and move on. Part 1 opens by coming back to Z13: many consistent solutions, and whether the ciphertext can ever pick one.")
 ]
 
 #s("Plan")[
@@ -178,6 +176,51 @@
 // ---------------------------------------------------------------------------
 
 #section("Is there a unique answer?", part: "Part 1", sub: "Shannon, 1948–49")
+
+#s("How many answers fit?")[
+  #set text(size: 20pt)
+  // Glyph x-extents (px) in images/z13.png, 450 x 28.
+  #let spans = ((1, 23), (43, 59), (81, 100), (108, 137), (147, 168), (185, 204), (218, 238),
+    (255, 275), (291, 310), (323, 343), (362, 377), (392, 410), (429, 450))
+  #let px = 0.042cm
+  #let glyph(i) = {
+    let (x0, x1) = spans.at(i)
+    box(width: (x1 - x0 + 4) * px, height: 28 * px, clip: true,
+      place(dx: -(x0 - 2) * px, image("images/z13.png", width: 450 * px)))
+  }
+  #let amber = rgb("#b07a1f")
+  // Repeat classes: 1 = 12, 3 = 11, 5 = 7 = 9, 8 = 13.
+  #let tint = (accent, none, blue, none, green, none, green, amber, green, none, blue, accent, amber)
+  #let word = "STEVEPETEWEST"
+  Z13 repeats only four symbols. Any 13 letters with the same coincidences fit a key:
+  #v(-0.2em)
+  #align(center, grid(columns: (1.7cm,) * 13, row-gutter: 0.25em, align: center + horizon,
+    ..range(13).map(i => block(width: 100%, inset: (y: 4pt), radius: 3pt,
+      fill: if tint.at(i) == none { none } else { tint.at(i).lighten(80%) }, glyph(i))),
+    ..range(13).map(i => text(font: font-mono, size: 22pt,
+      fill: if tint.at(i) == none { ink } else { tint.at(i) },
+      weight: if tint.at(i) == none { "regular" } else { "bold" }, word.at(i))),
+  ))
+  #v(-0.4em)
+  #later[
+    #cipher[
+      #set text(size: 14pt)
+      #grid(columns: (1fr, 1fr, 1fr), row-gutter: 0.4em,
+        [STEVE PETE WEST], [ADRIAN A HARRAH], [SHANNON E NEASE],
+        [STEVE PETE BEST], [GARY LYLE LARGE], [ISRAEL E NEGRIN],
+        [ASHLEY E MECHAM], [ELIJAH A RAPIER], [EDDIE GENE ODEN],
+        [STEVE PETE VEST], [BARNEY E YEARBY], [GENE LYLE LANGE],
+        [EDDIE GENE EDEN], [ED STEVEN EISEN], [E ALVA VANALLEN],
+        [ANGELO LYLE GAY], [EDDIE RENE ODEN], [ISREAL A SARRIS],
+      )
+    ]
+    #credit[A few of the proposed Z13 solutions: zodiackillerciphers.com/wiki, "Z13 Solutions".]
+  ]
+  #later[
+    Every one is *consistent* with the ciphertext. So which is right? Maybe the ciphertext cannot tell. #h(0.3em) *When does it determine the answer?*
+  ]
+  #note("Opening question for Part 1. Consistency with the ciphertext is cheap when the ciphertext is short: these 18 all satisfy every constraint Z13 imposes (I checked each against the repeat pattern), and there are thousands more. A codebreaker who finds one consistent plaintext has not proved anything. So before asking how to search for a key, ask whether the ciphertext pins down a unique answer at all, and how long it has to be before it does. Shannon answers that with the unicity distance. Top row is the real Z13, cut glyph by glyph; colors mark repeated symbols and the letters they must share: red S at 1 and 12, blue E at 3 and 11, green E at 5, 7, 9, amber T at 8 and 13.")
+]
 
 #s("Entropy")[
   $X$ a random variable on a finite set $S$ (letters, cipher symbols). Logs base 2.
