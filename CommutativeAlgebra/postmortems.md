@@ -46,3 +46,11 @@ Covers both `Homework/` and `Problems/` — the heading names the scope (a pset 
 - 1.6 — didn't consider a slicker route; note $e(1-e)=0$ with $1-e$ a unit gives $e=0$ directly (essentially what's written).
 - 1.7 — tried building $\phi: A \to B$ with $\mathfrak{p} \subseteq \ker\phi \Rightarrow \ker\phi = \mathfrak{p}$ to get maximality; didn't work out, fell back to the direct "$A/\mathfrak{p}$ is a field" argument, which is the natural route.
 **Notes:** Arham finds the Jacobson-radical trick (elementwise $1 - fg$ unit) neat. 1.5(b) write-up should be fixed if/when 1.5 is revisited.
+
+## 2026-10-17 — Ex. 2.6 (M[x] ≅ A[x] ⊗_A M)
+**Struggled with:** Nothing conceptually tricky; mostly getting back in the habit of using the universal property of the tensor product.
+**Left unproved:**
+- Part 1 (M[x] is an A[x]-module) — too easy
+**Alternative approaches:**
+- Ex. 2.6 — A[x] ≅ ⊕_{k≥0} A is free over A, and tensor commutes with direct sums, so A[x] ⊗ M ≅ ⊕ (A ⊗ M) ≅ ⊕ M ≅ M[x]. Cleaner than the universal property argument; he hadn't considered it but agrees it's easier.
+**Notes:** Proof as written only gives an A-module iso; the A[x]-linearity check (x-multiplication commutes with xᵏ⊗m ↦ mxᵏ) is still missing. Takeaway: remember the universal property of ⊗. Typos in the proof block were fixed at his request.

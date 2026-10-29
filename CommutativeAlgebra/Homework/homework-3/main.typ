@@ -1,4 +1,5 @@
 #import "template.typ": *
+#import "@preview/commute:0.3.0": arr, commutative-diagram, node
 
 #show: homework.with(
   course: "Math 215A",
@@ -32,6 +33,18 @@ Rings are understood to be commutative, unless stated otherwise.
 #problem()[
   Let $R$ be a nonzero commutative ring. Let $I$ and $J$ be sets of different cardinalities. Show that the free $R$-modules $R^(oplus I)$ and $R^(oplus J)$ are not isomorphic. (Hint: this is true when $R$ is a field.)
 ]
-#proof[
-  Let $I$ and $J$ be sets, where $R^(oplus I) iso R^(oplus J)$. Thus there exists a $R$-linear isomorphism $T: R^(oplus I) -> R^(oplus J)$.
+#proof[Note that $R$ must have a maximal ideal of $frak(m)$.
+  Note that $ (R^(oplus I))/(frak(m)^(oplus I)) iso ((R) / (frak(m)))^(oplus I). $ Suppose $R^(oplus I) iso R^(oplus J)$ as $R$ modules, thus there exists a $R$-linear map $T: R^(oplus I) -> R^(oplus J)$. Thus we have the following commutative diagram
+  #align(center)[#commutative-diagram(
+    node((0, 0), $R^(oplus I)$),
+    node((0, 1), $R^(oplus J)$),
+    node((1, 0), $(R slash frak(m))^(oplus I)$),
+    node((1, 1), $(R slash frak(m))^(oplus J)$),
+    arr((0, 0), (0, 1), $T$),
+    arr((0, 0), (1, 0), $pi_I$, label-pos: right),
+    arr((0, 1), (1, 1), $pi_J$),
+    arr((1, 0), (1, 1), $tilde(T)$, label-pos: right),
+  )]
+
+  $tilde(T)$ is a $lcoset(R, frak(m))$ isomorphism. Thus we have a isomorphism of vector spaces, hence $abs(I) = abs(J)$.
 ]

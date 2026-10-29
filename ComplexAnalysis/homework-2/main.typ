@@ -228,7 +228,10 @@
 #problem(num: "4.1")[
   Let $Omega subset.eq CC$ be convex and $f in cal(H)(Omega)$. Show that if $op("Re")(f') > 0$ on $Omega$, then $f$ is injective.
 ]
-#solution[]
+#solution[
+  Fix $x in Omega$. Let $y in Omega$. Consider $phi(t) := x + (y - x) t$. $ f(y) & = f(x) + integral_0^1 f prime (phi (t)) (y - x) dif t \
+       & = f(x) $
+]
 
 #problem(num: "4.2")[
   A simple special case of Fubini's theorem.
@@ -240,6 +243,8 @@
   *(a)* The argument is symmetric for both $x$ and $y$. It suffices to show one. Note the following bounds,  $ abs(integral_(a)^(b) F(x, y) dif x - integral_(a)^b F(x, y_0) dif x) & = abs(integral_a^b (F(x, y) - F(x, y_0)) dif y) \
                                                                        & <= integral_a^b abs(F(x, y) - F(x, y_0)) dif x. $ This last thing would be an issue but we know that $F$ is a continuous function over a compact set and thus is uniformly continuous. Thus $forall epsilon > 0$ there exists a $delta > 0$ such that if two points are within delta of each other $abs(F(arrow(x)) - F(arrow(y))) < epsilon/(b-a)$. Thus for all $abs(y - y_0) < delta$ we have that $ abs(integral_a^b F(x, y) dif x - integral_(a)^b F(x, y_0) dif x) & < epsilon $ thus we have uniform cont.
 
+  *(b)*: You can approximate $F$ uniformly by a peicewise constant function $G$. Formula holds for each $G$ and then by uniform convergance the integerals should all equal each other.
+
 ]
 
 #problem(num: "4.3")[
@@ -247,4 +252,7 @@
   $ integral_alpha (integral_beta G(z, w) d w) d z = integral_beta (integral_alpha G(z, w) d z) d w. $
   _Hint:_ use Problem 4.2 to show that these integrals exist and are equal.
 ]
-#solution[]
+#solution[
+  Convert the iterated path integrals into integrals over $[0, 1]^2 -> CC$.
+]
+

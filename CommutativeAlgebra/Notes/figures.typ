@@ -136,3 +136,126 @@
     }),
   ) <free-ump>
 ]
+
+// Definition of an exact sequence: exact at M_n means ker(phi_n) = im(phi_(n-1)).
+#let exact-seq = [
+  #figure(
+    canvas({
+      import cetz.draw: *
+      let xs = (0, 3, 6, 9, 12)
+      let nodes = ($dots$, $M_(n - 1)$, $M_n$, $M_(n + 1)$, $dots$)
+      for (x, n) in xs.zip(nodes) { content((x, 0), n) }
+      _arr((0.5, 0), (2.3, 0), none, side: 0.3)
+      _arr((3.7, 0), (5.4, 0), $phi_(n - 1)$, side: 0.35)
+      _arr((6.6, 0), (8.3, 0), $phi_n$, side: 0.35)
+      _arr((9.7, 0), (11.5, 0), none, side: 0.3)
+    }),
+  ) <exact-seq>
+]
+
+// Colimits: a cocone on a diagram F, and the universal property of colim F.
+#let colimit-ump = [
+  #figure(
+    caption: [The colimit $L = colim F$ with legs $iota_i$. Any other cocone $(T, g_i)$ on $F$ factors uniquely through $L$ via the dashed map $u$; every triangle commutes.],
+    canvas({
+      import cetz.draw: *
+      content((-1, 3), $F(i)$)
+      content((5, 3), $F(j)$)
+      content((2, 1.2), $L$)
+      content((2, -1.3), $T$)
+      _arr((-0.4, 3), (4.4, 3), $F(alpha)$, side: 0.3)
+      _arr((-0.6, 2.7), (1.7, 1.4), $iota_i$, side: 0.3)
+      _arr((4.6, 2.7), (2.3, 1.4), $iota_j$, side: -0.3)
+      _arr((-0.8, 2.65), (1.7, -1.05), $g_i$, side: -0.3)
+      _arr((4.8, 2.65), (2.3, -1.05), $g_j$, side: 0.3)
+      _arr((2, 0.9), (2, -1.0), $u$, dashed: true, side: -0.25)
+    }),
+  ) <colimit-ump>
+]
+
+// Pushout: the colimit of B <- A -> C.
+#let pushout = [
+  #figure(
+    caption: [A pushout square. $P$ receives $B$ and $C$ compatibly over $A$, and any other such $T$ factors uniquely through $P$.],
+    canvas({
+      import cetz.draw: *
+      content((0, 3), $A$)
+      content((3.5, 3), $B$)
+      content((0, 0), $C$)
+      content((3.5, 0), $P$)
+      content((6.8, -2.4), $T$)
+      _arr((0.35, 3), (3.15, 3), $f$, side: 0.3)
+      _arr((0, 2.65), (0, 0.35), $g$, side: 0.3)
+      _arr((3.5, 2.65), (3.5, 0.35), none, side: 0.3)
+      _arr((0.35, 0), (3.15, 0), none, side: 0.3)
+      _arr((3.75, 2.7), (6.65, -2.05), $beta$, side: -0.3)
+      _arr((0.35, -0.2), (6.4, -2.35), $gamma$, side: 0.3)
+      _arr((3.8, -0.25), (6.5, -2.1), $u$, dashed: true, side: -0.3)
+    }),
+  ) <pushout>
+]
+
+// A sequential direct system X_0 -> X_1 -> X_2 -> ... with its legs into the colimit.
+// `nodes`: the first few objects; `maps`: labels on the horizontal maps;
+// `legs`: labels on the legs into `target`.
+#let seq-colim(nodes, maps, legs, target, caption, label-name) = [
+  #figure(
+    caption: caption,
+    canvas({
+      import cetz.draw: *
+      let n = nodes.len()
+      let gap = 3.4
+      let tx = (n - 1) * gap / 2
+      for (k, x) in nodes.enumerate() { content((k * gap, 2.2), x) }
+      content((n * gap - 0.3, 2.2), $dots.c$)
+      content((tx, 0), target)
+      for (k, m) in maps.enumerate() {
+        _arr((k * gap + 0.45, 2.2), ((k + 1) * gap - 0.45, 2.2), m, side: 0.3)
+      }
+      _arr(((n - 1) * gap + 0.45, 2.2), (n * gap - 0.75, 2.2), none, side: 0.3)
+      for (k, l) in legs.enumerate() {
+        let x = k * gap
+        let s = if x < tx { -0.45 } else if x > tx { 0.55 } else { -0.8 }
+        _arr((x + (tx - x) * 0.12, 1.9), (tx + (x - tx) * 0.12, 0.35), l, side: s)
+      }
+    }),
+  ) #label(label-name)
+]
+
+#let direct-system = seq-colim(
+  ($M_1$, $M_2$, $M_3$),
+  ($mu_(12)$, $mu_(23)$),
+  ($mu_1$, $mu_2$, $mu_3$),
+  $M = colim M_i$,
+  [A direct system indexed by $NN$ and its direct limit. The legs satisfy $mu_j compose mu_(i j) = mu_i$.],
+  "direct-system",
+)
+
+#let localization-colim = seq-colim(
+  ($A$, $A$, $A$),
+  ($dot f$, $dot f$),
+  ($a |-> a$, $a |-> a slash f$, $a |-> a slash f^2$),
+  $A[1 / f]$,
+  [$A[1/f]$ as a direct limit: the $n$-th copy of $A$ is "$f^(-n) A$", and multiplication by $f$ is the inclusion $f^(-n) A subset.eq f^(-n-1) A$.],
+  "localization-colim",
+)
+
+// Limits: a cone over a diagram F, and the universal property of lim F (dual of colimit-ump).
+#let limit-ump = [
+  #figure(
+    caption: [The limit $L = lim F$ with projections $pi_i$. Any other cone $(T, g_i)$ over $F$ factors uniquely through $L$ via the dashed map $u$; every triangle commutes.],
+    canvas({
+      import cetz.draw: *
+      content((2, 4.3), $T$)
+      content((2, 1.8), $L$)
+      content((-1, 0), $F(i)$)
+      content((5, 0), $F(j)$)
+      _arr((-0.4, 0), (4.4, 0), $F(alpha)$, side: -0.3)
+      _arr((1.7, 1.6), (-0.6, 0.3), $pi_i$, side: -0.3)
+      _arr((2.3, 1.6), (4.6, 0.3), $pi_j$, side: 0.3)
+      _arr((1.7, 4.05), (-0.8, 0.35), $g_i$, side: -0.3)
+      _arr((2.3, 4.05), (4.8, 0.35), $g_j$, side: 0.3)
+      _arr((2, 4.0), (2, 2.1), $u$, dashed: true, side: -0.25)
+    }),
+  ) <limit-ump>
+]
