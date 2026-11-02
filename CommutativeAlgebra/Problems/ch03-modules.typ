@@ -4,6 +4,8 @@
 #let inj = $arrow.r.hook$
 #let ox = $otimes$;
 #let opl = $oplus$
+#let bopl = $oplus.big$
+#let fm = $frak(m)$
 
 = Modules
 
@@ -23,15 +25,25 @@
 ]
 
 #exercise[
-  Let $A$ be a local ring, $M$ and $N$ finitely generated $A$-modules. Prove that if $M times.circle N = 0$, then $M = 0$ or $N = 0$. [Let $m$ be the maximal ideal, $k = A \/ m$ the residue field. Let $M_k = k times.circle_A M iso M \/ m M$ by Exercise 2. By Nakayama's lemma, $M_k = 0 => M = 0$. But $M times.circle_A N = 0 => (M times.circle_A N)_k = 0 => M_k times.circle_k N_k = 0 => M_k = 0$ or $N_k = 0$, since $M_k, N_k$ are vector spaces over a field.]
+  Let $A$ be a local ring, $M$ and $N$ finitely generated $A$-modules. Prove that if $M times.circle N = 0$, then $M = 0$ or $N = 0$. ]
+#proof[Let $fm$ be the maximal ideal. $M ox_A lcoset(A, fm) = lcoset(M, fm M)$ is a vector space.
+
 ]
 
 #exercise[
   Let $M_i$ $(i in I)$ be any family of $A$-modules, and let $M$ be their direct sum. Prove that $M$ is flat $<=>$ each $M_i$ is flat.
 ]
+#proof[
+  This is basically homework 5 problem 2 or 3.
+]
 
 #exercise[
   Let $A[x]$ be the ring of polynomials in one indeterminate over a ring $A$. Prove that $A[x]$ is a flat $A$-algebra. [Use Exercise 4.]
+]
+#proof[
+  $ A[x] iso A^({1, x, x^2, ...}) iso bopl_(n = 0)^(oo) A $
+
+  Note that $A$ is flat, meaning $A[x]$ is flat.
 ]
 
 #exercise[
@@ -84,9 +96,19 @@
   + If $M$ and $N$ are flat $A$-modules, then so is $M times.circle_A N$.
   + If $B$ is a flat $A$-algebra and $N$ is a flat $B$-module, then $N$ is flat as an $A$-module.
 ]
+#proof[
+  + Suppose $f: P -> Q$ is injective. Thus $f ox_(A) 1: P ox_A M -> Q ox_(A) M$ is injective. Thus $ f ox_A 1 ox_A 1: P ox_A M ox_A N -> Q ox_A M ox_A N $ is injective, apply the associative property of tensor product and we get flatness.
+
+  + Let $P$ be an $A$-module. There is an isomorphism $ P ox_A N iso P ox_A (B ox_B N) iso (P ox_A B) ox_B N, $ natural in $P$. Thus $- ox_A N$ is the composite of the functors $- ox_A B$ (extension of scalars) and $- ox_B N$. The first is exact since $B$ is a flat $A$-algebra, and the second is exact since $N$ is a flat $B$-module. A composite of exact functors is exact, so $- ox_A N$ is exact, i.e. $N$ is flat as an $A$-module.
+]
 
 #exercise[
   Let $0 -> M' -> M -> M'' -> 0$ be an exact sequence of $A$-modules. If $M'$ and $M''$ are finitely generated, then so is $M$.
+]
+#proof[
+  Let $f: M' -> M$ and $g: M -> M''$ be the maps in the sequence. Let $z_1, ..., z_r$ generate $M'$ and $y_1, ..., y_s$ generate $M''$. Since $g$ is surjective, choose $x_i in M$ with $g(x_i) = y_i$. We claim $f(z_1), ..., f(z_r), x_1, ..., x_s$ generate $M$.
+
+  Let $m in M$. Write $g(m) = sum_(i = 1)^s a_i y_i$ with $a_i in A$. Then $ g(m - sum_(i = 1)^s a_i x_i) = g(m) - sum_(i = 1)^s a_i y_i = 0, $ so $m - sum a_i x_i in ker g = im f$ by exactness at $M$. Thus $m - sum a_i x_i = f(sum_(j = 1)^r b_j z_j) = sum_(j = 1)^r b_j f(z_j)$ for some $b_j in A$, and $ m = sum_(i = 1)^s a_i x_i + sum_(j = 1)^r b_j f(z_j). $ Hence $M$ is finitely generated.
 ]
 
 #exercise[

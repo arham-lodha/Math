@@ -43,7 +43,20 @@
   Suppose that $f: RR -> RR$ is differentiable at every element of $RR$. Prove that $f'$ is a Borel measurable function from $RR$ to $RR$.
 ]
 #solution[
+  For all $y in RR$, let $f_y (x) = f(x + y)$.
 
+  To show $f prime$ is Borel measurable, it suffices to show that $(f prime)^(-1)([r, oo))$ is Borel measurable.
+  $
+    (f prime)^(-1)([r, oo)) &= {x in RR : f prime (x) >= r } \ &= {x in RR : forall epsilon > 0, exists delta > 0 st forall y in (x - delta, x + delta) - {x}, (f(y) - f(x) ) / (y - x) >= r - epsilon } \ &= inter.big_(q in QQ inter (0, oo)) union.big_(delta in QQ inter (0, oo )) {x in RR : forall y in (- delta, delta) - {0}, (f(x + y) - f(x) ) >= (r - epsilon)y} \ &= inter.big_(q in QQ inter (0, oo)) union.big_(delta in QQ inter (0, oo )) inter.big_(y in QQ inter (-delta, delta) - {0}) {x in RR : , (f(x + y) - f(x) ) >= (r - epsilon) y}
+  $
+
+  The last equality follows from the continuity of $f$. Let $s in (-delta, delta) - {0}$. Let $q_n$ be the rational approximation of $s$. If we know that $(f(x + q_n) - f(x)) >= (r - epsilon) q_n$ then taking limits doesn't affect the inequality and $(f(x + s) - f(x)) >= (r - epsilon)s$. Thus we have,
+
+  $
+    (f prime)^(-1)([r, oo]) &= inter.big_(q in QQ inter (0, oo)) union.big_(delta in QQ inter (0, oo )) inter.big_(y in QQ inter (-delta, delta) - {0}) (f_y - f)^(-1)([(r - epsilon) y, oo))
+  $
+
+  Note that $f_y - f$ is continuous, so $ (f_y - f)^(-1)([(r - epsilon) y, oo)) "is Borel". $ Hence $(f prime)^(-1)([r, oo))$ is a borel set.
 ]
 
 #problem(num: "2.5*")[
@@ -69,8 +82,8 @@
 #problem(num: "2.7*")[
   Say whether or not every open subset of $RR^d$ is a countable union of closed subsets of $RR^d$. Justify your answer (your argument should be short, say, half a page).
 ]
-#solution[
-  We will note the following fact. All open sets $U subset.eq RR^d$ can be expressed as a countable union of balls of rational radius with centers in $QQ^d$. (PROVE THIS). Thus if we prove that $B(x, r)$ for $x in QQ^d$ and $r in QQ inter (0, oo)$ can be expressed as a countable union of closed subsets of $RR^d$ (we will just use closed balls). Let $r_n = r (1 - 1/(n + 1))$ for $n >= 1$. Notice that $r_n -> r$ but $0 < r_n < r$. We will show that $ B(x, r) = union.big_(n in NN) B(x, r_n). $ For the obvious direction, note that $cl(B)(x, r_n) subset.eq B(x, r)$ for all $n >= 1$. Thus their union must also be contained in $B(x, r)$. Thus $ union.big_(n in NN) cl(B)(x, r_n) subset.eq B(x, r). $ $forall y in B(x, r)$, by convergence and monotonicity of $r_n -> r$, we have that there exists a $n in NN$ such that $ r - r_n <= r - abs(y - x) => abs(y - x) <= r_n. $ Thus $y in cl(B)(x, r_n)$. Thus we have $ B(x, r) subset.eq union.big_(n in NN) cl(B)(x, r_n) => B(x, r) = union.big_(n in NN) cl(B)(x, r_n) $
+#solution[Let $U$ be a open set. Thus $U^c$ is a closed set.
+  Note that the function $ d(x) := inf_(a in U^c) abs(x - a) $ is continuous. Note that $forall x in U$, $d(x) > 0$. Assume the contrary that $d(x) = 0$. Thus $exists a_n in U^c$ such that $abs(x - a_n) <= 1/n$. Thus $a_n -> x$ and $x$ is a limit point of elements of a closed set and thus $x in U^c$, which is a contradiction. Thus $d(x) > 0$. Thus $ U subset.eq union.big_(n in NN) d^(-1)([1/n, oo)) = V. $ Note that $[1/n, oo) = (0, 1/n)^(c)$ is closed thus $d^(-1)([1/n, oo ) )$ is closed. Suppose $y in V$, thus $exists N in NN$ such that $d(y) >= 1/N$, thus $y in (U^c)^c = U$. Thus $ V = U $
 ]
 
 #problem(num: "2.8")[
@@ -82,16 +95,22 @@
 ]
 #solution[
   1. Let $g: X -> [0, oo]$ be a $mu$-measurable simple function, i.e. with countable image $Y subset.eq [0, oo]$. By definition,
-  $ integral_X g dif (mu_(|A)) & = sum_(y in Y) y thin mu_(|A)(g^(-1){y}) \
-                              & = sum_(y in Y) y thin mu(A inter g^(-1){y}). $
+  $
+    integral_X g dif (mu_(|A)) & = sum_(y in Y) y thin mu_(|A)(g^(-1){y}) \
+                               & = sum_(y in Y) y thin mu(A inter g^(-1){y}).
+  $
   The function $g chi_A$ is also simple, with image contained in $Y union {0}$, and $(g chi_A)^(-1){y} = A inter g^(-1){y}$ for every $y != 0$. The $y = 0$ term contributes $0$ (with the convention $0 dot oo = 0$), so
-  $ integral_X g chi_A dif mu = sum_(y in Y without {0}) y thin mu(A inter g^(-1){y}) = sum_(y in Y) y thin mu(A inter g^(-1){y}). $
-  Hence $integral_X g dif (mu_(|A)) = integral_X g chi_A dif mu$.
+  $
+    integral_X g chi_A dif mu = sum_(y in Y without {0}) y thin mu(A inter g^(-1){y}) = sum_(y in Y) y thin mu(A inter g^(-1){y}).
+  $
+  Hence $integral_X g dif (mu_(|A)) = integral_X g chi_A dif mu$. Suppose $g: X -> [-oo , oo ]$ was a $mu$-measurable simple function. Then let $g^+ = max(0, g)$ and $g^- = max(0, -g)$ by the above we know that $ integral_X g d (mu|_A) & = integral_X g^+ dif (mu|_A) - integral_X g^(-) dif (mu|_A) \
+                         & = integral_X 1_A g^+ dif mu - integral_X 1_A g^- dif mu \
+                         & = integral_X 1_A g dif mu $
 
-  Let $f: X -> [0, oo]$ be a $mu$-measurable function. There exists $(f_k)_(k = 1)^(oo)$ a sequence of simple functions $f_k$ monotonically increasing to $f$. $ integral_X f dif (mu_(|A)) & = integral_X lim_(k -> oo) f_k dif (mu_(|A)) \
-                                   & = lim_(k -> oo) integral_X f_k dif (mu_(|A)) quad ("Monotone Convergence Theorem") \
-                                   & = lim_(k -> oo) integral_X chi_A f_k dif mu \
-                                   & = integral_X chi_A f dif mu quad ("Monotone Convergence Theorem"). $
+  Let $f: X -> [-oo, oo]$ be a $mu$-measurable function. There exists $(f_k)_(k = 1)^(oo)$ a sequence of simple functions $f_k$ monotonically increasing to $f$. $ integral_X f dif (mu_(|A)) & = integral_X lim_(k -> oo) f_k dif (mu_(|A)) \
+                             & = lim_(k -> oo) integral_X f_k dif (mu_(|A)) quad ("Monotone Convergence Theorem") \
+                             & = lim_(k -> oo) integral_X chi_A f_k dif mu \
+                             & = integral_X chi_A f dif mu quad ("Monotone Convergence Theorem"). $
 
   Let $f: X -> [-oo, oo]$ a $mu$-measurable function. Let $f^+ = max(0, f)$ and $f^- = max(0, -f)$. Note that $f^+, f^- >= 0$ and $f = f^+ - f^-$.
 
@@ -112,4 +131,39 @@
   $
   Show that $lim_(n -> oo) integral_Omega f_n (x) mu(dif x) = integral_Omega f(x) mu(dif x)$.
 ]
-#solution[]
+#solution[Note that $abs(f) <= g$ a.e., since $abs(f_n) -> abs(f)$ and $g_n -> g$ a.e. and $abs(f_n) <= g_n$. Note the following $ g_k + g - abs(f_k - f) & >= g_k + g - abs(f_k) - abs(f) >= 0 $
+
+  Note the following fact about lim infs. Suppose $a_n -> a$ and $b_n$ are sequences of real numbers.
+
+  $
+    liminf_(n -> oo)(a_n + b_n) & = lim_(n -> oo) inf_(k >= n)(a_k + b_k) \
+                                & <= lim_(n->oo) (sup_(k >= n) a_k + inf_(k >= n) b_k ) \
+                                & = a + liminf_(n -> oo) b_n
+  $
+
+  and
+
+  $
+    liminf_(n -> oo)(a_n + b_n) & >= lim_(n -> oo) (inf_(k >= n) a_k + inf_(k >= n) b_k ) \
+                                & = a + liminf_(n -> oo) b_n.
+  $
+
+
+  Thus $ liminf_(n -> oo)(a_n + b_n) = a + liminf_(n -> oo) b_n. $
+
+
+  Remember this fact, it will come later on in the proof. Thus we have...
+
+
+
+
+  $
+    integral_(Omega) (2g) dif mu &= integral_(Omega) lim_(k -> oo) (g(x) + g_k (x)) dif mu quad ("a.e. convergence of" g_k -> g) \
+    & = integral_(Omega ) liminf_(k -> oo) (g_k (x) + g(x) - abs(f_k (x) - f(x))) dif mu quad ("a.e. convergence of" f_k -> f) \
+    & <= liminf_(k -> oo) integral_(Omega) (g_k + g - abs(f_k - f)) dif mu quad ("Fatou's Lemma") \
+    & = integral_(Omega) (2g) dif mu + liminf_(k -> oo) (- integral_(Omega) abs(f_k - f) dif mu) quad ("using lim inf fact above") \
+    &= integral_(Omega) 2g dif mu - limsup_(k -> oo) integral_(Omega) abs(f_k - f) dif mu \
+  $
+
+  Thus $ limsup_(n -> oo) integral_(Omega) abs(f_n - f) dif mu <= 0 => lim_(n -> oo) integral_(Omega) abs(f_n - f) dif mu = 0 => lim_(n->oo) integral_(Omega) f_n dif mu = integral_(Omega) f dif mu $
+]

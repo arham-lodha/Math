@@ -50,16 +50,47 @@ Rings are understood to be commutative, unless stated otherwise.
   Let $R$ be a ring, $f in R$. Show that the localization $R[1\/f]$ is isomorphic to $R[x] \/ (f x - 1)$ (as an $R$-algebra).
 ]
 #proof[
-  Let $T: R[x] -> R[1/f]$ where for $r in R$, $r -> r$, and $x -> 1/f$. $T$ is a $R$-algebra homomorphism. Note that $ 0 = T(sum_(k = 0)^(n) a_k x^k) & = sum_(k = 0)^(n) (a_k) / (f^k) \
-                                 & = (sum_(k = 0)^(n) f^(n - k) a_k)/f^k \
-       f^m (sum_(k = 0)^(n) a_k) & = sum_(k = 0)^(n) f^(n + m - k) a_k \
-                                 & = 0 $
+  Let $phi: R -> lcoset(R[x], (f x - 1))$ where $r -> r$. $phi$ is a ring homomorphism. $phi (f) = f in lcoset(R[x], (f x - 1))$. Note that $ f x = 1 => f "is unit in" lcoset(R[x], (f x - 1)). $ By the universal property, $exists tilde(phi): R[1/f] -> lcoset(R[x], (f x - 1))$ a ring homomorphism, note under this map $1/f -> x$. We also want to check that its a $R$-algebra map, this $tilde(phi)(r (q) / (f^k)) = tilde(phi)((r q) / (f^k)) = r q x^k = r tilde(phi)(q/f^k).$
+
+
+  By the universal property of the polynomial ring, there exists a unique $R$-algebra homomorphism: $ tilde(psi): R[x] & -> R[1/f] \
+                 r & -> r/1 \
+                 x & -> 1/f. $
+
+  $
+    tilde(psi)(f x - 1) &= tilde(psi)(f) tilde(psi)(x) - 1 \ &= f * 1/f - 1 = 0 => (f x - 1) subset.eq ker tilde(psi) => tilde(psi) "factors through" tilde(psi): R[x] / ((f x - 1)) -> R[1/f]
+  $
+
+
+  Note that $ (phi compose psi)(q/f^k) & = phi(q x^k) \
+                           & = q * 1/f^k \
+                           & = q/f^k $ and $ (phi compose psi)(sum_(k = 0)^(n) a_k x^k) & = phi (sum_(k = 1)^(n) (a_k) / (x^k) ) \
+                                             & = sum_(k =1)^(n) a_k x^k $
 ]
 
 #problem()[
   Let $R$ be a ring, $S subset R$ a multiplicatively closed subset, $M$ an $R$-module. Suppose that for every $s in S$, multiplication by $s$ is a bijection from $M$ to itself. Show that the natural map $M -> M[S^(-1)]$ is an isomorphism. As a sample application, show that the localization of the $ZZ$-module $ZZ \/ 8$ at the prime ideal $(2) subset ZZ$ is simply $ZZ \/ 8$.
 ]
+#proof[
+  Let $phi: M -> M[S^(-1)]$ where $m -> m/1$.
+
+  *Injective*: Suppose $ phi(m) = 0, $ thus exists a $s in S$ such that $ s m = 0. $. Since $s times dot: M -> M$ is bjective hence injective, $m = 0$. Thus $ker phi = {0}$.
+
+  *Surjective*: $forall a/s in M[S^(-1)]$, $exists! b in M$ such that $s b = a$. Thus $ phi(b) & = b/1 = a/s. $
+
+  Hence $phi$ is a isomorphism.
+
+  *Localizing at $(2)$ in $lcoset(ZZ, 8)$*: $S = ZZ - (2) = {1, 3, 5, ..., 2n + 1, ...}$. All odd number are units in $lcoset(ZZ, 8)$, thus multiplication by them simply permutes the elements of $lcoset(ZZ, 8)$. Hence localizing $lcoset(ZZ, 8)$ at two doesn't do anything ie $ (ZZ/8)[ZZ - (2)] = ZZ/8 $
+]
 
 #problem()[
   A _finite algebra_ over a ring $A$ means an $A$-algebra which is finitely generated as an $A$-module. Show that a finite flat $ZZ$-algebra is free as a $ZZ$-module, and give an example of a flat $ZZ$-algebra which is not free as a $ZZ$-module. Is a flat $ZZ$-algebra of finite type always free as a $ZZ$-module?
+]
+#proof[Let $A$ be a flat finite $ZZ$ algebra. By the structure theorem for finitely generated $ZZ$ modules, $A = ZZ^d oplus T(A)$ where $d = rank_ZZ (A)$ and $T(A)$ is the torsion of $A$ where $T(A) = oplus.big_(i = 1)^k lcoset(ZZ, p^(r_i))$ for $k >= 0$. Assume the contrary $k > 0$. Consider the short exact sequence $ 0 -> ZZ^k ->^(D) ZZ^k -> T(A) -> 0. $ where $D = diag(p_1^(r_1), ..., p_k^(r_k)).$
+
+  Apply the $ox_(ZZ) A$ functor, we should have $ 0 -> A^k ->^(D ox 1) A^k -> T(A)^d oplus T(A)^(ox 2) -> 0 $
+  Now take $x in A$, a generator for the $lcoset(ZZ, p_i^r_i)$ summand. Thetn $x != 0$, but $p_i^(r_i) x = 0$. So $(x, 0, ...., 0) in ker (D ox 1)$, contradicting injectivity, meaning $k = 0$ and $T(A) = 0$ and $A = ZZ^d$.
+
+
+  $QQ$ is a flat $ZZ$ algebra, but isn't free as a $ZZ$-module. $ ZZ[1/2] iso (ZZ[x]) / ((2x - 1)) $ and thus $ZZ[1/2]$ is a $ZZ$-algebra of finite type but isn't free. $ZZ[1/2]$ is flat and hence is a counterexample to the claim that all finite type $ZZ$-algebras are always free.
 ]
