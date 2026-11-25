@@ -114,6 +114,9 @@
 #exercise[
   Let $A$ be a ring, $a$ an ideal contained in the Jacobson radical of $A$; let $M$ be an $A$-module and $N$ a finitely generated $A$-module, and let $u: M -> N$ be a homomorphism. If the induced homomorphism $M \/ a M -> N \/ a N$ is surjective, then $u$ is surjective.
 ]
+#proof[
+  Consider $M ->>^q lcoset(M, a M) ->>^u lcoset(N, a N)$. Where $m -> m + a M -> u(m) + a N$. Thus $N = u(M) + a N => u(M) = N$.
+]
 
 #exercise[
   Let $A$ be a ring $!= 0$. Show that $A^m iso A^n => m = n$. [Let $m$ be a maximal ideal of $A$ and let $phi: A^m -> A^n$ be an isomorphism. Then $1 times.circle phi: (A \/ m) times.circle_A A^m -> (A \/ m) times.circle_A A^n$ is an isomorphism between vector spaces of dimensions $m$ and $n$ over the field $k = A \/ m$. Hence $m = n$.] (Cf. Chapter 3, Exercise 15.)
@@ -121,6 +124,9 @@
   If $phi: A^m -> A^n$ is surjective, then $m >= n$.
 
   If $phi: A^m -> A^n$ is injective, is it always the case that $m <= n$?
+]
+#proof[
+
 ]
 
 #exercise[

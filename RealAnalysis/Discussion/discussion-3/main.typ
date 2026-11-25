@@ -21,7 +21,13 @@
   $ C = {x : lim_(n -> infinity) f_n (x) "exists in" RR} $
   is measurable.
 ]
-#solution[]
+#solution[
+  $
+    C & = {x : forall epsilon > 0, exists N in NN, forall m, n >= N, abs(f_m - f_n) < epsilon} \
+    & = inter.big_(epsilon in QQ inter (0, oo)) union.big_(N = 1)^(oo) inter.big_(m = N)^(oo) inter.big_(n = N)^(oo) {x : - epsilon < f_m - f_n < epsilon} \
+    &= inter.big_(epsilon in QQ inter (0, oo)) union.big_(N = 1)^(oo) inter.big_(m = N)^(oo) inter.big_(n = N)^(oo) (f_m - f_n)^(-1)((-epsilon, epsilon))
+  $
+]
 
 #problem(num: "1.3")[
   Give an uncountable family of nonnegative measurable functions ${f_alpha}_(alpha in I)$ such that
@@ -41,7 +47,9 @@ Let $(X, cA, mu)$ be a finite measure space, i.e. $mu(X) < infinity$.
 
   Also show that if $mu(E_n) >= delta > 0$ for every $n$ and $mu(X) < infinity$, then $mu(limsup E_n) >= delta$.
 ]
-#solution[]
+#solution[
+
+]
 
 #problem(num: "2.2")[
   _(An almost-everywhere convergent subsequence.)_ Suppose that $f_n, f : X -> RR$, $n = 1, 2, dots.c$ are measurable functions. Assume that for every $epsilon > 0$,
@@ -60,7 +68,7 @@ Let $(X, cA, mu)$ be a finite measure space, i.e. $mu(X) < infinity$.
 ]
 #solution[]
 
-== 4. Optional qual problems
+= 4. Optional qual problems
 
 #problem(num: "P1")[
   _(Measurable solutions of Cauchy's equation; Bass 5.11.)_ Suppose $f : RR -> RR$ is Lebesgue measurable and

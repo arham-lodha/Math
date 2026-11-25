@@ -13,7 +13,7 @@ Commutative Algebra coursework for Math 215A, taught by Burt Totaro. Documents a
 
 ## Reference Textbook
 
-Atiyah–Macdonald, *Introduction to Commutative Algebra*, lives at `../Textbooks/atiyah_macdonald-commutative.pdf`. Cite it for definitions/exercises when working problems or transcribing notes.
+Atiyah–Macdonald, *Introduction to Commutative Algebra*, lives at `../Textbooks/atiyah-macdonald-commutative-algebra.pdf`. Cite it for definitions/exercises when working problems or transcribing notes.
 
 ## Homework Template Specifics
 

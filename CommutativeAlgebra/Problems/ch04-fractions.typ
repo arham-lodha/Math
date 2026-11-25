@@ -1,16 +1,31 @@
 #import "prelude.typ": *
 #show: standalone.with(chapter: 3)
 
+#let jac = $frak(N)$
+#let nil = $frak(R)$
+#let Max = $#math.op("Max")$
+#let ox = $otimes$
+#let opl = $oplus$
+
+
 = Rings and Modules of Fractions
 
 #exercise[
   Let $S$ be a multiplicatively closed subset of a ring $A$, and let $M$ be a finitely generated $A$-module. Prove that $S^(-1) M = 0$ if and only if there exists $s in S$ such that $s M = 0$.
+]
+#proof[
+  Suppose $M[S^(-1) ] = 0$. Thus $forall m in M$ and $s in S$ we have that $ m/s = 0/1 => exists t in S, t m = 0. $ All implications are reversible.
 ]
 
 #exercise[
   Let $a$ be an ideal of a ring $A$, and let $S = 1 + a$. Show that $S^(-1) a$ is contained in the Jacobson radical of $S^(-1) A$.
 
   Use this result and Nakayama's lemma to give a proof of (2.5) which does not depend on determinants. [If $M = a M$, then $S^(-1) M = (S^(-1) a)(S^(-1) M)$, hence by Nakayama we have $S^(-1) M = 0$. Now use Exercise 1.]
+]
+#proof[
+  Let $x = a/(s + 1)$ and $y = b/(t + 1)$ where $a, s, t in frak(a)$ and $b in A$.Consider $ 1 - (a) / (s + 1) * (b) / (t + 1) & = 1 - (a b) / (s t + s + t + 1). $ Let $u = s t + s + t$ and $w = a b$. Thus $ 1 - x y & = 1 - (w)/(u + 1) \
+          & = (u + 1 - w) / (u + 1) \
+          & = ((u - w) + 1) / (u + 1). $ Note that $u - w in a => (u - w) + 1 in S$ meaning its invertible. Thus in total $1 - x y$ is invertible. Thus $frak(a)[S^(-1)]$ is in the Jacobson radical of $A[S^(-1)]$.
 ]
 
 #exercise[

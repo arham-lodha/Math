@@ -27,11 +27,11 @@ Each `Practice/<Topic>/main.typ` uses `@local/math-homework:1.0.0` via a thin `t
 - One named **skill** per set (e.g. Sylow counting, Eisenstein/irreducibility, Galois groups of quartics, Jordan form, localization and primary decomposition), as a `==` header or comment, with problems graded ★–★★★ to mirror the qual tiers.
 - Each problem notes the skill and 1–3 related qual problems (by "Term Year #N") so Arham can see where it shows up.
 - Sources: original problems, plus exercises cited by chapter/exercise number (don't copy long text verbatim) from:
-  - Aluffi, *Algebra: Chapter 0* (`../Textbooks/Aluffi_Algebra.pdf`)
-  - Dummit & Foote, *Abstract Algebra* (`../Textbooks/David_S_Dummit_Richard_M_Foote_Abstract_Algeb_230928_225848.pdf`)
-  - Lang, *Algebra* (`../Textbooks/algebra-serge-lang.pdf`)
+  - Aluffi, *Algebra: Chapter 0* (`../Textbooks/aluffi-algebra-chapter-0.pdf`)
+  - Dummit & Foote, *Abstract Algebra* (`../Textbooks/dummit-foote-abstract-algebra.pdf`)
+  - Lang, *Algebra* (`../Textbooks/lang-algebra.pdf`)
   - Artin, *Algebra* (`../Textbooks/artin-algebra.pdf`)
-  - Atiyah–Macdonald (`../Textbooks/atiyah_macdonald-commutative.pdf`) for commutative topics.
+  - Atiyah–Macdonald (`../Textbooks/atiyah-macdonald-commutative-algebra.pdf`) for commutative topics.
 - **Selection priority: match the difficulty of the qual tier being targeted; when in doubt, harder is better.** Prefer Lang and Aluffi exercises and original problems pitched at ★★–★★★ over routine Dummit & Foote / Artin drills. Use easy textbook exercises only to fill ★ gaps in a skill. Per problem, say which source it comes from and why it fits the tier.
 - Use `#problem("Title")[…]`. Practice problems ship **without** `#solution`/`#proof` content. Arham writes those; use `todo: true` for ones he's stuck on.
 - Draft problems only when asked for a skill/topic; don't pre-populate sets.

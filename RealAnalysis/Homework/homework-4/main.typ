@@ -14,7 +14,9 @@
   Let $J: RR -> RR$ be a convex function. Show that if $x_0 < x_1 < x_2$ then
   $ (J(x_1) - J(x_0)) / (x_1 - x_0) <= (J(x_2) - J(x_0)) / (x_2 - x_0) <= (J(x_2) - J(x_1)) / (x_2 - x_1). $
 ]
-#solution[]
+#solution[
+
+]
 
 #problem(num: "4.2*")[
   Let $J in C^1 (RR)$.
@@ -57,7 +59,9 @@
 
 #problem(num: "4.8")[
   Let $(Omega, mu)$ and $(Gamma, nu)$ be two finite measure spaces and let $f in L^1 (mu times nu)$. Show that if $f >= 0$ and $1 <= p < oo$ then
-  $ (integral_Omega (integral_Gamma f(x,y) nu(dif y))^p mu(dif x))^(1/p) <= integral_Gamma (integral_Omega f(x,y)^p mu(dif x))^(1/p) nu(dif y). $
+  $
+    (integral_Omega (integral_Gamma f(x,y) nu(dif y))^p mu(dif x))^(1/p) <= integral_Gamma (integral_Omega f(x,y)^p mu(dif x))^(1/p) nu(dif y).
+  $
   Hint: Set $H(x) := integral_Gamma f(x,y) nu(dif y)$ and check that
   $ norm(H)_(L^p (mu))^p = integral_Gamma (integral_Omega f(x,y) H^(p-1)(x) mu(dif x)) nu(dif y). $
 ]

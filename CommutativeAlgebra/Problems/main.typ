@@ -6,7 +6,7 @@
 // ── Usage ────────────────────────────────────────────────────────────────────
 //
 //  All exercises below are transcribed from Atiyah & Macdonald,
-//  "Introduction to Commutative Algebra" (../../Textbooks/atiyah_macdonald-commutative.pdf).
+//  "Introduction to Commutative Algebra" (../../Textbooks/atiyah-macdonald-commutative-algebra.pdf).
 //  Each #exercise[...] auto-numbers via my-prelude as "Exercise <chapter>.<n>",
 //  and the counter restarts every chapter — so "Exercise 3.5" here is exactly
 //  the book's Chapter 3, Exercise 5, in the book's own order. Bracketed hints
